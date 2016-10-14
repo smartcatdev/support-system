@@ -1,52 +1,37 @@
 <?php
 
-namespace SmartcatSupport\Util;
+namespace SmartcatSupport\util;
 
-use SmartcatSupport\Enum\Option;
-use SmartcatSupport\Enum\Role;
-use SmartcatSupport\Admin\Ticket\MetaBox;
+use SmartcatSupport\util\Option;
+use SmartcatSupport\admin\Role;
+use SmartcatSupport\ticket\Ticket;
+use SmartcatSupport\action\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
-use const SmartcatSupport\TICKET_POST_TYPE;
 
 /**
  * Configures and "installs" plugin
  */
-final class Install {
+final class Installer extends ActionListener {
     
-    private static $instance;
-    
-    public static function install() {
-        self::$instance = new self;
-        
-        self::$instance->add_hooks();
+    public function __construct() {
+        $this->add_action( 'init', 'register_post_type' );
     }
     
-    public function add_hooks(){
-        register_activation_hook( SC_SUPPORT_FILE, [ $this, 'activate' ] );
-        register_deactivation_hook( SC_SUPPORT_FILE, [ $this, 'deactivate' ] );
-        
-        add_action( 'init', [ $this, 'register_post_type' ] );
-    }
-    
-    /**
-     * @todo update the open_erp_version option so that the methods within only run on initial activation
-     */
     public function activate() {
-        $current_version = get_option( Option::VERSION, NULL );
+        $current_version = get_option( Option::PLUGIN_VERSION );
         
-        if( is_null( $current_version ) ) {
-            update_option( Option::VERSION, PLUGIN_VERSION );
+        if( $current_version === false ) {
+            update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
         }
         
         $this->add_user_roles();
-        $this->register_post_type();
-        
     }
     
     public function deactivate() {
-        unregister_post_type( TICKET_POST_TYPE );
-        remove_role( Role::AGENT );
+        unregister_post_type( Ticket::POST_TYPE );
+        
+        $this->remove_user_roles();
     }
     
     /**
@@ -103,17 +88,18 @@ final class Install {
             'capabilities'          => $capabilities
 	];
         
-	register_post_type( TICKET_POST_TYPE, $args );
-        MetaBox::install();
+	register_post_type( Ticket::POST_TYPE, $args );
     }
     
     public function add_user_roles() {
-        add_role(
-            Role::AGENT,
-            __( 'Support Agent', TEXT_DOMAIN ),
-            [
-                Role::MANAGE_CAP
-            ]
-        );
+        add_role( Role::ADMIN, __( 'Support Administrator', TEXT_DOMAIN ), [ Role::CAP_MANAGE ] );
+        add_role( Role::AGENT, __( 'Support Agent', TEXT_DOMAIN ), [ Role::CAP_MANAGE ] );
+        add_role( Role::USER, __( 'Support User', TEXT_DOMAIN ), [] );
+    }
+    
+    public function remove_user_roles() {
+        remove_role( Role::AGENT );
+        remove_role( Role::USER );
+        remove_role( Role::ADMIN );
     }
 }

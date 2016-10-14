@@ -8,7 +8,7 @@
 
 namespace SmartcatSupport;
 
-use SmartcatSupport\Util\Loader;
+use SmartcatSupport\util\Loader;
 
 // Die if access directly
 if( !defined( 'ABSPATH' ) ) {
@@ -18,8 +18,6 @@ if( !defined( 'ABSPATH' ) ) {
 include_once 'vendor/autoload.php';
 include_once 'constants.php';
 
-function vroom_vroom() {
-    return Loader::init( __FILE__ );
-}
-
-vroom_vroom();
+call_user_func( function () {
+    Loader::init( __FILE__ );
+} );

@@ -1,12 +1,11 @@
 <?php 
 
-namespace SmartcatSupport\Ticket;
+namespace SmartcatSupport\ticket;
 
 use const SmartcatSupport\TEXT_DOMAIN; 
-use SmartcatSupport\Ticket\Meta;
-use SmartcatSupport\Enum\Role;
 
 ?>
+
 
 <table class="form-table">
     <tr>
@@ -19,7 +18,7 @@ use SmartcatSupport\Enum\Role;
             <input type="date" 
                id="date_opened" 
                name="date_opened" 
-               value="<?php esc_attr_e( get_post_meta( $post->ID, 'date_opened', true ) ) ?>" />
+               value="<?php esc_attr_e( $ticket_meta->get_date_opened() ) ?>" />
 
             <p class="description">
                 <?php _e( 'When ticket was opened', TEXT_DOMAIN ) ?>
@@ -36,18 +35,14 @@ use SmartcatSupport\Enum\Role;
             <select id="assigned_to" 
                 name="assigned_to">
                 
-                <option><?php _e( 'No Agent Assigned', TEXT_DOMAIN ) ?></option>
+                    <?php foreach( TicketMeta::get_agents() as $id => $name ) : ?>
                 
-                <?php if( $this->users != null ) : ?>
-                    <?php foreach( $this->users as $user ) : ?>
-                
-                        <option value="<?php esc_attr_e( $user->ID ) ?>"
-                                <?php esc_attr_e( get_post_meta( $post->ID, Meta::ASSIGNED_TO, true ) == $user->ID ? 'selected' : '' ) ?>>
-                            <?php esc_html_e( $user->display_name ) ?>
+                        <option value="<?php esc_attr_e( $id ) ?>"
+                                <?php esc_attr_e( $ticket_meta->get_assigned_to() == $id ? 'selected' : '' ) ?>>
+                            <?php esc_html_e( $name ) ?>
                         </option>
                         
                     <?php endforeach; ?>
-                <?php endif; ?>
 
             </select>
 
@@ -66,7 +61,7 @@ use SmartcatSupport\Enum\Role;
             <input type="email" 
                 id="email_address" 
                 name="email_address" 
-                value="<?php esc_attr_e( get_post_meta( $post->ID, Meta::EMAIL_ADDRESS, true ) ) ?>" />
+                value="<?php esc_attr_e( $ticket_meta->get_email_address() ) ?>" />
 
             <p class="description">
                 <?php _e( 'Customer email address', TEXT_DOMAIN ) ?>
@@ -83,9 +78,9 @@ use SmartcatSupport\Enum\Role;
             <select id="status" 
                 name="status">
                 
-                <?php foreach( Meta::STATUS_VALUES as $key => $value ) : ?>
+                <?php foreach( TicketMeta::get_statuses() as $key => $value ) : ?>
                     <option value="<?php esc_attr_e( $key ) ?>" 
-                            <?php esc_attr_e( get_post_meta( $post->ID, Meta::STATUS, true ) == $key ? 'selected' : '' ) ?>>
+                            <?php esc_attr_e( $ticket_meta->get_status() == $key ? 'selected' : '' ) ?>>
                         <?php _e( $value, TEXT_DOMAIN ) ?>
                     </option>
                 <?php endforeach; ?>
@@ -98,3 +93,5 @@ use SmartcatSupport\Enum\Role;
         </td>
     </tr>
 </table>
+<?php wp_nonce_field( $this->nonce_action, $this->id ) ?>
+    
