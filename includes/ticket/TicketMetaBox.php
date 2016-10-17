@@ -4,25 +4,55 @@ namespace SmartcatSupport\ticket;
 
 use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\ticket\Ticket;
-use SmartcatSupport\contract\Role;
+use SmartcatSupport\admin\Role;
 use SmartcatSupport\form\Form;
-use SmartcatSupport\form\TextBox;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 class TicketMetaBox extends MetaBox {
+    private $form;
     
-    public function __construct() {
+    public function __construct( Form $form ) {
         parent::__construct( 'ticket_meta', __( 'Ticket Information', TEXT_DOMAIN ), Ticket::POST_TYPE );
+        
+        $this->set_form( $form );
+    }
+    
+    public function get_form() {
+        return $this->form;
+    }
+
+    public function set_form( $form ) {
+        $this->form = $form;
     }
 
     public function render( $post ) {
-        $form = new Form( 'meta' );
-        $form->add_field( 'text', new TextBox( 'text', 'Text', ['desc' => 'my cool field'] ) );
-        $form->render();
+        $this->set_form_values( $post->ID );
+        $this->form->render();
     }
 
     public function save( $post_id, $post ) {
+        $this->set_form_values( $post_id );
         
+        $values = $this->form->validate();
+        
+        if( $values !== false ) {
+            foreach( $values as $meta_key => $value ) {
+                update_post_meta( $post_id, $meta_key, $value );
+            }
+        }
+    }
+   
+    /**
+     * Sets the metabox defaults syncronously when the post is loaded / saved
+     * 
+     * @param type $post_id
+     */
+    private function set_form_values( $post_id ) {
+        foreach( $this->form->get_fields() as $id => $field ) {
+            $field->set_default( 
+                get_post_meta( $post_id, $field->get_id(), true )
+            );
+        }
     }
     
     public static function agent_list() {

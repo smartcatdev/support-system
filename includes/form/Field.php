@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\form;
 
-use SmartcatSupport\action\ActionListener;
+use SmartcatSupport\ActionListener;
 
 abstract class Field extends ActionListener {
     protected $id;
@@ -26,11 +26,6 @@ abstract class Field extends ActionListener {
     public function get_desc() {
         return $this->desc;
     }
-
-    public function set_desc($desc) {
-        $this->desc = $desc;
-        return $this;
-    }
     
     public function get_id() {
         return $this->id;
@@ -46,6 +41,11 @@ abstract class Field extends ActionListener {
 
     public function set_id( $id ) {
         $this->id = $id;
+        return $this;
+    }
+    
+    public function set_desc($desc) {
+        $this->desc = $desc;
         return $this;
     }
 

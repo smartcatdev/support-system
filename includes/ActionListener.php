@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\action;
+namespace SmartcatSupport;
 
 abstract class ActionListener {
     protected $events = [];

@@ -2,10 +2,10 @@
 
 namespace SmartcatSupport\util;
 
-use SmartcatSupport\util\Option;
+use SmartcatSupport\Option;
 use SmartcatSupport\admin\Role;
 use SmartcatSupport\ticket\Ticket;
-use SmartcatSupport\action\ActionListener;
+use SmartcatSupport\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\util;
+namespace SmartcatSupport;
 
 /**
  * Constant keys for use with calls to get_option()
