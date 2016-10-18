@@ -9,7 +9,15 @@ use const SmartcatSupport\TEXT_DOMAIN;
  *
  * @author ericg
  */
-class SelectBox extends Selection {
+class SelectBox extends Field {
+    protected $options;
+
+    public function __construct( $id, array $args ) {
+        parent::__construct( $id, $args );
+        
+        $this->options = $args['options'];
+    }
+    
     public function render() {
         ?>
             <select id="<?php esc_attr_e( $this->id ); ?>"
@@ -18,7 +26,7 @@ class SelectBox extends Selection {
                 <?php foreach( $this->options as $value => $label ) : ?>
                 
                     <option value="<?php esc_attr_e( $value ); ?>"
-                        <?php _e( $value == $this->default ? 'selected' : '' ); ?>>
+                        <?php _e( $value == $this->value ? 'selected' : '' ); ?>>
                 
                         <?php esc_html_e( __( $label, TEXT_DOMAIN ) ); ?>
                         

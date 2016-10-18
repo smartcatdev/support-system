@@ -2,108 +2,118 @@
 
 namespace SmartcatSupport\form;
 
-use SmartcatSupport\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
  * Smartcat-Form on steroids 
  */
-class Form extends ActionListener {
+class Form {
     protected $id;
     protected $fields = [];
-    
-    public function __construct( $id ) {
+    protected $method;
+    protected $action;
+    protected $valid = false;
+    protected $valid_values = [];
+    protected $error_values = [];
+
+    public function __construct( $id, array $fields, $method, $action ) {
         $this->id = $id;
+        $this->fields = $fields;
+        $this->method = strtoupper( $method );
+        $this->action = $action;
     }
     
-    public function validate() {
-        $values = false;
-        
-        // Verify the form's nonce
-        if( isset( $_POST[ $this->nonce() ] ) && wp_verify_nonce( $_POST[ $this->nonce() ], 'submit' ) ) {
-            $values = [];
-            
-            // Call each field's validate methods if passed in request
+    public function is_valid() {
+        $valid = true;
+
+        if( isset( $_REQUEST[ $this->id ] ) && wp_verify_nonce( $_REQUEST[ $this->id ], 'submit' ) ) {
             foreach( $this->fields as $id => $field ) {
-                if( isset( $_POST[ $field->get_id() ] ) ) {
-                    $values[ $field->get_id() ] = apply_filters( 'validate_field_' . $field->get_id(), $_POST[ $field->get_id() ] );
+                $value = $field->validate( $_REQUEST[ $field->get_id() ] );
+                
+                if( $value === true  ) {
+                    $this->valid_values[ $field->get_id() ] = $field->sanitize( $_REQUEST[ $field->get_id() ] );
+                } else {
+                    $this->error_values[ $field->get_id() ] = $value;
+                    $valid = false;
                 }
             }
+
+            $this->valid = $valid;
         }
         
-        return $values;
+        return $valid;
     }
     
-    public function render( $async = true, $as_section = false ) { 
-        if( !$as_section ) : ?> 
+    public function get_data() {
+        return $this->valid_values;
+    }
+    
+    public function get_errors() {
+        return $this->error_values;
+    }
 
-            <form id="<?php esc_attr_e( $this->id ); ?>" 
-                action="<?php esc_attr_e( $async ? admin_url( 'admin-ajax.php' ) : '?' ); ?>"
-                method="POST"> 
-                
-        <?php endif; ?>
+    public function get_fields() {
+        return $this->fields;
+    }
+        
+    public function get_id() {
+        return $this->id;
+    }
 
+    public function get_method() {
+        return $this->method;
+    }
+
+    public function get_action() {
+        return $this->action;
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="Display Logic">
+    public static function form_start( Form $form ) {
+        ?>
+            <form id="<?php esc_attr_e( $form->id ); ?>"
+                method="<?php esc_attr_e( $form->get_method() ); ?>"
+                action="<?php esc_attr_e( $form->get_action() ); ?>">
+        <?php
+    }
+
+    public static function form_fields( Form $form ) { ?>
+            
         <table class="form-table">
-            
-            <?php foreach( $this->fields as $id => $field ) : ?>
-            
+
+            <?php foreach( $form->get_fields() as $field ) : ?>
+
                 <tr>
                     <th>
                         <label>
-                            <?php esc_html_e( __( $field->get_title(), TEXT_DOMAIN ) ); ?>
+                            <?php esc_html_e( __( $field->get_label(), TEXT_DOMAIN ) ); ?>
                         </label>
                     </th>
                     <td>
                         <?php $field->render(); ?>
-                        
-                        <?php if( $field->get_desc() != '' ) : ?>
-                        
+
+                        <?php if ( $field->get_desc() != '') : ?>
+
                             <p class="description">
                                 <?php esc_html_e( $field->get_desc() ); ?>
                             </p>
-                        
+
                         <?php endif; ?>
+
                     </td>
                 </tr>
-            
+
             <?php endforeach; ?>
-                
+
         </table>
 
-        <?php wp_nonce_field( 'submit', $this->nonce() ); 
-        
-        if( !$as_section ) : ?> 
-                
-            </form>   
+        <?php wp_nonce_field( 'submit', $form->get_id() );
 
-        <?php endif;
-    }
-    
-    public function add_field( $id, Field $field ) {
-        if( !array_key_exists( $id, $this->fields ) ) {
-            $field->add_action( 'validate_field_' . $field->get_id(), 'validate' );
-                    
-            $this->fields[ $id ] = $field;
-        }
-        
-        return $this;
-    }
-    
-    public function get_field( $id ) {
-        $field = false;
-        
-        if( array_key_exists( $id, $this->fields ) ) {
-            $field = $this->fields[ $id ];
-        }
-        
-        return $field;
-    }
-    
-    public function get_fields() {
-        return $this->fields;
     }
 
-    private function nonce() {
-        return $this->id . '_nonce';
+    public static function form_end( Form $form ) {
+        ?></form><?php
     }
+
+// </editor-fold>
 }

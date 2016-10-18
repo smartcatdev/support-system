@@ -4,13 +4,16 @@ namespace SmartcatSupport\util;
 
 use SmartcatSupport\Option;
 use SmartcatSupport\admin\Role;
-use SmartcatSupport\ticket\Ticket;
+use SmartcatSupport\Ticket;
 use SmartcatSupport\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
- * Configures and "installs" plugin
+ *  Installs plugin components 
+ * 
+ *  @author Eric Green <eric@smartcat.ca>
+ *  @since 1.0.0
  */
 final class Installer extends ActionListener {
     

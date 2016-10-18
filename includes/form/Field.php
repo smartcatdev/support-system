@@ -2,66 +2,84 @@
 
 namespace SmartcatSupport\form;
 
-use SmartcatSupport\ActionListener;
-
-abstract class Field extends ActionListener {
+abstract class Field {
     protected $id;
-    protected $default;
-    protected $title;
+    protected $value;
+    protected $label;
     protected $desc;
+    protected $constraints = [];
  
-    public function __construct( $id, $title, array $args = [] ) {
+    public function __construct( $id, array $args = [] ) {
         $this->set_id( $id )
-            ->set_title( $title );
+            ->set_label( $args['label'] );
+        
+        if( isset( $args['constraints'] ) ) {
+            $this->constraints = $args['constraints'];
+        }
         
         if( array_key_exists( 'desc', $args ) ) {
             $this->set_desc( $args['desc'] );
         }
         
-        if( array_key_exists( 'default', $args ) ) {
-            $this->set_default( $args['default'] );
+        if( array_key_exists( 'value', $args ) ) {
+            $this->set_value( $args['value'] );
         }
     }
     
+    public function validate( $value ) {
+        $valid = true;
+ 
+        foreach( $this->constraints as $constraint ) {
+            if( !$constraint->is_valid( $value ) ) {
+                $valid = $constraint->get_message();
+                break;
+            }
+        }
+
+        return $valid;
+    }
+    
+    public function sanitize( $value ) {
+        return $value;
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="Getters / Setters">
     public function get_desc() {
         return $this->desc;
     }
-    
+
     public function get_id() {
         return $this->id;
     }
 
-    public function get_default() {
-        return $this->default;
+    public function get_value() {
+        return $this->value;
     }
 
-    public function get_title() {
-        return $this->title;
+    public function get_label() {
+        return $this->label;
     }
 
-    public function set_id( $id ) {
+    public function set_id($id) {
         $this->id = $id;
         return $this;
     }
-    
+
+
     public function set_desc($desc) {
         $this->desc = $desc;
         return $this;
     }
 
-    public function set_default( $default ) {
-        $this->default = $default;
+    public function set_value($value) {
+        $this->value = $value;
         return $this;
     }
 
-    public function set_title( $title ) {
-        $this->title = $title;
+    public function set_label($label) {
+        $this->label = $label;
         return $this;
     }
-    
-    public function validate( $value ) {
-        return $value;
-    }
-    
-    abstract public function render();
+
+// </editor-fold>
 }

@@ -18,6 +18,7 @@ if( !defined( 'ABSPATH' ) ) {
 include_once 'vendor/autoload.php';
 include_once 'constants.php';
 
+// Kickoff the plugin's init
 call_user_func( function () {
     Loader::init( __FILE__ );
 } );

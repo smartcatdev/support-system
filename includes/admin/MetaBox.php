@@ -21,7 +21,7 @@ abstract class MetaBox extends ActionListener {
             ->set_post_type( $post_type )
             ->set_context( $context );
      
-        $this->add_action( 'add_meta_boxes', 'install' );
+        $this->add_action( 'add_meta_boxes_' . $post_type, 'install' );
         $this->add_action( 'save_post', 'save', 10, 2 );
     }
     
