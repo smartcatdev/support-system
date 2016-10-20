@@ -2,16 +2,16 @@
 
 namespace SmartcatSupport\admin;
 
-use SmartcatSupport\InfoFormBuilder;
+use SmartcatSupport\TicketInfoFormBuilder;
 use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\form\Form;
 use SmartcatSupport\Ticket;
 use const SmartcatSupport\TEXT_DOMAIN;
 
-class InfoMetaBox extends MetaBox {
+class TicketInfoMetaBox extends MetaBox {
     private $builder;
     
-    public function __construct( InfoFormBuilder $builder ) {
+    public function __construct( TicketInfoFormBuilder $builder ) {
         parent::__construct( 'ticket_meta', __( 'Ticket Information', TEXT_DOMAIN ), Ticket::POST_TYPE ); 
         
         $this->builder = $builder;

@@ -24,6 +24,6 @@ class View {
             
         include ( $this->template );
             
-        return ob_get_clean();; 
+        return ob_get_clean();
     }
 }

@@ -10,9 +10,12 @@ abstract class Field {
     protected $constraints = [];
  
     public function __construct( $id, array $args = [] ) {
-        $this->set_id( $id )
-            ->set_label( $args['label'] );
+        $this->set_id( $id );
         
+        if( isset( $args['label'] ) ) {
+            $this->set_label( $args['label'] );
+        }
+
         if( isset( $args['constraints'] ) ) {
             $this->constraints = $args['constraints'];
         }

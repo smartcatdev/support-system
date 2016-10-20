@@ -6,7 +6,7 @@ use SmartcatSupport\form\Builder;
 use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\SelectBox;
 use SmartcatSupport\Ticket;
-use SmartcatSupport\form\validation\Selection;
+use SmartcatSupport\form\validation\InArray;
 use SmartcatSupport\form\validation\Date;
 
 /**
@@ -14,7 +14,7 @@ use SmartcatSupport\form\validation\Date;
  *
  * @author Eric Green <eric@smartcat.ca>
  */
-class InfoFormBuilder extends Builder {
+class TicketInfoFormBuilder extends Builder {
     
     public function configure( \WP_Post $post ) {
         $this->add( TextBox::class, 'email',
@@ -29,7 +29,7 @@ class InfoFormBuilder extends Builder {
                 'options' => Ticket::agent_list(),
                 'value' => get_post_meta( $post->ID, 'agent', true ),
                 'constraints' => [ 
-                    $this->create_constraint( Selection::class, '', Ticket::agent_list() ) 
+                    $this->create_constraint( InArray::class, '', Ticket::agent_list() ) 
                 ]
             ] 
         )->add( SelectBox::class, 'status',
@@ -38,7 +38,7 @@ class InfoFormBuilder extends Builder {
                 'options' => Ticket::status_list(),
                 'value' => get_post_meta( $post->ID, 'status', true ),
                 'constraints' => [ 
-                    $this->create_constraint( Selection::class, '', Ticket::status_list() ) 
+                    $this->create_constraint( InArray::class, '', Ticket::status_list() ) 
                 ]
             ] 
         )->add( TextBox::class, 'date_opened',

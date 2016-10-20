@@ -13,7 +13,7 @@ namespace SmartcatSupport\form\validation;
  *
  * @author Eric Green <eric@smartcat.ca>
  */
-class Selection extends Constraint {
+class InArray extends Constraint {
     protected $options = [];
     
     public function __construct( $message = '', array $options ) {

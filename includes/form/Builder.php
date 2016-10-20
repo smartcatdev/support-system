@@ -29,7 +29,7 @@ class Builder {
         return new Form( $this->id, $this->fields, $this->method, $this->action );
     }
     
-    public function create_constraint( $class, $message, $args = [] ) {
+    public function create_constraint( $class, $message = '', $args = [] ) {
         return new $class( $message, $args );
     }
 }
