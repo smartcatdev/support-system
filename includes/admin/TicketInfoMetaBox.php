@@ -30,7 +30,7 @@ class TicketInfoMetaBox extends MetaBox {
                     $data = $form->get_data();
                     
                     foreach( $data as $key => $value ) {
-                        update_post_meta( $post->ID, $key, $data[ $key ] );
+                        update_post_meta( $post->ID, $key, $value );
                     }
                 }
                 
