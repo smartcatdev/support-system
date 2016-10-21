@@ -4,6 +4,7 @@ namespace SmartcatSupport\controller;
 
 use SmartcatSupport\template\View;
 use SmartcatSupport\TicketPostFormBuilder;
+use SmartcatSupport\TicketInfoFormBuilder;
 use SmartcatSupport\ActionListener;
 use SmartcatSupport\Ticket;
 use SmartcatSupport\admin\Role;
@@ -15,11 +16,13 @@ use SmartcatSupport\admin\Role;
  */
 class TicketController extends ActionListener {
     private $view;
-    private $builder;
+    private $ticket_builder;
+    private $info_builder;
 
-    public function __construct( TicketPostFormBuilder $builder, View $view ) {
+    public function __construct( TicketPostFormBuilder $ticket_builder, TicketInfoFormBuilder $info_builder, View $view ) {
         $this->view = $view;
-        $this->builder = $builder;
+        $this->ticket_builder = $ticket_builder;
+        $this->info_builder = $info_builder;
         
         $this->add_ajax_action( 'create_ticket', 'create_ticket' );
         $this->add_ajax_action( 'update_ticket', 'save_ticket' );
@@ -36,7 +39,8 @@ class TicketController extends ActionListener {
                     ( $post->post_author == $user->ID || 
                     in_array( Role::AGENT, $user->roles ) ) ) {
                 
-                $form = $this->builder->configure( $post );
+                $form = $this->ticket_builder->configure( $post );
+                $info_form = $this->info_builder->configure( $post );
 
                 // Save the index of the current ticket the user is editing
                 update_user_meta( wp_get_current_user()->ID, 'current_ticket', $post->ID );
@@ -44,6 +48,7 @@ class TicketController extends ActionListener {
                 wp_send_json_success( 
                     $this->view->render( [ 
                         'ticket_form' => $form, 
+                        'info_form' => in_array( Role::AGENT, $user->roles ) ? $info_form : null,
                         'ajax_action' => 'update_ticket' 
                     ] ) 
                 );
@@ -59,18 +64,21 @@ class TicketController extends ActionListener {
      *  Send a blank ticket form.
      */
     public function create_ticket() {
-        $form = $this->builder->configure();
+        $form = $this->ticket_builder->configure();
+        $info_form = $this->info_builder->configure();
         
         wp_send_json_success( 
             $this->view->render( [ 
                 'ticket_form' => $form, 
+                'info_form' => in_array( Role::AGENT, wp_get_current_user()->roles ) ? $info_form : null,
                 'ajax_action' => 'update_ticket' 
             ] ) 
         );
     }
 
     public function save_ticket() {
-        $form = $this->builder->configure();
+        $form = $this->ticket_builder->configure();
+        $info_form = $this->info_builder->configure();
         
         if( $form->is_valid() ) {
             $data = $form->get_data();
@@ -85,12 +93,19 @@ class TicketController extends ActionListener {
                 'post_author'       => is_null( $data['post_id'] ) ? wp_get_current_user()->ID : null,
                 'comment_status'    => 'open'
             ] );
-            
-            if( $result > 0 ) {
-                wp_send_json_success();
-            } else {
-                wp_send_json_error();
-            }
         }
+        
+        if( $info_form->is_valid() ) {
+            $data = $info_form->get_data();
+            
+            foreach( $data as $key => $value ) {
+                update_post_meta( $post->ID, $key, $data[ $key ] );
+            } 
+        }
+//            if( $result > 0 ) {
+//                wp_send_json_success();
+//            } else {
+//                wp_send_json_error();
+//            }
     }
 }

@@ -16,18 +16,18 @@ use SmartcatSupport\form\validation\Date;
  */
 class TicketInfoFormBuilder extends Builder {
     
-    public function configure( \WP_Post $post ) {
+    public function configure( \WP_Post $post = null ) {
         $this->add( TextBox::class, 'email',
             [ 
                 'type' => 'email',
                 'label' => 'Contact Email',
-                'value' => get_post_meta( $post->ID, 'email', true ),
+                'value' => isset( $post ) ? get_post_meta( $post->ID, 'email', true ) : '',
             ] 
         )->add( SelectBox::class, 'agent', 
             [ 
                 'label' => 'Assigned To',
                 'options' => Ticket::agent_list(),
-                'value' => get_post_meta( $post->ID, 'agent', true ),
+                'value' => isset( $post ) ? get_post_meta( $post->ID, 'agent', true ) : '',
                 'constraints' => [ 
                     $this->create_constraint( InArray::class, '', Ticket::agent_list() ) 
                 ]
@@ -36,7 +36,7 @@ class TicketInfoFormBuilder extends Builder {
             [ 
                 'label' => 'Status',
                 'options' => Ticket::status_list(),
-                'value' => get_post_meta( $post->ID, 'status', true ),
+                'value' => isset( $post ) ? get_post_meta( $post->ID, 'status', true ) : '',
                 'constraints' => [ 
                     $this->create_constraint( InArray::class, '', Ticket::status_list() ) 
                 ]
@@ -45,7 +45,7 @@ class TicketInfoFormBuilder extends Builder {
             [ 
                 'label' => 'Date Opened',
                 'type' => 'date',
-                'value' => get_post_meta( $post->ID, 'date_opened', true ),
+                'value' => isset( $post ) && get_post_meta( $post->ID, 'date_opened', true ) != '' ? get_post_meta( $post->ID, 'date_opened', true ) : date( 'Y-m-d' ),
                 'constraints' => [ 
                     $this->create_constraint( Date::class ) 
                 ]

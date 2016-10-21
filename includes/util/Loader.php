@@ -31,6 +31,7 @@ final class Loader {
         $this->ticket_metabox = new TicketInfoMetaBox( new TicketInfoFormBuilder( 'ticket_info' ) );
         $this->ticket_controller = new TicketController(
             new TicketPostFormBuilder( 'ticket' ),
+            new TicketInfoFormBuilder( 'ticket_info' ),
             new View( $this->plugin_dir . 'templates/singleticket.php' )
         );
         

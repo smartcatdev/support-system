@@ -15,7 +15,7 @@ jQuery( document ).ready( function( $ ) {
         
         doAjax : function( e ) {
             e.preventDefault();
-     console.log( e );       
+     
             var data = $( this ).serializeArray();
             data.push( {
                 name: 'action', 
@@ -24,7 +24,6 @@ jQuery( document ).ready( function( $ ) {
 
             $.post( SmartcatSupport.ajaxURL, $.param( data ), function( response ) {
                 
-                //console.log( response );
                 $('.entry-content').html( response.data );
                 
             } );

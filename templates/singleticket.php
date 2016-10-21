@@ -8,6 +8,12 @@
     
         <?php Form::form_fields( $ticket_form ); ?>
     
+        <?php if( $info_form != null ) : 
+            
+            Form::form_fields( $info_form );
+        
+        endif; ?>
+        
         <input type="submit" 
             value="<?php _e( 'Save Ticket', TEXT_DOMAIN ); ?>" />
     
