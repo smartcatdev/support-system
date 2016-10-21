@@ -80,29 +80,40 @@ class TicketController extends ActionListener {
         $form = $this->ticket_builder->configure();
         $info_form = $this->info_builder->configure();
         
+        $user = wp_get_current_user();
+        
+        $post_id = false;
+        
         if( $form->is_valid() ) {
             $data = $form->get_data();
             
-            $result = wp_insert_post( [
+            $post_id = wp_insert_post( [
                 // If the user is updating the current ticket use it's ID, else insert a new ticket
-                'ID' => $data['ticket_id'] == get_user_meta( wp_get_current_user()->ID, 'current_ticket', true ) ? $data['ticket_id'] : null,
+                'ID' => $data['ticket_id'] == get_user_meta( $user->ID, 'current_ticket', true ) ? $data['ticket_id'] : null,
                 'post_title'        => $data['title'],
                 'post_content'      => $data['content'],
                 'post_status'       => 'publish',
                 'post_type'         => Ticket::POST_TYPE,
-                'post_author'       => is_null( $data['post_id'] ) ? wp_get_current_user()->ID : null,
+                'post_author'       => is_null( $data['ticket_id'] ) ? $user->ID : null,
                 'comment_status'    => 'open'
             ] );
         }
-        
-        if( $info_form->is_valid() ) {
-            $data = $info_form->get_data();
-            
-            foreach( $data as $key => $value ) {
-                update_post_meta( $post->ID, $key, $data[ $key ] );
-            } 
+
+        if( in_array( Role::AGENT, $user->roles ) ) {
+            if( $info_form->is_valid() ) {
+                $data = $info_form->get_data();
+
+                foreach( $data as $key => $value ) {
+                    update_post_meta( $data['ticket_id'], $key, $data[ $key ] );
+                } 
+            }
+        } else if( in_array( Role::USER, $user->roles ) ) {
+            update_post_meta( $post_id, 'email', $user->user_email );
+            update_post_meta( $post_id, 'date', date( 'Y-m-d' ) );
         }
-//            if( $result > 0 ) {
+        
+
+ //            if( $result > 0 ) {
 //                wp_send_json_success();
 //            } else {
 //                wp_send_json_error();
