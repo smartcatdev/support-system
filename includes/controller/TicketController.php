@@ -6,6 +6,7 @@ use SmartcatSupport\template\View;
 use SmartcatSupport\TicketPostFormBuilder;
 use SmartcatSupport\ActionListener;
 use SmartcatSupport\Ticket;
+use SmartcatSupport\admin\Role;
 
 /**
  * Description of SingleTicket
@@ -26,25 +27,37 @@ class TicketController extends ActionListener {
     }
     
     public function get_ticket() {
-        $post = get_post( $_REQUEST['ticket_id'] );
-        
-        if( $post->post_type == Ticket::POST_TYPE ) {
-            $form = $this->builder->configure( $post );
-        
-            // Save the index of the current ticket the user is editing
-            update_user_meta( wp_get_current_user()->ID, 'current_ticket', $post->ID );
+        if( isset( $_REQUEST['ticket_id'] ) ) {
+            $post = get_post( $_REQUEST['ticket_id'] );
+
+            $user = wp_get_current_user();
             
-            wp_send_json_success( 
-                $this->view->render( [ 
-                    'ticket_form' => $form, 
-                    'ajax_action' => 'update_ticket' 
-                ] ) 
-            );
+            if( $post->post_type == Ticket::POST_TYPE && 
+                    ( $post->post_author == $user->ID || 
+                    in_array( Role::AGENT, $user->roles ) ) ) {
+                
+                $form = $this->builder->configure( $post );
+
+                // Save the index of the current ticket the user is editing
+                update_user_meta( wp_get_current_user()->ID, 'current_ticket', $post->ID );
+
+                wp_send_json_success( 
+                    $this->view->render( [ 
+                        'ticket_form' => $form, 
+                        'ajax_action' => 'update_ticket' 
+                    ] ) 
+                );
+            } else {
+                wp_send_json_error( "error" );
+            }
         } else {
-            //error
+            wp_send_json_error( "error" );
         }
     }
     
+    /**
+     *  Send a blank ticket form.
+     */
     public function create_ticket() {
         $form = $this->builder->configure();
         
@@ -73,12 +86,11 @@ class TicketController extends ActionListener {
                 'comment_status'    => 'open'
             ] );
             
-            echo $result;
-
-            // if post_id 
-            //   send success
-            // else 
-            //   send error
+            if( $result > 0 ) {
+                wp_send_json_success();
+            } else {
+                wp_send_json_error();
+            }
         }
     }
 }
