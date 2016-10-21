@@ -4,8 +4,9 @@ jQuery( document ).ready( function( $ ) {
         
         initialize : function() {
             
-            $( 'body' ).on( 'submit', '#support_ticket_form', TicketActions.doAjax );
-            
+            $( document ).on( 'submit', '#select_ticket',  TicketActions.doAjax );
+            $( document ).on( 'submit', '#new_ticket',  TicketActions.doAjax );
+            $( document ).on( 'submit', '#support_ticket_form', TicketActions.doAjax );
         }
         
     }
@@ -13,9 +14,8 @@ jQuery( document ).ready( function( $ ) {
     var TicketActions = {
         
         doAjax : function( e ) {
-
             e.preventDefault();
-            
+     console.log( e );       
             var data = $( this ).serializeArray();
             data.push( {
                 name: 'action', 
@@ -24,7 +24,8 @@ jQuery( document ).ready( function( $ ) {
 
             $.post( SmartcatSupport.ajaxURL, $.param( data ), function( response ) {
                 
-                console.log( response );
+                //console.log( response );
+                $('.entry-content').html( response.data );
                 
             } );
             

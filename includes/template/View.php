@@ -14,9 +14,7 @@ class View {
     }
  
     public function render( $data = null ) {
-        $buffer = true;
-        
-        if( !is_null( $data ) ) {
+        if( is_array( $data ) ) {
             extract( $data );
         }
         

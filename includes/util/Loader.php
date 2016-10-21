@@ -34,9 +34,9 @@ final class Loader {
             new View( $this->plugin_dir . 'templates/singleticket.php' )
         );
         
-        // TODO temporary shortcode assignment
-        add_shortcode( 'support-system', [  $this->ticket_controller, 'render' ]  );
         
+        // TODO temporary shortcode assignment
+        add_shortcode( 'support-system', [  new View( $this->plugin_dir . 'templates/tickets.php' ) , 'render' ]  );
         
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
     }

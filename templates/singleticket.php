@@ -4,7 +4,7 @@
 <div>
     <form id="support_ticket_form"
         method="POST"
-        data-action="<?php esc_attr_e( $ajax_action ); ?>"/>
+        data-action="<?php esc_attr_e( $ajax_action ); ?>" >
     
         <?php Form::form_fields( $ticket_form ); ?>
     

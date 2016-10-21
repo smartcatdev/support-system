@@ -6,8 +6,6 @@ use SmartcatSupport\form\Builder;
 use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\TextArea;
 use SmartcatSupport\form\Hidden;
-use SmartcatSupport\form\validation\PostType;
-use SmartcatSupport\Ticket;
 
 class TicketPostFormBuilder extends Builder {
 
@@ -24,10 +22,9 @@ class TicketPostFormBuilder extends Builder {
                 'desc' => 'The description of your issue',
                 'value' => is_null( $post ) ? '' : $post->post_content,
             ] 
-        )->add( Hidden::class, 'post_id',
+        )->add( Hidden::class, 'ticket_id',
             [
-                'value' => is_null( $post ) ? '' : $post->ID,
-                'constraints' => $this->create_constraint( PostType::class, '', Ticket::POST_TYPE ) 
+                'value' => is_null( $post ) ? '' : $post->ID
             ]   
         );
         
