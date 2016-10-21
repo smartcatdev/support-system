@@ -3,7 +3,7 @@
 
 <div>
     
-    <?php if( $status != null ) : ?>
+    <?php if( isset( $status ) ) : ?>
         
         <p>
             <?php esc_html_e( $status, TEXT_DOMAIN ); ?>
@@ -17,7 +17,7 @@
     
         <?php Form::form_fields( $ticket_form ); ?>
     
-        <?php if( $info_form != null ) : 
+        <?php if( isset( $info_form ) ) : 
             
             Form::form_fields( $info_form );
         
