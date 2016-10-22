@@ -2,10 +2,8 @@
 
 namespace SmartcatSupport\util;
 
-use SmartcatSupport\Option;
-use SmartcatSupport\admin\Role;
-use SmartcatSupport\Ticket;
-use SmartcatSupport\ActionListener;
+use SmartcatSupport\desc\Option;
+use SmartcatSupport\abstracts\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
 
@@ -22,17 +20,13 @@ final class Installer extends ActionListener {
     }
     
     public function activate() {
-        $current_version = get_option( Option::PLUGIN_VERSION );
-        
-        if( $current_version === false ) {
-            update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
-        }
+        update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
         
         $this->add_user_roles();
     }
     
     public function deactivate() {
-        unregister_post_type( Ticket::POST_TYPE );
+        unregister_post_type( 'support_ticket' );
         
         $this->remove_user_roles();
     }
@@ -91,18 +85,16 @@ final class Installer extends ActionListener {
             'capabilities'          => $capabilities
 	];
         
-	register_post_type( Ticket::POST_TYPE, $args );
+	register_post_type( 'support_ticket', $args );
     }
     
     public function add_user_roles() {
-        add_role( Role::ADMIN, __( 'Support Administrator', TEXT_DOMAIN ), [ Role::CAP_MANAGE ] );
-        add_role( Role::AGENT, __( 'Support Agent', TEXT_DOMAIN ), [ Role::CAP_MANAGE ] );
-        add_role( Role::USER, __( 'Support User', TEXT_DOMAIN ), [] );
+        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'edit_others_tickets' => true, 'edit_ticket_meta' => true ] );
+        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'edit_tickets' => true ] );
     }
     
     public function remove_user_roles() {
-        remove_role( Role::AGENT );
-        remove_role( Role::USER );
-        remove_role( Role::ADMIN );
+        remove_role( 'support_agent' );
+        remove_role( 'support_user' );
     }
 }

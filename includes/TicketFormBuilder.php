@@ -7,7 +7,7 @@ use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\TextArea;
 use SmartcatSupport\form\Hidden;
 
-class TicketPostFormBuilder extends Builder {
+class TicketFormBuilder extends Builder {
 
     public function configure( \WP_Post $post = null ) {
         $this->add( TextBox::class, 'title',

@@ -3,11 +3,9 @@
 namespace SmartcatSupport\controller;
 
 use SmartcatSupport\template\View;
-use SmartcatSupport\TicketPostFormBuilder;
-use SmartcatSupport\TicketInfoFormBuilder;
-use SmartcatSupport\ActionListener;
-use SmartcatSupport\Ticket;
-use SmartcatSupport\admin\Role;
+use SmartcatSupport\TicketFormBuilder;
+use SmartcatSupport\TicketMetaFormBuilder;
+use SmartcatSupport\abstracts\ActionListener;
 
 /**
  * Description of SingleTicket
@@ -16,13 +14,13 @@ use SmartcatSupport\admin\Role;
  */
 class TicketController extends ActionListener {
     private $view;
-    private $ticket_builder;
-    private $info_builder;
-
-    public function __construct( TicketPostFormBuilder $ticket_builder, TicketInfoFormBuilder $info_builder, View $view ) {
+    private $ticket_form_builder;
+    private $meta_form_builder;
+    
+    public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view ) {
         $this->view = $view;
-        $this->ticket_builder = $ticket_builder;
-        $this->info_builder = $info_builder;
+        $this->ticket_form_builder = $ticket_form_builder;
+        $this->meta_form_builder = $meta_form_builder;
         
         $this->add_ajax_action( 'create_ticket', 'create_ticket' );
         $this->add_ajax_action( 'update_ticket', 'save_ticket' );
@@ -40,35 +38,24 @@ class TicketController extends ActionListener {
             $user = wp_get_current_user();
 
             // Make sure the post is a ticket and the user has edit privileges
-            if( isset( $post ) && $post->post_type == Ticket::POST_TYPE && 
-                ( $post->post_author == $user->ID || in_array( Role::AGENT, $user->roles ) ) ) {
+            if( isset( $post ) && $post->post_type == 'support_ticket' && 
+                ( $post->post_author == $user->ID || current_user_can( 'edit_others_tickets' ) ) ) {
                 
-                // Setup the form with the post's data
-                $form = $this->ticket_builder->configure( $post );
+                $form = $this->ticket_form_builder->configure( $post );
                 $info_form = null;
         
-                // If the user is a support agent, setup the meta form
-                if( in_array( Role::AGENT, $user->roles ) ) {
-                    $info_form = $this->info_builder->configure( $post );
-                }
-                
-                // Display the ticket status for users
-                $status = null;
-                
-                if( in_array( Role::USER, $user->roles ) ) {
-                    $status = Ticket::status_list()[ get_post_meta( $post->ID, 'status', true ) ];
+                if( current_user_can( 'edit_ticket_meta' ) ) {
+                    $info_form = $this->meta_form_builder->configure( $post );
                 }
 
                 // Save the index of the current ticket the user is editing
                 update_user_meta( $user->ID, 'current_ticket', $post->ID );
 
-                // Send the edit form back to the user
                 wp_send_json_success( 
                     $this->view->render( [ 
                         'ticket_form'   => $form, 
                         'info_form'     => $info_form,
                         'ajax_action'   => 'update_ticket',
-                        'status'        => $status,
                     ] ) 
                 );
             } else {
@@ -85,14 +72,11 @@ class TicketController extends ActionListener {
      *  @since 1.0.0
      */
     public function create_ticket() {
-        
-        // Configure forms without set data
-        $form = $this->ticket_builder->configure();
+        $form = $this->ticket_form_builder->configure();
         $info_form = null;
         
-        // If the user is a support agent, setup the meta form
-        if( in_array( Role::AGENT, wp_get_current_user()->roles ) ) {
-            $info_form = $this->info_builder->configure();
+        if( current_user_can( 'edit_ticket_meta' ) ) {
+            $info_form = $this->meta_form_builder->configure();
         }
         
         wp_send_json_success( 
@@ -110,15 +94,9 @@ class TicketController extends ActionListener {
      *  @since 1.0.0
      */
     public function save_ticket() {
+        $form = $this->ticket_form_builder->configure();
         $user = wp_get_current_user();
-        $form = $this->ticket_builder->configure();
-        $info_form = null;
         $post_id = false;
-        
-        // If the user is a support agent, setup the meta form
-        if( in_array( Role::AGENT, $user->roles ) ) {
-            $info_form = $this->info_builder->configure();
-        }
         
         if( $form->is_valid() ) {
             $data = $form->get_data();
@@ -131,7 +109,7 @@ class TicketController extends ActionListener {
                 'post_title'        => $data['title'],
                 'post_content'      => $data['content'],
                 'post_status'       => 'publish',
-                'post_type'         => Ticket::POST_TYPE,
+                'post_type'         => 'support_ticket',
                 
                 // Don't change the author if updating
                 'post_author'       => isset( $ticket_id ) ? get_post( $ticket_id )->post_author : null,
@@ -139,7 +117,9 @@ class TicketController extends ActionListener {
             ] );
             
             // If valid insert and the user is a support agent save all the meta fields
-            if( $post_id > 0 && in_array( Role::AGENT, $user->roles ) ) {
+            if( $post_id > 0 && current_user_can( 'edit_ticket_meta' ) ) {
+                $info_form = $this->meta_form_builder->configure();
+                
                 if( $info_form->is_valid() ) {
                     $data = $info_form->get_data();
                     
@@ -150,8 +130,8 @@ class TicketController extends ActionListener {
                     wp_send_json_error( "error" );
                 }
               
-                // If its a new ticket and the user is a support user, only save their email address and the date
-            } else if( is_null( $ticket_id ) && in_array( Role::USER, $user->roles ) ) {
+              // If its a new ticket and the user is a support user, only save their email address and the date
+            } else if( is_null( $ticket_id ) && in_array( 'support_user', $user->roles ) ) {
                 update_post_meta( $post_id, 'email', $user->user_email );
                 update_post_meta( $post_id, 'date', date( 'Y-m-d' ) );
             }

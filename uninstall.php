@@ -2,12 +2,12 @@
 
 namespace SmartcatSupport;
 
-use SmartcatSupport\Enum\Option;
+use SmartcatSupport\desc\Option;
 
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-if( get_option( Options::NUKE, false ) ) {
+if( !empty( get_option( Option::NUKE, Option\Defaults::NUKE ) ) ) {
     //delete everything
 }

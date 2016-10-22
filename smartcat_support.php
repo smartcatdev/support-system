@@ -15,8 +15,15 @@ if( !defined( 'ABSPATH' ) ) {
     die();
 }
 
+
+// Plugin-wide constant declarations
+const PLUGIN_VERSION = 100;
+const TEXT_DOMAIN = 'com.smartcat.support';
+
+
+// Manual includes
 include_once 'vendor/autoload.php';
-include_once 'constants.php';
+
 
 // Kickoff the plugin's init
 call_user_func( function () {

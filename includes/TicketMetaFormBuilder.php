@@ -5,7 +5,7 @@ namespace SmartcatSupport;
 use SmartcatSupport\form\Builder;
 use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\SelectBox;
-use SmartcatSupport\Ticket;
+use SmartcatSupport\util\TicketHelper;
 use SmartcatSupport\form\validation\InArray;
 use SmartcatSupport\form\validation\Date;
 
@@ -14,7 +14,7 @@ use SmartcatSupport\form\validation\Date;
  *
  * @author Eric Green <eric@smartcat.ca>
  */
-class TicketInfoFormBuilder extends Builder {
+class TicketMetaFormBuilder extends Builder {
     
     public function configure( \WP_Post $post = null ) {
         $this->add( TextBox::class, 'email',
@@ -26,19 +26,19 @@ class TicketInfoFormBuilder extends Builder {
         )->add( SelectBox::class, 'agent', 
             [ 
                 'label' => 'Assigned To',
-                'options' => Ticket::agent_list(),
+                'options' => $this->agents(),
                 'value' => isset( $post ) ? get_post_meta( $post->ID, 'agent', true ) : '',
                 'constraints' => [ 
-                    $this->create_constraint( InArray::class, '', Ticket::agent_list() ) 
+                    $this->create_constraint( InArray::class, '', array_keys( $this->agents() ) ) 
                 ]
             ] 
         )->add( SelectBox::class, 'status',
             [ 
                 'label' => 'Status',
-                'options' => Ticket::status_list(),
+                'options' => $this->statuses(),
                 'value' => isset( $post ) ? get_post_meta( $post->ID, 'status', true ) : '',
                 'constraints' => [ 
-                    $this->create_constraint( InArray::class, '', Ticket::status_list() ) 
+                    $this->create_constraint( InArray::class, '', array_keys( $this->statuses() ) ) 
                 ]
             ] 
         )->add( TextBox::class, 'date_opened',
@@ -53,5 +53,29 @@ class TicketInfoFormBuilder extends Builder {
         );
         
         return $this->get_form();
+    }
+    
+    private function agents() {
+        $agents[ '' ] = 'No Agent Assigned';
+        
+        $users = get_users( [ 'role' => [ 'support_agent' ] ] );
+        
+        if( $users != null ) {
+            foreach( $users as $user ) {
+                $agents[ $user->ID ] = $user->display_name;
+            }
+        }
+        
+        return $agents;
+    }
+    
+    private function statuses() {
+        return [ 
+            'new'           => 'New', 
+            'in_progress'   => 'In Progress', 
+            'resolved'      => 'Resolved', 
+            'follow_up'     => 'Follow Up', 
+            'closed'        => 'Closed'
+        ]; 
     }
 }

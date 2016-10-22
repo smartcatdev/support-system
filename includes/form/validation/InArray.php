@@ -22,6 +22,6 @@ class InArray extends Constraint {
     }
     
     public function is_valid( $value ) {
-        return array_key_exists( $value, $this->options );
+        return in_array( $value, $this->options );
     }
 }
