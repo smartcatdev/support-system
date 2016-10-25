@@ -71,15 +71,15 @@ class Form {
     public function get_action() {
         return $this->action;
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Display Logic">
-    public static function form_start( Form $form ) {
-        ?>
+    public static function form_start( Form $form ) { ?>
+
             <form id="<?php esc_attr_e( $form->id ); ?>"
                 method="<?php esc_attr_e( $form->get_method() ); ?>"
                 action="<?php esc_attr_e( $form->get_action() ); ?>">
-        <?php
-    }
+
+    <?php }
 
     public static function form_fields( Form $form ) { ?>
             
@@ -113,14 +113,21 @@ class Form {
 
             <?php endforeach; ?>
 
+            <tr>
+                <td>
+                    <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>" />
+                </td>
+            </tr>
+
         </table>
 
-        <?php
-    }
+    <?php }
 
-    public static function form_end( Form $form ) {
-        ?></form><?php
-    }
+    public static function form_end( Form $form ) { ?>
+
+        </form>
+
+    <?php }
 
 // </editor-fold>
 }
