@@ -4,6 +4,7 @@ jQuery( document ).ready( function( $ ) {
         
         initialize : function() {
             
+            $( document ).on( 'submit', '#all_tickets',  TicketActions.tableData );
             $( document ).on( 'submit', '#select_ticket',  TicketActions.doAjax );
             $( document ).on( 'submit', '#new_ticket',  TicketActions.doAjax );
             $( document ).on( 'submit', '#view_tickets', TicketActions.doAjax );
@@ -15,7 +16,7 @@ jQuery( document ).ready( function( $ ) {
     
     var TicketActions = {
         
-        doAjax : function( e ) {
+        doAjax: function( e ) {
             e.preventDefault();
      
             var data = $( this ).serializeArray();
@@ -26,10 +27,23 @@ jQuery( document ).ready( function( $ ) {
 
             $.post( SmartcatSupport.ajaxURL, $.param( data ), function( response ) {
                 console.log( response );
-                $('.entry-content').html( response.data );
                 
+                $('.entry-content').html( response.data );
+
             } );
             
+        },
+        
+        tableData: function( e ) {
+            e.preventDefault();
+            
+            $.post( SmartcatSupport.ajaxURL, { action: $( this ).attr( 'data-action' ) }, function( response ) {
+                console.log( response );
+                
+                $( '.entry-content' ).html( response.data );
+                $( '.data_table' ).DataTable();
+                
+            } );
         }
 
     }
@@ -38,6 +52,6 @@ jQuery( document ).ready( function( $ ) {
         
         TicketEvents.initialize();
 
-    }); 
-    
+    });
+   
 } );

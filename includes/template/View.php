@@ -10,15 +10,15 @@ namespace SmartcatSupport\template;
  * @author Eric Green <eric@smartcat.ca>
  */
 class View {
-    private $template;
+    private $template_dir;
     
     /**
      * @param string $template The path to the template file.
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public function __construct( $template ) {
-        $this->template = $template;
+    public function __construct( $dir ) {
+        $this->set_template_dir( $dir );
     }
  
     /**
@@ -29,15 +29,19 @@ class View {
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public function render( $data = null ) {
+    public function render( $template, $data = null ) {
         if( is_array( $data ) ) {
             extract( $data );
         }
         
         ob_start();
             
-        include ( $this->template );
+        include ( $this->template_dir . '/' . $template . '.php' );
             
         return ob_get_clean();
+    }
+    
+    public function set_template_dir( $dir ) {
+        $this->template_dir = $dir;
     }
 }

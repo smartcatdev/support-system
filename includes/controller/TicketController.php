@@ -14,17 +14,23 @@ use SmartcatSupport\abstracts\ActionListener;
  */
 class TicketController extends ActionListener {
     private $view;
+    private $templates_dir;
     private $ticket_form_builder;
     private $meta_form_builder;
     
-    public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view ) {
+    private static $SINGLE_VIEW = 'ticket';
+    private static $LIST_VIEW = 'ticket_list';
+    
+    public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view, $templates_dir ) {
         $this->view = $view;
+        $this->templates_dir = $templates_dir;
         $this->ticket_form_builder = $ticket_form_builder;
         $this->meta_form_builder = $meta_form_builder;
         
         $this->add_ajax_action( 'create_ticket', 'create_ticket' );
         $this->add_ajax_action( 'update_ticket', 'save_ticket' );
         $this->add_ajax_action( 'get_ticket', 'get_ticket' );
+        $this->add_ajax_action( 'ticket_list', 'ticket_list' );
     }
     
     /**
@@ -52,7 +58,8 @@ class TicketController extends ActionListener {
                 update_user_meta( $user->ID, 'current_ticket', $post->ID );
 
                 wp_send_json_success( 
-                    $this->view->render( [ 
+                    $this->view->render( 
+                        self::$SINGLE_VIEW,[ 
                         'ticket_form'   => $form, 
                         'info_form'     => $info_form,
                         'ajax_action'   => 'update_ticket',
@@ -80,7 +87,8 @@ class TicketController extends ActionListener {
         }
         
         wp_send_json_success( 
-            $this->view->render( [ 
+            $this->view->render( 
+                self::$SINGLE_VIEW, [ 
                 'ticket_form'   => $form, 
                 'info_form'     => $info_form,
                 'ajax_action'   => 'update_ticket' 
@@ -138,5 +146,21 @@ class TicketController extends ActionListener {
         } else {
            wp_send_json_error( "error" );
         }
+    }
+    
+    public function ticket_list() {
+        $args = [
+            'post_type' => 'support_ticket', 
+       ];
+        
+        $query = new \WP_Query( $args );
+        
+        wp_send_json_success( 
+            $this->view->render( self::$LIST_VIEW ) 
+        );
+    }
+    
+    public function render_dash() {
+        echo $this->view->render( 'dash' );
     }
 }

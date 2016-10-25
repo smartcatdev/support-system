@@ -1,5 +1,14 @@
 <?php use const SmartcatSupport\TEXT_DOMAIN; ?>
 
-<form method="POST" data-action="get_tickets" id="view_tickets">
-    <input type="submit" value="<?php _e( "View Tickets", TEXT_DOMAIN ); ?>" />
+<form method="POST" data-action="create_ticket" id="new_ticket">
+    <input type="submit" value="New Ticket" />
+</form>
+
+<form method="POST" data-action="get_ticket" id="select_ticket">
+    <input type="number" name="ticket_id" />
+    <input type="submit" value="Get Ticket" />
+</form>
+
+<form method="POST" data-action="ticket_list" id="all_tickets">
+    <input type="submit" value="View Tickets" />
 </form>

@@ -21,15 +21,15 @@ final class Loader {
     
     private $plugin_dir;
     private $plugin_url;
+    private $templates_dir;
     
     private $ticket_metabox;
     private $ticket_controller;
-    private $ticket_list_controller;
 
     private function __construct( $file ) {
         $this->plugin_dir = plugin_dir_path( $file );
         $this->plugin_url = plugin_dir_url( $file );
-        
+        $this->templates_dir = plugin_dir_path( $file ) . 'templates';
         
         
         $this->installer = new Installer();
@@ -37,16 +37,13 @@ final class Loader {
         $this->ticket_controller = new TicketController(
             new TicketFormBuilder( 'ticket' ),
             new TicketMetaFormBuilder( 'ticket_info' ),
-            new View( $this->plugin_dir . 'templates/ticket.php' )
+            new View( $this->templates_dir )
         );
         
-        //$this->ticket_list_controller = new TicketListController();
-        
-        
         // TODO temporary shortcode assignment
-        add_shortcode( 'support-system', [  new View( $this->plugin_dir . 'templates/ticketlist.php' ) , 'render' ]  );
+        add_shortcode( 'support-system', [  $this->ticket_controller , 'render_dash' ]  );
         
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
     }
     
     public static function init( $file ) {
@@ -60,9 +57,13 @@ final class Loader {
         return self::$instance;
     }
     
-    public function enqueue_scripts() {
+    public function enqueue_assets() {
+        wp_enqueue_script( 'datatables', $this->plugin_url . 'assets/lib/datatables/js/datatables.min.js', [ 'jquery' ], PLUGIN_VERSION );
+        wp_enqueue_style( 'datatables', $this->plugin_url . 'assets/lib/datatables/css/datatables.min.css', [], PLUGIN_VERSION );
+        
         wp_register_script( 'support_system_ajax', $this->plugin_url . 'assets/js/ajax.js', [ 'jquery' ], PLUGIN_VERSION );
         wp_localize_script( 'support_system_ajax', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
         wp_enqueue_script( 'support_system_ajax' );
+        
     }
 }

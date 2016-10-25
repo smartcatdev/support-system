@@ -33,12 +33,25 @@ class SupportTicketMetaBox extends MetaBox {
         $this->builder = $builder;
     }
     
+    /**
+     * @see \SmartcatSupport\abstracts\MetaBox
+     * @param WP_Post $post The current post.
+     * @since 1.0.0
+     * @author Eric Green <eric@smartcat.ca>
+     */
     public function render( $post ) {
         $form = $this->builder->configure( $post );
         
         Form::form_fields( $form );
     }
 
+    /**
+     * @see \SmartcatSupport\abstracts\MetaBox
+     * @param int $post_id The ID of the current post.
+     * @param WP_Post $post The current post.
+     * @since 1.0.0
+     * @author Eric Green <eric@smartcat.ca>
+     */
     public function save( $post_id, $post ) {
         $form = $this->builder->configure();
         

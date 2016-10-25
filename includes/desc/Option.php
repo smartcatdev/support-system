@@ -14,10 +14,10 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const PLUGIN_VERSION = 'com.smartcat.support.version';
+    const PLUGIN_VERSION = 'ca.smartcat.support.version';
     
     /**
      * @since 1.0.0
      */
-    const NUKE = 'com.smartcat.support.erase';
+    const NUKE = 'ca.smartcat.support.erase';
 }
