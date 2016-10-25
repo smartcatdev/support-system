@@ -26,7 +26,7 @@ class Form {
     public function is_valid() {
         $valid = true;
 
-        if( $this->is_submitted() && wp_verify_nonce( $_REQUEST[ $this->id ], 'submit' ) ) {
+        if( $this->is_submitted() ) {
             foreach( $this->fields as $id => $field ) {
                 $value = $field->validate( $_REQUEST[ $field->get_id() ] );
                 
@@ -115,8 +115,7 @@ class Form {
 
         </table>
 
-        <?php wp_nonce_field( 'submit', $form->get_id() );
-
+        <?php
     }
 
     public static function form_end( Form $form ) {
