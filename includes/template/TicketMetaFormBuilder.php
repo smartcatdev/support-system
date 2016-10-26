@@ -16,35 +16,48 @@ use SmartcatSupport\descriptor\Option;
 class TicketMetaFormBuilder extends Builder {
     
     public function configure( \WP_Post $post = null ) {
+
+        if( isset( $post ) ) {
+            $date = get_post_meta( $post->ID, 'date_opened', true );
+            $email = get_post_meta( $post->ID, 'email', true );
+            $agent = get_post_meta( $post->ID, 'agent', true );
+            $status = get_post_meta( $post->ID, 'status', true );
+        } else {
+            $date = date( 'Y-m-d' );
+            $email = '';
+            $agent = '';
+            $status = '';
+        }
+
         $this->add( TextBox::class, 'email',
             [ 
-                'type' => 'email',
+                'type'  => 'email',
                 'label' => 'Contact Email',
-                'value' => isset( $post ) ? get_post_meta( $post->ID, 'email', true ) : '',
+                'value' => $email,
             ] 
         )->add( SelectBox::class, 'agent', 
             [ 
-                'label' => 'Assigned To',
-                'options' => $this->agents(),
-                'value' => isset( $post ) ? get_post_meta( $post->ID, 'agent', true ) : '',
+                'label'       => 'Assigned To',
+                'options'     => $this->agents(),
+                'value'       => $agent,
                 'constraints' => [ 
                     $this->create_constraint( InArray::class, '', array_keys( $this->agents() ) ) 
                 ]
             ] 
         )->add( SelectBox::class, 'status',
             [ 
-                'label' => 'Status',
-                'options' => $this->statuses(),
-                'value' => isset( $post ) ? get_post_meta( $post->ID, 'status', true ) : '',
+                'label'       => 'Status',
+                'options'     => $this->statuses(),
+                'value'       => $status,
                 'constraints' => [ 
                     $this->create_constraint( InArray::class, '', array_keys( $this->statuses() ) ) 
                 ]
             ] 
         )->add( TextBox::class, 'date_opened',
             [ 
-                'label' => 'Date Opened',
-                'type' => 'date',
-                'value' => isset( $post ) && get_post_meta( $post->ID, 'date_opened', true ) != '' ? get_post_meta( $post->ID, 'date_opened', true ) : date( 'Y-m-d' ),
+                'label'       => 'Date Opened',
+                'type'        => 'date',
+                'value'       =>  $date,
                 'constraints' => [ 
                     $this->create_constraint( Date::class ) 
                 ]

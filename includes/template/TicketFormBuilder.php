@@ -14,17 +14,17 @@ class TicketFormBuilder extends Builder {
             [ 
                 'label' => 'Subject',
                 'desc' => 'The subject of the ticket',
-                'value' => is_null( $post ) ? '' : $post->post_title,
+                'value' => isset( $post ) ? $post->post_title : '',
             ] 
         )->add( TextArea::class, 'content',
             [ 
                 'label' => 'Description',
                 'desc' => 'The description of your issue',
-                'value' => is_null( $post ) ? '' : $post->post_content,
+                'value' => isset( $post ) ? $post->post_content : '',
             ] 
         )->add( Hidden::class, 'ticket_id',
             [
-                'value' => is_null( $post ) ? '' : $post->ID
+                'value' => isset( $post ) ? $post->ID : ''
             ]   
         );
 
