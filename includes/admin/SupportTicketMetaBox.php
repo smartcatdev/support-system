@@ -3,7 +3,6 @@
 namespace SmartcatSupport\admin;
 
 use SmartcatSupport\template\TicketMetaFormBuilder;
-use SmartcatSupport\form\Form;
 use SmartcatSupport\util\View;
 use const SmartcatSupport\TEXT_DOMAIN;
 

@@ -17,7 +17,7 @@ class TicketController extends ActionListener {
     private $ticket_form_builder;
     private $meta_form_builder;
     
-    private static $SINGLE_VIEW = 'ticket';
+    private static $SINGLE_VIEW = 'edit_ticket';
     private static $LIST_VIEW = 'ticket_list';
     
     public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view ) {
