@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace SmartcatSupport\form\field;
 
 abstract class Field {
     protected $id;

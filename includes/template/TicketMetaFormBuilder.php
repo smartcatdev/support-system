@@ -3,8 +3,8 @@
 namespace SmartcatSupport\template;
 
 use SmartcatSupport\form\FormBuilder;
-use SmartcatSupport\form\TextBox;
-use SmartcatSupport\form\SelectBox;
+use SmartcatSupport\form\field\TextBox;
+use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\validation\InArray;
 use SmartcatSupport\form\validation\Date;
 use SmartcatSupport\descriptor\Option;

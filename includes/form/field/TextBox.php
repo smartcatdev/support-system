@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace SmartcatSupport\form\field;
 
 class TextBox extends Field {
     private $type = 'text';

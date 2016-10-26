@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace SmartcatSupport\form\field;
 
 use const SmartcatSupport\TEXT_DOMAIN;
 

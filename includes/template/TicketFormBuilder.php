@@ -3,9 +3,9 @@
 namespace SmartcatSupport\template;
 
 use SmartcatSupport\form\FormBuilder;
-use SmartcatSupport\form\TextBox;
-use SmartcatSupport\form\TextArea;
-use SmartcatSupport\form\Hidden;
+use SmartcatSupport\form\field\TextBox;
+use SmartcatSupport\form\field\TextArea;
+use SmartcatSupport\form\field\Hidden;
 
 class TicketFormBuilder extends FormBuilder {
 
