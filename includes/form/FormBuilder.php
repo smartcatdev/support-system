@@ -7,7 +7,7 @@ namespace SmartcatSupport\form;
  *
  * @author ericg
  */
-class Builder {
+class FormBuilder {
     private $id;
     private $fields = [];
     private $method;

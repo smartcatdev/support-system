@@ -3,7 +3,6 @@
 namespace SmartcatSupport\admin;
 
 use SmartcatSupport\template\TicketMetaFormBuilder;
-use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\form\Form;
 use const SmartcatSupport\TEXT_DOMAIN;
 
@@ -17,14 +16,15 @@ use const SmartcatSupport\TEXT_DOMAIN;
 class SupportTicketMetaBox extends MetaBox {
     
     /**
-     * @var TicketMetaFormBuilder
+     * @var TicketMetaFormFormBuilder
      * @since 1.0.0
      */
     private $builder;
     
     /**
-     * @param TicketMetaFormBuilder $builder Configures the form for the metabox.
-     * @since 1.0.0
+     * @param TicketMetaFormFormBuilder $builder Configures the form for the metabox.
+     *
+*@since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
     public function __construct( TicketMetaFormBuilder $builder ) {

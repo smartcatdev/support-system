@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\template;
 
-use SmartcatSupport\form\Builder;
+use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\SelectBox;
 use SmartcatSupport\form\validation\InArray;
@@ -13,7 +13,7 @@ use SmartcatSupport\descriptor\Option;
  *
  * @author Eric Green <eric@smartcat.ca>
  */
-class TicketMetaFormBuilder extends Builder {
+class TicketMetaFormBuilder extends FormBuilder {
     
     public function configure( \WP_Post $post = null ) {
 

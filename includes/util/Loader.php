@@ -5,7 +5,6 @@ namespace SmartcatSupport\util;
 use SmartcatSupport\admin\SupportTicketMetaBox;
 use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
-use SmartcatSupport\util\View;
 use SmartcatSupport\controller\TicketController;
 use const SmartcatSupport\PLUGIN_VERSION;
 
@@ -34,7 +33,7 @@ final class Loader {
         $this->installer = new Installer();
         
         $this->ticket_metabox = new SupportTicketMetaBox( 
-            new TicketMetaFormBuilder( 'ticket_info' ) 
+            new TicketMetaFormBuilder( 'ticket_info' )
         );
         
         $this->ticket_controller = new TicketController(
