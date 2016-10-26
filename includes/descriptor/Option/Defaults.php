@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\desc\Option;
+namespace SmartcatSupport\descriptor\Option;
 
 /**
  * Default values for options. Correspond to their keys in desc\Option.
@@ -16,4 +16,3 @@ final class Defaults {
      */
     const NUKE = 0;
 }
-

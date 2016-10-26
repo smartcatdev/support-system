@@ -3,11 +3,10 @@
 namespace SmartcatSupport\util;
 
 use SmartcatSupport\admin\SupportTicketMetaBox;
-use SmartcatSupport\TicketMetaFormBuilder;
-use SmartcatSupport\TicketFormBuilder;
-use SmartcatSupport\template\View;
+use SmartcatSupport\template\TicketMetaFormBuilder;
+use SmartcatSupport\template\TicketFormBuilder;
+use SmartcatSupport\util\View;
 use SmartcatSupport\controller\TicketController;
-use SmartcatSupport\controller\TicketListController;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
@@ -28,18 +27,23 @@ final class Loader {
 
     private function __construct( $file ) {
         $this->plugin_dir = plugin_dir_path( $file );
+        $this->templates_dir = $this->plugin_dir . 'templates';
         $this->plugin_url = plugin_dir_url( $file );
-        $this->templates_dir = plugin_dir_path( $file ) . 'templates';
-        
-        
+
+
         $this->installer = new Installer();
-        $this->ticket_metabox = new SupportTicketMetaBox( new TicketMetaFormBuilder( 'ticket_info' ) );
+        
+        $this->ticket_metabox = new SupportTicketMetaBox( 
+            new TicketMetaFormBuilder( 'ticket_info' ) 
+        );
+        
         $this->ticket_controller = new TicketController(
             new TicketFormBuilder( 'ticket' ),
             new TicketMetaFormBuilder( 'ticket_info' ),
             new View( $this->templates_dir )
         );
-        
+
+
         // TODO temporary shortcode assignment
         add_shortcode( 'support-system', [  $this->ticket_controller , 'render_dash' ]  );
         
@@ -64,6 +68,5 @@ final class Loader {
         wp_register_script( 'support_system_ajax', $this->plugin_url . 'assets/js/ajax.js', [ 'jquery' ], PLUGIN_VERSION );
         wp_localize_script( 'support_system_ajax', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
         wp_enqueue_script( 'support_system_ajax' );
-        
     }
 }

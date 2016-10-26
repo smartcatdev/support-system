@@ -1,13 +1,12 @@
 <?php
 
-namespace SmartcatSupport;
+namespace SmartcatSupport\template;
 
 use SmartcatSupport\form\Builder;
 use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\SelectBox;
 use SmartcatSupport\form\validation\InArray;
 use SmartcatSupport\form\validation\Date;
-
 /**
  * Description of TicketMetaBoxFormBuilder
  *

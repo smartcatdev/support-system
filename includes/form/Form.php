@@ -97,6 +97,7 @@ class Form {
                         </th>
                         
                     <?php endif; ?>
+
                     <td>
                         <?php $field->render(); ?>
 

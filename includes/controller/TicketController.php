@@ -2,10 +2,10 @@
 
 namespace SmartcatSupport\controller;
 
-use SmartcatSupport\template\View;
-use SmartcatSupport\TicketFormBuilder;
-use SmartcatSupport\TicketMetaFormBuilder;
-use SmartcatSupport\abstracts\ActionListener;
+use SmartcatSupport\util\View;
+use SmartcatSupport\template\TicketFormBuilder;
+use SmartcatSupport\template\TicketMetaFormBuilder;
+use SmartcatSupport\util\ActionListener;
 
 /**
  * Description of SingleTicket
@@ -14,16 +14,14 @@ use SmartcatSupport\abstracts\ActionListener;
  */
 class TicketController extends ActionListener {
     private $view;
-    private $templates_dir;
     private $ticket_form_builder;
     private $meta_form_builder;
     
     private static $SINGLE_VIEW = 'ticket';
     private static $LIST_VIEW = 'ticket_list';
     
-    public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view, $templates_dir ) {
+    public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view ) {
         $this->view = $view;
-        $this->templates_dir = $templates_dir;
         $this->ticket_form_builder = $ticket_form_builder;
         $this->meta_form_builder = $meta_form_builder;
         
@@ -58,8 +56,7 @@ class TicketController extends ActionListener {
                 update_user_meta( $user->ID, 'current_ticket', $post->ID );
 
                 wp_send_json_success( 
-                    $this->view->render( 
-                        self::$SINGLE_VIEW,[ 
+                    $this->view->render( self::$SINGLE_VIEW, [ 
                         'ticket_form'   => $form, 
                         'info_form'     => $info_form,
                         'ajax_action'   => 'update_ticket',
@@ -87,8 +84,7 @@ class TicketController extends ActionListener {
         }
         
         wp_send_json_success( 
-            $this->view->render( 
-                self::$SINGLE_VIEW, [ 
+            $this->view->render( self::$SINGLE_VIEW, [ 
                 'ticket_form'   => $form, 
                 'info_form'     => $info_form,
                 'ajax_action'   => 'update_ticket' 
@@ -149,18 +145,30 @@ class TicketController extends ActionListener {
     }
     
     public function ticket_list() {
-        $args = [
+        $query = [
             'post_type' => 'support_ticket', 
+            'status'    => 'publish',
+            
        ];
         
-        $query = new \WP_Query( $args );
+        $results = new \WP_Query( $query );
         
         wp_send_json_success( 
-            $this->view->render( self::$LIST_VIEW ) 
+            $this->view->render( self::$LIST_VIEW,
+                [
+                    'wp_query' => $results
+                ]  
+            ) 
         );
     }
     
     public function render_dash() {
         echo $this->view->render( 'dash' );
     }
+    
+    // user is a
+    
+    // send page
+    
+    
 }

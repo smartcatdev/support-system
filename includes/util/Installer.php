@@ -2,8 +2,8 @@
 
 namespace SmartcatSupport\util;
 
-use SmartcatSupport\desc\Option;
-use SmartcatSupport\abstracts\ActionListener;
+use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\util\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
 

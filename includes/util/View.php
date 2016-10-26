@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\template;
+namespace SmartcatSupport\util;
 
 /**
  * Renders and returns the output of a PHP template file.
@@ -13,7 +13,7 @@ class View {
     private $template_dir;
     
     /**
-     * @param string $template The path to the template file.
+     * @param string $dir The path to the template file.
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
@@ -23,7 +23,8 @@ class View {
  
     /**
      * Render the template and capture its output.
-     * 
+     *
+     * @param string $template The template to render.
      * @param mixed $data (Default NULL) Any data required to be output in the template.
      * @return string The rendered HTML.
      * @since 1.0.0

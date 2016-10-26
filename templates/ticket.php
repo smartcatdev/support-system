@@ -26,9 +26,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
     
     <?php endif; ?>
     
-    <form id="support_ticket_form"
-        data-action="<?php esc_attr_e( $ajax_action ); ?>" 
-        method="POST" >
+    <form>
     
         <?php Form::form_fields( $ticket_form ); ?>
     

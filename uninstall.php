@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport;
 
-use SmartcatSupport\desc\Option;
+use SmartcatSupport\descriptor\Option;
 
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
