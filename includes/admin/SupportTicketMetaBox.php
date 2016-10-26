@@ -4,6 +4,7 @@ namespace SmartcatSupport\admin;
 
 use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\form\Form;
+use SmartcatSupport\util\View;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
@@ -16,21 +17,28 @@ use const SmartcatSupport\TEXT_DOMAIN;
 class SupportTicketMetaBox extends MetaBox {
     
     /**
-     * @var TicketMetaFormFormBuilder
+     * @var TicketMetaFormBuilder
      * @since 1.0.0
      */
     private $builder;
-    
+
     /**
-     * @param TicketMetaFormFormBuilder $builder Configures the form for the metabox.
+     * @var View
+     */
+    private $view;
+
+    /**
+     * @param View $view
+     * @param TicketMetaFormBuilder $builder Configures the form for the metabox.
      *
-*@since 1.0.0
+     * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public function __construct( TicketMetaFormBuilder $builder ) {
+    public function __construct( View $view, TicketMetaFormBuilder $builder ) {
         parent::__construct( 'ticket_meta', __( 'Ticket Information', TEXT_DOMAIN ), 'support_ticket' ); 
 
         $this->builder = $builder;
+        $this->view = $view;
     }
     
     /**
@@ -40,9 +48,9 @@ class SupportTicketMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function render( $post ) {
-        $form = $this->builder->configure( $post );
-        
-        Form::form_fields( $form );
+        $form = $this->setup_form( $post );
+
+        echo $this->view->render( 'metabox', [ 'form' => $form ] );
     }
 
     /**
@@ -53,7 +61,7 @@ class SupportTicketMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function save( $post_id, $post ) {
-        $form = $this->builder->configure();
+        $form = $this->setup_form( $post );
         
         if( $form->is_valid() ) {
             $data = $form->get_data();
@@ -62,5 +70,9 @@ class SupportTicketMetaBox extends MetaBox {
                 update_post_meta( $post->ID, $key, $value );
             }
         }
+    }
+
+    private function setup_form( $post ) {
+        return $this->builder->configure( $post );
     }
 }

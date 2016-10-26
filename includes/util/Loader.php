@@ -32,15 +32,16 @@ final class Loader {
 
         $this->installer = new Installer();
         
-        $this->ticket_metabox = new SupportTicketMetaBox( 
+        $this->ticket_metabox = new SupportTicketMetaBox(
+            new View( $this->templates_dir ),
             new TicketMetaFormBuilder( 'ticket_info' )
         );
         
-        $this->ticket_controller = new TicketController(
-            new TicketFormBuilder( 'ticket' ),
-            new TicketMetaFormBuilder( 'ticket_info' ),
-            new View( $this->templates_dir )
-        );
+//        $this->ticket_controller = new TicketController(
+//            new TicketFormBuilder( 'ticket' ),
+//            new TicketMetaFormBuilder( 'ticket_info' ),
+//            new View( $this->templates_dir )
+//        );
 
 
         // TODO temporary shortcode assignment
