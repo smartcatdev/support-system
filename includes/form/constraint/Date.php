@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace SmartcatSupport\form\validation;
+namespace SmartcatSupport\form\constraint;
 
 /**
  * Description of Date

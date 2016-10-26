@@ -5,8 +5,8 @@ namespace SmartcatSupport\template;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\validation\InArray;
-use SmartcatSupport\form\validation\Date;
+use SmartcatSupport\form\constraint\InArray;
+use SmartcatSupport\form\constraint\Date;
 use SmartcatSupport\descriptor\Option;
 /**
  * Description of TicketMetaBoxFormBuilder

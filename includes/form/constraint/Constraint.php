@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\form\validation;
+namespace SmartcatSupport\form\constraint;
 
 /**
  * Description of Constraint
