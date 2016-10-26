@@ -21,5 +21,5 @@ final class Option {
      */
     const NUKE = 'ca.smartcat.support.erase';
 
-    const STATUSES = 'cat.smartcat.support.statuses';
+    const STATUSES = 'ca.smartcat.support.statuses';
 }
