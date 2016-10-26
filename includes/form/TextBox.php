@@ -27,12 +27,12 @@ class TextBox extends Field {
         return $value;
     }
 
-    public function render() {   
-        ?>
-            <input type="<?php esc_attr_e( $this->type ); ?>"
-                name="<?php esc_attr_e( $this->id ); ?>"
-                id="<?php esc_attr_e( $this->id ); ?>" 
-                value="<?php esc_attr_e( $this->value ); ?>" />
-        <?php 
-    }
+    public function render() { ?>
+
+        <input type="<?php esc_attr_e( $this->type ); ?>"
+            name="<?php esc_attr_e( $this->id ); ?>"
+            id="<?php esc_attr_e( $this->id ); ?>"
+            value="<?php esc_attr_e( $this->value ); ?>" />
+
+    <?php }
 }

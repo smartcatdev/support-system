@@ -4,11 +4,10 @@ namespace SmartcatSupport\form;
 
 class TextArea extends Field {
     
-    public function render() {
-        $value = trim( esc_html( $this->value ) ); ?>
+    public function render() { ?>
 
-            <textarea id="<?php esc_attr_e( $this->id ); ?>"
-                name="<?php esc_attr_e( $this->id ); ?>"><?php _e( $value ) ?></textarea>
-        <?php
-    }
+        <textarea id="<?php esc_attr_e( $this->id ); ?>"
+            name="<?php esc_attr_e( $this->id ); ?>"><?php esc_html_e( trim( $this->value ) ); ?></textarea>
+
+        <?php }
 }

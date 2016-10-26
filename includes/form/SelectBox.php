@@ -18,23 +18,23 @@ class SelectBox extends Field {
         $this->options = $args['options'];
     }
     
-    public function render() {
-        ?>
-            <select id="<?php esc_attr_e( $this->id ); ?>"
-                name="<?php esc_attr_e( $this->id ); ?>">
+    public function render() { ?>
+
+        <select id="<?php esc_attr_e( $this->id ); ?>"
+            name="<?php esc_attr_e( $this->id ); ?>">
+
+            <?php foreach( $this->options as $value => $label ) : ?>
                 
-                <?php foreach( $this->options as $value => $label ) : ?>
+                <option value="<?php esc_attr_e( $value ); ?>"
+                    <?php selected( $value, $this->value, true ); ?>>
                 
-                    <option value="<?php esc_attr_e( $value ); ?>"
-                        <?php _e( $value == $this->value ? 'selected' : '' ); ?>>
-                
-                        <?php esc_html_e( __( $label, TEXT_DOMAIN ) ); ?>
+                    <?php esc_html_e( __( $label, TEXT_DOMAIN ) ); ?>
                         
-                    </option>
+                </option>
                          
-                <?php endforeach; ?>
+            <?php endforeach; ?>
                 
-            </select>
-        <?php
-    }
+        </select>
+
+    <?php }
 }

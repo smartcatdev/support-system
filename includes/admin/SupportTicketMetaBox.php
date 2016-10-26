@@ -34,7 +34,7 @@ class SupportTicketMetaBox extends MetaBox {
     }
     
     /**
-     * @see \SmartcatSupport\abstracts\MetaBox
+     * @see \SmartcatSupport\admin\MetaBox
      * @param WP_Post $post The current post.
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
@@ -46,7 +46,7 @@ class SupportTicketMetaBox extends MetaBox {
     }
 
     /**
-     * @see \SmartcatSupport\abstracts\MetaBox
+     * @see \SmartcatSupport\admin\MetaBox
      * @param int $post_id The ID of the current post.
      * @param WP_Post $post The current post.
      * @since 1.0.0
