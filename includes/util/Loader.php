@@ -5,7 +5,7 @@ namespace SmartcatSupport\util;
 use SmartcatSupport\admin\SupportTicketMetaBox;
 use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
-use SmartcatSupport\controller\TicketController;
+use SmartcatSupport\controller\TicketHandler;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
@@ -37,7 +37,7 @@ final class Loader {
             new TicketMetaFormBuilder( 'ticket_info' )
         );
         
-        $this->ticket_controller = new TicketController(
+        $this->ticket_controller = new TicketHandler(
             new TicketFormBuilder( 'ticket' ),
             new TicketMetaFormBuilder( 'ticket_info' ),
             new View( $this->templates_dir )
@@ -68,5 +68,7 @@ final class Loader {
         wp_register_script( 'support_system_ajax', $this->plugin_url . 'assets/js/ajax.js', [ 'jquery' ], PLUGIN_VERSION );
         wp_localize_script( 'support_system_ajax', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
         wp_enqueue_script( 'support_system_ajax' );
+
+        wp_enqueue_style( 'support_system_style', $this->plugin_url . 'assets/css/style.css', [], PLUGIN_VERSION );
     }
 }

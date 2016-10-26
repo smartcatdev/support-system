@@ -3,7 +3,6 @@
 namespace SmartcatSupport\admin;
 
 use SmartcatSupport\util\ActionListener;
-use SmartcatSupport\abstracts\type;
 
 /**
  * Abstract base class for meta classes, automatically registers required actions

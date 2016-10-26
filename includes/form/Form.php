@@ -83,7 +83,7 @@ class Form {
 
     public static function form_fields( Form $form ) { ?>
             
-        <table class="form-table">
+        <table>
 
             <?php foreach( $form->get_fields() as $field ) : ?>
 
@@ -99,6 +99,7 @@ class Form {
                     <?php endif; ?>
 
                     <td>
+
                         <?php $field->render(); ?>
 
                         <?php if ( $field->get_desc() != null ) : ?>

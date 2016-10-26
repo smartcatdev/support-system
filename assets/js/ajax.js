@@ -1,5 +1,7 @@
 jQuery( document ).ready( function( $ ) {
 
+
+
     var TicketEvents = {
         
         initialize : function() {
@@ -29,6 +31,8 @@ jQuery( document ).ready( function( $ ) {
                 console.log( response );
                 
                 $('.entry-content').html( response.data );
+
+                $( 'form tr:has( input[type=hidden] )' ).addClass( 'hidden' );
 
             } );
             
