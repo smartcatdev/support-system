@@ -7,6 +7,7 @@ use SmartcatSupport\form\TextBox;
 use SmartcatSupport\form\SelectBox;
 use SmartcatSupport\form\validation\InArray;
 use SmartcatSupport\form\validation\Date;
+use SmartcatSupport\descriptor\Option;
 /**
  * Description of TicketMetaBoxFormBuilder
  *
@@ -68,12 +69,6 @@ class TicketMetaFormBuilder extends Builder {
     }
     
     private function statuses() {
-        return [ 
-            'new'           => 'New', 
-            'in_progress'   => 'In Progress', 
-            'resolved'      => 'Resolved', 
-            'follow_up'     => 'Follow Up', 
-            'closed'        => 'Closed'
-        ]; 
+        return get_option( Option::STATUSES, Option\Defaults::STATUSES );
     }
 }

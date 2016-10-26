@@ -20,4 +20,6 @@ final class Option {
      * @since 1.0.0
      */
     const NUKE = 'ca.smartcat.support.erase';
+
+    const STATUSES = 'cat.smartcat.support.statuses';
 }

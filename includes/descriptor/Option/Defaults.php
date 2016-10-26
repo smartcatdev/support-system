@@ -15,4 +15,12 @@ final class Defaults {
      * @since 1.0.0
      */
     const NUKE = 0;
+
+    const STATUSES = [
+        'new'           => 'New',
+        'in_progress'   => 'In Progress',
+        'resolved'      => 'Resolved',
+        'follow_up'     => 'Follow Up',
+        'closed'        => 'Closed'
+    ];
 }
