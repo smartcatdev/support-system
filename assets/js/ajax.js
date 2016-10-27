@@ -41,7 +41,22 @@ jQuery( document ).ready( function( $ ) {
 
                 $( '.entry-content' ).html( response.html );
 
-                $( '#support_tickets_table' ).DataTable();
+                var table = $( '#support_tickets_table' ).DataTable(
+                    {
+                        select: 'single'
+                    }
+                );
+
+                table.on( 'select', function ( e, dt, type, indexes ) {
+                    if ( type === 'row' ) {
+                        var id = table.rows( indexes ).data()[0][0];
+
+                        $.post( SmartcatSupport.ajaxURL, { action: 'edit_support_ticket', ticket_id: id }, function( response ) {
+                            $( '.entry-content' ).html( response.html );
+                        } );
+
+                    } });
+
             } );
         }
 
