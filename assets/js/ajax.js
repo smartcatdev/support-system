@@ -4,14 +4,13 @@ jQuery( document ).ready( function( $ ) {
 
     var TicketEvents = {
         
-        initialize : function() {
-            
-           // $( document ).on( 'submit', '#all_tickets',  TicketActions.tableData );
+        initialize: function() {
+
             $( document ).on( 'submit', '#select_ticket',  TicketActions.doAjax );
             $( document ).on( 'submit', '#new_ticket',  TicketActions.doAjax );
-            $( document ).on( 'submit', '#view_tickets', TicketActions.doAjax );
-            
             $( document ).on( 'submit', '#edit_ticket_form', TicketActions.doAjax );
+
+            $( document ).on( 'submit', '#list_tickets', TicketActions.ticketTable );
         }
         
     }
@@ -27,33 +26,29 @@ jQuery( document ).ready( function( $ ) {
                 value: $( this ).attr( 'data-action' ) 
             } );
 
+
             $.post( SmartcatSupport.ajaxURL, $.param( data ), function( response ) {
-                console.log( response );
-                
+
                 $('.entry-content').html( response.html );
 
             } );
-            
         },
         
-        // tableData: function( e ) {
-        //     e.preventDefault();
-        //
-        //     $.post( SmartcatSupport.ajaxURL, { action: $( this ).attr( 'data-action' ) }, function( response ) {
-        //         console.log( response );
-        //
-        //         $( '.entry-content' ).html( response.data );
-        //         $( '.data_table' ).DataTable();
-        //
-        //     } );
-        // }
+        ticketTable: function( e ) {
+            e.preventDefault();
+
+            $.post( SmartcatSupport.ajaxURL, { action: 'list_support_tickets' }, function( response ) {
+
+                $( '.entry-content' ).html( response.html );
+
+                $( '#support_tickets_table' ).DataTable();
+            } );
+        }
 
     }
 
     $( function () {
-        
         TicketEvents.initialize();
-
     });
    
 } );

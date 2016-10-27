@@ -20,7 +20,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
     
     <form id="edit_ticket_form" data-action="<?php esc_attr_e( $ajax_action ); ?>">
 
-
         <?php Form::form_fields( $form ); ?>
 
         <input type="hidden"

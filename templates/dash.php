@@ -1,7 +1,7 @@
 <?php use const SmartcatSupport\TEXT_DOMAIN; ?>
 
-<form method="POST" data-action="edit_support_ticket" id="new_ticket">
-    <input type="submit" value="New Ticket" />
+<form method="POST" data-action="list_support_tickets" id="list_tickets">
+    <input type="submit" value="List Tickets" />
 </form>
 
 <form method="POST" data-action="edit_support_ticket" id="select_ticket">

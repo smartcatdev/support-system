@@ -125,24 +125,7 @@ class TicketHandler extends ActionListener {
         ] );
     }
 
-//    public function ticket_list() {
-//        $query = [
-//            'post_type' => 'support_ticket',
-//            'status'    => 'publish',
 //
-//       ];
-//
-//        $results = new \WP_Query( $query );
-//
-//        wp_send_json_success(
-//            $this->view->render( self::$LIST_VIEW,
-//                [
-//                    'wp_query' => $results
-//                ]
-//            )
-//        );
-//    }
-    
     public function render_dash() {
         echo $this->view->render( 'dash' );
     }

@@ -6,6 +6,7 @@ use SmartcatSupport\admin\SupportTicketMetaBox;
 use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
 use SmartcatSupport\controller\TicketHandler;
+use SmartcatSupport\controller\TicketTableHandler;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
@@ -23,6 +24,7 @@ final class Loader {
     
     private $ticket_metabox;
     private $ticket_controller;
+    private $table_controller;
 
     private function __construct( $file ) {
         $this->plugin_dir = plugin_dir_path( $file );
@@ -40,6 +42,10 @@ final class Loader {
         $this->ticket_controller = new TicketHandler(
             new View( $this->templates_dir ),
             new TicketFormBuilder( 'ticket_form' )
+        );
+
+        $this->table_controller = new TicketTableHandler(
+            new View( $this->templates_dir )
         );
 
 
