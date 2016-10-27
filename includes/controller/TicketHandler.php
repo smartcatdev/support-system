@@ -4,8 +4,8 @@ namespace SmartcatSupport\controller;
 
 use SmartcatSupport\util\View;
 use SmartcatSupport\template\TicketFormBuilder;
-use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\util\ActionListener;
+use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
  * Description of SingleTicket
@@ -14,161 +14,136 @@ use SmartcatSupport\util\ActionListener;
  */
 class TicketHandler extends ActionListener {
     private $view;
-    private $ticket_form_builder;
-    private $meta_form_builder;
-    
-    private static $SINGLE_VIEW = 'edit_ticket';
-    private static $LIST_VIEW = 'ticket_list';
-    
-    public function __construct( TicketFormBuilder $ticket_form_builder, TicketMetaFormBuilder $meta_form_builder, View $view ) {
+    private $form_builder;
+
+    public function __construct( View $view, TicketFormBuilder $form_builder ) {
         $this->view = $view;
-        $this->ticket_form_builder = $ticket_form_builder;
-        $this->meta_form_builder = $meta_form_builder;
-        
-        $this->add_ajax_action( 'create_ticket', 'create_ticket' );
-        $this->add_ajax_action( 'update_ticket', 'save_ticket' );
-        $this->add_ajax_action( 'get_ticket', 'get_ticket' );
-        $this->add_ajax_action( 'ticket_list', 'ticket_list' );
+        $this->form_builder = $form_builder;
+
+        $this->add_ajax_action( 'edit_support_ticket', 'edit_ticket' );
+        $this->add_ajax_action( 'save_support_ticket', 'save_ticket' );
     }
-    
-    /**
-     *  Get a ticket by ID and return a form populated with the ticket's information to edit it.
-     *  
-     *  @since 1.0.0
-     */
-    public function get_ticket() {
+
+    public function edit_ticket() {
+        if( current_user_can( 'edit_tickets' ) ) {
+            $user = wp_get_current_user();
+            $ticket = $this->validate_request( $user );
+
+            if( $ticket !== false ) {
+
+                update_user_meta( $user->ID, 'current_ticket', is_null( $ticket ) ? '' : $ticket->ID );
+
+                $this->send_edit_form( $ticket );
+            } else {
+                wp_send_json_error( __( 'Permission error', TEXT_DOMAIN ) );
+            }
+        }
+    }
+
+    public function save_ticket() {
+        $user = wp_get_current_user();
+        $ticket = $this->validate_request( $user );
+        $error = false;
+
+        if( $ticket !== false ) {
+            $form = $this->form_builder->configure( current_user_can( 'edit_ticket_meta' ) );
+
+            if( $form->is_valid() ) {
+                $data = $form->get_data();
+                $ticket_id = null;
+
+                if( isset( $ticket ) && $ticket->ID == get_user_meta( $user->ID, 'current_ticket', true ) ) {
+                    $ticket_id = $ticket->ID;
+                }
+
+                $post_id = wp_insert_post( [
+                    'ID' => $ticket_id,
+                    'post_title' => $data['title'],
+                    'post_content' => $data['content'],
+                    'post_status' => 'publish',
+                    'post_type' => 'support_ticket',
+
+                    'post_author' => isset( $ticket ) ? $ticket->post_author : null,
+                    'comment_status' => 'open'
+                ] );
+
+                if( $post_id > 0 ) {
+                    if( current_user_can( 'edit_ticket_meta' ) ) {
+                        update_post_meta( $post_id, 'email', $data['email'] );
+                        update_post_meta( $post_id, 'agent', $data['agent'] );
+                        update_post_meta( $post_id, 'status', $data['status'] );
+                        update_post_meta( $post_id, 'date_opened', $data['date_opened'] );
+                    } else {
+                        update_post_meta( $post_id, 'email', $user->user_email );
+                        update_post_meta( $post_id, 'date_opened', date( 'Y-m-d' ) );
+                    }
+                } else {
+                    $error = __( 'An error has occurred', TEXT_DOMAIN );
+                }
+            } else {
+                $error = $form->get_errors();
+            }
+        } else {
+            $error = __( 'Permission error', TEXT_DOMAIN );
+        }
+
+        if( $error ) {
+            wp_send_json_error( $error );
+        }
+    }
+
+    private function validate_request( $user ) {
+        $ticket = null;
+
         if( isset( $_REQUEST['ticket_id'] ) ) {
             $post = get_post( $_REQUEST['ticket_id'] );
-            $user = wp_get_current_user();
 
-            // Make sure the post is a ticket and the user has edit privileges
-            if( isset( $post ) && $post->post_type == 'support_ticket' && 
-                ( $post->post_author == $user->ID || current_user_can( 'edit_others_tickets' ) ) ) {
-                
-                $form = $this->ticket_form_builder->configure( $post );
-                $info_form = null;
-        
-                if( current_user_can( 'edit_ticket_meta' ) ) {
-                    $info_form = $this->meta_form_builder->configure( $post );
-                }
-
-                // Save the index of the current ticket the user is editing
-                update_user_meta( $user->ID, 'current_ticket', $post->ID );
-
-                wp_send_json_success( 
-                    $this->view->render( self::$SINGLE_VIEW, [ 
-                        'ticket_form'   => $form, 
-                        'info_form'     => $info_form,
-                        'ajax_action'   => 'update_ticket',
-                    ] ) 
-                );
-            } else {
-                wp_send_json_error( "error" );
-            }
-        } else {
-            wp_send_json_error( "error" );
-        }
-    }
-    
-    /**
-     *  Send a blank ticket form.
-     * 
-     *  @since 1.0.0
-     */
-    public function create_ticket() {
-        $form = $this->ticket_form_builder->configure();
-        $info_form = null;
-        
-        if( current_user_can( 'edit_ticket_meta' ) ) {
-            $info_form = $this->meta_form_builder->configure();
-        }
-        
-        wp_send_json_success( 
-            $this->view->render( self::$SINGLE_VIEW, [ 
-                'ticket_form'   => $form, 
-                'info_form'     => $info_form,
-                'ajax_action'   => 'update_ticket' 
-            ] ) 
-        );
-    }
-
-    /**
-     *  Create a new ticket or update an existing one.
-     * 
-     *  @since 1.0.0
-     */
-    public function save_ticket() {
-        $form = $this->ticket_form_builder->configure();
-        $user = wp_get_current_user();
-        $post_id = false;
-        
-        if( $form->is_valid() ) {
-            $data = $form->get_data();
-
-            // If ID from the form matches the current, the user is updating, else its a new ticket
-            $ticket_id = $data['ticket_id'] == get_user_meta( $user->ID, 'current_ticket', true ) ? $data['ticket_id'] : null;
-            
-            $post_id = wp_insert_post( [
-                'ID'                => $ticket_id,
-                'post_title'        => $data['title'],
-                'post_content'      => $data['content'],
-                'post_status'       => 'publish',
-                'post_type'         => 'support_ticket',
-                
-                // Don't change the author if updating
-                'post_author'       => isset( $ticket_id ) ? get_post( $ticket_id )->post_author : null,
-                'comment_status'    => 'open'
-            ] );
-            
-            // If valid insert and the user is a support agent save all the meta fields
-            if( $post_id > 0 && current_user_can( 'edit_ticket_meta' ) ) {
-                $info_form = $this->meta_form_builder->configure();
-                
-                if( $info_form->is_valid() ) {
-                    $data = $info_form->get_data();
-                    
-                    foreach( $data as $key => $value ) {
-                        update_post_meta( $post_id, $key, $value );
-                    } 
+            if ( isset( $post ) && $post->post_type == 'support_ticket' ) {
+                if( $post->post_author == $user->ID || current_user_can( 'edit_others_tickets' ) ) {
+                    $ticket = $post;
                 } else {
-                    wp_send_json_error( "error" );
+                    $ticket = false;
                 }
-              
-              // If its a new ticket and the user is a support user, only save their email address and the date
-            } else if( is_null( $ticket_id ) && in_array( 'support_user', $user->roles ) ) {
-                update_post_meta( $post_id, 'email', $user->user_email );
-                update_post_meta( $post_id, 'date', date( 'Y-m-d' ) );
             }
-        } else {
-           wp_send_json_error( "error" );
         }
+
+        return $ticket;
     }
-    
-    public function ticket_list() {
-        $query = [
-            'post_type' => 'support_ticket', 
-            'status'    => 'publish',
-            
-       ];
-        
-        $results = new \WP_Query( $query );
-        
-        wp_send_json_success( 
-            $this->view->render( self::$LIST_VIEW,
+
+    private function send_edit_form( $post ) {
+        $form = $this->form_builder->configure( current_user_can( 'edit_ticket_meta' ), $post );
+
+        wp_send_json( [
+            'success' => true,
+            'html' => $this->view->render( 'edit_ticket',
                 [
-                    'wp_query' => $results
-                ]  
-            ) 
-        );
+                    'form'          => $form,
+                    'post'          => $post,
+                    'ajax_action'   => 'save_support_ticket',
+                ]
+            )
+        ] );
     }
+
+//    public function ticket_list() {
+//        $query = [
+//            'post_type' => 'support_ticket',
+//            'status'    => 'publish',
+//
+//       ];
+//
+//        $results = new \WP_Query( $query );
+//
+//        wp_send_json_success(
+//            $this->view->render( self::$LIST_VIEW,
+//                [
+//                    'wp_query' => $results
+//                ]
+//            )
+//        );
+//    }
     
     public function render_dash() {
         echo $this->view->render( 'dash' );
     }
-    
-    // user is a
-    
-    // send page
-    
-    
 }

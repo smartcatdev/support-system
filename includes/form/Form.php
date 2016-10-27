@@ -115,7 +115,7 @@ class Form {
 
             <?php endforeach; ?>
 
-            <tr>
+            <tr style="display: none">
                 <td>
                     <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>" />
                 </td>

@@ -38,9 +38,8 @@ final class Loader {
         );
         
         $this->ticket_controller = new TicketHandler(
-            new TicketFormBuilder( 'ticket' ),
-            new TicketMetaFormBuilder( 'ticket_info' ),
-            new View( $this->templates_dir )
+            new View( $this->templates_dir ),
+            new TicketFormBuilder( 'ticket_form' )
         );
 
 

@@ -18,17 +18,17 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 <div>
     
-    <form data-action="<?php esc_attr_e( $ajax_action ); ?>">
-    
-        <?php Form::form_fields( $ticket_form ); ?>
-    
-        <?php if( isset( $info_form ) ) : 
-            
-            Form::form_fields( $info_form );
-        
-        endif; ?>
-        
-        <input type="submit" 
+    <form id="edit_ticket_form" data-action="<?php esc_attr_e( $ajax_action ); ?>">
+
+
+        <?php Form::form_fields( $form ); ?>
+
+        <input type="hidden"
+            class="hidden"
+            name="ticket_id"
+            value="<?php esc_attr_e( isset( $post ) ? $post->ID : '' ); ?>" />
+
+        <input type="submit"
             value="<?php _e( 'Save Ticket', TEXT_DOMAIN ); ?>" />
     
     </form>

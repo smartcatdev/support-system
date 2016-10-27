@@ -6,12 +6,12 @@ jQuery( document ).ready( function( $ ) {
         
         initialize : function() {
             
-            $( document ).on( 'submit', '#all_tickets',  TicketActions.tableData );
+           // $( document ).on( 'submit', '#all_tickets',  TicketActions.tableData );
             $( document ).on( 'submit', '#select_ticket',  TicketActions.doAjax );
             $( document ).on( 'submit', '#new_ticket',  TicketActions.doAjax );
             $( document ).on( 'submit', '#view_tickets', TicketActions.doAjax );
             
-            $( document ).on( 'submit', '#support_ticket_form', TicketActions.doAjax );
+            $( document ).on( 'submit', '#edit_ticket_form', TicketActions.doAjax );
         }
         
     }
@@ -30,25 +30,23 @@ jQuery( document ).ready( function( $ ) {
             $.post( SmartcatSupport.ajaxURL, $.param( data ), function( response ) {
                 console.log( response );
                 
-                $('.entry-content').html( response.data );
-
-                $( 'form tr:has( input[type=hidden] )' ).addClass( 'hidden' );
+                $('.entry-content').html( response.html );
 
             } );
             
         },
         
-        tableData: function( e ) {
-            e.preventDefault();
-            
-            $.post( SmartcatSupport.ajaxURL, { action: $( this ).attr( 'data-action' ) }, function( response ) {
-                console.log( response );
-                
-                $( '.entry-content' ).html( response.data );
-                $( '.data_table' ).DataTable();
-                
-            } );
-        }
+        // tableData: function( e ) {
+        //     e.preventDefault();
+        //
+        //     $.post( SmartcatSupport.ajaxURL, { action: $( this ).attr( 'data-action' ) }, function( response ) {
+        //         console.log( response );
+        //
+        //         $( '.entry-content' ).html( response.data );
+        //         $( '.data_table' ).DataTable();
+        //
+        //     } );
+        // }
 
     }
 
