@@ -6,6 +6,7 @@ jQuery( document ).ready( function( $ ) {
 
             $( document ).on( 'dblclick', 'tr', TicketActions.editTicket );
             $( document ).on( 'submit', '.edit_ticket_form', TicketActions.saveTicket );
+            $( document ).on( 'focus', '.form_field', TicketActions.showSaveButton );
 
             $.SmartcatSupport().wp_ajax( 'list_support_tickets', null, function ( response ) {
 
@@ -44,9 +45,20 @@ jQuery( document ).ready( function( $ ) {
         saveTicket: function ( e ) {
             e.preventDefault();
 
+            $( this ).find( '.status' ).html( '<div class="spinner"></div>' );
+
             $.SmartcatSupport().wp_ajax( 'save_support_ticket', $( this ).serializeArray(), function ( response ) {
-                // console.log( response );
+
+                setTimeout( function () {
+                    $( '.spinner' ).delay( 20000 ).removeClass( 'spinner' ).addClass( 'icon-checkmark' );
+                }, 2000 );
+
             } );
+        },
+
+        showSaveButton: function() {
+            $( this ).parents( '.edit_ticket_form' ).find( '.submit_button' ).removeClass( 'hidden' );
+            $( this ).parents( '.edit_ticket_form' ).find( '.status' ).empty();
         }
 
     };

@@ -81,7 +81,6 @@ class TicketFormBuilder extends FormBuilder {
                     ]
                 ]
             );
-
         }
 
         return $this->get_form();

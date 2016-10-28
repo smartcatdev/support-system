@@ -57,13 +57,13 @@ class TicketHandler extends ActionListener {
                 }
 
                 $post_id = wp_insert_post( [
-                    'ID' => $ticket_id,
-                    'post_title' => $data['title'],
-                    'post_content' => $data['content'],
-                    'post_status' => 'publish',
-                    'post_type' => 'support_ticket',
+                    'ID'            => $ticket_id,
+                    'post_title'    => $data['title'],
+                    'post_content'  => $data['content'],
+                    'post_status'   => 'publish',
+                    'post_type'     => 'support_ticket',
 
-                    'post_author' => isset( $ticket ) ? $ticket->post_author : null,
+                    'post_author'    => isset( $ticket ) ? $ticket->post_author : null,
                     'comment_status' => 'open'
                 ] );
 
