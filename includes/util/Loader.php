@@ -72,9 +72,11 @@ final class Loader {
 
         wp_enqueue_script( 'tabular', $this->plugin_url . 'assets/lib/tabular.js', [ 'jquery' ], PLUGIN_VERSION );
 
-        wp_register_script( 'support_system_ajax', $this->plugin_url . 'assets/js/ajax.js', [ 'jquery' ], PLUGIN_VERSION );
-        wp_localize_script( 'support_system_ajax', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
-        wp_enqueue_script( 'support_system_ajax' );
+        wp_register_script( 'support_system_functions', $this->plugin_url . 'assets/js/functions.js', [ 'jquery' ], PLUGIN_VERSION );
+        wp_localize_script( 'support_system_functions', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
+        wp_enqueue_script( 'support_system_functions' );
+
+        wp_enqueue_script( 'support_system_app', $this->plugin_url . 'assets/js/app.js', [ 'jquery', 'support_system_functions' ], PLUGIN_VERSION );
 
         wp_enqueue_style( 'support_system_style', $this->plugin_url . 'assets/css/style.css', [], PLUGIN_VERSION );
     }

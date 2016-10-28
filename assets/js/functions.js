@@ -1,14 +1,25 @@
 ;( function( $ ) {
-    $.fn.wp_ajax = function( action, data, callback ) {
-        $.post(
-            SmartcatSupport.ajaxURL,
-            {
-                action: data
+
+    $.SmartcatSupport = function() {
+
+        var wp_ajax = function( action, data, callback ) {
+
+            if( data !== null ) {
+                if( Array.isArray( data ) ) {
+                    data.push( { name: 'action', value: action } );
+                } else {
+                    data[ 'action' ] = action;
+                }
+            } else {
+                data = { action: action }
             }
 
-            param( data ),
+            $.post( SmartcatSupport.ajaxURL, $.param( data ), callback );
+        }
 
-            callback( response )
-        );
+        return {
+            wp_ajax: wp_ajax
+        }
     }
-};
+
+} )( jQuery );

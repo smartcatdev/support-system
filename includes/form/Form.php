@@ -72,6 +72,10 @@ class Form {
         return $this->action;
     }
 
+    public function set_id( $id ) {
+        $this->id = $id;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Display Logic">
     public static function form_start( Form $form ) { ?>
 
