@@ -1,3 +1,31 @@
 .hidden {
     display: none;
 }
+
+.tabular_tab_bar {
+    border: 1px solid;
+    height: 40px;
+}
+
+.tabular_tab_bar li {
+    display: inline-block;
+    float: left;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
+
+
+    border: 1px solid red;
+}
+
+.tabular_tab_bar li a {
+    height: 100%;
+    width: 150px;
+    display: inline-block;
+    float: left;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

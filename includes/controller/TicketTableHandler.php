@@ -16,18 +16,14 @@ class TicketTableHandler extends ActionListener  {
     }
 
     public function ticket_table() {
-        $headers = [
-            'id' => 'ID',
-            'email' => 'Email',
-            'subject' => 'Subject'
-        ];
+        $headers = $this->get_headers();
 
         wp_send_json( [
             'html' => $this->view->render( 'table',
                 [
-                    'id' => 'support_tickets_table',
-                    'headers' => apply_filters( 'support_ticket_table_headers', $headers ),
-                    'data' => $this->get_tickets()
+                    'id'      => 'support_tickets_table',
+                    'headers' => $headers,
+                    'data'    => $this->get_tickets()
                 ]
             )
         ] );
@@ -48,14 +44,26 @@ class TicketTableHandler extends ActionListener  {
             $results->the_post();
 
             $ticket_data[] = [
-                'id' => get_the_ID(),
-                'email' => get_post_meta( $results->post->ID, 'email', true ),
-                'subject' => get_the_title()
+                'id'      => get_the_ID(),
+                'email'   => get_post_meta( $results->post->ID, 'email', true ),
+                'subject' => get_the_title(),
+                'status'  => get_post_meta( $results->post->ID, 'status', true ),
             ];
         }
 
         wp_reset_postdata();
 
         return $ticket_data;
+    }
+
+    private function get_headers() {
+        $headers = [
+            'id'        => '',
+            'email'     => 'Email',
+            'subject'   => 'Subject',
+            'status'    => 'Status'
+        ];
+
+        return apply_filters( 'support_ticket_table_headers', $headers );
     }
 }
