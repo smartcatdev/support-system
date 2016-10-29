@@ -28,12 +28,10 @@ class Form {
 
         if( $this->is_submitted() ) {
             foreach( $this->fields as $id => $field ) {
-                $value = $field->validate( $_REQUEST[ $field->get_id() ] );
-                
-                if( $value === true  ) {
-                    $this->valid_values[ $field->get_id() ] = $field->sanitize( $_REQUEST[ $field->get_id() ] );
+                if( $field->validate( $_REQUEST[ $id ] ) ) {
+                    $this->valid_values[ $id ] = $field->sanitize( $_REQUEST[ $id ] );
                 } else {
-                    $this->errors[ $field->get_id() ] = $value;
+                    $this->errors[ $id ] = $field->get_error_message();
                     $valid = false;
                 }
             }

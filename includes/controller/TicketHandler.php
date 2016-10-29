@@ -87,7 +87,7 @@ class TicketHandler extends ActionListener {
             $error = __( 'Permission error', TEXT_DOMAIN );
         }
 
-        if( $error ) {
+        if( !empty( $error ) ) {
             wp_send_json_error( $error );
         }
     }

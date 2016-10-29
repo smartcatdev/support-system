@@ -5,7 +5,7 @@ namespace SmartcatSupport\template;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\constraint\InArray;
+use SmartcatSupport\form\constraint\Choice;
 use SmartcatSupport\form\constraint\Date;
 use SmartcatSupport\descriptor\Option;
 /**
@@ -41,7 +41,7 @@ class TicketMetaFormBuilder extends FormBuilder {
                 'options'     => $this->agents(),
                 'value'       => $agent,
                 'constraints' => [ 
-                    $this->create_constraint( InArray::class, '', array_keys( $this->agents() ) ) 
+                    $this->create_constraint( Choice::class, array_keys( $this->agents() ) )
                 ]
             ] 
         )->add( SelectBox::class, 'status',
@@ -50,7 +50,7 @@ class TicketMetaFormBuilder extends FormBuilder {
                 'options'     => $this->statuses(),
                 'value'       => $status,
                 'constraints' => [ 
-                    $this->create_constraint( InArray::class, '', array_keys( $this->statuses() ) ) 
+                    $this->create_constraint( Choice::class, array_keys( $this->statuses() ) )
                 ]
             ] 
         )->add( TextBox::class, 'date_opened',

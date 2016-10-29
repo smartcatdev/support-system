@@ -13,11 +13,10 @@ namespace SmartcatSupport\form\constraint;
  *
  * @author Eric Green <eric@smartcat.ca>
  */
-class InArray extends Constraint {
+class Choice implements Constraint {
     protected $options = [];
     
-    public function __construct( $message = '', array $options ) {
-        parent::__construct( $message );
+    public function __construct( array $options ) {
         $this->options = $options;
     }
     

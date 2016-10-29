@@ -7,6 +7,7 @@ jQuery( document ).ready( function( $ ) {
             $( document ).on( 'dblclick', 'tr', TicketActions.editTicket );
             $( document ).on( 'submit', '.edit_ticket_form', TicketActions.saveTicket );
             $( document ).on( 'focus', '.form_field', TicketActions.showSaveButton );
+            $( document ).on( 'focus', '.form_field', TicketActions.clearError );
             //$( document ).on( 'click', '.status', TicketActions.clearStatus );
 
             $.SmartcatSupport().wp_ajax( 'list_support_tickets', null, function ( response ) {
@@ -52,12 +53,27 @@ jQuery( document ).ready( function( $ ) {
 
             $.SmartcatSupport().wp_ajax( 'save_support_ticket', $( this ).serializeArray(), function ( response ) {
 
-                setTimeout( function () {
+                if( response.success ) {
 
-                    $( '.spinner' ).removeClass( 'spinner' ).addClass( 'icon-checkmark' );
-                    form.children( '.submit_button' ).hide();
+                    setTimeout(function () {
 
-                }, 2000 );
+                        $('.spinner').removeClass('spinner').addClass('icon-checkmark');
+                        form.children('.submit_button').hide();
+
+                    }, 2000);
+
+                } else {
+
+                    $.each( response.data, function ( key, value ) {
+                        var td = form.find( '[data-field_name="' + key + '"]' ).parent();
+
+                        if( !td.children( '.error_msg' ).length ) {
+                            td.append( '<span class="error_msg">' + value + '</span>' );
+                        }
+
+                    } );
+
+                }
 
             } );
 
@@ -70,6 +86,10 @@ jQuery( document ).ready( function( $ ) {
 
         showSaveButton: function () {
             $( this ).parents( '.edit_ticket_form' ).find( '.submit_button' ).show();
+        },
+
+        clearError: function () {
+            $( this ).siblings( '.error_msg' ).remove();
         }
 
     };
