@@ -21,6 +21,7 @@ class TicketTableHandler extends ActionListener  {
 
     public function ticket_table() {
         wp_send_json( [
+            'columns' => $this->datatables_columns( $this->table_headers() ),
             'html' => $this->view->render( 'table',
                 [
                     'id'      => 'support_tickets_table',
@@ -68,6 +69,16 @@ class TicketTableHandler extends ActionListener  {
         ];
 
         return apply_filters( 'support_ticket_table_headers', $headers );
+    }
+
+    private function datatables_columns( array $headers ) {
+        $columns = [];
+
+        foreach( $headers as $key => $value ) {
+            $columns[] = [ 'title' => $value, 'data' => $key ];
+        }
+
+        return $columns;
     }
 
     public function email_col( $post_id, $post ) {

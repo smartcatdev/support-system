@@ -18,12 +18,8 @@ jQuery( document ).ready( function( $ ) {
                 $( '#support_tickets_table' ).DataTable(
                     {
                         select: 'single',
-                        columnDefs: [
-                            {
-                                targets: 0,
-                                visible: false
-                            }
-                        ]
+                        columns: response.columns,
+                        columnDefs: [ { targets: 0, visible: false } ]
                     }
                 );
 
@@ -34,10 +30,10 @@ jQuery( document ).ready( function( $ ) {
 
     var TicketActions = {
 
-        editTicket: function ( ) {
+        editTicket: function () {
             var row = $( '#support_tickets_table' ).DataTable().row( this ).data();
-            var ticket_id = row[0];
-            var ticket_subject = row[2];
+            var ticket_id = row['id'];
+            var ticket_subject = row['subject'];
 
             $.SmartcatSupport().wp_ajax( 'edit_support_ticket', { ticket_id: ticket_id }, function ( response ) {
                 $( '#support_ticket_tab_view' ).Tabular( 'newTab', ticket_id, ticket_subject, response.html );
@@ -49,31 +45,34 @@ jQuery( document ).ready( function( $ ) {
 
             var form = $( this );
 
+            form.children('.submit_button').hide();
             form.children( '.status' ).html( '<div class="spinner"></div>' );
 
             $.SmartcatSupport().wp_ajax( 'save_support_ticket', $( this ).serializeArray(), function ( response ) {
 
-                if( response.success ) {
+                setTimeout( function () {
 
-                    setTimeout(function () {
+                    if( response.success ) {
 
-                        $('.spinner').removeClass('spinner').addClass('icon-checkmark');
-                        form.children('.submit_button').hide();
+                        $( '.spinner' ).removeClass( 'spinner' ).addClass( 'icon-checkmark' );
+                        form.children( '.status' ).append( '<div>' + response.data + '</div>' );
 
-                    }, 2000);
+                    } else {
 
-                } else {
+                        $( '.spinner' ).remove();
 
-                    $.each( response.data, function ( key, value ) {
-                        var td = form.find( '[data-field_name="' + key + '"]' ).parent();
+                        $.each( response.data, function ( key, value ) {
+                            var td = form.find( '[data-field_name="' + key + '"]' ).parent();
 
-                        if( !td.children( '.error_msg' ).length ) {
-                            td.append( '<span class="error_msg">' + value + '</span>' );
-                        }
+                            if( !td.children( '.error_msg' ).length ) {
+                                td.append( '<span class="error_msg">' + value + '</span>' );
+                            }
 
-                    } );
+                        } );
 
-                }
+                    }
+
+                }, 2000 );
 
             } );
 
@@ -81,10 +80,11 @@ jQuery( document ).ready( function( $ ) {
 
                 $( '.status' ).empty();
 
-            }, 4000 );
+            }, 6000 );
         },
 
         showSaveButton: function () {
+            $( '.status' ).empty();
             $( this ).parents( '.edit_ticket_form' ).find( '.submit_button' ).show();
         },
 
