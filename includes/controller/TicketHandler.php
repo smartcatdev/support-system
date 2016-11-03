@@ -57,13 +57,13 @@ class TicketHandler extends ActionListener {
                 }
 
                 $post_id = wp_insert_post( [
-                    'ID' => $ticket_id,
-                    'post_title' => $data['title'],
-                    'post_content' => $data['content'],
-                    'post_status' => 'publish',
-                    'post_type' => 'support_ticket',
+                    'ID'            => $ticket_id,
+                    'post_title'    => $data['title'],
+                    'post_content'  => $data['content'],
+                    'post_status'   => 'publish',
+                    'post_type'     => 'support_ticket',
 
-                    'post_author' => isset( $ticket ) ? $ticket->post_author : null,
+                    'post_author'    => isset( $ticket ) ? $ticket->post_author : null,
                     'comment_status' => 'open'
                 ] );
 
@@ -87,8 +87,10 @@ class TicketHandler extends ActionListener {
             $error = __( 'Permission error', TEXT_DOMAIN );
         }
 
-        if( $error ) {
+        if( !empty( $error ) ) {
             wp_send_json_error( $error );
+        } else {
+            wp_send_json_success( __( 'Ticket saved', TEXT_DOMAIN ) );
         }
     }
 
@@ -125,24 +127,7 @@ class TicketHandler extends ActionListener {
         ] );
     }
 
-//    public function ticket_list() {
-//        $query = [
-//            'post_type' => 'support_ticket',
-//            'status'    => 'publish',
 //
-//       ];
-//
-//        $results = new \WP_Query( $query );
-//
-//        wp_send_json_success(
-//            $this->view->render( self::$LIST_VIEW,
-//                [
-//                    'wp_query' => $results
-//                ]
-//            )
-//        );
-//    }
-    
     public function render_dash() {
         echo $this->view->render( 'dash' );
     }

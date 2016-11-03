@@ -7,10 +7,15 @@ abstract class Field {
     protected $value;
     protected $label;
     protected $desc;
+    protected $error_message;
     protected $constraints = [];
  
     public function __construct( $id, array $args = [] ) {
         $this->set_id( $id );
+
+        if( isset( $args['error_msg'] ) ) {
+            $this->set_error_message( $args['error_msg'] );
+        }
         
         if( isset( $args['label'] ) ) {
             $this->set_label( $args['label'] );
@@ -34,7 +39,7 @@ abstract class Field {
  
         foreach( $this->constraints as $constraint ) {
             if( !$constraint->is_valid( $value ) ) {
-                $valid = $constraint->get_message();
+                $valid = false;
                 break;
             }
         }
@@ -63,23 +68,31 @@ abstract class Field {
         return $this->label;
     }
 
-    public function set_id($id) {
+    public function set_id( $id ) {
         $this->id = $id;
         return $this;
     }
 
+    public function get_error_message() {
+        return $this->error_message;
+    }
 
-    public function set_desc($desc) {
+    public function set_error_message( $error_message ) {
+        $this->error_message = $error_message;
+        return $this;
+    }
+
+    public function set_desc( $desc ) {
         $this->desc = $desc;
         return $this;
     }
 
-    public function set_value($value) {
+    public function set_value( $value ) {
         $this->value = $value;
         return $this;
     }
 
-    public function set_label($label) {
+    public function set_label( $label ) {
         $this->label = $label;
         return $this;
     }

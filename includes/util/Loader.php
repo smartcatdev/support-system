@@ -6,6 +6,7 @@ use SmartcatSupport\admin\SupportTicketMetaBox;
 use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
 use SmartcatSupport\controller\TicketHandler;
+use SmartcatSupport\controller\TicketTableHandler;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
@@ -23,6 +24,7 @@ final class Loader {
     
     private $ticket_metabox;
     private $ticket_controller;
+    private $table_controller;
 
     private function __construct( $file ) {
         $this->plugin_dir = plugin_dir_path( $file );
@@ -40,6 +42,10 @@ final class Loader {
         $this->ticket_controller = new TicketHandler(
             new View( $this->templates_dir ),
             new TicketFormBuilder( 'ticket_form' )
+        );
+
+        $this->table_controller = new TicketTableHandler(
+            new View( $this->templates_dir )
         );
 
 
@@ -63,11 +69,16 @@ final class Loader {
     public function enqueue_assets() {
         wp_enqueue_script( 'datatables', $this->plugin_url . 'assets/lib/datatables/js/datatables.min.js', [ 'jquery' ], PLUGIN_VERSION );
         wp_enqueue_style( 'datatables', $this->plugin_url . 'assets/lib/datatables/css/datatables.min.css', [], PLUGIN_VERSION );
-        
-        wp_register_script( 'support_system_ajax', $this->plugin_url . 'assets/js/ajax.js', [ 'jquery' ], PLUGIN_VERSION );
-        wp_localize_script( 'support_system_ajax', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
-        wp_enqueue_script( 'support_system_ajax' );
 
+        wp_enqueue_script( 'tabular', $this->plugin_url . 'assets/lib/tabular.js', [ 'jquery' ], PLUGIN_VERSION );
+
+        wp_register_script( 'support_system_functions', $this->plugin_url . 'assets/js/functions.js', [ 'jquery' ], PLUGIN_VERSION );
+        wp_localize_script( 'support_system_functions', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
+        wp_enqueue_script( 'support_system_functions' );
+
+        wp_enqueue_script( 'support_system_app', $this->plugin_url . 'assets/js/app.js', [ 'jquery', 'support_system_functions' ], PLUGIN_VERSION );
+
+        wp_enqueue_style( 'support_system_icons', $this->plugin_url . 'assets/icons.css', [], PLUGIN_VERSION );
         wp_enqueue_style( 'support_system_style', $this->plugin_url . 'assets/css/style.css', [], PLUGIN_VERSION );
     }
 }

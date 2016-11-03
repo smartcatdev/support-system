@@ -1,3 +1,50 @@
 .hidden {
     display: none;
 }
+
+.tabular_tab_bar {
+    border: 1px solid;
+    height: 40px;
+}
+
+.tabular_tab_bar li {
+    display: inline-block;
+    float: left;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
+
+
+    border: 1px solid red;
+}
+
+.tabular_tab_bar li a {
+    height: 100%;
+    width: 150px;
+    display: inline-block;
+    float: left;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+
+.status div {
+    display: inline-block;
+    float: left;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

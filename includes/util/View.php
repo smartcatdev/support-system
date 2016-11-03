@@ -25,13 +25,13 @@ class View {
      * Render the template and capture its output.
      *
      * @param string $template The template to render.
-     * @param mixed $data (Default NULL) Any data required to be output in the template.
+     * @param array $data (Default NULL) Any data required to be output in the template.
      * @return string The rendered HTML.
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public function render( $template, $data = null ) {
-        if( is_array( $data ) ) {
+    public function render( $template, array $data = null ) {
+        if( !is_null( $data ) ) {
             extract( $data );
         }
         

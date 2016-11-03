@@ -4,12 +4,13 @@ namespace SmartcatSupport\template;
 
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\constraint\Date;
-use SmartcatSupport\form\constraint\InArray;
-use SmartcatSupport\form\field\Hidden;
+use SmartcatSupport\form\constraint\Choice;
+use SmartcatSupport\form\constraint\Required;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\field\TextArea;
+use const SmartcatSupport\TEXT_DOMAIN;
 
 class TicketFormBuilder extends FormBuilder {
 
@@ -25,12 +26,20 @@ class TicketFormBuilder extends FormBuilder {
                 'label' => 'Subject',
                 'desc' => 'The subject of the ticket',
                 'value' => isset( $post ) ? $post->post_title : '',
+                'error_msg' => __( 'Subject cannot be blank', TEXT_DOMAIN ),
+                'constraints' =>  [
+                    $this->create_constraint( Required::class )
+                ]
             ] 
         )->add( TextArea::class, 'content',
             [ 
                 'label' => 'Description',
                 'desc' => 'The description of your issue',
                 'value' => isset( $post ) ? $post->post_content : '',
+                'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN )
+,                'constraints' =>  [
+                    $this->create_constraint( Required::class )
+                ]
             ] 
         );
 
@@ -58,8 +67,9 @@ class TicketFormBuilder extends FormBuilder {
                     'label'       => 'Assigned To',
                     'options'     => $this->agents(),
                     'value'       => $agent,
+                    'error_msg'   => __( 'Invalid agent', TEXT_DOMAIN ),
                     'constraints' => [
-                        $this->create_constraint( InArray::class, '', array_keys( $this->agents() ) )
+                        $this->create_constraint( Choice::class, array_keys( $this->agents() ) )
                     ]
                 ]
             )->add( SelectBox::class, 'status',
@@ -67,8 +77,9 @@ class TicketFormBuilder extends FormBuilder {
                     'label'       => 'Status',
                     'options'     => $this->statuses(),
                     'value'       => $status,
+                    'error_msg'   => __( 'Invalid status', TEXT_DOMAIN ),
                     'constraints' => [
-                        $this->create_constraint( InArray::class, '', array_keys( $this->statuses() ) )
+                        $this->create_constraint( Choice::class, array_keys( $this->statuses() ) )
                     ]
                 ]
             )->add( TextBox::class, 'date_opened',
@@ -76,12 +87,12 @@ class TicketFormBuilder extends FormBuilder {
                     'label'       => 'Date Opened',
                     'type'        => 'date',
                     'value'       =>  $date,
+                    'error_msg'   => __( 'Invalid date', TEXT_DOMAIN ),
                     'constraints' => [
                         $this->create_constraint( Date::class )
                     ]
                 ]
             );
-
         }
 
         return $this->get_form();

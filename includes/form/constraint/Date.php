@@ -13,7 +13,7 @@ namespace SmartcatSupport\form\constraint;
  *
  * @author Eric Green <eric@smartcat.ca>
  */
-class Date extends Constraint {
+class Date implements Constraint {
     public function is_valid( $value ) {
         return date_create( $value ) !== false;
     }
