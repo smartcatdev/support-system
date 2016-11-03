@@ -80,6 +80,5 @@ final class Loader {
 
         wp_enqueue_style( 'support_system_icons', $this->plugin_url . 'assets/icons.css', [], PLUGIN_VERSION );
         wp_enqueue_style( 'support_system_style', $this->plugin_url . 'assets/css/style.css', [], PLUGIN_VERSION );
-
     }
 }

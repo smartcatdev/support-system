@@ -12,7 +12,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php foreach( $headers as $col => $value ) : ?>
 
-                <th><?php esc_html_e( __( $value, TEXT_DOMAIN ) ); ?></th>
+                <th><?php esc_html_e( $value, TEXT_DOMAIN ); ?></th>
 
             <?php endforeach; ?>
 
@@ -26,9 +26,9 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <tr>
 
-                <?php foreach( $row as $data => $value ) : ?>
+                <?php foreach( $row as $col => $value ) : ?>
 
-                    <td><?php esc_html_e( $value ); ?></td>
+                    <td><?php _e( $value ); ?></td>
 
                 <?php endforeach; ?>
 

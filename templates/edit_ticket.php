@@ -26,7 +26,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <?php endif; ?>
 
-          class="edit_ticket_form">
+        class="edit_ticket_form">
 
 
         <?php Form::form_fields( $form ); ?>

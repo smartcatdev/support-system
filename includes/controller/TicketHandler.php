@@ -89,6 +89,8 @@ class TicketHandler extends ActionListener {
 
         if( !empty( $error ) ) {
             wp_send_json_error( $error );
+        } else {
+            wp_send_json_success( __( 'Ticket saved', TEXT_DOMAIN ) );
         }
     }
 

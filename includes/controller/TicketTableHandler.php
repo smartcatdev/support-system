@@ -13,23 +13,25 @@ class TicketTableHandler extends ActionListener  {
 
         $this->add_ajax_action( 'list_support_tickets', 'ticket_table' );
         $this->add_ajax_action( 'get_support_tickets', 'get_tickets' );
+
+        $this->add_action( 'support_ticket_table_email_col', 'email_col', 10, 2 );
+        $this->add_action( 'support_ticket_table_status_col', 'status_col', 10, 2 );
+        $this->add_action( 'support_ticket_table_subject_col', 'subject_col', 10, 2 );
     }
 
     public function ticket_table() {
-        $headers = $this->get_headers();
-
         wp_send_json( [
             'html' => $this->view->render( 'table',
                 [
                     'id'      => 'support_tickets_table',
-                    'headers' => $headers,
-                    'data'    => $this->get_tickets()
+                    'headers' => $this->table_headers(),
+                    'data'    => $this->table_data()
                 ]
             )
         ] );
     }
 
-    public function get_tickets() {
+    public function table_data() {
         $query = [
             'post_type' => 'support_ticket',
             'status'    => 'publish',
@@ -37,33 +39,46 @@ class TicketTableHandler extends ActionListener  {
 
         $results = new \WP_Query( $query );
 
-        $ticket_data = [];
+        $rows = [];
 
         while( $results->have_posts() ) {
-
             $results->the_post();
 
-            $ticket_data[] = [
-                'id'      => get_the_ID(),
-                'email'   => get_post_meta( $results->post->ID, 'email', true ),
-                'subject' => get_the_title(),
-                'status'  => get_post_meta( $results->post->ID, 'status', true ),
-            ];
+            $data = [];
+
+            foreach( array_keys( $this->table_headers() ) as $col ) {
+                $data[ $col ] = apply_filters( "support_ticket_table_{$col}_col", $results->post->ID, $results->post );
+            }
+
+            $rows[] = $data;
+
         }
 
         wp_reset_postdata();
 
-        return $ticket_data;
+        return $rows;
     }
 
-    private function get_headers() {
+    private function table_headers() {
         $headers = [
-            'id'        => '',
+            'id'        => 'ID',
             'email'     => 'Email',
             'subject'   => 'Subject',
             'status'    => 'Status'
         ];
 
         return apply_filters( 'support_ticket_table_headers', $headers );
+    }
+
+    public function email_col( $post_id, $post ) {
+        return get_post_meta( $post_id, 'email', true );
+    }
+
+    public function subject_col( $post_id, $post ) {
+        return $post->post_title;
+    }
+
+    public function status_col( $post_id, $post ) {
+        return get_post_meta( $post_id, 'status', true );
     }
 }
