@@ -14,12 +14,24 @@
     border-radius: 3px;
     background-color: #378ccd;
     width: 140px;
+    height: 40px;
+}
+
+.submit_button[disabled] {
+    opacity: 0.75;
+}
+
+.submit_button[disabled]:hover {
+    border: 2px solid #378ccd;
+    color: #fff;
+    border-radius: 3px;
+    background-color: #378ccd;
+    padding: inherit;
 }
 
 .submit_button .text {
     display: inline-block;
     vertical-align: middle;
-    margin: 10px;
 }
 
 .submit_button .status {
@@ -27,18 +39,19 @@
     vertical-align: middle;
 }
 
-.spinner {
+.submit_button .spinner {
     border: 3px solid #f3f3f3;
     border-top: 2px solid #3498db;
     border-radius: 50%;
     width: 20px;
     height: 20px;
+    margin: 0 5px;
     animation: spin 2s linear infinite;
 }
 
-.check,
-.fail {
-    height: 100%;
+.submit_button .check,
+.submit_button .fail {
+    margin: 0 5px;
 }
 
 .check:after {
@@ -57,12 +70,19 @@
     color: red;
 }
 
-/*.status {*/
-    /*display: inline-block;*/
-    /*height: 30px;*/
-    /*width: auto;*/
-    /*vertical-align: middle;*/
-/*}*/
+.form_field[disabled] {
+    opacity: 1;
+    background-color: #fff;
+    border: none;
+}
+
+select.form_field[disabled] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
 
 .tabular_tab_bar {
     border: 1px solid;
@@ -96,11 +116,11 @@
     margin: 20px auto;
 }
 
-.edit_ticket_form {
+.ticket_editor {
     margin: 20px 0;
-    border: 1px solid #666;
     border-radius: 2px;
     padding: 20px;
+    border: 1px solid #666;
 }
 
 .edit_ticket_form table,
@@ -131,14 +151,6 @@
 .comment_section .submit_button {
     margin-top: 30px;
 }
-
-
-
-
-/*.status div {*/
-    /*display: inline-block;*/
-    /*float: left;*/
-/*}*/
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

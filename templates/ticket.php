@@ -7,7 +7,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 <div class="ticket_detail">
 
-    <div class="editor">
+    <div class="ticket_editor">
+
 
         <form data-action="<?php esc_attr_e( $ticket_action ); ?>" class="edit_ticket_form">
 
@@ -15,15 +16,16 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <input type="hidden" class="hidden" name="ticket_id" value="<?php esc_attr_e( isset( $post ) ? $post->ID : '' ); ?>" />
 
-            <div class="text_right">
+            <div class="text_right hidden">
 
                 <button class="submit_button">
 
                     <div class="status hidden"></div>
                     <span class="text"
-                        data-wait="<?php _e( 'Saving', TEXT_DOMAIN ); ?>"
+                        data-default="<?php _e( 'Save', TEXT_DOMAIN ); ?>"
                         data-success="<?php _e( 'Saved', TEXT_DOMAIN ); ?>"
-                        data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>">
+                        data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
+                        data-wait="<?php _e( 'Saving', TEXT_DOMAIN ); ?>">
 
                             <?php _e( 'Save', TEXT_DOMAIN ); ?>
 
@@ -34,6 +36,10 @@ use const SmartcatSupport\TEXT_DOMAIN;
             </div>
 
         </form>
+
+        <div class="text_right">
+            <button class="edit_ticket_trigger submit_button"><?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?></button>
+        </div>
 
     </div>
 
