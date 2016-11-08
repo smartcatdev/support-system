@@ -37,7 +37,15 @@ jQuery(document).ready(function ($) {
             var ticket_subject = row['subject'];
 
             $.SmartcatSupport().wp_ajax('edit_support_ticket', {ticket_id: ticket_id}, function (response) {
-                $('#support_ticket_tab_view').Tabular('newTab', ticket_id, ticket_subject, response.html);
+
+                if( response.success ) {
+                    var pane = $('#support_ticket_tab_view').Tabular(
+                        'newTab', ticket_id, ticket_subject, response.html
+                    );
+
+                   TicketActions.disableEditing( pane.find( '.edit_ticket_form' ) );
+                }
+
             });
         },
 
