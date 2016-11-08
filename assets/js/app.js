@@ -12,7 +12,10 @@ jQuery(document).ready(function ($) {
 
             $.SmartcatSupport().wp_ajax('list_support_tickets', null, function (response) {
 
-                $('#support_ticket_tab_view').Tabular();
+                $('#support_ticket_tab_view').Tabular( {
+                    noClose: 'ticket_list'
+                } );
+
                 $('#support_ticket_tab_view').Tabular('newTab', 'ticket_list', 'Tickets', response.html);
 
                 $('#support_tickets_table').DataTable(

@@ -37,7 +37,9 @@
                 $(this.element).find('.tabular_tab_bar > ul').append(
                     '<li class="tabular_tab" data-card="' + id + '">' +
                         '<a class="tabular_link" href="#">'+ title + '</a>' +
-                        '<span class="tabular_close">&#10006</span>' +
+
+                        ( this.settings.noClose == id ? '' : '<span class="tabular_close">&#10006</span>' ) +
+
                     '</li>'
                 );
 

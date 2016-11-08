@@ -82,7 +82,9 @@ select.form_field[disabled] {
     -moz-appearance: none;
 }
 
-
+textarea.form_field {
+    min-height: 200px !important;
+}
 
 .tabular_tab_bar {
     border: 1px solid;
