@@ -12,7 +12,6 @@ class TicketTableHandler extends ActionListener  {
         $this->view = $view;
 
         $this->add_ajax_action( 'list_support_tickets', 'ticket_table' );
-        $this->add_ajax_action( 'get_support_tickets', 'get_tickets' );
 
         $this->add_action( 'support_ticket_table_email_col', 'email_col', 10, 2 );
         $this->add_action( 'support_ticket_table_status_col', 'status_col', 10, 2 );

@@ -24,9 +24,8 @@ class TicketFormBuilder extends FormBuilder {
         $this->add( TextBox::class, 'title',
             [ 
                 'label' => 'Subject',
-                'desc' => 'The subject of the ticket',
                 'value' => isset( $post ) ? $post->post_title : '',
-                'error_msg' => __( 'Subject cannot be blank', TEXT_DOMAIN ),
+               'error_msg' => __( 'Subject cannot be blank', TEXT_DOMAIN ),
                 'constraints' =>  [
                     $this->create_constraint( Required::class )
                 ]
@@ -34,10 +33,9 @@ class TicketFormBuilder extends FormBuilder {
         )->add( TextArea::class, 'content',
             [ 
                 'label' => 'Description',
-                'desc' => 'The description of your issue',
                 'value' => isset( $post ) ? $post->post_content : '',
                 'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN )
-,                'constraints' =>  [
+,               'constraints' =>  [
                     $this->create_constraint( Required::class )
                 ]
             ] 
@@ -61,6 +59,7 @@ class TicketFormBuilder extends FormBuilder {
                     'type'  => 'email',
                     'label' => 'Contact Email',
                     'value' => $email,
+                    'sanitize_callback' => 'sanitize_email'
                 ]
             )->add( SelectBox::class, 'agent',
                 [

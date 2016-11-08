@@ -2,6 +2,68 @@
     display: none;
 }
 
+.text_right {
+    text-align: right;
+}
+
+.submit_button {
+    padding: 5px 10px;
+    margin: 0;
+    border: 2px solid #378ccd;
+    color: #fff;
+    border-radius: 3px;
+    background-color: #378ccd;
+    width: 140px;
+}
+
+.submit_button .text {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.submit_button .status {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+
+.check,
+.fail {
+    height: 100%;
+}
+
+.check:after {
+    content: '\2714';
+}
+
+.fail:after {
+    content: "\2716";
+}
+
+.error_field {
+    border: medium solid red !important;
+}
+
+.error_msg {
+    color: red;
+}
+
+/*.status {*/
+    /*display: inline-block;*/
+    /*height: 30px;*/
+    /*width: auto;*/
+    /*vertical-align: middle;*/
+/*}*/
+
 .tabular_tab_bar {
     border: 1px solid;
     height: 40px;
@@ -30,19 +92,53 @@
     overflow: hidden;
 }
 
-.spinner {
-    border: 3px solid #f3f3f3;
-    border-top: 2px solid #3498db;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 2s linear infinite;
+.ticket_detail {
+    margin: 20px auto;
 }
 
-.status div {
-    display: inline-block;
-    float: left;
+.edit_ticket_form {
+    margin: 20px 0;
+    border: 1px solid #666;
+    border-radius: 2px;
+    padding: 20px;
 }
+
+.edit_ticket_form table,
+.edit_ticket_form table th,
+.edit_ticket_form table td {
+    border: none;
+}
+
+.edit_ticket_form table th,
+.edit_ticket_form table td {
+    display: block;
+    vertical-align: text-top;
+}
+
+.edit_ticket_form .form_field {
+    width: 100%;
+}
+
+.comment_section {
+    border-radius: 2px;
+    border: 1px solid #000;
+}
+
+.comment_section form {
+    padding: 20px;
+}
+
+.comment_section .submit_button {
+    margin-top: 30px;
+}
+
+
+
+
+/*.status div {*/
+    /*display: inline-block;*/
+    /*float: left;*/
+/*}*/
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

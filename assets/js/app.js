@@ -5,10 +5,10 @@ jQuery( document ).ready( function( $ ) {
         initialize: function() {
 
             $( document ).on( 'dblclick', 'tr', TicketActions.editTicket );
-            $( document ).on( 'submit', '.edit_ticket_form', TicketActions.saveTicket );
+
+            $( document ).on( 'submit', '.edit_ticket_form', TicketActions.ajaxSubmit );
             $( document ).on( 'focus', '.form_field', TicketActions.showSaveButton );
-            $( document ).on( 'focus', '.form_field', TicketActions.clearError );
-            //$( document ).on( 'click', '.status', TicketActions.clearStatus );
+            $( document ).on( 'click', '.reply_trigger', TicketActions.showReplyForm );
 
             $.SmartcatSupport().wp_ajax( 'list_support_tickets', null, function ( response ) {
 
@@ -24,6 +24,7 @@ jQuery( document ).ready( function( $ ) {
                 );
 
             } );
+
         }
 
     }
@@ -40,64 +41,71 @@ jQuery( document ).ready( function( $ ) {
             } );
         },
 
-        saveTicket: function ( e ) {
-            e.preventDefault();
-
-            var form = $( this );
-
-            form.children('.submit_button').hide();
-            form.children( '.status' ).html( '<div class="spinner"></div>' );
-
-            $.SmartcatSupport().wp_ajax( 'save_support_ticket', $( this ).serializeArray(), function ( response ) {
-
-                setTimeout( function () {
-
-                    if( response.success ) {
-
-                        $( '.spinner' ).removeClass( 'spinner' ).addClass( 'icon-checkmark' );
-                        form.children( '.status' ).append( '<div>' + response.data + '</div>' );
-
-                    } else {
-
-                        $( '.spinner' ).remove();
-
-                        $.each( response.data, function ( key, value ) {
-                            var td = form.find( '[data-field_name="' + key + '"]' ).parent();
-
-                            if( !td.children( '.error_msg' ).length ) {
-                                td.append( '<span class="error_msg">' + value + '</span>' );
-                            }
-
-                        } );
-
-                    }
-
-                }, 2000 );
-
-            } );
-
-            setTimeout( function () {
-
-                $( '.status' ).empty();
-
-            }, 6000 );
-        },
-
         showSaveButton: function () {
             $( '.status' ).empty();
             $( this ).parents( '.edit_ticket_form' ).find( '.submit_button' ).show();
         },
 
-        clearError: function () {
-            $( this ).siblings( '.error_msg' ).remove();
+        showReplyForm: function ( e ) {
+            $( '.comment_section' ).removeClass( 'hidden' ) && $( this ).parent().remove();
+
+            e.preventDefault();
+        },
+
+        ajaxSubmit: function( e ) {
+            var form = $( this );
+
+            if ( form.attr( 'lock' ) !== true ) {
+
+                // Prevent multiple submissions
+                form.attr( 'lock', true );
+
+                var status = form.find('.submit_button .status');
+                var text = form.find('.submit_button .text');
+
+                status.removeClass('hidden check fail').addClass('spinner');
+                text.text(text.data('wait'));
+
+                $.SmartcatSupport().wp_ajax('save_support_ticket', $(this).serializeArray(), function (response) {
+
+                    form.find('.error_field').removeClass('error_field');
+                    form.find('.error_msg').remove();
+
+                    setTimeout(function () {
+
+                        if (response.success) {
+
+                            status.removeClass('spinner').addClass('check');
+                            text.text(text.data('success'));
+
+                        } else {
+
+                            status.removeClass('spinner').addClass('fail');
+                            text.text(text.data('fail'));
+
+                            // Match fields to error messages
+                            $.each(response.data, function (key, value) {
+
+                                var field = $(form).find('[data-field_name="' + key + '"]');
+                                field.addClass('error_field');
+                                field.parent().append('<span class="error_msg">' + value + '</span>');
+
+                            });
+
+                        }
+
+                        // Unlock the form
+                        form.attr( 'lock', false );
+
+                    }, 4000);
+
+                });
+            }
+
+            e.preventDefault();
         }
 
     };
 
-    $( function () {
-
-        TicketEvents.initialize();
-
-    });
-
+    TicketEvents.initialize();
 } );

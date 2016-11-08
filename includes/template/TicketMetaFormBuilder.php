@@ -34,6 +34,7 @@ class TicketMetaFormBuilder extends FormBuilder {
                 'type'  => 'email',
                 'label' => 'Contact Email',
                 'value' => $email,
+                'sanitize_callback' => 'sanitize_email'
             ] 
         )->add( SelectBox::class, 'agent', 
             [ 

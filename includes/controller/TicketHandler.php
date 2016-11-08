@@ -33,7 +33,7 @@ class TicketHandler extends ActionListener {
 
                 update_user_meta( $user->ID, 'current_ticket', is_null( $ticket ) ? '' : $ticket->ID );
 
-                $this->send_edit_form( $ticket );
+                $this->edit_form( $ticket );
             } else {
                 wp_send_json_error( __( 'Permission error', TEXT_DOMAIN ) );
             }
@@ -94,6 +94,24 @@ class TicketHandler extends ActionListener {
         }
     }
 
+    public function submit_comment() {
+        // get post from user meta
+
+        $user = wp_get_current_user();
+
+        $comment_id = wp_new_comment( [
+            'comment_post_ID'       => $post->ID,
+            'comment_author'        => $user->display_name,
+            'comment_author_email'  => $user->user_email,
+            'comment_content'       => $comment,
+            'comment_parent'        => 0,
+            'user_id'               => $user->ID
+
+        ] );
+
+
+    }
+
     private function validate_request( $user ) {
         $ticket = null;
 
@@ -112,19 +130,25 @@ class TicketHandler extends ActionListener {
         return $ticket;
     }
 
-    private function send_edit_form( $post ) {
+    private function edit_form( $post ) {
         $form = $this->form_builder->configure( current_user_can( 'edit_ticket_meta' ), $post );
 
         wp_send_json( [
             'success' => true,
-            'html' => $this->view->render( 'edit_ticket',
+            'html' => $this->view->render( 'ticket',
                 [
-                    'form'          => $form,
-                    'post'          => $post,
-                    'ajax_action'   => 'save_support_ticket',
+                    'form'           => $form,
+                    'post'           => $post,
+                    'ticket_action'  => 'save_support_ticket',
+                    'comment_action' => 'submit_comment',
+                    'comments'       => isset( $post ) ? $this->get_comments( $post->ID ) : false
                 ]
             )
         ] );
+    }
+
+    private function get_comments( $post_id ) {
+        return ( new \WP_Comment_Query( [ 'post_id' => $post_id ] ) )->query();
     }
 
 //

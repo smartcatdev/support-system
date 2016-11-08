@@ -7,6 +7,7 @@ use SmartcatSupport\template\TicketMetaFormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
 use SmartcatSupport\controller\TicketHandler;
 use SmartcatSupport\controller\TicketTableHandler;
+use SmartcatSupport\controller\CommentHandler;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
@@ -31,22 +32,13 @@ final class Loader {
         $this->templates_dir = $this->plugin_dir . 'templates';
         $this->plugin_url = plugin_dir_url( $file );
 
-
         $this->installer = new Installer();
-        
-        $this->ticket_metabox = new SupportTicketMetaBox(
-            new View( $this->templates_dir ),
-            new TicketMetaFormBuilder( 'ticket_info' )
-        );
-        
-        $this->ticket_controller = new TicketHandler(
-            new View( $this->templates_dir ),
-            new TicketFormBuilder( 'ticket_form' )
-        );
 
-        $this->table_controller = new TicketTableHandler(
-            new View( $this->templates_dir )
-        );
+        $view = new View( $this->templates_dir );
+
+        $this->ticket_metabox = new SupportTicketMetaBox( $view, new TicketMetaFormBuilder( 'ticket_info' ) );
+        $this->ticket_controller = new TicketHandler( $view, new TicketFormBuilder( 'ticket_form' ) );
+        $this->table_controller = new TicketTableHandler( $view );
 
 
         // TODO temporary shortcode assignment
