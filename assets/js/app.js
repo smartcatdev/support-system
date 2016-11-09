@@ -7,6 +7,7 @@ jQuery(document).ready(function ($) {
             $(document).on('dblclick', 'tr', TicketActions.viewTicket);
 
             $(document).on('submit', '.edit_ticket_form', TicketActions.ajaxSubmit);
+            $(document).on('submit', '.comment_form', TicketActions.ajaxSubmit);
             $(document).on('click', '.reply_trigger', TicketActions.showReplyForm);
             $(document).on('click', '.edit_ticket_trigger', TicketActions.editTicket);
 
@@ -68,7 +69,7 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
         },
 
-        ajaxSubmit: function (e) {
+        ajaxSubmit: function ( e ) {
             var unlockDelay = 1000;
             var form = $(this);
 
@@ -82,7 +83,7 @@ jQuery(document).ready(function ($) {
             status.removeClass('hidden check fail').addClass('spinner');
             text.text(text.data('wait'));
 
-            $.SmartcatSupport().wp_ajax('save_support_ticket', $(this).serializeArray(), function (response) {
+            $.SmartcatSupport().wp_ajax($(this).data('action'), $(this).serializeArray(), function (response) {
 
                 form.find('.error_field').removeClass('error_field');
                 form.find('.error_msg').remove();
@@ -93,7 +94,6 @@ jQuery(document).ready(function ($) {
                     text.text(text.data('success'));
 
                     setTimeout( function () {
-                        form.find('.submit_button').parent().hide();
                         status.removeClass('check');
                         text.text(text.data('default'));
                         TicketActions.disableEditing(form);
@@ -130,6 +130,7 @@ jQuery(document).ready(function ($) {
         },
 
         disableEditing: function (form) {
+            form.find('.submit_button').parent().hide();
             form.parent().find('.edit_ticket_trigger').parent().show();
             form.find('.form_field').prop('disabled', true);
         }

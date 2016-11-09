@@ -11,11 +11,8 @@ class TicketTableHandler extends ActionListener  {
     public function __construct( View $view ) {
         $this->view = $view;
 
+        $this->column_data_callbacks();
         $this->add_ajax_action( 'list_support_tickets', 'ticket_table' );
-
-        $this->add_action( 'support_ticket_table_email_col', 'email_col', 10, 2 );
-        $this->add_action( 'support_ticket_table_status_col', 'status_col', 10, 2 );
-        $this->add_action( 'support_ticket_table_subject_col', 'subject_col', 10, 2 );
     }
 
     public function ticket_table() {
@@ -31,7 +28,7 @@ class TicketTableHandler extends ActionListener  {
         ] );
     }
 
-    public function table_data() {
+    private function table_data() {
         $query = [
             'post_type' => 'support_ticket',
             'status'    => 'publish',
@@ -80,15 +77,17 @@ class TicketTableHandler extends ActionListener  {
         return $columns;
     }
 
-    public function email_col( $post_id, $post ) {
-        return get_post_meta( $post_id, 'email', true );
-    }
+    private function column_data_callbacks() {
+        add_action( 'support_ticket_table_email_col', function ( $post_id ) {
+            return get_post_meta( $post_id, 'email', true );
+        } );
 
-    public function subject_col( $post_id, $post ) {
-        return $post->post_title;
-    }
+        add_action( 'support_ticket_table_status_col', function ( $post_id ) {
+            return get_post_meta( $post_id, 'status', true );
+        } );
 
-    public function status_col( $post_id, $post ) {
-        return get_post_meta( $post_id, 'status', true );
+        add_action( 'support_ticket_table_subject_col', function ( $post_id, $post ) {
+            return $post->post_title;
+        }, 10, 2 );
     }
 }

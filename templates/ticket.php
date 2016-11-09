@@ -10,7 +10,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
     <div class="ticket_editor">
 
 
-        <form data-action="<?php esc_attr_e( $ticket_action ); ?>" class="edit_ticket_form">
+        <form class="edit_ticket_form" data-action="save_support_ticket">
 
             <?php Form::form_fields( $form ); ?>
 
@@ -56,13 +56,28 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <div class="comment_section hidden">
 
-            <form data-action="<?php esc_attr_e( $ticket_action ); ?>">
+            <form class="comment_form" data-action="save_support_comment">
 
                 <textarea class="form_field" name="comment_content"></textarea>
                 <input type="hidden" class="hidden" name="ticket_id" value="<?php esc_attr_e( $post->ID ); ?>" />
 
                 <div class="text_right">
-                    <input type="submit" class="submit_button" value="<?php esc_attr_e( 'Reply', TEXT_DOMAIN ); ?>">
+
+                    <button class="submit_button">
+
+                        <div class="status hidden"></div>
+                        <span class="text"
+                              data-default="<?php _e( 'Reply', TEXT_DOMAIN ); ?>"
+                              data-success="<?php _e( 'Sent', TEXT_DOMAIN ); ?>"
+                              data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
+                              data-wait="<?php _e( 'Sending', TEXT_DOMAIN ); ?>">
+
+                            <?php _e( 'Reply', TEXT_DOMAIN ); ?>
+
+                        </span>
+
+                    </button>
+
                 </div>
 
             </form>
@@ -78,7 +93,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
                         <p class="comment_details">
 
                             <span class="author"><?php esc_html_e( $comment->comment_author ); ?></span>
-
                             <span class="date_posted"><?php esc_html_e( $comment->comment_date ); ?></span>
 
                         </p>

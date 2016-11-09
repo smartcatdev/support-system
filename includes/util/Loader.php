@@ -3,7 +3,7 @@
 namespace SmartcatSupport\util;
 
 use SmartcatSupport\admin\SupportTicketMetaBox;
-use SmartcatSupport\template\TicketMetaFormBuilder;
+use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
 use SmartcatSupport\controller\TicketHandler;
 use SmartcatSupport\controller\TicketTableHandler;
@@ -36,7 +36,7 @@ final class Loader {
 
         $view = new View( $this->templates_dir );
 
-        $this->ticket_metabox = new SupportTicketMetaBox( $view, new TicketMetaFormBuilder( 'ticket_info' ) );
+        $this->ticket_metabox = new SupportTicketMetaBox( $view, new FormBuilder( 'ticket_info' ) );
         $this->ticket_controller = new TicketHandler( $view, new TicketFormBuilder( 'ticket_form' ) );
         $this->table_controller = new TicketTableHandler( $view );
 
