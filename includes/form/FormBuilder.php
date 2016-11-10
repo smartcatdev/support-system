@@ -32,4 +32,8 @@ class FormBuilder {
     public function create_constraint( $class, $message = '', $args = [] ) {
         return new $class( $message, $args );
     }
+
+    public function clear_config() {
+        $this->fields = [];
+    }
 }

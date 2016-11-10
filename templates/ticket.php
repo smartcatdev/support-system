@@ -9,12 +9,9 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <div class="ticket_editor">
 
+        <form class="edit_ticket_form" data-action="<?php esc_attr_e( $ticket_action ); ?>">
 
-        <form class="edit_ticket_form" data-action="save_support_ticket">
-
-            <?php Form::form_fields( $form ); ?>
-
-            <input type="hidden" class="hidden" name="ticket_id" value="<?php esc_attr_e( isset( $post ) ? $post->ID : '' ); ?>" />
+            <?php Form::form_fields( $editor_form ); ?>
 
             <div class="text_right hidden">
 
@@ -38,28 +35,20 @@ use const SmartcatSupport\TEXT_DOMAIN;
         </form>
 
         <div class="text_right">
-            <button class="edit_ticket_trigger submit_button"><?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?></button>
+            <button class="edit_ticket_trigger submit_button">
+                <?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?>
+            </button>
         </div>
 
     </div>
 
-    <?php if( isset( $post ) ) : ?>
-
-        <?php if( !$comments ) : ?>
-
-            <div>
-                <?php _e( 'There are no replies for this ticket yet ', TEXT_DOMAIN ); ?>
-                <a href="#" class="reply_trigger"><?php _e( 'click to reply', TEXT_DOMAIN ); ?></a>
-            </div>
-
-        <?php endif; ?>
+    <?php if( isset( $comments ) ) : ?>
 
         <div class="comment_section hidden">
 
-            <form class="comment_form" data-action="save_support_comment">
+            <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
 
-                <textarea class="form_field" name="comment_content"></textarea>
-                <input type="hidden" class="hidden" name="ticket_id" value="<?php esc_attr_e( $post->ID ); ?>" />
+                <?php Form::form_fields( $comment_form ); ?>
 
                 <div class="text_right">
 
@@ -72,7 +61,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
                               data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
                               data-wait="<?php _e( 'Sending', TEXT_DOMAIN ); ?>">
 
-                            <?php _e( 'Reply', TEXT_DOMAIN ); ?>
+                                <?php _e( 'Reply', TEXT_DOMAIN ); ?>
 
                         </span>
 
@@ -82,28 +71,24 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             </form>
 
-            <?php if( $comments ) : ?>
-
-                <?php foreach ( $comments as $comment ) : ?>
-
-                    <div class="comment">
-
-                        <p class="content"><?php esc_html_e( $comment->comment_content ); ?></p>
-
-                        <p class="comment_details">
-
-                            <span class="author"><?php esc_html_e( $comment->comment_author ); ?></span>
-                            <span class="date_posted"><?php esc_html_e( $comment->comment_date ); ?></span>
-
-                        </p>
-
-                    </div>
-
-                <?php endforeach; ?>
-
-            <?php endif; ?>
-
         </div>
+
+        <?php if( $comments ) : ?>
+
+            <?php foreach ( $comments as $comment ) : ?>
+
+                <?php include 'comment.php'; ?>
+
+            <?php endforeach; ?>
+
+        <?php else : ?>
+
+            <div>
+                <?php _e( 'There are no replies for this ticket yet ', TEXT_DOMAIN ); ?>
+                <a href="#" class="reply_trigger"><?php _e( 'click to reply', TEXT_DOMAIN ); ?></a>
+            </div>
+
+        <?php endif; ?>
 
     <?php endif; ?>
 

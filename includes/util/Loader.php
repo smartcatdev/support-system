@@ -37,7 +37,7 @@ final class Loader {
         $view = new View( $this->templates_dir );
 
         $this->ticket_metabox = new SupportTicketMetaBox( $view, new FormBuilder( 'ticket_info' ) );
-        $this->ticket_controller = new TicketHandler( $view, new TicketFormBuilder( 'ticket_form' ) );
+        $this->ticket_controller = new TicketHandler( $view, new FormBuilder( 'ticket_form' ) );
         $this->table_controller = new TicketTableHandler( $view );
 
 

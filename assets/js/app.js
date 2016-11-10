@@ -48,6 +48,8 @@ jQuery(document).ready(function ($) {
                     );
 
                    TicketActions.disableEditing( pane.find( '.edit_ticket_form' ) );
+                } else {
+                    console.log( response.data );
                 }
 
             });
@@ -72,10 +74,6 @@ jQuery(document).ready(function ($) {
         ajaxSubmit: function ( e ) {
             var unlockDelay = 1000;
             var form = $(this);
-
-            // Prevent multiple submissions
-            form.attr('lock', true);
-
             var status = form.find('.submit_button .status');
             var text = form.find('.submit_button .text');
 

@@ -61,31 +61,31 @@ final class Installer extends ActionListener {
             'items_list'            => __( 'Tickets list', TEXT_DOMAIN ),
             'items_list_navigation' => __( 'Tickets list navigation', TEXT_DOMAIN ),
             'filter_items_list'     => __( 'Filter tickets list', TEXT_DOMAIN )
-	];
-        
-	$capabilities = [];
-        
-	$args = [
-            'label'                 => __( 'Support Ticket', TEXT_DOMAIN ),
-            'description'           => __( 'Tickets for support requests', TEXT_DOMAIN ),
-            'labels'                => $labels,
-            'supports'              => array( 'editor', 'author', 'comments', 'title' ),
-            'hierarchical'          => false,
-            'public'                => false,
-            'show_ui'               => true,
-            'show_in_menu'          => true,
-            'menu_position'         => 70,
-            'menu_icon'             => 'dashicons-sos',
-            'show_in_admin_bar'     => true,
-            'show_in_nav_menus'     => true,
-            'can_export'            => true,
-            'has_archive'           => false,		
-            'exclude_from_search'   => true,
-            'publicly_queryable'    => true,
-            'capabilities'          => $capabilities
-	];
-        
-	register_post_type( 'support_ticket', $args );
+        ];
+
+        $capabilities = [];
+
+        $args = [
+                'label'                 => __( 'Support Ticket', TEXT_DOMAIN ),
+                'description'           => __( 'Tickets for support requests', TEXT_DOMAIN ),
+                'labels'                => $labels,
+                'supports'              => array( 'editor', 'author', 'comments', 'title' ),
+                'hierarchical'          => false,
+                'public'                => false,
+                'show_ui'               => true,
+                'show_in_menu'          => true,
+                'menu_position'         => 70,
+                'menu_icon'             => 'dashicons-sos',
+                'show_in_admin_bar'     => true,
+                'show_in_nav_menus'     => true,
+                'can_export'            => true,
+                'has_archive'           => false,
+                'exclude_from_search'   => true,
+                'publicly_queryable'    => true,
+                'capabilities'          => $capabilities
+        ];
+
+        register_post_type( 'support_ticket', $args );
     }
     
     public function add_user_roles() {

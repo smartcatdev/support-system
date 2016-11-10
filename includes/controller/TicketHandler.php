@@ -2,9 +2,18 @@
 
 namespace SmartcatSupport\controller;
 
+use SmartcatSupport\form\constraint\Match;
 use SmartcatSupport\util\View;
-use SmartcatSupport\template\TicketFormBuilder;
 use SmartcatSupport\util\ActionListener;
+use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\form\FormBuilder;
+use SmartcatSupport\form\field\TextBox;
+use SmartcatSupport\form\field\SelectBox;
+use SmartcatSupport\form\field\TextArea;
+use SmartcatSupport\form\field\Hidden;
+use SmartcatSupport\form\constraint\Choice;
+use SmartcatSupport\form\constraint\Date;
+use SmartcatSupport\form\constraint\Required;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
@@ -14,77 +23,99 @@ use const SmartcatSupport\TEXT_DOMAIN;
  */
 class TicketHandler extends ActionListener {
     private $view;
-    private $form_builder;
+    private $builder;
 
-    public function __construct( View $view, TicketFormBuilder $form_builder ) {
+    public function __construct( View $view, FormBuilder $builder ) {
         $this->view = $view;
-        $this->form_builder = $form_builder;
+        $this->builder = $builder;
 
         $this->add_ajax_action( 'edit_support_ticket', 'edit_ticket' );
         $this->add_ajax_action( 'save_support_ticket', 'save_ticket' );
     }
 
-    public function edit_ticket() {
-        if( current_user_can( 'edit_tickets' ) ) {
-            $user = wp_get_current_user();
-            $ticket = $this->validate_request( $user );
+    private function valid_request() {
+        $ticket = null;
+        $user = wp_get_current_user();
 
-            if( $ticket !== false ) {
+        if( user_can( $user->ID, 'edit_tickets' ) ) {
+            if( isset( $_REQUEST['ticket_id'] ) && (int) $_REQUEST['ticket_id'] > 0 ) {
+                $post = get_post( $_REQUEST['ticket_id'] );
 
-                update_user_meta( $user->ID, 'current_ticket', is_null( $ticket ) ? '' : $ticket->ID );
-
-                $this->edit_form( $ticket );
+                if( isset( $post ) )
+                    if( $post->post_type == 'support_ticket' &&
+                            ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) ) ) {
+                        $ticket = $post;
+                    }
             } else {
-                wp_send_json_error( __( 'Permission error', TEXT_DOMAIN ) );
+                $ticket = false;
             }
+        }
+
+        return $ticket;
+    }
+
+    public function edit_ticket() {
+        $ticket = $this->valid_request();
+
+        if( !empty( $ticket ) ) {
+            $this->ticket_detail( $ticket );
+        } else {
+            wp_send_json_error( __( 'You don\'t have permission to edit this ticket.', TEXT_DOMAIN ) );
         }
     }
 
+    private function ticket_detail( $post, $comments = true ) {
+        $args = [
+            'post'           => $post,
+            'editor_form'    => $this->configure_editor_form( $post ),
+            'ticket_action'  => 'save_support_ticket',
+        ];
+
+        if( $comments ) {
+            $args['comment_form'] = $this->configure_comment_form( $post );
+            $args['comment_action'] = 'support_ticket_reply';
+            $args['comments'] = $this->get_comments( $post->ID );
+        }
+
+        wp_send_json( [
+            'success' => true,
+            'html' => $this->view->render( 'ticket', $args )
+        ] );
+    }
+
     public function save_ticket() {
-        $user = wp_get_current_user();
-        $ticket = $this->validate_request( $user );
+        $ticket = $this->valid_request();
         $error = false;
 
-        if( $ticket !== false ) {
-            $form = $this->form_builder->configure( current_user_can( 'edit_ticket_meta' ) );
+        if( !empty( $ticket ) ) {
+            $form = $this->configure_editor_form( $ticket );
 
             if( $form->is_valid() ) {
                 $data = $form->get_data();
-                $ticket_id = null;
-
-                if( isset( $ticket ) && $ticket->ID == get_user_meta( $user->ID, 'current_ticket', true ) ) {
-                    $ticket_id = $ticket->ID;
-                }
 
                 $post_id = wp_insert_post( [
-                    'ID'            => $ticket_id,
-                    'post_title'    => $data['title'],
+                    'ID'            => $ticket->ID,
+                    'post_title'    => $data['subject'],
                     'post_content'  => $data['content'],
                     'post_status'   => 'publish',
                     'post_type'     => 'support_ticket',
-
-                    'post_author'    => isset( $ticket ) ? $ticket->post_author : null,
+                    'post_author'    => null,
                     'comment_status' => 'open'
                 ] );
 
-                if( $post_id > 0 ) {
-                    if( current_user_can( 'edit_ticket_meta' ) ) {
-                        update_post_meta( $post_id, 'email', $data['email'] );
-                        update_post_meta( $post_id, 'agent', $data['agent'] );
-                        update_post_meta( $post_id, 'status', $data['status'] );
-                        update_post_meta( $post_id, 'date_opened', $data['date_opened'] );
-                    } else {
-                        update_post_meta( $post_id, 'email', $user->user_email );
-                        update_post_meta( $post_id, 'date_opened', date( 'Y-m-d' ) );
+                if( !empty( $post_id ) ) {
+                    foreach( $data as $field => $value ) {
+                        $count = 0;
+                        $field = str_replace( 'm__', '', $field, $count );
+
+                        if( $count > 0 ) {
+                            update_post_meta( $post_id, $field, $value );
+                        }
                     }
-                } else {
-                    $error = __( 'An error has occurred', TEXT_DOMAIN );
                 }
             } else {
                 $error = $form->get_errors();
             }
-        } else {
-            $error = __( 'Permission error', TEXT_DOMAIN );
         }
 
         if( !empty( $error ) ) {
@@ -112,44 +143,106 @@ class TicketHandler extends ActionListener {
 
     }
 
-    private function validate_request( $user ) {
-        $ticket = null;
+    private function configure_editor_form( $post ) {
+        $this->builder->add( Hidden::class, 'ticket_id',
+            [
+                'value'       => $post->ID,
+//                'constraints' =>  [
+//                    $this->builder->create_constraint( Match::class, $post->ID )
+//                ]
+            ]
+        )->add( TextBox::class, 'subject',
+            [
+                'label'         => 'Subject',
+                'value'         => isset( $post ) ? $post->post_title : '',
+                'error_msg'     => __( 'Subject cannot be blank', TEXT_DOMAIN ),
+                'constraints'   =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+            ]
+        )->add( TextArea::class, 'content',
+            [
+                'label' => 'Description',
+                'value' => isset( $post ) ? $post->post_content : '',
+                'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN ),
+                'constraints' =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+            ]
+        );
 
-        if( isset( $_REQUEST['ticket_id'] ) ) {
-            $post = get_post( $_REQUEST['ticket_id'] );
+        if( current_user_can( 'edit_ticket_meta' ) ) {
 
-            if ( isset( $post ) && $post->post_type == 'support_ticket' ) {
-                if( $post->post_author == $user->ID || current_user_can( 'edit_others_tickets' ) ) {
-                    $ticket = $post;
-                } else {
-                    $ticket = false;
-                }
-            }
+            $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+            $date = get_post_meta( $post->ID, 'date_opened', true );
+
+            $this->builder->add( TextBox::class, 'm__email',
+                [
+                    'type'              => 'email',
+                    'label'             => 'Contact Email',
+                    'value'             => get_post_meta( $post->ID, 'email', true ),
+                    'sanitize_callback' => 'sanitize_email'
+                ]
+            )->add( SelectBox::class, 'm__agent',
+                [
+                    'label'       => 'Assigned To',
+                    'options'     => $agents,
+                    'value'       => get_post_meta( $post->ID, 'agent', true ),
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+                    ]
+                ]
+            )->add( SelectBox::class, 'm__status',
+                [
+                    'label'       => 'Status',
+                    'options'     => $statuses,
+                    'value'       => get_post_meta( $post->ID, 'status', true ),
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+                    ]
+                ]
+            )->add( TextBox::class, 'm__date_opened',
+                [
+                    'label'       => 'Date Opened',
+                    'type'        => 'date',
+                    'value'       => $date == '' ? date( 'Y-m-d' ) : $date,
+                    'constraints' => [
+                        $this->builder->create_constraint( Date::class )
+                    ]
+                ]
+            );
+
         }
 
-        return $ticket;
+        return apply_filters( 'support_ticket_editor_form', $this->builder, $post )->get_form();
     }
 
-    private function edit_form( $post ) {
-        $form = $this->form_builder->configure( current_user_can( 'edit_ticket_meta' ), $post );
+    private function configure_comment_form( $post ) {
+        $this->builder->clear_config();
 
-        wp_send_json( [
-            'success' => true,
-            'html' => $this->view->render( 'ticket',
-                [
-                    'form'           => $form,
-                    'post'           => $post,
-                    'ticket_action'  => 'save_support_ticket',
-                    'comment_action' => 'submit_comment',
-                    'comments'       => isset( $post ) ? $this->get_comments( $post->ID ) : false
+        return $this->builder->add( TextArea::class, 'comment_content',
+            [
+                'error_msg' => __( 'Comment cannot be blank', TEXT_DOMAIN ),
+                'constraints' =>  [
+                    $this->builder->create_constraint( Required::class )
                 ]
-            )
-        ] );
+            ]
+        )->add( Hidden::class, 'ticket_id',
+            [
+//                'constraints' =>  [
+//                    $this->builder->create_constraint( Match::class, $post->ID )
+//                ]
+            ]
+        )->get_form();
     }
 
     private function get_comments( $post_id ) {
-        return ( new \WP_Comment_Query( [ 'post_id' => $post_id ] ) )->query();
+        return ( new \WP_Comment_Query() )->query( [ 'post_id' => $post_id ] );
     }
+
+
+
 
 //
     public function render_dash() {

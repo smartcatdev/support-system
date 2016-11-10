@@ -37,13 +37,13 @@ class SupportTicketMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function render( $post ) {
-        $form = $this->setup_form( $post );
+        $form = $this->configure_form( $post );
 
         echo $this->view->render( 'metabox', [ 'form' => $form ] );
     }
 
-    private function setup_form( $post ) {
-
+    private function configure_form( $post ) {
+        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
         $date = get_post_meta( $post->ID, 'date_opened', true );
 
@@ -58,10 +58,10 @@ class SupportTicketMetaBox extends MetaBox {
         )->add( SelectBox::class, 'agent',
             [
                 'label'       => 'Assigned To',
-                'options'     => $this->agents(),
-                'value'       => $agent = get_post_meta( $post->ID, 'agent', true ),
+                'options'     => $agents,
+                'value'       => get_post_meta( $post->ID, 'agent', true ),
                 'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $this->agents() ) )
+                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
                 ]
             ]
         )->add( SelectBox::class, 'status',
@@ -88,20 +88,6 @@ class SupportTicketMetaBox extends MetaBox {
         return apply_filters( 'support_ticket_metabox_form', $this->builder, $post )->get_form();
     }
 
-    private function agents() {
-        $agents[ '' ] = 'No Agent Assigned';
-
-        $users = get_users( [ 'role' => [ 'support_agent' ] ] );
-
-        if( $users != null ) {
-            foreach( $users as $user ) {
-                $agents[ $user->ID ] = $user->display_name;
-            }
-        }
-
-        return $agents;
-    }
-
     /**
      * @see \SmartcatSupport\admin\MetaBox
      * @param int $post_id The ID of the current post.
@@ -110,7 +96,7 @@ class SupportTicketMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function save( $post_id, $post ) {
-        $form = $this->setup_form( $post );
+        $form = $this->configure_form( $post );
 
         if( $form->is_valid() ) {
             $data = $form->get_data();
