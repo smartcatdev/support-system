@@ -150,8 +150,14 @@ textarea.form_field {
     padding: 20px;
 }
 
-.comment_section .submit_button {
-    margin-top: 30px;
+.comment_form table {
+    margin: 0;
+}
+
+.comment_form table,
+.comment_form table th,
+.comment_form table td {
+    border: none;
 }
 
 @keyframes spin {

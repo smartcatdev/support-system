@@ -5,11 +5,11 @@ jQuery(document).ready(function ($) {
         initialize: function () {
 
             $(document).on('dblclick', 'tr', TicketActions.viewTicket);
-
-            $(document).on('submit', '.edit_ticket_form', TicketActions.ajaxSubmit);
-            $(document).on('submit', '.comment_form', TicketActions.ajaxSubmit);
-            $(document).on('click', '.reply_trigger', TicketActions.showReplyForm);
             $(document).on('click', '.edit_ticket_trigger', TicketActions.editTicket);
+
+            $(document).on('submit', '.edit_ticket_form', { callback: TicketActions.disableEditing }, TicketActions.ajaxSubmit );
+            $(document).on('submit', '.comment_form', { callback: TicketActions.appendComment }, TicketActions.ajaxSubmit);
+
 
             $.SmartcatSupport().wp_ajax('list_support_tickets', null, function (response) {
 
@@ -65,12 +65,6 @@ jQuery(document).ready(function ($) {
             $(this).parent().hide();
         },
 
-        showReplyForm: function (e) {
-            $('.comment_section').show() && $(this).parent().remove();
-
-            e.preventDefault();
-        },
-
         ajaxSubmit: function ( e ) {
             var unlockDelay = 1000;
             var form = $(this);
@@ -82,7 +76,6 @@ jQuery(document).ready(function ($) {
             text.text(text.data('wait'));
 
             $.SmartcatSupport().wp_ajax($(this).data('action'), $(this).serializeArray(), function (response) {
-
                 form.find('.error_field').removeClass('error_field');
                 form.find('.error_msg').remove();
 
@@ -94,7 +87,7 @@ jQuery(document).ready(function ($) {
                     setTimeout( function () {
                         status.removeClass('check');
                         text.text(text.data('default'));
-                        TicketActions.disableEditing(form);
+                        e.data.callback( form, response.data );
                     }, unlockDelay );
 
                 } else {
@@ -131,6 +124,11 @@ jQuery(document).ready(function ($) {
             form.find('.submit_button').parent().hide();
             form.parent().find('.edit_ticket_trigger').parent().show();
             form.find('.form_field').prop('disabled', true);
+        },
+
+        appendComment: function(form, data) {
+            form.parents().find( '.comments' ).prepend( data );
+            form.find('[name="comment_content"]').val('');
         }
 
     };

@@ -31,27 +31,7 @@ class TicketHandler extends ActionListener {
 
         $this->add_ajax_action( 'edit_support_ticket', 'edit_ticket' );
         $this->add_ajax_action( 'save_support_ticket', 'save_ticket' );
-    }
-
-    private function valid_request() {
-        $ticket = null;
-        $user = wp_get_current_user();
-
-        if( user_can( $user->ID, 'edit_tickets' ) ) {
-            if( isset( $_REQUEST['ticket_id'] ) && (int) $_REQUEST['ticket_id'] > 0 ) {
-                $post = get_post( $_REQUEST['ticket_id'] );
-
-                if( isset( $post ) )
-                    if( $post->post_type == 'support_ticket' &&
-                            ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) ) ) {
-                        $ticket = $post;
-                    }
-            } else {
-                $ticket = false;
-            }
-        }
-
-        return $ticket;
+        $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
     }
 
     public function edit_ticket() {
@@ -64,28 +44,8 @@ class TicketHandler extends ActionListener {
         }
     }
 
-    private function ticket_detail( $post, $comments = true ) {
-        $args = [
-            'post'           => $post,
-            'editor_form'    => $this->configure_editor_form( $post ),
-            'ticket_action'  => 'save_support_ticket',
-        ];
-
-        if( $comments ) {
-            $args['comment_form'] = $this->configure_comment_form( $post );
-            $args['comment_action'] = 'support_ticket_reply';
-            $args['comments'] = $this->get_comments( $post->ID );
-        }
-
-        wp_send_json( [
-            'success' => true,
-            'html' => $this->view->render( 'ticket', $args )
-        ] );
-    }
-
     public function save_ticket() {
         $ticket = $this->valid_request();
-        $error = false;
 
         if( !empty( $ticket ) ) {
             $form = $this->configure_editor_form( $ticket );
@@ -105,42 +65,98 @@ class TicketHandler extends ActionListener {
 
                 if( !empty( $post_id ) ) {
                     foreach( $data as $field => $value ) {
-                        $count = 0;
-                        $field = str_replace( 'm__', '', $field, $count );
+                        $found = 0;
+                        $field = str_replace( 'm__', '', $field, $found );
 
-                        if( $count > 0 ) {
+                        if( !empty( $found ) ) {
                             update_post_meta( $post_id, $field, $value );
                         }
                     }
                 }
-            } else {
-                $error = $form->get_errors();
-            }
-        }
 
-        if( !empty( $error ) ) {
-            wp_send_json_error( $error );
-        } else {
-            wp_send_json_success( __( 'Ticket saved', TEXT_DOMAIN ) );
+                wp_send_json_success();
+            } else {
+                wp_send_json_error( $form->get_errors() );
+            }
         }
     }
 
     public function submit_comment() {
-        // get post from user meta
+        $ticket = $this->valid_request();
 
+        if( !empty( $ticket ) ) {
+            $form = $this->configure_comment_form( $ticket );
+
+            if( $form->is_valid() ) {
+                $data = $form->get_data();
+                $user = wp_get_current_user();
+
+                //TODO add error for flooding
+                add_filter( 'comment_flood_filter', '__return_false' );
+
+                $comment_id = wp_new_comment( [
+                    'comment_post_ID'      => $data['ticket_id'],
+                    'comment_author'       => $user->display_name,
+                    'comment_author_email' => $user->user_email,
+                    'comment_author_url'   => $user->user_url,
+                    'comment_content'      => $data['comment_content'],
+                    'comment_parent'       => 0,
+                    'user_id'              => $user->ID
+                ] );
+
+                if( !empty( $comment_id ) ) {
+                    wp_send_json( [
+                        'success' => true,
+                        'data'    => $this->view->render( 'comment', [
+                            'comment' => get_comment( $comment_id )
+                        ] )
+                    ] );
+                }
+            } else {
+                wp_send_json_error( $form ->get_errors() );
+            }
+        }
+
+    }
+
+    private function valid_request() {
+        $ticket = null;
         $user = wp_get_current_user();
 
-        $comment_id = wp_new_comment( [
-            'comment_post_ID'       => $post->ID,
-            'comment_author'        => $user->display_name,
-            'comment_author_email'  => $user->user_email,
-            'comment_content'       => $comment,
-            'comment_parent'        => 0,
-            'user_id'               => $user->ID
+        if( user_can( $user->ID, 'edit_tickets' ) ) {
+            if( isset( $_REQUEST['ticket_id'] ) && (int) $_REQUEST['ticket_id'] > 0 ) {
+                $post = get_post( $_REQUEST['ticket_id'] );
 
+                if( isset( $post ) )
+                    if( $post->post_type == 'support_ticket' &&
+                        ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) ) ) {
+                        $ticket = $post;
+                    }
+            } else {
+                $ticket = false;
+            }
+        }
+
+        return $ticket;
+    }
+
+    private function ticket_detail( $post, $comments = true ) {
+        $args = [
+            'post'           => $post,
+            'editor_form'    => $this->configure_editor_form( $post ),
+            'ticket_action'  => 'save_support_ticket',
+        ];
+
+        if( $comments ) {
+            $args['comment_form'] = $this->configure_comment_form( $post );
+            $args['comment_action'] = 'support_ticket_reply';
+            $args['comments'] = $this->get_comments( $post->ID );
+        }
+
+        wp_send_json( [
+            'success' => true,
+            'html' => $this->view->render( 'ticket', $args )
         ] );
-
-
     }
 
     private function configure_editor_form( $post ) {
@@ -230,6 +246,7 @@ class TicketHandler extends ActionListener {
             ]
         )->add( Hidden::class, 'ticket_id',
             [
+                'value'     => $post->ID,
 //                'constraints' =>  [
 //                    $this->builder->create_constraint( Match::class, $post->ID )
 //                ]

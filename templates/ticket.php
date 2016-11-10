@@ -18,6 +18,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
                 <button class="submit_button">
 
                     <div class="status hidden"></div>
+
                     <span class="text"
                         data-default="<?php _e( 'Save', TEXT_DOMAIN ); ?>"
                         data-success="<?php _e( 'Saved', TEXT_DOMAIN ); ?>"
@@ -35,16 +36,20 @@ use const SmartcatSupport\TEXT_DOMAIN;
         </form>
 
         <div class="text_right">
+
             <button class="edit_ticket_trigger submit_button">
+
                 <?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?>
+
             </button>
+
         </div>
 
     </div>
 
     <?php if( isset( $comments ) ) : ?>
 
-        <div class="comment_section hidden">
+        <div class="comment_section">
 
             <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
 
@@ -71,24 +76,21 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             </form>
 
-        </div>
+            <div class="comments">
 
-        <?php if( $comments ) : ?>
+                <?php if( !empty( $comments ) ) : ?>
 
-            <?php foreach ( $comments as $comment ) : ?>
+                    <?php foreach ( $comments as $comment ) : ?>
 
-                <?php include 'comment.php'; ?>
+                        <?php include 'comment.php'; ?>
 
-            <?php endforeach; ?>
+                    <?php endforeach; ?>
 
-        <?php else : ?>
+                <?php endif; ?>
 
-            <div>
-                <?php _e( 'There are no replies for this ticket yet ', TEXT_DOMAIN ); ?>
-                <a href="#" class="reply_trigger"><?php _e( 'click to reply', TEXT_DOMAIN ); ?></a>
             </div>
 
-        <?php endif; ?>
+        </div>
 
     <?php endif; ?>
 
