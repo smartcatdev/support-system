@@ -10,7 +10,6 @@ jQuery(document).ready(function ($) {
             $(document).on('submit', '.edit_ticket_form', { callback: TicketActions.disableEditing }, TicketActions.ajaxSubmit );
             $(document).on('submit', '.comment_form', { callback: TicketActions.appendComment }, TicketActions.ajaxSubmit);
 
-
             $.SmartcatSupport().wp_ajax('list_support_tickets', null, function (response) {
 
                 $('#support_ticket_tab_view').Tabular( {
@@ -76,6 +75,8 @@ jQuery(document).ready(function ($) {
             text.text(text.data('wait'));
 
             $.SmartcatSupport().wp_ajax($(this).data('action'), $(this).serializeArray(), function (response) {
+                console.log( response );
+
                 form.find('.error_field').removeClass('error_field');
                 form.find('.error_msg').remove();
 
@@ -98,7 +99,7 @@ jQuery(document).ready(function ($) {
                     // Match fields to error messages
                     $.each(response.data, function (key, value) {
 
-                        var field = $(form).find('[data-field_name="' + key + '"]');
+                        var field = $(form).find('[name="' + key + '"]');
                         field.addClass('error_field');
                         field.parent().append('<span class="error_msg">' + value + '</span>');
 

@@ -89,7 +89,7 @@ final class Installer extends ActionListener {
     }
     
     public function add_user_roles() {
-        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'edit_tickets' => true, 'edit_others_tickets' => true, 'edit_ticket_meta' => true ] );
+        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true, 'edit_ticket_meta' => true ] );
         add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'edit_tickets' => true ] );
     }
     

@@ -55,6 +55,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <?php Form::form_fields( $comment_form ); ?>
 
+                <?php wp_comment_form_unfiltered_html_nonce(); ?>
+
                 <div class="text_right">
 
                     <button class="submit_button">

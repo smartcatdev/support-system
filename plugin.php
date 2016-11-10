@@ -24,6 +24,7 @@ const TEXT_DOMAIN = 'ca.smartcat.support';
 // Manual includes
 include_once 'vendor/autoload.php';
 include_once  'api.php';
+include_once 'functions.php';
 
 
 // Kickoff the plugin's init

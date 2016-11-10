@@ -160,6 +160,51 @@ textarea.form_field {
     border: none;
 }
 
+.comment {
+    padding: 20px 30px;
+}
+
+.comment:nth-child(even) {
+    background-color: #e1eef8;
+}
+
+.comment .details > div {
+    display: inline-block;
+    float: left;
+}
+
+.comment .details > div.image-wrapper {
+    margin-right: 20px;
+
+}
+
+.comment .details > p {
+    margin: 0;
+    padding-top: 10px;
+}
+
+.comment .details .author_name {
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+
+.comment .details .date_posted {
+    color: grey;
+    font-size: 0.6em;
+}
+
+.comment .details img {
+    display: inline-block;
+    vertical-align: top;
+ }
+
+.comment .content {
+    padding-top: 10px;
+    font-size: 0.8em;
+    margin-bottom: 0;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

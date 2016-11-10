@@ -3,6 +3,7 @@
 namespace SmartcatSupport\controller;
 
 use SmartcatSupport\form\constraint\Match;
+use SmartcatSupport\form\field\TextEditor;
 use SmartcatSupport\util\View;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\descriptor\Option;
@@ -94,21 +95,22 @@ class TicketHandler extends ActionListener {
                 //TODO add error for flooding
                 add_filter( 'comment_flood_filter', '__return_false' );
 
-                $comment_id = wp_new_comment( [
+                $comment = wp_handle_comment_submission( [
                     'comment_post_ID'      => $data['ticket_id'],
-                    'comment_author'       => $user->display_name,
-                    'comment_author_email' => $user->user_email,
-                    'comment_author_url'   => $user->user_url,
-                    'comment_content'      => $data['comment_content'],
+                    'author'               => $user->display_name,
+                    'email'                => $user->user_email,
+                    'url'                  => $user->user_url,
+                    'comment'              => $data['comment_content'],
                     'comment_parent'       => 0,
-                    'user_id'              => $user->ID
+                    'user_id'              => $user->ID,
+                    '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
                 ] );
 
-                if( !empty( $comment_id ) ) {
+                if( !is_wp_error( $comment ) ) {
                     wp_send_json( [
                         'success' => true,
                         'data'    => $this->view->render( 'comment', [
-                            'comment' => get_comment( $comment_id )
+                            'comment' => $comment
                         ] )
                     ] );
                 }
@@ -240,13 +242,13 @@ class TicketHandler extends ActionListener {
         return $this->builder->add( TextArea::class, 'comment_content',
             [
                 'error_msg' => __( 'Comment cannot be blank', TEXT_DOMAIN ),
-                'constraints' =>  [
+                'constraints' => [
                     $this->builder->create_constraint( Required::class )
                 ]
             ]
         )->add( Hidden::class, 'ticket_id',
             [
-                'value'     => $post->ID,
+                'value' => $post->ID,
 //                'constraints' =>  [
 //                    $this->builder->create_constraint( Match::class, $post->ID )
 //                ]
