@@ -2,18 +2,53 @@
     display: none;
 }
 
-.text_right {
-    text-align: right;
+.ticket_detail {
+    margin: 20px auto;
+}
+
+/*** TAB BAR ***/
+
+.tabular_tab_bar {
+    border: 1px solid;
+    height: 40px;
+}
+
+.tabular_tab_bar li {
+    display: inline-block;
+    float: left;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
+
+
+    border: 1px solid red;
+}
+
+.tabular_tab_bar li a {
+    height: 100%;
+    width: 150px;
+    display: inline-block;
+    float: left;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/*** SUBMIT BUTTON ***/
+
+.submit_button_wrapper {
+    text-align: center;
 }
 
 .submit_button {
     padding: 5px 10px;
-    margin: 0 4px;
     border: 2px solid #378ccd;
     color: #fff;
     border-radius: 3px;
     background-color: #378ccd;
-    width: 150px;
+    width: 97%;
     height: 40px;
 }
 
@@ -62,6 +97,54 @@
     content: "\2716";
 }
 
+/*** FORM SECTION ***/
+
+.ticket_detail form {
+    padding: 5px 5px 10px 5px;
+    border-radius: 4px;
+}
+
+.ticket_detail table,
+.ticket_detail table th,
+.ticket_detail table td {
+    border: none;
+    margin: 0;
+    padding: 3px;
+}
+
+.ticket_editor {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.edit_ticket_form table th,
+.edit_ticket_form table td {
+    display: block;
+    vertical-align: text-top;
+}
+
+.edit_ticket_form table tr:nth-child(1) {
+    display: none;
+}
+
+
+.edit_ticket_form .submit_button_wrapper {
+    margin-top: 10px;
+}
+
+.comment_form {
+    border: 1px solid #ddd;
+}
+
+/*** FORM FIELDS **/
+
+.form_field[disabled] {
+    box-shadow: none;
+    opacity: 1;
+    background-color: #fff;
+    border: none;
+}
+
 .error_field {
     border: 1px solid red !important;
 }
@@ -76,100 +159,28 @@
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05);
 }
 
-.form_field[disabled] {
-    box-shadow: none;
-    opacity: 1;
-    background-color: #fff;
-    border: none;
+.ticket_detail form label {
+    font-size: 0.9em;
+    font-weight: 600;
 }
 
-/*select.form_field[disabled] {*/
-    /*appearance: none;*/
-    /*-webkit-appearance: none;*/
-    /*-moz-appearance: none;*/
-/*}*/
-
-/*select.form_field[disabled]::-ms-expand {*/
-    /*display: none;*/
-/*}*/
-
-.tabular_tab_bar {
-    border: 1px solid;
-    height: 40px;
-}
-
-.tabular_tab_bar li {
-    display: inline-block;
-    float: left;
-    padding: 0 10px;
-    height: 40px;
-    line-height: 40px;
-    width: 200px;
-
-
-    border: 1px solid red;
-}
-
-.tabular_tab_bar li a {
-    height: 100%;
-    width: 150px;
-    display: inline-block;
-    float: left;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.ticket_detail {
-    margin: 20px auto;
-}
-
-.ticket_editor {
-    margin: 20px 0;
-    border-radius: 2px;
-    padding: 20px;
-    border: 1px solid #666;
-}
-
-.edit_ticket_form table,
-.edit_ticket_form table th,
-.edit_ticket_form table td {
-    border: none;
-}
-
-.edit_ticket_form table th,
-.edit_ticket_form table td {
-    display: block;
-    vertical-align: text-top;
-}
-
-.edit_ticket_form .form_field {
+.ticket_detail .form_field {
+    font-size: 0.9em;
+    padding: 10px;
     width: 100%;
 }
+
+.ticket_detail .form_field[name="subject"] {
+    font-size: 1.5em;
+}
+
+/*** COMMENT SECTION ***/
 
 .comment_section > *,
 .comments > * {
     margin: 20px 0;
 }
 
-.comment_section form {
-    padding: 5px 5px 10px 5px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-.comment_form table,
-.comment_form table th,
-.comment_form table td {
-    border: none;
-    margin: 0;
-    padding: 3px;
-}
-
-.comment_form textarea {
-    padding: 10px;
-}
 /*** SINGLE COMMENT ***/
 
 .comment .details {
@@ -181,7 +192,7 @@
     position: relative;
 }
 
-.comment .details .image-wrapper {
+.comment .details .image_wrapper {
     margin: 0 10px;
     float: left;
 }
@@ -214,8 +225,24 @@
 }
 
 .comment_form .error_msg {
-    position: absolute;
-    margin: 18px 10px;
+    display: block;
+    margin-top: 5px;
+}
+
+@media( min-width: 767px ) {
+    .submit_button {
+        width: 150px;
+        margin: 0 4px;
+    }
+
+    .submit_button_wrapper {
+        text-align: right;
+    }
+
+    .comment_form .error_msg {
+        position: absolute;
+        margin: 18px 10px;
+    }
 }
 
 @keyframes spin {

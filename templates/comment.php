@@ -5,13 +5,13 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
     <div class="details">
 
-        <div class="image-wrapper">
+        <div class="image_wrapper">
 
             <?php echo get_avatar( $comment, 36 ); ?>
 
         </div>
 
-        <div class="meta-wrapper">
+        <div class="meta_wrapper">
 
             <p class="author_name"><?php esc_html_e( $comment->comment_author ); ?></p>
 

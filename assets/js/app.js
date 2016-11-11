@@ -54,10 +54,12 @@ jQuery(document).ready(function ($) {
             });
         },
 
-        editTicket: function () {
-            var form = $(this).parent().siblings('.edit_ticket_form' );
+        editTicket: function ( e ) {
+            e.preventDefault();
 
-            form.find('.submit_button').parent('div').show();
+            var form = $(this).parents('.edit_ticket_form');
+
+            form.find('.submit_button_wrapper').show();
 
             TicketActions.enableEditing( form );
 
@@ -65,6 +67,8 @@ jQuery(document).ready(function ($) {
         },
 
         ajaxSubmit: function ( e ) {
+            e.preventDefault();
+
             var unlockDelay = 1000;
             var form = $(this);
             var status = form.find('.submit_button .status');
@@ -113,8 +117,6 @@ jQuery(document).ready(function ($) {
                 }, unlockDelay );
 
             });
-
-            e.preventDefault();
         },
 
         enableEditing: function (form) {

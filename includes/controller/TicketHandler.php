@@ -171,7 +171,6 @@ class TicketHandler extends ActionListener {
             ]
         )->add( TextBox::class, 'subject',
             [
-                'label'         => 'Subject',
                 'value'         => isset( $post ) ? $post->post_title : '',
                 'error_msg'     => __( 'Subject cannot be blank', TEXT_DOMAIN ),
                 'constraints'   =>  [
@@ -180,7 +179,7 @@ class TicketHandler extends ActionListener {
             ]
         )->add( TextArea::class, 'content',
             [
-                'label' => 'Description',
+                'rows'  => 8,
                 'value' => isset( $post ) ? $post->post_content : '',
                 'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN ),
                 'constraints' =>  [
@@ -218,15 +217,6 @@ class TicketHandler extends ActionListener {
                     'value'       => get_post_meta( $post->ID, 'status', true ),
                     'constraints' => [
                         $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                    ]
-                ]
-            )->add( TextBox::class, 'm__date_opened',
-                [
-                    'label'       => 'Date Opened',
-                    'type'        => 'date',
-                    'value'       => $date == '' ? date( 'Y-m-d' ) : $date,
-                    'constraints' => [
-                        $this->builder->create_constraint( Date::class )
                     ]
                 ]
             );

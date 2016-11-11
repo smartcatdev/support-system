@@ -13,37 +13,41 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php Form::form_fields( $editor_form ); ?>
 
-            <div class="text_right hidden">
+
+            <div class="submit_button_wrapper hidden">
 
                 <button class="submit_button">
 
                     <div class="status hidden"></div>
 
                     <span class="text"
-                        data-default="<?php _e( 'Save', TEXT_DOMAIN ); ?>"
-                        data-success="<?php _e( 'Saved', TEXT_DOMAIN ); ?>"
-                        data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
-                        data-wait="<?php _e( 'Saving', TEXT_DOMAIN ); ?>">
+                          data-default="<?php _e( 'Save', TEXT_DOMAIN ); ?>"
+                          data-success="<?php _e( 'Saved', TEXT_DOMAIN ); ?>"
+                          data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
+                          data-wait="<?php _e( 'Saving', TEXT_DOMAIN ); ?>">
 
-                            <?php _e( 'Save', TEXT_DOMAIN ); ?>
+                                <?php _e( 'Save', TEXT_DOMAIN ); ?>
 
-                    </span>
+                        </span>
 
                 </button>
 
             </div>
 
+            <div class="submit_button_wrapper">
+
+                <button class="edit_ticket_trigger submit_button">
+
+                    <?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?>
+
+                </button>
+
+            </div>
+
+
         </form>
 
-        <div class="text_right">
 
-            <button class="edit_ticket_trigger submit_button">
-
-                <?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?>
-
-            </button>
-
-        </div>
 
     </div>
 
@@ -71,7 +75,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                <div class="text_right">
+                <div class="submit_button_wrapper">
 
                     <button class="submit_button">
 
