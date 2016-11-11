@@ -6,7 +6,7 @@ use SmartcatSupport\admin\SupportTicketMetaBox;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\template\TicketFormBuilder;
 use SmartcatSupport\controller\TicketHandler;
-use SmartcatSupport\controller\TicketTableHandler;
+use SmartcatSupport\controller\TableHandler;
 use SmartcatSupport\controller\CommentHandler;
 use const SmartcatSupport\PLUGIN_VERSION;
 
@@ -40,7 +40,7 @@ final class Loader {
         $this->ticket_metabox = new SupportTicketMetaBox( $view, new FormBuilder( 'ticket_info' ) );
         $this->ticket_controller = new TicketHandler( $view, new FormBuilder( 'ticket_form' ) );
         $this->comment_controller = new CommentHandler( $view, new FormBuilder( 'comment_form' ) );
-        $this->table_controller = new TicketTableHandler( $view );
+        $this->table_controller = new TableHandler( $view );
 
 
         // TODO temporary shortcode assignment

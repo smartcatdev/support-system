@@ -181,7 +181,7 @@ class TicketHandler extends ActionListener {
         return apply_filters( 'support_ticket_editor_form', $this->builder, $post )->get_form();
     }
 
-//
+    //TODO Put this in a dash handler class for dashboard events
     public function render_dash() {
         echo $this->view->render( 'dash' );
     }

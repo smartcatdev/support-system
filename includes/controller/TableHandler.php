@@ -5,7 +5,7 @@ namespace SmartcatSupport\controller;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\View;
 
-class TicketTableHandler extends ActionListener  {
+class TableHandler extends ActionListener  {
     private $view;
 
     public function __construct( View $view ) {
