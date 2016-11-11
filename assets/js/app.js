@@ -125,10 +125,11 @@ jQuery(document).ready(function ($) {
             form.find('.submit_button').parent().hide();
             form.parent().find('.edit_ticket_trigger').parent().show();
             form.find('.form_field').prop('disabled', true);
+
         },
 
         appendComment: function(form, data) {
-            form.parents().find( '.comments' ).prepend( data );
+            form.parents().find( '.comments' ).append( data );
             form.find('[name="comment_content"]').val('');
         }
 

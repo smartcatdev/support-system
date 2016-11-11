@@ -76,15 +76,15 @@
     border: none;
 }
 
-select.form_field[disabled] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
+/*select.form_field[disabled] {*/
+    /*appearance: none;*/
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+/*}*/
 
-textarea.form_field {
-    min-height: 200px !important;
-}
+/*select.form_field[disabled]::-ms-expand {*/
+    /*display: none;*/
+/*}*/
 
 .tabular_tab_bar {
     border: 1px solid;
@@ -200,6 +200,7 @@ textarea.form_field {
  }
 
 .comment .content {
+    clear: both;
     padding-top: 10px;
     font-size: 0.8em;
     margin-bottom: 0;

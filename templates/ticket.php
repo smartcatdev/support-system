@@ -51,6 +51,20 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <div class="comment_section">
 
+            <div class="comments">
+
+                <?php if( !empty( $comments ) ) : ?>
+
+                    <?php foreach ( $comments as $comment ) : ?>
+
+                        <?php include 'comment.php'; ?>
+
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+            </div>
+
             <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
 
                 <?php Form::form_fields( $comment_form ); ?>
@@ -77,20 +91,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
                 </div>
 
             </form>
-
-            <div class="comments">
-
-                <?php if( !empty( $comments ) ) : ?>
-
-                    <?php foreach ( $comments as $comment ) : ?>
-
-                        <?php include 'comment.php'; ?>
-
-                    <?php endforeach; ?>
-
-                <?php endif; ?>
-
-            </div>
 
         </div>
 

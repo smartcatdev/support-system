@@ -152,7 +152,7 @@ class TicketHandler extends ActionListener {
         if( $comments ) {
             $args['comment_form'] = $this->configure_comment_form( $post );
             $args['comment_action'] = 'support_ticket_reply';
-            $args['comments'] = $this->get_comments( $post->ID );
+            $args['comments'] = get_comments( [ 'post_id' => $post->ID, 'order' => 'ASC' ] );
         }
 
         wp_send_json( [
@@ -241,7 +241,8 @@ class TicketHandler extends ActionListener {
 
         return $this->builder->add( TextArea::class, 'comment_content',
             [
-                'error_msg' => __( 'Comment cannot be blank', TEXT_DOMAIN ),
+                'rows' => 5,
+                'error_msg' => __( 'Reply cannot be blank', TEXT_DOMAIN ),
                 'constraints' => [
                     $this->builder->create_constraint( Required::class )
                 ]
@@ -255,11 +256,6 @@ class TicketHandler extends ActionListener {
             ]
         )->get_form();
     }
-
-    private function get_comments( $post_id ) {
-        return ( new \WP_Comment_Query() )->query( [ 'post_id' => $post_id ] );
-    }
-
 
 
 
