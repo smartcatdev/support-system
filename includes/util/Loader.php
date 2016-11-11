@@ -16,7 +16,7 @@ use const SmartcatSupport\PLUGIN_VERSION;
  * @author Eric Green <eric@smartcat.ca>
  * @since 1.0.0
  */
-final class Loader {
+final class Loader extends ActionListener {
     private static $instance;
     
     private $plugin_dir;
@@ -46,7 +46,7 @@ final class Loader {
         // TODO temporary shortcode assignment
         add_shortcode( 'support-system', [  $this->ticket_controller , 'render_dash' ]  );
         
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+        $this->add_action( 'wp_enqueue_scripts', 'enqueue_assets' );
     }
     
     public static function init( $file ) {
@@ -65,9 +65,10 @@ final class Loader {
         wp_enqueue_style( 'datatables', $this->plugin_url . 'assets/lib/datatables/css/datatables.min.css', [], PLUGIN_VERSION );
 
         wp_enqueue_script( 'tabular', $this->plugin_url . 'assets/lib/tabular.js', [ 'jquery' ], PLUGIN_VERSION );
+        wp_enqueue_script( 'tinymce_js', includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', [ 'jquery' ], false, true );
 
         wp_register_script( 'support_system_functions', $this->plugin_url . 'assets/js/functions.js', [ 'jquery' ], PLUGIN_VERSION );
-        wp_localize_script( 'support_system_functions', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
+        wp_localize_script( 'support_system_functions', 'SmartcatSupport', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ), 'assetsURL' => $this->plugin_url . 'assets' ] );
         wp_enqueue_script( 'support_system_functions' );
 
         wp_enqueue_script( 'support_system_app', $this->plugin_url . 'assets/js/app.js', [ 'jquery', 'support_system_functions' ], PLUGIN_VERSION );

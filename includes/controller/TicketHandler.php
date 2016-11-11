@@ -49,8 +49,9 @@ class TicketHandler extends ActionListener {
 
         if( !empty( $ticket ) ) {
             $form = $this->configure_editor_form( $ticket );
+            $meta = $this->configure_meta_form( $ticket );
 
-            if( $form->is_valid() ) {
+            if( $form->is_valid() && $meta->is_valid() ) {
                 $data = $form->get_data();
 
                 $post_id = wp_insert_post( [
@@ -64,22 +65,17 @@ class TicketHandler extends ActionListener {
                 ] );
 
                 if( !empty( $post_id ) ) {
-                    foreach( $data as $field => $value ) {
-                        $found = 0;
-                        $field = str_replace( 'm__', '', $field, $found );
-
-                        if( !empty( $found ) ) {
-                            update_post_meta( $post_id, $field, $value );
-                        }
+                    foreach( $meta->get_data() as $field => $value ) {
+                        update_post_meta( $post_id, $field, $value );
                     }
 
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                    wp_send_json_success();
+                    wp_send_json_success( $this->ticket_detail( get_post( $post_id ) ) );
                 }
 
 
             } else {
-                wp_send_json_error( $form->get_errors() );
+                wp_send_json_error( $form->get_errors() + $meta->get_errors() );
             }
         }
     }
@@ -111,12 +107,15 @@ class TicketHandler extends ActionListener {
                 [
                     'post'           => $post,
                     'editor_form'    => $this->configure_editor_form( $post ),
+                    'meta_form'      => $this->configure_meta_form( $post ),
                     'ticket_action'  => 'save_support_ticket',
                 ]
         ) );
     }
 
     private function configure_editor_form( $post ) {
+        $this->builder->clear_config();
+
         $this->builder->add( Hidden::class, 'ticket_id',
             [
                 'value'       => $post->ID,
@@ -134,7 +133,6 @@ class TicketHandler extends ActionListener {
             ]
         )->add( TextArea::class, 'content',
             [
-                'rows'  => 8,
                 'value' => isset( $post ) ? $post->post_content : '',
                 'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN ),
                 'constraints' =>  [
@@ -143,42 +141,45 @@ class TicketHandler extends ActionListener {
             ]
         );
 
-        if( current_user_can( 'edit_ticket_meta' ) ) {
+        return $this->builder->get_form();
+    }
 
-            $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
-            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
-            $date = get_post_meta( $post->ID, 'date_opened', true );
+    private function configure_meta_form( $post ) {
+        $this->builder->clear_config();
 
-            $this->builder->add( TextBox::class, 'm__email',
-                [
-                    'type'              => 'email',
-                    'label'             => 'Contact Email',
-                    'value'             => get_post_meta( $post->ID, 'email', true ),
-                    'sanitize_callback' => 'sanitize_email'
+        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+        $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
+        $this->builder->add( TextBox::class, 'email',
+            [
+                'type'              => 'email',
+                'label'             => 'Contact Email',
+                'value'             => get_post_meta( $post->ID, 'email', true ),
+                'sanitize_callback' => 'sanitize_email'
+            ]
+        )->add( SelectBox::class, 'agent',
+            [
+                'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
+                'label'       => 'Assigned To',
+                'options'     => $agents,
+                'value'       => get_post_meta( $post->ID, 'agent', true ),
+                'constraints' => [
+                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
                 ]
-            )->add( SelectBox::class, 'm__agent',
-                [
-                    'label'       => 'Assigned To',
-                    'options'     => $agents,
-                    'value'       => get_post_meta( $post->ID, 'agent', true ),
-                    'constraints' => [
-                        $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
-                    ]
+            ]
+        )->add( SelectBox::class, 'status',
+            [
+                'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
+                'label'       => 'Status',
+                'options'     => $statuses,
+                'value'       => get_post_meta( $post->ID, 'status', true ),
+                'constraints' => [
+                    $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
                 ]
-            )->add( SelectBox::class, 'm__status',
-                [
-                    'label'       => 'Status',
-                    'options'     => $statuses,
-                    'value'       => get_post_meta( $post->ID, 'status', true ),
-                    'constraints' => [
-                        $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                    ]
-                ]
-            );
+            ]
+        );
 
-        }
-
-        return apply_filters( 'support_ticket_editor_form', $this->builder, $post )->get_form();
+        return apply_filters( 'support_ticket_meta_form', $this->builder, $post )->get_form();
     }
 
     //TODO Put this in a dash handler class for dashboard events

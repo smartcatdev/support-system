@@ -6,6 +6,14 @@
     margin: 20px auto;
 }
 
+.support_ticket table,
+.support_ticket table th,
+.support_ticket table td {
+    border: none;
+    margin: 0;
+    padding: 3px;
+}
+
 /*** TAB BAR ***/
 
 .tabular_tab_bar {
@@ -99,16 +107,8 @@
 
 /*** FORM SECTION ***/
 
-.ticket_detail form {
+.support_ticket form {
     padding: 5px 5px 10px 5px;
-}
-
-.ticket_detail table,
-.ticket_detail table th,
-.ticket_detail table td {
-    border: none;
-    margin: 0;
-    padding: 3px;
 }
 
 .ticket_detail .ticket_editor .author_name {
@@ -132,21 +132,18 @@
     vertical-align: text-top;
 }
 
-.edit_ticket_form table tr:nth-child(1) {
-    display: none;
-}
-
 .edit_ticket_form .submit_button_wrapper {
     margin-top: 10px;
 }
 
 .comment_form {
     border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 /*** FORM FIELDS **/
 
-.form_field[disabled] {
+.support_ticket .form_field[disabled] {
     box-shadow: none;
     opacity: 1;
     background-color: #fff;
@@ -164,16 +161,16 @@
     margin: 2px;
 }
 
-.ticket_detail textarea {
+.support_ticket textarea.form_field {
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05);
 }
 
-.ticket_detail form label {
+.support_ticket form label {
     font-size: 0.9em;
     font-weight: 600;
 }
 
-.ticket_detail .form_field {
+.support_ticket .form_field {
     font-size: 0.9em;
     padding: 10px;
     width: 100%;
@@ -181,6 +178,10 @@
 
 .ticket_detail .form_field[name="subject"] {
     font-size: 1.5em;
+}
+
+.ticket_detail .form_field[name="content"] {
+    overflow: auto;
 }
 
 /*** COMMENT SECTION ***/
@@ -206,10 +207,6 @@
     float: left;
 }
 
-.details .avatar {
-    margin-top: 4px;
-}
-
 .details .author_name {
     font-weight: 600;
     font-size: 0.9em;
@@ -224,6 +221,10 @@
 
 .details p {
     margin: 0;
+}
+
+.comment .avatar {
+    margin-top: 2px;
 }
 
 .comment .content {
@@ -257,6 +258,28 @@
     .comment_form .error_msg {
         position: absolute;
         margin: 18px 10px;
+    }
+
+    .ticket_editor .meta_fields {
+        margin: 20px 20px 0 20px;
+    }
+
+    .ticket_editor .meta_fields th,
+    .ticket_editor .meta_fields td {
+        display: table-cell;
+    }
+
+    .ticket_editor .meta_fields th {
+        width: 25%;
+    }
+
+    .ticket_editor .meta_fields td {
+        padding-bottom: 20px;
+    }
+
+    .ticket_editor .meta_fields th,
+    .ticket_editor .meta_fields th > label {
+        vertical-align: top;
     }
 }
 

@@ -2,6 +2,8 @@
 
 namespace SmartcatSupport\form\field;
 
+use function SmartcatSupport\api\convert_html_specialchars;
+
 class TextArea extends Field {
     private $rows;
     private $cols;
@@ -24,7 +26,7 @@ class TextArea extends Field {
             name="<?php esc_attr_e( $this->id ); ?>"
             rows="<?php esc_attr_e( $this->rows ); ?>"
             cols="<?php esc_attr_e( $this->cols ); ?>"
-            class="form_field"><?php esc_html_e( trim( $this->value ) ); ?></textarea>
+            class="form_field"><?php echo $this->value; ?></textarea>
 
         <?php }
 }

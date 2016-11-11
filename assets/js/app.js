@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
             $(document).on('dblclick', 'tr', TicketActions.viewTicket);
             $(document).on('click', '.edit_ticket_trigger', TicketActions.editTicket);
 
-            $(document).on('submit', '.edit_ticket_form', { callback: TicketActions.disableEditing }, TicketActions.ajaxSubmit );
+            $(document).on('submit', '.edit_ticket_form', { callback: TicketActions.refreshTicket }, TicketActions.ajaxSubmit );
             $(document).on('submit', '.comment_form', { callback: TicketActions.appendComment }, TicketActions.ajaxSubmit);
 
             $.SmartcatSupport().wp_ajax('list_support_tickets', null, function (response) {
@@ -43,7 +43,7 @@ jQuery(document).ready(function ($) {
 
                 if( response.success ) {
                     var pane = $('#support_ticket_tab_view').Tabular(
-                        'newTab', ticket_id, ticket_subject, response.data
+                        'newTab', ticket_id, ticket_subject, '<div class="support_ticket">' + response.data + '</div>'
                     );
 
                     TicketActions.disableEditing( pane.find( '.edit_ticket_form' ) );
@@ -51,18 +51,28 @@ jQuery(document).ready(function ($) {
                     $.SmartcatSupport().wp_ajax('support_ticket_comments', {ticket_id: ticket_id}, function (response) {
 
                         if (response.success) {
-                            pane.find('.ticket_detail').append(response.data);
+                            pane.find('.ticket_detail').parent().append(response.data);
+
+                            tinymce.init({
+                                selector: '.comment_form textarea',
+                                menubar: false,
+                                plugins: 'wpautoresize',
+                            });
+
                         } else {
                             console.log(response);
                         }
 
                     });
 
+
+
                 } else {
                     console.log( response.data );
                 }
 
             });
+
         },
 
         editTicket: function ( e ) {
@@ -75,6 +85,14 @@ jQuery(document).ready(function ($) {
             TicketActions.enableEditing( form );
 
             $(this).parent().hide();
+        },
+
+        refreshTicket: function ( form, data ) {
+            var frame = form.parents( '.support_ticket' );
+
+            form.parents( '.ticket_detail' ).replaceWith( data );
+
+            TicketActions.disableEditing( frame.find( '.edit_ticket_form' ) );
         },
 
         ajaxSubmit: function ( e ) {
@@ -132,12 +150,29 @@ jQuery(document).ready(function ($) {
 
         enableEditing: function (form) {
             form.find('.form_field').prop('disabled', false);
+
+            tinymce.remove('.ticket_editor textarea');
+
+            tinymce.init({
+                selector: '.ticket_editor textarea',
+                plugins: 'wpautoresize',
+                menubar: false,
+                readonly: 0
+            });
         },
 
         disableEditing: function (form) {
             form.find('.submit_button').parent().hide();
             form.parent().find('.edit_ticket_trigger').parent().show();
             form.find('.form_field').prop('disabled', true);
+
+            tinymce.init({
+                selector: '.ticket_editor textarea',
+                menubar: false,
+                toolbar: false,
+                statusbar: false,
+                readonly: 1
+            });
 
         },
 
