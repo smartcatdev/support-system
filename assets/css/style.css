@@ -111,12 +111,14 @@
     padding: 3px;
 }
 
-.ticket_detail .details .author_name {
+.ticket_detail .ticket_editor .author_name {
     font-size: 1.1em;
 }
 
 .ticket_detail .details .date_posted {
     font-size: 0.8em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .edit_ticket_form {
@@ -205,7 +207,7 @@
 }
 
 .details .avatar {
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .details .author_name {
@@ -229,6 +231,11 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 0 0 4px 4px;
+}
+
+.comment .content > * {
+    margin: 0;
+    padding: 0;
 }
 
 

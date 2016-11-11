@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\api;
 
-function filter_code_from_text( $text ) {
+function convert_html_specialchars( $text ) {
     $matches = [];
 
     preg_match_all( '#<code>(.*?)</code>#', $text, $matches );

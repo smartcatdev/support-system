@@ -1,4 +1,4 @@
-<?php use function SmartcatSupport\api\filter_code_from_text;
+<?php use function SmartcatSupport\api\convert_html_specialchars;
 use const SmartcatSupport\TEXT_DOMAIN; ?>
 
 <div class="comment">
@@ -25,6 +25,6 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
     </div>
 
-    <div class="content"><?php echo filter_code_from_text( $comment->comment_content ); ?></div>
+    <div class="content"><?php echo convert_html_specialchars( $comment->comment_content ); ?></div>
 
 </div>

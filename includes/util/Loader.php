@@ -26,6 +26,7 @@ final class Loader {
     private $ticket_metabox;
     private $ticket_controller;
     private $table_controller;
+    private $comment_controller;
 
     private function __construct( $file ) {
         $this->plugin_dir = plugin_dir_path( $file );
@@ -38,6 +39,7 @@ final class Loader {
 
         $this->ticket_metabox = new SupportTicketMetaBox( $view, new FormBuilder( 'ticket_info' ) );
         $this->ticket_controller = new TicketHandler( $view, new FormBuilder( 'ticket_form' ) );
+        $this->comment_controller = new CommentHandler( $view, new FormBuilder( 'comment_form' ) );
         $this->table_controller = new TicketTableHandler( $view );
 
 

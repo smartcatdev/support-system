@@ -13,7 +13,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <div class="image_wrapper">
 
-                <?php echo get_avatar( $comment, 48 ); ?>
+                <?php echo get_avatar( $post, 48 ); ?>
 
             </div>
 
@@ -23,17 +23,21 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <p class="date_posted">
 
-                    <?php _e( 'Last updated ', TEXT_DOMAIN ); ?>
+                    <?php _e( 'Updated ', TEXT_DOMAIN ); ?>
                     <?php _e( human_time_diff( strtotime( $post->post_date ), current_time( 'timestamp' ) ) . ' ago', TEXT_DOMAIN ); ?>
 
-                    by
+                    <?php if( current_user_can( 'edit_others_tickets' ) ) :?>
 
-                    <span class="author_name">
+                        by
 
-                        <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $post->ID, '_edit_last', true ) ) ); ?>
+                        <span class="author_name">
 
-                    </span>
-                    
+                            <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $post->ID, '_edit_last', true ) ) ); ?>
+
+                        </span>
+
+                    <?php endif; ?>
+
                 </p>
 
             </div>
@@ -76,60 +80,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             </div>
 
-
         </form>
 
-
-
     </div>
-
-    <?php if( isset( $comments ) ) : ?>
-
-        <div class="comment_section">
-
-            <div class="comments">
-
-                <?php if( !empty( $comments ) ) : ?>
-
-                    <?php foreach ( $comments as $comment ) : ?>
-
-                        <?php include 'comment.php'; ?>
-
-                    <?php endforeach; ?>
-
-                <?php endif; ?>
-
-            </div>
-
-            <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
-
-                <?php Form::form_fields( $comment_form ); ?>
-
-                <?php wp_comment_form_unfiltered_html_nonce(); ?>
-
-                <div class="submit_button_wrapper">
-
-                    <button class="submit_button">
-
-                        <div class="status hidden"></div>
-                        <span class="text"
-                              data-default="<?php _e( 'Reply', TEXT_DOMAIN ); ?>"
-                              data-success="<?php _e( 'Sent', TEXT_DOMAIN ); ?>"
-                              data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
-                              data-wait="<?php _e( 'Sending', TEXT_DOMAIN ); ?>">
-
-                                <?php _e( 'Reply', TEXT_DOMAIN ); ?>
-
-                        </span>
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    <?php endif; ?>
 
 </div>

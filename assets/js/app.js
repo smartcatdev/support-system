@@ -43,10 +43,21 @@ jQuery(document).ready(function ($) {
 
                 if( response.success ) {
                     var pane = $('#support_ticket_tab_view').Tabular(
-                        'newTab', ticket_id, ticket_subject, response.html
+                        'newTab', ticket_id, ticket_subject, response.data
                     );
 
-                   TicketActions.disableEditing( pane.find( '.edit_ticket_form' ) );
+                    TicketActions.disableEditing( pane.find( '.edit_ticket_form' ) );
+
+                    $.SmartcatSupport().wp_ajax('support_ticket_comments', {ticket_id: ticket_id}, function (response) {
+
+                        if (response.success) {
+                            pane.find('.ticket_detail').append(response.data);
+                        } else {
+                            console.log(response);
+                        }
+
+                    });
+
                 } else {
                     console.log( response.data );
                 }
