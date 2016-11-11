@@ -101,7 +101,6 @@
 
 .ticket_detail form {
     padding: 5px 5px 10px 5px;
-    border-radius: 4px;
 }
 
 .ticket_detail table,
@@ -112,9 +111,17 @@
     padding: 3px;
 }
 
-.ticket_editor {
-    border-radius: 4px;
+.ticket_detail .details .author_name {
+    font-size: 1.1em;
+}
+
+.ticket_detail .details .date_posted {
+    font-size: 0.8em;
+}
+
+.edit_ticket_form {
     border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
 }
 
 .edit_ticket_form table th,
@@ -126,7 +133,6 @@
 .edit_ticket_form table tr:nth-child(1) {
     display: none;
 }
-
 
 .edit_ticket_form .submit_button_wrapper {
     margin-top: 10px;
@@ -143,6 +149,7 @@
     opacity: 1;
     background-color: #fff;
     border: none;
+    text-overflow: ellipsis;
 }
 
 .error_field {
@@ -183,7 +190,7 @@
 
 /*** SINGLE COMMENT ***/
 
-.comment .details {
+.details {
     border-radius: 4px 4px 0 0;
     margin-bottom: -1px;
     background: #f2f8fa;
@@ -192,23 +199,28 @@
     position: relative;
 }
 
-.comment .details .image_wrapper {
+.details .image_wrapper {
     margin: 0 10px;
     float: left;
 }
 
-.comment .details .avatar {
+.details .avatar {
     margin-top: 2px;
 }
 
-.comment .details .author_name {
+.details .author_name {
     font-weight: 600;
     font-size: 0.9em;
     text-transform: capitalize;
     margin-bottom: 0;
 }
 
-.comment .details p {
+.details .date_posted {
+    color: grey;
+    font-size: 0.6em;
+}
+
+.details p {
     margin: 0;
 }
 
@@ -219,10 +231,6 @@
     border-radius: 0 0 4px 4px;
 }
 
-.comment .details .date_posted {
-    color: grey;
-    font-size: 0.6em;
-}
 
 .comment_form .error_msg {
     display: block;

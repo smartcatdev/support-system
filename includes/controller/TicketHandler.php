@@ -73,9 +73,12 @@ class TicketHandler extends ActionListener {
                             update_post_meta( $post_id, $field, $value );
                         }
                     }
+
+                    update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
+                    wp_send_json_success();
                 }
 
-                wp_send_json_success();
+
             } else {
                 wp_send_json_error( $form->get_errors() );
             }

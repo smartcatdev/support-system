@@ -9,10 +9,42 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <div class="ticket_editor">
 
+        <div class="details">
+
+            <div class="image_wrapper">
+
+                <?php echo get_avatar( $comment, 48 ); ?>
+
+            </div>
+
+            <div class="meta_wrapper">
+
+                <p class="author_name"><?php esc_html_e( get_the_author_meta( 'display_name', $post->post_author ) ); ?></p>
+
+                <p class="date_posted">
+
+                    <?php _e( 'Last updated ', TEXT_DOMAIN ); ?>
+                    <?php _e( human_time_diff( strtotime( $post->post_date ), current_time( 'timestamp' ) ) . ' ago', TEXT_DOMAIN ); ?>
+
+                    by
+
+                    <span class="author_name">
+
+                        <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $post->ID, '_edit_last', true ) ) ); ?>
+
+                    </span>
+                    
+                </p>
+
+            </div>
+
+        </div>
+
         <form class="edit_ticket_form" data-action="<?php esc_attr_e( $ticket_action ); ?>">
 
             <?php Form::form_fields( $editor_form ); ?>
 
+<!--            meta form-->
 
             <div class="submit_button_wrapper hidden">
 
