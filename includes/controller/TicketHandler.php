@@ -241,7 +241,7 @@ class TicketHandler extends ActionListener {
 
         return $this->builder->add( TextArea::class, 'comment_content',
             [
-                'rows' => 5,
+                'rows' => 4,
                 'error_msg' => __( 'Reply cannot be blank', TEXT_DOMAIN ),
                 'constraints' => [
                     $this->builder->create_constraint( Required::class )

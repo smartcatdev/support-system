@@ -7,7 +7,7 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
         <div class="image-wrapper">
 
-            <?php echo get_avatar( $comment, 48 ); ?>
+            <?php echo get_avatar( $comment, 36 ); ?>
 
         </div>
 

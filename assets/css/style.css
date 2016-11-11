@@ -8,7 +8,7 @@
 
 .submit_button {
     padding: 5px 10px;
-    margin: 0;
+    margin: 0 4px;
     border: 2px solid #378ccd;
     color: #fff;
     border-radius: 3px;
@@ -63,14 +63,21 @@
 }
 
 .error_field {
-    border: medium solid red !important;
+    border: 1px solid red !important;
 }
 
 .error_msg {
     color: red;
+    font-size: 0.9em;
+    margin: 2px;
+}
+
+.ticket_detail textarea {
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05);
 }
 
 .form_field[disabled] {
+    box-shadow: none;
     opacity: 1;
     background-color: #fff;
     border: none;
@@ -141,52 +148,64 @@
     width: 100%;
 }
 
-.comment_section {
-    border-radius: 2px;
-    border: 1px solid #000;
+.comment_section > *,
+.comments > * {
+    margin: 20px 0;
 }
 
 .comment_section form {
-    padding: 20px;
-}
-
-.comment_form table {
-    margin: 0;
+    padding: 5px 5px 10px 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
 }
 
 .comment_form table,
 .comment_form table th,
 .comment_form table td {
     border: none;
+    margin: 0;
+    padding: 3px;
 }
 
-.comment {
-    padding: 20px 30px;
+.comment_form textarea {
+    padding: 10px;
+}
+/*** SINGLE COMMENT ***/
+
+.comment .details {
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -1px;
+    background: #f2f8fa;
+    padding: 4px 0px;
+    border: 1px solid #ddd;
+    position: relative;
 }
 
-.comment:nth-child(even) {
-    background-color: #e1eef8;
-}
-
-.comment .details > div {
-    display: inline-block;
+.comment .details .image-wrapper {
+    margin: 0 10px;
     float: left;
 }
 
-.comment .details > div.image-wrapper {
-    margin-right: 20px;
-
-}
-
-.comment .details > p {
-    margin: 0;
-    padding-top: 10px;
+.comment .details .avatar {
+    margin-top: 2px;
 }
 
 .comment .details .author_name {
     font-weight: 600;
+    font-size: 0.9em;
     text-transform: capitalize;
     margin-bottom: 0;
+}
+
+.comment .details p {
+    margin: 0;
+}
+
+.comment .content {
+    font-size: 0.8em;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
 }
 
 .comment .details .date_posted {
@@ -194,16 +213,9 @@
     font-size: 0.6em;
 }
 
-.comment .details img {
-    display: inline-block;
-    vertical-align: top;
- }
-
-.comment .content {
-    clear: both;
-    padding-top: 10px;
-    font-size: 0.8em;
-    margin-bottom: 0;
+.comment_form .error_msg {
+    position: absolute;
+    margin: 18px 10px;
 }
 
 @keyframes spin {
