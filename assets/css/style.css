@@ -1,10 +1,74 @@
+/*** GLOBAL CLASSES **********************************************************/
+
 .hidden {
     display: none;
 }
 
+/*** TINYMCE *****************************************************************/
+
 .mce-panel.disabled {
     border: none !important;
 }
+
+/*** STATUS BAR **************************************************************/
+
+.status_bar {
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -1px;
+    background: #f2f8fa;
+    padding: 4px 0px;
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.status_bar .image_wrapper {
+    margin: 0 10px;
+    float: left;
+}
+
+.status_bar .meta_wrapper {
+    min-height: 36px;
+    display: table-cell;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.status_bar .actions_wrapper {
+    width: 99%;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    text-align: right;
+}
+
+.status_bar .actions_wrapper .action {
+    margin: 0 10px;
+    display: none;
+    cursor: pointer;
+}
+
+.status_bar:hover > .actions_wrapper .action {
+    display: inline;
+}
+
+.status_bar .author_name {
+    font-weight: 600;
+    font-size: 0.9em;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+
+.status_bar .date_posted {
+    color: grey;
+    font-size: 0.6em;
+}
+
+.status_bar p {
+    margin: 0;
+}
+
+/*****************************************************************************/
+
 
 .ticket_detail {
     margin: 20px auto;
@@ -119,7 +183,7 @@
     font-size: 1.1em;
 }
 
-.ticket_detail .details .date_posted {
+.ticket_detail .status_bar .date_posted {
     font-size: 0.8em;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -199,60 +263,7 @@
     display: table;
 }
 
-.details {
-    border-radius: 4px 4px 0 0;
-    margin-bottom: -1px;
-    background: #f2f8fa;
-    padding: 4px 0px;
-    border: 1px solid #ddd;
-    position: relative;
-}
 
-.details .image_wrapper {
-    margin: 0 10px;
-    float: left;
-}
-
-.details .meta_wrapper {
-    min-height: 36px;
-    display: table-cell;
-    vertical-align: middle;
-    white-space: nowrap;
-}
-
-.details .actions_wrapper {
-    width: 99%;
-    display: table-cell;
-    vertical-align: middle;
-    position: relative;
-    text-align: right;
-}
-
-.details .actions_wrapper .action {
-    margin: 0 10px;
-    display: none;
-    cursor: pointer;
-}
-
-.details:hover > .actions_wrapper .action {
-    display: inline;
-}
-
-.details .author_name {
-    font-weight: 600;
-    font-size: 0.9em;
-    text-transform: capitalize;
-    margin-bottom: 0;
-}
-
-.details .date_posted {
-    color: grey;
-    font-size: 0.6em;
-}
-
-.details p {
-    margin: 0;
-}
 
 .comment .avatar {
     margin-top: 2px;

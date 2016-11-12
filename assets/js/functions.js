@@ -1,8 +1,9 @@
-;( function( $ ) {
 
-    $.SmartcatSupport = function() {
+jQuery(document).ready(function ($) {
 
-        var wp_ajax = function( action, data, callback ) {
+    window.SmartcatSupport = {
+
+        wp_ajax: function( action, data, callback ) {
 
             if( data !== null ) {
                 if( Array.isArray( data ) ) {
@@ -14,10 +15,10 @@
                 data = { action: action }
             }
 
-            $.post( SmartcatSupport.ajaxURL, $.param( data ), callback );
-        }
+            $.post( SmartcatSupportVar.ajaxURL, $.param( data ), callback );
+        },
 
-        var tinyMCE = function ( selector, enabled = true ) {
+        tinyMCE: function ( selector, enabled = true ) {
             var args = {
                 selector: selector,
                 menubar: false,
@@ -38,11 +39,6 @@
 
             tinymce.init(args);
         }
+    };
 
-        return {
-            wp_ajax: wp_ajax,
-            tinyMCE: tinyMCE
-        }
-    }
-
-} )( jQuery );
+} );

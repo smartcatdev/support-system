@@ -18,8 +18,32 @@ class CommentHandler extends ActionListener {
         $this->view = $view;
         $this->builder = $builder;
 
+        $this->add_ajax_action( 'support_comment_edit', 'comment_form' );
         $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
         $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
+    }
+
+    public function comment_form() {
+
+        if( isset( $_REQUEST['comment_id'] ) ) {
+            $comment = get_comment( $_REQUEST['comment_id'] );
+
+            if( !empty( $comment ) && wp_get_current_user()->ID == $comment->user_id ) {
+
+                wp_send_json_success( $this->view->render( 'comment_form',
+                    [
+                        'comment_action' => 'support_comment_edit',
+                        'form'  => $this->configure_comment_form( null, $comment ),
+                        'submit_text' => [
+                            'default' => 'Save',
+                            'success' => 'Saved',
+                            'fail' => 'Error',
+                            'wait' => 'Saving'
+                        ]
+                    ]
+                ) );
+            }
+        }
     }
 
     public function submit_comment() {
@@ -77,25 +101,30 @@ class CommentHandler extends ActionListener {
         }
     }
 
-    private function configure_comment_form( $post ) {
+    private function configure_comment_form( $post, $comment = false ) {
         $this->builder->clear_config();
 
-        return $this->builder->add( TextArea::class, 'comment_content',
+        $this->builder->add( TextArea::class, 'comment_content',
             [
                 'rows' => 4,
+                'value' => $comment ? $comment->comment_content : '',
                 'error_msg' => __( 'Reply cannot be blank', TEXT_DOMAIN ),
                 'constraints' => [
                     $this->builder->create_constraint( Required::class )
                 ]
             ]
-        )->add( Hidden::class, 'ticket_id',
-            [
-                'value' => $post->ID,
-//                'constraints' =>  [
-//                    $this->builder->create_constraint( Match::class, $post->ID )
-//                ]
-            ]
-        )->get_form();
+        );
+
+        if( !empty( $post ) ) {
+            $this->builder->add( Hidden::class, 'ticket_id',
+                [
+                    'value' => $post->ID
+                ]
+            )->get_form();
+        }
+
+
+        return $this->builder->get_form();
     }
 
     private function valid_request() {

@@ -1,16 +1,18 @@
 jQuery(document).ready(function ($) {
 
+    // Import library
+    var SmartcatSupport = window.SmartcatSupport;
+
     var TicketEvents = {
 
         initialize: function () {
-
             $(document).on('dblclick', 'tr', TicketActions.viewTicket);
             $(document).on('click', '.edit_ticket_trigger', TicketActions.editTicket);
 
             $(document).on('submit', '.edit_ticket_form', { callback: TicketActions.refreshTicket }, TicketActions.ajaxSubmit );
             $(document).on('submit', '.comment_form', { callback: TicketActions.appendComment }, TicketActions.ajaxSubmit);
 
-            $.SmartcatSupport().wp_ajax('list_support_tickets', null, function (response) {
+            SmartcatSupport.wp_ajax('list_support_tickets', null, function (response) {
 
                 $('#support_ticket_tab_view').Tabular( {
                     noClose: 'ticket_list'
@@ -39,7 +41,7 @@ jQuery(document).ready(function ($) {
             var ticket_id = row['id'];
             var ticket_subject = row['subject'];
 
-            $.SmartcatSupport().wp_ajax('edit_support_ticket', {ticket_id: ticket_id}, function (response) {
+            SmartcatSupport.wp_ajax('edit_support_ticket', {ticket_id: ticket_id}, function (response) {
 
                 if( response.success ) {
                     var pane = $('#support_ticket_tab_view').Tabular(
@@ -48,12 +50,12 @@ jQuery(document).ready(function ($) {
 
                     TicketActions.disableEditing( pane.find( '.edit_ticket_form' ) );
 
-                    $.SmartcatSupport().wp_ajax('support_ticket_comments', {ticket_id: ticket_id}, function (response) {
+                    SmartcatSupport.wp_ajax('support_ticket_comments', {ticket_id: ticket_id}, function (response) {
 
                         if (response.success) {
                             pane.find('.ticket_detail').parent().append(response.data);
 
-                            $.SmartcatSupport().tinyMCE( '.comment_form textarea' );
+                            SmartcatSupport.tinyMCE( '.comment_form textarea' );
                         } else {
                             console.log(response);
                         }
@@ -102,7 +104,7 @@ jQuery(document).ready(function ($) {
             status.removeClass('hidden check fail').addClass('spinner');
             text.text(text.data('wait'));
 
-            $.SmartcatSupport().wp_ajax($(this).data('action'), $(this).serializeArray(), function (response) {
+            SmartcatSupport.wp_ajax($(this).data('action'), $(this).serializeArray(), function (response) {
                 console.log( response );
 
                 form.find('.error_field').removeClass('error_field');
@@ -147,11 +149,11 @@ jQuery(document).ready(function ($) {
             form.find('.form_field').prop('disabled', false);
 
             tinymce.remove( '.ticket_editor textarea' );
-            $.SmartcatSupport().tinyMCE('.ticket_editor textarea');
+            SmartcatSupport.tinyMCE('.ticket_editor textarea');
         },
 
         disableEditing: function (form) {
-            $.SmartcatSupport().tinyMCE( '.ticket_editor textarea', false );
+            SmartcatSupport.tinyMCE( '.ticket_editor textarea', false );
             $( form ).find( '.mce-panel' ).addClass( 'disabled' );
 
             form.find('.submit_button').parent().hide();

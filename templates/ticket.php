@@ -7,7 +7,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 <div class="ticket_detail">
 
-    <div class="details">
+    <div class="status_bar">
 
         <div class="image_wrapper">
 

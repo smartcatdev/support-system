@@ -1,9 +1,9 @@
 <?php use function SmartcatSupport\api\convert_html_specialchars;
 use const SmartcatSupport\TEXT_DOMAIN; ?>
 
-<div class="comment">
+<div class="comment" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
 
-    <div class="details">
+    <div class="status_bar">
 
         <div class="image_wrapper">
 
@@ -29,7 +29,7 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
                 <?php if( $comment->user_id == wp_get_current_user()->ID ) : ?>
 
-                    <span class="action icon-pencil"></span>
+                    <span class="action icon-pencil" data-action="edit_comment"></span>
 
                 <?php endif; ?>
 
@@ -39,7 +39,6 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
     </div>
 
-
-    <div class="content"><?php echo convert_html_specialchars( $comment->comment_content ); ?></div>
+    <div class="content"><?php echo $comment->comment_content; ?></div>
 
 </div>

@@ -23,7 +23,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     </div class="comment_editor">
 
-        <div class="details">
+        <div class="status_bar">
 
             <div class="details_wrapper">
 
@@ -42,8 +42,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
             </div>
 
         </div>
-
-
 
         <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
 
