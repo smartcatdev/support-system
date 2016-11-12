@@ -1,11 +1,11 @@
 <?php
 
-use SmartcatSupport\form\Form;
+use function SmartcatSupport\api\convert_html_specialchars;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="ticket_detail">
+<div class="ticket" data-id="<?php esc_attr_e( $post->ID ); ?>">
 
     <div class="status_bar">
 
@@ -30,9 +30,9 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <span class="author_name">
 
-                            <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $post->ID, '_edit_last', true ) ) ); ?>
+                        <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $post->ID, '_edit_last', true ) ) ); ?>
 
-                        </span>
+                    </span>
 
                 <?php endif; ?>
 
@@ -40,51 +40,47 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         </div>
 
+        <div class="actions_wrapper">
+
+            <div class="actions">
+
+                <span class="action icon-pencil" data-action="edit_ticket"></span>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="ticket_editor">
+    <div class="details">
 
-        <form class="edit_ticket_form" data-action="<?php esc_attr_e( $ticket_action ); ?>">
+        <h2><?php esc_html_e( $post->post_title ); ?></h2>
 
-            <?php Form::form_fields( $editor_form ); ?>
+        <p><?php echo convert_html_specialchars( $post->post_content ); ?></p>
 
-            <div class="meta_fields">
+        <table>
 
-                <?php Form::form_fields( $meta_form ); ?>
+            <?php foreach( $meta as $name => $value ) : ?>
 
-            </div>
+                <tr>
 
-            <div class="submit_button_wrapper hidden">
+                    <th class="label">
 
-                <button class="submit_button">
+                        <?php esc_html_e( $name ); ?>
 
-                    <div class="status hidden"></div>
+                    </th>
 
-                    <span class="text"
-                          data-default="<?php _e( 'Save', TEXT_DOMAIN ); ?>"
-                          data-success="<?php _e( 'Saved', TEXT_DOMAIN ); ?>"
-                          data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
-                          data-wait="<?php _e( 'Saving', TEXT_DOMAIN ); ?>">
+                    <td>
 
-                          <?php _e( 'Save', TEXT_DOMAIN ); ?>
+                        <?php esc_html_e( $value ); ?>
 
-                    </span>
+                    </td>
 
-                </button>
+                </tr>
 
-            </div>
+            <?php endforeach; ?>
 
-            <div class="submit_button_wrapper">
-
-                <button class="edit_ticket_trigger submit_button">
-
-                    <?php _e( 'Edit Ticket', TEXT_DOMAIN ); ?>
-
-                </button>
-
-            </div>
-
-        </form>
+        </table>
 
     </div>
 

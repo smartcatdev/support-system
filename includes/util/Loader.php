@@ -67,12 +67,11 @@ final class Loader extends ActionListener {
         wp_enqueue_script( 'tabular', $this->plugin_url . 'assets/lib/tabular.js', [ 'jquery' ], PLUGIN_VERSION );
         wp_enqueue_script( 'tinymce_js', includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', [ 'jquery' ], false, true );
 
-        wp_register_script( 'support_system_lib', $this->plugin_url . 'assets/js/functions.js', [ 'jquery' ], PLUGIN_VERSION );
-        wp_localize_script( 'support_system_lib', 'SmartcatSupportVar', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ), 'assetsURL' => $this->plugin_url . 'assets' ] );
+        wp_register_script( 'support_system_lib', $this->plugin_url . 'assets/js/app.js', [ 'jquery' ], PLUGIN_VERSION );
+        wp_localize_script( 'support_system_lib', 'SupportSystem', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ), 'assetsURL' => $this->plugin_url . 'assets' ] );
         wp_enqueue_script( 'support_system_lib' );
 
-        wp_enqueue_script( 'support_system_app', $this->plugin_url . 'assets/js/app.js', [ 'jquery', 'support_system_lib' ], PLUGIN_VERSION );
-        wp_enqueue_script( 'support_system_comments', $this->plugin_url . 'assets/js/comment.js', [ 'jquery', 'support_system_lib' ], PLUGIN_VERSION );
+        wp_enqueue_script( 'support_system_script', $this->plugin_url . 'assets/js/script.js', [ 'jquery', 'support_system_lib' ], PLUGIN_VERSION );
 
         wp_enqueue_style( 'support_system_style', $this->plugin_url . 'assets/css/style.css', [], PLUGIN_VERSION );
         wp_enqueue_style( 'support_system_icons', $this->plugin_url . 'assets/icons.css', [], PLUGIN_VERSION );

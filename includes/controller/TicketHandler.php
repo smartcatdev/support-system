@@ -30,15 +30,45 @@ class TicketHandler extends ActionListener {
         $this->view = $view;
         $this->builder = $builder;
 
+        $this->add_ajax_action( 'view_support_ticket', 'view_ticket' );
         $this->add_ajax_action( 'edit_support_ticket', 'edit_ticket' );
         $this->add_ajax_action( 'save_support_ticket', 'save_ticket' );
+    }
+
+    public function view_ticket() {
+        $ticket = $this->valid_request();
+
+        if( !empty( $ticket ) ) {
+
+            $args = [ 'post' => $ticket ];
+
+            if( current_user_can( 'edit_ticket_meta' ) ) {
+                $args['meta']['Agent'] = get_post_meta( $ticket->ID, 'agent', true );
+                $args['meta']['Status'] = get_post_meta( $ticket->ID, 'status', true );
+                $args['meta']['Email'] = get_post_meta( $ticket->ID, 'email', true );
+            }
+
+            wp_send_json_success( $this->view->render( 'ticket', $args ) );
+
+        } else {
+            wp_send_json_error( __( 'You don\'t have permission to edit this ticket.', TEXT_DOMAIN ) );
+        }
     }
 
     public function edit_ticket() {
         $ticket = $this->valid_request();
 
         if( !empty( $ticket ) ) {
-            $this->ticket_detail( $ticket );
+            wp_send_json_success(
+                $this->view->render( 'ticket_editor',
+                    [
+                        'post'           => $ticket,
+                        'editor_form'    => $this->configure_editor_form( $ticket ),
+                        'meta_form'      => $this->configure_meta_form( $ticket ),
+                        'action'  => 'save_support_ticket',
+                        'after' => 'refresh_ticket'
+                    ]
+                ) );
         } else {
             wp_send_json_error( __( 'You don\'t have permission to edit this ticket.', TEXT_DOMAIN ) );
         }
@@ -99,18 +129,6 @@ class TicketHandler extends ActionListener {
         }
 
         return $ticket;
-    }
-
-    private function ticket_detail( $post ) {
-        wp_send_json_success(
-            $this->view->render( 'ticket',
-                [
-                    'post'           => $post,
-                    'editor_form'    => $this->configure_editor_form( $post ),
-                    'meta_form'      => $this->configure_meta_form( $post ),
-                    'ticket_action'  => 'save_support_ticket',
-                ]
-        ) );
     }
 
     private function configure_editor_form( $post ) {

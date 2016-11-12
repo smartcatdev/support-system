@@ -70,7 +70,7 @@
 /*****************************************************************************/
 
 
-.ticket_detail {
+.ticket {
     margin: 20px auto;
 }
 
@@ -179,11 +179,11 @@
     padding: 5px 5px 10px 5px;
 }
 
-.ticket_detail .ticket_editor .author_name {
+.ticket .ticket_editor .author_name {
     font-size: 1.1em;
 }
 
-.ticket_detail .status_bar .date_posted {
+.ticket .status_bar .date_posted {
     font-size: 0.8em;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -243,11 +243,11 @@
     width: 100%;
 }
 
-.ticket_detail .form_field[name="subject"] {
+.ticket .form_field[name="subject"] {
     font-size: 1.5em;
 }
 
-.ticket_detail .form_field[name="content"] {
+.ticket .form_field[name="content"] {
     overflow: auto;
 }
 

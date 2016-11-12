@@ -32,7 +32,8 @@ class CommentHandler extends ActionListener {
 
                 wp_send_json_success( $this->view->render( 'comment_form',
                     [
-                        'comment_action' => 'support_comment_edit',
+                        'action' => 'support_comment_edit',
+                        'after' => 'replace_comment',
                         'form'  => $this->configure_comment_form( null, $comment ),
                         'submit_text' => [
                             'default' => 'Save',
@@ -91,9 +92,16 @@ class CommentHandler extends ActionListener {
         if( !empty( $ticket ) ) {
             wp_send_json_success( $this->view->render( 'comment_section',
                 [
-                    'comment_form' => $this->configure_comment_form( $ticket ),
-                    'comment_action' => 'support_ticket_reply',
-                    'comments' => get_comments( [ 'post_id' => $ticket->ID, 'order' => 'ASC' ] )
+                    'form' => $this->configure_comment_form( $ticket ),
+                    'action' => 'support_ticket_reply',
+                    'after' => 'append_comment',
+                    'comments' => get_comments( [ 'post_id' => $ticket->ID, 'order' => 'ASC' ] ),
+                    'submit_text' => [
+                        'default' => 'Reply',
+                        'success' => 'Sent',
+                        'fail' => 'Error',
+                        'wait' => 'Sending'
+                    ]
                 ]
             ) );
         } else {
@@ -116,13 +124,8 @@ class CommentHandler extends ActionListener {
         );
 
         if( !empty( $post ) ) {
-            $this->builder->add( Hidden::class, 'ticket_id',
-                [
-                    'value' => $post->ID
-                ]
-            )->get_form();
+            $this->builder->add( Hidden::class, 'ticket_id', [ 'value' => $post->ID ] );
         }
-
 
         return $this->builder->get_form();
     }
