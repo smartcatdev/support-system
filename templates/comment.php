@@ -23,7 +23,22 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
         </div>
 
+        <div class="actions_wrapper">
+
+            <div class="actions">
+
+                <?php if( $comment->user_id == wp_get_current_user()->ID ) : ?>
+
+                    <span class="action icon-pencil"></span>
+
+                <?php endif; ?>
+
+            </div>
+
+        </div>
+
     </div>
+
 
     <div class="content"><?php echo convert_html_specialchars( $comment->comment_content ); ?></div>
 

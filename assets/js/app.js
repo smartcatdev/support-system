@@ -53,12 +53,7 @@ jQuery(document).ready(function ($) {
                         if (response.success) {
                             pane.find('.ticket_detail').parent().append(response.data);
 
-                            tinymce.init({
-                                selector: '.comment_form textarea',
-                                menubar: false,
-                                plugins: 'wpautoresize',
-                            });
-
+                            $.SmartcatSupport().tinyMCE( '.comment_form textarea' );
                         } else {
                             console.log(response);
                         }
@@ -151,28 +146,18 @@ jQuery(document).ready(function ($) {
         enableEditing: function (form) {
             form.find('.form_field').prop('disabled', false);
 
-            tinymce.remove('.ticket_editor textarea');
-
-            tinymce.init({
-                selector: '.ticket_editor textarea',
-                plugins: 'wpautoresize',
-                menubar: false,
-                readonly: 0
-            });
+            tinymce.remove( '.ticket_editor textarea' );
+            $.SmartcatSupport().tinyMCE('.ticket_editor textarea');
         },
 
         disableEditing: function (form) {
+            $.SmartcatSupport().tinyMCE( '.ticket_editor textarea', false );
+            $( form ).find( '.mce-panel' ).addClass( 'disabled' );
+
             form.find('.submit_button').parent().hide();
             form.parent().find('.edit_ticket_trigger').parent().show();
             form.find('.form_field').prop('disabled', true);
 
-            tinymce.init({
-                selector: '.ticket_editor textarea',
-                menubar: false,
-                toolbar: false,
-                statusbar: false,
-                readonly: 1
-            });
 
         },
 

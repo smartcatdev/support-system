@@ -2,6 +2,10 @@
     display: none;
 }
 
+.mce-panel.disabled {
+    border: none !important;
+}
+
 .ticket_detail {
     margin: 20px auto;
 }
@@ -138,7 +142,6 @@
 
 .comment_form {
     border: 1px solid #ddd;
-    border-radius: 4px;
 }
 
 /*** FORM FIELDS **/
@@ -186,12 +189,15 @@
 
 /*** COMMENT SECTION ***/
 
-.comment_section > *,
 .comments > * {
     margin: 20px 0;
 }
 
 /*** SINGLE COMMENT ***/
+
+.details_wrapper {
+    display: table;
+}
 
 .details {
     border-radius: 4px 4px 0 0;
@@ -205,6 +211,31 @@
 .details .image_wrapper {
     margin: 0 10px;
     float: left;
+}
+
+.details .meta_wrapper {
+    min-height: 36px;
+    display: table-cell;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.details .actions_wrapper {
+    width: 99%;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    text-align: right;
+}
+
+.details .actions_wrapper .action {
+    margin: 0 10px;
+    display: none;
+    cursor: pointer;
+}
+
+.details:hover > .actions_wrapper .action {
+    display: inline;
 }
 
 .details .author_name {

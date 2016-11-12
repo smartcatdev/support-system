@@ -3,7 +3,6 @@
 namespace SmartcatSupport\api;
 
 function convert_html_specialchars( $text ) {
-    error_log( $text );
     $matches = [];
 
     preg_match_all( '#<code>(.*?)</code>#', $text, $matches );

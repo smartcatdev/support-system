@@ -135,6 +135,7 @@ class TicketHandler extends ActionListener {
             [
                 'value' => isset( $post ) ? $post->post_content : '',
                 'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN ),
+                'sanitize_callback' => 'trim',
                 'constraints' =>  [
                     $this->builder->create_constraint( Required::class )
                 ]

@@ -21,32 +21,59 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     </div>
 
-    <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
+    </div class="comment_editor">
 
-        <?php Form::form_fields( $comment_form ); ?>
+        <div class="details">
 
-        <?php wp_comment_form_unfiltered_html_nonce(); ?>
+            <div class="details_wrapper">
 
-        <div class="submit_button_wrapper">
+                <div class="image_wrapper">
 
-            <button class="submit_button">
+                    <?php echo get_avatar( wp_get_current_user()->ID, 36 ); ?>
 
-                <div class="status hidden"></div>
+                </div>
 
-                <span class="text"
-                    data-default="<?php _e( 'Reply', TEXT_DOMAIN ); ?>"
-                    data-success="<?php _e( 'Sent', TEXT_DOMAIN ); ?>"
-                    data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
-                    data-wait="<?php _e( 'Sending', TEXT_DOMAIN ); ?>">
+                <div class="meta_wrapper">
 
-                    <?php _e( 'Reply', TEXT_DOMAIN ); ?>
+                    <p class="author_name"><?php esc_html_e( wp_get_current_user()->display_name ); ?></p>
 
-                </span>
+                </div>
 
-            </button>
+            </div>
 
         </div>
 
-    </form>
+
+
+        <form class="comment_form" data-action="<?php esc_attr_e( $comment_action ); ?>">
+
+            <?php Form::form_fields( $comment_form ); ?>
+
+            <?php wp_comment_form_unfiltered_html_nonce(); ?>
+
+            <div class="submit_button_wrapper">
+
+                <button class="submit_button">
+
+                    <div class="status hidden"></div>
+
+                    <span class="text"
+                        data-default="<?php _e( 'Reply', TEXT_DOMAIN ); ?>"
+                        data-success="<?php _e( 'Sent', TEXT_DOMAIN ); ?>"
+                        data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
+                        data-wait="<?php _e( 'Sending', TEXT_DOMAIN ); ?>">
+
+                        <?php _e( 'Reply', TEXT_DOMAIN ); ?>
+
+                    </span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+    </div>
 
 </div>
