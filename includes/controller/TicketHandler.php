@@ -39,17 +39,7 @@ class TicketHandler extends ActionListener {
         $ticket = $this->valid_request();
 
         if( !empty( $ticket ) ) {
-
-            $args = [ 'post' => $ticket ];
-
-            if( current_user_can( 'edit_ticket_meta' ) ) {
-                $args['meta']['Agent'] = get_post_meta( $ticket->ID, 'agent', true );
-                $args['meta']['Status'] = get_post_meta( $ticket->ID, 'status', true );
-                $args['meta']['Email'] = get_post_meta( $ticket->ID, 'email', true );
-            }
-
-            wp_send_json_success( $this->view->render( 'ticket', $args ) );
-
+            wp_send_json_success( $this->read_only( $ticket ) );
         } else {
             wp_send_json_error( __( 'You don\'t have permission to edit this ticket.', TEXT_DOMAIN ) );
         }
@@ -100,7 +90,7 @@ class TicketHandler extends ActionListener {
                     }
 
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                    wp_send_json_success( $this->ticket_detail( get_post( $post_id ) ) );
+                    wp_send_json_success( $this->read_only( get_post( $post_id ) ) );
                 }
 
 
@@ -110,13 +100,25 @@ class TicketHandler extends ActionListener {
         }
     }
 
+    private function read_only( $ticket ) {
+        $args = [ 'post' => $ticket ];
+
+        if( current_user_can( 'edit_ticket_meta' ) ) {
+            $args['meta']['Agent'] = get_post_meta( $ticket->ID, 'agent', true );
+            $args['meta']['Status'] = get_post_meta( $ticket->ID, 'status', true );
+            $args['meta']['Email'] = get_post_meta( $ticket->ID, 'email', true );
+        }
+
+        return $this->view->render( 'ticket', $args );
+    }
+
     private function valid_request() {
         $ticket = null;
         $user = wp_get_current_user();
 
         if( user_can( $user->ID, 'edit_tickets' ) ) {
-            if( isset( $_REQUEST['ticket_id'] ) && (int) $_REQUEST['ticket_id'] > 0 ) {
-                $post = get_post( $_REQUEST['ticket_id'] );
+            if( isset( $_REQUEST['id'] ) && (int) $_REQUEST['id'] > 0 ) {
+                $post = get_post( $_REQUEST['id'] );
 
                 if( isset( $post ) )
                     if( $post->post_type == 'support_ticket' &&
@@ -134,7 +136,7 @@ class TicketHandler extends ActionListener {
     private function configure_editor_form( $post ) {
         $this->builder->clear_config();
 
-        $this->builder->add( Hidden::class, 'ticket_id',
+        $this->builder->add( Hidden::class, 'id',
             [
                 'value'       => $post->ID,
 //                'constraints' =>  [

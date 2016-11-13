@@ -18,22 +18,21 @@ class CommentHandler extends ActionListener {
         $this->view = $view;
         $this->builder = $builder;
 
-        $this->add_ajax_action( 'support_comment_edit', 'comment_form' );
+        $this->add_ajax_action( 'support_comment_edit', 'edit_comment' );
+        $this->add_ajax_action( 'support_comment_save', 'save_comment' );
         $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
         $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
     }
 
-    public function comment_form() {
-
-        if( isset( $_REQUEST['comment_id'] ) ) {
-            $comment = get_comment( $_REQUEST['comment_id'] );
+    public function edit_comment() {
+        if( isset( $_REQUEST['id'] ) ) {
+            $comment = get_comment( $_REQUEST['id'] );
 
             if( !empty( $comment ) && wp_get_current_user()->ID == $comment->user_id ) {
-
                 wp_send_json_success( $this->view->render( 'comment_form',
                     [
-                        'action' => 'support_comment_edit',
-                        'after' => 'replace_comment',
+                        'action' => 'support_comment_save',
+                        'after' => 'refresh_comment',
                         'form'  => $this->configure_comment_form( null, $comment ),
                         'submit_text' => [
                             'default' => 'Save',
@@ -43,6 +42,33 @@ class CommentHandler extends ActionListener {
                         ]
                     ]
                 ) );
+            }
+        }
+    }
+
+    public function save_comment() {
+        if( isset( $_REQUEST['id'] ) ) {
+            $comment = get_comment( $_REQUEST['id'] );
+
+            if ( !empty( $comment ) && wp_get_current_user()->ID == $comment->user_id ) {
+                $form = $this->configure_comment_form( null, $comment );
+
+                if( $form->is_valid() ) {
+                    $data = $form->get_data();
+                    $result = wp_update_comment( [
+                        'comment_ID'      => $data['id'],
+                        'comment_content' => $data['content']
+                    ] );
+
+                    if( !empty( $result ) ) {
+                        wp_send_json_success( $this->view->render( 'comment', [
+                                'comment' => get_comment($data['id'])
+                            ] )
+                        );
+                    }
+                } else {
+                    wp_send_json_error( $form ->get_errors() );
+                }
             }
         }
     }
@@ -61,11 +87,11 @@ class CommentHandler extends ActionListener {
                 add_filter( 'comment_flood_filter', '__return_false' );
 
                 $comment = wp_handle_comment_submission( [
-                    'comment_post_ID'      => $data['ticket_id'],
+                    'comment_post_ID'      => $data['id'],
                     'author'               => $user->display_name,
                     'email'                => $user->user_email,
                     'url'                  => $user->user_url,
-                    'comment'              => $data['comment_content'],
+                    'comment'              => $data['content'],
                     'comment_parent'       => 0,
                     'user_id'              => $user->ID,
                     '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
@@ -112,7 +138,7 @@ class CommentHandler extends ActionListener {
     private function configure_comment_form( $post, $comment = false ) {
         $this->builder->clear_config();
 
-        $this->builder->add( TextArea::class, 'comment_content',
+        $this->builder->add( TextArea::class, 'content',
             [
                 'rows' => 4,
                 'value' => $comment ? $comment->comment_content : '',
@@ -124,7 +150,9 @@ class CommentHandler extends ActionListener {
         );
 
         if( !empty( $post ) ) {
-            $this->builder->add( Hidden::class, 'ticket_id', [ 'value' => $post->ID ] );
+            $this->builder->add( Hidden::class, 'id', [ 'value' => $post->ID ] );
+        } else if( !empty( $comment ) ) {
+            $this->builder->add( Hidden::class, 'id', [ 'value' => $comment->comment_ID ] );
         }
 
         return $this->builder->get_form();
@@ -135,8 +163,8 @@ class CommentHandler extends ActionListener {
         $user = wp_get_current_user();
 
         if( user_can( $user->ID, 'edit_tickets' ) ) {
-            if( isset( $_REQUEST['ticket_id'] ) && (int) $_REQUEST['ticket_id'] > 0 ) {
-                $post = get_post( $_REQUEST['ticket_id'] );
+            if( isset( $_REQUEST['id'] ) && (int) $_REQUEST['id'] > 0 ) {
+                $post = get_post( $_REQUEST['id'] );
 
                 if( isset( $post ) )
                     if( $post->post_type == 'support_ticket' &&

@@ -5,7 +5,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="ticket" data-id="<?php esc_attr_e( $post->ID ); ?>">
+<div class="ticket root" data-id="<?php esc_attr_e( $post->ID ); ?>">
 
     <div class="status_bar">
 

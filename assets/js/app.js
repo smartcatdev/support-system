@@ -30,24 +30,25 @@
     },
 
     app.edit_comment = function (context) {
-            var comment_id = context.parents('.comment').data('id');
-
-            app.ajax('support_comment_edit', {comment_id: comment_id}, function (response) {
-                context.parents('.comment').find('.content').html(response.data);
-                app.tinymce('[name="comment_content"]');
+            app.ajax('support_comment_edit', {id: context.data('id')}, function (response) {
+                if(response.success) {
+                    context.find('.content').html(response.data);
+                    app.tinymce('[name="content"]');
+                }
             });
+
+            return false;
         },
 
     app.view_ticket = function (ticket) {
-        app.ajax('view_support_ticket', {ticket_id: ticket.id}, function (response) {
+        app.ajax('view_support_ticket', {id: ticket.id}, function (response) {
 
             if (response.success) {
                 var pane = $('#support_ticket_tab_view').Tabular(
                     'newTab', ticket.id, ticket.subject, '<div class="support_ticket">' + response.data + '</div>'
                 );
 
-                app.ajax('support_ticket_comments', {ticket_id: ticket.id}, function (response) {
-
+                app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
                     if (response.success) {
                         pane.find('.ticket').parent().append(response.data);
                     }
@@ -59,30 +60,27 @@
     },
 
     app.edit_ticket = function (context) {
-        var ticket_id = context.parents('.ticket').data('id');
-
-
-
-        app.ajax('edit_support_ticket', {ticket_id: ticket_id}, function (response) {
-            console.log(response);
-
+        app.ajax('edit_support_ticket', {id: context.data('id')}, function (response) {
             if (response.success) {
-                context.parents('.ticket').find('.details').replaceWith(response.data);
+                context.find('.details').replaceWith(response.data);
+                app.tinymce('[name="content"]');
             }
 
         });
+
+        return false;
     },
 
-    app.refresh_ticket = function (form, data) {
-        form.parents('.ticket_detail').replaceWith(data);
+    app.refresh_ticket = function (context, data) {
+        context.replaceWith(data);
     },
 
-    app.append_comment = function (form, data) {
-        form.parents().find('.comments').append(data);
+    app.append_comment = function (context, data) {
+        context.find('.comments').append(data);
     }
 
-    app.replace_comment = function (form, data) {
-        form.parents('.comment').replaceWith(data);
+    app.refresh_comment = function (context, data) {
+        context.first().replaceWith(data);
     },
 
     app.submit_form = function (e) {
@@ -110,7 +108,7 @@
                 setTimeout(function () {
                     status.removeClass('check');
                     text.text(text.data('default'));
-                    app[form.data('after')](form, response.data);
+                    app[form.data('after')](form.parents('.root'), response.data);
                 }, unlockDelay);
 
             } else {

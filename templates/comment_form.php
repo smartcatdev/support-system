@@ -5,8 +5,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<form class="comment_form"
-    data-action="<?php esc_attr_e( $action ); ?>"
+<form data-action="<?php esc_attr_e( $action ); ?>"
     data-after="<?php esc_attr_e( $after ); ?>">
 
     <?php Form::form_fields( $form ); ?>

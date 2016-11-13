@@ -6,7 +6,7 @@ jQuery(document).ready(function ($) {
     });
 
     $(document).on('click', '.status_bar .action', function () {
-        SupportSystem[$(this).data('action')]($(this));
+        SupportSystem[$(this).data('action')]($(this).parents('.root'));
     });
 
     $(document).on('submit', '#support_system form', SupportSystem.submit_form);
