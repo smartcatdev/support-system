@@ -25,56 +25,51 @@ class CommentHandler extends ActionListener {
     }
 
     public function edit_comment() {
-        if( isset( $_REQUEST['id'] ) ) {
-            $comment = get_comment( $_REQUEST['id'] );
+        $comment = $this->validate_comment_request();
 
-            if( !empty( $comment ) && wp_get_current_user()->ID == $comment->user_id ) {
-                wp_send_json_success( $this->view->render( 'comment_form',
-                    [
-                        'action' => 'support_comment_save',
-                        'after' => 'refresh_comment',
-                        'form'  => $this->configure_comment_form( null, $comment ),
-                        'submit_text' => [
-                            'default' => 'Save',
-                            'success' => 'Saved',
-                            'fail' => 'Error',
-                            'wait' => 'Saving'
-                        ]
+        if ( ! empty( $comment ) ) {
+            wp_send_json_success( $this->view->render( 'comment_form',
+                [
+                    'action'      => 'support_comment_save',
+                    'after'       => 'refresh_comment',
+                    'form'        => $this->configure_comment_form( null, $comment ),
+                    'submit_text' => [
+                        'default' => 'Save',
+                        'success' => 'Saved',
+                        'fail'    => 'Error',
+                        'wait'    => 'Saving'
                     ]
-                ) );
-            }
+                ]
+            ) );
         }
     }
 
     public function save_comment() {
-        if( isset( $_REQUEST['id'] ) ) {
-            $comment = get_comment( $_REQUEST['id'] );
+        $comment = $this->validate_comment_request();
 
-            if ( !empty( $comment ) && wp_get_current_user()->ID == $comment->user_id ) {
-                $form = $this->configure_comment_form( null, $comment );
+        if ( ! empty( $comment ) ) {
+            $form = $this->configure_comment_form( null, $comment );
 
-                if( $form->is_valid() ) {
-                    $data = $form->get_data();
-                    $result = wp_update_comment( [
-                        'comment_ID'      => $data['id'],
-                        'comment_content' => $data['content']
-                    ] );
+            if ( $form->is_valid() ) {
+                $data = $form->get_data();
+                $result = wp_update_comment( [
+                    'comment_ID'      => $data['id'],
+                    'comment_content' => $data['content']
+                ] );
 
-                    if( !empty( $result ) ) {
-                        wp_send_json_success( $this->view->render( 'comment', [
-                                'comment' => get_comment($data['id'])
-                            ] )
-                        );
-                    }
-                } else {
-                    wp_send_json_error( $form ->get_errors() );
+                if ( ! empty( $result ) ) {
+                    wp_send_json_success( $this->view->render( 'comment', [
+                        'comment' => get_comment( $data['id'] )
+                    ] ) );
                 }
+            } else {
+                wp_send_json_error( $form->get_errors() );
             }
         }
     }
 
     public function submit_comment() {
-        $ticket = $this->valid_request();
+        $ticket = $this->valid_ticket_request();
 
         if( !empty( $ticket ) ) {
             $form = $this->configure_comment_form( $ticket );
@@ -98,22 +93,18 @@ class CommentHandler extends ActionListener {
                 ] );
 
                 if( !is_wp_error( $comment ) ) {
-                    wp_send_json( [
-                        'success' => true,
-                        'data'    => $this->view->render( 'comment', [
+                    wp_send_json_success( $this->view->render( 'comment', [
                             'comment' => $comment
-                        ] )
-                    ] );
+                    ] ) );
                 }
             } else {
                 wp_send_json_error( $form ->get_errors() );
             }
         }
-
     }
 
     public function ticket_comments() {
-        $ticket = $this->valid_request();
+        $ticket = $this->valid_ticket_request();
 
         if( !empty( $ticket ) ) {
             wp_send_json_success( $this->view->render( 'comment_section',
@@ -158,7 +149,7 @@ class CommentHandler extends ActionListener {
         return $this->builder->get_form();
     }
 
-    private function valid_request() {
+    private function valid_ticket_request() {
         $ticket = null;
         $user = wp_get_current_user();
 
@@ -177,6 +168,22 @@ class CommentHandler extends ActionListener {
         }
 
         return $ticket;
+    }
+
+    private function validate_comment_request() {
+        $comment = null;
+
+        if( isset( $_REQUEST['id'] ) ) {
+            $result = get_comment( $_REQUEST['id'] );
+
+            if ( !empty( $result ) && wp_get_current_user()->ID == $result->user_id ) {
+                $comment = $result;
+            }
+        } else {
+            $comment = false;
+        }
+
+        return $comment;
     }
 
 }
