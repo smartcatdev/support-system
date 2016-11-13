@@ -18,8 +18,8 @@ class CommentHandler extends ActionListener {
         $this->view = $view;
         $this->builder = $builder;
 
-        $this->add_ajax_action( 'support_comment_edit', 'edit_comment' );
-        $this->add_ajax_action( 'support_comment_save', 'save_comment' );
+        $this->add_ajax_action( 'support_edit_comment', 'edit_comment' );
+        $this->add_ajax_action( 'support_save_comment', 'save_comment' );
         $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
         $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
     }
@@ -30,7 +30,7 @@ class CommentHandler extends ActionListener {
         if ( ! empty( $comment ) ) {
             wp_send_json_success( $this->view->render( 'comment_form',
                 [
-                    'action'      => 'support_comment_save',
+                    'action'      => 'support_save_comment',
                     'after'       => 'refresh_comment',
                     'form'        => $this->configure_comment_form( null, $comment ),
                     'submit_text' => [

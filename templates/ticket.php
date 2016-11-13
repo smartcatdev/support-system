@@ -44,7 +44,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <div class="actions">
 
-                <span class="action icon-pencil" data-action="edit_ticket"></span>
+                <span class="action icon-pencil" data-action="get_editor" data-ajax_action="support_edit_ticket"></span>
 
             </div>
 
@@ -52,35 +52,39 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     </div>
 
-    <div class="details">
+    <div class="inner">
 
-        <h2><?php esc_html_e( $post->post_title ); ?></h2>
+        <div class="details">
 
-        <p><?php echo convert_html_specialchars( $post->post_content ); ?></p>
+            <h2><?php esc_html_e( $post->post_title ); ?></h2>
 
-        <table>
+            <p><?php echo convert_html_specialchars( $post->post_content ); ?></p>
 
-            <?php foreach( $meta as $name => $value ) : ?>
+            <table>
 
-                <tr>
+                <?php foreach( $meta as $name => $value ) : ?>
 
-                    <th class="label">
+                    <tr>
 
-                        <?php esc_html_e( $name ); ?>
+                        <th class="label">
 
-                    </th>
+                            <?php esc_html_e( $name ); ?>
 
-                    <td>
+                        </th>
 
-                        <?php esc_html_e( $value ); ?>
+                        <td>
 
-                    </td>
+                            <?php esc_html_e( $value ); ?>
 
-                </tr>
+                        </td>
 
-            <?php endforeach; ?>
+                    </tr>
 
-        </table>
+                <?php endforeach; ?>
+
+            </table>
+
+        </div>
 
     </div>
 

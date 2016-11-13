@@ -30,9 +30,9 @@ class TicketHandler extends ActionListener {
         $this->view = $view;
         $this->builder = $builder;
 
-        $this->add_ajax_action( 'view_support_ticket', 'view_ticket' );
-        $this->add_ajax_action( 'edit_support_ticket', 'edit_ticket' );
-        $this->add_ajax_action( 'save_support_ticket', 'save_ticket' );
+        $this->add_ajax_action( 'support_view_ticket', 'view_ticket' );
+        $this->add_ajax_action( 'support_edit_ticket', 'edit_ticket' );
+        $this->add_ajax_action( 'support_save_ticket', 'save_ticket' );
     }
 
     public function view_ticket() {
@@ -55,7 +55,7 @@ class TicketHandler extends ActionListener {
                         'post'           => $ticket,
                         'editor_form'    => $this->configure_editor_form( $ticket ),
                         'meta_form'      => $this->configure_meta_form( $ticket ),
-                        'action'  => 'save_support_ticket',
+                        'action'  => 'support_save_ticket',
                         'after' => 'refresh_ticket'
                     ]
                 ) );

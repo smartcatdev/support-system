@@ -29,7 +29,7 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
                 <?php if( $comment->user_id == wp_get_current_user()->ID ) : ?>
 
-                    <span class="action icon-pencil" data-action="edit_comment"></span>
+                    <span class="action icon-pencil" data-action="get_editor" data-ajax_action="support_edit_comment"></span>
 
                 <?php endif; ?>
 
@@ -39,6 +39,10 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
     </div>
 
-    <div class="content"><?php echo $comment->comment_content; ?></div>
+    <div class="inner">
+
+        <div class="content"><?php echo $comment->comment_content; ?></div>
+
+    </div>
 
 </div>

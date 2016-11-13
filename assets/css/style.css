@@ -1,13 +1,17 @@
+/*** RESETS ******************************************************************/
+
+.support_ticket table,
+.support_ticket table th,
+.support_ticket table td {
+    border: none;
+    margin: 0;
+    padding: 3px;
+}
+
 /*** GLOBAL CLASSES **********************************************************/
 
 .hidden {
     display: none;
-}
-
-/*** TINYMCE *****************************************************************/
-
-.mce-panel.disabled {
-    border: none !important;
 }
 
 /*** STATUS BAR **************************************************************/
@@ -15,7 +19,7 @@
 .status_bar {
     border-radius: 4px 4px 0 0;
     margin-bottom: -1px;
-    background: #f2f8fa;
+    background-color: #f2f8fa;
     padding: 4px 0px;
     border: 1px solid #ddd;
     position: relative;
@@ -67,22 +71,7 @@
     margin: 0;
 }
 
-/*****************************************************************************/
-
-
-.ticket {
-    margin: 20px auto;
-}
-
-.support_ticket table,
-.support_ticket table th,
-.support_ticket table td {
-    border: none;
-    margin: 0;
-    padding: 3px;
-}
-
-/*** TAB BAR ***/
+/*** TAB BAR ******************************************************************/
 
 .tabular_tab_bar {
     border: 1px solid;
@@ -112,27 +101,30 @@
     overflow: hidden;
 }
 
-/*** SUBMIT BUTTON ***/
+/*** BUTTONS *****************************************************************/
 
-.submit_button_wrapper {
+.button_wrapper {
     text-align: center;
 }
 
-.submit_button {
+.button {
     padding: 5px 10px;
-    border: 2px solid #378ccd;
     color: #fff;
     border-radius: 3px;
-    background-color: #378ccd;
     width: 97%;
     height: 40px;
 }
 
-.submit_button[disabled] {
+.button[disabled] {
     opacity: 0.75;
 }
 
-.submit_button[disabled]:hover {
+.button.submit {
+    background-color: #378ccd;
+    border: 2px solid #378ccd;
+}
+
+.button.submit[disabled]:hover {
     border: 2px solid #378ccd;
     color: #fff;
     border-radius: 3px;
@@ -140,17 +132,17 @@
     padding: inherit;
 }
 
-.submit_button .text {
+.button.submit .text {
     display: inline-block;
     vertical-align: middle;
 }
 
-.submit_button .status {
+.button.submit .status {
     display: inline-block;
     vertical-align: middle;
 }
 
-.submit_button .spinner {
+.button.submit .spinner {
     border: 3px solid #f3f3f3;
     border-top: 2px solid #3498db;
     border-radius: 50%;
@@ -160,9 +152,13 @@
     animation: spin 2s linear infinite;
 }
 
-.submit_button .check,
-.submit_button .fail {
+.button.submit .check,
+.button.submit .fail {
     margin: 0 5px;
+}
+
+.button.cancel {
+    background-color: #aaaaaa;
 }
 
 .check:after {
@@ -173,7 +169,11 @@
     content: "\2716";
 }
 
-/*** FORM SECTION ***/
+/*** FORM SECTION *************************************************************/
+
+.ticket {
+    margin: 20px auto;
+}
 
 .support_ticket form {
     padding: 5px 5px 10px 5px;
@@ -200,7 +200,7 @@
     vertical-align: text-top;
 }
 
-.edit_ticket_form .submit_button_wrapper {
+.edit_ticket_form .button_wrapper {
     margin-top: 10px;
 }
 
@@ -208,15 +208,7 @@
     border: 1px solid #ddd;
 }
 
-/*** FORM FIELDS **/
-
-.support_ticket .form_field[disabled] {
-    box-shadow: none;
-    opacity: 1;
-    background-color: #fff;
-    border: none;
-    text-overflow: ellipsis;
-}
+/*** FORM FIELDS *************************************************************/
 
 .error_field {
     border: 1px solid red !important;
@@ -247,23 +239,15 @@
     font-size: 1.5em;
 }
 
-.ticket .form_field[name="content"] {
-    overflow: auto;
-}
-
-/*** COMMENT SECTION ***/
+/*** COMMENTS ****************************************************************/
 
 .comments > * {
     margin: 20px 0;
 }
 
-/*** SINGLE COMMENT ***/
-
 .details_wrapper {
     display: table;
 }
-
-
 
 .comment .avatar {
     margin-top: 2px;
@@ -281,19 +265,22 @@
     padding: 0;
 }
 
-
 .comment_form .error_msg {
     display: block;
     margin-top: 5px;
 }
 
+.comment_form .button.cancel {
+    display: none;
+}
+
 @media( min-width: 767px ) {
-    .submit_button {
+    .button {
         width: 150px;
         margin: 0 4px;
     }
 
-    .submit_button_wrapper {
+    .button_wrapper {
         text-align: right;
     }
 

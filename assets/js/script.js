@@ -5,15 +5,21 @@ jQuery(document).ready(function ($) {
         SupportSystem.view_ticket($('#support_tickets_table').DataTable().row(this).data());
     });
 
-    $(document).on('click', '.status_bar .action', function () {
-        SupportSystem[$(this).data('action')]($(this).parents('.root'));
+    $(document).on('click', '.status_bar .action', function (e) {
+        e.preventDefault();
+        SupportSystem[$(this).data('action')]($(this).parents('.root').data('ajax_action', $(this).data('ajax_action')));
+    });
+
+    $(document).on('click', '.button.cancel', function (e) {
+        e.preventDefault();
+        SupportSystem.cancel_editor($(this).parents('.root'));
     });
 
     $(document).on('submit', '#support_system form', SupportSystem.submit_form);
 
 
     // initalize table
-    SupportSystem.ajax('list_support_tickets', null, function (response) {
+    SupportSystem.ajax('support_list_tickets', null, function (response) {
 
         $('#support_ticket_tab_view').Tabular({
             noClose: 'ticket_list'

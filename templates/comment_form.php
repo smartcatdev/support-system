@@ -12,9 +12,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-    <div class="submit_button_wrapper">
+    <div class="button_wrapper">
 
-        <button class="submit_button">
+        <button class="button cancel"><?php _e( 'Cancel', TEXT_DOMAIN ); ?></button>
+
+        <button class="button submit">
 
             <div class="status hidden"></div>
 

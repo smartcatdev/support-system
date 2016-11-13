@@ -43,7 +43,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         </div>
 
-    <?php include 'comment_form.php' ?>
+        <div class="inner">
+
+            <?php include 'comment_form.php' ?>
+
+        </div>
 
     </div>
 

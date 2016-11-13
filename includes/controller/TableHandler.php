@@ -12,7 +12,7 @@ class TableHandler extends ActionListener  {
         $this->view = $view;
 
         $this->column_data_callbacks();
-        $this->add_ajax_action( 'list_support_tickets', 'ticket_table' );
+        $this->add_ajax_action( 'support_list_tickets', 'ticket_table' );
     }
 
     public function ticket_table() {
