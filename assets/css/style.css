@@ -1,11 +1,11 @@
 /*** RESETS ******************************************************************/
 
-.support_ticket table,
-.support_ticket table th,
-.support_ticket table td {
+.support_card table,
+.support_card table th,
+.support_card table td {
     border: none;
-    margin: 0;
-    padding: 3px;
+    margin: 0 auto;
+    padding: 2px;
 }
 
 /*** GLOBAL CLASSES **********************************************************/
@@ -14,9 +14,29 @@
     display: none;
 }
 
-/*** STATUS BAR **************************************************************/
+table.collapsible td,
+table.collapsible th {
+    display: block;
+}
 
-.status_bar {
+table.collapsible tr {
+    vertical-align: top;
+}
+
+@media( min-width: 767px ) {
+    table.collapsible td,
+    table.collapsible th {
+        display: table-cell;
+    }
+}
+
+/*** SUPPORT CARD *************************************************************/
+
+.support_card .inner {
+    border: 1px solid #ddd;
+}
+
+.support_card .status_bar {
     border-radius: 4px 4px 0 0;
     margin-bottom: -1px;
     background-color: #f2f8fa;
@@ -25,19 +45,19 @@
     position: relative;
 }
 
-.status_bar .image_wrapper {
+.support_card .status_bar .image_wrapper {
     margin: 0 10px;
     float: left;
 }
 
-.status_bar .meta_wrapper {
+.support_card .status_bar .meta_wrapper {
     min-height: 36px;
     display: table-cell;
     vertical-align: middle;
     white-space: nowrap;
 }
 
-.status_bar .actions_wrapper {
+.support_card .status_bar .actions_wrapper {
     width: 99%;
     display: table-cell;
     vertical-align: middle;
@@ -45,30 +65,34 @@
     text-align: right;
 }
 
-.status_bar .actions_wrapper .action {
+.support_card .status_bar .actions_wrapper .action {
     margin: 0 10px;
     display: none;
     cursor: pointer;
 }
 
-.status_bar:hover > .actions_wrapper .action {
+.support_card .status_bar:hover > .actions_wrapper .action {
     display: inline;
 }
 
-.status_bar .author_name {
+.support_card .status_bar .author_name {
     font-weight: 600;
     font-size: 0.9em;
     text-transform: capitalize;
     margin-bottom: 0;
 }
 
-.status_bar .date_posted {
+.support_card .status_bar .date_posted {
     color: grey;
     font-size: 0.6em;
 }
 
-.status_bar p {
+.support_card .status_bar p {
     margin: 0;
+}
+
+.support_card .status_bar {
+    border: 1px solid #ddd;
 }
 
 /*** TAB BAR ******************************************************************/
@@ -95,7 +119,6 @@
     width: 150px;
     display: inline-block;
     float: left;
-
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -103,28 +126,29 @@
 
 /*** BUTTONS *****************************************************************/
 
-.button_wrapper {
+#support_system .button_wrapper {
     text-align: center;
 }
 
-.button {
+#support_system .button {
     padding: 5px 10px;
     color: #fff;
     border-radius: 3px;
     width: 97%;
     height: 40px;
+    margin: 5px 0;
 }
 
-.button[disabled] {
+#support_system .button[disabled] {
     opacity: 0.75;
 }
 
-.button.submit {
+#support_system .button.submit {
     background-color: #378ccd;
     border: 2px solid #378ccd;
 }
 
-.button.submit[disabled]:hover {
+#support_system .button.submit[disabled]:hover {
     border: 2px solid #378ccd;
     color: #fff;
     border-radius: 3px;
@@ -132,17 +156,17 @@
     padding: inherit;
 }
 
-.button.submit .text {
+#support_system .button.submit .text {
     display: inline-block;
     vertical-align: middle;
 }
 
-.button.submit .status {
+#support_system .button.submit .status {
     display: inline-block;
     vertical-align: middle;
 }
 
-.button.submit .spinner {
+#support_system .button.submit .spinner {
     border: 3px solid #f3f3f3;
     border-top: 2px solid #3498db;
     border-radius: 50%;
@@ -152,12 +176,12 @@
     animation: spin 2s linear infinite;
 }
 
-.button.submit .check,
-.button.submit .fail {
+#support_system .button.submit .check,
+#support_system .button.submit .fail {
     margin: 0 5px;
 }
 
-.button.cancel {
+#support_system .button.cancel {
     background-color: #aaaaaa;
 }
 
@@ -169,18 +193,29 @@
     content: "\2716";
 }
 
-/*** FORM SECTION *************************************************************/
+@media( min-width: 767px ) {
+    #support_system .button {
+        width: 150px;
+        margin: 0 4px;
+    }
+
+    #support_system .button_wrapper {
+        text-align: right;
+    }
+}
+
+/*** SINGLE TICKET ************************************************************/
 
 .ticket {
     margin: 20px auto;
 }
 
-.support_ticket form {
-    padding: 5px 5px 10px 5px;
+.ticket .status_bar img {
+    margin-top: 1px;
 }
 
-.ticket .ticket_editor .author_name {
-    font-size: 1.1em;
+.ticket .status_bar .author_name {
+    font-size: 1em;
 }
 
 .ticket .status_bar .date_posted {
@@ -189,126 +224,118 @@
     text-overflow: ellipsis;
 }
 
-.edit_ticket_form {
-    border: 1px solid #ddd;
+.ticket .read_only {
+    margin: 10px;
+}
+
+.ticket .read_only .subject {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 20px 10px;
+}
+
+.ticket .read_only .content {
+    margin: 20px 10px;
+}
+
+
+
+.ticket_editor {
     border-radius: 0 0 4px 4px;
 }
 
-.edit_ticket_form table th,
-.edit_ticket_form table td {
-    display: block;
-    vertical-align: text-top;
-}
-
-.edit_ticket_form .button_wrapper {
+.ticket_editor .button_wrapper {
     margin-top: 10px;
 }
 
-.comment_form {
-    border: 1px solid #ddd;
+.ticket_editor .form_field[name="subject"] {
+    font-size: 1.5em;
 }
 
-/*** FORM FIELDS *************************************************************/
+@media( min-width: 767px ) {
+    .ticket .read_only .meta table {
+        table-layout: auto;
+        padding: inherit;
+    }
 
-.error_field {
+    .ticket .meta {
+        margin: 20px 20px 0 20px;
+    }
+
+    .ticket_editor .meta th {
+        width: 35%;
+    }
+
+    .ticket .meta td {
+        padding-bottom: 20px;
+    }
+
+    .ticket_editor .meta .label {
+        vertical-align: top;
+    }
+}
+
+/*** FORMS *******************************************************************/
+
+#support_system form {
+    padding: 5px 5px 10px 5px;
+}
+
+#support_system form .error_field {
     border: 1px solid red !important;
 }
 
-.error_msg {
+#support_system form .error_msg {
     color: red;
     font-size: 0.9em;
     margin: 2px;
 }
 
-.support_ticket textarea.form_field {
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05);
-}
-
-.support_ticket form label {
+#support_system form .label {
     font-size: 0.9em;
     font-weight: 600;
 }
 
-.support_ticket .form_field {
+#support_system .form_field {
     font-size: 0.9em;
     padding: 10px;
     width: 100%;
-}
-
-.ticket .form_field[name="subject"] {
-    font-size: 1.5em;
+    background-color: #fff;
+    color: #000;
 }
 
 /*** COMMENTS ****************************************************************/
 
-.comments > * {
+.support_ticket .comments > * {
     margin: 20px 0;
 }
 
-.details_wrapper {
-    display: table;
-}
-
-.comment .avatar {
+.support_ticket .comment .avatar {
     margin-top: 2px;
 }
 
-.comment .content {
+.support_ticket .comment .content {
     font-size: 0.8em;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 0 0 4px 4px;
 }
 
-.comment .content > * {
+.support_ticket .comment .content > * {
     margin: 0;
     padding: 0;
 }
 
-.comment_form .error_msg {
-    display: block;
-    margin-top: 5px;
+.support_ticket .comment_reply .wrapper {
+    display: table;
 }
 
-.comment_form .button.cancel {
+.support_ticket .comment_reply .button.cancel {
     display: none;
 }
 
 @media( min-width: 767px ) {
-    .button {
-        width: 150px;
-        margin: 0 4px;
-    }
-
-    .button_wrapper {
-        text-align: right;
-    }
-
-    .comment_form .error_msg {
+    .support_ticket form.comment_form .error_msg {
         position: absolute;
-        margin: 18px 10px;
-    }
-
-    .ticket_editor .meta_fields {
-        margin: 20px 20px 0 20px;
-    }
-
-    .ticket_editor .meta_fields th,
-    .ticket_editor .meta_fields td {
-        display: table-cell;
-    }
-
-    .ticket_editor .meta_fields th {
-        width: 25%;
-    }
-
-    .ticket_editor .meta_fields td {
-        padding-bottom: 20px;
-    }
-
-    .ticket_editor .meta_fields th,
-    .ticket_editor .meta_fields th > label {
-        vertical-align: top;
+        margin: 16px 10px !important;
     }
 }
 

@@ -1,7 +1,7 @@
 <?php use function SmartcatSupport\api\convert_html_specialchars;
 use const SmartcatSupport\TEXT_DOMAIN; ?>
 
-<div class="comment root" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
+<div class="comment support_card root" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
 
     <div class="status_bar">
 

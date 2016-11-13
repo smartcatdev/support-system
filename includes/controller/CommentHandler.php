@@ -27,7 +27,7 @@ class CommentHandler extends ActionListener {
     public function edit_comment() {
         $comment = $this->validate_comment_request();
 
-        if ( ! empty( $comment ) ) {
+        if ( !empty( $comment ) ) {
             wp_send_json_success( $this->view->render( 'comment_form',
                 [
                     'action'      => 'support_save_comment',
@@ -57,7 +57,7 @@ class CommentHandler extends ActionListener {
                     'comment_content' => $data['content']
                 ] );
 
-                if ( ! empty( $result ) ) {
+                if ( !empty( $result ) ) {
                     wp_send_json_success( $this->view->render( 'comment', [
                         'comment' => get_comment( $data['id'] )
                     ] ) );

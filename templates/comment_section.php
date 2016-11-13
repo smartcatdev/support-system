@@ -21,11 +21,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     </div>
 
-    <div class="comment_form root">
+    <div class="comment_reply support_card root">
 
         <div class="status_bar">
 
-            <div class="details_wrapper">
+            <div class="wrapper">
 
                 <div class="image_wrapper">
 

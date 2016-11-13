@@ -7,13 +7,12 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 <div class="ticket_editor">
 
-    <form class="edit_ticket_form"
-          data-action="<?php esc_attr_e( $action ); ?>"
+    <form data-action="<?php esc_attr_e( $action ); ?>"
           data-after="<?php esc_attr_e( $after ); ?>">
 
         <?php Form::form_fields( $editor_form ); ?>
 
-        <div class="meta_fields">
+        <div class="meta">
 
             <?php Form::form_fields( $meta_form ); ?>
 

@@ -86,7 +86,7 @@ class Form {
 
     public static function form_fields( Form $form ) { ?>
             
-        <table>
+        <table class="collapsible">
 
             <?php foreach( $form->get_fields() as $field ) : ?>
 

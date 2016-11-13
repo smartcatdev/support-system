@@ -5,7 +5,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="ticket root" data-id="<?php esc_attr_e( $post->ID ); ?>">
+<div class="ticket support_card root" data-id="<?php esc_attr_e( $post->ID ); ?>">
 
     <div class="status_bar">
 
@@ -54,35 +54,39 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <div class="inner">
 
-        <div class="details">
+        <div class="read_only">
 
-            <h2><?php esc_html_e( $post->post_title ); ?></h2>
+            <h2 class="subject"><?php esc_html_e( $post->post_title ); ?></h2>
 
-            <p><?php echo convert_html_specialchars( $post->post_content ); ?></p>
+            <div class="content"><?php echo convert_html_specialchars( $post->post_content ); ?></div>
 
-            <table>
+            <div class="meta">
 
-                <?php foreach( $meta as $name => $value ) : ?>
+                <table class="collapsible">
 
-                    <tr>
+                    <?php foreach( $meta as $name => $value ) : ?>
 
-                        <th class="label">
+                        <tr>
 
-                            <?php esc_html_e( $name ); ?>
+                            <th class="label">
 
-                        </th>
+                                <?php esc_html_e( $name ); ?>
 
-                        <td>
+                            </th>
 
-                            <?php esc_html_e( $value ); ?>
+                            <td>
 
-                        </td>
+                                <?php esc_html_e( $value ); ?>
 
-                    </tr>
+                            </td>
 
-                <?php endforeach; ?>
+                        </tr>
 
-            </table>
+                    <?php endforeach; ?>
+
+                </table>
+
+                </div>
 
         </div>
 
