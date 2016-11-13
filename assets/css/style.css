@@ -238,7 +238,15 @@ table.collapsible tr {
     margin: 20px 10px;
 }
 
-
+.ticket .date_opened {
+    padding: 0 10px;
+    color: #686868;
+    font-size: 0.8em;
+    background-color: #f2f8fa;
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    text-align: right;
+}
 
 .ticket_editor {
     border-radius: 0 0 4px 4px;

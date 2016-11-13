@@ -103,10 +103,10 @@ class TicketHandler extends ActionListener {
     private function read_only( $ticket ) {
         $args = [ 'post' => $ticket ];
 
-        if( current_user_can( 'edit_ticket_meta' ) ) {
-            $args['meta']['Agent'] = get_post_meta( $ticket->ID, 'agent', true );
-            $args['meta']['Status'] = get_post_meta( $ticket->ID, 'status', true );
-            $args['meta']['Email'] = get_post_meta( $ticket->ID, 'email', true );
+        $form = $this->configure_meta_form( $ticket );
+
+        foreach ( $form->get_fields() as $field ) {
+            $args['meta'][ $field->get_label() ] = $field->get_value();
         }
 
         return $this->view->render( 'ticket', $args );

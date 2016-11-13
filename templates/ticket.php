@@ -86,9 +86,15 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 </table>
 
-                </div>
+            </div>
 
         </div>
+
+    </div>
+
+    <div class="date_opened">
+
+        <?php _e( 'Opened ', TEXT_DOMAIN ); echo get_the_date( 'l F n, Y', $post->ID ) ; ?>
 
     </div>
 
