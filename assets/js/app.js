@@ -83,6 +83,14 @@
         context.first().replaceWith(data);
     },
 
+    app.delete_comment = function (context) {
+        app.ajax('support_delete_comment', {id: context.data('id')}, function(response) {
+            if(response.success) {
+                context.first().remove();
+           }
+        });
+    },
+
     app.submit_form = function (e) {
         e.preventDefault();
 
@@ -97,6 +105,8 @@
         text.text(text.data('wait'));
 
         app.ajax(form.data('action'), form.serializeArray(), function (response) {
+            console.log(response);
+
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 

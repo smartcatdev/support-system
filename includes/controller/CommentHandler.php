@@ -21,6 +21,7 @@ class CommentHandler extends ActionListener {
         $this->add_ajax_action( 'support_edit_comment', 'edit_comment' );
         $this->add_ajax_action( 'support_save_comment', 'save_comment' );
         $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
+        $this->add_ajax_action( 'support_delete_comment', 'delete_comment' );
         $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
     }
 
@@ -99,6 +100,15 @@ class CommentHandler extends ActionListener {
             } else {
                 wp_send_json_error( $form ->get_errors() );
             }
+        }
+    }
+
+    public function delete_comment() {
+        $comment = $this->validate_comment_request();
+
+        if( !empty( $comment ) ) {
+            wp_delete_comment( $comment->comment_ID, true );
+            wp_send_json_success();
         }
     }
 
