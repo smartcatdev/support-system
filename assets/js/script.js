@@ -7,12 +7,14 @@ jQuery(document).ready(function ($) {
 
     $(document).on('click', '.status_bar .action', function (e) {
         e.preventDefault();
-        SupportSystem[$(this).data('action')]($(this).parents('.root').data('ajax_action', $(this).data('ajax_action')));
+        SupportSystem[$(this).data('action')](
+            $(this).parents('.support_card').first()
+        );
     });
 
     $(document).on('click', '.button.cancel', function (e) {
         e.preventDefault();
-        SupportSystem.cancel_editor($(this).parents('.root'));
+        SupportSystem.cancel_editor($(this).parents('.support_card').first());
     });
 
     $(document).on('submit', '#support_system form', SupportSystem.submit_form);

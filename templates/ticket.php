@@ -5,7 +5,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="ticket support_card root" data-id="<?php esc_attr_e( $post->ID ); ?>">
+<div class="ticket support_card" data-id="<?php esc_attr_e( $post->ID ); ?>">
 
     <div class="status_bar">
 
@@ -44,7 +44,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <div class="actions">
 
-                <span class="action icon-pencil" data-action="get_editor" data-ajax_action="support_edit_ticket"></span>
+                <span class="action icon-pencil" data-action="edit_ticket"></span>
 
             </div>
 
