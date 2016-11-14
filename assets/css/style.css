@@ -69,6 +69,7 @@ table.collapsible tr {
     margin: 0 10px;
     display: none;
     cursor: pointer;
+    color: #686868;
 }
 
 .support_card .status_bar:hover > .actions_wrapper .action {

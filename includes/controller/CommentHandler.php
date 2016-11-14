@@ -56,7 +56,9 @@ class CommentHandler extends ActionListener {
 
                 wp_update_comment( [
                     'comment_ID'      => $data['id'],
-                    'comment_content' => $data['content']
+                    'comment_content' => $data['content'],
+                    'comment_date' =>  current_time( 'mysql' ),
+                    'comment_date_gmt' =>  current_time( 'mysql', 1 )
                 ] );
 
                 wp_send_json_success( $this->view->render( 'comment', [
