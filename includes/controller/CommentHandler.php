@@ -47,21 +47,20 @@ class CommentHandler extends ActionListener {
     public function save_comment() {
         $comment = $this->validate_comment_request();
 
-        if ( ! empty( $comment ) ) {
+        if ( !empty( $comment ) ) {
             $form = $this->configure_comment_form( null, $comment );
 
             if ( $form->is_valid() ) {
                 $data = $form->get_data();
-                $result = wp_update_comment( [
+
+                wp_update_comment( [
                     'comment_ID'      => $data['id'],
                     'comment_content' => $data['content']
                 ] );
 
-                if ( !empty( $result ) ) {
-                    wp_send_json_success( $this->view->render( 'comment', [
-                        'comment' => get_comment( $data['id'] )
-                    ] ) );
-                }
+                wp_send_json_success( $this->view->render( 'comment', [
+                    'comment' => get_comment( $data['id'] )
+                ] ) );
             } else {
                 wp_send_json_error( $form->get_errors() );
             }
