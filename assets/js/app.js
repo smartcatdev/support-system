@@ -28,14 +28,26 @@
         tinymce.init(args);
     },
 
-    app.get_editor = function (context) {
-        context = context.first();
-
+    app.edit_ticket = function(context) {
         if(!context.data('saved_state')) {
             context.data('saved_state', context.find('.inner').html());
         }
 
-        app.ajax(context.data('ajax_action'), {id: context.data('id')}, function (response) {
+        app.ajax('support_edit_ticket', {id: context.data('id')}, function (response) {
+
+            if(response.success) {
+                context.find('.inner').html(response.data);
+                app.tinymce('[name="content"]');
+            }
+        });
+    },
+
+    app.edit_comment = function(context) {
+        if(!context.data('saved_state')) {
+            context.data('saved_state', context.find('.inner').html());
+        }
+
+        app.ajax('support_edit_comment', {id: context.data('id')}, function (response) {
             if(response.success) {
                 context.find('.inner').html(response.data);
                 app.tinymce('[name="content"]');
@@ -44,8 +56,6 @@
     },
 
     app.cancel_editor = function(context) {
-        context = context.first();
-
         if(context.data('saved_state')) {
             context.find('.inner').html(context.data('saved_state'));
         }
@@ -76,11 +86,19 @@
     },
 
     app.append_comment = function (context, data) {
-        context.find('.comments').append(data);
+        context.parents().find('.comments').append(data);
     },
 
     app.refresh_comment = function (context, data) {
         context.first().replaceWith(data);
+    },
+
+    app.delete_comment = function (context) {
+        app.ajax('support_delete_comment', {id: context.data('id')}, function(response) {
+            if(response.success) {
+                context.first().remove();
+           }
+        });
     },
 
     app.submit_form = function (e) {
@@ -97,6 +115,8 @@
         text.text(text.data('wait'));
 
         app.ajax(form.data('action'), form.serializeArray(), function (response) {
+            console.log(response);
+
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 
@@ -108,7 +128,7 @@
                 setTimeout(function () {
                     status.removeClass('check');
                     text.text(text.data('default'));
-                    app[form.data('after')](form.parents('.root'), response.data);
+                    app[form.data('after')](form.parents('.support_card').first(), response.data);
                 }, unlockDelay);
 
             } else {

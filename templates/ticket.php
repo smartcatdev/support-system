@@ -1,11 +1,11 @@
 <?php
 
-use function SmartcatSupport\api\convert_html_specialchars;
+use function SmartcatSupport\convert_html_chars;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="ticket support_card root" data-id="<?php esc_attr_e( $post->ID ); ?>">
+<div class="ticket support_card" data-id="<?php esc_attr_e( $post->ID ); ?>">
 
     <div class="status_bar">
 
@@ -44,7 +44,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <div class="actions">
 
-                <span class="action icon-pencil" data-action="get_editor" data-ajax_action="support_edit_ticket"></span>
+                <span class="action icon-pencil" data-action="edit_ticket"></span>
 
             </div>
 
@@ -58,7 +58,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <h2 class="subject"><?php esc_html_e( $post->post_title ); ?></h2>
 
-            <div class="content"><?php echo convert_html_specialchars( $post->post_content ); ?></div>
+            <div class="content"><?php echo convert_html_chars( $post->post_content ); ?></div>
 
             <div class="meta">
 

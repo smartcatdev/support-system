@@ -5,7 +5,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="comment_section root">
+<div class="comment_section">
 
     <div class="comments">
 

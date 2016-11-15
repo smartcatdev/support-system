@@ -1,14 +1,14 @@
 <?php
 
-namespace SmartcatSupport\controller;
+namespace SmartcatSupport\ajax;
 
 use SmartcatSupport\util\ActionListener;
-use SmartcatSupport\util\View;
+use SmartcatSupport\util\TemplateRender;
 
-class TableHandler extends ActionListener  {
+class TableHandler extends ActionListener {
     private $view;
 
-    public function __construct( View $view ) {
+    public function __construct( TemplateRender $view ) {
         $this->view = $view;
 
         $this->column_data_callbacks();

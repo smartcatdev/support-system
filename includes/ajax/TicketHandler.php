@@ -1,10 +1,10 @@
 <?php
 
-namespace SmartcatSupport\controller;
+namespace SmartcatSupport\ajax;
 
 use SmartcatSupport\form\constraint\Match;
 use SmartcatSupport\form\field\TextEditor;
-use SmartcatSupport\util\View;
+use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
@@ -26,7 +26,7 @@ class TicketHandler extends ActionListener {
     private $view;
     private $builder;
 
-    public function __construct( View $view, FormBuilder $builder ) {
+    public function __construct( TemplateRender $view, FormBuilder $builder ) {
         $this->view = $view;
         $this->builder = $builder;
 
@@ -201,10 +201,5 @@ class TicketHandler extends ActionListener {
         );
 
         return apply_filters( 'support_ticket_meta_form', $this->builder, $post )->get_form();
-    }
-
-    //TODO Put this in a dash handler class for dashboard events
-    public function render_dash() {
-        echo $this->view->render( 'dash' );
     }
 }

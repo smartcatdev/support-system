@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\admin;
 
-use SmartcatSupport\util\View;
+use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;
@@ -18,12 +18,12 @@ use const SmartcatSupport\TEXT_DOMAIN;
  * @package admin
  * @author Eric Green <eric@smartcat.ca>
  */
-class SupportTicketMetaBox extends MetaBox {
+class SupportMetaBox extends MetaBox {
 
     private $builder;
     private $view;
 
-    public function __construct( View $view, FormBuilder $builder ) {
+    public function __construct( TemplateRender $view, FormBuilder $builder ) {
         parent::__construct( 'ticket_meta', __( 'Ticket Information', TEXT_DOMAIN ), 'support_ticket' ); 
 
         $this->builder = $builder;
@@ -45,7 +45,6 @@ class SupportTicketMetaBox extends MetaBox {
     private function configure_form( $post ) {
         $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
-        $date = get_post_meta( $post->ID, 'date_opened', true );
 
         //<editor-fold desc="Form Configuration">
         $this->builder->add( TextBox::class, 'email',
@@ -71,15 +70,6 @@ class SupportTicketMetaBox extends MetaBox {
                 'value'       => get_post_meta( $post->ID, 'status', true ),
                 'constraints' => [
                     $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                ]
-            ]
-        )->add( TextBox::class, 'date_opened',
-            [
-                'label'       => 'Date Opened',
-                'type'        => 'date',
-                'value'       => $date == '' ? date( 'Y-m-d' ) : $date,
-                'constraints' => [
-                    $this->builder->create_constraint( Date::class )
                 ]
             ]
         );

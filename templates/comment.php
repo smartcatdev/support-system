@@ -1,7 +1,7 @@
 <?php use function SmartcatSupport\api\convert_html_specialchars;
 use const SmartcatSupport\TEXT_DOMAIN; ?>
 
-<div class="comment support_card root" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
+<div class="comment support_card" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
 
     <div class="status_bar">
 
@@ -29,7 +29,8 @@ use const SmartcatSupport\TEXT_DOMAIN; ?>
 
                 <?php if( $comment->user_id == wp_get_current_user()->ID ) : ?>
 
-                    <span class="action icon-pencil" data-action="get_editor" data-ajax_action="support_edit_comment"></span>
+                    <span class="action icon-bin" data-action="delete_comment"></span>
+                    <span class="action icon-pencil" data-action="edit_comment"></span>
 
                 <?php endif; ?>
 

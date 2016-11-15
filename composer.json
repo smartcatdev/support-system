@@ -3,5 +3,8 @@
         "psr-4" : {
             "SmartcatSupport\\" : "includes/"
         }
+    },
+    "require": {
+        "pimple/pimple": "v3.0.2"
     }
 }

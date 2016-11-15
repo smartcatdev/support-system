@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'SmartcatSupport\\' => array($baseDir . '/includes'),
+    'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
+    'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
 );

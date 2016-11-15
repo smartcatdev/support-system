@@ -9,7 +9,7 @@ namespace SmartcatSupport\util;
  * @package template
  * @author Eric Green <eric@smartcat.ca>
  */
-class View {
+class TemplateRender {
     private $template_dir;
     
     /**

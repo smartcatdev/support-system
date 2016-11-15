@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\controller;
+namespace SmartcatSupport\ajax;
 
 use SmartcatSupport\form\constraint\Required;
 use SmartcatSupport\form\field\Hidden;
@@ -8,19 +8,20 @@ use SmartcatSupport\form\field\TextArea;
 use SmartcatSupport\form\FormBuilder;
 use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
-use SmartcatSupport\util\View;
+use SmartcatSupport\util\TemplateRender;
 
 class CommentHandler extends ActionListener {
     private $builder;
     private $view;
 
-    public function __construct( View $view, FormBuilder $builder ) {
+    public function __construct( TemplateRender $view, FormBuilder $builder ) {
         $this->view = $view;
         $this->builder = $builder;
 
         $this->add_ajax_action( 'support_edit_comment', 'edit_comment' );
         $this->add_ajax_action( 'support_save_comment', 'save_comment' );
         $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
+        $this->add_ajax_action( 'support_delete_comment', 'delete_comment' );
         $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
     }
 
@@ -55,7 +56,9 @@ class CommentHandler extends ActionListener {
 
                 wp_update_comment( [
                     'comment_ID'      => $data['id'],
-                    'comment_content' => $data['content']
+                    'comment_content' => $data['content'],
+                    'comment_date' =>  current_time( 'mysql' ),
+                    'comment_date_gmt' =>  current_time( 'mysql', 1 )
                 ] );
 
                 wp_send_json_success( $this->view->render( 'comment', [
@@ -99,6 +102,15 @@ class CommentHandler extends ActionListener {
             } else {
                 wp_send_json_error( $form ->get_errors() );
             }
+        }
+    }
+
+    public function delete_comment() {
+        $comment = $this->validate_comment_request();
+
+        if( !empty( $comment ) ) {
+            wp_delete_comment( $comment->comment_ID, true );
+            wp_send_json_success();
         }
     }
 
