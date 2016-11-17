@@ -42,6 +42,17 @@
         });
     },
 
+    app.create_ticket = function () {
+        app.new_tab('create', 'Unsaved Ticket', function(element) {
+            app.ajax('support_create_ticket', null, function (response) {
+                if (response.success) {
+                    element.html('<div class="support_ticket">' + response.data + '</div>');
+                }
+            });
+        });
+
+    },
+
     app.edit_comment = function (context) {
         if (!context.data('saved_state')) {
             context.data('saved_state', context.find('.inner').html());

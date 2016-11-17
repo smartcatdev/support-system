@@ -3,6 +3,10 @@ jQuery(document).ready(function ($) {
     // Bind events
     $(document).on('submit', '#support_system form', SupportSystem.submit_form);
 
+    $(document).on('click', '#support_system button.trigger', function() {
+        SupportSystem[$(this).data('action')]($(this));
+    });
+
     $(document).on('dblclick', 'tr', function () {
         SupportSystem.view_ticket(
             {

@@ -2,6 +2,11 @@
 
 <div class="support_card">
 
+    <button class="trigger"
+        data-action="create_ticket"
+        data-after="refresh_ticket"><?php _e( 'Create Ticket', TEXT_DOMAIN ); ?>
+    </button>
+
     <form data-action="support_filter_tickets"
         data-after="replace_table">
 

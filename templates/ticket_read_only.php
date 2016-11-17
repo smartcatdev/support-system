@@ -94,7 +94,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <div class="date_opened">
 
-        <?php _e( 'Opened ', TEXT_DOMAIN ); echo get_the_date( 'l F n, Y', $post->ID ) ; ?>
+        <?php _e( 'Opened ', TEXT_DOMAIN ); echo get_the_date( 'l F n, Y', $post ); ?>
 
     </div>
 

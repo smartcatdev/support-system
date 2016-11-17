@@ -33,15 +33,14 @@ class TicketHandler extends ActionListener {
         $this->add_ajax_action( 'support_view_ticket', 'view_ticket' );
         $this->add_ajax_action( 'support_edit_ticket', 'edit_ticket' );
         $this->add_ajax_action( 'support_save_ticket', 'save_ticket' );
+        $this->add_ajax_action( 'support_create_ticket', 'create_ticket' );
     }
 
     public function view_ticket() {
         $ticket = $this->valid_request();
 
         if( !empty( $ticket ) ) {
-            wp_send_json_success( $this->read_only( $ticket ) );
-        } else {
-            wp_send_json_error( __( 'You don\'t have permission to edit this ticket.', TEXT_DOMAIN ) );
+            $this->send_read_only( $ticket );
         }
     }
 
@@ -49,18 +48,24 @@ class TicketHandler extends ActionListener {
         $ticket = $this->valid_request();
 
         if( !empty( $ticket ) ) {
-            wp_send_json_success(
-                $this->view->render( 'ticket_editor',
-                    [
-                        'post'           => $ticket,
-                        'editor_form'    => $this->configure_editor_form( $ticket ),
-                        'meta_form'      => $this->configure_meta_form( $ticket ),
-                        'action'  => 'support_save_ticket',
-                        'after' => 'refresh_ticket'
-                    ]
-                ) );
-        } else {
-            wp_send_json_error( __( 'You don\'t have permission to edit this ticket.', TEXT_DOMAIN ) );
+            $this->send_editable( $ticket );
+        }
+    }
+
+    public function create_ticket() {
+        if( current_user_can( 'edit_tickets') ) {
+            $draft = get_post( get_user_meta( 'ticket_draft_id' ) );
+
+            if( empty( $draft ) ) {
+                $id = wp_insert_post( [
+                    'post_status'  => 'draft',
+                    'post_type'    => 'support_ticket',
+                ] );
+
+                $draft = get_post( $id );
+            }
+
+            $this->send_editable( $draft );
         }
     }
 
@@ -90,17 +95,28 @@ class TicketHandler extends ActionListener {
                     }
 
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                    wp_send_json_success( $this->read_only( get_post( $post_id ) ) );
+                    wp_send_json_success( $this->send_read_only( get_post( $post_id ) ) );
                 }
-
-
             } else {
                 wp_send_json_error( $form->get_errors() + $meta->get_errors() );
             }
         }
     }
 
-    private function read_only( $ticket ) {
+    private function send_editable( $ticket ) {
+        wp_send_json_success(
+            $this->view->render( 'ticket_editable',
+                [
+                    'post'        => $ticket,
+                    'editor_form' => $this->configure_editor_form( $ticket ),
+                    'meta_form'   => $this->configure_meta_form( $ticket ),
+                    'action'      => 'support_save_ticket',
+                    'after'       => 'refresh_ticket'
+                ]
+            ) );
+    }
+
+    private function send_read_only( $ticket ) {
         $args = [ 'post' => $ticket ];
 
         $form = $this->configure_meta_form( $ticket );
@@ -109,7 +125,7 @@ class TicketHandler extends ActionListener {
             $args['meta'][ $field->get_label() ] = $field->get_value();
         }
 
-        return $this->view->render( 'ticket', $args );
+        wp_send_json_success( $this->view->render( 'ticket_read_only', $args ) );
     }
 
     private function valid_request() {
@@ -138,10 +154,7 @@ class TicketHandler extends ActionListener {
 
         $this->builder->add( Hidden::class, 'id',
             [
-                'value'       => $post->ID,
-//                'constraints' =>  [
-//                    $this->builder->create_constraint( Match::class, $post->ID )
-//                ]
+                'value'       => $post->ID
             ]
         )->add( TextBox::class, 'subject',
             [
