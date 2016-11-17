@@ -162,25 +162,25 @@
             });
         },
 
-    app.replace_table = function (context, data) {
-            $('#support_tickets_table_wrapper').replaceWith(data);
+    app.filter_table = function (e) {
+        e.preventDefault();
 
-            var cols = [];
-
-            $('#support_tickets_table th').each(function () {
-                cols.push({ data: $(this).data('id') });
-            });
-
-            $('#support_tickets_table').DataTable({
-                responsive: true,
-                columns: cols
-            });
-        },
+        // Save this fore future refreshes
+        set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
+        app.refresh_table();
+    },
 
     app.refresh_table = function () {
-        app.ajax('support_refresh_table', sessionStorage.table_filter, function() {
+        // Get the data from the last filter
+        var data = get_session_obj('tickets_filter', []);
 
-        });
+        app.ajax('support_refresh_tickets', data, function (response) {
+            if(response.success) {
+                $('#support_tickets_table_wrapper').replaceWith(response.data);
+
+                init_table();
+            }
+        })
     },
 
     app.new_tab = function (id, label, callback) {
@@ -213,6 +213,39 @@
             tabs.tabs('option', 'active', li.index());
         } else {
             tabs.tabs('option', 'active', existing);
+        }
+    }
+
+    function init_table () {
+        var cols = [];
+
+        $('#support_tickets_table th').each(function () {
+            cols.push({ data: $(this).data('id') });
+        });
+
+        $('#support_tickets_table').DataTable({
+            responsive: true,
+            columns: cols
+        });
+    }
+
+    function get_session_obj(key, default_value) {
+        var data = default_value;
+
+        try{
+            data = JSON.parse(window.sessionStorage[ key ]);
+        } catch (ex) {
+
+        }
+
+        return data;
+    }
+
+    function set_session_obj(key, value) {
+        try {
+            window.sessionStorage[ key ] = JSON.stringify(value);
+        } catch (ex) {
+            window.sessionStorage[ key ] = [];
         }
     }
 

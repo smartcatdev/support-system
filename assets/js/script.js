@@ -1,7 +1,8 @@
 jQuery(document).ready(function ($) {
 
     // Bind events
-    $(document).on('submit', '#support_system form', SupportSystem.submit_form);
+    $(document).on('submit', '.support_ticket form', SupportSystem.submit_form);
+    $(document).on('submit', '#ticket_filter', SupportSystem.filter_table);
 
     $(document).on('click', '#support_system button.trigger', function() {
         SupportSystem[$(this).data('action')]($(this));
@@ -32,6 +33,11 @@ jQuery(document).ready(function ($) {
         beforeLoad: function( event, ui ) {
             if ( ui.tab.data( 'loaded' ) ) {
                 event.preventDefault();
+
+                if(ui.tab.index() == 0) {
+                    SupportSystem.refresh_table();
+                }
+
                 return;
             }
 
@@ -60,5 +66,7 @@ jQuery(document).ready(function ($) {
         $( '#' + tab ).remove();
         tabs.tabs( 'refresh' );
     });
+
+
 
 });

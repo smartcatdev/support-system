@@ -7,8 +7,7 @@
         data-after="refresh_ticket"><?php _e( 'Create Ticket', TEXT_DOMAIN ); ?>
     </button>
 
-    <form data-action="support_filter_tickets"
-        data-after="replace_table">
+    <form id="ticket_filter">
 
         <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>" />
 

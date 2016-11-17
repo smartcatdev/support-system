@@ -19,33 +19,33 @@ class TableHandler extends ActionListener {
         $this->builder = $builder;
 
         $this->column_data_callbacks();
-        $this->add_ajax_action( 'support_filter_tickets', 'filter_tickets' );
         $this->add_ajax_action( 'support_list_tickets', 'ticket_table' );
+        $this->add_ajax_action( 'support_refresh_tickets', 'refresh_table' );
     }
 
     public function ticket_table() {
-        wp_send_json($this->view->render( 'tickets_overview',
-            [
+        wp_send_json(
+            $this->view->render( 'tickets_overview', [
                 'headers' => $this->table_headers(),
                 'data'    => $this->table_data( $this->build_query() ),
                 'form'    => $this->configure_filter_form()
             ]
-        ));
+        ) );
     }
 
-    public function filter_tickets() {
+    public function refresh_table() {
         if( current_user_can( 'edit_tickets' ) ) {
             $form = $this->configure_filter_form();
 
             if( $form->is_valid() ) {
                 $tickets = $this->build_query( $form->get_data() );
 
-                wp_send_json_success( $this->view->render( 'tickets_table',
-                    [
+                wp_send_json_success(
+                    $this->view->render( 'tickets_table', [
                         'headers' => $this->table_headers(),
                         'data'    => $this->table_data( $tickets )
                     ]
-                ));
+                ) );
             }
         }
     }
