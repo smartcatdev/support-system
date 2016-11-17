@@ -29,7 +29,7 @@ $app['form_factory'] = $app->factory( function () {
 // Classes require direct assignment due to WordPress requiring a reference for actions
 
 // Configure table Handler
-$app['table_handler'] = new TableHandler( $app['renderer'] );
+$app['table_handler'] = new TableHandler( $app['renderer'], $app['form_factory'] );
 
 // Configure ticket Handler
 $app['ticket_handler'] = new TicketHandler( $app['renderer'], $app['form_factory'] );

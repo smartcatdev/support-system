@@ -4,18 +4,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<form>
-
-    <select>
-        <option>Assigned</option>
-    </select>
-
-    <select>
-        <option>Status</option>
-    </select>
-
-</form>
-
 <table id="support_tickets_table">
 
     <thead>
@@ -24,7 +12,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php foreach( $headers as $col => $value ) : ?>
 
-                <th data-id="<?php echo $col; ?>"><?php esc_html_e( $value, TEXT_DOMAIN ); ?></th>
+                <th data-id="<?php echo $col; ?>">
+
+                    <?php esc_html_e( $value, TEXT_DOMAIN ); ?>
+
+                </th>
 
             <?php endforeach; ?>
 

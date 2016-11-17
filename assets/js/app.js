@@ -83,6 +83,21 @@
         context.replaceWith(data);
     },
 
+    app.replace_table = function (context, data) {
+        $('#support_tickets_table_wrapper').replaceWith(data);
+
+        var cols = [];
+
+        $('#support_tickets_table th').each(function () {
+            cols.push({ data: $(this).data('id') });
+        });
+
+        $('#support_tickets_table').DataTable({
+            responsive: true,
+            columns: cols
+        });
+    },
+
     app.append_comment = function (context, data) {
         context.parents().find('.comments').append(data);
     },
