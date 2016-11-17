@@ -54,14 +54,18 @@ class TicketHandler extends ActionListener {
 
     public function create_ticket() {
         if( current_user_can( 'edit_tickets') ) {
-            $draft = get_post( get_user_meta( 'ticket_draft_id' ) );
+            $user = wp_get_current_user();
+            $draft = get_post( get_user_meta( $user->ID, 'ticket_draft_id', true ) );
 
             if( empty( $draft ) ) {
                 $id = wp_insert_post( [
                     'post_status'  => 'draft',
                     'post_type'    => 'support_ticket',
+                    'post_title'   => '',
+                    'post_content' => ''
                 ] );
 
+                update_user_meta( $user->ID, 'ticket_draft_id', $id );
                 $draft = get_post( $id );
             }
 
@@ -158,7 +162,7 @@ class TicketHandler extends ActionListener {
             ]
         )->add( TextBox::class, 'subject',
             [
-                'value'         => isset( $post ) ? $post->post_title : '',
+                'value'         => $post->post_title,
                 'error_msg'     => __( 'Subject cannot be blank', TEXT_DOMAIN ),
                 'constraints'   =>  [
                     $this->builder->create_constraint( Required::class )
@@ -166,7 +170,7 @@ class TicketHandler extends ActionListener {
             ]
         )->add( TextArea::class, 'content',
             [
-                'value' => isset( $post ) ? $post->post_content : '',
+                'value' => $post->post_content,
                 'error_msg' => __( 'Description cannot be blank', TEXT_DOMAIN ),
                 'sanitize_callback' => 'trim',
                 'constraints' =>  [
@@ -181,37 +185,41 @@ class TicketHandler extends ActionListener {
     private function configure_meta_form( $post ) {
         $this->builder->clear_config();
 
-        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
-        $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+        if( current_user_can( 'edit_others_tickets' ) ) {
 
-        $this->builder->add( TextBox::class, 'email',
-            [
-                'type'              => 'email',
-                'label'             => 'Contact Email',
-                'value'             => get_post_meta( $post->ID, 'email', true ),
-                'sanitize_callback' => 'sanitize_email'
-            ]
-        )->add( SelectBox::class, 'agent',
-            [
-                'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
-                'label'       => 'Assigned To',
-                'options'     => $agents,
-                'value'       => get_post_meta( $post->ID, 'agent', true ),
-                'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+            $agents   = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
+            $this->builder->add( TextBox::class, 'email',
+                [
+                    'type'              => 'email',
+                    'label'             => 'Contact Email',
+                    'value'             => get_post_meta( $post->ID, 'email', true ),
+                    'sanitize_callback' => 'sanitize_email'
                 ]
-            ]
-        )->add( SelectBox::class, 'status',
-            [
-                'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
-                'label'       => 'Status',
-                'options'     => $statuses,
-                'value'       => get_post_meta( $post->ID, 'status', true ),
-                'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+            )->add( SelectBox::class, 'agent',
+                [
+                    'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
+                    'label'       => 'Assigned To',
+                    'options'     => $agents,
+                    'value'       => get_post_meta( $post->ID, 'agent', true ),
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+                    ]
                 ]
-            ]
-        );
+            )->add( SelectBox::class, 'status',
+                [
+                    'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
+                    'label'       => 'Status',
+                    'options'     => $statuses,
+                    'value'       => get_post_meta( $post->ID, 'status', true ),
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+                    ]
+                ]
+            );
+
+        }
 
         return apply_filters( 'support_ticket_meta_form', $this->builder, $post )->get_form();
     }

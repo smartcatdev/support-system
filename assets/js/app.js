@@ -28,6 +28,35 @@
         tinymce.init(args);
     },
 
+    app.create_ticket = function () {
+            app.new_tab('create', 'Unsaved Ticket', function(element) {
+                app.ajax('support_create_ticket', null, function (response) {
+                    if (response.success) {
+                        element.html('<div class="support_ticket">' + response.data + '</div>');
+                    }
+                });
+            });
+
+        },
+
+    app.view_ticket = function (ticket) {
+            app.new_tab(ticket.id, ticket.subject, function (element) {
+                app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
+                    if (response.success) {
+                        element.html('<div class="support_ticket">' + response.data + '</div>');
+
+                        app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
+                            if (response.success) {
+                                element.find('.support_ticket').append(response.data);
+                                app.tinymce('[name="content"]');
+                            }
+
+                        });
+                    }
+                });
+            });
+        },
+
     app.edit_ticket = function (context) {
         if (!context.data('saved_state')) {
             context.data('saved_state', context.find('.inner').html());
@@ -40,17 +69,6 @@
                 app.tinymce('[name="content"]');
             }
         });
-    },
-
-    app.create_ticket = function () {
-        app.new_tab('create', 'Unsaved Ticket', function(element) {
-            app.ajax('support_create_ticket', null, function (response) {
-                if (response.success) {
-                    element.html('<div class="support_ticket">' + response.data + '</div>');
-                }
-            });
-        });
-
     },
 
     app.edit_comment = function (context) {
@@ -66,47 +84,14 @@
         });
     },
 
+    app.refresh_ticket = function (context, data) {
+            context.replaceWith(data);
+        },
+
     app.cancel_editor = function (context) {
         if (context.data('saved_state')) {
             context.find('.inner').html(context.data('saved_state'));
         }
-    },
-
-    app.view_ticket = function (ticket) {
-        app.new_tab(ticket.id, ticket.subject, function (element) {
-            app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
-                if (response.success) {
-                    element.html('<div class="support_ticket">' + response.data + '</div>');
-
-                    app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
-                        if (response.success) {
-                            element.find('.support_ticket').append(response.data);
-                            app.tinymce('[name="content"]');
-                        }
-
-                    });
-                }
-            });
-        });
-    },
-
-    app.refresh_ticket = function (context, data) {
-        context.replaceWith(data);
-    },
-
-    app.replace_table = function (context, data) {
-        $('#support_tickets_table_wrapper').replaceWith(data);
-
-        var cols = [];
-
-        $('#support_tickets_table th').each(function () {
-            cols.push({ data: $(this).data('id') });
-        });
-
-        $('#support_tickets_table').DataTable({
-            responsive: true,
-            columns: cols
-        });
     },
 
     app.append_comment = function (context, data) {
@@ -174,6 +159,21 @@
                 setTimeout(function () {
                     button.prop('disabled', false);
                 }, unlockDelay);
+            });
+        },
+
+    app.replace_table = function (context, data) {
+            $('#support_tickets_table_wrapper').replaceWith(data);
+
+            var cols = [];
+
+            $('#support_tickets_table th').each(function () {
+                cols.push({ data: $(this).data('id') });
+            });
+
+            $('#support_tickets_table').DataTable({
+                responsive: true,
+                columns: cols
             });
         },
 

@@ -73,15 +73,7 @@ class TableHandler extends ActionListener {
         $agents = [ '' => __( 'Assigned', TEXT_DOMAIN ) ] + support_system_agents();
         $statuses = [ '' => __( 'Status', TEXT_DOMAIN ) ] + get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
-        $this->builder->add( SelectBox::class, 'agent',
-            [
-                'options'     => $agents,
-                'value'       => '',
-                'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
-                ]
-            ]
-        )->add( SelectBox::class, 'status',
+        $this->builder->add( SelectBox::class, 'status',
             [
                 'options'     => $statuses,
                 'value'       => '',
@@ -91,7 +83,32 @@ class TableHandler extends ActionListener {
             ]
         );
 
+        if( current_user_can( 'edit_others_tickets' ) ) {
+
+            $this->builder->add( SelectBox::class, 'agent',
+                [
+                    'options'     => $agents,
+                    'value'       => '',
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+                    ]
+                ]
+            );
+
+        }
+
         return $this->builder->get_form();
+    }
+
+    private function table_headers() {
+        $headers = [
+            'id'        => 'ID',
+            'subject'   => 'Subject',
+            'email'     => 'Email',
+            'status'    => 'Status'
+        ];
+
+        return apply_filters( 'support_ticket_table_headers', $headers );
     }
 
     private function table_data( \WP_Query $query ) {
@@ -113,17 +130,6 @@ class TableHandler extends ActionListener {
         wp_reset_postdata();
 
         return $rows;
-    }
-
-    private function table_headers() {
-        $headers = [
-            'id'        => 'ID',
-            'subject'   => 'Subject',
-            'email'     => 'Email',
-            'status'    => 'Status'
-        ];
-
-        return apply_filters( 'support_ticket_table_headers', $headers );
     }
 
     private function column_data_callbacks() {
