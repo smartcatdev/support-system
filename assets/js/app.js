@@ -177,6 +177,12 @@
             });
         },
 
+    app.refresh_table = function () {
+        app.ajax('support_refresh_table', sessionStorage.table_filter, function() {
+
+        });
+    },
+
     app.new_tab = function (id, label, callback) {
         var tabs = $('#support_system .tabs');
         var existing = false;

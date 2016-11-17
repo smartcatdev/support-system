@@ -53,9 +53,8 @@ class TicketHandler extends ActionListener {
     }
 
     public function create_ticket() {
-        if( current_user_can( 'edit_tickets') ) {
-            $user = wp_get_current_user();
-            $draft = get_post( get_user_meta( $user->ID, 'ticket_draft_id', true ) );
+        if( current_user_can( 'edit_tickets' ) ) {
+            $draft = $this->get_draft();
 
             if( empty( $draft ) ) {
                 $id = wp_insert_post( [
@@ -65,7 +64,6 @@ class TicketHandler extends ActionListener {
                     'post_content' => ''
                 ] );
 
-                update_user_meta( $user->ID, 'ticket_draft_id', $id );
                 $draft = get_post( $id );
             }
 
@@ -105,6 +103,24 @@ class TicketHandler extends ActionListener {
                 wp_send_json_error( $form->get_errors() + $meta->get_errors() );
             }
         }
+    }
+
+    private function get_draft() {
+        $draft = null;
+
+        $args = [
+            'post_type' => 'support_ticket',
+            'post_status' => 'draft',
+            'author' => wp_get_current_user()->ID
+        ];
+
+        $results = new \WP_Query( $args );
+
+        if( $results->have_posts() ) {
+            $draft = $results->get_posts()[0];
+        }
+
+        return $draft;
     }
 
     private function send_editable( $ticket ) {
