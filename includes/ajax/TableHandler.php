@@ -2,11 +2,16 @@
 
 namespace SmartcatSupport\ajax;
 
+use SmartcatSupport\form\constraint\Choice;
+use SmartcatSupport\form\field\SelectBox;
+use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\TemplateRender;
+use const SmartcatSupport\TEXT_DOMAIN;
 
 class TableHandler extends ActionListener {
     private $view;
+    private $builder;
 
     public function __construct( TemplateRender $view ) {
         $this->view = $view;
@@ -16,16 +21,12 @@ class TableHandler extends ActionListener {
     }
 
     public function ticket_table() {
-        wp_send_json( [
-            'columns' => $this->datatables_columns( $this->table_headers() ),
-            'html' => $this->view->render( 'table',
-                [
-                    'id'      => 'support_tickets_table',
-                    'headers' => $this->table_headers(),
-                    'data'    => $this->table_data()
-                ]
-            )
-        ] );
+        wp_send_json($this->view->render( 'tickets_table',
+            [
+                'headers' => $this->table_headers(),
+                'data'    => $this->table_data()
+            ]
+        ));
     }
 
     private function table_data() {
@@ -59,22 +60,12 @@ class TableHandler extends ActionListener {
     private function table_headers() {
         $headers = [
             'id'        => 'ID',
-            'email'     => 'Email',
             'subject'   => 'Subject',
+            'email'     => 'Email',
             'status'    => 'Status'
         ];
 
         return apply_filters( 'support_ticket_table_headers', $headers );
-    }
-
-    private function datatables_columns( array $headers ) {
-        $columns = [];
-
-        foreach( $headers as $key => $value ) {
-            $columns[] = [ 'title' => $value, 'data' => $key ];
-        }
-
-        return $columns;
     }
 
     private function column_data_callbacks() {
@@ -83,7 +74,8 @@ class TableHandler extends ActionListener {
         } );
 
         add_action( 'support_ticket_table_status_col', function ( $post_id ) {
-            return get_post_meta( $post_id, 'status', true );
+            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+            return $statuses[ get_post_meta( $post_id, 'status', true ) ];
         } );
 
         add_action( 'support_ticket_table_subject_col', function ( $post_id, $post ) {

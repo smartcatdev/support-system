@@ -2,8 +2,18 @@
 
 <div id="support_system">
 
-    <div id="support_ticket_tab_view">
+        <div class="tabs">
 
-    </div>
+            <ul>
+
+                <li>
+
+                    <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets"><?php _e( 'Tickets', TEXT_DOMAIN ); ?></a>
+
+                </li>
+
+            </ul>
+
+        </div>
 
 </div>
