@@ -36,17 +36,20 @@ class TableHandler extends ActionListener {
     public function refresh_table() {
         if( current_user_can( 'edit_tickets' ) ) {
             $form = $this->configure_filter_form();
+            $data = [];
 
             if( $form->is_valid() ) {
-                $tickets = $this->build_query( $form->get_data() );
-
-                wp_send_json_success(
-                    $this->view->render( 'tickets_table', [
-                        'headers' => $this->table_headers(),
-                        'data'    => $this->table_data( $tickets )
-                    ]
-                ) );
+                $data = $form->get_data();
             }
+
+            $tickets = $this->build_query( $data );
+
+            wp_send_json_success(
+                $this->view->render( 'tickets_table', [
+                    'headers' => $this->table_headers(),
+                    'data'    => $this->table_data( $tickets )
+                ]
+            ) );
         }
     }
 
