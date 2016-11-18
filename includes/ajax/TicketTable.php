@@ -34,23 +34,21 @@ class TicketTable extends ActionListener {
     }
 
     public function refresh_table() {
-        if( current_user_can( 'edit_tickets' ) ) {
-            $form = $this->configure_filter_form();
-            $data = [];
+        $form = $this->configure_filter_form();
+        $data = [];
 
-            if( $form->is_submitted() && $form->is_valid() ) {
-                $data = $form->get_data();
-            }
+        if ( $form->is_submitted() && $form->is_valid() ) {
+            $data = $form->get_data();
+        }
 
-            $tickets = $this->build_query( $data );
+        $tickets = $this->build_query( $data );
 
-            wp_send_json_success(
-                $this->view->render( 'tickets_table', [
+        wp_send_json_success(
+            $this->view->render( 'tickets_table', [
                     'headers' => $this->table_headers(),
                     'data'    => $this->table_data( $tickets )
                 ]
             ) );
-        }
     }
 
     private function build_query( array $meta_args = [] ) {

@@ -89,21 +89,21 @@ final class Installer extends ActionListener {
     }
     
     public function add_user_roles() {
-        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), [ 'create_support_tickets' => true, 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
-        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
-        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'edit_tickets' => true ] );
+        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), [ 'access_support_dash' => true, 'create_support_tickets' => true, 'unfiltered_html' => true, 'edit_others_tickets' => true ] );
+        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'access_support_dash' => true,'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
+        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'access_support_dash' => true, 'create_support_tickets' => true ] );
 
         $role = get_role( 'administrator' );
+        $role->add_cap( 'access_support_dash' );
         $role->add_cap( 'unfiltered_html' );
-        $role->add_cap( 'edit_tickets' );
         $role->add_cap( 'edit_others_tickets' );
         $role->add_cap( 'create_support_tickets' );
     }
     
     public function remove_user_roles() {
         $role = get_role( 'administrator' );
+        $role->remove_cap( 'access_support_dash' );
         $role->remove_cap( 'unfiltered_html' );
-        $role->remove_cap( 'edit_tickets' );
         $role->remove_cap( 'edit_others_tickets' );
         $role->remove_cap( 'create_support_tickets' );
 

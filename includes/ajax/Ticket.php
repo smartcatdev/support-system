@@ -28,41 +28,27 @@ class Ticket extends ActionListener {
         $this->view = $view;
         $this->builder = $builder;
 
+        $this->add_ajax_action( 'support_new_ticket', 'new_ticket' );
+        $this->add_ajax_action( 'support_create_ticket', 'create_ticket' );
+
         $this->add_ajax_action( 'support_view_ticket', 'view_ticket' );
         $this->add_ajax_action( 'support_edit_ticket', 'edit_ticket' );
         $this->add_ajax_action( 'support_save_ticket', 'save_ticket' );
 
-        $this->add_ajax_action( 'support_new_ticket', 'new_ticket' );
-        $this->add_ajax_action( 'support_create_ticket', 'create_ticket' );
-    }
 
-    public function view_ticket() {
-        $ticket = $this->valid_request();
-
-        if( !empty( $ticket ) ) {
-            $this->send_read_only( $ticket );
-        }
-    }
-
-    public function edit_ticket() {
-        $ticket = $this->valid_request();
-
-        if( !empty( $ticket ) ) {
-            $this->send_editable( $ticket );
-        }
     }
 
     public function new_ticket() {
-        if( current_user_can( 'create_tickets' ) ) {
+        if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json(
                 $this->view->render( 'create_ticket_form', [
                     'form' => $this->configure_create_form()
-            ] ) );
+                ] ) );
         }
     }
 
     public function create_ticket() {
-        if( current_user_can( 'create_tickets' ) ) {
+        if( current_user_can( 'create_support_tickets' ) ) {
             $form = $this->configure_create_form();
 
             if ( $form->is_valid() ) {
@@ -91,6 +77,39 @@ class Ticket extends ActionListener {
             } else {
                 wp_send_json_error( $form->get_errors() );
             }
+        }
+    }
+
+    public function view_ticket() {
+        $post = $this->valid_request();
+
+        if( !empty( $post ) ) {
+            $meta = [
+                __( get_option( Option::EMAIL_LABEL, Option\Defaults::EMAIL_LABEL ), TEXT_DOMAIN ) => get_post_meta( $post->ID, 'email', true ),
+                __( get_option( Option::STATUS_LABEL, Option\Defaults::STATUS_LABEL ), TEXT_DOMAIN ) => get_post_meta( $post->ID, 'status', true )
+            ];
+
+            if ( current_user_can( 'edit_others_tickets' ) ) {
+                $agents = support_system_agents();
+                $agent = $agents[ get_post_meta( $post->ID, 'agent', true ) ];
+
+                $meta[ __( get_option( Option::ASSIGNED_LABEL, Option\Defaults::ASSIGNED_LABEL ), TEXT_DOMAIN ) ] = $agent;
+            }
+
+            wp_send_json_success( $this->view->render( 'ticket', [
+                'post' => $post,
+                'meta' => $meta
+                ]
+            ) );
+        }
+    }
+
+
+    public function edit_ticket() {
+        $ticket = $this->valid_request();
+
+        if( !empty( $ticket ) ) {
+            $this->send_editable( $ticket );
         }
     }
 
@@ -123,18 +142,16 @@ class Ticket extends ActionListener {
         $ticket = null;
         $user = wp_get_current_user();
 
-        if( user_can( $user->ID, 'edit_tickets' ) ) {
-            if( isset( $_REQUEST['id'] ) && (int) $_REQUEST['id'] > 0 ) {
-                $post = get_post( $_REQUEST['id'] );
+        if( isset( $_REQUEST['id'] ) && (int) $_REQUEST['id'] > 0 ) {
+            $post = get_post( $_REQUEST['id'] );
 
-                if( isset( $post ) )
-                    if( $post->post_type == 'support_ticket' &&
-                        ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) ) ) {
-                        $ticket = $post;
-                    }
-            } else {
-                $ticket = false;
+        if( isset( $post ) )
+            if( $post->post_type == 'support_ticket' &&
+                ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) ) ) {
+                $ticket = $post;
             }
+        } else {
+            $ticket = false;
         }
 
         return $ticket;
@@ -195,15 +212,46 @@ class Ticket extends ActionListener {
         return $this->builder->get_form();
     }
 
+    private function configure_edit_form( $post ) {
+        $this->builder->clear_config();
 
+        if( current_user_can( 'edit_others_tickets' ) ) {
 
+            $agents   = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
+            $this->builder->add( TextBox::class, 'email', [
+                    'type'              => 'email',
+                    'label'             => 'Contact Email',
+                    'value'             => get_post_meta( $post->ID, 'email', true ),
+                    'sanitize_callback' => 'sanitize_email'
+                ]
+            )->add( SelectBox::class, 'agent', [
+                    'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
+                    'label'       => 'Assigned To',
+                    'options'     => $agents,
+                    'value'       => get_post_meta( $post->ID, 'agent', true ),
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+                    ]
+                ]
+            )->add( SelectBox::class, 'status', [
+                    'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
+                    'label'       => 'Status',
+                    'options'     => $statuses,
+                    'value'       => get_post_meta( $post->ID, 'status', true ),
+                    'constraints' => [
+                        $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+                    ]
+                ]
+            );
 
+        }
 
+        return apply_filters( 'support_ticket_meta_form', $this->builder, $post )->get_form();
+    }
 
-
-
-
+    //////
 
     private function configure_editor_form( $post ) {
         $this->builder->clear_config();

@@ -102,6 +102,7 @@
         },
 
     app.view_ticket = function (ticket) {
+        console.log(ticket);
             app.new_tab(ticket.id, ticket.subject, function (element) {
                 app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
                     if (response.success) {
@@ -174,6 +175,8 @@
 
 
 
+
+
     app.filter_table = function (e) {
         e.preventDefault();
 
@@ -201,7 +204,7 @@
         var cols = [];
 
         $('#support_tickets_table th').each(function () {
-            cols.push({ data: $(this).data('id') });
+            cols.push({ data: $(this).data('column_name') });
         });
 
         $('#support_tickets_table').DataTable({

@@ -10,7 +10,7 @@ function init( $fs_context ) {
     require_once 'app.php';
 
     add_shortcode( 'support-system', function() use ( $app ) {
-        if( current_user_can( 'edit_tickets' ) ) {
+        if( current_user_can( 'access_support_dash' ) ) {
             echo $app['renderer']->render( 'dash' );
         }
     } );

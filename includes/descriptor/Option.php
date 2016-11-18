@@ -26,8 +26,10 @@ final class Option {
     const TICKET_CREATE_SUCCESS_MSG = 'ca.smartcat.support.message.ticket_create';
 
     const TICKETS_TAB_LABEL = 'ca.smartcat.support.ticket_tab.label';
+
     const CREATE_TICKET_BTN_TEXT = 'ca.smartcat.support.create_ticket_btn.text';
     const SAVE_TICKET_BTN_TEXT = 'ca.smartcat.support.create_ticket_btn.text';
+
     const EMPTY_TABLE_MSG = 'ca.smartcat.support.empty_table.msg';
 
     const SUBJECT_LABEL = 'ca.smartcat.support.subject.label';
@@ -39,10 +41,16 @@ final class Option {
     const FIRST_NAME_LABEL = 'ca.smartcat.support.first_name.label';
     const FIRST_NAME_ERR = 'ca.smartcat.support.first_name.err';
 
-    const LAST_NAME_LABEL= 'ca.smartcat.support.last_name.label';
+    const LAST_NAME_LABEL = 'ca.smartcat.support.last_name.label';
     const LAST_NAME_ERR = 'ca.smartcat.support.last_name.err';
 
     const EMAIL_LABEL = 'ca.smartcat.support.email.label';
     const EMAIL_ERR = 'ca.smartcat.support.email.err';
+
+    const STATUS_LABEL = 'ca.smartcat.support.status.label';
+    const STATUS_ERR = 'ca.smartcat.support.status.err';
+
+    const ASSIGNED_LABEL = 'ca.smartcat.support.assigned.label';
+    const ASSIGNED_ERR = 'ca.smartcat.support.assigned.err';
 
 }
