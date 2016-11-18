@@ -24,10 +24,12 @@ final class Defaults {
         'closed'        => 'Closed'
     ];
 
+    const TICKET_CREATE_SUCCESS_MSG = 'We\'ve received your request for support and an agent will get back to you soon';
+
     const TICKETS_TAB_LABEL = 'Tickets';
     const CREATE_TICKET_BTN_TEXT = 'Create Ticket';
     const SAVE_TICKET_BTN_TEXT = 'Save Ticket';
-    const EMPTY_TABLE_MSG = 'There are not tickets yet';
+    const EMPTY_TABLE_MSG = 'There are no tickets yet';
 
     const SUBJECT_LABEL = 'Subject*';
     const SUBJECT_ERR = 'Subject cannot be blank';

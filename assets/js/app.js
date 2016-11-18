@@ -113,15 +113,8 @@
     app.submit_form = function (e) {
             e.preventDefault();
 
-            // var unlockDelay = 1000;
+            var delay = 1000;
             var form = $(this);
-            // var button = form.find('input[type="submit"]');
-            // var status = form.find('.button_submit .status');
-            // var text = form.find('.button.submit .text');
-
-            // button.prop('disabled', true);
-            // status.removeClass('hidden check fail').addClass('spinner');
-            // text.text(text.data('wait'));
 
             app.ajax(form.data('action'), form.serializeArray(), function (response) {
                 console.log(response);
@@ -129,36 +122,27 @@
                 form.find('.error_field').removeClass('error_field');
                 form.find('.error_msg').remove();
 
-                if (response.success) {
+                form.hide();
+                form.parent().append('<div class="spinner"></div>');
 
-                    status.removeClass('spinner').addClass('check');
-                    text.text(text.data('success'));
+                setTimeout(function () {
+                    form.parent().find('.spinner').remove();
 
-                    setTimeout(function () {
-                        status.removeClass('check');
-                        text.text(text.data('default'));
-                        app[form.data('after')](form.parents('.support_card').first(), response.data);
-                    }, unlockDelay);
+                    if (response.success) {
+                        form.parent().append(response.data);
+                        form.remove();
+                    } else {
+                        form.show();
 
-                } else {
+                        // Match fields to error messages
+                        $.each(response.data, function (key, value) {
+                            var field = $(form).find('[name="' + key + '"]');
+                            field.addClass('error_field');
+                            field.parent().append('<span class="error_msg">' + value + '</span>');
 
-                    status.removeClass('spinner').addClass('fail');
-                    text.text(text.data('fail'));
-
-                    // Match fields to error messages
-                    $.each(response.data, function (key, value) {
-
-                        var field = $(form).find('[name="' + key + '"]');
-                        field.addClass('error_field');
-                        field.parent().append('<span class="error_msg">' + value + '</span>');
-
-                    });
-
-                }
-                //
-                // setTimeout(function () {
-                //     button.prop('disabled', false);
-                // }, unlockDelay);
+                        });
+                    }
+                }, delay);
             });
 
             return;

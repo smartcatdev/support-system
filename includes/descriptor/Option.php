@@ -23,6 +23,8 @@ final class Option {
 
     const STATUSES = 'ca.smartcat.support.statuses';
 
+    const TICKET_CREATE_SUCCESS_MSG = 'ca.smartcat.support.message.ticket_create';
+
     const TICKETS_TAB_LABEL = 'ca.smartcat.support.ticket_tab.label';
     const CREATE_TICKET_BTN_TEXT = 'ca.smartcat.support.create_ticket_btn.text';
     const SAVE_TICKET_BTN_TEXT = 'ca.smartcat.support.create_ticket_btn.text';

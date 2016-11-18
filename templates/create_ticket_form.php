@@ -7,7 +7,8 @@ use SmartcatSupport\form\Form;
 
 <div id="ticket_info_modal">
 
-    <form class="support_form" data-action="support_create_ticket">
+    <form class="support_form"
+        data-action="support_create_ticket">
 
         <?php Form::form_fields( $form ); ?>
 

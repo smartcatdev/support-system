@@ -85,7 +85,7 @@ class Ticket extends ActionListener {
                 }
 
                 update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                wp_send_json_success( $this->send_read_only( get_post( $post_id ) ) );
+                wp_send_json_success( __( get_option( Option::TICKET_CREATE_SUCCESS_MSG, Option\Defaults::TICKET_CREATE_SUCCESS_MSG ) ) );
             }
         } else {
             wp_send_json_error( $form->get_errors() );

@@ -1,10 +1,13 @@
 jQuery(document).ready(function ($) {
 
     // Bind events
-    //$(document).on('click', '.modal_trigger', SupportSystem.load_modal);
-
     $(document).on('submit', '.support_form', SupportSystem.submit_form);
     $(document).on('submit', '#ticket_filter', SupportSystem.filter_table);
+
+
+
+
+
 
 
     $(document).on('click', '#support_system button.trigger', function() {
