@@ -5,9 +5,9 @@
  */
 
 use SmartcatSupport\admin\SupportMetaBox;
-use SmartcatSupport\ajax\CommentHandler;
-use SmartcatSupport\ajax\TableHandler;
-use SmartcatSupport\ajax\TicketHandler;
+use SmartcatSupport\ajax\Comment;
+use SmartcatSupport\ajax\TicketTable;
+use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
 use SmartcatSupport\util\TemplateRender;
@@ -29,13 +29,13 @@ $app['form_factory'] = $app->factory( function () {
 // Classes require direct assignment due to WordPress requiring a reference for actions
 
 // Configure table Handler
-$app['table_handler'] = new TableHandler( $app['renderer'], $app['form_factory'] );
+$app['table_handler'] = new TicketTable( $app['renderer'], $app['form_factory'] );
 
 // Configure ticket Handler
-$app['ticket_handler'] = new TicketHandler( $app['renderer'], $app['form_factory'] );
+$app['ticket_handler'] = new Ticket( $app['renderer'], $app['form_factory'] );
 
 // Configure comment handler
-$app['comment_handler'] = new CommentHandler( $app['renderer'], $app['form_factory'] );
+$app['comment_handler'] = new Comment( $app['renderer'], $app['form_factory'] );
 
 // Configure the metabox
 $app['support_metabox'] = new SupportMetaBox( $app['renderer'], $app['form_factory'] );

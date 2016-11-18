@@ -10,7 +10,7 @@ use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\TemplateRender;
 use const SmartcatSupport\TEXT_DOMAIN;
 
-class TableHandler extends ActionListener {
+class TicketTable extends ActionListener {
     private $view;
     private $builder;
 
@@ -38,7 +38,7 @@ class TableHandler extends ActionListener {
             $form = $this->configure_filter_form();
             $data = [];
 
-            if( $form->is_valid() ) {
+            if( $form->is_submitted() && $form->is_valid() ) {
                 $data = $form->get_data();
             }
 

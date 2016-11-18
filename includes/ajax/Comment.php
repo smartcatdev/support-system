@@ -10,7 +10,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\TemplateRender;
 
-class CommentHandler extends ActionListener {
+class Comment extends ActionListener {
     private $builder;
     private $view;
 

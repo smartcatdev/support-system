@@ -22,7 +22,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
  *
  * @author ericg
  */
-class TicketHandler extends ActionListener {
+class Ticket extends ActionListener {
     private $view;
     private $builder;
 
