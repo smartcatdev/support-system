@@ -9,13 +9,11 @@ jQuery(document).ready(function ($) {
 
 
 
-
     $(document).on('click', '#support_system button.trigger', function() {
         SupportSystem[$(this).data('action')]($(this));
     });
 
     $(document).on('click', 'tr', function () {
-        console.log( $('#support_tickets_table').DataTable().row().data());
 
         SupportSystem.view_ticket(
             {

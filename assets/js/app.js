@@ -28,15 +28,77 @@
         tinymce.init(args);
     },
 
-    app.create_ticket = function () {
-            app.new_tab('create', 'Unsaved Ticket', function(element) {
-                app.ajax('support_create_ticket', null, function (response) {
+    app.submit_form = function (e) {
+            e.preventDefault();
+
+            var delay = 1000;
+            var form = $(this);
+
+            app.ajax(form.data('action'), form.serializeArray(), function (response) {
+                console.log(response);
+
+                form.find('.error_field').removeClass('error_field');
+                form.find('.error_msg').remove();
+
+                form.hide();
+                form.parent().append('<div class="spinner"></div>');
+
+                setTimeout(function () {
+                    form.parent().find('.spinner').remove();
+
                     if (response.success) {
-                        element.html('<div class="support_ticket">' + response.data + '</div>');
+                        form.parent().append(response.data);
+                        form.remove();
+
+                       app.refresh_table();
+                    } else {
+                        form.show();
+
+                        // Match fields to error messages
+                        $.each(response.data, function (key, value) {
+                            var field = $(form).find('[name="' + key + '"]');
+                            field.addClass('error_field');
+                            field.parent().append('<span class="error_msg">' + value + '</span>');
+
+                        });
                     }
-                });
+                }, delay);
             });
 
+            return;
+        },
+
+    app.new_tab = function (id, label, callback) {
+            var tabs = $('#support_system .tabs');
+            var existing = false;
+
+            tabs.find('.ui-tabs-nav').children('li').each(function (index) {
+                if ($(this).data('id') === id) {
+                    existing = index;
+                }
+            });
+
+            if (!existing) {
+                var li = $(
+                    "<li>" +
+                    "<a href='#" + id + "'>" + label + "</a>" +
+                    "<span class='ui-icon ui-icon-close' role='presentation'>&#10006;</span>" +
+                    "</li>"
+                );
+
+                li.data('id', id);
+
+                var panel = $($.parseHTML('<div id="' + id + '"></div>'));
+                callback(panel);
+
+                tabs.find('.ui-tabs-nav').append(li);
+                tabs.append(panel);
+
+                tabs.tabs('refresh');
+                tabs.tabs('option', 'active', li.index());
+            } else {
+                tabs.tabs('option', 'active', existing);
+            }
         },
 
     app.view_ticket = function (ticket) {
@@ -110,49 +172,16 @@
         });
     },
 
-    app.submit_form = function (e) {
-            e.preventDefault();
 
-            var delay = 1000;
-            var form = $(this);
 
-            app.ajax(form.data('action'), form.serializeArray(), function (response) {
-                console.log(response);
-
-                form.find('.error_field').removeClass('error_field');
-                form.find('.error_msg').remove();
-
-                form.hide();
-                form.parent().append('<div class="spinner"></div>');
-
-                setTimeout(function () {
-                    form.parent().find('.spinner').remove();
-
-                    if (response.success) {
-                        form.parent().append(response.data);
-                        form.remove();
-                    } else {
-                        form.show();
-
-                        // Match fields to error messages
-                        $.each(response.data, function (key, value) {
-                            var field = $(form).find('[name="' + key + '"]');
-                            field.addClass('error_field');
-                            field.parent().append('<span class="error_msg">' + value + '</span>');
-
-                        });
-                    }
-                }, delay);
-            });
-
-            return;
-        },
-
-    app.filter_table = function () {
+    app.filter_table = function (e) {
+        e.preventDefault();
 
         // Save this fore future refreshes
         set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
         app.refresh_table();
+
+        return;
     },
 
     app.refresh_table = function () {
@@ -166,42 +195,7 @@
                 init_table();
             }
         })
-    },
-
-    app.new_tab = function (id, label, callback) {
-        var tabs = $('#support_system .tabs');
-        var existing = false;
-
-        tabs.find('.ui-tabs-nav').children('li').each(function (index) {
-            if ($(this).data('id') === id) {
-                existing = index;
-            }
-        });
-
-        if (!existing) {
-            var li = $(
-                "<li>" +
-                "<a href='#" + id + "'>" + label + "</a>" +
-                "<span class='ui-icon ui-icon-close' role='presentation'>&#10006;</span>" +
-                "</li>"
-            );
-
-            li.data('id', id);
-
-            var panel = $($.parseHTML('<div id="' + id + '"></div>'));
-            callback(panel);
-
-            tabs.find('.ui-tabs-nav').append(li);
-            tabs.append(panel);
-
-            tabs.tabs('refresh');
-            tabs.tabs('option', 'active', li.index());
-        } else {
-            tabs.tabs('option', 'active', existing);
-        }
     }
-
-
 
     function init_table () {
         var cols = [];

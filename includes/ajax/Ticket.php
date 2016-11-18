@@ -62,79 +62,62 @@ class Ticket extends ActionListener {
     }
 
     public function create_ticket() {
-        $form = $this->configure_create_form();
+        if( current_user_can( 'create_tickets' ) ) {
+            $form = $this->configure_create_form();
 
-        if ( $form->is_valid() ) {
-            $data = $form->get_data();
+            if ( $form->is_valid() ) {
+                $data = $form->get_data();
 
-            $post_id = wp_insert_post( [
-                'post_title'     => $data['subject'],
-                'post_content'   => $data['content'],
-                'post_status'    => 'publish',
-                'post_type'      => 'support_ticket',
-                'post_author'    => null,
-                'comment_status' => 'open'
-            ] );
+                $post_id = wp_insert_post( [
+                    'post_title'     => $data['subject'],
+                    'post_content'   => $data['content'],
+                    'post_status'    => 'publish',
+                    'post_type'      => 'support_ticket',
+                    'comment_status' => 'open'
+                ] );
 
-            if ( ! empty( $post_id ) ) {
-                unset( $data['subject'] );
-                unset( $data['content'] );
+                if ( ! empty( $post_id ) ) {
+                    unset( $data['subject'] );
+                    unset( $data['content'] );
 
-                foreach ( $data as $field => $value ) {
-                    update_post_meta( $post_id, $field, $value );
+                    foreach ( $data as $field => $value ) {
+                        update_post_meta( $post_id, $field, $value );
+                    }
+
+                    update_post_meta( $post_id, 'status', 'new' );
+                    update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
+                    wp_send_json_success( __( get_option( Option::TICKET_CREATE_SUCCESS_MSG, Option\Defaults::TICKET_CREATE_SUCCESS_MSG ) ) );
                 }
-
-                update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                wp_send_json_success( __( get_option( Option::TICKET_CREATE_SUCCESS_MSG, Option\Defaults::TICKET_CREATE_SUCCESS_MSG ) ) );
+            } else {
+                wp_send_json_error( $form->get_errors() );
             }
-        } else {
-            wp_send_json_error( $form->get_errors() );
         }
     }
 
-
-    private function get_draft() {
-        $draft = null;
-
-        $args = [
-            'post_type' => 'support_ticket',
-            'post_status' => 'draft',
-            'author' => wp_get_current_user()->ID
-        ];
-
-        $results = new \WP_Query( $args );
-
-        if( $results->have_posts() ) {
-            $draft = $results->get_posts()[0];
-        }
-
-        return $draft;
-    }
-
-    private function send_editable( $ticket ) {
-        wp_send_json_success(
-            $this->view->render( 'ticket_editable',
-                [
-                    'post'        => $ticket,
-                    'editor_form' => $this->configure_editor_form( $ticket ),
-                    'meta_form'   => $this->configure_meta_form( $ticket ),
-                    'action'      => 'support_save_ticket',
-                    'after'       => 'refresh_ticket'
-                ]
-            ) );
-    }
-
-    private function send_read_only( $ticket ) {
-        $args = [ 'post' => $ticket ];
-
-        $form = $this->configure_meta_form( $ticket );
-
-        foreach ( $form->get_fields() as $field ) {
-            $args['meta'][ $field->get_label() ] = $field->get_value();
-        }
-
-        wp_send_json_success( $this->view->render( 'ticket_read_only', $args ) );
-    }
+//    private function send_editable( $ticket ) {
+//        wp_send_json_success(
+//            $this->view->render( 'ticket_editable',
+//                [
+//                    'post'        => $ticket,
+//                    'editor_form' => $this->configure_editor_form( $ticket ),
+//                    'meta_form'   => $this->configure_meta_form( $ticket ),
+//                    'action'      => 'support_save_ticket',
+//                    'after'       => 'refresh_ticket'
+//                ]
+//            ) );
+//    }
+//
+//    private function send_read_only( $ticket ) {
+//        $args = [ 'post' => $ticket ];
+//
+//        $form = $this->configure_meta_form( $ticket );
+//
+//        foreach ( $form->get_fields() as $field ) {
+//            $args['meta'][ $field->get_label() ] = $field->get_value();
+//        }
+//
+//        wp_send_json_success( $this->view->render( 'ticket_read_only', $args ) );
+//    }
 
     private function valid_request() {
         $ticket = null;
