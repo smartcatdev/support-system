@@ -9,6 +9,7 @@ abstract class Field {
     protected $desc;
     protected $error_message;
     protected $constraints = [];
+    protected $sanitize_callback;
  
     public function __construct( $id, array $args = [] ) {
         $this->set_id( $id );
@@ -32,6 +33,20 @@ abstract class Field {
         if( array_key_exists( 'value', $args ) ) {
             $this->set_value( $args['value'] );
         }
+
+        if( isset( $args['sanitize_callback'] ) ) {
+            $this->sanitize_callback = $args['sanitize_callback'];
+        }
+    }
+
+    public function sanitize( $value ) {
+        $sanitized_value = $value ;
+
+        if( isset( $this->sanitize_callback ) ) {
+            $sanitized_value = call_user_func_array( $this->sanitize_callback, [ $value ] );
+        }
+
+        return $sanitized_value;
     }
     
     public function validate( $value ) {
@@ -45,10 +60,6 @@ abstract class Field {
         }
 
         return $valid;
-    }
-    
-    public function sanitize( $value ) {
-        return $value;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Getters / Setters">
@@ -96,6 +107,5 @@ abstract class Field {
         $this->label = $label;
         return $this;
     }
-
 // </editor-fold>
 }

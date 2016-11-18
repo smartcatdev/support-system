@@ -10,7 +10,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
  * @author ericg
  */
 class SelectBox extends Field {
-    protected $options;
+    private $options;
 
     public function __construct( $id, array $args ) {
         parent::__construct( $id, $args );

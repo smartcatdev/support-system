@@ -4,7 +4,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<table id="<?php esc_attr_e( $id ); ?>">
+<table id="support_tickets_table">
 
     <thead>
 
@@ -12,7 +12,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php foreach( $headers as $col => $value ) : ?>
 
-                <th><?php esc_html_e( $value, TEXT_DOMAIN ); ?></th>
+                <th data-id="<?php echo $col; ?>">
+
+                    <?php esc_html_e( $value, TEXT_DOMAIN ); ?>
+
+                </th>
 
             <?php endforeach; ?>
 

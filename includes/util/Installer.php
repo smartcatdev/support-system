@@ -27,7 +27,7 @@ final class Installer extends ActionListener {
     
     public function deactivate() {
         unregister_post_type( 'support_ticket' );
-        
+
         $this->remove_user_roles();
     }
     
@@ -61,40 +61,49 @@ final class Installer extends ActionListener {
             'items_list'            => __( 'Tickets list', TEXT_DOMAIN ),
             'items_list_navigation' => __( 'Tickets list navigation', TEXT_DOMAIN ),
             'filter_items_list'     => __( 'Filter tickets list', TEXT_DOMAIN )
-	];
-        
-	$capabilities = [];
-        
-	$args = [
-            'label'                 => __( 'Support Ticket', TEXT_DOMAIN ),
-            'description'           => __( 'Tickets for support requests', TEXT_DOMAIN ),
-            'labels'                => $labels,
-            'supports'              => array( 'editor', 'author', 'comments', 'title' ),
-            'hierarchical'          => false,
-            'public'                => false,
-            'show_ui'               => true,
-            'show_in_menu'          => true,
-            'menu_position'         => 70,
-            'menu_icon'             => 'dashicons-sos',
-            'show_in_admin_bar'     => true,
-            'show_in_nav_menus'     => true,
-            'can_export'            => true,
-            'has_archive'           => false,		
-            'exclude_from_search'   => true,
-            'publicly_queryable'    => true,
-            'capabilities'          => $capabilities
-	];
-        
-	register_post_type( 'support_ticket', $args );
+        ];
+
+        $capabilities = [];
+
+        $args = [
+                'label'                 => __( 'Support Ticket', TEXT_DOMAIN ),
+                'description'           => __( 'Tickets for support requests', TEXT_DOMAIN ),
+                'labels'                => $labels,
+                'supports'              => array( 'editor', 'author', 'comments', 'title' ),
+                'hierarchical'          => false,
+                'public'                => false,
+                'show_ui'               => true,
+                'show_in_menu'          => true,
+                'menu_position'         => 70,
+                'menu_icon'             => 'dashicons-sos',
+                'show_in_admin_bar'     => true,
+                'show_in_nav_menus'     => true,
+                'can_export'            => true,
+                'has_archive'           => false,
+                'exclude_from_search'   => true,
+                'publicly_queryable'    => true,
+                'capabilities'          => $capabilities
+        ];
+
+        register_post_type( 'support_ticket', $args );
     }
     
     public function add_user_roles() {
-        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'edit_tickets' => true, 'edit_others_tickets' => true, 'edit_ticket_meta' => true ] );
+        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), [ 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
+        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
         add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'edit_tickets' => true ] );
+
+        $role = get_role( 'administrator' );
+        $role->add_cap( 'unfiltered_html' );
+        $role->add_cap( 'edit_tickets' );
+        $role->add_cap( 'edit_others_tickets' );
     }
     
     public function remove_user_roles() {
-        remove_role( 'support_agent' );
-        remove_role( 'support_user' );
+        $role = get_role( 'administrator' );
+
+        $role->remove_cap( 'unfiltered_html' );
+        $role->remove_cap( 'edit_tickets' );
+        $role->remove_cap( 'edit_others_tickets' );
     }
 }

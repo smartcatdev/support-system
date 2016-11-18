@@ -3,11 +3,7 @@
     "use strict";
 
     var pluginName = "Tabular",
-        defaults = {
-            //        propertyName: "value"
-        };
-
-    var backStack = [];
+        defaults = {};
 
     // The actual plugin constructor
     function Plugin ( element, options ) {
@@ -22,11 +18,8 @@
     // Avoid Plugin.prototype conflicts
     $.extend( Plugin.prototype, {
         init: function() {
-
             $( this.element ).html(
-                '<div class="tabular_tab_bar">' +
-                '<ul></ul>' +
-                '</div>' +
+                '<div class="tabular_tab_bar"><ul></ul></div>' +
                 '<div class="tabular_content_pane"></div>'
             );
 
@@ -35,27 +28,33 @@
         },
 
         newTab: function( id, title, content ) {
+            var card;
+
             $('.tabular_card').hide();
 
             if( $( this.element ).find( '[data-card="' + id + '"]' ).length == 0 ) {
 
                 $(this.element).find('.tabular_tab_bar > ul').append(
                     '<li class="tabular_tab" data-card="' + id + '">' +
-                    '<a class="tabular_link" href="#">'+ title + '</a>' +
-                    '<span class="tabular_close">&#10006</span>' +
+                        '<a class="tabular_link" href="#">'+ title + '</a>' +
+
+                        ( this.settings.noClose == id ? '' : '<span class="tabular_close">&#10006</span>' ) +
+
                     '</li>'
                 );
 
                 $(this.element).find('.tabular_content_pane').append(
                     '<div class="tabular_card" id="tabular_card_' + id + '">' + content + '</div>'
                 );
+
             } else {
                 $( '#tabular_card_' + id ).show();
             }
+
+            return $( '#tabular_card_' + id );
         },
 
         closeTab: function () {
-
             var prev = $( this ).parent().prev();
             var next = $( this ).parent().next();
 
@@ -74,6 +73,7 @@
         }
     } );
 
+    // No need to edit
     $.fn[pluginName] = function ( options ) {
         var args = arguments;
 

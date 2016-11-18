@@ -12,20 +12,6 @@ class TextBox extends Field {
             $this->type = $args['type'];
         }
     }
-    
-    public function sanitize( $value ) {
-        switch( $this->type ) {
-            case 'text':
-                $value = sanitize_text_field( $value );
-                break;
-            
-            case 'email':
-                $value = sanitize_email( $value );
-                break;
-        }
-        
-        return $value;
-    }
 
     public function render() { ?>
 
