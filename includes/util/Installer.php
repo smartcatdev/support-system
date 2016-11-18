@@ -101,9 +101,12 @@ final class Installer extends ActionListener {
     
     public function remove_user_roles() {
         $role = get_role( 'administrator' );
-
         $role->remove_cap( 'unfiltered_html' );
         $role->remove_cap( 'edit_tickets' );
         $role->remove_cap( 'edit_others_tickets' );
+
+        remove_role( 'support_admin' );
+        remove_role( 'support_agent' );
+        remove_role( 'support_user' );
     }
 }
