@@ -81,14 +81,17 @@ class Ticket extends ActionListener {
     public function view_ticket() {
         $post = $this->valid_request();
 
+        $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+        $status = $statuses[ get_post_meta( $post->ID, 'status', true ) ];
+
         if( !empty( $post ) ) {
             $meta = [
                 __( get_option( Option::EMAIL_LABEL, Option\Defaults::EMAIL_LABEL ), TEXT_DOMAIN ) => get_post_meta( $post->ID, 'email', true ),
-                __( get_option( Option::STATUS_LABEL, Option\Defaults::STATUS_LABEL ), TEXT_DOMAIN ) => get_post_meta( $post->ID, 'status', true )
+                __( get_option( Option::STATUS_LABEL, Option\Defaults::STATUS_LABEL ), TEXT_DOMAIN ) => __( $status, TEXT_DOMAIN )
             ];
 
             if ( current_user_can( 'edit_others_tickets' ) ) {
-                $agents = support_system_agents();
+                $agents = support_system_agents() + [ '' => __( 'No Agents Assigned', TEXT_DOMAIN ) ];
                 $agent = $agents[ get_post_meta( $post->ID, 'agent', true ) ];
 
                 $meta[ __( get_option( Option::ASSIGNED_LABEL, Option\Defaults::ASSIGNED_LABEL ), TEXT_DOMAIN ) ] = $agent;
@@ -125,8 +128,9 @@ class Ticket extends ActionListener {
                     $data = $form->get_data();
 
                     $post_id = wp_update_post( [
-                        'ID'            => $data['id'],
-                        'post_author'    => null
+                        'ID' => $data['id'],
+                        'post_author' => null,
+                        'post_date' => current_time( 'mysql' )
                     ] );
 
                     if ( !empty( $post_id ) ) {
