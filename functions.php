@@ -10,16 +10,24 @@ function init( $fs_context ) {
     require_once 'app.php';
 
     add_shortcode( 'support-system', function() use ( $app ) {
-        echo $app['renderer']->render( 'dash' );
+        if( current_user_can( 'edit_tickets' ) ) {
+            echo $app['renderer']->render( 'dash' );
+        }
     } );
 
     //<editor-fold desc="Enqueue Assets">
     add_action( 'wp_enqueue_scripts', function() use ( $app ) {
         wp_enqueue_script( 'datatables',
-            $app['plugin_url'] . 'assets/lib/datatables/js/datatables.min.js', [ 'jquery' ], PLUGIN_VERSION );
+            $app['plugin_url'] . 'assets/lib/datatables/datatables.min.js', [ 'jquery' ], PLUGIN_VERSION );
 
         wp_enqueue_style( 'datatables',
-            $app['plugin_url'] . 'assets/lib/datatables/css/datatables.min.css', [], PLUGIN_VERSION );
+            $app['plugin_url'] . 'assets/lib/datatables/datatables.min.css', [], PLUGIN_VERSION );
+
+        wp_enqueue_style( 'jquery-modal',
+            $app['plugin_url'] . 'assets/lib/modal/jquery.modal.min.css', [], PLUGIN_VERSION );
+
+        wp_enqueue_script( 'jquery-modal',
+            $app['plugin_url'] . 'assets/lib/modal/jquery.modal.min.js', [ 'jquery' ], PLUGIN_VERSION );
 
         wp_enqueue_script( 'tabular',
             $app['plugin_url'] . 'assets/lib/tabular.js', [ 'jquery' ], PLUGIN_VERSION );
@@ -58,13 +66,4 @@ function convert_html_chars( $text ) {
     }
 
     return $text;
-}
-
-
-function var_error_log( $object=null ){
-    ob_start();                    // start buffer capture
-    var_dump( $object );           // dump the values
-    $contents = ob_get_contents(); // put the buffer into a variable
-    ob_end_clean();                // end capture
-    error_log( $contents );        // log contents of the result of var_dump( $object )
 }

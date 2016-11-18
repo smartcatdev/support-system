@@ -1,45 +1,39 @@
-<?php use const SmartcatSupport\TEXT_DOMAIN; ?>
+<?php
 
-<div class="support_card">
+use SmartcatSupport\descriptor\Option;
+use const SmartcatSupport\TEXT_DOMAIN;
 
-    <button class="trigger"
-        data-action="create_ticket"
-        data-after="refresh_ticket"><?php _e( 'Create Ticket', TEXT_DOMAIN ); ?>
-    </button>
+?>
 
-    <form id="ticket_filter">
+<div class="tickets_overview">
 
-        <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>" />
+    <?php if( !empty( $data ) ) : ?>
 
-        <?php foreach( $form->get_fields() as $field ) : ?>
+        <form id="ticket_filter">
 
-            <?php $field->render(); ?>
+            <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>" />
 
-        <?php endforeach; ?>
+            <?php foreach( $form->get_fields() as $field ) : ?>
 
-        <div class="button_wrapper">
+                <?php $field->render(); ?>
 
-            <button class="button submit">
+            <?php endforeach; ?>
 
-                <div class="status hidden"></div>
+            <input type="submit" value="<?php _e( 'Filter', TEXT_DOMAIN ); ?>" />
 
-                <span class="text"
-                      data-default="<?php _e( 'Filter', TEXT_DOMAIN ); ?>"
-                      data-success="<?php _e( 'Filter', TEXT_DOMAIN ); ?>"
-                      data-fail="<?php _e( 'Error', TEXT_DOMAIN ); ?>"
-                      data-wait="<?php _e( 'Working', TEXT_DOMAIN ); ?>">
+        </form>
 
-                          <?php _e( 'Filter', TEXT_DOMAIN ); ?>
+        <?php include 'tickets_table.php'; ?>
 
-                    </span>
+    <?php else: ?>
 
-            </button>
+        <div class="message">
+
+            <p><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ) ); ?></p>
 
         </div>
 
-    </form>
-
-    <?php include 'tickets_table.php'; ?>
+    <?php endif; ?>
 
 </div>
 

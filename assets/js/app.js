@@ -113,15 +113,15 @@
     app.submit_form = function (e) {
             e.preventDefault();
 
-            var unlockDelay = 1000;
+            // var unlockDelay = 1000;
             var form = $(this);
-            var button = form.find('.button.submit');
-            var status = form.find('.button.submit .status');
-            var text = form.find('.button.submit .text');
+            // var button = form.find('input[type="submit"]');
+            // var status = form.find('.button_submit .status');
+            // var text = form.find('.button.submit .text');
 
-            button.prop('disabled', true);
-            status.removeClass('hidden check fail').addClass('spinner');
-            text.text(text.data('wait'));
+            // button.prop('disabled', true);
+            // status.removeClass('hidden check fail').addClass('spinner');
+            // text.text(text.data('wait'));
 
             app.ajax(form.data('action'), form.serializeArray(), function (response) {
                 console.log(response);
@@ -155,15 +155,16 @@
                     });
 
                 }
-
-                setTimeout(function () {
-                    button.prop('disabled', false);
-                }, unlockDelay);
+                //
+                // setTimeout(function () {
+                //     button.prop('disabled', false);
+                // }, unlockDelay);
             });
+
+            return;
         },
 
-    app.filter_table = function (e) {
-        e.preventDefault();
+    app.filter_table = function () {
 
         // Save this fore future refreshes
         set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
@@ -215,6 +216,8 @@
             tabs.tabs('option', 'active', existing);
         }
     }
+
+
 
     function init_table () {
         var cols = [];

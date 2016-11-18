@@ -1,14 +1,19 @@
 jQuery(document).ready(function ($) {
 
     // Bind events
-    $(document).on('submit', '.support_ticket form', SupportSystem.submit_form);
+    //$(document).on('click', '.modal_trigger', SupportSystem.load_modal);
+
+    $(document).on('submit', '.support_form', SupportSystem.submit_form);
     $(document).on('submit', '#ticket_filter', SupportSystem.filter_table);
+
 
     $(document).on('click', '#support_system button.trigger', function() {
         SupportSystem[$(this).data('action')]($(this));
     });
 
-    $(document).on('dblclick', 'tr', function () {
+    $(document).on('click', 'tr', function () {
+        console.log( $('#support_tickets_table').DataTable().row().data());
+
         SupportSystem.view_ticket(
             {
                 id: $('#support_tickets_table').DataTable().row(this).data()['id'],
@@ -46,18 +51,7 @@ jQuery(document).ready(function ($) {
             });
         },
 
-        load: function(e, ui) {
-            var cols = [];
-
-            $('#support_tickets_table th').each(function () {
-                cols.push({ data: $(this).data('id') });
-            });
-
-            $('#support_tickets_table').DataTable({
-                responsive: true,
-                columns: cols
-            });
-        }
+        load: SupportSystem.refresh_table
 
     });
 

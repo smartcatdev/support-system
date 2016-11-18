@@ -89,7 +89,7 @@ final class Installer extends ActionListener {
     }
     
     public function add_user_roles() {
-        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), [ 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
+        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), [ 'create_support_tickets' => true, 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
         add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
         add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'edit_tickets' => true ] );
 
@@ -97,6 +97,7 @@ final class Installer extends ActionListener {
         $role->add_cap( 'unfiltered_html' );
         $role->add_cap( 'edit_tickets' );
         $role->add_cap( 'edit_others_tickets' );
+        $role->add_cap( 'create_support_tickets' );
     }
     
     public function remove_user_roles() {
@@ -104,6 +105,7 @@ final class Installer extends ActionListener {
         $role->remove_cap( 'unfiltered_html' );
         $role->remove_cap( 'edit_tickets' );
         $role->remove_cap( 'edit_others_tickets' );
+        $role->remove_cap( 'create_support_tickets' );
 
         remove_role( 'support_admin' );
         remove_role( 'support_agent' );

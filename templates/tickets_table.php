@@ -12,7 +12,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php foreach( $headers as $col => $value ) : ?>
 
-                <th data-id="<?php echo $col; ?>">
+                <th data-column_name="<?php echo $col; // For dynamically generating column names client-side ?>">
 
                     <?php esc_html_e( $value, TEXT_DOMAIN ); ?>
 
@@ -32,7 +32,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <?php foreach( $row as $col => $value ) : ?>
 
-                    <td><?php _e( $value ); ?></td>
+                    <td><?php echo $value; ?></td>
 
                 <?php endforeach; ?>
 

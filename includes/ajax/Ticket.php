@@ -2,7 +2,6 @@
 
 namespace SmartcatSupport\ajax;
 
-use SmartcatSupport\form\constraint\Match;
 use SmartcatSupport\form\field\TextEditor;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
@@ -13,7 +12,6 @@ use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\field\TextArea;
 use SmartcatSupport\form\field\Hidden;
 use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\constraint\Date;
 use SmartcatSupport\form\constraint\Required;
 use const SmartcatSupport\TEXT_DOMAIN;
 
@@ -33,6 +31,8 @@ class Ticket extends ActionListener {
         $this->add_ajax_action( 'support_view_ticket', 'view_ticket' );
         $this->add_ajax_action( 'support_edit_ticket', 'edit_ticket' );
         $this->add_ajax_action( 'support_save_ticket', 'save_ticket' );
+
+        $this->add_ajax_action( 'support_new_ticket', 'new_ticket' );
         $this->add_ajax_action( 'support_create_ticket', 'create_ticket' );
     }
 
@@ -52,58 +52,46 @@ class Ticket extends ActionListener {
         }
     }
 
+    public function new_ticket() {
+        if( current_user_can( 'create_tickets' ) ) {
+            wp_send_json(
+                $this->view->render( 'create_ticket_form', [
+                    'form' => $this->configure_create_form()
+            ] ) );
+        }
+    }
+
     public function create_ticket() {
-        if( current_user_can( 'edit_tickets' ) ) {
-            $draft = $this->get_draft();
+        $form = $this->configure_create_form();
 
-            if( empty( $draft ) ) {
-                $id = wp_insert_post( [
-                    'post_status'  => 'draft',
-                    'post_type'    => 'support_ticket',
-                    'post_title'   => '',
-                    'post_content' => ''
-                ] );
+        if ( $form->is_valid() ) {
+            $data = $form->get_data();
 
-                $draft = get_post( $id );
-            }
+            $post_id = wp_insert_post( [
+                'post_title'     => $data['subject'],
+                'post_content'   => $data['content'],
+                'post_status'    => 'publish',
+                'post_type'      => 'support_ticket',
+                'post_author'    => null,
+                'comment_status' => 'open'
+            ] );
 
-            $this->send_editable( $draft );
-        }
-    }
+            if ( ! empty( $post_id ) ) {
+                unset( $data['subject'] );
+                unset( $data['content'] );
 
-    public function save_ticket() {
-        $ticket = $this->valid_request();
-
-        if( !empty( $ticket ) ) {
-            $form = $this->configure_editor_form( $ticket );
-            $meta = $this->configure_meta_form( $ticket );
-
-            if( $form->is_valid() && $meta->is_valid() ) {
-                $data = $form->get_data();
-
-                $post_id = wp_insert_post( [
-                    'ID'            => $ticket->ID,
-                    'post_title'    => $data['subject'],
-                    'post_content'  => $data['content'],
-                    'post_status'   => 'publish',
-                    'post_type'     => 'support_ticket',
-                    'post_author'    => null,
-                    'comment_status' => 'open'
-                ] );
-
-                if( !empty( $post_id ) ) {
-                    foreach( $meta->get_data() as $field => $value ) {
-                        update_post_meta( $post_id, $field, $value );
-                    }
-
-                    update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                    wp_send_json_success( $this->send_read_only( get_post( $post_id ) ) );
+                foreach ( $data as $field => $value ) {
+                    update_post_meta( $post_id, $field, $value );
                 }
-            } else {
-                wp_send_json_error( $form->get_errors() + $meta->get_errors() );
+
+                update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
+                wp_send_json_success( $this->send_read_only( get_post( $post_id ) ) );
             }
+        } else {
+            wp_send_json_error( $form->get_errors() );
         }
     }
+
 
     private function get_draft() {
         $draft = null;
@@ -168,6 +156,71 @@ class Ticket extends ActionListener {
 
         return $ticket;
     }
+
+    private function configure_create_form() {
+        $this->builder->clear_config();
+        $user = wp_get_current_user();
+
+        $this->builder->add( TextBox::class, 'first_name',
+            [
+                'value' => $user->first_name,
+                'label' => __( get_option( Option::FIRST_NAME_LABEL, Option\Defaults::FIRST_NAME_LABEL ), TEXT_DOMAIN ),
+                'error_msg' => __( get_option( Option::FIRST_NAME_ERR, Option\Defaults::FIRST_NAME_ERR ), TEXT_DOMAIN ),
+                'constraints'   =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+
+            ]
+        )->add( TextBox::class, 'last_name',
+            [
+                'value' => $user->last_name,
+                'label' => __( get_option( Option::LAST_NAME_LABEL, Option\Defaults::LAST_NAME_LABEL ), TEXT_DOMAIN ),
+                'error_msg' => __( get_option( Option::LAST_NAME_ERR, Option\Defaults::LAST_NAME_ERR ), TEXT_DOMAIN ),
+                'constraints'   =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+
+            ]
+        )->add( TextBox::class, 'email',
+            [
+                'value' => $user->user_email,
+                'label' => __( get_option( Option::EMAIL_LABEL, Option\Defaults::EMAIL_LABEL ), TEXT_DOMAIN ),
+                'error_msg' => __( get_option( Option::EMAIL_ERR, Option\Defaults::EMAIL_ERR ), TEXT_DOMAIN ),
+                'constraints'   =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+
+            ]
+        )->add( TextBox::class, 'subject',
+            [
+                'label' => __( get_option( Option::SUBJECT_LABEL, Option\Defaults::SUBJECT_LABEL ), TEXT_DOMAIN ),
+                'error_msg'     => __( get_option( Option::SUBJECT_ERR, Option\Defaults::SUBJECT_ERR ), TEXT_DOMAIN ),
+                'constraints'   =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+            ]
+        )->add( TextArea::class, 'content',
+            [
+                'label' => __( get_option( Option::CONTENT_LABEL, Option\Defaults::CONTENT_LABEL ), TEXT_DOMAIN ),
+                'error_msg' => __( get_option( Option::CONTENT_ERR, Option\Defaults::CONTENT_ERR ), TEXT_DOMAIN ),
+                'constraints' =>  [
+                    $this->builder->create_constraint( Required::class )
+                ]
+            ]
+        );
+
+        return $this->builder->get_form();
+    }
+
+
+
+
+
+
+
+
+
+
 
     private function configure_editor_form( $post ) {
         $this->builder->clear_config();
