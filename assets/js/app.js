@@ -121,10 +121,6 @@
         },
 
     app.edit_ticket = function (context) {
-        if (!context.data('saved_state')) {
-            context.data('saved_state', context.find('.inner').html());
-        }
-
         app.ajax('support_edit_ticket', {id: context.data('id')}, function (response) {
 
             if (response.success) {

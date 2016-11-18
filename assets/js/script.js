@@ -14,7 +14,6 @@ jQuery(document).ready(function ($) {
     });
 
     $(document).on('click', 'tr', function () {
-console.log($('#support_tickets_table').DataTable().row(this).data());
         SupportSystem.view_ticket(
             {
                 id: $('#support_tickets_table').DataTable().row(this).data()['id'],

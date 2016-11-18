@@ -44,7 +44,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <div class="actions">
 
-                <span class="action icon-pencil" data-action="edit_ticket"></span>
+                <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post->ID; ?>" rel="modal:open">
+
+                    <span class="action icon-pencil" data-action="edit_ticket"></span>
+
+                </a>
 
             </div>
 
