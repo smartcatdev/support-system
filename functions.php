@@ -11,6 +11,12 @@ use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
 use SmartcatSupport\util\TemplateRender;
 
+/**
+ * Composition Root for the plugin.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @since 1.0.0
+ */
 function init() {
 
     // Configure the application
@@ -96,6 +102,14 @@ function init() {
     register_deactivation_hook( __FILE__, array( $installer, 'deactivate' ) );
 }
 
+/**
+ * Decode HTML chars between <code></code> tags.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @since 1.0.0
+ * @param $text
+ * @return String
+ */
 function convert_html_chars( $text ) {
     $matches = array();
 
@@ -108,6 +122,13 @@ function convert_html_chars( $text ) {
     return $text;
 }
 
+/**
+ * Get a list of all users with the Support Agent Role.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @return array The list of agents
+ * @since 1.0.0
+ */
 function get_agents() {
     $agents = array();
 
@@ -122,6 +143,13 @@ function get_agents() {
     return $agents;
 }
 
+/**
+ * Get a list of Products and/or Downloads if EDD or WooCommerce is active.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @return bool|array False if neither is active, else an array of post titles and IDs.
+ * @since 1.0.0
+ */
 function get_products() {
     $results = false;
 
