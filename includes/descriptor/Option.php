@@ -29,6 +29,11 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const PRIORITIES = 'ca.smartcat.support.priorities';
+
+    /**
+     * @since 1.0.0
+     */
     const WOOCOMMERCE_ACTIVE = 'ca.smartcat.support.woocommerce_active';
 
     /**

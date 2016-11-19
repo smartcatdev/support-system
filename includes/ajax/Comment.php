@@ -6,16 +6,15 @@ use SmartcatSupport\form\constraint\Required;
 use SmartcatSupport\form\field\Hidden;
 use SmartcatSupport\form\field\TextArea;
 use SmartcatSupport\form\FormBuilder;
+use function SmartcatSupport\render_template;
 use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\TemplateRender;
 
 class Comment extends ActionListener {
     private $builder;
-    private $view;
 
-    public function __construct( TemplateRender $view, FormBuilder $builder ) {
-        $this->view = $view;
+    public function __construct( FormBuilder $builder ) {
         $this->builder = $builder;
 
         $this->add_ajax_action( 'support_edit_comment', 'edit_comment' );
@@ -30,7 +29,7 @@ class Comment extends ActionListener {
 
         if ( !empty( $comment ) ) {
             wp_send_json_success(
-                $this->view->render( 'comment_form', array(
+                render_template( 'comment_form', array(
                     'action'      => 'support_save_comment',
                     'after'       => 'refresh_comment',
                     'form'        => $this->configure_comment_form( null, $comment ),
@@ -62,7 +61,7 @@ class Comment extends ActionListener {
                 ) );
 
                 wp_send_json_success(
-                    $this->view->render( 'comment', array(
+                    render_template( 'comment', array(
                         'comment' => get_comment( $data['id'] )
                     ) )
                 );
@@ -98,7 +97,7 @@ class Comment extends ActionListener {
 
                 if( !is_wp_error( $comment ) ) {
                     wp_send_json_success(
-                        $this->view->render( 'comment', array(
+                        render_template( 'comment', array(
                             'comment' => $comment
                         ) )
                     );
@@ -123,7 +122,7 @@ class Comment extends ActionListener {
 
         if( !empty( $ticket ) ) {
             wp_send_json_success(
-                $this->view->render( 'comment_section', array(
+                render_template( 'comment_section', array(
                     'form' => $this->configure_comment_form( $ticket ),
                     'action' => 'support_ticket_reply',
                     'after' => 'append_comment',

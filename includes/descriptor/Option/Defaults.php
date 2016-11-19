@@ -23,8 +23,18 @@ final class Defaults {
         'new'           => 'New',
         'in_progress'   => 'In Progress',
         'resolved'      => 'Resolved',
+        'waiting'       => 'Waiting',
         'follow_up'     => 'Follow Up',
         'closed'        => 'Closed'
+    );
+
+    /**
+     * @since 1.0.0
+     */
+    const PRIORITIES = array(
+        'low'   => 'Low',
+        'med'   => 'Medium',
+        'high'  => 'High'
     );
 
     /**

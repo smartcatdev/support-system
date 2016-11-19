@@ -4,6 +4,8 @@ namespace SmartcatSupport\ajax;
 
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
+use function SmartcatSupport\render_template;
+use function SmartcatSupport\ticket_meta_form;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\descriptor\Option;
@@ -23,11 +25,9 @@ use SmartcatSupport\descriptor\Strings;
  * @author ericg
  */
 class Ticket extends ActionListener {
-    private $view;
     private $builder;
 
-    public function __construct( TemplateRender $view, FormBuilder $builder ) {
-        $this->view = $view;
+    public function __construct( FormBuilder $builder ) {
         $this->builder = $builder;
 
         $this->add_ajax_action( 'support_new_ticket', 'new_ticket' );
@@ -40,7 +40,7 @@ class Ticket extends ActionListener {
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json(
-                $this->view->render( 'ticket_form', array(
+                render_template( 'ticket_form', array(
                     'form' => $this->configure_create_form(),
                     'ajax_action' => 'support_create_ticket',
                     'submit_btn_text' => get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT )
@@ -101,12 +101,11 @@ class Ticket extends ActionListener {
 
                 $agents = get_agents() + array( '' => __( 'Unassigned', TEXT_DOMAIN ) );
                 $agent = $agents[ get_post_meta( $post->ID, 'agent', true ) ];
-
                 $meta[ __( 'Assigned To', TEXT_DOMAIN ) ] = $agent;
             }
 
             wp_send_json_success(
-                $this->view->render( 'ticket', array(
+                render_template( 'ticket', array(
                     'post' => $post,
                     'meta' => $meta
                 ) )
@@ -119,8 +118,8 @@ class Ticket extends ActionListener {
 
         if( current_user_can( 'edit_others_tickets' ) ) {
             wp_send_json(
-                $this->view->render( 'ticket_form', array(
-                    'form' => $this->configure_edit_form( $ticket ),
+                render_template( 'ticket_form', array(
+                    'form' => $this->configure_meta_form( $ticket ),
                     'ajax_action' => 'support_update_ticket',
                     'submit_btn_text' => get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT )
                 ) )
@@ -133,7 +132,7 @@ class Ticket extends ActionListener {
 
         if( !empty( $ticket ) ) {
             if ( current_user_can( 'edit_others_tickets' ) ) {
-                $form = $this->configure_edit_form( $ticket );
+                $form = $this->configure_meta_form( $ticket );
 
                 if ( $form->is_valid() ) {
                     $data = $form->get_data();
@@ -187,28 +186,28 @@ class Ticket extends ActionListener {
         $products = get_products();
 
         $this->builder->add( TextBox::class, 'first_name', array(
-            'value'       => $user->first_name,
-            'label'       => __( 'First Name', TEXT_DOMAIN ),
-            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints' => array(
+            'value'             => $user->first_name,
+            'label'             => __( 'First Name', TEXT_DOMAIN ),
+            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'       => array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextBox::class, 'last_name', array(
-            'value' => $user->last_name,
-            'label' => __( 'Last Name', TEXT_DOMAIN ),
-            'error_msg' => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'   =>  array(
+            'value'             => $user->last_name,
+            'label'             => __( 'Last Name', TEXT_DOMAIN ),
+            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'       =>  array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextBox::class, 'email', array(
-            'type'        => 'email',
-            'value'       => $user->user_email,
-            'label'       => __( 'Contact Email', TEXT_DOMAIN ),
-            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'type'              => 'email',
+            'value'             => $user->user_email,
+            'label'             => __( 'Contact Email', TEXT_DOMAIN ),
+            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
             'sanitize_callback' => 'sanitize_email',
-            'constraints' => array(
+            'constraints'       => array(
                 $this->builder->create_constraint( Required::class )
             )
 
@@ -216,26 +215,26 @@ class Ticket extends ActionListener {
 
         if( $products ) {
             $this->builder->add( SelectBox::class, 'product', array(
-                'label' => __( 'Product', TEXT_DOMAIN ),
-                'error_msg' => __( 'Please Select a product', TEXT_DOMAIN ),
-                'options' => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
-                'constraints' => array(
+                'label'         => __( 'Product', TEXT_DOMAIN ),
+                'error_msg'     => __( 'Please Select a product', TEXT_DOMAIN ),
+                'options'       => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
+                'constraints'   => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $products ) )
                 )
             ) );
         }
 
         $this->builder->add( TextBox::class, 'subject', array(
-            'label'       => __( 'Subject', TEXT_DOMAIN ),
-            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints' => array(
+            'label'         => __( 'Subject', TEXT_DOMAIN ),
+            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'   => array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextArea::class, 'content', array(
-            'label'       => __( 'Description', TEXT_DOMAIN ),
-            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints' => array(
+            'label'         => __( 'Description', TEXT_DOMAIN ),
+            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'   => array(
                 $this->builder->create_constraint( Required::class )
             )
         ) );
@@ -243,26 +242,17 @@ class Ticket extends ActionListener {
         return $this->builder->get_form();
     }
 
-    private function configure_edit_form( $post ) {
+    private function configure_meta_form( $post ) {
         $this->builder->clear_config();
 
         if( current_user_can( 'edit_others_tickets' ) ) {
 
             $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
-
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+            $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
             $this->builder->add( Hidden::class, 'id', array(
-                'value' => $post->ID
-
-            ) )->add( TextBox::class, 'email', array(
-                'type'              => 'email',
-                'label'             => __( 'Contact Email', TEXT_DOMAIN ),
-                'value'             => get_post_meta( $post->ID, 'email', true ),
-                'sanitize_callback' => 'sanitize_email',
-                'constraints' => array(
-                    $this->builder->create_constraint( Required::class )
-                )
+                'value'       => $post->ID
 
             ) )->add( SelectBox::class, 'agent', array(
                 'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
@@ -281,9 +271,17 @@ class Ticket extends ActionListener {
                 'constraints' => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
                 )
+            ) )->add( SelectBox::class, 'priority', array(
+                'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
+                'label'       => __( 'Priority', TEXT_DOMAIN ),
+                'options'     => $priorities,
+                'value'       => get_post_meta( $post->ID, 'priority', true ),
+                'constraints' => array(
+                    $this->builder->create_constraint( Choice::class, array_keys( $priorities ) )
+                )
             ) );
         }
 
-        return apply_filters( 'support_ticket_meta_form', $this->builder, $post )->get_form();
+        return $this->builder->get_form();
     }
 }

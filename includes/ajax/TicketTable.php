@@ -7,16 +7,15 @@ use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
 use function SmartcatSupport\get_agents;
+use function SmartcatSupport\render_template;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\TemplateRender;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 class TicketTable extends ActionListener {
-    private $view;
     private $builder;
 
-    public function __construct( TemplateRender $view, FormBuilder $builder ) {
-        $this->view = $view;
+    public function __construct( FormBuilder $builder ) {
         $this->builder = $builder;
 
         $this->column_data_callbacks();
@@ -26,17 +25,17 @@ class TicketTable extends ActionListener {
 
     public function ticket_table() {
         wp_send_json(
-            $this->view->render( 'tickets_overview', [
+            render_template( 'tickets_overview', array(
                 'headers' => $this->table_headers(),
                 'data'    => $this->table_data( $this->build_query() ),
                 'form'    => $this->configure_filter_form()
-            ]
-        ) );
+            ) )
+        );
     }
 
     public function refresh_table() {
         $form = $this->configure_filter_form();
-        $data = [];
+        $data = array();
 
         if ( $form->is_submitted() && $form->is_valid() ) {
             $data = $form->get_data();
@@ -45,11 +44,11 @@ class TicketTable extends ActionListener {
         $tickets = $this->build_query( $data );
 
         wp_send_json_success(
-            $this->view->render( 'tickets_table', [
-                    'headers' => $this->table_headers(),
-                    'data'    => $this->table_data( $tickets )
-                ]
-            ) );
+            render_template( 'tickets_table', array(
+                'headers' => $this->table_headers(),
+                'data'    => $this->table_data( $tickets )
+            ) )
+        );
     }
 
     private function build_query( array $meta_args = [] ) {

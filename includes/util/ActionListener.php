@@ -18,7 +18,7 @@ abstract class ActionListener {
      * @access protected
      * @since 1.0.0
      */
-    protected $events = [];
+    protected $events = array();
 
     /**
      * Register the object with a WordPress event.
@@ -31,8 +31,8 @@ abstract class ActionListener {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function add_action( $event, $callback, $priority = 10, $argsc = 1 ) {
-        add_filter( $event, [ $this, $callback ], $priority, $argsc );
-        
+        add_filter( $event, array( $this, $callback ), $priority, $argsc );
+
         $this->events[ $event ] = $callback;
     }
     
@@ -45,9 +45,9 @@ abstract class ActionListener {
      */
     public function remove_action( $event ) {
         if( array_key_exists( $event , $this->subscribed_events ) ) {
-            remove_filter( $event, [ $this, $this->events[ $event ] ] );
+            remove_filter( $event, array( $this, $this->events[ $event ] ) );
             
-            unset( $events[ $event ] );
+            unset( $this->events[ $event ] );
         }
     }
     
