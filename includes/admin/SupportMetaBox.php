@@ -46,7 +46,7 @@ class SupportMetaBox extends MetaBox {
     public function render( $post ) {
         $form = $this->configure_form( $post );
 
-        echo $this->view->render( 'metabox', [ 'form' => $form ] );
+        echo $this->view->render( 'metabox', array( 'form' => $form ) );
     }
 
     private function configure_form( $post ) {
@@ -58,10 +58,10 @@ class SupportMetaBox extends MetaBox {
 
         if( $products ) {
             $this->builder->add( SelectBox::class, 'product', array(
-                'label' => __( 'Product', TEXT_DOMAIN ),
-                'value' => get_post_meta( $post->ID, 'product', true ),
-                'options' => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
-                'constraints' => array(
+                'label'         => __( 'Product', TEXT_DOMAIN ),
+                'value'         => get_post_meta( $post->ID, 'product', true ),
+                'options'       => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
+                'constraints'   => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $products ) )
                 )
             ) );
@@ -74,20 +74,20 @@ class SupportMetaBox extends MetaBox {
             'sanitize_callback' => 'sanitize_email'
 
         ) )->add( SelectBox::class, 'agent', array(
-                'label'       => __( 'Assigned To', TEXT_DOMAIN ),
-                'options'     => $agents,
-                'value'       => get_post_meta( $post->ID, 'agent', true ),
-                'constraints' => array(
-                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
-                )
+            'label'       => __( 'Assigned To', TEXT_DOMAIN ),
+            'options'     => $agents,
+            'value'       => get_post_meta( $post->ID, 'agent', true ),
+            'constraints' => array(
+                $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+            )
 
         ) )->add( SelectBox::class, 'status', array(
-                'label'       => __( 'Status', TEXT_DOMAIN ),
-                'options'     => $statuses,
-                'value'       => get_post_meta( $post->ID, 'status', true ),
-                'constraints' => array(
-                    $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                )
+            'label'       => __( 'Status', TEXT_DOMAIN ),
+            'options'     => $statuses,
+            'value'       => get_post_meta( $post->ID, 'status', true ),
+            'constraints' => array(
+                $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+            )
         ) );
 
         return apply_filters( 'support_ticket_metabox_form', $this->builder, $post )->get_form();
