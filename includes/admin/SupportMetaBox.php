@@ -2,6 +2,7 @@
 
 namespace SmartcatSupport\admin;
 
+use function SmartcatSupport\get_products;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
@@ -24,7 +25,13 @@ class SupportMetaBox extends MetaBox {
     private $view;
 
     public function __construct( TemplateRender $view, FormBuilder $builder ) {
-        parent::__construct( 'ticket_meta', __( 'Ticket Information', TEXT_DOMAIN ), 'support_ticket' ); 
+        parent::__construct(
+            'ticket_meta',
+            __( 'Ticket Information', TEXT_DOMAIN ),
+            'support_ticket',
+            'advanced',
+            'high'
+        );
 
         $this->builder = $builder;
         $this->view = $view;
@@ -43,9 +50,22 @@ class SupportMetaBox extends MetaBox {
     }
 
     private function configure_form( $post ) {
-        $agents = array( '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ) + get_agents();
+        $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
 
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
+        $products = get_products();
+
+        if( $products ) {
+            $this->builder->add( SelectBox::class, 'product', array(
+                'label' => __( 'Product', TEXT_DOMAIN ),
+                'value' => get_post_meta( $post->ID, 'product', true ),
+                'options' => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
+                'constraints' => array(
+                    $this->builder->create_constraint( Choice::class, array_keys( $products ) )
+                )
+            ) );
+        }
 
         $this->builder->add( TextBox::class, 'email', array(
             'type'              => 'email',

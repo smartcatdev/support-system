@@ -3,6 +3,7 @@
 namespace SmartcatSupport\ajax;
 
 use function SmartcatSupport\get_agents;
+use function SmartcatSupport\get_products;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\descriptor\Option;
@@ -183,6 +184,8 @@ class Ticket extends ActionListener {
         $this->builder->clear_config();
         $user = wp_get_current_user();
 
+        $products = get_products();
+
         $this->builder->add( TextBox::class, 'first_name', array(
             'value'       => $user->first_name,
             'label'       => __( 'First Name', TEXT_DOMAIN ),
@@ -209,7 +212,20 @@ class Ticket extends ActionListener {
                 $this->builder->create_constraint( Required::class )
             )
 
-        ) )->add( TextBox::class, 'subject', array(
+        ) );
+
+        if( $products ) {
+            $this->builder->add( SelectBox::class, 'product', array(
+                'label' => __( 'Product', TEXT_DOMAIN ),
+                'error_msg' => __( 'Please Select a product', TEXT_DOMAIN ),
+                'options' => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
+                'constraints' => array(
+                    $this->builder->create_constraint( Choice::class, array_keys( $products ) )
+                )
+            ) );
+        }
+
+        $this->builder->add( TextBox::class, 'subject', array(
             'label'       => __( 'Subject', TEXT_DOMAIN ),
             'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints' => array(

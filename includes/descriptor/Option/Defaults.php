@@ -24,6 +24,9 @@ final class Defaults {
         'closed'        => 'Closed'
     );
 
+    const WOOCOMMERCE_ACTIVE = false;
+    const EDD_ACTIVE = true;
+
     const TICKET_CREATED_MSG = 'We\'ve received your request for support and an agent will get back to you soon';
     const TICKET_UPDATED_MSG = 'This ticket has been updated';
     const EMPTY_TABLE_MSG = 'There are no tickets yet';

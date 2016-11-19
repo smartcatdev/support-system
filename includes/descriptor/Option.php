@@ -23,6 +23,9 @@ final class Option {
 
     const STATUSES = 'ca.smartcat.support.statuses';
 
+    const WOOCOMMERCE_ACTIVE = 'ca.smartcat.support.woocommerce_active';
+    const EDD_ACTIVE = 'ca.smartcat.support.edd_active';
+
     const TICKET_CREATED_MSG = 'ca.smartcat.support.string.ticket_created';
     const TICKET_UPDATED_MSG = 'ca.smartcat.support.string.ticket_updated';
     const EMPTY_TABLE_MSG = 'ca.smartcat.support.string.empty_table';
