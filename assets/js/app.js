@@ -108,10 +108,11 @@
         app.new_tab(ticket.id, ticket.subject, function (element) {
             app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
                 if (response.success) {
-                    element.html('<div class="support_ticket">' + response.data + '</div>');
+                    element.html(response.data);
 
                     app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
                         if (response.success) {
+                            console.log(response);
                             element.find('.support_ticket').append(response.data);
                             app.tinymce('[name="content"]');
                         }
