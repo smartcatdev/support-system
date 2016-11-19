@@ -60,7 +60,7 @@ class SupportMetaBox extends MetaBox {
             $this->builder->add( SelectBox::class, 'product', array(
                 'label'         => __( 'Product', TEXT_DOMAIN ),
                 'value'         => get_post_meta( $post->ID, 'product', true ),
-                'options'       => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
+                'options'       => array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + $products,
                 'constraints'   => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $products ) )
                 )
