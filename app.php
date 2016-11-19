@@ -17,16 +17,10 @@ $app['plugin_dir'] = plugin_dir_path( $fs_context );
 $app['plugin_url'] = plugin_dir_url( $fs_context );
 
 // Default template rendering
-$app['renderer'] = function ( $container ) {
-    return new TemplateRender( $container['plugin_dir'] . '/templates' );
-};
+$app['renderer'] = new TemplateRender( $app['plugin_dir'] . '/templates' );
 
 // Form Builder Factory
-$app['form_factory'] = $app->factory( function () {
-    return new FormBuilder( 'support_form' );
-} );
-
-// Classes require direct assignment due to WordPress requiring a reference for actions
+$app['form_factory'] = new FormBuilder( 'support_form' );
 
 // Configure table Handler
 $app['table_handler'] = new TicketTable( $app['renderer'], $app['form_factory'] );
@@ -41,6 +35,4 @@ $app['comment_handler'] = new Comment( $app['renderer'], $app['form_factory'] );
 $app['support_metabox'] = new SupportMetaBox( $app['renderer'], $app['form_factory'] );
 
 // Configure installer
-$app['installer'] = function() {
-    return new Installer();
-};
+$app['installer'] = new Installer();

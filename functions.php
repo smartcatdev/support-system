@@ -2,10 +2,8 @@
 
 namespace SmartcatSupport;
 
-use Pimple\Container;
-
 function init( $fs_context ) {
-    $app = new Container();
+    $app = array();
 
     require_once 'app.php';
 
