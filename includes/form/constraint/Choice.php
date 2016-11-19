@@ -14,7 +14,7 @@ namespace SmartcatSupport\form\constraint;
  * @author Eric Green <eric@smartcat.ca>
  */
 class Choice implements Constraint {
-    protected $options = [];
+    protected $options = array();
     
     public function __construct( array $options ) {
         $this->options = $options;

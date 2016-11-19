@@ -29,19 +29,19 @@ class Comment extends ActionListener {
         $comment = $this->validate_comment_request();
 
         if ( !empty( $comment ) ) {
-            wp_send_json_success( $this->view->render( 'comment_form',
-                [
+            wp_send_json_success(
+                $this->view->render( 'comment_form', array(
                     'action'      => 'support_save_comment',
                     'after'       => 'refresh_comment',
                     'form'        => $this->configure_comment_form( null, $comment ),
-                    'submit_text' => [
+                    'submit_text' => array(
                         'default' => 'Save',
                         'success' => 'Saved',
                         'fail'    => 'Error',
                         'wait'    => 'Saving'
-                    ]
-                ]
-            ) );
+                    )
+                ) )
+            );
         }
     }
 
@@ -54,16 +54,18 @@ class Comment extends ActionListener {
             if ( $form->is_valid() ) {
                 $data = $form->get_data();
 
-                wp_update_comment( [
+                wp_update_comment( array(
                     'comment_ID'      => $data['id'],
                     'comment_content' => $data['content'],
                     'comment_date' =>  current_time( 'mysql' ),
                     'comment_date_gmt' =>  current_time( 'mysql', 1 )
-                ] );
+                ) );
 
-                wp_send_json_success( $this->view->render( 'comment', [
-                    'comment' => get_comment( $data['id'] )
-                ] ) );
+                wp_send_json_success(
+                    $this->view->render( 'comment', array(
+                        'comment' => get_comment( $data['id'] )
+                    ) )
+                );
             } else {
                 wp_send_json_error( $form->get_errors() );
             }
@@ -118,41 +120,39 @@ class Comment extends ActionListener {
         $ticket = $this->valid_ticket_request();
 
         if( !empty( $ticket ) ) {
-            wp_send_json_success( $this->view->render( 'comment_section',
-                [
+            wp_send_json_success(
+                $this->view->render( 'comment_section', array(
                     'form' => $this->configure_comment_form( $ticket ),
                     'action' => 'support_ticket_reply',
                     'after' => 'append_comment',
                     'comments' => get_comments( [ 'post_id' => $ticket->ID, 'order' => 'ASC' ] ),
-                    'submit_text' => [
+                    'submit_text' => array(
                         'default' => 'Reply',
                         'success' => 'Sent',
                         'fail' => 'Error',
                         'wait' => 'Sending'
-                    ]
-                ]
-            ) );
+                    )
+                ) )
+            );
         }
     }
 
     private function configure_comment_form( $post, $comment = false ) {
         $this->builder->clear_config();
 
-        $this->builder->add( TextArea::class, 'content',
-            [
-                'rows' => 4,
-                'value' => $comment ? $comment->comment_content : '',
-                'error_msg' => __( 'Reply cannot be blank', TEXT_DOMAIN ),
-                'constraints' => [
-                    $this->builder->create_constraint( Required::class )
-                ]
-            ]
-        );
+        $this->builder->add( TextArea::class, 'content', array(
+            'rows' => 4,
+            'value' => $comment ? $comment->comment_content : '',
+            'error_msg' => __( 'Reply cannot be blank', TEXT_DOMAIN ),
+            'constraints' => array(
+                $this->builder->create_constraint( Required::class )
+            )
+        ) );
 
         if( !empty( $post ) ) {
-            $this->builder->add( Hidden::class, 'id', [ 'value' => $post->ID ] );
+            $this->builder->add( Hidden::class, 'id', array( 'value' => $post->ID ) );
         } else if( !empty( $comment ) ) {
-            $this->builder->add( Hidden::class, 'id', [ 'value' => $comment->comment_ID ] );
+            $this->builder->add( Hidden::class, 'id', array( 'value' => $comment->comment_ID ) );
         }
 
         return $this->builder->get_form();
@@ -194,5 +194,4 @@ class Comment extends ActionListener {
 
         return $comment;
     }
-
 }

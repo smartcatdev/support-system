@@ -35,7 +35,7 @@ final class Installer extends ActionListener {
      * Register the ticket custom post type
      */
     public function register_post_type() {
-        $labels = [
+        $labels = array(
             'name'                  => _x( 'Support Tickets', 'Post Type General Name', TEXT_DOMAIN ),
             'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', TEXT_DOMAIN ),
             'menu_name'             => __( 'Support Tickets', TEXT_DOMAIN ),
@@ -61,11 +61,11 @@ final class Installer extends ActionListener {
             'items_list'            => __( 'Tickets list', TEXT_DOMAIN ),
             'items_list_navigation' => __( 'Tickets list navigation', TEXT_DOMAIN ),
             'filter_items_list'     => __( 'Filter tickets list', TEXT_DOMAIN )
-        ];
+        );
 
-        $capabilities = [];
+        $capabilities = array();
 
-        $args = [
+        $args = array(
                 'label'                 => __( 'Support Ticket', TEXT_DOMAIN ),
                 'description'           => __( 'Tickets for support requests', TEXT_DOMAIN ),
                 'labels'                => $labels,
@@ -83,7 +83,7 @@ final class Installer extends ActionListener {
                 'exclude_from_search'   => true,
                 'publicly_queryable'    => true,
                 'capabilities'          => $capabilities
-        ];
+        );
 
         register_post_type( 'support_ticket', $args );
     }

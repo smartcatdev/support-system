@@ -43,36 +43,32 @@ class SupportMetaBox extends MetaBox {
     }
 
     private function configure_form( $post ) {
-        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + get_agents();
+        $agents = array( '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ) + get_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
         //<editor-fold desc="Form Configuration">
-        $this->builder->add( TextBox::class, 'email',
-            [
-                'type'              => 'email',
-                'label'             => 'Contact Email',
-                'value'             => get_post_meta( $post->ID, 'email', true ),
-                'sanitize_callback' => 'sanitize_email'
-            ]
-        )->add( SelectBox::class, 'agent',
-            [
+        $this->builder->add( TextBox::class, 'email', array(
+            'type'              => 'email',
+            'label'             => 'Contact Email',
+            'value'             => get_post_meta( $post->ID, 'email', true ),
+            'sanitize_callback' => 'sanitize_email'
+
+        ) )->add( SelectBox::class, 'agent', array(
                 'label'       => 'Assigned To',
                 'options'     => $agents,
                 'value'       => get_post_meta( $post->ID, 'agent', true ),
-                'constraints' => [
+                'constraints' => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
-                ]
-            ]
-        )->add( SelectBox::class, 'status',
-            [
+                )
+
+        ) )->add( SelectBox::class, 'status', array(
                 'label'       => 'Status',
                 'options'     => $statuses,
                 'value'       => get_post_meta( $post->ID, 'status', true ),
-                'constraints' => [
+                'constraints' => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                ]
-            ]
-        );
+                )
+        ) );
         //</editor-fold>
 
         return apply_filters( 'support_ticket_metabox_form', $this->builder, $post )->get_form();

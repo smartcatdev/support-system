@@ -76,14 +76,16 @@ abstract class ActionListener {
     public function remove_ajax_action( $event, $priv = true ) {
         $this->remove_action( $this->prefix_ajax( $event, $priv ) );
     }
-    
+
     /**
      * Prefix an AJAX event as either privileged or unprivileged.
-     * 
-     * @param string  $event The name of the event to stop listening for.
+     *
+     * @param string $event The name of the event to stop listening for.
      * @param boolean $priv Whether or not the action can be called from the front-end.
+     *
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
+     * @return string
      */
     private function prefix_ajax( $event, $priv ) {
         return ( $priv ? 'wp_ajax_' : 'wp_ajax_no_priv_' ) . $event;
