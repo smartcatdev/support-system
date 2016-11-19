@@ -29,7 +29,8 @@ final class Defaults {
     const TICKETS_TAB_LABEL = 'Tickets';
 
     const CREATE_TICKET_BTN_TEXT = 'Create Ticket';
-
+    const REPLY_BTN_TEXT = 'Reply';
+    const CANCEL_BTN_TEXT = 'Cancel';
     const SAVE_TICKET_BTN_TEXT = 'Create Ticket';
 
     const EMPTY_TABLE_MSG = 'There are no tickets yet';

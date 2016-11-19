@@ -8,7 +8,7 @@ use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\constraint\Date;
+use function SmartcatSupport\get_agents;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
@@ -43,7 +43,7 @@ class SupportMetaBox extends MetaBox {
     }
 
     private function configure_form( $post ) {
-        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + get_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
         //<editor-fold desc="Form Configuration">

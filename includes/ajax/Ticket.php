@@ -3,6 +3,7 @@
 namespace SmartcatSupport\ajax;
 
 use SmartcatSupport\form\field\TextEditor;
+use function SmartcatSupport\get_agents;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\descriptor\Option;
@@ -91,7 +92,7 @@ class Ticket extends ActionListener {
             ];
 
             if ( current_user_can( 'edit_others_tickets' ) ) {
-                $agents = support_system_agents() + [ '' => __( 'No Agents Assigned', TEXT_DOMAIN ) ];
+                $agents = get_agents() + [ '' => __( 'No Agents Assigned', TEXT_DOMAIN ) ];
                 $agent = $agents[ get_post_meta( $post->ID, 'agent', true ) ];
 
                 $meta[ __( get_option( Option::ASSIGNED_LABEL, Option\Defaults::ASSIGNED_LABEL ), TEXT_DOMAIN ) ] = $agent;
@@ -227,7 +228,7 @@ class Ticket extends ActionListener {
         $this->builder->clear_config();
 
         if( current_user_can( 'edit_others_tickets' ) ) {
-            $agents   = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+            $agents   = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + get_agents();
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
             $this->builder->add( Hidden::class, 'id', [

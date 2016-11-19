@@ -6,6 +6,7 @@ use SmartcatSupport\form\constraint\Choice;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
+use function SmartcatSupport\get_agents;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\util\TemplateRender;
 use const SmartcatSupport\TEXT_DOMAIN;
@@ -71,7 +72,7 @@ class TicketTable extends ActionListener {
     }
 
     private function configure_filter_form() {
-        $agents = [ '' => __( 'Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+        $agents = [ '' => __( 'Assigned', TEXT_DOMAIN ) ] + get_agents();
         $statuses = [ '' => __( 'Status', TEXT_DOMAIN ) ] + get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
         $this->builder->add( SelectBox::class, 'status',
