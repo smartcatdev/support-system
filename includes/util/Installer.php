@@ -48,7 +48,7 @@ final class Installer extends ActionListener {
             'new_item'              => __( 'New Ticket', TEXT_DOMAIN ),
             'edit_item'             => __( 'Edit Ticket', TEXT_DOMAIN ),
             'update_item'           => __( 'Update Ticket', TEXT_DOMAIN ),
-            'view_item'             => __( 'ViewTicket', TEXT_DOMAIN ),
+            'view_item'             => __( 'View Ticket', TEXT_DOMAIN ),
             'search_items'          => __( 'Search Ticket', TEXT_DOMAIN ),
             'not_found'             => __( 'Not found', TEXT_DOMAIN ),
             'not_found_in_trash'    => __( 'Not found in Trash', TEXT_DOMAIN ),
@@ -89,9 +89,25 @@ final class Installer extends ActionListener {
     }
     
     public function add_user_roles() {
-        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), [ 'view_support_tickets' => true, 'create_support_tickets' => true, 'unfiltered_html' => true, 'edit_others_tickets' => true ] );
-        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), [ 'view_support_tickets' => true,'unfiltered_html' => true, 'edit_tickets' => true, 'edit_others_tickets' => true ] );
-        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), [ 'view_support_tickets' => true, 'create_support_tickets' => true ] );
+        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), array(
+            'view_support_tickets'      => true,
+            'create_support_tickets'    => true,
+            'unfiltered_html'           => true,
+            'edit_others_tickets'       => true
+        ) );
+
+        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), array(
+            'view_support_tickets'      => true,
+            'unfiltered_html'           => true,
+            'edit_tickets'              => true,
+            'edit_others_tickets'       => true
+        ) );
+
+        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), array(
+            'view_support_tickets'      => true,
+            'create_support_tickets'    => true,
+            'unfiltered_html'           => true
+        ) );
 
         $role = get_role( 'administrator' );
         $role->add_cap( 'view_support_tickets' );
