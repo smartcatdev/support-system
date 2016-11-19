@@ -99,7 +99,6 @@ final class Installer extends ActionListener {
         add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), array(
             'view_support_tickets'      => true,
             'unfiltered_html'           => true,
-            'edit_tickets'              => true,
             'edit_others_tickets'       => true
         ) );
 

@@ -1,7 +1,7 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\TEXT_DOMAIN;
+use SmartcatSupport\form\Form;
 
 ?>
 
@@ -11,15 +11,10 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <form id="ticket_filter">
 
-            <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>" />
+            <?php Form::form_fields( $filter_form ); ?>
 
-            <?php foreach( $form->get_fields() as $field ) : ?>
-
-                <?php $field->render(); ?>
-
-            <?php endforeach; ?>
-
-            <input type="submit" value="<?php _e( 'Filter', TEXT_DOMAIN ); ?>" />
+            <span class="trigger filter icon-filter" data-action="filter_tickets"></span>
+            <span class="trigger refresh icon-loop2" data-action="refresh_tickets"></span>
 
         </form>
 

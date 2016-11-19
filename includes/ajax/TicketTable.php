@@ -2,15 +2,14 @@
 
 namespace SmartcatSupport\ajax;
 
-use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\FormBuilder;
 use function SmartcatSupport\get_agents;
+use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
-use SmartcatSupport\util\ActionListener;
-use SmartcatSupport\util\TemplateRender;
 use const SmartcatSupport\TEXT_DOMAIN;
+use SmartcatSupport\util\ActionListener;
 
 class TicketTable extends ActionListener {
     private $builder;
@@ -20,7 +19,7 @@ class TicketTable extends ActionListener {
 
         $this->column_data_callbacks();
         $this->add_ajax_action( 'support_list_tickets', 'ticket_table' );
-        $this->add_ajax_action( 'support_refresh_tickets', 'refresh_table' );
+        $this->add_ajax_action( 'support_refresh_tickets', 'refresh_tickets' );
     }
 
     public function ticket_table() {
@@ -28,20 +27,13 @@ class TicketTable extends ActionListener {
             render_template( 'tickets_overview', array(
                 'headers' => $this->table_headers(),
                 'data'    => $this->table_data( $this->build_query() ),
-                'form'    => $this->configure_filter_form()
+                'filter_form' => $this->configure_filter_form()
             ) )
         );
     }
 
-    public function refresh_table() {
-        $form = $this->configure_filter_form();
-        $data = array();
-
-        if ( $form->is_submitted() && $form->is_valid() ) {
-            $data = $form->get_data();
-        }
-
-        $tickets = $this->build_query( $data );
+    public function refresh_tickets() {
+        $tickets = $this->build_query();
 
         wp_send_json_success(
             render_template( 'tickets_table', array(
@@ -51,7 +43,30 @@ class TicketTable extends ActionListener {
         );
     }
 
-    private function build_query( array $meta_args = [] ) {
+    private function configure_filter_form() {
+        $products = array( '' => __( 'Product', TEXT_DOMAIN ) ) + get_products();
+        $agents = array( '' => __( 'Assigned', TEXT_DOMAIN ) ) + get_agents();
+        $statuses = array( '' => __( 'Status', TEXT_DOMAIN ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
+        if( $products ) {
+            $this->builder->add( SelectBox::class, 'product', array(
+                'options' => $products
+            ) );
+        }
+
+        if( current_user_can( 'edit_others_tickets' ) ) {
+            $this->builder->add( SelectBox::class, 'agent', array(
+                'options' => $agents
+
+            ) )->add( SelectBox::class, 'status', array(
+                'options' => $statuses
+            ) );
+        }
+
+        return $this->builder->get_form();
+    }
+
+    private function build_query() {
         $args = [
             'post_type' => 'support_ticket',
             'post_status' => 'publish'
@@ -61,44 +76,19 @@ class TicketTable extends ActionListener {
             $args['author'] = wp_get_current_user()->ID;
         }
 
-        foreach( $meta_args as $param => $value ) {
-            if( $value != '' ) {
-                $args['meta_query'][] = [ 'key' => $param, 'value' => $value ];
+        $filter = $this->configure_filter_form();
+
+        if( $filter->is_valid() ) {
+            $data = $filter->get_data();
+
+            foreach( $data as $param => $value ) {
+                if( $value != '' ) {
+                    $args['meta_query'][] = [ 'key' => $param, 'value' => $value ];
+                }
             }
         }
 
         return new \WP_Query( $args );
-    }
-
-    private function configure_filter_form() {
-        $agents = [ '' => __( 'Assigned', TEXT_DOMAIN ) ] + get_agents();
-        $statuses = [ '' => __( 'Status', TEXT_DOMAIN ) ] + get_option( Option::STATUSES, Option\Defaults::STATUSES );
-
-        $this->builder->add( SelectBox::class, 'status',
-            [
-                'options'     => $statuses,
-                'value'       => '',
-                'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                ]
-            ]
-        );
-
-        if( current_user_can( 'edit_others_tickets' ) ) {
-
-            $this->builder->add( SelectBox::class, 'agent',
-                [
-                    'options'     => $agents,
-                    'value'       => '',
-                    'constraints' => [
-                        $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
-                    ]
-                ]
-            );
-
-        }
-
-        return $this->builder->get_form();
     }
 
     private function table_headers() {

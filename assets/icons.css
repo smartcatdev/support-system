@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'sc-support';
-  src:  url('fonts/sc-support.eot?cyzqjg');
-  src:  url('fonts/sc-support.eot?cyzqjg#iefix') format('embedded-opentype'),
-    url('fonts/sc-support.ttf?cyzqjg') format('truetype'),
-    url('fonts/sc-support.woff?cyzqjg') format('woff'),
-    url('fonts/sc-support.svg?cyzqjg#sc-support') format('svg');
+  src:  url('fonts/sc-support.eot?605wu6');
+  src:  url('fonts/sc-support.eot?605wu6#iefix') format('embedded-opentype'),
+    url('fonts/sc-support.ttf?605wu6') format('truetype'),
+    url('fonts/sc-support.woff?605wu6') format('woff'),
+    url('fonts/sc-support.svg?605wu6#sc-support') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,10 +24,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-flag2:before {
+  content: "\e900";
+}
 .icon-pencil:before {
   content: "\e905";
 }
+.icon-bubbles:before {
+  content: "\e96c";
+}
+.icon-bubble2:before {
+  content: "\e96e";
+}
+.icon-spinner11:before {
+  content: "\e984";
+}
+.icon-search:before {
+  content: "\e986";
+}
 .icon-bin:before {
   content: "\e9ac";
+}
+.icon-loop2:before {
+  content: "\ea2e";
+}
+.icon-filter:before {
+  content: "\ea5b";
 }
 

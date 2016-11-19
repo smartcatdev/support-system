@@ -23,12 +23,12 @@ table.collapsible tr {
     vertical-align: top;
 }
 
-@media( min-width: 767px ) {
-    table.collapsible td,
-    table.collapsible th {
-        display: table-cell;
-    }
-}
+/*@media( min-width: 767px ) {*/
+    /*table.collapsible td,*/
+    /*table.collapsible th {*/
+        /*display: table-cell;*/
+    /*}*/
+/*}*/
 
 /*** SUPPORT CARD *************************************************************/
 
@@ -381,4 +381,18 @@ table.collapsible tr {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.rotate {
+    animation: spin 2s linear infinite;
+}
+
+.tickets_overview .trigger {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    margin: 10px;
+    padding: 0;
+    text-align: center;
+    line-height: 20px;
 }

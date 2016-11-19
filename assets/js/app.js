@@ -174,29 +174,46 @@
 
 
 
+    app.remove_filter = function() {
+        set_session_obj('tickets_filter', []);
 
+        $('#ticket_filter .form_field').each(function () {
+            $(this).val('');
+        });
 
-    app.filter_table = function (e) {
-        e.preventDefault();
-
-        // Save this fore future refreshes
-        set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
-        app.refresh_table();
-
-        return;
+        app.refresh_tickets();
     },
 
-    app.refresh_table = function () {
-        // Get the data from the last filter
+    app.filter_tickets = function (el) {
+        if(el.data('enabled')) {
+            el.data('enabled', false);
+            el.css('color', 'black');
+
+            app.remove_filter();
+        } else {
+            el.data('enabled', true);
+            el.css('color', 'blue');
+
+            // Save this fore future refreshes
+            set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
+            app.refresh_tickets();
+        }
+    },
+
+    app.refresh_tickets = function (el) {
         var data = get_session_obj('tickets_filter', []);
 
+        $('#ticket_filter').find('.refresh').addClass('rotate');
+
+        //Get the data from the last filter
         app.ajax('support_refresh_tickets', data, function (response) {
             if(response.success) {
                 $('#support_tickets_table_wrapper').replaceWith(response.data);
 
+                $('#ticket_filter').find('.refresh').removeClass('rotate');
                 init_table();
             }
-        })
+        });
     }
 
     function init_table () {
