@@ -24,4 +24,4 @@ include_once 'vendor/autoload.php';
 include_once 'functions.php';
 
 
-init( __FILE__ );
+init();
