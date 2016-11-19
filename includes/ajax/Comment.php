@@ -97,9 +97,11 @@ class Comment extends ActionListener {
                 ] );
 
                 if( !is_wp_error( $comment ) ) {
-                    wp_send_json_success( $this->view->render( 'comment', [
+                    wp_send_json_success(
+                        $this->view->render( 'comment', array(
                             'comment' => $comment
-                    ] ) );
+                        ) )
+                    );
                 }
             } else {
                 wp_send_json_error( $form ->get_errors() );
@@ -125,7 +127,7 @@ class Comment extends ActionListener {
                     'form' => $this->configure_comment_form( $ticket ),
                     'action' => 'support_ticket_reply',
                     'after' => 'append_comment',
-                    'comments' => get_comments( [ 'post_id' => $ticket->ID, 'order' => 'ASC' ] ),
+                    'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) ),
                     'submit_text' => array(
                         'default' => 'Reply',
                         'success' => 'Sent',

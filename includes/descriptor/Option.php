@@ -23,36 +23,12 @@ final class Option {
 
     const STATUSES = 'ca.smartcat.support.statuses';
 
-    const TICKET_CREATE_SUCCESS_MSG = 'ca.smartcat.support.message.ticket_create';
+    const TICKET_CREATED_MSG = 'ca.smartcat.support.string.ticket_created';
+    const TICKET_UPDATED_MSG = 'ca.smartcat.support.string.ticket_updated';
+    const EMPTY_TABLE_MSG = 'ca.smartcat.support.string.empty_table';
 
-    const TICKETS_TAB_LABEL = 'ca.smartcat.support.ticket_tab.label';
-
-    const CREATE_TICKET_BTN_TEXT = 'ca.smartcat.support.create_ticket_btn.text';
-    const REPLY_BTN_TEXT = 'ca.smartcat.support.reply_btn.text';
-    const CANCEL_BTN_TEXT = 'ca.smartcat.support.reply_btn.text';
-    const SAVE_TICKET_BTN_TEXT = 'ca.smartcat.support.create_ticket_btn.text';
-
-    const EMPTY_TABLE_MSG = 'ca.smartcat.support.empty_table.msg';
-
-    const SUBJECT_LABEL = 'ca.smartcat.support.subject.label';
-    const SUBJECT_ERR = 'ca.smartcat.support.subject.err';
-
-    const CONTENT_LABEL = 'ca.smartcat.support.contents.err';
-    const CONTENT_ERR = 'ca.smartcat.support.contents.err';
-
-    const FIRST_NAME_LABEL = 'ca.smartcat.support.first_name.label';
-    const FIRST_NAME_ERR = 'ca.smartcat.support.first_name.err';
-
-    const LAST_NAME_LABEL = 'ca.smartcat.support.last_name.label';
-    const LAST_NAME_ERR = 'ca.smartcat.support.last_name.err';
-
-    const EMAIL_LABEL = 'ca.smartcat.support.email.label';
-    const EMAIL_ERR = 'ca.smartcat.support.email.err';
-
-    const STATUS_LABEL = 'ca.smartcat.support.status.label';
-    const STATUS_ERR = 'ca.smartcat.support.status.err';
-
-    const ASSIGNED_LABEL = 'ca.smartcat.support.assigned.label';
-    const ASSIGNED_ERR = 'ca.smartcat.support.assigned.err';
-
+    const CREATE_BTN_TEXT = 'ca.smartcat.support.string.create_ticket_btn';
+    const REPLY_BTN_TEXT = 'ca.smartcat.support.string.reply_btn';
+    const CANCEL_BTN_TEXT = 'ca.smartcat.support.string.cancel_btn';
+    const SAVE_BTN_TEXT = 'ca.smartcat.support.string.save_ticket_btn';
 }

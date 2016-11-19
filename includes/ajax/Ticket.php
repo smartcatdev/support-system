@@ -2,7 +2,6 @@
 
 namespace SmartcatSupport\ajax;
 
-use SmartcatSupport\form\field\TextEditor;
 use function SmartcatSupport\get_agents;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
@@ -15,6 +14,7 @@ use SmartcatSupport\form\field\Hidden;
 use SmartcatSupport\form\constraint\Choice;
 use SmartcatSupport\form\constraint\Required;
 use const SmartcatSupport\TEXT_DOMAIN;
+use SmartcatSupport\descriptor\Strings;
 
 /**
  * Description of SingleTicket
@@ -41,7 +41,8 @@ class Ticket extends ActionListener {
             wp_send_json(
                 $this->view->render( 'ticket_form', array(
                     'form' => $this->configure_create_form(),
-                    'ajax_action' => 'support_create_ticket'
+                    'ajax_action' => 'support_create_ticket',
+                    'submit_btn_text' => get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT )
                 ) )
             );
         }
@@ -75,7 +76,7 @@ class Ticket extends ActionListener {
                     update_post_meta( $post_id, 'status', 'new' );
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
                     wp_send_json_success(
-                        __( get_option( Option::TICKET_CREATE_SUCCESS_MSG, Option\Defaults::TICKET_CREATE_SUCCESS_MSG ) ) );
+                        __( get_option( Option::TICKET_CREATED_MSG, Option\Defaults::TICKET_CREATED_MSG ) ) );
                 }
             } else {
                 wp_send_json_error( $form->get_errors() );
@@ -91,15 +92,16 @@ class Ticket extends ActionListener {
 
         if( !empty( $post ) ) {
             $meta = array(
-                __( get_option( Option::EMAIL_LABEL, Option\Defaults::EMAIL_LABEL ), TEXT_DOMAIN ) => get_post_meta( $post->ID, 'email', true ),
-                __( get_option( Option::STATUS_LABEL, Option\Defaults::STATUS_LABEL ), TEXT_DOMAIN ) => __( $status, TEXT_DOMAIN )
+                __( 'Email Address', TEXT_DOMAIN ) => get_post_meta( $post->ID, 'email', true ),
+                __( 'Status', TEXT_DOMAIN ) => __( $status, TEXT_DOMAIN )
             );
 
             if ( current_user_can( 'edit_others_tickets' ) ) {
-                $agents = get_agents() + array( '' => __( 'No Agents Assigned', TEXT_DOMAIN ) );
+
+                $agents = get_agents() + array( '' => __( 'Unassigned', TEXT_DOMAIN ) );
                 $agent = $agents[ get_post_meta( $post->ID, 'agent', true ) ];
 
-                $meta[ __( get_option( Option::ASSIGNED_LABEL, Option\Defaults::ASSIGNED_LABEL ), TEXT_DOMAIN ) ] = $agent;
+                $meta[ __( 'Assigned To', TEXT_DOMAIN ) ] = $agent;
             }
 
             wp_send_json_success(
@@ -118,7 +120,8 @@ class Ticket extends ActionListener {
             wp_send_json(
                 $this->view->render( 'ticket_form', array(
                     'form' => $this->configure_edit_form( $ticket ),
-                    'ajax_action' => 'support_update_ticket'
+                    'ajax_action' => 'support_update_ticket',
+                    'submit_btn_text' => get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT )
                 ) )
             );
         }
@@ -146,7 +149,9 @@ class Ticket extends ActionListener {
                         }
 
                         update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                        wp_send_json_success( __( get_option( Option::TICKET_CREATE_SUCCESS_MSG, Option\Defaults::TICKET_CREATE_SUCCESS_MSG ) ) );
+                        wp_send_json_success(
+                            __( get_option( Option::TICKET_UPDATED_MSG, Option\Defaults::TICKET_UPDATED_MSG ) )
+                        );
                     }
                 } else {
                     wp_send_json_error( $form->get_errors() );
@@ -180,38 +185,40 @@ class Ticket extends ActionListener {
 
         $this->builder->add( TextBox::class, 'first_name', array(
             'value'       => $user->first_name,
-            'label'       => __( get_option( Option::FIRST_NAME_LABEL, Option\Defaults::FIRST_NAME_LABEL ), TEXT_DOMAIN ),
-            'error_msg'   => __( get_option( Option::FIRST_NAME_ERR, Option\Defaults::FIRST_NAME_ERR ), TEXT_DOMAIN ),
+            'label'       => __( 'First Name', TEXT_DOMAIN ),
+            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints' => array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextBox::class, 'last_name', array(
             'value' => $user->last_name,
-            'label' => __( get_option( Option::LAST_NAME_LABEL, Option\Defaults::LAST_NAME_LABEL ), TEXT_DOMAIN ),
-            'error_msg' => __( get_option( Option::LAST_NAME_ERR, Option\Defaults::LAST_NAME_ERR ), TEXT_DOMAIN ),
+            'label' => __( 'Last Name', TEXT_DOMAIN ),
+            'error_msg' => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints'   =>  array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextBox::class, 'email', array(
+            'type'        => 'email',
             'value'       => $user->user_email,
-            'label'       => __( get_option( Option::EMAIL_LABEL, Option\Defaults::EMAIL_LABEL ), TEXT_DOMAIN ),
-            'error_msg'   => __( get_option( Option::EMAIL_ERR, Option\Defaults::EMAIL_ERR ), TEXT_DOMAIN ),
+            'label'       => __( 'Contact Email', TEXT_DOMAIN ),
+            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'sanitize_callback' => 'sanitize_email',
             'constraints' => array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextBox::class, 'subject', array(
-            'label'       => __( get_option( Option::SUBJECT_LABEL, Option\Defaults::SUBJECT_LABEL ), TEXT_DOMAIN ),
-            'error_msg'   => __( get_option( Option::SUBJECT_ERR, Option\Defaults::SUBJECT_ERR ), TEXT_DOMAIN ),
+            'label'       => __( 'Subject', TEXT_DOMAIN ),
+            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints' => array(
                 $this->builder->create_constraint( Required::class )
             )
 
         ) )->add( TextArea::class, 'content', array(
-            'label'       => __( get_option( Option::CONTENT_LABEL, Option\Defaults::CONTENT_LABEL ), TEXT_DOMAIN ),
-            'error_msg'   => __( get_option( Option::CONTENT_ERR, Option\Defaults::CONTENT_ERR ), TEXT_DOMAIN ),
+            'label'       => __( 'Description', TEXT_DOMAIN ),
+            'error_msg'   => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints' => array(
                 $this->builder->create_constraint( Required::class )
             )
@@ -224,7 +231,9 @@ class Ticket extends ActionListener {
         $this->builder->clear_config();
 
         if( current_user_can( 'edit_others_tickets' ) ) {
-            $agents   = array( '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ) + get_agents();
+
+            $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
+
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
             $this->builder->add( Hidden::class, 'id', array(
@@ -232,13 +241,16 @@ class Ticket extends ActionListener {
 
             ) )->add( TextBox::class, 'email', array(
                 'type'              => 'email',
-                'label'             => 'Contact Email',
+                'label'             => __( 'Contact Email', TEXT_DOMAIN ),
                 'value'             => get_post_meta( $post->ID, 'email', true ),
-                'sanitize_callback' => 'sanitize_email'
+                'sanitize_callback' => 'sanitize_email',
+                'constraints' => array(
+                    $this->builder->create_constraint( Required::class )
+                )
 
             ) )->add( SelectBox::class, 'agent', array(
                 'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
-                'label'       => 'Assigned To',
+                'label'       => __( 'Assigned To', TEXT_DOMAIN ),
                 'options'     => $agents,
                 'value'       => get_post_meta( $post->ID, 'agent', true ),
                 'constraints' => array(
@@ -247,7 +259,7 @@ class Ticket extends ActionListener {
 
             ) )->add( SelectBox::class, 'status', array(
                 'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
-                'label'       => 'Status',
+                'label'       => __( 'Status', TEXT_DOMAIN ),
                 'options'     => $statuses,
                 'value'       => get_post_meta( $post->ID, 'status', true ),
                 'constraints' => array(
