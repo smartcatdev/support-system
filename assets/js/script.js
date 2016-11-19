@@ -6,13 +6,6 @@ jQuery(document).ready(function ($) {
 
 
 
-
-
-
-    $(document).on('click', '#support_system button.trigger', function() {
-        SupportSystem[$(this).data('action')]($(this));
-    });
-
     $(document).on('click', 'tr', function () {
         SupportSystem.view_ticket(
             {

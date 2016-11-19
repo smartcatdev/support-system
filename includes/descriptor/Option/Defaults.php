@@ -30,7 +30,7 @@ final class Defaults {
 
     const CREATE_TICKET_BTN_TEXT = 'Create Ticket';
 
-    const SAVE_TICKET_BTN_TEXT = 'Save Ticket';
+    const SAVE_TICKET_BTN_TEXT = 'Create Ticket';
 
     const EMPTY_TABLE_MSG = 'There are no tickets yet';
 

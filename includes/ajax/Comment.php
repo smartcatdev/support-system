@@ -132,8 +132,6 @@ class Comment extends ActionListener {
                     ]
                 ]
             ) );
-        } else {
-            wp_send_json_error( __( 'You don\'t have permission to view comments for this ticket.', TEXT_DOMAIN ) );
         }
     }
 
@@ -164,18 +162,18 @@ class Comment extends ActionListener {
         $ticket = null;
         $user = wp_get_current_user();
 
-        if( user_can( $user->ID, 'edit_tickets' ) ) {
-            if( isset( $_REQUEST['id'] ) && (int) $_REQUEST['id'] > 0 ) {
-                $post = get_post( $_REQUEST['id'] );
+        if( isset( $_REQUEST['id'] ) && (int) $_REQUEST['id'] > 0 ) {
+            $post = get_post( $_REQUEST['id'] );
 
-                if( isset( $post ) )
-                    if( $post->post_type == 'support_ticket' &&
-                        ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) ) ) {
-                        $ticket = $post;
-                    }
-            } else {
-                $ticket = false;
+            if ( isset( $post ) ) {
+                if ( $post->post_type == 'support_ticket' &&
+                     ( $post->post_author == $user->ID || user_can( $user->ID, 'edit_others_tickets' ) )
+                ) {
+                    $ticket = $post;
+                }
             }
+        } else {
+            $ticket = false;
         }
 
         return $ticket;

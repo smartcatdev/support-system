@@ -5,6 +5,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
+<div class="support_ticket">
+
 <div class="ticket support_card" data-id="<?php esc_attr_e( $post->ID ); ?>">
 
     <div class="status_bar">
@@ -103,3 +105,5 @@ use const SmartcatSupport\TEXT_DOMAIN;
     </div>
 
 </div>
+
+    </div>

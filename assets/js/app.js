@@ -101,24 +101,26 @@
             }
         },
 
+
+
+
     app.view_ticket = function (ticket) {
-        console.log(ticket);
-            app.new_tab(ticket.id, ticket.subject, function (element) {
-                app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
-                    if (response.success) {
-                        element.html('<div class="support_ticket">' + response.data + '</div>');
+        app.new_tab(ticket.id, ticket.subject, function (element) {
+            app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
+                if (response.success) {
+                    element.html('<div class="support_ticket">' + response.data + '</div>');
 
-                        app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
-                            if (response.success) {
-                                element.find('.support_ticket').append(response.data);
-                                app.tinymce('[name="content"]');
-                            }
+                    app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
+                        if (response.success) {
+                            element.find('.support_ticket').append(response.data);
+                            app.tinymce('[name="content"]');
+                        }
 
-                        });
-                    }
-                });
+                    });
+                }
             });
-        },
+        });
+    },
 
     app.edit_ticket = function (context) {
         app.ajax('support_edit_ticket', {id: context.data('id')}, function (response) {

@@ -21,7 +21,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     </div>
 
-    <div class="comment_reply support_card root">
+    <div class="comment_reply support_card">
 
         <div class="status_bar">
 

@@ -97,9 +97,10 @@ class Ticket extends ActionListener {
                 $meta[ __( get_option( Option::ASSIGNED_LABEL, Option\Defaults::ASSIGNED_LABEL ), TEXT_DOMAIN ) ] = $agent;
             }
 
-            wp_send_json_success( $this->view->render( 'ticket', [
-                'post' => $post,
-                'meta' => $meta
+            wp_send_json_success(
+                $this->view->render( 'ticket', [
+                    'post' => $post,
+                    'meta' => $meta
                 ]
             ) );
         }
