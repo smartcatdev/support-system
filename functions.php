@@ -46,8 +46,10 @@ function init() {
     $installer = new Installer();
 
     add_shortcode( 'support-system', function() {
-        if( current_user_can( 'view_support_tickets' ) ) {
+        if( is_user_logged_in() && current_user_can( 'view_support_tickets' ) ) {
             echo render_template( 'dash' );
+        } else {
+            wp_login_form();
         }
     } );
 
@@ -186,8 +188,17 @@ function get_products() {
     return $results;
 }
 
+/**
+ * Render the template and capture its output.
+ *
+ * @param string $template The template to render.
+ * @param array $data (Default empty) Any data required to be output in the template.
+ * @return string The rendered HTML.
+ * @since 1.0.0
+ * @author Eric Green <eric@smartcat.ca>
+ */
 function render_template( $template, array $data = array() ) {
-    if( !is_null( $data ) ) {
+    if( is_array( $data ) ) {
         extract( $data );
     }
 
