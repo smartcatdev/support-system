@@ -1,7 +1,6 @@
 <?php
 
-use SmartcatSupport\form\Form;
-use const SmartcatSupport\TEXT_DOMAIN;
+use SmartcatSupport\descriptor\Option;
 
 ?>
 
@@ -45,7 +44,27 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <div class="inner">
 
-            <?php include 'comment_form.php' ?>
+            <form class="support_form"
+                data-action="support_submit_comment"
+                data-after="post_comment_submit">
+
+                <textarea name="content"></textarea>
+
+                <input type="hidden" name="id" value="<?php echo $post->ID; ?>">
+
+                <?php wp_comment_form_unfiltered_html_nonce(); ?>
+
+                <div class="button_wrapper">
+
+                    <button type="submit" class="button submit">
+
+                        <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 

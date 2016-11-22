@@ -38,9 +38,6 @@
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 
-            form.hide();
-            form.parent().append('<div class="spinner"></div>');
-
             setTimeout(function () {
                 form.parent().find('.spinner').remove();
 
@@ -49,7 +46,6 @@
                         app[form.data('after')](response, form);
                     }
                 } else {
-                    form.show();
 
                     // Match fields to error messages
                     $.each(response.data, function (key, value) {
@@ -120,7 +116,7 @@
 
     app.post_ticket_edit = function(response, form) {
         form.parent().html('<p class="message">' + form.data('message') + '</p>');
-console.log(response);
+
         $('#' + response.id).find('.support_ticket').replaceWith(response.data);
 
         app.refresh_tickets();
@@ -131,58 +127,42 @@ console.log(response);
         app.refresh_tickets();
     },
 
-
-
-
-
-        app.edit_comment = function (context) {
-        if (!context.data('saved_state')) {
-            context.data('saved_state', context.find('.inner').html());
-        }
-
-        app.ajax('support_edit_comment', {id: context.data('id')}, function (response) {
-            if (response.success) {
-                context.find('.inner').html(response.data);
-                app.tinymce('[name="content"]');
-            }
-        });
+    app.post_comment_submit = function (response, form) {
+        tinyMCE.activeEditor.setContent('');
+        form.parents('.comment_section').find('.comments').append(response.data);
     },
 
-    app.refresh_ticket = function (context, data) {
-            context.replaceWith(data);
-        },
-
-    app.cancel_editor = function (context) {
-        if (context.data('saved_state')) {
-            context.find('.inner').html(context.data('saved_state'));
-        }
+    app.post_comment_update = function (response, form) {
+        form.parents('.comment').replaceWith(response.data);
     },
 
-    app.append_comment = function (context, data) {
-        context.parents().find('.comments').append(data);
+    app.edit_comment = function (trigger_element) {
+        var comment = trigger_element.parents('.comment');
+
+        comment.find('.content').hide();
+        comment.find('.editor').show();
+        app.tinymce('[name="content"]');
+    },
+
+    app.cancel_comment_edit = function (trigger_element) {
+        var comment = trigger_element.parents('.comment');
+        comment.find('.content').show();
+        comment.find('.editor').hide();
     },
 
     app.refresh_comment = function (context, data) {
         context.first().replaceWith(data);
     },
 
-    app.delete_comment = function (context) {
-        app.ajax('support_delete_comment', {id: context.data('id')}, function (response) {
+    app.delete_comment = function (trigger_element) {
+        var comment = trigger_element.parents('.comment');
+
+        app.ajax('support_delete_comment', {comment_id: comment.data('id')}, function (response) {
             if (response.success) {
-                context.first().remove();
+                comment.remove();
             }
         });
     },
-
-
-
-
-
-
-
-
-
-
 
     app.remove_filter = function() {
         set_session_obj('tickets_filter', []);

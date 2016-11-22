@@ -75,4 +75,9 @@ final class Option {
      * @since 1.0.0
      */
     const SAVE_BTN_TEXT = 'ca.smartcat.support.string.save_ticket_btn';
+
+    /**
+     * @since 1.0.0
+     */
+    const TEMPLATE_PAGE_ID = 'ca.smartcat.support.page_id';
 }

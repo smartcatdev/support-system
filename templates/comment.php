@@ -1,5 +1,6 @@
 <?php
 
+use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
@@ -30,10 +31,10 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <div class="actions">
 
-                <?php if( $comment->user_id == wp_get_current_user()->ID ) : ?>
+                <?php if ( $comment->user_id == wp_get_current_user()->ID ) : ?>
 
-                    <span class="action icon-bin" data-action="delete_comment"></span>
-                    <span class="action icon-pencil" data-action="edit_comment"></span>
+                    <span class="trigger icon-bin" data-action="delete_comment"></span>
+                    <span class="trigger icon-pencil" data-action="edit_comment"></span>
 
                 <?php endif; ?>
 
@@ -47,6 +48,39 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <div class="content"><?php echo $comment->comment_content; ?></div>
 
+        <div class="editor hidden">
+
+            <form class="support_form"
+                  data-action="support_update_comment"
+                  data-after="post_comment_update">
+
+                <textarea name="content"><?php echo $comment->comment_content; ?></textarea>
+
+                <input type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
+
+                <?php wp_comment_form_unfiltered_html_nonce(); ?>
+
+                <div class="button_wrapper">
+
+                    <button class="trigger button cancel" data-action="cancel_comment_edit">
+
+                        <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+
+                    </button>
+
+                    <button type="input" class="button submit">
+
+                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
 </div>
+
+

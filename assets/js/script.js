@@ -16,24 +16,6 @@ jQuery(document).ready(function ($) {
     });
 
 
-
-
-
-
-
-
-    $(document).on('click', '.status_bar .action', function (e) {
-        e.preventDefault();
-        SupportSystem[$(this).data('action')](
-            $(this).parents('.support_card').first()
-        );
-    });
-
-    $(document).on('click', '.button.cancel', function (e) {
-        e.preventDefault();
-        SupportSystem.cancel_editor($(this).parents('.support_card').first());
-    });
-
     var tabs = $('#support_system .tabs').tabs({
         beforeLoad: function( event, ui ) {
             if ( ui.tab.data( 'loaded' ) ) {

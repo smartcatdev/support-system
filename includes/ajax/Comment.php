@@ -17,93 +17,57 @@ class Comment extends ActionListener {
     public function __construct( FormBuilder $builder ) {
         $this->builder = $builder;
 
-        $this->add_ajax_action( 'support_edit_comment', 'edit_comment' );
-        $this->add_ajax_action( 'support_save_comment', 'save_comment' );
-        $this->add_ajax_action( 'support_ticket_reply', 'submit_comment' );
+        $this->add_ajax_action( 'support_update_comment', 'update_comment' );
+        $this->add_ajax_action( 'support_submit_comment', 'submit_comment' );
         $this->add_ajax_action( 'support_delete_comment', 'delete_comment' );
         $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
     }
 
-    public function edit_comment() {
+    public function update_comment() {
         $comment = $this->validate_comment_request();
 
-        if ( !empty( $comment ) ) {
+        if ( !empty( $comment ) && !empty( $_REQUEST['content'] ) ) {
+            wp_update_comment( array(
+                'comment_ID'       => $comment->comment_ID,
+                'comment_content'  => $_REQUEST['content'],
+                'comment_date'     => current_time( 'mysql' ),
+                'comment_date_gmt' => current_time( 'mysql', 1 )
+            ) );
+
             wp_send_json_success(
-                render_template( 'comment_form', array(
-                    'action'      => 'support_save_comment',
-                    'after'       => 'refresh_comment',
-                    'form'        => $this->configure_comment_form( null, $comment ),
-                    'submit_text' => array(
-                        'default' => 'Save',
-                        'success' => 'Saved',
-                        'fail'    => 'Error',
-                        'wait'    => 'Saving'
-                    )
+                render_template( 'comment', array(
+                    'comment' => get_comment( $comment->comment_ID )
                 ) )
             );
-        }
-    }
-
-    public function save_comment() {
-        $comment = $this->validate_comment_request();
-
-        if ( !empty( $comment ) ) {
-            $form = $this->configure_comment_form( null, $comment );
-
-            if ( $form->is_valid() ) {
-                $data = $form->get_data();
-
-                wp_update_comment( array(
-                    'comment_ID'      => $data['id'],
-                    'comment_content' => $data['content'],
-                    'comment_date' =>  current_time( 'mysql' ),
-                    'comment_date_gmt' =>  current_time( 'mysql', 1 )
-                ) );
-
-                wp_send_json_success(
-                    render_template( 'comment', array(
-                        'comment' => get_comment( $data['id'] )
-                    ) )
-                );
-            } else {
-                wp_send_json_error( $form->get_errors() );
-            }
         }
     }
 
     public function submit_comment() {
         $ticket = $this->valid_ticket_request();
 
-        if( !empty( $ticket ) ) {
-            $form = $this->configure_comment_form( $ticket );
+        if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
+            $user = wp_get_current_user();
 
-            if( $form->is_valid() ) {
-                $data = $form->get_data();
-                $user = wp_get_current_user();
+            //TODO add error for flooding
+            add_filter( 'comment_flood_filter', '__return_false' );
 
-                //TODO add error for flooding
-                add_filter( 'comment_flood_filter', '__return_false' );
+            $comment = wp_handle_comment_submission( [
+                'comment_post_ID'             => $ticket->ID,
+                'author'                      => $user->display_name,
+                'email'                       => $user->user_email,
+                'url'                         => $user->user_url,
+                'comment'                     => $_REQUEST['content'],
+                'comment_parent'              => 0,
+                'user_id'                     => $user->ID,
+                '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
+            ] );
 
-                $comment = wp_handle_comment_submission( [
-                    'comment_post_ID'      => $data['id'],
-                    'author'               => $user->display_name,
-                    'email'                => $user->user_email,
-                    'url'                  => $user->user_url,
-                    'comment'              => $data['content'],
-                    'comment_parent'       => 0,
-                    'user_id'              => $user->ID,
-                    '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
-                ] );
-
-                if( !is_wp_error( $comment ) ) {
-                    wp_send_json_success(
-                        render_template( 'comment', array(
-                            'comment' => $comment
-                        ) )
-                    );
-                }
-            } else {
-                wp_send_json_error( $form ->get_errors() );
+            if ( ! is_wp_error( $comment ) ) {
+                wp_send_json_success(
+                    render_template( 'comment', array(
+                        'comment' => $comment
+                    ) )
+                );
             }
         }
     }
@@ -122,41 +86,14 @@ class Comment extends ActionListener {
 
         if( !empty( $ticket ) ) {
             wp_send_json_success(
-                render_template( 'comment_section', array(
-                    'form' => $this->configure_comment_form( $ticket ),
-                    'action' => 'support_ticket_reply',
-                    'after' => 'append_comment',
-                    'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) ),
-                    'submit_text' => array(
-                        'default' => 'Reply',
-                        'success' => 'Sent',
-                        'fail' => 'Error',
-                        'wait' => 'Sending'
+                render_template( 'comment_section',
+                    array(
+                        'post' => $ticket,
+                        'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
                     )
-                ) )
+                )
             );
         }
-    }
-
-    private function configure_comment_form( $post, $comment = false ) {
-        $this->builder->clear_config();
-
-        $this->builder->add( TextArea::class, 'content', array(
-            'rows' => 4,
-            'value' => $comment ? $comment->comment_content : '',
-            'error_msg' => __( 'Reply cannot be blank', TEXT_DOMAIN ),
-            'constraints' => array(
-                $this->builder->create_constraint( Required::class )
-            )
-        ) );
-
-        if( !empty( $post ) ) {
-            $this->builder->add( Hidden::class, 'id', array( 'value' => $post->ID ) );
-        } else if( !empty( $comment ) ) {
-            $this->builder->add( Hidden::class, 'id', array( 'value' => $comment->comment_ID ) );
-        }
-
-        return $this->builder->get_form();
     }
 
     private function valid_ticket_request() {
@@ -183,8 +120,8 @@ class Comment extends ActionListener {
     private function validate_comment_request() {
         $comment = null;
 
-        if( isset( $_REQUEST['id'] ) ) {
-            $result = get_comment( $_REQUEST['id'] );
+        if( isset( $_REQUEST['comment_id'] ) ) {
+            $result = get_comment( $_REQUEST['comment_id'] );
 
             if ( !empty( $result ) && wp_get_current_user()->ID == $result->user_id ) {
                 $comment = $result;
