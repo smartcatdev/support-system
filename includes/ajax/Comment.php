@@ -39,6 +39,8 @@ class Comment extends ActionListener {
                     'comment' => get_comment( $comment->comment_ID )
                 ) )
             );
+        } else {
+            wp_send_json_error( array( 'content' => __( 'Cannot be blank', TEXT_DOMAIN ) ) );
         }
     }
 
@@ -62,13 +64,15 @@ class Comment extends ActionListener {
                 '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
             ] );
 
-            if ( ! is_wp_error( $comment ) ) {
+            if ( !is_wp_error( $comment ) ) {
                 wp_send_json_success(
                     render_template( 'comment', array(
                         'comment' => $comment
                     ) )
                 );
             }
+        } else {
+            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', TEXT_DOMAIN ) ) );
         }
     }
 

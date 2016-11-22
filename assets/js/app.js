@@ -138,14 +138,19 @@
 
     app.edit_comment = function (trigger_element) {
         var comment = trigger_element.parents('.comment');
+        var content =  comment.find('.content');
 
-        comment.find('.content').hide();
+        content.hide();
         comment.find('.editor').show();
-        app.tinymce('[name="content"]');
+        app.tinymce('textarea[name="content"]');
     },
 
     app.cancel_comment_edit = function (trigger_element) {
+        trigger_element.parents('form').find('.error_msg').remove();
         var comment = trigger_element.parents('.comment');
+        var content = comment.find('.content');
+
+        tinyMCE.activeEditor.remove();
         comment.find('.content').show();
         comment.find('.editor').hide();
     },
