@@ -26,8 +26,7 @@ class TicketTable extends ActionListener {
         wp_send_json(
             render_template( 'tickets_overview', array(
                 'headers' => $this->table_headers(),
-                'data'    => $this->table_data( $this->build_query() ),
-                'filter_form' => $this->configure_filter_form()
+                'data'    => $this->table_data( $this->build_query() )
             ) )
         );
     }
@@ -43,29 +42,6 @@ class TicketTable extends ActionListener {
         );
     }
 
-    private function configure_filter_form() {
-        $products = array( '' => __( 'Product', TEXT_DOMAIN ) ) + get_products();
-        $agents = array( '' => __( 'Assigned', TEXT_DOMAIN ) ) + get_agents();
-        $statuses = array( '' => __( 'Status', TEXT_DOMAIN ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES );
-
-        if( $products ) {
-            $this->builder->add( SelectBox::class, 'product', array(
-                'options' => $products
-            ) );
-        }
-
-        if( current_user_can( 'edit_others_tickets' ) ) {
-            $this->builder->add( SelectBox::class, 'agent', array(
-                'options' => $agents
-
-            ) )->add( SelectBox::class, 'status', array(
-                'options' => $statuses
-            ) );
-        }
-
-        return $this->builder->get_form();
-    }
-
     private function build_query() {
         $args = [
             'post_type' => 'support_ticket',
@@ -76,16 +52,16 @@ class TicketTable extends ActionListener {
             $args['author'] = wp_get_current_user()->ID;
         }
 
-        $filter = $this->configure_filter_form();
+        if( !empty( $_REQUEST['product'] ) ) {
+            $args['meta_query'][] = array( 'key' => 'product', 'value' => $_REQUEST['product']);
+        }
 
-        if( $filter->is_valid() ) {
-            $data = $filter->get_data();
+        if( !empty( $_REQUEST['agent'] ) ) {
+            $args['meta_query'][] = array( 'key' => 'agent', 'value' => $_REQUEST['agent']);
+        }
 
-            foreach( $data as $param => $value ) {
-                if( $value != '' ) {
-                    $args['meta_query'][] = [ 'key' => $param, 'value' => $value ];
-                }
-            }
+        if( !empty( $_REQUEST['status'] ) ) {
+            $args['meta_query'][] = array( 'key' => 'status', 'value' => $_REQUEST['status']);
         }
 
         return new \WP_Query( $args );
