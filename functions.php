@@ -27,9 +27,6 @@ function init() {
     $plugin_dir = plugin_dir_path( __FILE__ );
     $plugin_url = plugin_dir_url( __FILE__ );
 
-    // Form Builder
-    $form_builder =
-
     // Configure table Handler
     $table_handler = new TicketTable();
 
@@ -132,7 +129,7 @@ function convert_html_chars( $text ) {
  * @since 1.0.0
  */
 function get_agents() {
-    $agents = array();
+    $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) );
 
     $users = get_users( array( 'role' => array( 'support_agent' ) ) );
 

@@ -29,44 +29,41 @@
     },
 
     app.submit_form = function (e) {
-            e.preventDefault();
+        e.preventDefault();
 
-            var delay = 1000;
-            var form = $(this);
+        var delay = 1000;
+        var form = $(this);
 
-            app.ajax(form.data('action'), form.serializeArray(), function (response) {
-                console.log(response);
+        app.ajax(form.data('action'), form.serializeArray(), function (response) {
+            form.find('.error_field').removeClass('error_field');
+            form.find('.error_msg').remove();
 
-                form.find('.error_field').removeClass('error_field');
-                form.find('.error_msg').remove();
+            form.hide();
+            form.parent().append('<div class="spinner"></div>');
 
-                form.hide();
-                form.parent().append('<div class="spinner"></div>');
+            setTimeout(function () {
+                form.parent().find('.spinner').remove();
 
-                setTimeout(function () {
-                    form.parent().find('.spinner').remove();
-
-                    if (response.success) {
-                        form.parent().append(response.data);
-                        form.remove();
-
-                       app.refresh_tickets();
-                    } else {
-                        form.show();
-
-                        // Match fields to error messages
-                        $.each(response.data, function (key, value) {
-                            var field = $(form).find('[name="' + key + '"]');
-                            field.addClass('error_field');
-                            field.parent().append('<span class="error_msg">' + value + '</span>');
-
-                        });
+                if (response.success) {
+                    if (form.data('after') !== undefined) {
+                        app[form.data('after')](response, form);
                     }
-                }, delay);
-            });
+                } else {
+                    form.show();
 
-            return;
-        },
+                    // Match fields to error messages
+                    $.each(response.data, function (key, value) {
+                        var field = $(form).find('[name="' + key + '"]');
+                        field.addClass('error_field');
+                        field.parent().append('<span class="error_msg">' + value + '</span>');
+
+                    });
+                }
+            }, delay);
+        });
+
+        return;
+    },
 
     app.new_tab = function (id, label, callback) {
             var tabs = $('#support_system .tabs');
@@ -87,6 +84,7 @@
                 );
 
                 li.data('id', id);
+                li.data('callback', callback);
 
                 var panel = $($.parseHTML('<div id="' + id + '"></div>'));
                 callback(panel);
@@ -101,41 +99,43 @@
             }
         },
 
-    app.view_ticket = function (element) {
-        var row = $('#support_tickets_table').DataTable().row(element.parents('tr')).data();
+    app.view_ticket = function (trigger_element) {
+        var row = $('#support_tickets_table').DataTable().row(trigger_element.parents('tr')).data();
 
-        app.new_tab(row.id, row.subject, function (element) {
+        app.new_tab(row.id, row.subject, function (tab) {
             app.ajax('support_view_ticket', {id: row.id}, function (response) {
                 if (response.success) {
-                    element.html(response.data);
+                    tab.html(response.data);
 
                     app.ajax('support_ticket_comments', {id: row.id}, function (response) {
                         if (response.success) {
-                            console.log(response);
-                            element.find('.support_ticket').append(response.data);
+                            tab.find('.support_ticket').parent().append(response.data);
                             app.tinymce('[name="content"]');
                         }
-
                     });
                 }
             });
         });
     },
 
-    app.edit_ticket = function (context) {
-        app.ajax('support_edit_ticket', {id: context.data('id')}, function (response) {
+    app.post_ticket_edit = function(response, form) {
+        form.parent().html('<p class="message">' + form.data('message') + '</p>');
+console.log(response);
+        $('#' + response.id).find('.support_ticket').replaceWith(response.data);
 
-            if (response.success) {
-                context.find('.inner').html(response.data);
-                app.tinymce('[name="content"]');
-            }
-        });
+        app.refresh_tickets();
+    },
+
+    app.post_ticket_create = function (response, form) {
+        form.parent().html('<p class="message">' + form.data('message') + '</p>');
+        app.refresh_tickets();
     },
 
 
 
 
-    app.edit_comment = function (context) {
+
+        app.edit_comment = function (context) {
         if (!context.data('saved_state')) {
             context.data('saved_state', context.find('.inner').html());
         }
@@ -173,6 +173,14 @@
             }
         });
     },
+
+
+
+
+
+
+
+
 
 
 
@@ -234,7 +242,7 @@
         });
 
         $('#support_tickets_table').DataTable({
-            responsive: true,
+            // responsive: true,
             columns: cols
         });
     }

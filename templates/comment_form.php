@@ -1,12 +1,14 @@
 <?php
 
+use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\Form;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<form class="comment_form" data-action="<?php esc_attr_e( $action ); ?>"
-    data-after="<?php esc_attr_e( $after ); ?>">
+<form class="comment_form"
+    data-action="<?php echo $ajax_action; ?>"
+    data-after="<?php echo $after; ?>">
 
     <?php Form::form_fields( $form ); ?>
 
@@ -14,21 +16,15 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <div class="button_wrapper">
 
-        <button class="button cancel"><?php _e( 'Cancel', TEXT_DOMAIN ); ?></button>
+        <button class="button cancel">
+
+            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+
+        </button>
 
         <button class="button submit">
 
-            <div class="status hidden"></div>
-
-            <span class="text"
-                  data-default="<?php _e( $submit_text['default'], TEXT_DOMAIN ); ?>"
-                  data-success="<?php _e( $submit_text['success'], TEXT_DOMAIN ); ?>"
-                  data-fail="<?php _e( $submit_text['fail'], TEXT_DOMAIN ); ?>"
-                  data-wait="<?php _e( $submit_text['wait'], TEXT_DOMAIN ); ?>">
-
-                  <?php _e( $submit_text['default'], TEXT_DOMAIN ); ?>
-
-            </span>
+            <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
 
         </button>
 

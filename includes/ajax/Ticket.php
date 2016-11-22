@@ -40,10 +40,8 @@ class Ticket extends ActionListener {
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json(
-                render_template( 'ticket_form', array(
-                    'form' => $this->configure_create_form(),
-                    'ajax_action' => 'support_create_ticket',
-                    'submit_btn_text' => get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT )
+                render_template( 'ticket_create_modal', array(
+                    'form' => $this->configure_create_form()
                 ) )
             );
         }
@@ -76,8 +74,8 @@ class Ticket extends ActionListener {
 
                     update_post_meta( $post_id, 'status', 'new' );
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                    wp_send_json_success(
-                        __( get_option( Option::TICKET_CREATED_MSG, Option\Defaults::TICKET_CREATED_MSG ) ) );
+
+                    wp_send_json_success();
                 }
             } else {
                 wp_send_json_error( $form->get_errors() );
@@ -88,27 +86,9 @@ class Ticket extends ActionListener {
     public function view_ticket() {
         $post = $this->valid_request();
 
-        $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
-        $status = $statuses[ get_post_meta( $post->ID, 'status', true ) ];
-
         if( !empty( $post ) ) {
-            $meta = array(
-                __( 'Email Address', TEXT_DOMAIN ) => get_post_meta( $post->ID, 'email', true ),
-                __( 'Status', TEXT_DOMAIN ) => __( $status, TEXT_DOMAIN )
-            );
-
-            if ( current_user_can( 'edit_others_tickets' ) ) {
-
-                $agents = get_agents() + array( '' => __( 'Unassigned', TEXT_DOMAIN ) );
-                $agent = $agents[ get_post_meta( $post->ID, 'agent', true ) ];
-                $meta[ __( 'Assigned To', TEXT_DOMAIN ) ] = $agent;
-            }
-
             wp_send_json_success(
-                render_template( 'ticket', array(
-                    'post' => $post,
-                    'meta' => $meta
-                ) )
+                render_template( 'ticket', array( 'post' => $post ) )
             );
         }
     }
@@ -118,10 +98,8 @@ class Ticket extends ActionListener {
 
         if( current_user_can( 'edit_others_tickets' ) ) {
             wp_send_json(
-                render_template( 'ticket_form', array(
-                    'form' => $this->configure_meta_form( $ticket ),
-                    'ajax_action' => 'support_update_ticket',
-                    'submit_btn_text' => get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT )
+                render_template( 'ticket_edit_modal', array(
+                    'form' => $this->configure_meta_form( $ticket )
                 ) )
             );
         }
@@ -149,8 +127,13 @@ class Ticket extends ActionListener {
                         }
 
                         update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                        wp_send_json_success(
-                            __( get_option( Option::TICKET_UPDATED_MSG, Option\Defaults::TICKET_UPDATED_MSG ) )
+
+                        wp_send_json(
+                            array(
+                                'success' => true,
+                                'id' => $post_id,
+                                'data' => render_template( 'ticket', array( 'post' => $ticket ) )
+                            )
                         );
                     }
                 } else {
@@ -246,8 +229,7 @@ class Ticket extends ActionListener {
         $this->builder->clear_config();
 
         if( current_user_can( 'edit_others_tickets' ) ) {
-
-            $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
+            $agents = get_agents();
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
             $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 

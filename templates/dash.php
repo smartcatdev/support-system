@@ -11,7 +11,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket'?>"  rel="modal:open">
 
-            <?php _e( get_option( Option::CREATE_TICKET_BTN_TEXT, Option\Defaults::CREATE_TICKET_BTN_TEXT ), TEXT_DOMAIN ); ?>
+            <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>
 
         </a>
 
@@ -25,7 +25,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
 
-                        <?php _e( get_option( Option::TICKETS_TAB_LABEL, Option\Defaults::TICKETS_TAB_LABEL ), TEXT_DOMAIN ); ?>
+                        <?php _e( 'Tickets', TEXT_DOMAIN ); ?>
 
                     </a>
 

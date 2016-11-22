@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use const SmartcatSupport\TEXT_DOMAIN;
 
@@ -10,11 +10,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <tr>
 
-            <?php foreach( $headers as $col => $value ) : ?>
+            <?php foreach( $headers as $col => $title ) : ?>
 
                 <th data-column_name="<?php echo $col; // For dynamically generating column names client-side ?>">
 
-                    <?php esc_html_e( $value, TEXT_DOMAIN ); ?>
+                    <?php esc_html_e( $title, TEXT_DOMAIN ); ?>
 
                 </th>
 

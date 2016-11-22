@@ -6,8 +6,7 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.trigger', function (e) {
         e.preventDefault();
 
-        var element = $(this);
-        SupportSystem[element.data('action')] (element);
+        SupportSystem[$(this).data('action')] ($(this));
 
         return;
     } );

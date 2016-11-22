@@ -49,6 +49,7 @@ class TicketTable extends ActionListener {
             $args['author'] = wp_get_current_user()->ID;
         }
 
+        // If any filters have been set
         if( !empty( $_REQUEST['product'] ) ) {
             $args['meta_query'][] = array( 'key' => 'product', 'value' => $_REQUEST['product']);
         }
