@@ -68,14 +68,17 @@ class TicketTable extends ActionListener {
     }
 
     private function table_headers() {
-        $headers = [
+        $headers = apply_filters( 'support_ticket_table_headers', array(
             'id'        => 'ID',
             'subject'   => 'Subject',
             'email'     => 'Email',
-            'status'    => 'Status'
-        ];
+            'status'    => 'Status',
+            'product'   => 'Product'
+        ) );
 
-        return apply_filters( 'support_ticket_table_headers', $headers );
+        $headers['actions'] = 'Actions';
+
+        return $headers;
     }
 
     private function table_data( \WP_Query $query ) {
@@ -106,11 +109,29 @@ class TicketTable extends ActionListener {
 
         add_action( 'support_ticket_table_status_col', function ( $post_id ) {
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
             return $statuses[ get_post_meta( $post_id, 'status', true ) ];
         } );
 
         add_action( 'support_ticket_table_subject_col', function ( $post_id, $post ) {
             return $post->post_title;
+        }, 10, 2 );
+
+        add_action( 'support_ticket_table_product_col', function ( $post_id, $post ) {
+            $products = get_products();
+
+            return $products[ get_post_meta( $post_id, 'product', true ) ];
+        }, 10, 2 );
+
+        add_action( 'support_ticket_table_actions_col', function ( $post_id, $post ) {
+            $actions = '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post_id . '" ' .
+                           'rel="modal:open"><span class="icon-pencil"></span></a>' .
+
+                       '<span class="trigger icon-bubbles" data-action="view_ticket"></span>';
+
+            return $actions;
+
+
         }, 10, 2 );
     }
 }

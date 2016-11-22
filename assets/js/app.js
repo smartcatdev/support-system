@@ -101,16 +101,15 @@
             }
         },
 
+    app.view_ticket = function (element) {
+        var row = $('#support_tickets_table').DataTable().row(element.parents('tr')).data();
 
-
-
-    app.view_ticket = function (ticket) {
-        app.new_tab(ticket.id, ticket.subject, function (element) {
-            app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
+        app.new_tab(row.id, row.subject, function (element) {
+            app.ajax('support_view_ticket', {id: row.id}, function (response) {
                 if (response.success) {
                     element.html(response.data);
 
-                    app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
+                    app.ajax('support_ticket_comments', {id: row.id}, function (response) {
                         if (response.success) {
                             console.log(response);
                             element.find('.support_ticket').append(response.data);
@@ -132,6 +131,9 @@
             }
         });
     },
+
+
+
 
     app.edit_comment = function (context) {
         if (!context.data('saved_state')) {
@@ -200,7 +202,7 @@
         }
     },
 
-    app.refresh_tickets = function (el) {
+    app.refresh_tickets = function () {
         var data = get_session_obj('tickets_filter', []);
 
         $('#ticket_filter').find('.refresh').addClass('rotate');
@@ -208,9 +210,10 @@
         //Get the data from the last filter
         app.ajax('support_refresh_tickets', data, function (response) {
             if(response.success) {
+                console.log(response);
+                $('#ticket_filter').find('.refresh').removeClass('rotate');
                 $('#support_tickets_table_wrapper').replaceWith(response.data);
 
-                $('#ticket_filter').find('.refresh').removeClass('rotate');
                 init_table();
             }
         });

@@ -396,3 +396,10 @@ table.collapsible tr {
     text-align: center;
     line-height: 20px;
 }
+
+@media( min-width: 767px ) {
+    #ticket_filter select {
+        width: 150px !important;
+    }
+}
+

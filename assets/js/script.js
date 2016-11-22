@@ -17,20 +17,6 @@ jQuery(document).ready(function ($) {
     });
 
 
-    $(document).on('click', 'tr', function () {
-        SupportSystem.view_ticket(
-            {
-                id: $('#support_tickets_table').DataTable().row(this).data()['id'],
-                subject: $('#support_tickets_table').DataTable().row(this).data()['subject']
-            }
-        );
-    });
-
-
-
-
-
-
     $(document).on('click', '.status_bar .action', function (e) {
         e.preventDefault();
         SupportSystem[$(this).data('action')](

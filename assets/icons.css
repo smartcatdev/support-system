@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'sc-support';
-  src:  url('fonts/sc-support.eot?605wu6');
-  src:  url('fonts/sc-support.eot?605wu6#iefix') format('embedded-opentype'),
-    url('fonts/sc-support.ttf?605wu6') format('truetype'),
-    url('fonts/sc-support.woff?605wu6') format('woff'),
-    url('fonts/sc-support.svg?605wu6#sc-support') format('svg');
+  src:  url('fonts/sc-support.eot?h9j8n4');
+  src:  url('fonts/sc-support.eot?h9j8n4#iefix') format('embedded-opentype'),
+    url('fonts/sc-support.ttf?h9j8n4') format('truetype'),
+    url('fonts/sc-support.woff?h9j8n4') format('woff'),
+    url('fonts/sc-support.svg?h9j8n4#sc-support') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -44,6 +44,9 @@
 }
 .icon-bin:before {
   content: "\e9ac";
+}
+.icon-eye:before {
+  content: "\e9ce";
 }
 .icon-loop2:before {
   content: "\ea2e";
