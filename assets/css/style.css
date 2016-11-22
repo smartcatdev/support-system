@@ -387,14 +387,14 @@ table.collapsible tr {
     animation: spin 2s linear infinite;
 }
 
-.tickets_overview .trigger {
+.trigger {
     height: 20px;
     width: 20px;
     display: inline-block;
     margin: 10px;
     padding: 0;
     text-align: center;
-    line-height: 20px;
+    line-height: 20px !important;
 }
 
 @media( min-width: 767px ) {
