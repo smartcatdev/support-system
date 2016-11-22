@@ -124,14 +124,16 @@ class TicketTable extends ActionListener {
         }, 10, 2 );
 
         add_action( 'support_ticket_table_actions_col', function ( $post_id, $post ) {
-            $actions = '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post_id . '" ' .
-                           'rel="modal:open"><span class="icon-pencil"></span></a>' .
+            $actions = '';
 
-                       '<span class="trigger icon-bubbles" data-action="view_ticket"></span>';
+            if( current_user_can( 'edit_others_tickets' ) ) {
+                $actions .= '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post_id . '" ' .
+                                'rel="modal:open"><span class="icon-pencil"></span></a>';
+            }
+
+            $actions .= '<span class="trigger icon-bubbles" data-action="view_ticket"></span>';
 
             return $actions;
-
-
         }, 10, 2 );
     }
 }
