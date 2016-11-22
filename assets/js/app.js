@@ -210,17 +210,17 @@
 
             //Get the data from the last filter
             app.ajax('support_refresh_tickets', data, function (response) {
+                console.log(response);
                 if (response.success) {
                     $('#ticket_filter').find('.refresh').removeClass('rotate');
                     $('#support_tickets_table_wrapper').replaceWith(response.data);
-
                     init_table();
                 }
             });
         } else {
-
             app.ajax('support_list_tickets', null, function (response) {
-                $('#tickets_overview').html(response);
+                $('#tickets_overview').replaceWith(response);
+                init_table();
             });
         }
     }
