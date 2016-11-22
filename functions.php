@@ -28,19 +28,19 @@ function init() {
     $plugin_url = plugin_dir_url( __FILE__ );
 
     // Form Builder
-    $form_builder = new FormBuilder( 'support_form' );
+    $form_builder =
 
     // Configure table Handler
-    $table_handler = new TicketTable( $form_builder );
+    $table_handler = new TicketTable();
 
     // Configure ticket Handler
-    $ticket_handler = new Ticket( $form_builder );
+    $ticket_handler = new Ticket( new FormBuilder( 'ticket_form' ) );
 
     // Configure comment handler
-    $comment_handler = new Comment( $form_builder );
+    $comment_handler = new Comment( new FormBuilder( 'comment_form' ) );
 
     // Configure the metabox
-    $support_metabox = new SupportMetaBox( $form_builder );
+    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_form' ) );
 
     // Configure installer
     $installer = new Installer();
