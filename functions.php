@@ -21,11 +21,11 @@ use SmartcatSupport\util\TemplateRender;
  * @author Eric Green <eric@smartcat.ca>
  * @since 1.0.0
  */
-function init() {
+function init( $fs_context ) {
 
     // Configure the application
-    $plugin_dir = plugin_dir_path( __FILE__ );
-    $plugin_url = plugin_dir_url( __FILE__ );
+    $plugin_dir = plugin_dir_path( $fs_context );
+    $plugin_url = plugin_dir_url( $fs_context );
 
     // Configure table Handler
     $table_handler = new TicketTable();
@@ -43,11 +43,23 @@ function init() {
     $installer = new Installer();
 
     add_shortcode( 'support-system', function() {
+        disable_admin_bar();
+
         if( is_user_logged_in() && current_user_can( 'view_support_tickets' ) ) {
             echo render_template( 'dash' );
         } else {
             wp_login_form();
         }
+    } );
+
+    add_action( 'template_include', function ( $template ) use ( $plugin_dir )  {
+        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
+            disable_admin_bar();
+
+            $template = $plugin_dir . 'templates/template.php';
+        }
+
+        return $template;
     } );
 
     //<editor-fold desc="Enqueue Assets">
@@ -97,8 +109,8 @@ function init() {
         }
     } );
 
-    register_activation_hook( __FILE__, array( $installer, 'activate' ) );
-    register_deactivation_hook( __FILE__, array( $installer, 'deactivate' ) );
+    register_activation_hook( $fs_context, array( $installer, 'activate' ) );
+    register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
 }
 
 /**
@@ -204,4 +216,10 @@ function render_template( $template, array $data = array() ) {
     include ( plugin_dir_path( __FILE__ ) . 'templates/' . $template . '.php' );
 
     return ob_get_clean();
+}
+
+function disable_admin_bar() {
+    if( current_user_can( 'view_support_tickets' ) ) {
+        show_admin_bar( false );
+    }
 }

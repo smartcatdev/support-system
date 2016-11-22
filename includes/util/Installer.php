@@ -21,7 +21,8 @@ final class Installer extends ActionListener {
     
     public function activate() {
         update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
-        
+
+        $this->register_page();
         $this->add_user_roles();
     }
     
@@ -125,5 +126,26 @@ final class Installer extends ActionListener {
         remove_role( 'support_admin' );
         remove_role( 'support_agent' );
         remove_role( 'support_user' );
+    }
+
+    public function register_page() {
+        $post_id = null;
+        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
+
+        if( empty( $post ) ) {
+            $post_id = wp_insert_post(
+                array(
+                    'post_type' =>  'page',
+                    'post_status' => 'publish',
+                    'post_title' => __( 'Support', TEXT_DOMAIN )
+                )
+            );
+        } else {
+            $post_id = $post->ID;
+        }
+
+        if( !empty( $post_id ) ) {
+            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        }
     }
 }
