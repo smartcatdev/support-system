@@ -17,6 +17,12 @@ jQuery(document).ready(function ($) {
     });
 
 
+
+
+
+
+
+
     $(document).on('click', '.status_bar .action', function (e) {
         e.preventDefault();
         SupportSystem[$(this).data('action')](

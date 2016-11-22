@@ -12,11 +12,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
 
 class TicketTable extends ActionListener {
-    private $builder;
 
-    public function __construct( FormBuilder $builder ) {
-        $this->builder = $builder;
-
+    public function __construct() {
         $this->column_data_callbacks();
         $this->add_ajax_action( 'support_list_tickets', 'ticket_table' );
         $this->add_ajax_action( 'support_refresh_tickets', 'refresh_tickets' );

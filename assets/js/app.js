@@ -50,7 +50,7 @@
                         form.parent().append(response.data);
                         form.remove();
 
-                       app.refresh_table();
+                       app.refresh_tickets();
                     } else {
                         form.show();
 
@@ -203,20 +203,26 @@
     },
 
     app.refresh_tickets = function () {
-        var data = get_session_obj('tickets_filter', []);
+        if( $('#support_tickets_table').length > 0 ) {
+            var data = get_session_obj('tickets_filter', []);
 
-        $('#ticket_filter').find('.refresh').addClass('rotate');
+            $('#ticket_filter').find('.refresh').addClass('rotate');
 
-        //Get the data from the last filter
-        app.ajax('support_refresh_tickets', data, function (response) {
-            if(response.success) {
-                console.log(response);
-                $('#ticket_filter').find('.refresh').removeClass('rotate');
-                $('#support_tickets_table_wrapper').replaceWith(response.data);
+            //Get the data from the last filter
+            app.ajax('support_refresh_tickets', data, function (response) {
+                if (response.success) {
+                    $('#ticket_filter').find('.refresh').removeClass('rotate');
+                    $('#support_tickets_table_wrapper').replaceWith(response.data);
 
-                init_table();
-            }
-        });
+                    init_table();
+                }
+            });
+        } else {
+
+            app.ajax('support_list_tickets', null, function (response) {
+                $('#tickets_overview').html(response);
+            });
+        }
     }
 
     function init_table () {

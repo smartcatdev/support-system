@@ -9,7 +9,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<div class="tickets_overview">
+<div id="tickets_overview">
 
     <?php if( !empty( $data ) ) : ?>
 
