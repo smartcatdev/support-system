@@ -42,7 +42,8 @@ class TicketTable extends ActionListener {
     private function build_query() {
         $args = [
             'post_type' => 'support_ticket',
-            'post_status' => 'publish'
+            'post_status' => 'publish',
+            'posts_per_page' => -1
         ];
 
         if( !current_user_can( 'edit_others_tickets' ) ) {
