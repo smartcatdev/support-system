@@ -31,14 +31,12 @@
     app.submit_form = function (e) {
         e.preventDefault();
 
-        var delay = 1000;
         var form = $(this);
 
         app.ajax(form.data('action'), form.serializeArray(), function (response) {
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 
-            setTimeout(function () {
                 form.parent().find('.spinner').remove();
 
                 if (response.success) {
@@ -55,7 +53,6 @@
 
                     });
                 }
-            }, delay);
         });
 
         return;
@@ -179,15 +176,12 @@
         app.refresh_tickets();
     },
 
-    app.filter_tickets = function (el) {
-        if(el.data('enabled')) {
-            el.data('enabled', false);
-            el.css('color', 'black');
-
+    app.filter_tickets = function (trigger) {
+        if(trigger.hasClass('active')) {
+            trigger.removeClass('active');
             app.remove_filter();
         } else {
-            el.data('enabled', true);
-            el.css('color', 'blue');
+            trigger.addClass('active');
 
             // Save this fore future refreshes
             set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
