@@ -1,5 +1,13 @@
 /*** RESETS ******************************************************************/
 
+.support_form table,
+.support_form table th,
+.support_form table td {
+    border: none;
+    margin: 0 auto;
+    padding: 2px;
+}
+
 .support_card table,
 .support_card table th,
 .support_card table td {
@@ -22,13 +30,6 @@ table.collapsible th {
 table.collapsible tr {
     vertical-align: top;
 }
-
-/*@media( min-width: 767px ) {*/
-    /*table.collapsible td,*/
-    /*table.collapsible th {*/
-        /*display: table-cell;*/
-    /*}*/
-/*}*/
 
 /*** SUPPORT CARD *************************************************************/
 
@@ -157,29 +158,28 @@ table.collapsible tr {
 
 /*** BUTTONS *****************************************************************/
 
-#support_system .button_wrapper {
+.button_wrapper {
     text-align: center;
 }
 
-#support_system .button {
+.button {
     padding: 5px 10px;
+    margin-top: 20px;
     color: #fff;
     border-radius: 3px;
     width: 97%;
     height: 40px;
-    margin: 5px 0;
 }
 
-#support_system .button[disabled] {
+.button[disabled] {
     opacity: 0.75;
 }
 
-#support_system .button.submit {
+.button[type="submit"] {
     background-color: #378ccd;
-    border: 2px solid #378ccd;
 }
 
-#support_system .button.submit[disabled]:hover {
+.button[type="submit"][disabled]:hover {
     border: 2px solid #378ccd;
     color: #fff;
     border-radius: 3px;
@@ -187,12 +187,12 @@ table.collapsible tr {
     padding: inherit;
 }
 
-#support_system .button.submit .text {
+.button[type="submit"] .text {
     display: inline-block;
     vertical-align: middle;
 }
 
-#support_system .button.submit .status {
+.button[type="submit"] .status {
     display: inline-block;
     vertical-align: middle;
 }
@@ -225,12 +225,12 @@ table.collapsible tr {
 }
 
 @media( min-width: 767px ) {
-    #support_system .button {
-        width: 150px;
-        margin: 0 4px;
+    .button {
+        width: inherit;
+        margin-left: 4px;
     }
 
-    #support_system .button_wrapper {
+    .button_wrapper {
         text-align: right;
     }
 }
@@ -316,26 +316,26 @@ table.collapsible tr {
 
 /*** FORMS *******************************************************************/
 
-#support_system form {
+.support_form {
     padding: 5px 5px 10px 5px;
 }
 
-#support_system form .error_field {
+.support_form .error_field {
     border: 1px solid red !important;
 }
 
-#support_system form .error_msg {
+.support_form .error_msg {
     color: red;
     font-size: 0.9em;
     margin: 2px;
 }
 
-#support_system form .label {
+.support_form .label {
     font-size: 0.9em;
     font-weight: 600;
 }
 
-#support_system .form_field {
+.support_form .form_field {
     font-size: 0.9em;
     padding: 10px;
     width: 100%;
@@ -387,7 +387,7 @@ table.collapsible tr {
     animation: spin 2s linear infinite;
 }
 
-.trigger {
+.trigger i {
     height: 20px;
     width: 20px;
     display: inline-block;
@@ -397,9 +397,39 @@ table.collapsible tr {
     line-height: 20px !important;
 }
 
+.trigger.active i {
+    color: blue !important;
+}
+
 @media( min-width: 767px ) {
     #ticket_filter select {
         width: 150px !important;
     }
+
+    #ticket_filter {
+        text-align: right;
+    }
 }
 
+#support_tickets_table .actions i {
+    color: #fff;
+    padding: 0 10px;
+    margin: 10px 0;
+}
+
+#support_tickets_table .actions i:hover {
+    color: #0c0c0c;
+}
+
+#support_tickets_table .actions {
+    width :80%;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #37bc9b;
+    border-radius: 8px;
+
+}
+
+.modal {
+    border-radius: 2px;
+}

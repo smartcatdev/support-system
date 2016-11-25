@@ -15,7 +15,9 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <?php Form::form_fields( $form ); ?>
 
-        <input type="submit" value="<?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ), TEXT_DOMAIN ); ?>" class="button_submit" />
+        <div class="button_wrapper">
+            <input type="submit" value="<?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ), TEXT_DOMAIN ); ?>" class="button" />
+        </div>
 
     </form>
 
