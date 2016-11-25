@@ -67,16 +67,21 @@ class TicketTable extends ActionListener {
     }
 
     private function table_headers() {
-        $headers = apply_filters( 'support_ticket_table_headers', array(
+        $headers = array(
             'id'        => 'Case #',
             'subject'   => 'Subject',
             'product'   => 'Product',
             'email'     => 'Email',
             'status'    => 'Status',
-            'priority'  => 'Priority',
-            'agent'     => 'Assigned to',
             'date'      => 'Date'
-        ) );
+        );
+
+        if( current_user_can( 'edit_others_tickets' ) ) {
+            $headers['priority'] = "Priority";
+            $headers['agent'] = 'Assigned';
+        }
+
+        $headers = apply_filters( 'support_ticket_table_headers', $headers );
 
         $headers['actions'] = 'Actions';
 
