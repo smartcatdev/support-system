@@ -31,6 +31,10 @@ table.collapsible tr {
     vertical-align: top;
 }
 
+#support_system {
+    height: 100vh;
+}
+
 /*** SUPPORT CARD *************************************************************/
 
 .support_card .inner {
