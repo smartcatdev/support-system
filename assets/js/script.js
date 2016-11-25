@@ -3,6 +3,8 @@ jQuery(document).ready(function ($) {
     // Bind events
     $(document).on('submit', '.support_form', SupportSystem.submit_form);
 
+    $(window).resize(SupportSystem.resize);
+
     $(document).on('click', '.trigger', function (e) {
         e.preventDefault();
 
@@ -33,7 +35,15 @@ jQuery(document).ready(function ($) {
             });
         },
 
-        load: SupportSystem.refresh_tickets
+        load: SupportSystem.refresh_tickets,
+
+        create: function(event, ui) {
+            ui.tab.width(window.innerWidth / 10);
+        },
+
+        activate: function(event, ui) {
+            ui.newTab.width(window.innerWidth / 10);
+        }
 
     });
 

@@ -15,7 +15,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <form id="ticket_filter">
 
-
             <?php //Setup ticket filter select boxes ?>
 
             <?php ( new SelectBox( 'product', array(

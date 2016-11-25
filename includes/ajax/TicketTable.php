@@ -110,7 +110,6 @@ class TicketTable extends ActionListener {
             return $agents[ get_post_meta( $post_id, 'agent', true ) ];
         } );
 
-
         add_action( 'support_ticket_table_priority_col', function ( $post_id ) {
             $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
@@ -142,14 +141,16 @@ class TicketTable extends ActionListener {
         }, 10, 2 );
 
         add_action( 'support_ticket_table_actions_col', function ( $post_id, $post ) {
-            $actions = '';
+            $actions = '<div class="actions">';
 
             if( current_user_can( 'edit_others_tickets' ) ) {
                 $actions .= '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post_id . '" ' .
-                                'rel="modal:open"><span class="icon-pencil"></span></a>';
+                                'rel="modal:open"><i class="icon-pencil"></i></a>';
             }
 
-            $actions .= '<span class="trigger icon-bubbles" data-action="view_ticket"></span>';
+            $actions .= '<span class="trigger" data-action="view_ticket"><i class="icon-bubbles"></i></span>';
+
+            $actions .= '</div>';
 
             return $actions;
         }, 10, 2 );

@@ -99,62 +99,85 @@ table.collapsible tr {
 
 /*** TAB BAR ******************************************************************/
 
-/*#support_system .container {*/
-    /*border: 1px solid #ddd;*/
-    /*margin: 0 20px;*/
-/*}*/
+.ui-tabs {
+    position: relative;
+    zoom: 1;
+}
 
-/*#support_system .ui-tabs-nav {*/
-    /*position: absolute;*/
-    /*!*transform: translate(-100%,0%) rotate(-90deg);*!*/
-    /*!*transform-origin: 100% 0%;*!*/
-    /*!*margin-left: -30px;*!*/
-    /*!*margin-top: -1px;*!*/
-    /*!*margin-bottom: 20px;*!*/
-/*}*/
+.ui-tabs .ui-tabs-nav {
+    height: 40px;
+    margin: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
 
-/*#support_system .ui-tabs-nav li {*/
-    /*float: right;*/
-    /*list-style-type: none;*/
-    /*border-top: 1px solid #ddd;*/
-    /*border-left: 1px solid #ddd;*/
-    /*border-right: 1px solid #ddd;*/
-    /*text-align: center;*/
-    /*background-color: #fafafa;*/
-    /*margin: 0 2px;*/
-/*}*/
+.ui-tabs .ui-tabs-nav li {
+    list-style: none;
+    float: left;
+    position: relative;
+    margin: 0 2px;
+    height: 40px;
+    width: 150px;
+    white-space: nowrap;
+    background-color:  #DBF0F0;
+    border: 1px solid #ddd;
+}
 
-/*#support_system .ui-tabs-nav li a {*/
-    /*box-shadow: none;*/
-    /*padding: 5px 20px;*/
-/*}*/
+.ui-tabs .ui-tabs-nav li a {
+    line-height: 40px;
+    float: left;
+    padding: 0 30px 0 10px;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    outline: 0;
+}
 
-/*#support_system .ui-tabs-nav li.ui-tabs-active {*/
-    /*background-color: #fff;*/
-    /*border-bottom: 2px solid #fff;*/
-/*}*/
+.ui-tabs .ui-tabs-nav li .ui-icon-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 10px;
+    padding: 4px;
+    margin: 10px 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
 
-/*#support_system .ui-tabs-nav li.ui-tabs-active a {*/
-    /*cursor: text;*/
-/*}*/
+.ui-tabs .ui-tabs-nav li .ui-icon-close:hover {
+    color: #fff;
+    background-color: red;
+}
 
-/*#support_system .ui-tabs-nav li .close {*/
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*margin: 5px 10px;*/
-    /*cursor: pointer;*/
-    /*font-size: 0.7em;*/
-/*}*/
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+    margin-bottom: 0;
+    padding-bottom: 1px;
 
-/*#support_system .ui-tabs-nav {*/
-    /*text-decoration: none !important;*/
-/*}*/
+}
 
-/*#support_system .ui-tabs-panel {*/
-    /*margin-left: 10px;*/
-    /*height: 100%;*/
-/*}*/
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    background-color: #fff;
+    border-bottom: transparent;
+}
 
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+    cursor: text;
+}
+
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+    cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 1em 1.4em;
+    background: none;
+}
+
+.ui-tabs .ui-tabs-hide {
+    display: none !important;
+}
 
 /*** BUTTONS *****************************************************************/
 
@@ -169,23 +192,13 @@ table.collapsible tr {
     border-radius: 3px;
     width: 97%;
     height: 40px;
+    background-color: #378ccd;
 }
 
 .button[disabled] {
     opacity: 0.75;
 }
 
-.button[type="submit"] {
-    background-color: #378ccd;
-}
-
-.button[type="submit"][disabled]:hover {
-    border: 2px solid #378ccd;
-    color: #fff;
-    border-radius: 3px;
-    background-color: #378ccd;
-    padding: inherit;
-}
 
 .button[type="submit"] .text {
     display: inline-block;

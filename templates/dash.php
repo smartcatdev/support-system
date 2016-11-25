@@ -9,7 +9,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <?php if( current_user_can( 'create_support_tickets' ) ) : ?>
 
-        <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket'?>"  rel="modal:open">
+        <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket'?>"  rel="modal:open" class="button">
 
             <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>
 
@@ -17,7 +17,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <?php endif; ?>
 
-        <div class="tabs">
+    <div class="tabs">
 
             <ul>
 
@@ -33,6 +33,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             </ul>
 
-        </div>
+    </div>
 
 </div>

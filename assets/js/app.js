@@ -62,7 +62,7 @@
             var tabs = $('#support_system .tabs');
             var existing = false;
 
-            tabs.find('.ui-tabs-nav').children('li').each(function (index) {
+            tabs.find('.ui-tabs-nav li').each(function (index) {
                 if ($(this).data('id') === id) {
                     existing = index;
                 }
@@ -70,10 +70,10 @@
 
             if (!existing) {
                 var li = $(
-                    "<li>" +
-                    "<a href='#" + id + "'>" + label + "</a>" +
-                    "<span class='ui-icon ui-icon-close' role='presentation'>&#10006;</span>" +
-                    "</li>"
+                    '<li>' +
+                    '<a href="#' + id + '">' + label + '</a>' +
+                    '<i class="ui-icon-close icon-cross"></i>' +
+                    '</li>'
                 );
 
                 li.data('id', id);
@@ -211,6 +211,12 @@
                 init_table();
             });
         }
+    },
+
+    app.resize = function () {
+        $('#support_system .tabs').find('.ui-tabs-nav li').each(function (index) {
+            $(this).width(window.innerWidth / 10);
+        });
     }
 
     function init_table () {
