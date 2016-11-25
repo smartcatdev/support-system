@@ -15,6 +15,7 @@ class TicketTable extends ActionListener {
 
     public function __construct() {
         $this->column_data_callbacks();
+
         $this->add_ajax_action( 'support_list_tickets', 'ticket_table' );
         $this->add_ajax_action( 'support_refresh_tickets', 'refresh_tickets' );
     }
@@ -70,11 +71,14 @@ class TicketTable extends ActionListener {
         $headers = array(
             'id'        => 'Case #',
             'subject'   => 'Subject',
-            'product'   => 'Product',
             'email'     => 'Email',
             'status'    => 'Status',
             'date'      => 'Date'
         );
+
+        if( defined( 'EDD_ACTIVE' ) || defined( 'WOOCOMMERCE_ACTIVE' ) ) {
+            $headers['product'] = 'Product';
+        }
 
         if( current_user_can( 'edit_others_tickets' ) ) {
             $headers['priority'] = "Priority";
