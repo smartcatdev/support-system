@@ -94,6 +94,9 @@ function init( $fs_context ) {
         wp_enqueue_style( 'support_system_style',
             $plugin_url . 'assets/css/style.css', array(), PLUGIN_VERSION );
 
+        wp_enqueue_style( 'support_system_datatables',
+            $plugin_url . 'assets/css/datatables.css', array(), PLUGIN_VERSION );
+
         wp_enqueue_style( 'support_system_icons',
             $plugin_url . 'assets/icons.css', array(), PLUGIN_VERSION );
     } );

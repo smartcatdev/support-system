@@ -67,11 +67,14 @@ class TicketTable extends ActionListener {
 
     private function table_headers() {
         $headers = apply_filters( 'support_ticket_table_headers', array(
-            'id'        => 'ID',
+            'id'        => 'Case #',
             'subject'   => 'Subject',
+            'product'   => 'Product',
             'email'     => 'Email',
             'status'    => 'Status',
-            'product'   => 'Product'
+            'priority'  => 'Priority',
+            'agent'     => 'Assigned to',
+            'date'      => 'Date'
         ) );
 
         $headers['actions'] = 'Actions';
@@ -101,6 +104,23 @@ class TicketTable extends ActionListener {
     }
 
     private function column_data_callbacks() {
+        add_action( 'support_ticket_table_agent_col', function ( $post_id ) {
+            $agents = get_agents();
+
+            return $agents[ get_post_meta( $post_id, 'agent', true ) ];
+        } );
+
+
+        add_action( 'support_ticket_table_priority_col', function ( $post_id ) {
+            $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+
+            return $priorities[ get_post_meta( $post_id, 'priority', true ) ];
+        } );
+
+        add_action( 'support_ticket_table_date_col', function ( $post_id ) {
+            return get_the_date( 'M j Y g:i A', $post_id );
+        } );
+
         add_action( 'support_ticket_table_email_col', function ( $post_id ) {
             return get_post_meta( $post_id, 'email', true );
         } );

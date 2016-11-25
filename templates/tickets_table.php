@@ -4,7 +4,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<table id="support_tickets_table">
+<table id="support_tickets_table" class="display" cellspacing="0" width="100%">
 
     <thead>
 

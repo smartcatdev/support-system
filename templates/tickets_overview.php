@@ -15,8 +15,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <form id="ticket_filter">
 
-            <span class="trigger filter icon-filter" data-action="filter_tickets"></span>
-            <span class="trigger refresh icon-loop2" data-action="refresh_tickets"></span>
 
             <?php //Setup ticket filter select boxes ?>
 
@@ -29,9 +27,13 @@ use const SmartcatSupport\TEXT_DOMAIN;
             <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
 
                 <?php ( new SelectBox( 'agent', array(
-                    'options' =>  array( '' => __( 'Agent', TEXT_DOMAIN ) ) + get_agents() ) ) )->render(); ?>
+                    'options' => get_agents() ) ) )->render(); ?>
 
             <?php endif; ?>
+
+
+            <span class="trigger" data-action="filter_tickets"><i class="filter icon-filter"></i><?php _e( 'Filter', TEXT_DOMAIN ); ?></span>
+            <span class="trigger" data-action="refresh_tickets"><i class="refresh icon-loop2"></i><?php _e( 'Refresh', TEXT_DOMAIN ); ?></span>
 
         </form>
 
