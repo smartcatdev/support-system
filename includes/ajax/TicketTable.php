@@ -144,11 +144,11 @@ class TicketTable extends ActionListener {
             $actions = '<div class="actions">';
 
             if( current_user_can( 'edit_others_tickets' ) ) {
-                $actions .= '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post_id . '" ' .
-                                'rel="modal:open"><i class="icon-pencil"></i></a>';
+                $actions .= '<a style="display: table; width: 100%;" href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post_id . '" ' .
+                                'rel="modal:open"><i class="left icon-pencil"></i></a>';
             }
 
-            $actions .= '<span class="trigger" data-action="view_ticket"><i class="icon-bubbles"></i></span>';
+            $actions .= '<i class="right trigger icon-bubbles" data-action="view_ticket"></i>';
 
             $actions .= '</div>';
 

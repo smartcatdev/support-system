@@ -32,6 +32,8 @@ table.collapsible tr {
 }
 
 #support_system {
+    margin: 0;
+    padding: 0;
     height: 100vh;
 }
 
@@ -404,6 +406,10 @@ table.collapsible tr {
     animation: spin 2s linear infinite;
 }
 
+.trigger {
+    cursor: pointer;
+}
+
 .trigger i {
     height: 20px;
     width: 20px;
@@ -412,6 +418,7 @@ table.collapsible tr {
     padding: 0;
     text-align: center;
     line-height: 20px !important;
+    cursor: pointer;
 }
 
 .trigger.active i {
@@ -430,12 +437,22 @@ table.collapsible tr {
 
 #support_tickets_table .actions i {
     color: #fff;
-    padding: 0 10px;
-    margin: 10px 0;
+    height: 30px;
+    width: 50%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #support_tickets_table .actions i:hover {
-    color: #0c0c0c;
+    background: #26826b;
+}
+
+#support_tickets_table .actions i.left {
+    border-radius: 8px 0 0 8px;
+}
+
+#support_tickets_table .actions i.right{
+    border-radius: 0 8px 8px 0;
 }
 
 #support_tickets_table .actions {
@@ -444,6 +461,7 @@ table.collapsible tr {
     text-align: center;
     background-color: #37bc9b;
     border-radius: 8px;
+    display: table;
 
 }
 
