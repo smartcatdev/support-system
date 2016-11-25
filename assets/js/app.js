@@ -201,14 +201,14 @@
                     $('#ticket_filter').find('.refresh').removeClass('rotate');
                     $('#support_tickets_table_wrapper').replaceWith(response.data);
 
-                    init_table();
+                    app.init_table();
                 }
             });
         } else {
             app.ajax('support_list_tickets', null, function (response) {
                 $('#tickets_overview').replaceWith(response);
 
-                init_table();
+                app.init_table();
             });
         }
     },
@@ -219,7 +219,7 @@
         });
     }
 
-    function init_table () {
+    app.init_table = function () {
         var cols = [];
 
         $('#support_tickets_table th').each(function () {

@@ -22,11 +22,6 @@ jQuery(document).ready(function ($) {
         beforeLoad: function( event, ui ) {
             if ( ui.tab.data( 'loaded' ) ) {
                 event.preventDefault();
-
-                if(ui.tab.index() != 0) {
-                    SupportSystem.refresh_tickets();
-                }
-
                 return;
             }
 
@@ -35,7 +30,9 @@ jQuery(document).ready(function ($) {
             });
         },
 
-        load: SupportSystem.refresh_tickets,
+        load: function (even, ui) {
+            SupportSystem.init_table();
+        },
 
         create: function(event, ui) {
             ui.tab.width(window.innerWidth / 10);
