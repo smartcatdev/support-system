@@ -34,16 +34,6 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const WOOCOMMERCE_ACTIVE = 'ca.smartcat.support.woocommerce_active';
-
-    /**
-     * @since 1.0.0
-     */
-    const EDD_ACTIVE = 'ca.smartcat.support.edd_active';
-
-    /**
-     * @since 1.0.0
-     */
     const TICKET_CREATED_MSG = 'ca.smartcat.support.string.ticket_created';
 
     /**

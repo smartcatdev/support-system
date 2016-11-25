@@ -40,16 +40,6 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const WOOCOMMERCE_ACTIVE = false;
-
-    /**
-     * @since 1.0.0
-     */
-    const EDD_ACTIVE = true;
-
-    /**
-     * @since 1.0.0
-     */
     const TICKET_CREATED_MSG = 'We\'ve received your request for support and an agent will get back to you soon';
 
     /**

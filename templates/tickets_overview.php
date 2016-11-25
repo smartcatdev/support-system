@@ -2,7 +2,6 @@
 
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\Form;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use const SmartcatSupport\TEXT_DOMAIN;
@@ -15,10 +14,12 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <form id="ticket_filter">
 
-            <?php //Setup ticket filter select boxes ?>
+            <?php $products = get_products(); if( $products ) : ?>
 
-            <?php ( new SelectBox( 'product', array(
-                'options' =>  array( '' => __( 'Product', TEXT_DOMAIN ) ) + get_products() ) ) )->render(); ?>
+                <?php ( new SelectBox( 'product', array(
+                    'options' =>  array( '' => __( 'Product', TEXT_DOMAIN ) ) + $products ) ) )->render(); ?>
+
+            <?php endif; ?>
 
             <?php ( new SelectBox( 'status', array(
                 'options' =>  array( '' => __( 'Status', TEXT_DOMAIN ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES ) ) ) )->render(); ?>

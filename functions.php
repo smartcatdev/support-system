@@ -104,11 +104,11 @@ function init( $fs_context ) {
 
     add_action( 'plugins_loaded', function() {
         if( class_exists( 'WooCommerce' ) ) {
-            update_option( Option::WOOCOMMERCE_ACTIVE, true );
+            define( 'WOOCOMMERCE_ACTIVE', true );
         }
 
         if( class_exists( 'Easy_Digital_Downloads' ) ){
-            update_option( Option::EDD_ACTIVE, true );
+            define( 'EDD_ACTIVE', true );
         }
     } );
 
@@ -167,7 +167,7 @@ function get_agents() {
 function get_products() {
     $results = false;
 
-    if( get_option( Option::EDD_ACTIVE, Option\Defaults::EDD_ACTIVE ) ) {
+    if( WOOCOMMERCE_ACTIVE ) {
         $args = array(
             'post_type' => 'download',
             'post_status' => 'publish',
@@ -182,7 +182,7 @@ function get_products() {
         }
     }
 
-    if( get_option( Option::WOOCOMMERCE_ACTIVE, Option\Defaults::WOOCOMMERCE_ACTIVE ) ) {
+    if( EDD_ACTIVE ) {
         $args = array(
             'post_type' => 'product',
             'post_status' => 'publish',
