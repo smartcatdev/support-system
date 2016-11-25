@@ -14,7 +14,7 @@ jQuery(document).ready(function ($) {
     } );
 
     $(document).on('change', '#ticket_filter .form_field', function (e) {
-        $('#ticket_filter').find('.filter').data('enabled', false).css('color', 'black');
+        $('#ticket_filter').find('.filter').parent().removeClass('active');
     });
 
 
