@@ -63,6 +63,25 @@ function init( $fs_context ) {
         add_action( 'wp_ajax_nopriv_support_register_user', '\SmartcatSupport\register_user' );
     }
 
+    // Temporarily add/remove roles until we get a settings page
+    add_action( 'admin_init', function() {
+        if ( SUPPORT_EDD_ACTIVE ) {
+            if ( get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
+                append_user_caps( 'subscriber' );
+            } else {
+                remove_appended_caps( 'subscriber' );
+            }
+        }
+
+        if ( SUPPORT_WOO_ACTIVE ) {
+            if ( get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
+                append_user_caps( 'customer' );
+            } else {
+                remove_appended_caps( 'customer' );
+            }
+        }
+    } );
+
     //<editor-fold desc="Enqueue Assets">
     add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
         wp_enqueue_script( 'datatables',
@@ -224,7 +243,6 @@ function disable_admin_bar() {
 }
 
 function register_form() {
-
     $builder = new FormBuilder( 'register_form' );
 
     $builder->add( TextBox::class, 'first_name', array(
@@ -274,4 +292,20 @@ function register_user() {
     } else {
         wp_send_json_error( $form->get_errors() );
     }
+}
+
+function append_user_caps( $role ) {
+    $role = get_role( $role );
+
+    $role->add_cap( 'view_support_tickets' );
+    $role->add_cap( 'create_support_tickets' );
+    $role->add_cap( 'unfiltered_html' );
+}
+
+function remove_appended_caps( $role ) {
+    $role = get_role( $role );
+
+    $role->remove_cap( 'view_support_tickets' );
+    $role->remove_cap( 'create_support_tickets' );
+    $role->remove_cap( 'unfiltered_html' );
 }
