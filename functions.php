@@ -8,6 +8,7 @@ use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\TicketTable;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\constraint\Required;
+use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
@@ -159,8 +160,7 @@ function convert_html_chars( $text ) {
  * @since 1.0.0
  */
 function get_agents() {
-    $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) );
-
+    $agents = array();
     $users = get_users( array( 'role' => array( 'support_agent' ) ) );
 
     if( $users != null ) {
@@ -309,3 +309,20 @@ function remove_appended_caps( $role ) {
     $role->remove_cap( 'create_support_tickets' );
     $role->remove_cap( 'unfiltered_html' );
 }
+
+function agents_dropdown( $name, $selected = '', $echo = true ) {
+    $select = new SelectBox( $name,
+        array(
+            'value' => $selected,
+            'options' => array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents()
+        )
+    );
+
+    if( $echo ) {
+        $select->render();
+        $select = null;
+    }
+
+    return $select;
+}
+

@@ -2,8 +2,8 @@
 
 namespace SmartcatSupport\util;
 
+use function SmartcatSupport\agents_dropdown;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\util\ActionListener;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
 
@@ -20,6 +20,8 @@ final class Installer extends ActionListener {
         $this->add_action( 'manage_support_ticket_posts_columns', 'post_columns' );
         $this->add_action( 'manage_edit-support_ticket_sortable_columns', 'sortable_columns' );
         $this->add_action( 'manage_support_ticket_posts_custom_column', 'post_column_data', 10, 2 );
+        $this->add_action( 'restrict_manage_posts', 'post_filters' );
+        $this->add_action( 'parse_query', 'filter_posts' );
     }
     
     public function activate() {
@@ -142,6 +144,25 @@ final class Installer extends ActionListener {
             ),
             $columns
         );
+    }
+
+    public function post_filters() {
+        if( get_current_screen()->post_type == 'support_ticket' ) {
+            agents_dropdown( 'agent', !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : '' );
+        }
+    }
+
+    public function filter_posts( $query ) {
+        if( ( !empty( $GLOBALS['typenow'] ) && !empty( $GLOBALS['pagenow'] ) ) &&
+            ( $GLOBALS['typenow'] == 'support_ticket' && $GLOBALS['pagenow'] == 'edit.php' ) ) {
+
+            if( !empty( $_REQUEST['agent'] ) ) {
+                $query->query_vars['meta_query'][] = array( 'key' => 'agent', 'value' => $_REQUEST['agent'] );
+            }
+
+        }
+
+        return $query;
     }
     
     public function add_user_roles() {

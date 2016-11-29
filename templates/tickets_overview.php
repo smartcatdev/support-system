@@ -1,9 +1,11 @@
 <?php
 
+use function SmartcatSupport\agents_dropdown;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\field\SelectBox;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
+use function SmartcatSupport\support_dropdown;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
@@ -26,8 +28,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
 
-                <?php ( new SelectBox( 'agent', array(
-                    'options' => get_agents() ) ) )->render(); ?>
+                <?php agents_dropdown( 'agent' ); ?>
 
             <?php endif; ?>
 

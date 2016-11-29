@@ -239,7 +239,7 @@ class Ticket extends ActionListener {
             ) )->add( SelectBox::class, 'agent', array(
                 'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
                 'label'       => __( 'Assigned To', TEXT_DOMAIN ),
-                'options'     => $agents,
+                'options'     => array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + $agents,
                 'value'       => get_post_meta( $post->ID, 'agent', true ),
                 'constraints' => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
