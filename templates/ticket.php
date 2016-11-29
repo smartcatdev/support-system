@@ -47,17 +47,14 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
 
-                <div class="actions_wrapper">
+                <div class="actions">
 
-                    <div class="actions">
+                    <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post->ID; ?>"
+                       rel="modal:open">
 
-                        <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post->ID; ?>" rel="modal:open">
+                        <i class="icon-pencil"></i>
 
-                            <span class="icon-pencil"></span>
-
-                        </a>
-
-                    </div>
+                    </a>
 
                 </div>
 
@@ -115,12 +112,13 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             </div>
 
+
+        </div>
+
         <div class="date_opened">
 
             <?php _e( 'Opened ', TEXT_DOMAIN ); echo get_the_date( 'l F n, Y', $post ); ?>
 
         </div>
-
-    </div>
 
 </div>

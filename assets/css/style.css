@@ -34,7 +34,7 @@ table.collapsible tr {
 #support_system {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /*** SUPPORT CARD *************************************************************/
@@ -64,7 +64,7 @@ table.collapsible tr {
     white-space: nowrap;
 }
 
-.support_card .status_bar .actions_wrapper {
+.support_card .status_bar .actions {
     width: 99%;
     display: table-cell;
     vertical-align: middle;
@@ -72,15 +72,10 @@ table.collapsible tr {
     text-align: right;
 }
 
-.support_card .status_bar .actions_wrapper .action {
+.support_card .status_bar .actions i {
     margin: 0 10px;
-    display: none;
     cursor: pointer;
     color: #686868;
-}
-
-.support_card .status_bar:hover > .actions_wrapper .action {
-    display: inline;
 }
 
 .support_card .status_bar .author_name {
@@ -245,7 +240,8 @@ table.collapsible tr {
 
 @media( min-width: 767px ) {
     .button {
-        width: inherit;
+        width: auto;
+        min-width: 150px;
         margin-left: 4px;
     }
 
@@ -260,6 +256,10 @@ table.collapsible tr {
     margin: 20px auto;
 }
 
+.ticket .inner {
+    padding: 20px;
+}
+
 .ticket .status_bar img {
     margin-top: 1px;
 }
@@ -272,20 +272,6 @@ table.collapsible tr {
     font-size: 0.8em;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.ticket .read_only {
-    margin: 10px;
-}
-
-.ticket .read_only .subject {
-    font-size: 2em;
-    font-weight: 600;
-    margin: 20px 10px;
-}
-
-.ticket .read_only .content {
-    margin: 20px 10px;
 }
 
 .ticket .date_opened {
@@ -364,34 +350,34 @@ table.collapsible tr {
 
 /*** COMMENTS ****************************************************************/
 
-.support_ticket .comments > * {
+.comment_section .comment {
     margin: 20px 0;
 }
 
-.support_ticket .comment .avatar {
+.comment_section .comment .avatar {
     margin-top: 2px;
 }
 
-.support_ticket .comment .content {
+.comment_section .comment .content {
     font-size: 0.8em;
     padding: 10px;
 }
 
-.support_ticket .comment .content > * {
+.comment_section .comment .content > * {
     margin: 0;
     padding: 0;
 }
 
-.support_ticket .comment_reply .wrapper {
+.comment_section .comment_reply .wrapper {
     display: table;
 }
 
-.support_ticket .comment_reply .button.cancel {
+.comment_section .comment_reply .button.cancel {
     display: none;
 }
 
 @media( min-width: 767px ) {
-    .support_ticket form.comment_form .error_msg {
+    .comment_section form.comment_form .error_msg {
         position: absolute;
         margin: 16px 10px !important;
     }
@@ -451,7 +437,7 @@ table.collapsible tr {
     border-radius: 8px 0 0 8px;
 }
 
-#support_tickets_table .actions i.right{
+#support_tickets_table .actions i.right {
     border-radius: 0 8px 8px 0;
 }
 

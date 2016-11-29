@@ -27,18 +27,14 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         </div>
 
-        <div class="actions_wrapper">
+        <div class="actions">
 
-            <div class="actions">
+            <?php if ( $comment->user_id == wp_get_current_user()->ID ) : ?>
 
-                <?php if ( $comment->user_id == wp_get_current_user()->ID ) : ?>
+                <i class="trigger icon-bin" data-action="delete_comment"></i>
+                <i class="trigger icon-pencil" data-action="edit_comment"></i>
 
-                    <span class="trigger icon-bin" data-action="delete_comment"></span>
-                    <span class="trigger icon-pencil" data-action="edit_comment"></span>
-
-                <?php endif; ?>
-
-            </div>
+            <?php endif; ?>
 
         </div>
 
