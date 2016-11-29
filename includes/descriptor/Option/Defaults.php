@@ -71,4 +71,34 @@ final class Defaults {
      * @since 1.0.0
      */
     const SAVE_BTN_TEXT = 'Save';
+
+    /**
+     * @since 1.0.0
+     */
+    const REGISTER_BTN_TEXT = 'Register';
+
+    /**
+     * @since 1.0.0
+     */
+    const LOGIN_BTN_TEXT = 'Back To Login';
+
+    /**
+     * @since 1.0.0
+     */
+    const TEMPLATE_PAGE_ID = -1;
+
+    /**
+     * @since 1.0.0
+     */
+    const EDD_INTEGRATION = true;
+
+    /**
+     * @since 1.0.0
+     */
+    const WOO_INTEGRATION = true;
+
+    /**
+     * @since 1.0.0
+     */
+    const ALLOW_SIGNUPS = true;
 }

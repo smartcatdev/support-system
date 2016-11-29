@@ -133,6 +133,10 @@
         form.parents('.comment').replaceWith(response.data);
     },
 
+    app.post_user_register = function () {
+        location.reload();
+    },
+
     app.edit_comment = function (trigger_element) {
         var comment = trigger_element.parents('.comment');
         var content =  comment.find('.content');
@@ -217,7 +221,7 @@
         $('#support_system .tabs').find('.ui-tabs-nav li').each(function (index) {
             $(this).width(window.innerWidth / 10);
         });
-    }
+    },
 
     app.init_table = function () {
         var cols = [];
@@ -230,6 +234,11 @@
             // responsive: true,
             columns: cols
         });
+    },
+
+    app.toggle_register_form = function () {
+        $('#login_form').toggle();
+        $('#register_form').toggle();
     }
 
     function get_session_obj(key, default_value) {

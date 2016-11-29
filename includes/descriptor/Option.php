@@ -69,5 +69,30 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const REGISTER_BTN_TEXT = 'ca.smartcat.support.string.register_btn';
+
+    /**
+     * @since 1.0.0
+     */
+    const LOGIN_BTN_TEXT = 'ca.smartcat.support.string.login_btn';
+
+    /**
+     * @since 1.0.0
+     */
     const TEMPLATE_PAGE_ID = 'ca.smartcat.support.page_id';
+
+    /**
+     * @since 1.0.0
+     */
+    const EDD_INTEGRATION = 'ca.smartcat.support.edd_integration';
+
+    /**
+     * @since 1.0.0
+     */
+    const WOO_INTEGRATION = 'ca.smartcat.support.woo_integration';
+
+    /**
+     * @since 1.0.0
+     */
+    const ALLOW_SIGNUPS = 'ca.smartcat.support.allow_signups';
 }

@@ -200,7 +200,7 @@ class Ticket extends ActionListener {
             $this->builder->add( SelectBox::class, 'product', array(
                 'label'         => __( 'Product', TEXT_DOMAIN ),
                 'error_msg'     => __( 'Please Select a product', TEXT_DOMAIN ),
-                'options'       => $products + array( '' => __( 'Select a Product', TEXT_DOMAIN ) ),
+                'options'       => array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + $products,
                 'constraints'   => array(
                     $this->builder->create_constraint( Choice::class, array_keys( $products ) )
                 )

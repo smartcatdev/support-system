@@ -7,13 +7,10 @@ use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\TicketTable;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\field\Hidden;
-use SmartcatSupport\form\field\SelectBox;
+use SmartcatSupport\form\constraint\Required;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
-use SmartcatSupport\util\TemplateRender;
 
 /**
  * Composition Root for the plugin.
@@ -48,7 +45,7 @@ function init( $fs_context ) {
         if( is_user_logged_in() && current_user_can( 'view_support_tickets' ) ) {
             echo render_template( 'dash' );
         } else {
-            wp_login_form();
+            echo render_template( 'login' );
         }
     } );
 
@@ -61,6 +58,10 @@ function init( $fs_context ) {
 
         return $template;
     } );
+
+    if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) ) {
+        add_action( 'wp_ajax_nopriv_support_register_user', '\SmartcatSupport\register_user' );
+    }
 
     //<editor-fold desc="Enqueue Assets">
     add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
@@ -103,13 +104,8 @@ function init( $fs_context ) {
     //</editor-fold>
 
     add_action( 'plugins_loaded', function() {
-        if( class_exists( 'WooCommerce' ) ) {
-            define( 'WOOCOMMERCE_ACTIVE', true );
-        }
-
-        if( class_exists( 'Easy_Digital_Downloads' ) ){
-            define( 'EDD_ACTIVE', true );
-        }
+        define( 'SUPPORT_WOO_ACTIVE', class_exists( 'WooCommerce' ) );
+        define( 'SUPPORT_EDD_ACTIVE', class_exists( 'Easy_Digital_Downloads' ) );
     } );
 
     register_activation_hook( $fs_context, array( $installer, 'activate' ) );
@@ -167,9 +163,9 @@ function get_agents() {
 function get_products() {
     $results = false;
 
-    if( WOOCOMMERCE_ACTIVE ) {
+    if( SUPPORT_WOO_ACTIVE && get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
         $args = array(
-            'post_type' => 'download',
+            'post_type' => 'product',
             'post_status' => 'publish',
         );
 
@@ -182,9 +178,9 @@ function get_products() {
         }
     }
 
-    if( EDD_ACTIVE ) {
+    if( SUPPORT_EDD_ACTIVE && get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
         $args = array(
-            'post_type' => 'product',
+            'post_type' => 'download',
             'post_status' => 'publish',
         );
 
@@ -224,5 +220,58 @@ function render_template( $template, array $data = array() ) {
 function disable_admin_bar() {
     if( current_user_can( 'view_support_tickets' ) ) {
         show_admin_bar( false );
+    }
+}
+
+function register_form() {
+
+    $builder = new FormBuilder( 'register_form' );
+
+    $builder->add( TextBox::class, 'first_name', array(
+        'label'             => __( 'First Name', TEXT_DOMAIN ),
+        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+        'constraints'       => array(
+            $builder->create_constraint( Required::class )
+        )
+
+    ) )->add( TextBox::class, 'last_name', array(
+        'label'             => __( 'Last Name', TEXT_DOMAIN ),
+        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+        'constraints'       =>  array(
+            $builder->create_constraint( Required::class )
+        )
+
+    ) )->add( TextBox::class, 'email', array(
+        'type'              => 'email',
+        'label'             => __( 'Email Address', TEXT_DOMAIN ),
+        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+        'sanitize_callback' => 'sanitize_email',
+        'constraints'       => array(
+            $builder->create_constraint( Required::class )
+        )
+
+    ) );
+
+    return $builder->get_form();
+}
+
+function register_user() {
+    $form = register_form();
+
+    if( $form->is_valid() ) {
+        $data = $form->get_data();
+
+        $user_id = register_new_user(
+            sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ), $data['email']
+        );
+
+        if( !empty( $user_id ) ) {
+            get_user_by( 'ID', $user_id )->set_role( 'support_user' );
+            wp_set_auth_cookie( $user_id );
+            wp_send_json_success();
+        }
+
+    } else {
+        wp_send_json_error( $form->get_errors() );
     }
 }
