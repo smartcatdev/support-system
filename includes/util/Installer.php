@@ -17,6 +17,9 @@ final class Installer extends ActionListener {
     
     public function __construct() {
         $this->add_action( 'init', 'register_post_type' );
+        $this->add_action( 'manage_support_ticket_posts_columns', 'post_columns' );
+        $this->add_action( 'manage_edit-support_ticket_sortable_columns', 'sortable_columns' );
+        $this->add_action( 'manage_support_ticket_posts_custom_column', 'post_column_data', 10, 2 );
     }
     
     public function activate() {
@@ -87,6 +90,58 @@ final class Installer extends ActionListener {
         );
 
         register_post_type( 'support_ticket', $args );
+    }
+
+    public function post_columns( $columns ) {
+        $cb = array_splice( $columns, 0, 1 );
+        unset( $columns['title'] );
+
+        return array_merge(
+            $cb + array(
+                'id'        => __( 'Case #', TEXT_DOMAIN ),
+                'title'     => __( 'Subject', TEXT_DOMAIN ),
+                'email'     => __( 'Email', TEXT_DOMAIN ),
+                'status'    => __( 'Status', TEXT_DOMAIN ),
+                'priority'  => __( 'Priority', TEXT_DOMAIN )
+            ),
+            $columns
+        );
+    }
+
+    public function post_column_data( $column, $post_id ) {
+        switch( $column ) {
+            case 'id':
+                echo $post_id;
+                break;
+
+            case 'email':
+                esc_html_e( get_post_meta( $post_id, 'email', true ) );
+                break;
+
+            case 'status':
+                $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
+                esc_html_e( $statuses[ get_post_meta( $post_id, 'status', true ) ] );
+                break;
+
+            case 'priority':
+                $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+
+                esc_html_e( $priorities[ get_post_meta( $post_id, 'priority', true ) ] );
+                break;
+
+        }
+    }
+
+    public function sortable_columns( $columns ) {
+        return array_merge(
+            array(
+                'status'    => 'status',
+                'priority'  => 'priority',
+                'author'    => 'author'
+            ),
+            $columns
+        );
     }
     
     public function add_user_roles() {
