@@ -2,13 +2,16 @@
 
 namespace SmartcatSupport\admin;
 
+use function SmartcatSupport\get_products;
+use function SmartcatSupport\render_template;
+use function SmartcatSupport\ticket_meta_form;
 use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\constraint\Date;
+use function SmartcatSupport\get_agents;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
@@ -19,15 +22,18 @@ use const SmartcatSupport\TEXT_DOMAIN;
  * @author Eric Green <eric@smartcat.ca>
  */
 class SupportMetaBox extends MetaBox {
-
     private $builder;
-    private $view;
 
-    public function __construct( TemplateRender $view, FormBuilder $builder ) {
-        parent::__construct( 'ticket_meta', __( 'Ticket Information', TEXT_DOMAIN ), 'support_ticket' ); 
+    public function __construct( FormBuilder $builder ) {
+        parent::__construct(
+            'ticket_meta',
+            __( 'Ticket Information', TEXT_DOMAIN ),
+            'support_ticket',
+            'advanced',
+            'high'
+        );
 
         $this->builder = $builder;
-        $this->view = $view;
     }
     
     /**
@@ -39,43 +45,58 @@ class SupportMetaBox extends MetaBox {
     public function render( $post ) {
         $form = $this->configure_form( $post );
 
-        echo $this->view->render( 'metabox', [ 'form' => $form ] );
+        echo render_template( 'metabox', array( 'form' => $form ) );
     }
 
     private function configure_form( $post ) {
-        $agents = [ '' => __( 'No Agent Assigned', TEXT_DOMAIN ) ] + support_system_agents();
+        $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+        $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+        $products = get_products();
 
-        //<editor-fold desc="Form Configuration">
-        $this->builder->add( TextBox::class, 'email',
-            [
-                'type'              => 'email',
-                'label'             => 'Contact Email',
-                'value'             => get_post_meta( $post->ID, 'email', true ),
-                'sanitize_callback' => 'sanitize_email'
-            ]
-        )->add( SelectBox::class, 'agent',
-            [
-                'label'       => 'Assigned To',
-                'options'     => $agents,
-                'value'       => get_post_meta( $post->ID, 'agent', true ),
-                'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
-                ]
-            ]
-        )->add( SelectBox::class, 'status',
-            [
-                'label'       => 'Status',
-                'options'     => $statuses,
-                'value'       => get_post_meta( $post->ID, 'status', true ),
-                'constraints' => [
-                    $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
-                ]
-            ]
-        );
-        //</editor-fold>
+        if( $products ) {
+            $this->builder->add( SelectBox::class, 'product', array(
+                'label'         => __( 'Product', TEXT_DOMAIN ),
+                'value'         => get_post_meta( $post->ID, 'product', true ),
+                'options'       => array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + $products,
+                'constraints'   => array(
+                    $this->builder->create_constraint( Choice::class, array_keys( $products ) )
+                )
+            ) );
+        }
 
-        return apply_filters( 'support_ticket_metabox_form', $this->builder, $post )->get_form();
+        $this->builder->add( TextBox::class, 'email', array(
+            'type'              => 'email',
+            'label'             => __( 'Contact Email', TEXT_DOMAIN ),
+            'value'             => get_post_meta( $post->ID, 'email', true ),
+            'sanitize_callback' => 'sanitize_email'
+
+        ) )->add( SelectBox::class, 'agent', array(
+            'label'             => __( 'Assigned To', TEXT_DOMAIN ),
+            'options'           => $agents,
+            'value'             => get_post_meta( $post->ID, 'agent', true ),
+            'constraints'       => array(
+                $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+            )
+
+        ) )->add( SelectBox::class, 'status', array(
+            'label'             => __( 'Status', TEXT_DOMAIN ),
+            'options'           => $statuses,
+            'value'             => get_post_meta( $post->ID, 'status', true ),
+            'constraints'       => array(
+                $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+            )
+        ) )->add( SelectBox::class, 'priority', array(
+            'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
+            'label'       => __( 'Priority', TEXT_DOMAIN ),
+            'options'     => $priorities,
+            'value'       => get_post_meta( $post->ID, 'priority', true ),
+            'constraints' => array(
+                $this->builder->create_constraint( Choice::class, array_keys( $priorities ) )
+            )
+        ) );
+
+        return $this->builder->get_form();
     }
 
     /**

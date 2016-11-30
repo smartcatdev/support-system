@@ -1,20 +1,20 @@
-<?php 
+<?php
 
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
 
-<table id="support_tickets_table">
+<table id="support_tickets_table" class="display" cellspacing="0" width="100%">
 
     <thead>
 
         <tr>
 
-            <?php foreach( $headers as $col => $value ) : ?>
+            <?php foreach( $headers as $col => $title ) : ?>
 
-                <th data-id="<?php echo $col; ?>">
+                <th data-column_name="<?php echo $col; // For dynamically generating column names client-side ?>">
 
-                    <?php esc_html_e( $value, TEXT_DOMAIN ); ?>
+                    <?php esc_html_e( $title, TEXT_DOMAIN ); ?>
 
                 </th>
 
@@ -32,7 +32,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <?php foreach( $row as $col => $value ) : ?>
 
-                    <td><?php _e( $value ); ?></td>
+                    <td><?php echo $value; ?></td>
 
                 <?php endforeach; ?>
 

@@ -5,7 +5,7 @@ namespace SmartcatSupport\form\field;
 class TextBox extends Field {
     private $type = 'text';
     
-    public function __construct( $id, array $args = [] ) {
+    public function __construct( $id, array $args = array() ) {
         parent::__construct( $id, $args );
         
         if( array_key_exists( 'type', $args ) ) {

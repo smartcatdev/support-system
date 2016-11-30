@@ -11,7 +11,7 @@ abstract class Field {
     protected $constraints = [];
     protected $sanitize_callback;
  
-    public function __construct( $id, array $args = [] ) {
+    public function __construct( $id, array $args = array() ) {
         $this->set_id( $id );
 
         if( isset( $args['error_msg'] ) ) {

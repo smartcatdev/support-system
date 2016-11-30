@@ -2,54 +2,146 @@
 
 namespace SmartcatSupport;
 
-use Pimple\Container;
+use SmartcatSupport\admin\SupportMetaBox;
+use SmartcatSupport\ajax\Comment;
+use SmartcatSupport\ajax\Ticket;
+use SmartcatSupport\ajax\TicketTable;
+use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\form\constraint\Required;
+use SmartcatSupport\form\field\SelectBox;
+use SmartcatSupport\form\field\TextBox;
+use SmartcatSupport\form\FormBuilder;
+use SmartcatSupport\util\Installer;
 
+/**
+ * Composition Root for the plugin.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @since 1.0.0
+ */
 function init( $fs_context ) {
-    $app = new Container();
 
-    require_once 'app.php';
+    // Configure the application
+    $plugin_dir = plugin_dir_path( $fs_context );
+    $plugin_url = plugin_dir_url( $fs_context );
 
-    add_shortcode( 'support-system', function() use ( $app ) {
-        echo $app['renderer']->render( 'dash' );
+    // Configure table Handler
+    $table_handler = new TicketTable();
+
+    // Configure ticket Handler
+    $ticket_handler = new Ticket( new FormBuilder( 'ticket_form' ) );
+
+    // Configure comment handler
+    $comment_handler = new Comment( new FormBuilder( 'comment_form' ) );
+
+    // Configure the metabox
+    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_form' ) );
+
+    // Configure installer
+    $installer = new Installer();
+
+    add_shortcode( 'support-system', function() {
+        disable_admin_bar();
+
+        if( is_user_logged_in() && current_user_can( 'view_support_tickets' ) ) {
+            echo render_template( 'dash' );
+        } else {
+            echo render_template( 'login' );
+        }
+    } );
+
+    add_action( 'template_include', function ( $template ) use ( $plugin_dir )  {
+        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
+            disable_admin_bar();
+
+            $template = $plugin_dir . 'templates/template.php';
+        }
+
+        return $template;
+    } );
+
+    if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) ) {
+        add_action( 'wp_ajax_nopriv_support_register_user', '\SmartcatSupport\register_user' );
+    }
+
+    // Temporarily add/remove roles until we get a settings page
+    add_action( 'admin_init', function() {
+        if ( SUPPORT_EDD_ACTIVE ) {
+            if ( get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
+                append_user_caps( 'subscriber' );
+            } else {
+                remove_appended_caps( 'subscriber' );
+            }
+        }
+
+        if ( SUPPORT_WOO_ACTIVE ) {
+            if ( get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
+                append_user_caps( 'customer' );
+            } else {
+                remove_appended_caps( 'customer' );
+            }
+        }
     } );
 
     //<editor-fold desc="Enqueue Assets">
-    add_action( 'wp_enqueue_scripts', function() use ( $app ) {
+    add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
         wp_enqueue_script( 'datatables',
-            $app['plugin_url'] . 'assets/lib/datatables/js/datatables.min.js', [ 'jquery' ], PLUGIN_VERSION );
+            $plugin_url . 'assets/lib/datatables/datatables.min.js', array( 'jquery' ), PLUGIN_VERSION );
 
         wp_enqueue_style( 'datatables',
-            $app['plugin_url'] . 'assets/lib/datatables/css/datatables.min.css', [], PLUGIN_VERSION );
+            $plugin_url . 'assets/lib/datatables/datatables.min.css', array(), PLUGIN_VERSION );
+
+        wp_enqueue_style( 'jquery-modal',
+            $plugin_url . 'assets/lib/modal/jquery.modal.min.css', array(), PLUGIN_VERSION );
+
+        wp_enqueue_script( 'jquery-modal',
+            $plugin_url . 'assets/lib/modal/jquery.modal.min.js', array( 'jquery' ), PLUGIN_VERSION );
 
         wp_enqueue_script( 'tabular',
-            $app['plugin_url'] . 'assets/lib/tabular.js', [ 'jquery' ], PLUGIN_VERSION );
+            $plugin_url . 'assets/lib/tabular.js', array('jquery' ), PLUGIN_VERSION );
 
         wp_enqueue_script( 'tinymce_js',
-            includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', [ 'jquery' ], false, true );
+            includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', array( 'jquery' ), false, true );
 
         wp_register_script( 'support_system_lib',
-            $app['plugin_url'] . 'assets/js/app.js', [ 'jquery', 'jquery-ui-tabs' ], PLUGIN_VERSION );
+            $plugin_url . 'assets/js/app.js', array( 'jquery', 'jquery-ui-tabs' ), PLUGIN_VERSION );
 
-        wp_localize_script( 'support_system_lib', 'SupportSystem', [ 'ajaxURL' => admin_url( 'admin-ajax.php' ) ] );
+        wp_localize_script( 'support_system_lib', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
         wp_enqueue_script( 'support_system_lib' );
 
         wp_enqueue_script( 'support_system_script',
-            $app['plugin_url'] . 'assets/js/script.js', [ 'jquery', 'jquery-ui-tabs', 'jquery-ui-core', 'support_system_lib' ], PLUGIN_VERSION );
+            $plugin_url . 'assets/js/script.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-core', 'support_system_lib' ), PLUGIN_VERSION );
 
         wp_enqueue_style( 'support_system_style',
-            $app['plugin_url'] . 'assets/css/style.css', [], PLUGIN_VERSION );
+            $plugin_url . 'assets/css/style.css', array(), PLUGIN_VERSION );
+
+        wp_enqueue_style( 'support_system_datatables',
+            $plugin_url . 'assets/css/datatables.css', array(), PLUGIN_VERSION );
 
         wp_enqueue_style( 'support_system_icons',
-            $app['plugin_url'] . 'assets/icons.css', [], PLUGIN_VERSION );
+            $plugin_url . 'assets/icons.css', array(), PLUGIN_VERSION );
     } );
     //</editor-fold>
 
-    register_activation_hook( $fs_context, [ $app['installer'], 'activate' ] );
-    register_deactivation_hook( $fs_context, [ $app['installer'], 'deactivate' ] );
+    add_action( 'plugins_loaded', function() {
+        define( 'SUPPORT_WOO_ACTIVE', class_exists( 'WooCommerce' ) );
+        define( 'SUPPORT_EDD_ACTIVE', class_exists( 'Easy_Digital_Downloads' ) );
+    } );
+
+    register_activation_hook( $fs_context, array( $installer, 'activate' ) );
+    register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
 }
 
+/**
+ * Decode HTML chars between <code></code> tags.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @since 1.0.0
+ * @param $text
+ * @return String
+ */
 function convert_html_chars( $text ) {
-    $matches = [];
+    $matches = array();
 
     preg_match_all( '#<code>(.*?)</code>#', $text, $matches );
 
@@ -60,11 +152,177 @@ function convert_html_chars( $text ) {
     return $text;
 }
 
+/**
+ * Get a list of all users with the Support Agent Role.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @return array The list of agents
+ * @since 1.0.0
+ */
+function get_agents() {
+    $agents = array();
+    $users = get_users( array( 'role' => array( 'support_agent' ) ) );
 
-function var_error_log( $object=null ){
-    ob_start();                    // start buffer capture
-    var_dump( $object );           // dump the values
-    $contents = ob_get_contents(); // put the buffer into a variable
-    ob_end_clean();                // end capture
-    error_log( $contents );        // log contents of the result of var_dump( $object )
+    if( $users != null ) {
+        foreach( $users as $user ) {
+            $agents[ $user->ID ] = $user->display_name;
+        }
+    }
+
+    return $agents;
 }
+
+/**
+ * Get a list of Products and/or Downloads if EDD or WooCommerce is active.
+ *
+ * @author Eric Green <eric@smartcat.ca>
+ * @return bool|array False if neither is active, else an array of post titles and IDs.
+ * @since 1.0.0
+ */
+function get_products() {
+    $results = false;
+
+    if( SUPPORT_WOO_ACTIVE && get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
+        $args = array(
+            'post_type' => 'product',
+            'post_status' => 'publish',
+        );
+
+        $query = new \WP_Query( $args );
+
+        while( $query->have_posts() ) {
+            $results[ $query->post->ID ] = $query->post->post_title;
+
+            $query->next_post();
+        }
+    }
+
+    if( SUPPORT_EDD_ACTIVE && get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
+        $args = array(
+            'post_type' => 'download',
+            'post_status' => 'publish',
+        );
+
+        $query = new \WP_Query( $args );
+
+        while( $query->have_posts() ) {
+            $results[ $query->post->ID ] = $query->post->post_title;
+
+            $query->next_post();
+        }
+    }
+
+    return $results;
+}
+
+/**
+ * Render the template and capture its output.
+ *
+ * @param string $template The template to render.
+ * @param array $data (Default empty) Any data required to be output in the template.
+ * @return string The rendered HTML.
+ * @since 1.0.0
+ * @author Eric Green <eric@smartcat.ca>
+ */
+function render_template( $template, array $data = array() ) {
+    if( is_array( $data ) ) {
+        extract( $data );
+    }
+
+    ob_start();
+
+    include ( plugin_dir_path( __FILE__ ) . 'templates/' . $template . '.php' );
+
+    return ob_get_clean();
+}
+
+function disable_admin_bar() {
+    if( current_user_can( 'view_support_tickets' ) ) {
+        show_admin_bar( false );
+    }
+}
+
+function register_form() {
+    $builder = new FormBuilder( 'register_form' );
+
+    $builder->add( TextBox::class, 'first_name', array(
+        'label'             => __( 'First Name', TEXT_DOMAIN ),
+        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+        'constraints'       => array(
+            $builder->create_constraint( Required::class )
+        )
+
+    ) )->add( TextBox::class, 'last_name', array(
+        'label'             => __( 'Last Name', TEXT_DOMAIN ),
+        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+        'constraints'       =>  array(
+            $builder->create_constraint( Required::class )
+        )
+
+    ) )->add( TextBox::class, 'email', array(
+        'type'              => 'email',
+        'label'             => __( 'Email Address', TEXT_DOMAIN ),
+        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+        'sanitize_callback' => 'sanitize_email',
+        'constraints'       => array(
+            $builder->create_constraint( Required::class )
+        )
+
+    ) );
+
+    return $builder->get_form();
+}
+
+function register_user() {
+    $form = register_form();
+
+    if( $form->is_valid() ) {
+        $data = $form->get_data();
+
+        $user_id = register_new_user(
+            sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ), $data['email']
+        );
+
+        if( !empty( $user_id ) ) {
+            get_user_by( 'ID', $user_id )->set_role( 'support_user' );
+            wp_set_auth_cookie( $user_id );
+            wp_send_json_success();
+        }
+
+    } else {
+        wp_send_json_error( $form->get_errors() );
+    }
+}
+
+function append_user_caps( $role ) {
+    $role = get_role( $role );
+
+    $role->add_cap( 'view_support_tickets' );
+    $role->add_cap( 'create_support_tickets' );
+    $role->add_cap( 'unfiltered_html' );
+}
+
+function remove_appended_caps( $role ) {
+    $role = get_role( $role );
+
+    $role->remove_cap( 'view_support_tickets' );
+    $role->remove_cap( 'create_support_tickets' );
+    $role->remove_cap( 'unfiltered_html' );
+}
+
+function agents_dropdown( $name, $selected = '', $echo = true ) {
+    $select = new SelectBox( $name,
+        array(
+            'value' => $selected,
+            'options' => array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents()
+        )
+    );
+
+    if( $echo ) {
+        $select->render();
+        $select = null;
+    }
+
+    return $select;
+}
+

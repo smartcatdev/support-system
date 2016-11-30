@@ -1,28 +1,22 @@
 jQuery(document).ready(function ($) {
 
     // Bind events
-    $(document).on('submit', '#support_system form', SupportSystem.submit_form);
+    $(document).on('submit', '.support_form', SupportSystem.submit_form);
 
-    $(document).on('dblclick', 'tr', function () {
-        SupportSystem.view_ticket(
-            {
-                id: $('#support_tickets_table').DataTable().row(this).data()['id'],
-                subject: $('#support_tickets_table').DataTable().row(this).data()['subject']
-            }
-        );
-    });
+    $(window).resize(SupportSystem.resize);
 
-    $(document).on('click', '.status_bar .action', function (e) {
+    $(document).on('click', '.trigger', function (e) {
         e.preventDefault();
-        SupportSystem[$(this).data('action')](
-            $(this).parents('.support_card').first()
-        );
+
+        SupportSystem[$(this).data('action')] ($(this));
+
+        return;
+    } );
+
+    $(document).on('change', '#ticket_filter .form_field', function (e) {
+        $('#ticket_filter').find('.filter').parent().removeClass('active');
     });
 
-    $(document).on('click', '.button.cancel', function (e) {
-        e.preventDefault();
-        SupportSystem.cancel_editor($(this).parents('.support_card').first());
-    });
 
     var tabs = $('#support_system .tabs').tabs({
         beforeLoad: function( event, ui ) {
@@ -36,17 +30,16 @@ jQuery(document).ready(function ($) {
             });
         },
 
-        load: function(e, ui) {
-            var cols = [];
+        load: function (even, ui) {
+            SupportSystem.init_table();
+        },
 
-            $('#support_tickets_table th').each(function () {
-                cols.push({ data: $(this).data('id') });
-            });
+        create: function(event, ui) {
+            ui.tab.width(window.innerWidth / 10);
+        },
 
-            $('#support_tickets_table').DataTable({
-                responsive: true,
-                columns: cols
-            });
+        activate: function(event, ui) {
+            ui.newTab.width(window.innerWidth / 10);
         }
 
     });
@@ -56,5 +49,7 @@ jQuery(document).ready(function ($) {
         $( '#' + tab ).remove();
         tabs.tabs( 'refresh' );
     });
+
+
 
 });

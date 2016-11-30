@@ -2,7 +2,6 @@
 
 namespace SmartcatSupport\form;
 
-use SmartcatSupport\form\field\Field;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**

@@ -28,174 +28,236 @@
         tinymce.init(args);
     },
 
-    app.edit_ticket = function (context) {
-        if (!context.data('saved_state')) {
-            context.data('saved_state', context.find('.inner').html());
-        }
+    app.submit_form = function (e) {
+        e.preventDefault();
 
-        app.ajax('support_edit_ticket', {id: context.data('id')}, function (response) {
+        var form = $(this);
 
-            if (response.success) {
-                context.find('.inner').html(response.data);
-                app.tinymce('[name="content"]');
-            }
-        });
-    },
+        app.ajax(form.data('action'), form.serializeArray(), function (response) {
+            form.find('.error_field').removeClass('error_field');
+            form.find('.error_msg').remove();
 
-    app.edit_comment = function (context) {
-        if (!context.data('saved_state')) {
-            context.data('saved_state', context.find('.inner').html());
-        }
+                form.parent().find('.spinner').remove();
 
-        app.ajax('support_edit_comment', {id: context.data('id')}, function (response) {
-            if (response.success) {
-                context.find('.inner').html(response.data);
-                app.tinymce('[name="content"]');
-            }
-        });
-    },
-
-    app.cancel_editor = function (context) {
-        if (context.data('saved_state')) {
-            context.find('.inner').html(context.data('saved_state'));
-        }
-    },
-
-    app.view_ticket = function (ticket) {
-        app.new_tab(ticket.id, ticket.subject, function (element) {
-            app.ajax('support_view_ticket', {id: ticket.id}, function (response) {
                 if (response.success) {
-                    element.html('<div class="support_ticket">' + response.data + '</div>');
+                    if (form.data('after') !== undefined) {
+                        app[form.data('after')](response, form);
+                    }
+                } else {
 
-                    app.ajax('support_ticket_comments', {id: ticket.id}, function (response) {
+                    // Match fields to error messages
+                    $.each(response.data, function (key, value) {
+                        var field = $(form).find('[name="' + key + '"]');
+                        field.addClass('error_field');
+                        field.parent().append('<span class="error_msg">' + value + '</span>');
+
+                    });
+                }
+        });
+
+        return;
+    },
+
+    app.new_tab = function (id, label, callback) {
+            var tabs = $('#support_system .tabs');
+            var existing = false;
+
+            tabs.find('.ui-tabs-nav li').each(function (index) {
+                if ($(this).data('id') === id) {
+                    existing = index;
+                }
+            });
+
+            if (!existing) {
+                var li = $(
+                    '<li>' +
+                    '<a href="#' + id + '">' + label + '</a>' +
+                    '<i class="ui-icon-close icon-cross"></i>' +
+                    '</li>'
+                );
+
+                li.data('id', id);
+                li.data('callback', callback);
+
+                var panel = $($.parseHTML('<div id="' + id + '"></div>'));
+                callback(panel);
+
+                tabs.find('.ui-tabs-nav').append(li);
+                tabs.append(panel);
+
+                tabs.tabs('refresh');
+                tabs.tabs('option', 'active', li.index());
+            } else {
+                tabs.tabs('option', 'active', existing);
+            }
+        },
+
+    app.view_ticket = function (trigger_element) {
+        var row = $('#support_tickets_table').DataTable().row(trigger_element.parents('tr')).data();
+
+        app.new_tab(row.id, row.subject, function (tab) {
+            app.ajax('support_view_ticket', {id: row.id}, function (response) {
+                if (response.success) {
+                    tab.html(response.data);
+
+                    app.ajax('support_ticket_comments', {id: row.id}, function (response) {
                         if (response.success) {
-                            element.find('.support_ticket').append(response.data);
+                            tab.find('.support_ticket').parent().append(response.data);
                             app.tinymce('[name="content"]');
                         }
-
                     });
                 }
             });
         });
     },
 
-    app.refresh_ticket = function (context, data) {
-        context.replaceWith(data);
+    app.post_ticket_edit = function(response, form) {
+        form.parent().html('<p class="message">' + form.data('message') + '</p>');
+
+        $('#' + response.id).find('.support_ticket').replaceWith(response.data);
+
+        app.refresh_tickets();
     },
 
-    app.replace_table = function (context, data) {
-        $('#support_tickets_table_wrapper').replaceWith(data);
-
-        var cols = [];
-
-        $('#support_tickets_table th').each(function () {
-            cols.push({ data: $(this).data('id') });
-        });
-
-        $('#support_tickets_table').DataTable({
-            responsive: true,
-            columns: cols
-        });
+    app.post_ticket_create = function (response, form) {
+        form.parent().html('<p class="message">' + form.data('message') + '</p>');
+        app.refresh_tickets();
     },
 
-    app.append_comment = function (context, data) {
-        context.parents().find('.comments').append(data);
+    app.post_comment_submit = function (response, form) {
+        tinyMCE.activeEditor.setContent('');
+        form.parents('.comment_section').find('.comments').append(response.data);
+    },
+
+    app.post_comment_update = function (response, form) {
+        form.parents('.comment').replaceWith(response.data);
+    },
+
+    app.post_user_register = function () {
+        location.reload();
+    },
+
+    app.edit_comment = function (trigger_element) {
+        var comment = trigger_element.parents('.comment');
+        var content =  comment.find('.content');
+
+        content.hide();
+        comment.find('.editor').show();
+        app.tinymce('textarea[name="content"]');
+    },
+
+    app.cancel_comment_edit = function (trigger_element) {
+        trigger_element.parents('form').find('.error_msg').remove();
+        var comment = trigger_element.parents('.comment');
+        var content = comment.find('.content');
+
+        tinyMCE.activeEditor.remove();
+        comment.find('.content').show();
+        comment.find('.editor').hide();
     },
 
     app.refresh_comment = function (context, data) {
         context.first().replaceWith(data);
     },
 
-    app.delete_comment = function (context) {
-        app.ajax('support_delete_comment', {id: context.data('id')}, function (response) {
+    app.delete_comment = function (trigger_element) {
+        var comment = trigger_element.parents('.comment');
+
+        app.ajax('support_delete_comment', {comment_id: comment.data('id')}, function (response) {
             if (response.success) {
-                context.first().remove();
+                comment.remove();
             }
         });
     },
 
-    app.submit_form = function (e) {
-            e.preventDefault();
+    app.remove_filter = function() {
+        set_session_obj('tickets_filter', []);
 
-            var unlockDelay = 1000;
-            var form = $(this);
-            var button = form.find('.button.submit');
-            var status = form.find('.button.submit .status');
-            var text = form.find('.button.submit .text');
-
-            button.prop('disabled', true);
-            status.removeClass('hidden check fail').addClass('spinner');
-            text.text(text.data('wait'));
-
-            app.ajax(form.data('action'), form.serializeArray(), function (response) {
-                console.log(response);
-
-                form.find('.error_field').removeClass('error_field');
-                form.find('.error_msg').remove();
-
-                if (response.success) {
-
-                    status.removeClass('spinner').addClass('check');
-                    text.text(text.data('success'));
-
-                    setTimeout(function () {
-                        status.removeClass('check');
-                        text.text(text.data('default'));
-                        app[form.data('after')](form.parents('.support_card').first(), response.data);
-                    }, unlockDelay);
-
-                } else {
-
-                    status.removeClass('spinner').addClass('fail');
-                    text.text(text.data('fail'));
-
-                    // Match fields to error messages
-                    $.each(response.data, function (key, value) {
-
-                        var field = $(form).find('[name="' + key + '"]');
-                        field.addClass('error_field');
-                        field.parent().append('<span class="error_msg">' + value + '</span>');
-
-                    });
-
-                }
-
-                setTimeout(function () {
-                    button.prop('disabled', false);
-                }, unlockDelay);
-            });
-        },
-
-    app.new_tab = function (id, label, callback) {
-        var tabs = $('#support_system .tabs');
-        var existing = false;
-
-        tabs.find('.ui-tabs-nav').children('li').each(function (index) {
-            if ($(this).data('id') === id) {
-                existing = index;
-            }
+        $('#ticket_filter .form_field').each(function () {
+            $(this).val('');
         });
 
-        if (!existing) {
-            var li = $(
-                "<li>" +
-                "<a href='#" + id + "'>" + label + "</a>" +
-                "<span class='ui-icon ui-icon-close' role='presentation'>&#10006;</span>" +
-                "</li>"
-            );
+        app.refresh_tickets();
+    },
 
-            li.data('id', id);
-
-            var panel = $($.parseHTML('<div id="' + id + '"></div>'));
-            callback(panel);
-
-            tabs.find('.ui-tabs-nav').append(li);
-            tabs.append(panel);
-
-            tabs.tabs('refresh');
-            tabs.tabs('option', 'active', li.index());
+    app.filter_tickets = function (trigger) {
+        if(trigger.hasClass('active')) {
+            trigger.removeClass('active');
+            app.remove_filter();
         } else {
-            tabs.tabs('option', 'active', existing);
+            trigger.addClass('active');
+
+            // Save this fore future refreshes
+            set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
+            app.refresh_tickets();
+        }
+    },
+
+    app.refresh_tickets = function () {
+        if( $('#support_tickets_table').length > 0 ) {
+            var data = get_session_obj('tickets_filter', []);
+
+            $('#ticket_filter').find('.refresh').addClass('rotate');
+
+            //Get the data from the last filter
+            app.ajax('support_refresh_tickets', data, function (response) {
+                if (response.success) {
+                    $('#ticket_filter').find('.refresh').removeClass('rotate');
+                    $('#support_tickets_table_wrapper').replaceWith(response.data);
+
+                    app.init_table();
+                }
+            });
+        } else {
+            app.ajax('support_list_tickets', null, function (response) {
+                $('#tickets_overview').replaceWith(response);
+
+                app.init_table();
+            });
+        }
+    },
+
+    app.resize = function () {
+        $('#support_system .tabs').find('.ui-tabs-nav li').each(function (index) {
+            $(this).width(window.innerWidth / 10);
+        });
+    },
+
+    app.init_table = function () {
+        var cols = [];
+
+        $('#support_tickets_table th').each(function () {
+            cols.push({ data: $(this).data('column_name') });
+        });
+
+        $('#support_tickets_table').DataTable({
+            // responsive: true,
+            columns: cols
+        });
+    },
+
+    app.toggle_register_form = function () {
+        $('#login_form').toggle();
+        $('#register_form').toggle();
+    }
+
+    function get_session_obj(key, default_value) {
+        var data = default_value;
+
+        try{
+            data = JSON.parse(window.sessionStorage[ key ]);
+        } catch (ex) {
+
+        }
+
+        return data;
+    }
+
+    function set_session_obj(key, value) {
+        try {
+            window.sessionStorage[ key ] = JSON.stringify(value);
+        } catch (ex) {
+            window.sessionStorage[ key ] = [];
         }
     }
 

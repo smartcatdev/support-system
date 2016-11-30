@@ -9,7 +9,7 @@ namespace SmartcatSupport\form;
  */
 class FormBuilder {
     protected $id;
-    private $fields = [];
+    private $fields = array();
     private $method;
     private $action;
     
@@ -19,7 +19,7 @@ class FormBuilder {
         $this->action = $action;
     }
     
-    public function add( $class, $id, $args = [] ) {
+    public function add( $class, $id, $args = array() ) {
         $this->fields[ $id ] = new $class( $id, $args );
         
         return $this;
@@ -34,6 +34,6 @@ class FormBuilder {
     }
 
     public function clear_config() {
-        $this->fields = [];
+        $this->fields = array();
     }
 }

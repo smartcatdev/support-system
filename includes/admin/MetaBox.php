@@ -78,7 +78,7 @@ abstract class MetaBox extends ActionListener {
         add_meta_box(
             $this->id,
             $this->title,
-            [ $this, 'render' ],
+            array( $this, 'render' ),
             $this->post_type,
             $this->context,
             $this->priority
