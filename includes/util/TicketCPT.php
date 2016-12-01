@@ -5,6 +5,8 @@ namespace SmartcatSupport\util;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\agents_dropdown;
 use SmartcatSupport\form\field\SelectBox;
+use function SmartcatSupport\get_agents;
+use function SmartcatSupport\get_products;
 use function SmartcatSupport\products_dropdown;
 use const SmartcatSupport\TEXT_DOMAIN;
 
@@ -82,14 +84,17 @@ class TicketCPT extends ActionListener {
     public function post_columns( $columns ) {
         $cb = array_splice( $columns, 0, 1 );
         unset( $columns['title'] );
+        unset( $columns['author'] );
 
         return array_merge(
             $cb + array(
                 'id'       => __( 'Case #', TEXT_DOMAIN ),
                 'title'    => __( 'Subject', TEXT_DOMAIN ),
+                'product'  => __( 'Product', TEXT_DOMAIN ),
                 'email'    => __( 'Email', TEXT_DOMAIN ),
                 'status'   => __( 'Status', TEXT_DOMAIN ),
-                'priority' => __( 'Priority', TEXT_DOMAIN )
+                'priority' => __( 'Priority', TEXT_DOMAIN ),
+                'assigned' => __( 'Assigned', TEXT_DOMAIN )
             ),
             $columns
         );
@@ -103,6 +108,26 @@ class TicketCPT extends ActionListener {
 
             case 'email':
                 esc_html_e( get_post_meta( $post_id, 'email', true ) );
+                break;
+
+            case 'product':
+                $products = get_products();
+                $value = get_post_meta( $post_id, 'product', true ) ;
+
+                if( !empty( $products ) && array_key_exists( $value, $products ) ) {
+                    echo $products[ $value ];
+                }
+
+                break;
+
+            case 'assigned':
+                $agents = get_agents();
+                $value = get_post_meta( $post_id, 'agent', true );
+
+                if( !empty( $agents ) && array_key_exists( $value, $agents ) ) {
+                    echo $agents[ $value ];
+                }
+
                 break;
 
             case 'status':
