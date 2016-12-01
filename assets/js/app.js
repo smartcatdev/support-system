@@ -11,7 +11,18 @@
             data = {action: action}
         }
 
-        $.post(app.ajaxURL, $.param(data), callback);
+        $.ajax({
+            url: app.ajaxUrl,
+            data: $.param(data),
+            success: function (result,status,xhr) {
+                callback(result);
+            },
+            error: function (result,status,xhr) {
+                console.log('result: ' + result + ' status: ' + status + ' xhr:' + xhr);
+            }
+        });
+
+        // $.post(app.ajaxURL, $.param(data), callback);
     },
 
     app.tinymce = function (selector) {
