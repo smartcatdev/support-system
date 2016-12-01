@@ -1,21 +1,4 @@
 <?php
-//option allow users to register
-
-
-/*
- * 
- * 
- * Is the user logged in ?
- * -- navbar.php
- * -- dash.php
- * else 
- * -- login.php
- * 
- * 
- * 
- * 
- */
-
 
 include_once SUPPORT_PATH . '/template-parts/header.php';
 
