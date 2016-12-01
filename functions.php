@@ -81,6 +81,16 @@ function init( $fs_context ) {
         }
     } );
 
+    add_action( 'admin_enqueue_scripts', function ( $hook ) {
+        if( $hook = 'edit.php?post_type=support_ticket') {
+            wp_register_script( 'admin_js',
+                SUPPORT_URL . 'assets/admin/admin.js', array( 'jquery' ), PLUGIN_VERSION );
+
+            wp_localize_script( 'admin_js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
+            wp_enqueue_script( 'admin_js' );
+        }
+    } );
+
     //<editor-fold desc="Enqueue Assets">
 //    add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
 //        wp_enqueue_script( 'datatables',
@@ -172,11 +182,11 @@ function get_agents() {
  * Get a list of Products and/or Downloads if EDD or WooCommerce is active.
  *
  * @author Eric Green <eric@smartcat.ca>
- * @return bool|array False if neither is active, else an array of post titles and IDs.
+ * @return array Empty if neither is active, else an array of post titles and IDs.
  * @since 1.0.0
  */
 function get_products() {
-    $results = false;
+    $results = array();
 
     if( SUPPORT_WOO_ACTIVE && get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
         $args = array(
@@ -316,3 +326,18 @@ function agents_dropdown( $name, $selected = '', $echo = true ) {
     return $select;
 }
 
+function products_dropdown( $name, $selected = '', $echo = true ) {
+    $select = new SelectBox( $name,
+        array(
+            'value' => $selected,
+            'options' => array( '' => __( 'All Products', TEXT_DOMAIN ) ) + get_products()
+        )
+    );
+
+    if( $echo ) {
+        $select->render();
+        $select = null;
+    }
+
+    return $select;
+}

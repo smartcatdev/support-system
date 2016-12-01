@@ -20,9 +20,15 @@ class SelectBox extends Field {
     
     public function render() { ?>
 
-        <select data-field_name="<?php esc_attr_e( $this->id ); ?>"
-            name="<?php esc_attr_e( $this->id ); ?>"
-            class="form_field">
+        <select name="<?php esc_attr_e( $this->id ); ?>"
+            class="form_field <?php echo esc_attr_e( $this->class ); ?>"
+
+            <?php foreach( $this->data_attrs as $attr => $value ) : ?>
+
+                data-<?php echo $attr; ?>="<?php esc_attr_e( $value ); ?>"
+
+            <?php endforeach; ?> >
+
 
             <?php foreach( $this->options as $value => $label ) : ?>
                 

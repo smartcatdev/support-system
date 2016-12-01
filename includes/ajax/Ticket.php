@@ -30,6 +30,7 @@ class Ticket extends ActionListener {
     public function __construct( FormBuilder $builder ) {
         $this->builder = $builder;
 
+        $this->add_ajax_action( 'support_update_meta', 'update_meta_field' );
         $this->add_ajax_action( 'support_new_ticket', 'new_ticket' );
         $this->add_ajax_action( 'support_create_ticket', 'create_ticket' );
         $this->add_ajax_action( 'support_view_ticket', 'view_ticket' );
@@ -102,6 +103,12 @@ class Ticket extends ActionListener {
                     'form' => $this->configure_meta_form( $ticket )
                 ) )
             );
+        }
+    }
+
+    public function update_meta_field() {
+        if( $this->valid_request() ) {
+            update_post_meta( $_REQUEST['id'], $_REQUEST['meta'], $_REQUEST['value'] );
         }
     }
 

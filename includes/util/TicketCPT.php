@@ -4,6 +4,8 @@ namespace SmartcatSupport\util;
 
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\agents_dropdown;
+use SmartcatSupport\form\field\SelectBox;
+use function SmartcatSupport\products_dropdown;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 class TicketCPT extends ActionListener {
@@ -106,13 +108,29 @@ class TicketCPT extends ActionListener {
             case 'status':
                 $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
-                esc_html_e( $statuses[ get_post_meta( $post_id, 'status', true ) ] );
+                ( new SelectBox( 'status',
+                    array(
+                        'data_attrs' => array( 'post_id' => $post_id ),
+                        'value'      => get_post_meta( $post_id, 'status', true ),
+                        'options'    => $statuses,
+                        'class'      => 'admin-control'
+                    )
+                ) )->render();
+
                 break;
 
             case 'priority':
                 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-                esc_html_e( $priorities[ get_post_meta( $post_id, 'priority', true ) ] );
+                ( new SelectBox( 'priority',
+                    array(
+                        'data_attrs' => array( 'post_id' => $post_id ),
+                        'value'      => get_post_meta( $post_id, 'priority', true ),
+                        'options'    => $priorities,
+                        'class'      => 'admin-control'
+                    )
+                ) )->render();
+
                 break;
 
         }
@@ -132,6 +150,7 @@ class TicketCPT extends ActionListener {
     public function post_filters() {
         if ( get_current_screen()->post_type == 'support_ticket' ) {
             agents_dropdown( 'agent', ! empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : '' );
+            products_dropdown( 'product', ! empty( $_REQUEST['product'] ) ? $_REQUEST['product'] : '');
         }
     }
 
@@ -142,6 +161,10 @@ class TicketCPT extends ActionListener {
 
             if ( ! empty( $_REQUEST['agent'] ) ) {
                 $query->query_vars['meta_query'][] = array( 'key' => 'agent', 'value' => $_REQUEST['agent'] );
+            }
+
+            if ( ! empty( $_REQUEST['product'] ) ) {
+                $query->query_vars['meta_query'][] = array( 'key' => 'product', 'value' => $_REQUEST['product'] );
             }
 
         }

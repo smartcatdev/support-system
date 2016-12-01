@@ -7,8 +7,10 @@ abstract class Field {
     protected $value;
     protected $label;
     protected $desc;
+    protected $class;
     protected $error_message;
-    protected $constraints = [];
+    protected $constraints = array();
+    protected $data_attrs = array();
     protected $sanitize_callback;
  
     public function __construct( $id, array $args = array() ) {
@@ -36,6 +38,14 @@ abstract class Field {
 
         if( isset( $args['sanitize_callback'] ) ) {
             $this->sanitize_callback = $args['sanitize_callback'];
+        }
+
+        if( isset( $args['class'] ) ) {
+            $this->class = $args['class'];
+        }
+
+        if( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
+            $this->data_attrs = $args['data_attrs'];
         }
     }
 
