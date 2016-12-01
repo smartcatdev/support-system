@@ -157,7 +157,6 @@ class TicketCPT extends ActionListener {
                 ) )->render();
 
                 break;
-
         }
     }
 
@@ -176,7 +175,6 @@ class TicketCPT extends ActionListener {
     public function post_filters() {
         if ( get_current_screen()->post_type == 'support_ticket' ) {
             agents_dropdown( 'agent', ! empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : '' );
-            products_dropdown( 'product', ! empty( $_REQUEST['product'] ) ? $_REQUEST['product'] : '');
         }
     }
 
@@ -184,15 +182,13 @@ class TicketCPT extends ActionListener {
         if ( ( ! empty( $GLOBALS['typenow'] ) && ! empty( $GLOBALS['pagenow'] ) ) &&
              ( $GLOBALS['typenow'] == 'support_ticket' && $GLOBALS['pagenow'] == 'edit.php' )
         ) {
+            $meta_query = array();
 
-            if ( ! empty( $_REQUEST['agent'] ) ) {
-                $query->query_vars['meta_query'][] = array( 'key' => 'agent', 'value' => $_REQUEST['agent'] );
+            if ( !empty( $_REQUEST['agent'] ) ) {
+                $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
             }
 
-            if ( ! empty( $_REQUEST['product'] ) ) {
-                $query->query_vars['meta_query'][] = array( 'key' => 'product', 'value' => $_REQUEST['product'] );
-            }
-
+            $query->query_vars['meta_query'] = $meta_query;
         }
 
         return $query;
