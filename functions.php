@@ -126,6 +126,8 @@ function init( $fs_context ) {
     add_action( 'plugins_loaded', function() {
         define( 'SUPPORT_WOO_ACTIVE', class_exists( 'WooCommerce' ) );
         define( 'SUPPORT_EDD_ACTIVE', class_exists( 'Easy_Digital_Downloads' ) );
+        define( 'SUPPORT_PATH', dirname( __FILE__ ) );
+        define( 'SUPPORT_URL', plugin_dir_url( __FILE__ ) );
     } );
 
     register_activation_hook( $fs_context, array( $installer, 'activate' ) );
