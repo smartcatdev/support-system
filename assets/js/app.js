@@ -11,7 +11,18 @@
             data = {action: action}
         }
 
-        $.post(app.ajaxURL, $.param(data), callback);
+        $.ajax({
+            url: app.ajaxUrl,
+            data: $.param(data),
+            success: function (result,status,xhr) {
+                callback(result);
+            },
+            error: function (result,status,xhr) {
+                console.log('result: ' + result + ' status: ' + status + ' xhr:' + xhr);
+            }
+        });
+
+        // $.post(app.ajaxURL, $.param(data), callback);
     },
 
     app.tinymce = function (selector) {
@@ -29,11 +40,13 @@
     },
 
     app.submit_form = function (e) {
+        
         e.preventDefault();
 
         var form = $(this);
 
         app.ajax(form.data('action'), form.serializeArray(), function (response) {
+            
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 

@@ -22,8 +22,8 @@ use SmartcatSupport\util\Installer;
 function init( $fs_context ) {
 
     // Configure the application
-    $plugin_dir = plugin_dir_path( $fs_context );
-    $plugin_url = plugin_dir_url( $fs_context );
+//    $plugin_dir = plugin_dir_path( $fs_context );
+//    $plugin_url = plugin_dir_url( $fs_context );
 
     // Configure table Handler
     $table_handler = new TicketTable();
@@ -40,21 +40,16 @@ function init( $fs_context ) {
     // Configure installer
     $installer = new Installer();
 
-    add_shortcode( 'support-system', function() {
-        disable_admin_bar();
-
-        if( is_user_logged_in() && current_user_can( 'view_support_tickets' ) ) {
-            echo render_template( 'dash' );
-        } else {
-            echo render_template( 'login' );
-        }
+    add_action( 'plugins_loaded', function() use ( $fs_context ) {
+        define( 'SUPPORT_WOO_ACTIVE', class_exists( 'WooCommerce' ) );
+        define( 'SUPPORT_EDD_ACTIVE', class_exists( 'Easy_Digital_Downloads' ) );
+        define( 'SUPPORT_PATH', dirname( $fs_context ) );
+        define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
     } );
 
-    add_action( 'template_include', function ( $template ) use ( $plugin_dir )  {
+    add_action( 'template_include', function ( $template ) {
         if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-            disable_admin_bar();
-
-            $template = $plugin_dir . 'templates/template.php';
+            $template = SUPPORT_PATH . '/templates/template.php';
         }
 
         return $template;
@@ -84,49 +79,47 @@ function init( $fs_context ) {
     } );
 
     //<editor-fold desc="Enqueue Assets">
-    add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
-        wp_enqueue_script( 'datatables',
-            $plugin_url . 'assets/lib/datatables/datatables.min.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_enqueue_style( 'datatables',
-            $plugin_url . 'assets/lib/datatables/datatables.min.css', array(), PLUGIN_VERSION );
-
-        wp_enqueue_style( 'jquery-modal',
-            $plugin_url . 'assets/lib/modal/jquery.modal.min.css', array(), PLUGIN_VERSION );
-
-        wp_enqueue_script( 'jquery-modal',
-            $plugin_url . 'assets/lib/modal/jquery.modal.min.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_enqueue_script( 'tabular',
-            $plugin_url . 'assets/lib/tabular.js', array('jquery' ), PLUGIN_VERSION );
-
-        wp_enqueue_script( 'tinymce_js',
-            includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', array( 'jquery' ), false, true );
-
-        wp_register_script( 'support_system_lib',
-            $plugin_url . 'assets/js/app.js', array( 'jquery', 'jquery-ui-tabs' ), PLUGIN_VERSION );
-
-        wp_localize_script( 'support_system_lib', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
-        wp_enqueue_script( 'support_system_lib' );
-
-        wp_enqueue_script( 'support_system_script',
-            $plugin_url . 'assets/js/script.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-core', 'support_system_lib' ), PLUGIN_VERSION );
-
-        wp_enqueue_style( 'support_system_style',
-            $plugin_url . 'assets/css/style.css', array(), PLUGIN_VERSION );
-
-        wp_enqueue_style( 'support_system_datatables',
-            $plugin_url . 'assets/css/datatables.css', array(), PLUGIN_VERSION );
-
-        wp_enqueue_style( 'support_system_icons',
-            $plugin_url . 'assets/icons.css', array(), PLUGIN_VERSION );
-    } );
+//    add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
+//        wp_enqueue_script( 'datatables',
+//            $plugin_url . 'assets/lib/datatables/datatables.min.js', array( 'jquery' ), PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'datatables',
+//            $plugin_url . 'assets/lib/datatables/datatables.min.css', array(), PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'jquery-modal',
+//            $plugin_url . 'assets/lib/modal/jquery.modal.min.css', array(), PLUGIN_VERSION );
+//
+//        wp_enqueue_script( 'jquery-modal',
+//            $plugin_url . 'assets/lib/modal/jquery.modal.min.js', array( 'jquery' ), PLUGIN_VERSION );
+//
+//        wp_enqueue_script( 'tabular',
+//            $plugin_url . 'assets/lib/tabular.js', array('jquery' ), PLUGIN_VERSION );
+//
+//        wp_enqueue_script( 'tinymce_js',
+//            includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', array( 'jquery' ), false, true );
+//
+//        wp_register_script( 'support_system_lib',
+//            $plugin_url . 'assets/js/app.js', array( 'jquery', 'jquery-ui-tabs' ), PLUGIN_VERSION );
+//
+//        wp_localize_script( 'support_system_lib', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
+//        wp_enqueue_script( 'support_system_lib' );
+//
+//        wp_enqueue_script( 'support_system_script',
+//            $plugin_url . 'assets/js/script.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-core', 'support_system_lib' ), PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'support_system_style',
+//            $plugin_url . 'assets/css/style.css', array(), PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'support_system_appearance',
+//            $plugin_url . 'assets/css/common.css', array(), PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'support_system_datatables',
+//            $plugin_url . 'assets/css/datatables.css', array(), PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'support_system_icons',
+//            $plugin_url . 'assets/icons.css', array(), PLUGIN_VERSION );
+//    } );
     //</editor-fold>
-
-    add_action( 'plugins_loaded', function() {
-        define( 'SUPPORT_WOO_ACTIVE', class_exists( 'WooCommerce' ) );
-        define( 'SUPPORT_EDD_ACTIVE', class_exists( 'Easy_Digital_Downloads' ) );
-    } );
 
     register_activation_hook( $fs_context, array( $installer, 'activate' ) );
     register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
@@ -234,12 +227,6 @@ function render_template( $template, array $data = array() ) {
     include ( plugin_dir_path( __FILE__ ) . 'templates/' . $template . '.php' );
 
     return ob_get_clean();
-}
-
-function disable_admin_bar() {
-    if( current_user_can( 'view_support_tickets' ) ) {
-        show_admin_bar( false );
-    }
 }
 
 function register_form() {

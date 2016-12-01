@@ -1,0 +1,120 @@
+/* 
+Created on : 30-Nov-2016, 6:38:28 PM
+Author     : bilal
+Description: Styles for frontend application
+
+
+## General
+## Login page
+## Navbar
+## Sidebar
+## Main
+
+*/
+
+/*
+## General
+*/
+
+body{
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.button-primary,
+.trigger,
+input[type="submit"]{
+    text-shadow: none;
+    outline: none;
+    padding: 10px 25px;
+    font-size: 14px;
+    background: #009DDC;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+}
+
+.trigger {
+    background: #8B8C8C;
+    color: #fff;
+}
+
+/*
+## Login page
+*/
+#support-login-page{
+    background-image: url('https://cdn.desk.com/assets/login-bkg-a3243b2940db100097dcfff095bc9675.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#support-login-wrapper {
+    margin: 70px auto;
+    width: 400px;
+    position: relative;
+}
+
+#support-login-form{
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1),0 2px 4px 0 rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+#support-login-form img.logo{
+    
+    max-width: 125px;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+#support-login-disclaimer {
+    color: #7b858d;
+    text-align: center;
+}
+
+#support-login-wrapper input[type="text"],
+#support-login-wrapper input[type="email"],
+#support-login-wrapper input[type="password"]{
+    padding: 10px 10px;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    background: #FCFCFC;
+    border: 1px solid #DDDDDD;
+    box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.06);
+    border-radius: 3px;
+    display: block;
+}
+
+#support-login-wrapper input[type="text"]:focus,
+#support-login-wrapper input[type="email"]:focus,
+#support-login-wrapper input[type="password"]:focus{
+    border: 1px solid #009DDC;
+}
+
+#support-login-wrapper label {
+    color: #7b858d;
+}
+
+#support-login-wrapper .button-primary {
+    text-transform: uppercase;
+    width: 100%;
+    display: block;
+}
+
+#support-login-wrapper th,
+#support-login-wrapper td {
+    display: block;
+}
+
+#register_form{
+    display: none;
+}
+
+

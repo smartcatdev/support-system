@@ -24,13 +24,10 @@ jQuery(document).ready(function ($) {
                 event.preventDefault();
                 return;
             }
-
-            ui.jqXHR.success(function() {
-                ui.tab.data( 'loaded', true );
-            });
         },
 
         load: function (even, ui) {
+            ui.tab.data( 'loaded', true );
             SupportSystem.init_table();
         },
 
@@ -50,6 +47,5 @@ jQuery(document).ready(function ($) {
         tabs.tabs( 'refresh' );
     });
 
-
-
+    
 });

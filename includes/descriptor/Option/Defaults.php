@@ -101,4 +101,14 @@ final class Defaults {
      * @since 1.0.0
      */
     const ALLOW_SIGNUPS = true;
+
+    /**
+     * @since 1.0.0
+     */
+    const LOGIN_DISCLAIMER = 'I agree to the terms and conditions';
+
+    /**
+     * @since 1.0.0
+     */
+    const LOGIN_LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
 }

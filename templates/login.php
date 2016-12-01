@@ -4,53 +4,72 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\register_form;
 use SmartcatSupport\form\Form;
 use const SmartcatSupport\TEXT_DOMAIN;
-
 ?>
 
 <?php $signups = get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ); ?>
 
-<div id="login_form">
+<div id="support-login-page">
 
-    <?php wp_login_form(); ?>
+    <div id="support-login-wrapper">
+        
+        <div id="support-login-form">
+            
+            <img class="logo" src="<?php echo get_option( Option::LOGIN_LOGO, Option\Defaults::LOGIN_LOGO ) ?>"/>
+            
+            <div id="login_form">
 
-    <?php if( $signups ) : ?>
+                <?php wp_login_form(); ?>
 
-        <button class="trigger" data-action="toggle_register_form">
+                <?php if ( $signups ) : ?>
 
-            <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                    <button class="trigger" data-action="toggle_register_form">
 
-        </button>
+                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>
 
-    <?php endif; ?>
+                    </button>
 
-</div>
-
-<?php if( $signups ) : ?>
-
-    <div id="register_form" class="hidden">
-
-        <form class="support_form"
-            data-action="support_register_user"
-            data-after="post_user_register">
-
-            <?php Form::form_fields( register_form() ); ?>
-
-            <div class="button_wrapper">
-
-                <button class="trigger" data-action="toggle_register_form">
-
-                    <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), TEXT_DOMAIN ); ?>
-
-                </button>
-
-                <input class="button"
-                    type="submit"
-                    value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>"/>
+                <?php endif; ?>
 
             </div>
 
-        </form>
+            <?php if ( $signups ) : ?>
 
+                <div id="register_form">
+
+                    <form class="support_form"
+                          data-action="support_register_user"
+                          data-after="post_user_register">
+
+                        <?php Form::form_fields( register_form() ); ?>
+
+                        <div class="button_wrapper">
+
+                            <button class="trigger" data-action="toggle_register_form">
+
+                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), TEXT_DOMAIN ); ?>
+
+                            </button>
+
+                            <input class="button"
+                                   type="submit"
+                                   value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>"/>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+            <?php endif; ?>
+        </div>
+        
+        <div id="support-login-disclaimer">
+            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), TEXT_DOMAIN ); ?>
+        </div>
+        
     </div>
 
-<?php endif; ?>
+
+
+</div>
