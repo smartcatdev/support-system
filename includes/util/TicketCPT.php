@@ -166,7 +166,8 @@ class TicketCPT extends ActionListener {
             array(
                 'status'   => 'status',
                 'priority' => 'priority',
-                'author'   => 'author'
+                'assigned' => 'assigned'
+
             ),
             $columns
         );
