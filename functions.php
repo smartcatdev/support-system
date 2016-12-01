@@ -12,6 +12,7 @@ use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
+use SmartcatSupport\util\TicketCPT;
 
 /**
  * Composition Root for the plugin.
@@ -36,6 +37,8 @@ function init( $fs_context ) {
 
     // Configure the metabox
     $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_form' ) );
+
+    $ticket_cpt = new TicketCPT();
 
     // Configure installer
     $installer = new Installer();
