@@ -29,11 +29,13 @@
     },
 
     app.submit_form = function (e) {
+        
         e.preventDefault();
 
         var form = $(this);
 
         app.ajax(form.data('action'), form.serializeArray(), function (response) {
+            
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 

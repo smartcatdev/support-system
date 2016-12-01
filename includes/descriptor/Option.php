@@ -95,4 +95,16 @@ final class Option {
      * @since 1.0.0
      */
     const ALLOW_SIGNUPS = 'ca.smartcat.support.allow_signups';
+    
+    /**
+     * @since 1.0.0
+     */
+    const LOGIN_DISCLAIMER = 'ca.smartcat.support.login_disclaimer';
+    
+    /**
+     * @since 1.0.0
+     */
+    const LOGIN_LOGO = 'ca.smartcat.support.login_logo';
+    
+    
 }

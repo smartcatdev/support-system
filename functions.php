@@ -115,6 +115,9 @@ function init( $fs_context ) {
         wp_enqueue_style( 'support_system_style',
             $plugin_url . 'assets/css/style.css', array(), PLUGIN_VERSION );
 
+        wp_enqueue_style( 'support_system_appearance',
+            $plugin_url . 'assets/css/common.css', array(), PLUGIN_VERSION );
+
         wp_enqueue_style( 'support_system_datatables',
             $plugin_url . 'assets/css/datatables.css', array(), PLUGIN_VERSION );
 
@@ -276,6 +279,7 @@ function register_form() {
 }
 
 function register_user() {
+    error_log("assad");
     $form = register_form();
 
     if( $form->is_valid() ) {
