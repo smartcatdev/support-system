@@ -1,12 +1,16 @@
-.flag.active {
+.support_icon.flag.active {
     color: red;
 }
 
-.flag {
-    color: #72777c;
+.support_icon.flag {
+    color: #b4b9be;
 }
 
-.admin-toggle {
+.support_icon {
+    font-size: 1.2em;
+}
+
+.support_admin_toggle {
     cursor: pointer;
 }
 

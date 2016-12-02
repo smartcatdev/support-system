@@ -5,6 +5,7 @@ namespace SmartcatSupport;
 use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
+use SmartcatSupport\admin\TicketAdminTable;
 use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\TicketTable;
@@ -14,7 +15,7 @@ use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
-use SmartcatSupport\util\TicketCPT;
+
 
 /**
  * Composition Root for the plugin.
@@ -23,7 +24,10 @@ use SmartcatSupport\util\TicketCPT;
  * @since 1.0.0
  */
 function init( $fs_context ) {
-
+    add_filter('bulk_actions-support_ticket', function ( $actions ){
+        unset( $actions['inline'] );
+        return $actions;
+    });
     // Configure the application
 //    $plugin_dir = plugin_dir_path( $fs_context );
 //    $plugin_url = plugin_dir_url( $fs_context );
@@ -44,7 +48,7 @@ function init( $fs_context ) {
 
     $customer_metabox = new CustomerMetaBox( new FormBuilder( 'metabox_customer_form' ) );
 
-    $ticket_cpt = new TicketCPT();
+    $ticket_admin = new TicketAdminTable();
 
     // Configure installer
     $installer = new Installer();
