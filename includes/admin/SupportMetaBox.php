@@ -29,7 +29,7 @@ class SupportMetaBox extends MetaBox {
             'ticket_meta',
             __( 'Ticket Information', TEXT_DOMAIN ),
             'support_ticket',
-            'advanced',
+            'normal',
             'high'
         );
 

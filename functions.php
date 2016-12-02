@@ -44,8 +44,14 @@ function init( $fs_context ) {
     $installer = new Installer();
 
     add_action( 'plugins_loaded', function() use ( $fs_context ) {
-        define( 'SUPPORT_WOO_ACTIVE', class_exists( 'WooCommerce' ) );
-        define( 'SUPPORT_EDD_ACTIVE', class_exists( 'Easy_Digital_Downloads' ) );
+        if( class_exists( 'WooCommerce' ) ) {
+            define( 'SUPPORT_WOO_ACTIVE', 1 );
+        }
+
+        if( class_exists( 'Easy_Digital_Downloads' ) ) {
+            define( 'SUPPORT_EDD_ACTIVE', 1 );
+        }
+
         define( 'SUPPORT_PATH', dirname( $fs_context ) );
         define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
     } );
@@ -64,7 +70,7 @@ function init( $fs_context ) {
 
     // Temporarily add/remove roles until we get a settings page
     add_action( 'admin_init', function() {
-        if ( SUPPORT_EDD_ACTIVE ) {
+        if ( defined( 'SUPPORT_EDD_ACTIVE' ) ) {
             if ( get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
                 append_user_caps( 'subscriber' );
             } else {
@@ -72,7 +78,7 @@ function init( $fs_context ) {
             }
         }
 
-        if ( SUPPORT_WOO_ACTIVE ) {
+        if ( defined( 'SUPPORT_WOO_ACTIVE' ) ) {
             if ( get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
                 append_user_caps( 'customer' );
             } else {
@@ -191,7 +197,7 @@ function get_agents() {
 function get_products() {
     $results = array();
 
-    if( SUPPORT_WOO_ACTIVE && get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
+    if( defined( 'SUPPORT_WOO_ACTIVE' ) && get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
         $args = array(
             'post_type' => 'product',
             'post_status' => 'publish',
@@ -206,7 +212,7 @@ function get_products() {
         }
     }
 
-    if( SUPPORT_EDD_ACTIVE && get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
+    if( defined( 'SUPPORT_EDD_ACTIVE' ) && get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
         $args = array(
             'post_type' => 'download',
             'post_status' => 'publish',

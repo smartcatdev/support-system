@@ -7,7 +7,6 @@ use function SmartcatSupport\agents_dropdown;
 use SmartcatSupport\form\field\SelectBox;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
-use function SmartcatSupport\products_dropdown;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 class TicketCPT extends ActionListener {
@@ -92,10 +91,10 @@ class TicketCPT extends ActionListener {
                 'title'    => __( 'Subject', TEXT_DOMAIN ),
                 'product'  => __( 'Product', TEXT_DOMAIN ),
                 'email'    => __( 'Email', TEXT_DOMAIN ),
+                'assigned' => __( 'Assigned', TEXT_DOMAIN ),
                 'status'   => __( 'Status', TEXT_DOMAIN ),
                 'priority' => __( 'Priority', TEXT_DOMAIN ),
-                'flag'     => '<i class="icon-flag2"></i>',
-                'assigned' => __( 'Assigned', TEXT_DOMAIN )
+                'flag'     => '<i class="icon-flag2"></i>'
             ),
             $columns
         );
