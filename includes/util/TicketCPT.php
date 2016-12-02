@@ -94,6 +94,7 @@ class TicketCPT extends ActionListener {
                 'email'    => __( 'Email', TEXT_DOMAIN ),
                 'status'   => __( 'Status', TEXT_DOMAIN ),
                 'priority' => __( 'Priority', TEXT_DOMAIN ),
+                'flag'     => '<i class="icon-flag2"></i>',
                 'assigned' => __( 'Assigned', TEXT_DOMAIN )
             ),
             $columns
@@ -156,6 +157,14 @@ class TicketCPT extends ActionListener {
                     )
                 ) )->render();
 
+                break;
+
+            case 'flag':
+                $flagged = boolval( get_post_meta( $post_id, 'flagged', true ) );
+
+                echo '<i class="admin-toggle flag icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
+                         'name="flagged"' .
+                         'data-id="' . $post_id .'"></i>';
                 break;
         }
     }

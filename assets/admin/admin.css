@@ -1,0 +1,11 @@
+.flag.active {
+    color: #32373c;
+}
+
+.flag {
+    color: #72777c;
+}
+
+.admin-toggle {
+    cursor: pointer;
+}
