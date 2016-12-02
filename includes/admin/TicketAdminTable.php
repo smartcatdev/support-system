@@ -49,7 +49,7 @@ class TicketAdminTable extends ActionListener {
                 'assigned' => __( 'Assigned', TEXT_DOMAIN ),
                 'status'   => __( 'Status', TEXT_DOMAIN ),
                 'priority' => __( 'Priority', TEXT_DOMAIN ),
-                'flag'     => '<i class="support_icon icon-flag2"></i>'
+                'flagged'     => '<i class="support_icon icon-flag2"></i>'
             ),
             $columns
         );
@@ -103,10 +103,12 @@ class TicketAdminTable extends ActionListener {
 
                 break;
 
-            case 'flag':
+            case 'flagged':
                 $flagged = boolval( get_post_meta( $post_id, 'flagged', true ) );
 
-                echo '<i class="support_admin_toggle support_icon flag icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
+                echo '<p style="display: none;">' . ( $flagged ? 1 : 0 ) . '</p>' .
+
+                     '<i class="support_admin_toggle support_icon flag icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
                          'name="flagged"' .
                          'data-id="' . $post_id .'"></i>';
                 break;
@@ -119,7 +121,7 @@ class TicketAdminTable extends ActionListener {
                 'status'   => 'status',
                 'priority' => 'priority',
                 'assigned' => 'assigned',
-                'product'  => 'product'
+                'product'  => 'product',
             ),
             $columns
         );
