@@ -40,17 +40,25 @@ class TicketAdminTable extends ActionListener {
         unset( $columns['title'] );
         unset( $columns['author'] );
 
+        $product_cols = array();
+
+        if( !empty( get_products() ) ) {
+            $product_cols['thumb'] = '<i class="support_icon dashicons dashicons-format-image"></i>';
+            $product_cols['product'] = __( 'Product', TEXT_DOMAIN );
+        }
+
         return array_merge(
             $cb + array(
                 'id'       => __( 'Case #', TEXT_DOMAIN ),
-                'title'    => __( 'Subject', TEXT_DOMAIN ),
-                'product'  => __( 'Product', TEXT_DOMAIN ),
+                'title'    => __( 'Subject', TEXT_DOMAIN )
+            ) +
+            $product_cols + array (
                 'email'    => __( 'Email', TEXT_DOMAIN ),
-                'assigned' => __( 'Assigned', TEXT_DOMAIN ),
+                'agent'    => __( 'Assigned', TEXT_DOMAIN ),
                 'status'   => __( 'Status', TEXT_DOMAIN ),
                 'priority' => __( 'Priority', TEXT_DOMAIN ),
                 'flagged'     => '<i class="support_icon icon-flag2"></i>'
-            ),
+            ) +
             $columns
         );
     }
@@ -76,11 +84,23 @@ class TicketAdminTable extends ActionListener {
 
                 break;
 
-            case 'assigned':
+            case 'thumb':
+                $products = get_products();
+                $value = get_post_meta( $post_id, 'product', true );
+
+                if( !empty( $products ) && array_key_exists( $value, $products ) ) {
+                    echo get_the_post_thumbnail( $value, array( 150, 150 ) );
+                }
+
+                break;
+
+            case 'agent':
                 $agents = get_agents();
 
-                if( !empty( $agents ) && array_key_exists( $value, $agents ) ) {
+                if( array_key_exists( $value, $agents ) ) {
                     echo $agents[ $value ];
+                } else {
+                    _e( 'Unassigned', TEXT_DOMAIN );
                 }
 
                 break;
@@ -129,18 +149,20 @@ class TicketAdminTable extends ActionListener {
 
     public function quick_edit( $column, $post_type ) {
         if( $post_type == 'support_ticket' && $column == 'id' ) {
-            echo render_template( 'ticket_quick_edit', array( 'form' => $this->quick_edit_form( $GLOBALS['post'] ) ) );
+            echo render_template( 'ticket_quick_edit', array( 'form' => $this->quick_edit_form() ) );
         }
     }
 
     public function quick_edit_save( $post_id ) {
-        $form = $this->quick_edit_form( $post_id );
+        if( DOING_AJAX ) {
+            $form = $this->quick_edit_form( $post_id );
 
-        if( $form->is_valid() ) {
-            $data = $form->get_data();
+            if ( $form->is_valid() ) {
+                $data = $form->get_data();
 
-            foreach( $data as $key => $value ) {
-                update_post_meta( $post_id, $key, $value );
+                foreach ( $data as $key => $value ) {
+                    update_post_meta( $post_id, $key, $value );
+                }
             }
         }
     }
@@ -172,8 +194,7 @@ class TicketAdminTable extends ActionListener {
         return $query;
     }
 
-
-    private function quick_edit_form( $post_id ) {
+    private function quick_edit_form() {
         $builder = new FormBuilder( 'quick_edit' );
         $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
@@ -182,7 +203,6 @@ class TicketAdminTable extends ActionListener {
         $builder->add( SelectBox::class, 'agent', array(
             'label'             => __( 'Assigned', TEXT_DOMAIN ),
             'options'           => $agents,
-            'value'             => get_post_meta( $post_id, 'agent', true ),
             'constraints'       => array(
                 $builder->create_constraint( Choice::class, array_keys( $agents ) )
             )
@@ -190,15 +210,14 @@ class TicketAdminTable extends ActionListener {
         ) )->add( SelectBox::class, 'status', array(
             'label'             => __( 'Status', TEXT_DOMAIN ),
             'options'           => $statuses,
-            'value'             => get_post_meta( $post_id, 'status', true ),
             'constraints'       => array(
                 $builder->create_constraint( Choice::class, array_keys( $statuses ) )
             )
+
         ) )->add( SelectBox::class, 'priority', array(
             'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
             'label'       => __( 'Priority', TEXT_DOMAIN ),
             'options'     => $priorities,
-            'value'       => get_post_meta( $post_id, 'priority', true ),
             'constraints' => array(
                 $builder->create_constraint( Choice::class, array_keys( $priorities ) )
             )
