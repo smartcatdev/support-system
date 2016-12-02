@@ -9,3 +9,13 @@
 .admin-toggle {
     cursor: pointer;
 }
+
+.support_ticket_metabox .form_field {
+    width: 100%;
+    padding: 5px;
+    height: auto;
+}
+
+.support_ticket_metabox .form-table th {
+    width: auto;
+}

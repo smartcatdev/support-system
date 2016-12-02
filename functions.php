@@ -2,6 +2,8 @@
 
 namespace SmartcatSupport;
 
+use SmartcatSupport\admin\CustomerMetaBox;
+use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
 use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Ticket;
@@ -36,7 +38,11 @@ function init( $fs_context ) {
     $comment_handler = new Comment( new FormBuilder( 'comment_form' ) );
 
     // Configure the metabox
-    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_form' ) );
+    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox__support_form' ) );
+
+    $product_metabox = new ProductMetaBox( new FormBuilder( 'metabox_product_form' ) );
+
+    $customer_metabox = new CustomerMetaBox( new FormBuilder( 'metabox_customer_form' ) );
 
     $ticket_cpt = new TicketCPT();
 

@@ -135,7 +135,7 @@ class TicketCPT extends ActionListener {
 
                 ( new SelectBox( 'status',
                     array(
-                        'data_attrs' => array( 'post_id' => $post_id ),
+                        'data_attrs' => array( 'id' => $post_id ),
                         'value'      => get_post_meta( $post_id, 'status', true ),
                         'options'    => $statuses,
                         'class'      => 'admin-control'
@@ -149,7 +149,7 @@ class TicketCPT extends ActionListener {
 
                 ( new SelectBox( 'priority',
                     array(
-                        'data_attrs' => array( 'post_id' => $post_id ),
+                        'data_attrs' => array( 'id' => $post_id ),
                         'value'      => get_post_meta( $post_id, 'priority', true ),
                         'options'    => $priorities,
                         'class'      => 'admin-control'
