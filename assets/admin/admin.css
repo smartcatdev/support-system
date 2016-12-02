@@ -45,3 +45,7 @@ table.wp-list-table th.column-thumb,
 table.wp-list-table td.thumb {
     text-align: center;
 }
+
+.inline-edit-col .form_field {
+   min-width: 150px;
+}

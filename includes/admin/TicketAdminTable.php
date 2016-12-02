@@ -21,8 +21,6 @@ class TicketAdminTable extends ActionListener {
     }
 
     private function add_actions() {
-
-
         $this->add_action( 'restrict_manage_posts', 'post_filters' );
         $this->add_action( 'parse_query', 'filter_posts' );
 
@@ -33,32 +31,27 @@ class TicketAdminTable extends ActionListener {
         $this->add_action( 'save_post', 'quick_edit_save' );
     }
 
-
-
     public function post_columns( $columns ) {
-        $cb = array_splice( $columns, 0, 1 );
-        unset( $columns['title'] );
         unset( $columns['author'] );
 
+        $left_cols = array_splice( $columns, 0, 2 );
+        $left_cols['title'] = __( 'Subject', TEXT_DOMAIN );
         $product_cols = array();
 
         if( !empty( get_products() ) ) {
-            $product_cols['thumb'] = '<i class="support_icon dashicons dashicons-format-image"></i>';
+            $product_cols['thumb'] = '<span class="support_icon dashicons dashicons-format-image"></span>';
             $product_cols['product'] = __( 'Product', TEXT_DOMAIN );
         }
 
         return array_merge(
-            $cb + array(
-                'id'       => __( 'Case #', TEXT_DOMAIN ),
-                'title'    => __( 'Subject', TEXT_DOMAIN )
-            ) +
-            $product_cols + array (
+            $left_cols, array( 'id' => __( 'Case #', TEXT_DOMAIN ) ), $product_cols,
+            array(
                 'email'    => __( 'Email', TEXT_DOMAIN ),
                 'agent'    => __( 'Assigned', TEXT_DOMAIN ),
                 'status'   => __( 'Status', TEXT_DOMAIN ),
                 'priority' => __( 'Priority', TEXT_DOMAIN ),
                 'flagged'     => '<i class="support_icon icon-flag2"></i>'
-            ) +
+            ),
             $columns
         );
     }
@@ -68,7 +61,16 @@ class TicketAdminTable extends ActionListener {
 
         switch ( $column ) {
             case 'id':
+                $fields = $this->quick_edit_form()->get_fields();
                 echo $post_id;
+                echo '<div class="hidden" id="support_inline_' . $post_id . '">';
+
+                foreach ( $fields as $field ) {
+                    $id = $field->get_id();
+                    echo '<div class="' . $id . '">' . get_post_meta( $post_id, $id, true ) . '</div>';
+                }
+
+                echo '</div>';
                 break;
 
             case 'email':
@@ -154,7 +156,7 @@ class TicketAdminTable extends ActionListener {
     }
 
     public function quick_edit_save( $post_id ) {
-        if( DOING_AJAX ) {
+        if( defined( 'DOING_AJAX' ) ) {
             $form = $this->quick_edit_form( $post_id );
 
             if ( $form->is_valid() ) {
