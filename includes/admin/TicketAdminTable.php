@@ -4,6 +4,7 @@ namespace SmartcatSupport\admin;
 
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\agents_dropdown;
+use function SmartcatSupport\boolean_meta_dropdown;
 use SmartcatSupport\form\constraint\Choice;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\FormBuilder;
@@ -145,6 +146,7 @@ class TicketAdminTable extends ActionListener {
     public function post_filters() {
         if ( get_current_screen()->post_type == 'support_ticket' ) {
             agents_dropdown( 'agent', ! empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : '' );
+            boolean_meta_dropdown( 'meta', ! empty( $_REQUEST['meta'] ) ? $_REQUEST['meta'] : '' );
         }
     }
 
@@ -156,6 +158,10 @@ class TicketAdminTable extends ActionListener {
 
             if ( !empty( $_REQUEST['agent'] ) ) {
                 $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
+            }
+
+            if ( !empty( $_REQUEST['meta'] ) ) {
+                $meta_query[] = array( 'key' => $_REQUEST['meta'], 'value' => true );
             }
 
             $query->query_vars['meta_query'] = $meta_query;

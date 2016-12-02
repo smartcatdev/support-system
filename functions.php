@@ -360,3 +360,19 @@ function products_dropdown( $name, $selected = '', $echo = true ) {
 
     return $select;
 }
+
+function boolean_meta_dropdown( $name, $selected = '', $echo = true ) {
+    $select = new SelectBox( $name,
+        array(
+            'value' => $selected,
+            'options' => array( '' => __( 'All', TEXT_DOMAIN ), 'flagged' => __( 'Flagged', TEXT_DOMAIN ) )
+        )
+    );
+
+    if( $echo ) {
+        $select->render();
+        $select = null;
+    }
+
+    return $select;
+}
