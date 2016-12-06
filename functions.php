@@ -2,6 +2,7 @@
 
 namespace SmartcatSupport;
 
+use Smartcat\admin\SettingsPage;
 use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
@@ -49,6 +50,28 @@ function init( $fs_context ) {
     $customer_metabox = new CustomerMetaBox( new FormBuilder( 'metabox_customer_form' ) );
 
     $ticket_admin = new TicketAdminTable();
+
+    $admin = new SettingsPage(
+        array(
+            'type'          => 'submenu',
+            'parent_menu'   => 'edit.php?post_type=support_ticket',
+            'page_title'    => __( 'Support Settings', TEXT_DOMAIN ),
+            'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
+            'menu_slug'     => 'support-options',
+        )
+    );
+
+    $admin->register();
+
+
+//    protected $type;
+//    protected $page_title;
+//    protected $menu_title;
+//    protected $capability;
+//    protected $menu_slug;
+//    protected $parent_menu;
+//    protected $icon;
+//    protected $position;
 
     // Configure installer
     $installer = new Installer();

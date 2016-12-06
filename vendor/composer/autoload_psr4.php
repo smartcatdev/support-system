@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Smartcat\\' => array($baseDir . '/lib'),
     'SmartcatSupport\\' => array($baseDir . '/includes'),
-    'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
-    'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
 );
