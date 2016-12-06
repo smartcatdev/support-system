@@ -13,7 +13,8 @@ jQuery(document).ready(function ($) {
     //     })
     // })
 
-    $('.support_admin_toggle').click(function () {
+
+    var toggleFlag = function () {
         var field = $(this);
 
         $.ajax({
@@ -25,16 +26,19 @@ jQuery(document).ready(function ($) {
                 id: field.data('id')
             },
 
-            success: function() {
-                if(field.hasClass('active')) {
+            success: function () {
+                if (field.hasClass('active')) {
                     field.removeClass('active');
+                    $('#support_inline_' + field.data('id')).children('.flagged').text('');
                 } else {
+                    $('#support_inline_' + field.data('id')).children('.flagged').text('on');
                     field.addClass('active');
                 }
             }
-        })
-    })
+        });
+    }
 
+    $('.support_admin_toggle[name="flagged"]').on('click', toggleFlag);
 
     var $wp_inline_edit = inlineEditPost.edit;
 
@@ -52,7 +56,7 @@ jQuery(document).ready(function ($) {
                 var field = $('.form_field[name="' + $(this).attr('class') + '"]');
 
                 if(field.attr('type') == 'checkbox') {
-                    field.attr('checked', !$(this).text() == '');
+                    field.attr('checked', $(this).text() === 'on');
                 } else {
                     field.val($(this).text());
                 }
