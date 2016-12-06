@@ -2,13 +2,10 @@
 
 namespace SmartcatSupport\admin;
 
-use function SmartcatSupport\get_products;
+use smartcat\admin\MetaBox;
 use function SmartcatSupport\render_template;
-use function SmartcatSupport\ticket_meta_form;
-use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\form\FormBuilder;
-use SmartcatSupport\form\field\TextBox;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\constraint\Choice;
 use function SmartcatSupport\get_agents;

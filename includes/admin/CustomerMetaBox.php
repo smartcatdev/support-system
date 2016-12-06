@@ -2,6 +2,7 @@
 
 namespace SmartcatSupport\admin;
 
+use smartcat\admin\MetaBox;
 use function SmartcatSupport\render_template;
 use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\form\field\TextBox;

@@ -1,8 +1,8 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace smartcat\admin;
 
-use SmartcatSupport\util\ActionListener;
+if( !class_exists( 'smartcat\admin\MetaBox' ) ) :
 
 /**
  * Abstract base class for meta classes, automatically registers required actions
@@ -13,7 +13,7 @@ use SmartcatSupport\util\ActionListener;
  * @package admin
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class MetaBox extends ActionListener {
+abstract class MetaBox {
     /**
      * @var string The metabox ID.
      * @access protected
@@ -64,8 +64,8 @@ abstract class MetaBox extends ActionListener {
             ->set_post_type( $post_type )
             ->set_context( $context );
      
-        $this->add_action( 'add_meta_boxes_' . $post_type, 'install' );
-        $this->add_action( 'save_post', 'save', 10, 2 );
+        add_action( 'add_meta_boxes_' . $post_type, array( $this, 'install' ) );
+        add_action( 'save_post', array( $this, 'save' ), 10, 2 );
     }
 
     /**
@@ -236,3 +236,5 @@ abstract class MetaBox extends ActionListener {
     }
 // </editor-fold>
 }
+
+endif;

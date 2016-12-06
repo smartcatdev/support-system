@@ -2,8 +2,6 @@
 
 namespace SmartcatSupport;
 
-use smartcat\admin\SettingsPage;
-use smartcat\admin\SettingsSection;
 use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
@@ -52,21 +50,7 @@ function init( $fs_context ) {
 
     $ticket_admin = new TicketAdminTable();
 
-    $admin = new SettingsPage(
-        array(
-            'type'          => 'submenu',
-            'parent_menu'   => 'edit.php?post_type=support_ticket',
-            'page_title'    => __( 'Support Settings', TEXT_DOMAIN ),
-            'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
-            'menu_slug'     => 'support-options',
-        )
-    );
-
-    $section = new SettingsSection( 'general', __( 'General', TEXT_DOMAIN ) );
-
-    $admin->add_section( $section );
-
-    $admin->register();
+    include_once 'admin.php';
 
     // Configure installer
     $installer = new Installer();
@@ -127,49 +111,6 @@ function init( $fs_context ) {
             wp_enqueue_style( 'support-admin-css', SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
         }
     } );
-
-    //<editor-fold desc="Enqueue Assets">
-//    add_action( 'wp_enqueue_scripts', function() use ( $plugin_url ) {
-//        wp_enqueue_script( 'datatables',
-//            $plugin_url . 'assets/lib/datatables/datatables.min.js', array( 'jquery' ), PLUGIN_VERSION );
-//
-//        wp_enqueue_style( 'datatables',
-//            $plugin_url . 'assets/lib/datatables/datatables.min.css', array(), PLUGIN_VERSION );
-//
-//        wp_enqueue_style( 'jquery-modal',
-//            $plugin_url . 'assets/lib/modal/jquery.modal.min.css', array(), PLUGIN_VERSION );
-//
-//        wp_enqueue_script( 'jquery-modal',
-//            $plugin_url . 'assets/lib/modal/jquery.modal.min.js', array( 'jquery' ), PLUGIN_VERSION );
-//
-//        wp_enqueue_script( 'tabular',
-//            $plugin_url . 'assets/lib/tabular.js', array('jquery' ), PLUGIN_VERSION );
-//
-//        wp_enqueue_script( 'tinymce_js',
-//            includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', array( 'jquery' ), false, true );
-//
-//        wp_register_script( 'support_system_lib',
-//            $plugin_url . 'assets/js/app.js', array( 'jquery', 'jquery-ui-tabs' ), PLUGIN_VERSION );
-//
-//        wp_localize_script( 'support_system_lib', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
-//        wp_enqueue_script( 'support_system_lib' );
-//
-//        wp_enqueue_script( 'support_system_script',
-//            $plugin_url . 'assets/js/script.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-core', 'support_system_lib' ), PLUGIN_VERSION );
-//
-//        wp_enqueue_style( 'support_system_style',
-//            $plugin_url . 'assets/css/style.css', array(), PLUGIN_VERSION );
-//
-//        wp_enqueue_style( 'support_system_appearance',
-//            $plugin_url . 'assets/css/common.css', array(), PLUGIN_VERSION );
-//
-//        wp_enqueue_style( 'support_system_datatables',
-//            $plugin_url . 'assets/css/datatables.css', array(), PLUGIN_VERSION );
-//
-//        wp_enqueue_style( 'support_system_icons',
-//            $plugin_url . 'assets/icons.css', array(), PLUGIN_VERSION );
-//    } );
-    //</editor-fold>
 
     register_activation_hook( $fs_context, array( $installer, 'activate' ) );
     register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
@@ -274,7 +215,7 @@ function render_template( $template, array $data = array() ) {
 
     ob_start();
 
-    include ( plugin_dir_path( __FILE__ ) . 'templates/' . $template . '.php' );
+    include ( SUPPORT_PATH . '/templates/' . $template . '.php' );
 
     return ob_get_clean();
 }
