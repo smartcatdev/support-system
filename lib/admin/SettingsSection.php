@@ -1,6 +1,8 @@
 <?php
 
-namespace Smartcat\admin;
+namespace smartcat\admin;
+
+if( !class_exists( '\smartcat\admin\SettingsSection') ) :
 
 class SettingsSection {
     protected $slug;
@@ -17,7 +19,7 @@ class SettingsSection {
     }
 
     public function register( $menu_slug ) {
-        add_settings_section( $this->slug, $this->title, [ &$this, 'section' ], $menu_slug );
+        add_settings_section( $this->slug, $this->title, array( $this, 'section' ), $menu_slug );
 
         foreach( $this->fields as $field ) {
             $field->register( $menu_slug, $this->slug );
@@ -35,7 +37,7 @@ class SettingsSection {
     public function remove_field( $id ) {
         $field = $this->get_field( $id );
         if( $field !== false ) {
-            unset( $this->fields[ $field->get_slug() ] );
+            unset( $this->fields[ $field->get_id() ] );
         }
         return $field;
     }
@@ -52,3 +54,5 @@ class SettingsSection {
         $this->fields = $fields;
     }
 }
+
+endif;

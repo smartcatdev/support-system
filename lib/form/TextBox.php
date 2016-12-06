@@ -1,6 +1,8 @@
 <?php
 
-namespace SmartcatSupport\form\field;
+namespace smartcat\form;
+
+if( !class_exists( '\smartcat\form\TextBox' ) ) :
 
 class TextBox extends Field {
     private $type = 'text';
@@ -23,3 +25,5 @@ class TextBox extends Field {
 
     <?php }
 }
+
+endif;

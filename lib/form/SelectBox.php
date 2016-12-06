@@ -1,14 +1,9 @@
 <?php
 
-namespace SmartcatSupport\form\field;
+namespace smartcat\form;
 
-use const SmartcatSupport\TEXT_DOMAIN;
+if( !class_exists( '\smarcat\form\SelectBox' ) ) :
 
-/**
- * Description of SelectBox
- *
- * @author ericg
- */
 class SelectBox extends Field {
     private $options;
 
@@ -35,7 +30,7 @@ class SelectBox extends Field {
                 <option value="<?php esc_attr_e( $value ); ?>"
                     <?php selected( $value, $this->value, true ); ?>>
                 
-                    <?php esc_html_e( __( $label, TEXT_DOMAIN ) ); ?>
+                    <?php echo $label; ?>
                         
                 </option>
                          
@@ -45,3 +40,5 @@ class SelectBox extends Field {
 
     <?php }
 }
+
+endif;

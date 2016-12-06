@@ -7,15 +7,18 @@ namespace Composer\Autoload;
 class ComposerStaticInit4945093086bf31695a3648589ed85b77
 {
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'smartcat\\' => 9,
+        ),
         'S' => 
         array (
-            'Smartcat\\' => 9,
             'SmartcatSupport\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Smartcat\\' => 
+        'smartcat\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib',
         ),

@@ -1,12 +1,9 @@
 <?php
 
-namespace SmartcatSupport\form\field;
+namespace smartcat\form;
 
-/**
- * Description of Hidden
- *
- * @author Eric Green <eric@smartcat.ca>
- */
+if( !class_exists( '\smartcat\form\Field' ) ) :
+
 class Hidden extends Field {
     
     public function render() { ?>
@@ -19,3 +16,5 @@ class Hidden extends Field {
 
     <?php }
 }
+
+endif;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Smartcat\admin;
+namespace smartcat\admin;
 
-if( !class_exists( '\Smartcat\admin\SettingsPage' ) ) :
+if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
 class SettingsPage {
     protected $type;

@@ -1,6 +1,8 @@
 <?php
 
-namespace SmartcatSupport\form\field;
+namespace smartcat\form;
+
+if( !class_exists( '\smartcat\form\Field' ) ) :
 
 abstract class Field {
     protected $id;
@@ -71,6 +73,8 @@ abstract class Field {
 
         return $valid;
     }
+
+    public abstract function render();
     
     // <editor-fold defaultstate="collapsed" desc="Getters / Setters">
     public function get_desc() {
@@ -119,3 +123,5 @@ abstract class Field {
     }
 // </editor-fold>
 }
+
+endif;

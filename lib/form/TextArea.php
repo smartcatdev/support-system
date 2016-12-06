@@ -1,8 +1,8 @@
 <?php
 
-namespace SmartcatSupport\form\field;
+namespace smartcat\form;
 
-use function SmartcatSupport\api\convert_html_specialchars;
+if( !class_exists( '\smartcat\form\TextArea' ) ) :
 
 class TextArea extends Field {
     private $rows;
@@ -30,3 +30,5 @@ class TextArea extends Field {
 
         <?php }
 }
+
+endif;

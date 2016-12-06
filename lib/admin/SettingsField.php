@@ -1,6 +1,8 @@
 <?php
 
-namespace Smartcat\admin;
+namespace smartcat\admin;
+
+if( !class_exists( '\smartcat\form\SettingsField' ) ) :
 
 abstract class SettingsField {
     protected $slug;
@@ -12,17 +14,19 @@ abstract class SettingsField {
         $this->title = $title;
     }
 
-    public function get_slug() {
+    public function get_id() {
         return $this->slug;
     }
     public function register( $menu_slug, $section_slug ) {
-        add_settings_field( $this->slug, $this->title, [ &$this, 'render' ], $menu_slug, $section_slug, $this->args );
-        register_setting( $menu_slug, $this->slug, [ &$this, 'validate' ] );
+        add_settings_field( $this->slug, $this->title, array( $this, 'render' ), $menu_slug, $section_slug, $this->args );
+        register_setting( $menu_slug, $this->slug, array( $this, 'validate' ) );
     }
 
     public function validate( $value ) {
         return $value;
     }
 
-    public abstract function render( array $args );
+    public abstract function render();
 }
+
+endif;

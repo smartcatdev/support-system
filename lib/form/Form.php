@@ -1,12 +1,9 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace smartcat\form;
 
-use const SmartcatSupport\TEXT_DOMAIN;
+if( !class_exists( '\smartcat\form\Form' ) ) :
 
-/**
- * Smartcat-Form on steroids 
- */
 class Form {
 
     protected $id;
@@ -76,19 +73,15 @@ class Form {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Display Logic">
-    public static function form_start( Form $form ) {
-        ?>
+    public static function form_start( Form $form ) { ?>
 
         <form id="<?php esc_attr_e( $form->id ); ?>"
               method="<?php esc_attr_e( $form->get_method() ); ?>"
               action="<?php esc_attr_e( $form->get_action() ); ?>">
 
-        <?php
-        }
+    <?php }
 
-        public static function form_fields( Form $form ) {
-            ?>
-
+        public static function form_fields( Form $form ) { ?>
 
         <?php foreach ( $form->get_fields() as $field ) : ?>
 
@@ -97,7 +90,7 @@ class Form {
                 <?php if ( $field->get_label() != null ) : ?>
 
                     <label>
-                        <?php esc_html_e( __( $field->get_label(), TEXT_DOMAIN ) ); ?>
+                        <?php echo $field->get_label(); ?>
                     </label>
 
                 <?php endif; ?>
@@ -108,7 +101,7 @@ class Form {
                 <?php if ( $field->get_desc() != null ) : ?>
 
                     <p class="description">
-                        <?php esc_html_e( $field->get_desc() ); ?>
+                        <?php echo $field->get_desc(); ?>
                     </p>
 
                 <?php endif; ?>
@@ -119,16 +112,15 @@ class Form {
 
         <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>" />
 
-    <?php
-    }
+    <?php }
 
-    public static function form_end( Form $form ) {
-        ?>
+    public static function form_end( Form $form ) { ?>
 
         </form>
 
-        <?php
-    }
+    <?php }
 
 // </editor-fold>
 }
+
+endif;

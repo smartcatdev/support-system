@@ -1,6 +1,8 @@
 <?php
 
-namespace SmartcatSupport\form\field;
+namespace smartcat\form;
+
+if( !class_exists( 'smartcat\form\CheckBox' ) ) :
 
 class CheckBox extends Field {
     private $cb_title;
@@ -27,3 +29,5 @@ class CheckBox extends Field {
 
     <?php }
 }
+
+endif;

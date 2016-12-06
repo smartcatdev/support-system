@@ -1,12 +1,9 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace smartcat\form;
 
-/**
- * Factory/Builder for creating forms
- *
- * @author ericg
- */
+if( !class_exists( '\smartcat\form\FormBuilder' ) ) :
+
 class FormBuilder {
     protected $id;
     private $fields = array();
@@ -37,3 +34,5 @@ class FormBuilder {
         $this->fields = array();
     }
 }
+
+endif;

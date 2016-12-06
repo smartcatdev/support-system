@@ -2,7 +2,8 @@
 
 namespace SmartcatSupport;
 
-use Smartcat\admin\SettingsPage;
+use smartcat\admin\SettingsPage;
+use smartcat\admin\SettingsSection;
 use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
@@ -61,17 +62,11 @@ function init( $fs_context ) {
         )
     );
 
+    $section = new SettingsSection( 'general', __( 'General', TEXT_DOMAIN ) );
+
+    $admin->add_section( $section );
+
     $admin->register();
-
-
-//    protected $type;
-//    protected $page_title;
-//    protected $menu_title;
-//    protected $capability;
-//    protected $menu_slug;
-//    protected $parent_menu;
-//    protected $icon;
-//    protected $position;
 
     // Configure installer
     $installer = new Installer();
