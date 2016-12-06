@@ -91,26 +91,27 @@ class Form {
 
 
         <?php foreach ( $form->get_fields() as $field ) : ?>
-                <p>
 
-            <?php if ( $field->get_label() != null ) : ?>
+            <p>
 
-                        <label>
-                <?php esc_html_e( __( $field->get_label(), TEXT_DOMAIN ) ); ?>
-                        </label>
+                <?php if ( $field->get_label() != null ) : ?>
 
-            <?php endif; ?>
+                    <label>
+                        <?php esc_html_e( __( $field->get_label(), TEXT_DOMAIN ) ); ?>
+                    </label>
+
+                <?php endif; ?>
 
 
                     <?php $field->render(); ?>
 
-            <?php if ( $field->get_desc() != null ) : ?>
+                <?php if ( $field->get_desc() != null ) : ?>
 
                     <p class="description">
-                <?php esc_html_e( $field->get_desc() ); ?>
+                        <?php esc_html_e( $field->get_desc() ); ?>
                     </p>
 
-            <?php endif; ?>
+                <?php endif; ?>
 
             </p>
 

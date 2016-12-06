@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
             data: {
                 action: 'support_update_meta',
                 meta: field.attr('name'),
-                value: field.hasClass('active') ? 0 : 1,
+                value: field.hasClass('active') ? '' : 'on',
                 id: field.data('id')
             },
 
@@ -49,7 +49,15 @@ jQuery(document).ready(function ($) {
 
         if ( $post_id > 0 ) {
             $('#support_inline_' + $post_id).children().each(function () {
-                $('.form_field[name="' + $(this).attr('class') + '"]').val($(this).text());
+                var field = $('.form_field[name="' + $(this).attr('class') + '"]');
+
+                if(field.attr('type') == 'checkbox') {
+                    field.attr('checked', !$(this).text() == '');
+                } else {
+                    field.val($(this).text());
+                }
+
+
             });
 
         }

@@ -6,6 +6,7 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\agents_dropdown;
 use function SmartcatSupport\boolean_meta_dropdown;
 use SmartcatSupport\form\constraint\Choice;
+use SmartcatSupport\form\field\CheckBox;
 use SmartcatSupport\form\field\SelectBox;
 use SmartcatSupport\form\FormBuilder;
 use function SmartcatSupport\get_agents;
@@ -126,7 +127,7 @@ class TicketAdminTable extends ActionListener {
                 break;
 
             case 'flagged':
-                $flagged = boolval( get_post_meta( $post_id, 'flagged', true ) );
+                $flagged = get_post_meta( $post_id, 'flagged', true ) == 'on';
 
                 echo '<p style="display: none;">' . ( $flagged ? 1 : 0 ) . '</p>' .
 
@@ -163,6 +164,7 @@ class TicketAdminTable extends ActionListener {
                 $data = $form->get_data();
 
                 foreach ( $data as $key => $value ) {
+                    error_log($key . ' ' . $value );
                     update_post_meta( $post_id, $key, $value );
                 }
             }
@@ -202,7 +204,11 @@ class TicketAdminTable extends ActionListener {
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
         $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-        $builder->add( SelectBox::class, 'agent', array(
+        $builder->add( CheckBox::class, 'flagged', array(
+            'cb_title'          => __( 'Flagged', TEXT_DOMAIN ),
+            'value'             => false
+
+        ) )->add( SelectBox::class, 'agent', array(
             'label'             => __( 'Assigned', TEXT_DOMAIN ),
             'options'           => $agents,
             'constraints'       => array(

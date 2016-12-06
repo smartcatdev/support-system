@@ -49,3 +49,7 @@ table.wp-list-table td.thumb {
 .inline-edit-col .form_field {
    min-width: 150px;
 }
+
+.inline-edit-col .form_field[type=checkbox] {
+    min-width: auto;
+}
