@@ -2,12 +2,32 @@
 
 namespace SmartcatSupport;
 
+include_once 'vendor/autoload.php';
+
 use SmartcatSupport\descriptor\Option;
 
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-if( !empty( get_option( Option::NUKE, Option\Defaults::NUKE ) ) ) {
-    //delete everything
+if( get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
+
+    // Trash the template page
+    wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
+
+
+    // Trash all support tickets
+    $query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
+
+    foreach( $query->posts as $post ) {
+        wp_trash_post( $post->ID );
+    }
+
+
+    // Cleanup wp_options
+    $options = new \ReflectionClass( Option::class );
+
+    foreach( $options->getConstants() as $option ) {
+        delete_option( $option );
+    }
 }

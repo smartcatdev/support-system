@@ -14,7 +14,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const NUKE = 0;
+    const NUKE = '';
 
     /**
      * @since 1.0.0
