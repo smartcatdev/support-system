@@ -6,6 +6,7 @@ if( !class_exists( '\smartcat\admin\SettingsField' ) ) :
 
 abstract class SettingsField {
     protected $id;
+    protected $option;
     protected $label;
     protected $desc = '';
     protected $value = '';
@@ -14,6 +15,7 @@ abstract class SettingsField {
 
     public function __construct( array $args ) {
         $this->id = $args['id'];
+        $this->option = $args['option'];
         $this->label = $args['label'];
 
         if( !empty( $args['value'] ) ) {
@@ -37,7 +39,7 @@ abstract class SettingsField {
 
     public function register( $menu_slug, $section_slug ) {
         add_settings_field( $this->id, $this->label, array( $this, 'render' ), $menu_slug, $section_slug, $this->args );
-        register_setting( $menu_slug, $this->id, array( $this, 'validate' ) );
+        register_setting( $menu_slug, $this->option, array( $this, 'validate' ) );
     }
 
     public function validate( $value ) {

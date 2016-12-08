@@ -10,7 +10,7 @@ if( !class_exists( '\smartcat\admin\CheckBoxField' ) ) :
 
             <input type="checkbox"
                 id="<?php esc_attr_e( $this->id ); ?>"
-                name="<?php esc_attr_e( $this->id ); ?>"
+                name="<?php esc_attr_e( $this->option ); ?>"
 
                 <?php checked( $this->value, 'on' ); ?> />
 
