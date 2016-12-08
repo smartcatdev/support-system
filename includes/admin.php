@@ -15,13 +15,16 @@ $admin = new TabbedSettingsPage(
         'page_title'    => __( 'Support Settings', TEXT_DOMAIN ),
         'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
         'menu_slug'     => 'support_options',
-        'tabs'          => array( 'labels' => __( 'Labels', TEXT_DOMAIN ) )
+        'tabs'          => array(
+            'labels'        => __( 'Labels', TEXT_DOMAIN ),
+            'general'       => __( 'General', TEXT_DOMAIN )
+        )
     )
 );
 
-$section = new SettingsSection( 'strings', __( 'Label Text', TEXT_DOMAIN ) );
+$labels = new SettingsSection( 'labels', __( 'Label Text', TEXT_DOMAIN ) );
 
-$section->add_field( new TextField(
+$labels->add_field( new TextField(
     array(
         'id'            => Option::LOGIN_DISCLAIMER,
         'value'         => get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ),
@@ -86,6 +89,9 @@ $section->add_field( new TextField(
     )
 ) );
 
-$admin->add_section( $section, 'labels' );
+$general = new SettingsSection( 'general', __( 'General', TEXT_DOMAIN ) );
+
+$admin->add_section( $labels, 'labels' );
+$admin->add_section( $general, 'general' );
 
 $admin->register();

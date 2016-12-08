@@ -14,7 +14,6 @@ class TabbedSettingsPage extends SettingsPage {
         $this->tabs = $config['tabs'];
     }
 
-
     public function add_section( SettingsSection $section, $tab = '' ) {
         $this->sections[ $section->get_slug() ] = array( 'tab' => $tab, 'section' => $section );
     }
@@ -41,7 +40,7 @@ class TabbedSettingsPage extends SettingsPage {
 
             <?php  if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
 
-                <?php settings_errors(); ?>
+                <?php settings_errors( $this->menu_slug ); ?>
 
             <?php endif; ?>
 

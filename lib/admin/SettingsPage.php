@@ -100,7 +100,7 @@ class SettingsPage {
 
             <?php if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
 
-               <?php settings_errors(); ?>
+               <?php settings_errors( $this->menu_slug ); ?>
 
             <?php endif; ?>
 
