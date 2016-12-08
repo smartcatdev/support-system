@@ -1,6 +1,7 @@
 <?php
 
-use smartcat\admin\SettingsPage;
+use smartcat\admin\CheckBoxField;
+use smartcat\admin\MatchFilter;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\TabbedSettingsPage;
 use smartcat\admin\TextField;
@@ -16,15 +17,15 @@ $admin = new TabbedSettingsPage(
         'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
         'menu_slug'     => 'support_options',
         'tabs'          => array(
-            'labels'        => __( 'Labels', TEXT_DOMAIN ),
-            'general'       => __( 'General', TEXT_DOMAIN )
+            'general'       => __( 'General', TEXT_DOMAIN ),
+            'text'        => __( 'Text', TEXT_DOMAIN )
         )
     )
 );
 
-$labels = new SettingsSection( 'labels', __( 'Label Text', TEXT_DOMAIN ) );
+$text = new SettingsSection( 'text', __( 'Text', TEXT_DOMAIN ) );
 
-$labels->add_field( new TextField(
+$text->add_field( new TextField(
     array(
         'id'            => Option::LOGIN_DISCLAIMER,
         'value'         => get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ),
@@ -91,7 +92,37 @@ $labels->add_field( new TextField(
 
 $general = new SettingsSection( 'general', __( 'General', TEXT_DOMAIN ) );
 
-$admin->add_section( $labels, 'labels' );
+$general->add_field( new CheckBoxField(
+    array(
+        'id'            => Option::ALLOW_SIGNUPS,
+        'value'         => get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ),
+        'label'         => __( 'Allow users to signup', TEXT_DOMAIN ),
+        'desc'          => __( 'Allow users to create accounts for submitting tickets', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => Option::EDD_INTEGRATION,
+        'value'         => get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ),
+        'label'         => __( 'Easy Digital Downloads', TEXT_DOMAIN ),
+        'desc'          => __( 'Enable integration with Easy Digital Downloads', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => Option::WOO_INTEGRATION,
+        'value'         => get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ),
+        'label'         => __( 'WooCommerce', TEXT_DOMAIN ),
+        'desc'          => __( 'Enable integration with WooCommerce', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) );
+
 $admin->add_section( $general, 'general' );
+$admin->add_section( $text, 'text' );
+
 
 $admin->register();

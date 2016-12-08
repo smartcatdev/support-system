@@ -23,6 +23,8 @@ class TextField extends SettingsField {
             value="<?php esc_attr_e( $this->value ); ?>"
             class="regular-text" />
 
+        <p class="description"><?php echo $this->desc; ?></p>
+
     <?php }
 }
 

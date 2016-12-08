@@ -90,17 +90,17 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = true;
+    const EDD_INTEGRATION = 'on';
 
     /**
      * @since 1.0.0
      */
-    const WOO_INTEGRATION = true;
+    const WOO_INTEGRATION = 'on';
 
     /**
      * @since 1.0.0
      */
-    const ALLOW_SIGNUPS = true;
+    const ALLOW_SIGNUPS = 'on';
 
     /**
      * @since 1.0.0
