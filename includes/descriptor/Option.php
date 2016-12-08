@@ -14,97 +14,97 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const PLUGIN_VERSION = 'ca.smartcat.support.version';
+    const PLUGIN_VERSION = 'smartcat_support_version';
     
     /**
      * @since 1.0.0
      */
-    const NUKE = 'ca.smartcat.support.erase';
+    const NUKE = 'smartcat_support_erase';
 
     /**
      * @since 1.0.0
      */
-    const STATUSES = 'ca.smartcat.support.statuses';
+    const STATUSES = 'smartcat_support_statuses';
 
     /**
      * @since 1.0.0
      */
-    const PRIORITIES = 'ca.smartcat.support.priorities';
+    const PRIORITIES = 'smartcat_support_priorities';
 
     /**
      * @since 1.0.0
      */
-    const TICKET_CREATED_MSG = 'ca.smartcat.support.string.ticket_created';
+    const TICKET_CREATED_MSG = 'smartcat_support_string_ticket-created';
 
     /**
      * @since 1.0.0
      */
-    const TICKET_UPDATED_MSG = 'ca.smartcat.support.string.ticket_updated';
+    const TICKET_UPDATED_MSG = 'smartcat_support_string_ticket-updated';
 
     /**
      * @since 1.0.0
      */
-    const EMPTY_TABLE_MSG = 'ca.smartcat.support.string.empty_table';
+    const EMPTY_TABLE_MSG = 'smartcat_support_string_empty-table';
 
     /**
      * @since 1.0.0
      */
-    const CREATE_BTN_TEXT = 'ca.smartcat.support.string.create_ticket_btn';
+    const CREATE_BTN_TEXT = 'smartcat_support_string_create-ticket-btn';
 
     /**
      * @since 1.0.0
      */
-    const REPLY_BTN_TEXT = 'ca.smartcat.support.string.reply_btn';
+    const REPLY_BTN_TEXT = 'smartcat_support_string_reply-btn';
 
     /**
      * @since 1.0.0
      */
-    const CANCEL_BTN_TEXT = 'ca.smartcat.support.string.cancel_btn';
+    const CANCEL_BTN_TEXT = 'smartcat_support_string_cancel-btn';
 
     /**
      * @since 1.0.0
      */
-    const SAVE_BTN_TEXT = 'ca.smartcat.support.string.save_ticket_btn';
+    const SAVE_BTN_TEXT = 'smartcat_support_string_save-ticket-btn';
 
     /**
      * @since 1.0.0
      */
-    const REGISTER_BTN_TEXT = 'ca.smartcat.support.string.register_btn';
+    const REGISTER_BTN_TEXT = 'smartcat_support_string_register-btn';
 
     /**
      * @since 1.0.0
      */
-    const LOGIN_BTN_TEXT = 'ca.smartcat.support.string.login_btn';
+    const LOGIN_BTN_TEXT = 'smartcat_support_string_login-btn';
 
     /**
      * @since 1.0.0
      */
-    const TEMPLATE_PAGE_ID = 'ca.smartcat.support.page_id';
+    const TEMPLATE_PAGE_ID = 'smartcat_support_page-id';
 
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = 'ca.smartcat.support.edd_integration';
+    const EDD_INTEGRATION = 'smartcat_support_edd-integration';
 
     /**
      * @since 1.0.0
      */
-    const WOO_INTEGRATION = 'ca.smartcat.support.woo_integration';
+    const WOO_INTEGRATION = 'smartcat_support_woo-integration';
 
     /**
      * @since 1.0.0
      */
-    const ALLOW_SIGNUPS = 'ca.smartcat.support.allow_signups';
+    const ALLOW_SIGNUPS = 'smartcat_support_allow-signups';
     
     /**
      * @since 1.0.0
      */
-    const LOGIN_DISCLAIMER = 'ca.smartcat.support.login_disclaimer';
+    const LOGIN_DISCLAIMER = 'smartcat_support_login-disclaimer';
     
     /**
      * @since 1.0.0
      */
-    const LOGIN_LOGO = 'ca.smartcat.support.login_logo';
+    const LOGIN_LOGO = 'smartcat_support_login-logo';
     
     
 }
