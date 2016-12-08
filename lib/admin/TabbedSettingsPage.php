@@ -25,7 +25,15 @@ class TabbedSettingsPage extends SettingsPage {
         }
     }
 
-    public function render() { ?>
+    public function render() {
+        $active_tab = key( $this->tabs );
+
+        if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {
+            $active_tab = $_REQUEST['tab'];
+        }
+
+        ?>
+
 
         <div class="wrap">
 
@@ -41,7 +49,12 @@ class TabbedSettingsPage extends SettingsPage {
 
                 <?php foreach( $this->tabs as $tab => $title ) : ?>
 
-                    <a href="<?php echo 'admin.php?page=' . $this->menu_slug . '&tab=' . $tab; ?>" class="nav-tab"><?php echo $title; ?></a>
+                    <a href="<?php echo 'admin.php?page=' . $this->menu_slug . '&tab=' . $tab; ?>"
+                       class="nav-tab <?php echo $active_tab == $tab ? 'nav-tab-active' : ''; ?>">
+
+                        <?php echo $title; ?>
+
+                    </a>
 
                 <?php endforeach; ?>
 
@@ -49,19 +62,11 @@ class TabbedSettingsPage extends SettingsPage {
 
             <form method="post" action="options.php">
 
-                <?php settings_fields( $this->menu_slug ); ?>
+                <?php settings_fields( $active_tab ); ?>
 
-                    <?php if( !empty( $_REQUEST['tab'] ) ) : ?>
+                <?php do_settings_sections( $active_tab ); ?>
 
-                        <?php do_settings_sections( $_REQUEST['tab'] ); ?>
-
-                    <?php else : ?>
-
-                        <?php do_settings_sections( key( $this->tabs ) ); ?>
-
-                    <?php endif; ?>
-
-                <?php  submit_button(); ?>
+                <?php submit_button(); ?>
 
             </form>
 
