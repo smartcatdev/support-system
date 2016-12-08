@@ -1,11 +1,4 @@
 <?php
-/**
- * Template for a metabox in the wp-admin.
- *
- * @param Form   $info_form (Optional) The form with the ticket's meta
- * @since 1.0.0
- * @author Eric Green <eric@smartcat.ca>
- */
 
 use const SmartcatSupport\TEXT_DOMAIN;
 
@@ -45,8 +38,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <tr>
             <td style="display: none">
-                <input type="hidden"
-                       name="<?php esc_attr_e( $form->get_id() ); ?>"/>
+                <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>"/>
             </td>
         </tr>
 

@@ -27,11 +27,13 @@ class SettingsSection {
     }
 
     public function section( $args ) {
-        // Subclasses can overrride this to customize section appearance
+        // Subclasses can override this to customize section appearance
     }
 
     public function add_field( SettingsField $field ) {
-        $this->fields[ $field->get_slug() ] = $field;
+        $this->fields[ $field->get_id() ] = $field;
+
+        return $this;
     }
 
     public function remove_field( $id ) {

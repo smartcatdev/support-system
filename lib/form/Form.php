@@ -11,8 +11,8 @@ class Form {
     protected $method;
     protected $action;
     protected $valid = false;
-    protected $valid_values = [ ];
-    protected $errors = [ ];
+    protected $valid_values = array();
+    protected $errors = array();
 
     public function __construct( $id, array $fields, $method, $action ) {
         $this->id = $id;

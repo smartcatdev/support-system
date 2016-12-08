@@ -21,7 +21,7 @@ const TEXT_DOMAIN = 'ca.smartcat.support';
 
 // Manual includes
 include_once 'vendor/autoload.php';
-include_once 'functions.php';
+include_once 'includes/functions.php';
 
 
 init( __FILE__ );
