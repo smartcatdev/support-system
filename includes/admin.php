@@ -17,13 +17,14 @@ $admin = new TabbedSettingsPage(
         'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
         'menu_slug'     => 'support_options',
         'tabs'          => array(
-            'general'       => __( 'General', TEXT_DOMAIN ),
-            'text'        => __( 'Text', TEXT_DOMAIN )
+            'general'     => __( 'General', TEXT_DOMAIN ),
+            'text'        => __( 'Display', TEXT_DOMAIN ),
+            'advanced'    => __( 'Advanced', TEXT_DOMAIN )
         )
     )
 );
 
-$text = new SettingsSection( 'text', __( 'Text', TEXT_DOMAIN ) );
+$text = new SettingsSection( 'text', __( 'Text & Labels', TEXT_DOMAIN ) );
 
 $text->add_field( new TextField(
     array(
@@ -98,7 +99,7 @@ $text->add_field( new TextField(
     )
 ) );
 
-$general = new SettingsSection( 'general', __( 'General', TEXT_DOMAIN ) );
+$general = new SettingsSection( 'general', __( 'General Settings', TEXT_DOMAIN ) );
 
 $general->add_field( new TextField(
     array(
@@ -140,7 +141,22 @@ $general->add_field( new TextField(
 
 ) );
 
+$advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', TEXT_DOMAIN ) );
+
+$advanced->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_nuke_data',
+        'option'        => Option::NUKE,
+        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
+        'label'         => __( 'Erase All Data', TEXT_DOMAIN ),
+        'desc'          => __( 'Erase all data on plugin uninstall', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) );
+
 $admin->add_section( $general, 'general' );
+$admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'text' );
 
 
