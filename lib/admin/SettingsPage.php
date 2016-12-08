@@ -10,7 +10,7 @@ class SettingsPage {
     protected $menu_title;
     protected $capability;
     protected $menu_slug;
-    protected $parent_menu;
+    protected $parent_menu = '';
     protected $icon;
     protected $position;
     protected $sections = [];
@@ -21,7 +21,10 @@ class SettingsPage {
         $this->menu_title = $config['menu_title'];
         $this->menu_slug = $config['menu_slug'];
 
-        $this->parent_menu = isset( $config['parent_menu'] ) ? $config['parent_menu'] : '';
+        if( $this->type == 'submenu' ) {
+            $this->parent_menu = $config['parent_menu'];
+        }
+
         $this->capability = isset( $config['capability'] ) ? $config['capability'] : 'manage_options';
         $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';
         $this->position = isset( $config['position'] ) ? $config['position'] : 100;
@@ -95,7 +98,7 @@ class SettingsPage {
 
             <h2><?php echo $this->page_title; ?></h2>
 
-            <?php  if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
+            <?php if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
 
                <?php settings_errors(); ?>
 

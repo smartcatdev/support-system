@@ -2,18 +2,20 @@
 
 use smartcat\admin\SettingsPage;
 use smartcat\admin\SettingsSection;
+use smartcat\admin\TabbedSettingsPage;
 use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\TEXT_DOMAIN;
 
-$admin = new SettingsPage(
+$admin = new TabbedSettingsPage(
     array(
         'type'          => 'submenu',
         'parent_menu'   => 'edit.php?post_type=support_ticket',
         'page_title'    => __( 'Support Settings', TEXT_DOMAIN ),
         'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
-        'menu_slug'     => 'support-options',
+        'menu_slug'     => 'support_options',
+        'tabs'          => array( 'labels' => __( 'Labels', TEXT_DOMAIN ) )
     )
 );
 
@@ -84,6 +86,6 @@ $section->add_field( new TextField(
     )
 ) );
 
-$admin->add_section( $section );
+$admin->add_section( $section, 'labels' );
 
 $admin->register();

@@ -18,11 +18,11 @@ class SettingsSection {
         return $this->slug;
     }
 
-    public function register( $menu_slug ) {
-        add_settings_section( $this->slug, $this->title, array( $this, 'section' ), $menu_slug );
+    public function register( $parent_slug ) {
+        add_settings_section( $this->slug, $this->title, array( $this, 'section' ), $parent_slug );
 
         foreach( $this->fields as $field ) {
-            $field->register( $menu_slug, $this->slug );
+            $field->register( $parent_slug, $this->slug );
         }
     }
 
@@ -38,17 +38,21 @@ class SettingsSection {
 
     public function remove_field( $id ) {
         $field = $this->get_field( $id );
+
         if( $field !== false ) {
             unset( $this->fields[ $field->get_id() ] );
         }
+
         return $field;
     }
 
     public function get_field( $id ) {
         $field = false;
+
         if( isset( $this->fields[ $id ] ) ) {
             $field = &$this->fields[ $id ];
         }
+
         return $field;
     }
 
