@@ -85,6 +85,8 @@ final class Installer extends ActionListener {
             );
         } else if( $post->post_status == 'trash' ) {
             wp_untrash_post( $post->ID );
+
+            $post_id = $post->ID;
         } else {
             $post_id = $post->ID;
         }
