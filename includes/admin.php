@@ -153,6 +153,16 @@ $advanced->add_field( new CheckBoxField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_restore_template',
+        'option'        => Option::RESTORE_TEMPLATE_PAGE,
+        'value'         => '',
+        'label'         => __( 'Restore Template Page', TEXT_DOMAIN ),
+        'desc'          => __( 'Restore the template page if its been deleted', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
 
 $admin->add_section( $general, 'general' );

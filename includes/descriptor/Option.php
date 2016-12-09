@@ -105,6 +105,9 @@ final class Option {
      * @since 1.0.0
      */
     const LOGIN_LOGO = 'smartcat_support_login-logo';
-    
-    
+
+    /**
+     * @since 1.0.0
+     */
+    const RESTORE_TEMPLATE_PAGE = 'smartcat_support_regenerate-template';
 }

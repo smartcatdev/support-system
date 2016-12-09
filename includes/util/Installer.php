@@ -22,7 +22,7 @@ final class Installer extends ActionListener {
     public function activate() {
         update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
 
-        $this->register_page();
+        $this->register_template();
         $this->add_user_roles();
     }
     
@@ -71,7 +71,7 @@ final class Installer extends ActionListener {
         remove_role( 'support_user' );
     }
 
-    public function register_page() {
+    public function register_template() {
         $post_id = null;
         $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
 
@@ -83,6 +83,8 @@ final class Installer extends ActionListener {
                     'post_title' => __( 'Support', TEXT_DOMAIN )
                 )
             );
+        } else if( $post->post_status == 'trash' ) {
+            wp_untrash_post( $post->ID );
         } else {
             $post_id = $post->ID;
         }

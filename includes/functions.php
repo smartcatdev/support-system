@@ -114,6 +114,14 @@ function init( $fs_context ) {
         wp_enqueue_style( 'support-admin-css', SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
     } );
 
+    add_action( 'pre_update_option_' . Option::RESTORE_TEMPLATE_PAGE, function ( $value ) use ( $installer ) {
+        if( $value == 'on' ) {
+            $installer->register_template();
+        }
+
+        return '';
+    } );
+
     register_activation_hook( $fs_context, array( $installer, 'activate' ) );
     register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
 }
