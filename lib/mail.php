@@ -61,8 +61,8 @@ add_action( 'init', function () use ( $TEXT_DOMAIN ) {
         'update_item'           => __( 'Update Template', $TEXT_DOMAIN ),
         'view_item'             => __( 'View Template', $TEXT_DOMAIN ),
         'search_items'          => __( 'Search Templates', $TEXT_DOMAIN ),
-        'not_found'             => __( 'Template Not found', $TEXT_DOMAIN ),
-        'not_found_in_trash'    => __( 'Template Not found in Trash', $TEXT_DOMAIN ),
+        'not_found'             => __( 'No templates found', $TEXT_DOMAIN ),
+        'not_found_in_trash'    => __( 'No templates found in Trash', $TEXT_DOMAIN ),
         'featured_image'        => __( 'Featured Image', $TEXT_DOMAIN ),
         'set_featured_image'    => __( 'Set featured image', $TEXT_DOMAIN ),
         'remove_featured_image' => __( 'Remove featured image', $TEXT_DOMAIN ),
@@ -80,7 +80,7 @@ add_action( 'init', function () use ( $TEXT_DOMAIN ) {
         'label'               => __( 'Email Template', $TEXT_DOMAIN ),
         'description'         => __( 'Templates for automated emails', $TEXT_DOMAIN ),
         'labels'              => $labels,
-        'supports'            => array( 'editor', 'author', 'comments', 'title' ),
+        'supports'            => array( 'editor', 'title' ),
         'hierarchical'        => false,
         'public'              => false,
         'show_ui'             => true,
@@ -88,7 +88,7 @@ add_action( 'init', function () use ( $TEXT_DOMAIN ) {
         'menu_position'       => 70,
         'menu_icon'           => 'dashicons-email-alt',
         'show_in_admin_bar'   => true,
-        'show_in_nav_menus'   => true,
+        'show_in_nav_menus'   => false,
         'can_export'          => true,
         'has_archive'         => false,
         'exclude_from_search' => true,
@@ -105,8 +105,9 @@ add_action( 'smartcat_send_mail', function( $template_tag, $recipient ) {
 
     $query = new \WP_Query(
         array(
-            'name'      => $template_tag,
-            'post_type' => 'email_template'
+            'name'          => $template_tag,
+            'post_type'     => 'email_template',
+            'post_status'   => 'publish'
         )
     );
 
