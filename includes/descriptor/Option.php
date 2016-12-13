@@ -110,4 +110,14 @@ final class Option {
      * @since 1.0.0
      */
     const RESTORE_TEMPLATE_PAGE = 'smartcat_support_regenerate-template';
+
+    /**
+     * @since 1.0.0
+     */
+    const WELCOME_EMAIL_TEMPLATE = 'smartcat_support_welcome-email-template';
+
+    /**
+     * @since 1.0.0
+     */
+    const CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
 }

@@ -2,6 +2,7 @@
 
 use smartcat\admin\CheckBoxField;
 use smartcat\admin\MatchFilter;
+use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\TabbedSettingsPage;
 use smartcat\admin\TextField;
@@ -19,6 +20,7 @@ $admin = new TabbedSettingsPage(
         'tabs'          => array(
             'general'     => __( 'General', TEXT_DOMAIN ),
             'text'        => __( 'Display', TEXT_DOMAIN ),
+            'email'       => __( 'Email', TEXT_DOMAIN ),
             'advanced'    => __( 'Advanced', TEXT_DOMAIN )
         )
     )
@@ -141,6 +143,30 @@ $general->add_field( new TextField(
 
 ) );
 
+$email = new SettingsSection( 'email', __( 'Email Templates', TEXT_DOMAIN ) );
+
+$email->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_welcome_email_template',
+        'option'        => Option::WELCOME_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE, Option\Defaults::WELCOME_EMAIL_TEMPLATE ),
+        'options'       => $GLOBALS['smartcat_email_service']->template_dropdown_list(),
+        'label'         => __( 'Welcome Email Template', TEXT_DOMAIN ),
+        'desc'          => __( 'The email template to be sent out after registration', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array_keys( $GLOBALS['smartcat_email_service']->template_dropdown_list() ), '' ) )
+    )
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_closed_email_template',
+        'option'        => Option::CLOSED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE, Option\Defaults::CLOSED_EMAIL_TEMPLATE ),
+        'options'       => $GLOBALS['smartcat_email_service']->template_dropdown_list(),
+        'label'         => __( 'Ticket Closed Email Template', TEXT_DOMAIN ),
+        'desc'          => __( 'The email template to be sent out after a ticket has been closed', TEXT_DOMAIN ),
+        'validators'    => array( new MatchFilter( array_keys( $GLOBALS['smartcat_email_service']->template_dropdown_list() ), '' ) )
+    )
+) );
+
 $advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', TEXT_DOMAIN ) );
 
 $advanced->add_field( new CheckBoxField(
@@ -166,6 +192,7 @@ $advanced->add_field( new CheckBoxField(
 ) );
 
 $admin->add_section( $general, 'general' );
+$admin->add_section( $email, 'email' );
 $admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'text' );
 

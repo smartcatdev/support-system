@@ -146,12 +146,6 @@ class EmailTemplateService {
         }
     }
 
-    public function get_templates() {
-
-
-        return $query->posts;
-    }
-
     public function template_dropdown_list() {
         $query = new \WP_Query(
             array(
