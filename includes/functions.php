@@ -37,7 +37,7 @@ function init( $fs_context ) {
     $comment_handler = new Comment( new FormBuilder( 'comment_form' ) );
 
     // Configure the metabox
-    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox__support_form' ) );
+    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_support_form' ) );
 
     $product_metabox = new ProductMetaBox( new FormBuilder( 'metabox_product_form' ) );
 
@@ -95,6 +95,7 @@ function init( $fs_context ) {
                 remove_appended_caps( 'customer' );
             }
         }
+//        do_action( 'smartcat_send_mail', 'support-welcome-email', 'eric@smartcat.ca' );
     } );
 
     add_action( 'admin_enqueue_scripts', function () {
