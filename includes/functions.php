@@ -24,13 +24,8 @@ use SmartcatSupport\util\Installer;
  * @since 1.0.0
  */
 function init( $fs_context ) {
-    add_filter('bulk_actions-support_ticket', function ( $actions ){
-        unset( $actions['inline'] );
-        return $actions;
-    });
-    // Configure the application
-//    $plugin_dir = plugin_dir_path( $fs_context );
-//    $plugin_url = plugin_dir_url( $fs_context );
+    define( 'SUPPORT_PATH', dirname( $fs_context ) );
+    define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
 
     // Configure table Handler
     $table_handler = new TicketTable();
@@ -50,6 +45,12 @@ function init( $fs_context ) {
 
     $ticket_admin = new TicketAdminTable();
 
+    // Pull in mailer from library
+    $REQUIRER = 'Smartcat Support';
+    $TEXT_DOMAIN = TEXT_DOMAIN;
+    require_once SUPPORT_PATH . '/lib/mail.php';
+
+    // Pull in admin pages config
     include_once 'admin.php';
 
     // Configure installer
@@ -63,9 +64,6 @@ function init( $fs_context ) {
         if( class_exists( 'Easy_Digital_Downloads' ) ) {
             define( 'SUPPORT_EDD_ACTIVE', 1 );
         }
-
-        define( 'SUPPORT_PATH', dirname( $fs_context ) );
-        define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
     } );
 
     add_action( 'template_include', function ( $template ) {
