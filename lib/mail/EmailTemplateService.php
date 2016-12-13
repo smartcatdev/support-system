@@ -11,7 +11,7 @@ class EmailTemplateService {
     private $required_by;
     private $text_domain;
 
-    public function __construct( $required_by, $text_domain ) {
+     protected function __construct( $required_by, $text_domain ) {
         $this->required_by = $required_by;
         $this->text_domain = $text_domain;
 
@@ -144,6 +144,27 @@ class EmailTemplateService {
         if( empty( $GLOBALS['smartcat_email_service'] ) ) {
             $GLOBALS['smartcat_email_service'] = new EmailTemplateService( $plugin_name, $text_domain );
         }
+    }
+
+    public function get_templates() {
+
+
+        return $query->posts;
+    }
+
+    public function template_dropdown_list() {
+        $query = new \WP_Query(
+            array(
+                'post_type'   => 'email_template',
+                'post_status' => 'publish'
+            )
+        );
+
+        foreach( $query->posts as $template ) {
+            $templates [ $template->post_name ] = $template->post_title;
+        }
+
+        return $templates;
     }
 }
 
