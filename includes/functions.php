@@ -2,6 +2,7 @@
 
 namespace SmartcatSupport;
 
+use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
@@ -45,10 +46,8 @@ function init( $fs_context ) {
 
     $ticket_admin = new TicketAdminTable();
 
-    // Pull in mailer from library
-    $REQUIRER = 'Smartcat Support';
-    $TEXT_DOMAIN = TEXT_DOMAIN;
-    require_once SUPPORT_PATH . '/lib/mail.php';
+    EmailTemplateService::register( 'Smartcat Support', TEXT_DOMAIN );
+
 
     // Pull in admin pages config
     include_once 'admin.php';
