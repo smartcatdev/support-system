@@ -46,16 +46,17 @@ function init( $fs_context ) {
 
     $ticket_admin = new TicketAdminTable();
 
+    // Configure installer
+    $installer = new Installer();
+
     EmailTemplateService::register( 'Smartcat Support', TEXT_DOMAIN );
 
 
     // Pull in admin pages config
     include_once 'admin.php';
 
-    // Configure installer
-    $installer = new Installer();
 
-    add_action( 'plugins_loaded', function() use ( $fs_context ) {
+    add_action( 'plugins_loaded', function() {
         if( class_exists( 'WooCommerce' ) ) {
             define( 'SUPPORT_WOO_ACTIVE', 1 );
         }
