@@ -16,8 +16,6 @@ class EmailTemplateService {
     protected function __construct( $required_by, $text_domain ) {
         $this->required_by = $required_by;
         $this->text_domain = $text_domain;
-
-        $this->add_actions();
     }
 
     private function add_actions() {
@@ -145,10 +143,13 @@ class EmailTemplateService {
     public static function register( $plugin_name, $text_domain ) {
         if( empty( self::$instance ) ) {
             self::$instance = new self( $plugin_name, $text_domain );
+            self::$instance->add_actions();
         }
     }
 
     public static function template_dropdown_list() {
+        $templates = array();
+
         $query = new \WP_Query(
             array(
                 'post_type'   => 'email_template',
@@ -156,8 +157,10 @@ class EmailTemplateService {
             )
         );
 
-        foreach( $query->posts as $template ) {
-            $templates [ $template->post_id ] = $template->post_title;
+        if( $query->have_posts() ) {
+            foreach ( $query->posts as $template ) {
+                $templates [ $template->ID ] = $template->post_title;
+            }
         }
 
         return $templates;
@@ -165,3 +168,12 @@ class EmailTemplateService {
 }
 
 endif;
+
+
+function var_error_log( $object=null ){
+    ob_start();                    // start buffer capture
+    var_dump( $object );           // dump the values
+    $contents = ob_get_contents(); // put the buffer into a variable
+    ob_end_clean();                // end capture
+    error_log( $contents );        // log contents of the result of var_dump( $object )
+}

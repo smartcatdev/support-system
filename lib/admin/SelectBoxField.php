@@ -23,7 +23,8 @@ if( !class_exists( '\smartcat\admin\CSelectBoxField' ) ) :
                 <?php foreach( $this->options as $option => $title ) : ?>
 
                     <option value="<?php esc_attr_e( $option ); ?>"
-                        selected="<?php selected( $option, $this->value ); ?>">
+
+                        <?php selected( $option, $this->value ); ?>>
 
                         <?php esc_html_e( $title ); ?>
 

@@ -23,6 +23,7 @@ final class Installer extends ActionListener {
         update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
 
         $this->register_template();
+        $this->create_email_templates();
         $this->add_user_roles();
     }
     
@@ -69,6 +70,38 @@ final class Installer extends ActionListener {
         remove_role( 'support_admin' );
         remove_role( 'support_agent' );
         remove_role( 'support_user' );
+    }
+
+    public function create_email_templates() {
+        if( empty( get_post( get_option( Option::WELCOME_EMAIL_TEMPLATE ) ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => 'Welcome to Support',
+                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_welcome.html' )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
+            }
+        }
+
+        if( empty( get_post( get_option( Option::CLOSED_EMAIL_TEMPLATE ) ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => 'Your ticket has been closed',
+                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_ticket_closed.html' )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
+            }
+        }
     }
 
     public function register_template() {
