@@ -7,6 +7,7 @@ use smartcat\admin\SettingsSection;
 use smartcat\admin\TabbedSettingsPage;
 use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
+use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\TEXT_DOMAIN;
 
@@ -149,21 +150,21 @@ $email->add_field( new SelectBoxField(
     array(
         'id'            => 'support_welcome_email_template',
         'option'        => Option::WELCOME_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE, Option\Defaults::WELCOME_EMAIL_TEMPLATE ),
-        'options'       => $GLOBALS['smartcat_email_service']->template_dropdown_list(),
+        'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
+        'options'       => EmailTemplateService::template_dropdown_list(),
         'label'         => __( 'Welcome Email Template', TEXT_DOMAIN ),
         'desc'          => __( 'The email template to be sent out after registration', TEXT_DOMAIN ),
-        'validators'    => array( new MatchFilter( array_keys( $GLOBALS['smartcat_email_service']->template_dropdown_list() ), '' ) )
+        'validators'    => array( new MatchFilter( array_keys( EmailTemplateService::template_dropdown_list() ), '' ) )
     )
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_closed_email_template',
         'option'        => Option::CLOSED_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE, Option\Defaults::CLOSED_EMAIL_TEMPLATE ),
-        'options'       => $GLOBALS['smartcat_email_service']->template_dropdown_list(),
+        'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE ),
+        'options'       => EmailTemplateService::template_dropdown_list(),
         'label'         => __( 'Ticket Closed Email Template', TEXT_DOMAIN ),
         'desc'          => __( 'The email template to be sent out after a ticket has been closed', TEXT_DOMAIN ),
-        'validators'    => array( new MatchFilter( array_keys( $GLOBALS['smartcat_email_service']->template_dropdown_list() ), '' ) )
+        'validators'    => array( new MatchFilter( array_keys( EmailTemplateService::template_dropdown_list() ), '' ) )
     )
 ) );
 

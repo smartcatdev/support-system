@@ -11,7 +11,9 @@ class EmailTemplateService {
     private $required_by;
     private $text_domain;
 
-     protected function __construct( $required_by, $text_domain ) {
+    private static $instance;
+
+    protected function __construct( $required_by, $text_domain ) {
         $this->required_by = $required_by;
         $this->text_domain = $text_domain;
 
@@ -117,11 +119,11 @@ class EmailTemplateService {
         register_post_type( 'email_template', $args );
     }
 
-    public function send_template ( $template_tag, $recipient ) {
+    public function send_template ( $template_id, $recipient ) {
 
         $query = new \WP_Query(
             array(
-                'name'        => $template_tag,
+                'post_id'     => $template_id,
                 'post_type'   => 'email_template',
                 'post_status' => 'publish'
             )
@@ -141,12 +143,12 @@ class EmailTemplateService {
     }
 
     public static function register( $plugin_name, $text_domain ) {
-        if( empty( $GLOBALS['smartcat_email_service'] ) ) {
-            $GLOBALS['smartcat_email_service'] = new EmailTemplateService( $plugin_name, $text_domain );
+        if( empty( self::$instance ) ) {
+            self::$instance = new self( $plugin_name, $text_domain );
         }
     }
 
-    public function template_dropdown_list() {
+    public static function template_dropdown_list() {
         $query = new \WP_Query(
             array(
                 'post_type'   => 'email_template',
@@ -155,7 +157,7 @@ class EmailTemplateService {
         );
 
         foreach( $query->posts as $template ) {
-            $templates [ $template->post_name ] = $template->post_title;
+            $templates [ $template->post_id ] = $template->post_title;
         }
 
         return $templates;

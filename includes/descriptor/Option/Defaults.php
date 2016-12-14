@@ -111,15 +111,4 @@ final class Defaults {
      * @since 1.0.0
      */
     const LOGIN_LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
-
-
-    /**
-     * @since 1.0.0
-     */
-    const WELCOME_EMAIL_TEMPLATE = 'support-welcome-email-template';
-
-    /**
-     * @since 1.0.0
-     */
-    const CLOSED_EMAIL_TEMPLATE = 'support-closed-email-template';
 }
