@@ -95,7 +95,6 @@ function init( $fs_context ) {
                 remove_appended_caps( 'customer' );
             }
         }
-//        do_action( 'smartcat_send_mail', 'support-welcome-email', 'eric@smartcat.ca' );
     } );
 
     add_action( 'admin_enqueue_scripts', function () {

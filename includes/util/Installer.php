@@ -164,7 +164,7 @@ final class Installer extends ActionListener {
             'label'               => __( 'Support Ticket', TEXT_DOMAIN ),
             'description'         => __( 'Tickets for support requests', TEXT_DOMAIN ),
             'labels'              => $labels,
-            'supports'            => array( 'editor', 'author', 'comments', 'title' ),
+            'supports'            => array( 'editor', 'comments', 'title' ),
             'hierarchical'        => false,
             'public'              => false,
             'show_ui'             => true,

@@ -4,8 +4,6 @@ namespace smartcat\mail;
 
 if( !class_exists( '\smartcat\mail\EmailTemplateService' ) ) :
 
-require_once dirname( dirname( __FILE__ ) ) . '/tgm/TGM_Plugin_Activation.php';
-
 class EmailTemplateService {
 
     private $required_by;
@@ -143,6 +141,9 @@ class EmailTemplateService {
     public static function register( $plugin_name, $text_domain ) {
         if( empty( self::$instance ) ) {
             self::$instance = new self( $plugin_name, $text_domain );
+
+            require_once dirname( dirname( __FILE__ ) ) . '/tgm/TGM_Plugin_Activation.php';
+
             self::$instance->add_actions();
         }
     }
@@ -168,12 +169,3 @@ class EmailTemplateService {
 }
 
 endif;
-
-
-function var_error_log( $object=null ){
-    ob_start();                    // start buffer capture
-    var_dump( $object );           // dump the values
-    $contents = ob_get_contents(); // put the buffer into a variable
-    ob_end_clean();                // end capture
-    error_log( $contents );        // log contents of the result of var_dump( $object )
-}
