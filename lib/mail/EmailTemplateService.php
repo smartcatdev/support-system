@@ -118,11 +118,15 @@ class EmailTemplateService {
     public function send_template( $template_id, $recipient ) {
         $template = get_post( $template_id );
 
+        ob_start();
+        echo do_shortcode( $template->post_content );
+        $content = ob_get_clean();
+
         if( !empty( $template ) ) {
             wp_mail(
                 $recipient,
                 $template->post_title,
-                $template->post_content,
+                $content,
                 array( 'Content-Type: text/html; charset=UTF-8' )
             );
         }
