@@ -79,7 +79,7 @@ final class Installer extends ActionListener {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => 'Welcome to Support',
-                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_welcome.html' )
+                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_welcome.md' )
                 )
             );
 
@@ -94,7 +94,7 @@ final class Installer extends ActionListener {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => 'Your ticket has been closed',
-                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_ticket_closed.html' )
+                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_ticket_closed.md' )
                 )
             );
 
