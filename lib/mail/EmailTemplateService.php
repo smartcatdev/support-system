@@ -115,27 +115,17 @@ class EmailTemplateService {
         register_post_type( 'email_template', $args );
     }
 
-    public function send_template ( $template_id, $recipient ) {
+    public function send_template( $template_id, $recipient ) {
+        $template = get_post( $template_id );
 
-        $query = new \WP_Query(
-            array(
-                'post_id'     => $template_id,
-                'post_type'   => 'email_template',
-                'post_status' => 'publish'
-            )
-        );
-
-        if ( $query->have_posts() ) {
-            $post = $query->post;
-
+        if( !empty( $template ) ) {
             wp_mail(
                 $recipient,
-                $post->post_title,
-                $post->post_content,
+                $template->post_title,
+                $template->post_content,
                 array( 'Content-Type: text/html; charset=UTF-8' )
             );
         }
-
     }
 
     public static function register( $plugin_name, $text_domain ) {

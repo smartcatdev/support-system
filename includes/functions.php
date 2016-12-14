@@ -269,8 +269,11 @@ function register_user() {
             sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ), $data['email']
         );
 
-        if( !empty( $user_id ) ) {
+        if( !empty( $user_id ) ) {error_log(get_option( Option::WELCOME_EMAIL_TEMPLATE ));
+            do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+
             get_user_by( 'ID', $user_id )->set_role( 'support_user' );
+
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();
         }
