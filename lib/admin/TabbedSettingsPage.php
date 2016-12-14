@@ -12,7 +12,7 @@ class TabbedSettingsPage extends SettingsPage {
         parent::__construct( $config );
 
         foreach( $config['tabs'] as $tab => $title ) {
-            $this->tabs[ $this->menu_slug . '_' . $tab ] = $title;
+            $this->tabs[ $tab ] = $title;
         }
     }
 
@@ -63,9 +63,9 @@ class TabbedSettingsPage extends SettingsPage {
 
             <form method="post" action="options.php">
 
-                <?php settings_fields( $active_tab ); ?>
+                <?php settings_fields( $this->menu_slug . '_' .$active_tab ); ?>
 
-                <?php do_settings_sections( $active_tab ); ?>
+                <?php do_settings_sections( $this->menu_slug . '_' . $active_tab ); ?>
 
                 <?php submit_button(); ?>
 

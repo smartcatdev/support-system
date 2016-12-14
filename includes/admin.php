@@ -20,7 +20,7 @@ $admin = new TabbedSettingsPage(
         'menu_slug'     => 'support_options',
         'tabs'          => array(
             'general'     => __( 'General', TEXT_DOMAIN ),
-            'text'        => __( 'Display', TEXT_DOMAIN ),
+            'display'     => __( 'Display', TEXT_DOMAIN ),
             'email'       => __( 'Email', TEXT_DOMAIN ),
             'advanced'    => __( 'Advanced', TEXT_DOMAIN )
         )
@@ -195,7 +195,7 @@ $advanced->add_field( new CheckBoxField(
 $admin->add_section( $general, 'general' );
 $admin->add_section( $email, 'email' );
 $admin->add_section( $advanced, 'advanced' );
-$admin->add_section( $text, 'text' );
+$admin->add_section( $text, 'display' );
 
 
 $admin->register();
