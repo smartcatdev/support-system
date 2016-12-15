@@ -17,13 +17,12 @@ class CheckBoxField extends Field {
 
     public function render() { ?>
 
-        <input data-field_name="<?php esc_attr_e( $this->id ); ?>"
-               name="<?php esc_attr_e( $this->id ); ?>"
+        <input name="<?php esc_attr_e( $this->id ); ?>"
 
-               <?php checked( $this->value ); ?>
+            <?php checked( $this->value ); ?>
 
-               type="checkbox"
-               class="form_field" />
+            type="checkbox"
+            class="form_field" />
 
         <span class="checkbox-title"><?php echo $this->cb_title; ?></span>
 

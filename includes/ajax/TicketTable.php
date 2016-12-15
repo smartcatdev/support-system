@@ -3,12 +3,9 @@
 namespace SmartcatSupport\ajax;
 
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\FormBuilder;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
-use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
 
 class TicketTable extends ActionListener {

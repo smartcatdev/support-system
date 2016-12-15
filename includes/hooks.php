@@ -5,7 +5,7 @@ use const SmartcatSupport\PLUGIN_VERSION;
 
 add_action( 'template_include', function ( $template ) {
     if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-        $template = SUPPORT_PATH . '/templates/template.php';
+        $template = SUPPORT_PATH . '/template-parts/app.php';
     }
 
     return $template;

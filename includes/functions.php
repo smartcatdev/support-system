@@ -152,7 +152,7 @@ function render_template( $template, array $data = array() ) {
     extract( $data );
     ob_start();
 
-    include ( SUPPORT_PATH . '/templates/' . $template . '.php' );
+    include ( SUPPORT_PATH . '/template-parts/' . $template . '.php' );
 
     return ob_get_clean();
 }

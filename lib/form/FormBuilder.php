@@ -6,9 +6,9 @@ if( !class_exists( '\smartcat\form\FormBuilder' ) ) :
 
 class FormBuilder {
     protected $id;
-    private $fields = array();
-    private $method;
-    private $action;
+    protected $fields = array();
+    protected $method;
+    protected $action;
     
     public function __construct( $id, $method = 'POST', $action = '?' ) {
         $this->id = $id;

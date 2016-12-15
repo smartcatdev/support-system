@@ -126,7 +126,7 @@ final class Installer {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => 'Welcome to Support',
-                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_welcome.md' )
+                    'post_content'  => file_get_contents( SUPPORT_PATH . '/emails/email_welcome.md' )
                 )
             );
 

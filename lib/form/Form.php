@@ -5,7 +5,6 @@ namespace smartcat\form;
 if( !class_exists( '\smartcat\form\Form' ) ) :
 
 class Form {
-
     protected $id;
     protected $fields = [ ];
     protected $method;
