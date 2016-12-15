@@ -16,38 +16,33 @@ if( !class_exists( 'smartcat\post\MetaBox' ) ) :
 abstract class MetaBox {
     /**
      * @var string The metabox ID.
-     * @access protected
      * @since 1.0.0
      */
-    protected $id;
+    public $id;
     
     /**
      * @var string The metabox title.
-     * @access protected
      * @since 1.0.0
      */
-    protected $title;
+    public $title;
     
     /**
      * @var string The associated post type.
-     * @access protected
      * @since 1.0.0 
      */
-    protected $post_type;
+    public $post_type;
     
     /**
      * @var string The context where the metabox should display.
-     * @access protected
      * @since 1.0.0 
      */
-    protected $context;
+    public $context;
     
     /**
      * @var string The priority of the metabox.
-     * @access protected
-     * @since 1.0.0 
+     * @since 1.0.0
      */
-    protected $priority;
+    public $priority;
     
     /**
      * @param string $id        The ID of the metabox.
@@ -59,12 +54,12 @@ abstract class MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function __construct( $id, $title, $post_type, $context = 'advanced', $priority = 'default' ) {
-        $this->set_id( $id )
-            ->set_title( $title )
-            ->set_post_type( $post_type )
-            ->set_context( $context );
+        $this->id = $id;
+        $this->title = $title;
+        $this->post_type = $post_type;
+        $this->context = $context;
      
-        add_action( 'add_meta_boxes_' . $post_type, array( $this, 'install' ) );
+        add_action( "add_meta_boxes_{$post_type}", array( $this, 'install' ) );
         add_action( 'save_post', array( $this, 'save' ), 10, 2 );
     }
 
@@ -112,129 +107,7 @@ abstract class MetaBox {
      * @param int $post_id The ID of the post to be saved.
      * @param WP_Post $post The post object that contains the data to be saved.
      */
-    public abstract function save( $post_id, $post );   
-        
-    // <editor-fold defaultstate="collapsed" desc="Getters / Setters">
-    /**
-     * Gets the ID.
-     * 
-     * @return string The metabox ID.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function get_id() {
-        return $this->id;
-    }
-
-    /**
-     * Gets the title.
-     * 
-     * @return string The metabox title.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function get_title() {
-        return $this->title;
-    }
-
-    /**
-     * Gets the post type.
-     * 
-     * @return string The post associated post type.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function get_post_type() {
-        return $this->post_type;
-    }
-
-    /**
-     * Gets the context.
-     * 
-     * @return string The display context.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function get_context() {
-        return $this->context;
-    }
-
-    /**
-     * Gets the display priority.
-     * 
-     * @return string The metabox display priority.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function get_priority() {
-        return $this->priority;
-    }
-
-    /**
-     * Sets the ID.
-     * 
-     * @param string $id The ID of the metabox.
-     * @return \SmartcatSupport\admin\MetaBox The metabox.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function set_id( $id ) {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * Sets the title.
-     * 
-     * @param string $title The metabox title.
-     * @return \SmartcatSupport\admin\MetaBox The metabox.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function set_title( $title ) {
-        $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * Sets the post type.
-     * 
-     * @param type $post_type The associated post type.
-     * @return \SmartcatSupport\admin\MetaBox The metabox.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function set_post_type( $post_type ) {
-        $this->post_type = $post_type;
-        return $this;
-    }
-
-    /**
-     * Sets the context.
-     * 
-     * @param type $context The display context.
-     * @return \SmartcatSupport\admin\MetaBox The metabox.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function set_context( $context ) {
-        $this->context = $context;
-        return $this;
-    }
-
-    /**
-     * Sets the priority.
-     * 
-     * @param type $priority The display priority.
-     * @return \SmartcatSupport\admin\MetaBox The metabox.
-     * @since 1.0.0
-     * @author Eric Green <eric@smartcat.ca>
-     */
-    public function set_priority( $priority ) {
-        $this->priority = $priority;
-        return $this;
-    }
-// </editor-fold>
+    public abstract function save( $post_id, $post );
 }
 
 endif;
