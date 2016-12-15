@@ -5,8 +5,8 @@ namespace smartcat\form;
 if( !class_exists( '\smartcat\form\TextAreaField' ) ) :
 
 class TextAreaField extends Field {
-    private $rows;
-    private $cols;
+    protected $rows;
+    protected $cols;
 
     public function __construct( $id, array $args ) {
         parent::__construct( $id, $args );
