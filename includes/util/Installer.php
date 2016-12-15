@@ -2,7 +2,6 @@
 
 namespace SmartcatSupport\util;
 
-use function SmartcatSupport\agents_dropdown;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\TEXT_DOMAIN;
 use const SmartcatSupport\PLUGIN_VERSION;
@@ -13,10 +12,42 @@ use const SmartcatSupport\PLUGIN_VERSION;
  *  @author Eric Green <eric@smartcat.ca>
  *  @since 1.0.0
  */
-final class Installer extends ActionListener {
+final class Installer {
 
-    public function __construct() {
-        $this->add_action( 'init', 'register_post_type' );
+    private static $instance;
+
+    public static function init() {
+        if( empty( self::$instance ) ) {
+            self::$instance = new self();
+            self::$instance->add_actions();
+        }
+
+        return self::$instance;
+    }
+
+    private function __construct() {}
+
+    private function add_actions() {
+        add_action( 'init', array( $this, 'register_post_type' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+    }
+
+    public function enqueue_admin_scripts() {
+        wp_enqueue_media();
+        wp_enqueue_script( 'wp_media_uploader',
+            SUPPORT_URL . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), PLUGIN_VERSION );
+
+        wp_register_script( 'support-admin-js',
+            SUPPORT_URL . 'assets/admin/admin.js', array( 'jquery' ), PLUGIN_VERSION );
+
+        wp_localize_script( 'support-admin-js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
+        wp_enqueue_script( 'support-admin-js' );
+
+        wp_enqueue_style( 'support-admin-icons',
+            SUPPORT_URL . '/assets/icons.css', null, PLUGIN_VERSION );
+
+        wp_enqueue_style( 'support-admin-css',
+            SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
     }
 
     public function activate() {
@@ -70,6 +101,22 @@ final class Installer extends ActionListener {
         remove_role( 'support_admin' );
         remove_role( 'support_agent' );
         remove_role( 'support_user' );
+    }
+
+    public function append_user_caps( $role ) {
+        $role = get_role( $role );
+
+        $role->add_cap( 'view_support_tickets' );
+        $role->add_cap( 'create_support_tickets' );
+        $role->add_cap( 'unfiltered_html' );
+    }
+
+    public function remove_appended_caps( $role ) {
+        $role = get_role( $role );
+
+        $role->remove_cap( 'view_support_tickets' );
+        $role->remove_cap( 'create_support_tickets' );
+        $role->remove_cap( 'unfiltered_html' );
     }
 
     public function create_email_templates() {

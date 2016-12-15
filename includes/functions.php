@@ -24,9 +24,12 @@ use SmartcatSupport\util\Installer;
  * @author Eric Green <eric@smartcat.ca>
  * @since 1.0.0
  */
-function init( $fs_context ) {
+function bootstrap( $fs_context ) {
     define( 'SUPPORT_PATH', dirname( $fs_context ) );
     define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
+
+    $installer = Installer::init();
+    EmailTemplateService::register( 'Smartcat Support', TEXT_DOMAIN );
 
     // Configure table Handler
     $table_handler = new TicketTable();
@@ -46,82 +49,11 @@ function init( $fs_context ) {
 
     $ticket_admin = new TicketAdminTable();
 
-    // Configure installer
-    $installer = new Installer();
 
-    EmailTemplateService::register( 'Smartcat Support', TEXT_DOMAIN );
-
-
-    // Pull in admin pages config
+    include_once 'hooks.php';
     include_once 'admin.php';
 
 
-    add_action( 'plugins_loaded', function() {
-        if( class_exists( 'WooCommerce' ) ) {
-            define( 'SUPPORT_WOO_ACTIVE', 1 );
-        }
-
-        if( class_exists( 'Easy_Digital_Downloads' ) ) {
-            define( 'SUPPORT_EDD_ACTIVE', 1 );
-        }
-    } );
-
-    add_action( 'template_include', function ( $template ) {
-        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-            $template = SUPPORT_PATH . '/templates/template.php';
-        }
-
-        return $template;
-    } );
-
-    if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) ) {
-        add_action( 'wp_ajax_nopriv_support_register_user', '\SmartcatSupport\register_user' );
-    }
-
-    // Temporarily add/remove roles until we get a settings page
-    add_action( 'admin_init', function() {
-        if ( defined( 'SUPPORT_EDD_ACTIVE' ) ) {
-            if ( get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
-                append_user_caps( 'subscriber' );
-            } else {
-                remove_appended_caps( 'subscriber' );
-            }
-        }
-
-        if ( defined( 'SUPPORT_WOO_ACTIVE' ) ) {
-            if ( get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
-                append_user_caps( 'customer' );
-            } else {
-                remove_appended_caps( 'customer' );
-            }
-        }
-    } );
-
-    add_action( 'admin_enqueue_scripts', function () {
-        wp_enqueue_media();
-        wp_enqueue_script( 'wp_media_uploader',
-            SUPPORT_URL . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_register_script( 'support-admin-js',
-            SUPPORT_URL . 'assets/admin/admin.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_localize_script( 'support-admin-js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
-        wp_enqueue_script( 'support-admin-js' );
-
-        wp_enqueue_style( 'support-admin-icons', SUPPORT_URL . '/assets/icons.css', null, PLUGIN_VERSION );
-        wp_enqueue_style( 'support-admin-css', SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
-    } );
-
-    add_action( 'pre_update_option_' . Option::RESTORE_TEMPLATE_PAGE, function ( $value ) use ( $installer ) {
-        if( $value == 'on' ) {
-            $installer->register_template();
-        }
-
-        return '';
-    } );
-
-    register_activation_hook( $fs_context, array( $installer, 'activate' ) );
-    register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
 }
 
 /**
@@ -217,10 +149,7 @@ function get_products() {
  * @author Eric Green <eric@smartcat.ca>
  */
 function render_template( $template, array $data = array() ) {
-    if( is_array( $data ) ) {
-        extract( $data );
-    }
-
+    extract( $data );
     ob_start();
 
     include ( SUPPORT_PATH . '/templates/' . $template . '.php' );
@@ -264,39 +193,32 @@ function register_user() {
 
     if( $form->is_valid() ) {
         $data = $form->get_data();
+        $password = wp_generate_password();
 
-        $user_id = register_new_user(
-            sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ), $data['email']
+        $user_id = wp_insert_user(
+            array(
+                'user_login'    => sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ),
+                'user_email'    => $data['email'],
+                'first_name'    => $data['first_name'],
+                'last_name'     => $data['last_name'],
+                'role'          => 'support_user',
+                'user_pass'     => $password
+            )
         );
 
-        if( !empty( $user_id ) ) {error_log(get_option( Option::WELCOME_EMAIL_TEMPLATE ));
-            do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+        add_filter( 'replace_email_template_vars', function( $vars ) use ( $password ) {
+            $vars['password'] = $password;
 
-            get_user_by( 'ID', $user_id )->set_role( 'support_user' );
+            return $vars;
+        } );
 
-            wp_set_auth_cookie( $user_id );
-            wp_send_json_success();
-        }
+        do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
 
+        wp_set_auth_cookie( $user_id );
+        wp_send_json_success();
     } else {
         wp_send_json_error( $form->get_errors() );
     }
-}
-
-function append_user_caps( $role ) {
-    $role = get_role( $role );
-
-    $role->add_cap( 'view_support_tickets' );
-    $role->add_cap( 'create_support_tickets' );
-    $role->add_cap( 'unfiltered_html' );
-}
-
-function remove_appended_caps( $role ) {
-    $role = get_role( $role );
-
-    $role->remove_cap( 'view_support_tickets' );
-    $role->remove_cap( 'create_support_tickets' );
-    $role->remove_cap( 'unfiltered_html' );
 }
 
 function agents_dropdown( $name, $selected = '', $echo = true ) {

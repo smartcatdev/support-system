@@ -2,6 +2,8 @@
 
 namespace smartcat\mail;
 
+use smartcat\debug\Log;
+
 if( !class_exists( '\smartcat\mail\EmailTemplateService' ) ) :
 
 class EmailTemplateService {
@@ -20,6 +22,7 @@ class EmailTemplateService {
         add_action( 'tgmpa_register', array( $this, 'register_dependencies' ) );
         add_action( 'init', array( $this, 'register_template_cpt' ) );
         add_action( 'smartcat_send_mail', array( $this, 'send_template' ), 10, 2 );
+        add_action( 'replace_email_template_vars', array( $this, 'default_template_values' ), 10, 2 );
     }
 
     public function register_dependencies() {
@@ -117,19 +120,62 @@ class EmailTemplateService {
 
     public function send_template( $template_id, $recipient ) {
         $template = get_post( $template_id );
-
-        ob_start();
-        echo do_shortcode( $template->post_content );
-        $content = ob_get_clean();
+        $values = apply_filters( 'replace_email_template_vars', $this->template_vars( $template->post_content ), $recipient );
 
         if( !empty( $template ) ) {
             wp_mail(
                 $recipient,
                 $template->post_title,
-                $content,
+                $this->replace_template_vars( $template->post_content, $values ),
                 array( 'Content-Type: text/html; charset=UTF-8' )
             );
         }
+    }
+
+    private function replace_template_vars( $content, array $values ) {
+        foreach( $values as $var => $value ) {
+            $content = str_replace( "{%{$var}%}", $value, $content );
+        }
+
+        return $content;
+    }
+
+    private function template_vars( $template ) {
+        $matches = array();
+
+        preg_match_all( '#{%(.*?)%}#', $template, $matches );
+
+        return $matches[1];
+    }
+
+    public function default_template_values( $vars, $recipient ) {
+        $user = get_user_by( 'email', $recipient );
+
+        if( !empty( $user ) ) {
+            foreach( $vars as $var ) {
+
+                switch( $var ) {
+                    case 'full_name':
+                        $vars['full_name'] = $user->first_name . ' ' . $user->last_name;
+                        break;
+
+                    case 'first_name':
+                        $vars['first_name'] = $user->first_name;
+                        break;
+
+                    case 'last_name':
+                        $vars['last_name'] = $user->last_name;
+                        break;
+
+                    case 'user_name':
+                        $vars['user_name'] = $user->user_login;
+                        break;
+                }
+
+            }
+        }
+
+        return $vars;
     }
 
     public static function register( $plugin_name, $text_domain ) {
@@ -163,3 +209,4 @@ class EmailTemplateService {
 }
 
 endif;
+
