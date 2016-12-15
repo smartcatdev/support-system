@@ -2,19 +2,19 @@
 
 namespace SmartcatSupport;
 
+use smartcat\form\FormBuilder;
+use smartcat\form\RequiredConstraint;
+use smartcat\form\SelectBoxField;
+use smartcat\form\TextBoxField;
 use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
 use SmartcatSupport\admin\TicketAdminTable;
-use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\Ticket;
+use SmartcatSupport\ajax\CommentHandler;
+use SmartcatSupport\ajax\TicketHandler;
 use SmartcatSupport\ajax\TicketTable;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\constraint\Required;
-use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\field\TextBox;
-use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
 
 
@@ -35,10 +35,10 @@ function bootstrap( $fs_context ) {
     $table_handler = new TicketTable();
 
     // Configure ticket Handler
-    $ticket_handler = new Ticket( new FormBuilder( 'ticket_form' ) );
+    $ticket_handler = new TicketHandler( new FormBuilder( 'ticket_form' ) );
 
     // Configure comment handler
-    $comment_handler = new Comment( new FormBuilder( 'comment_form' ) );
+    $comment_handler = new CommentHandler();
 
     // Configure the metabox
     $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_support_form' ) );
@@ -160,27 +160,27 @@ function render_template( $template, array $data = array() ) {
 function register_form() {
     $builder = new FormBuilder( 'register_form' );
 
-    $builder->add( TextBox::class, 'first_name', array(
+    $builder->add( TextBoxField::class, 'first_name', array(
         'label'             => __( 'First Name', TEXT_DOMAIN ),
         'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
         'constraints'       => array(
-            $builder->create_constraint( Required::class )
+            $builder->create_constraint( RequiredConstraint::class )
         )
 
-    ) )->add( TextBox::class, 'last_name', array(
+    ) )->add( TextBoxField::class, 'last_name', array(
         'label'             => __( 'Last Name', TEXT_DOMAIN ),
         'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
         'constraints'       =>  array(
-            $builder->create_constraint( Required::class )
+            $builder->create_constraint( RequiredConstraint::class )
         )
 
-    ) )->add( TextBox::class, 'email', array(
+    ) )->add( TextBoxField::class, 'email', array(
         'type'              => 'email',
         'label'             => __( 'Email Address', TEXT_DOMAIN ),
         'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
         'sanitize_callback' => 'sanitize_email',
         'constraints'       => array(
-            $builder->create_constraint( Required::class )
+            $builder->create_constraint( RequiredConstraint::class )
         )
 
     ) );
@@ -222,7 +222,7 @@ function register_user() {
 }
 
 function agents_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBox( $name,
+    $select = new SelectBoxField( $name,
         array(
             'value' => $selected,
             'options' => array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents()
@@ -238,7 +238,7 @@ function agents_dropdown( $name, $selected = '', $echo = true ) {
 }
 
 function products_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBox( $name,
+    $select = new SelectBoxField( $name,
         array(
             'value' => $selected,
             'options' => array( '' => __( 'All Products', TEXT_DOMAIN ) ) + get_products()
@@ -254,7 +254,7 @@ function products_dropdown( $name, $selected = '', $echo = true ) {
 }
 
 function boolean_meta_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBox( $name,
+    $select = new SelectBoxField( $name,
         array(
             'value' => $selected,
             'options' => array( '' => __( 'All', TEXT_DOMAIN ), 'flagged' => __( 'Flagged', TEXT_DOMAIN ) )

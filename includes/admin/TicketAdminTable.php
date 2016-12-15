@@ -2,13 +2,13 @@
 
 namespace SmartcatSupport\admin;
 
+use smartcat\form\CheckBoxField;
+use smartcat\form\ChoiceConstraint;
+use smartcat\form\FormBuilder;
+use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\agents_dropdown;
 use function SmartcatSupport\boolean_meta_dropdown;
-use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\field\CheckBox;
-use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\FormBuilder;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
@@ -204,30 +204,30 @@ class TicketAdminTable extends ActionListener {
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
         $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-        $builder->add( CheckBox::class, 'flagged', array(
+        $builder->add( CheckBoxField::class, 'flagged', array(
             'cb_title'          => __( 'Flagged', TEXT_DOMAIN ),
             'value'             => false
 
-        ) )->add( SelectBox::class, 'agent', array(
+        ) )->add( SelectBoxField::class, 'agent', array(
             'label'             => __( 'Assigned', TEXT_DOMAIN ),
             'options'           => $agents,
             'constraints'       => array(
-                $builder->create_constraint( Choice::class, array_keys( $agents ) )
+                $builder->create_constraint( ChoiceConstraint::class, array_keys( $agents ) )
             )
 
-        ) )->add( SelectBox::class, 'status', array(
+        ) )->add( SelectBoxField::class, 'status', array(
             'label'             => __( 'Status', TEXT_DOMAIN ),
             'options'           => $statuses,
             'constraints'       => array(
-                $builder->create_constraint( Choice::class, array_keys( $statuses ) )
+                $builder->create_constraint( ChoiceConstraint::class, array_keys( $statuses ) )
             )
 
-        ) )->add( SelectBox::class, 'priority', array(
+        ) )->add( SelectBoxField::class, 'priority', array(
             'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
             'label'       => __( 'Priority', TEXT_DOMAIN ),
             'options'     => $priorities,
             'constraints' => array(
-                $builder->create_constraint( Choice::class, array_keys( $priorities ) )
+                $builder->create_constraint( ChoiceConstraint::class, array_keys( $priorities ) )
             )
         ) );
 

@@ -2,9 +2,9 @@
 
 namespace smartcat\form;
 
-if( !class_exists( '\smartcat\form\TextBox' ) ) :
+if( !class_exists( '\smartcat\form\TextBoxField' ) ) :
 
-class TextBox extends Field {
+class TextBoxField extends Field {
     private $type = 'text';
     
     public function __construct( $id, array $args = array() ) {
@@ -19,7 +19,6 @@ class TextBox extends Field {
 
         <input type="<?php esc_attr_e( $this->type ); ?>"
             name="<?php esc_attr_e( $this->id ); ?>"
-            data-field_name="<?php esc_attr_e( $this->id ); ?>"
             value="<?php esc_attr_e( $this->value ); ?>"
             class="form_field" />
 

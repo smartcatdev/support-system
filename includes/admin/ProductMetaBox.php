@@ -2,13 +2,13 @@
 
 namespace SmartcatSupport\admin;
 
-use smartcat\admin\MetaBox;
+use smartcat\form\ChoiceConstraint;
+use smartcat\form\FormBuilder;
+use smartcat\form\SelectBoxField;
+use smartcat\form\TextBoxField;
+use smartcat\post\MetaBox;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
-use SmartcatSupport\form\FormBuilder;
-use SmartcatSupport\form\field\TextBox;
-use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\constraint\Choice;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 /**
@@ -40,26 +40,24 @@ class ProductMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function render( $post ) {
-        $form = $this->configure_form( $post );
-
-        echo render_template( 'metabox', array( 'form' => $form, 'post' => $post ) );
+        echo render_template( 'metabox', array( 'form' => $this->configure_form( $post ) ) );
     }
 
     private function configure_form( $post ) {
         $products = array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + get_products();
 
-        $this->builder->add( TextBox::class, 'receipt_id', array(
+        $this->builder->add( TextBoxField::class, 'receipt_id', array(
             'type'              => 'text',
             'label'             => __( 'Receipt #', TEXT_DOMAIN ),
             'value'             => get_post_meta( $post->ID, 'receipt_id', true ),
             'sanitize_callback' => 'sanitize_text_field'
 
-        ) )->add( SelectBox::class, 'product', array(
+        ) )->add( SelectBoxField::class, 'product', array(
             'label'       => __( 'Product', TEXT_DOMAIN ),
             'value'       => get_post_meta( $post->ID, 'product', true ),
             'options'     => $products,
             'constraints' => array(
-                $this->builder->create_constraint( Choice::class, array_keys( $products ) )
+                $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $products ) )
             )
         ) );
 

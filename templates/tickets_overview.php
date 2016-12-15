@@ -1,11 +1,9 @@
 <?php
 
-use function SmartcatSupport\agents_dropdown;
+use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\field\SelectBox;
-use function SmartcatSupport\get_agents;
+use function SmartcatSupport\agents_dropdown;
 use function SmartcatSupport\get_products;
-use function SmartcatSupport\support_dropdown;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>
@@ -18,12 +16,12 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <?php $products = get_products(); if( $products ) : ?>
 
-                <?php ( new SelectBox( 'product', array(
+                <?php ( new SelectBoxField( 'product', array(
                     'options' =>  array( '' => __( 'Product', TEXT_DOMAIN ) ) + $products ) ) )->render(); ?>
 
             <?php endif; ?>
 
-            <?php ( new SelectBox( 'status', array(
+            <?php ( new SelectBoxField( 'status', array(
                 'options' =>  array( '' => __( 'Status', TEXT_DOMAIN ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES ) ) ) )->render(); ?>
 
             <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>

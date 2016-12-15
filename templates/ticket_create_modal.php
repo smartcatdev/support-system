@@ -1,7 +1,7 @@
 <?php
 
+use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\Form;
 use const SmartcatSupport\TEXT_DOMAIN;
 
 ?>

@@ -2,29 +2,26 @@
 
 namespace SmartcatSupport\ajax;
 
+use smartcat\form\SelectBoxField;
+use smartcat\form\ChoiceConstraint;
+use smartcat\form\FormBuilder;
+use smartcat\form\HiddenField;
+use smartcat\form\RequiredConstraint;
+use smartcat\form\TextAreaField;
+use smartcat\form\TextBoxField;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
-use function SmartcatSupport\ticket_meta_form;
-use SmartcatSupport\util\TemplateRender;
 use SmartcatSupport\util\ActionListener;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\FormBuilder;
-use SmartcatSupport\form\field\TextBox;
-use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\field\TextArea;
-use SmartcatSupport\form\field\Hidden;
-use SmartcatSupport\form\constraint\Choice;
-use SmartcatSupport\form\constraint\Required;
 use const SmartcatSupport\TEXT_DOMAIN;
-use SmartcatSupport\descriptor\Strings;
 
 /**
  * Description of SingleTicket
  *
  * @author ericg
  */
-class Ticket extends ActionListener {
+class TicketHandler extends ActionListener {
     private $builder;
 
     public function __construct( FormBuilder $builder ) {
@@ -172,60 +169,59 @@ class Ticket extends ActionListener {
     private function configure_create_form() {
         $this->builder->clear_config();
         $user = wp_get_current_user();
-
         $products = get_products();
 
-        $this->builder->add( TextBox::class, 'first_name', array(
+        $this->builder->add( TextBoxField::class, 'first_name', array(
             'value'             => $user->first_name,
             'label'             => __( 'First Name', TEXT_DOMAIN ),
             'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints'       => array(
-                $this->builder->create_constraint( Required::class )
+                $this->builder->create_constraint( RequiredConstraint::class )
             )
 
-        ) )->add( TextBox::class, 'last_name', array(
+        ) )->add( TextBoxField::class, 'last_name', array(
             'value'             => $user->last_name,
             'label'             => __( 'Last Name', TEXT_DOMAIN ),
             'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints'       =>  array(
-                $this->builder->create_constraint( Required::class )
+                $this->builder->create_constraint( RequiredConstraint::class )
             )
 
-        ) )->add( TextBox::class, 'email', array(
+        ) )->add( TextBoxField::class, 'email', array(
             'type'              => 'email',
             'value'             => $user->user_email,
             'label'             => __( 'Contact Email', TEXT_DOMAIN ),
             'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
             'sanitize_callback' => 'sanitize_email',
             'constraints'       => array(
-                $this->builder->create_constraint( Required::class )
+                $this->builder->create_constraint( RequiredConstraint::class )
             )
 
         ) );
 
         if( $products ) {
-            $this->builder->add( SelectBox::class, 'product', array(
+            $this->builder->add( SelectBoxField::class, 'product', array(
                 'label'         => __( 'Product', TEXT_DOMAIN ),
                 'error_msg'     => __( 'Please Select a product', TEXT_DOMAIN ),
                 'options'       => array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + $products,
                 'constraints'   => array(
-                    $this->builder->create_constraint( Choice::class, array_keys( $products ) )
+                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $products ) )
                 )
             ) );
         }
 
-        $this->builder->add( TextBox::class, 'subject', array(
+        $this->builder->add( TextBoxField::class, 'subject', array(
             'label'         => __( 'Subject', TEXT_DOMAIN ),
             'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints'   => array(
-                $this->builder->create_constraint( Required::class )
+                $this->builder->create_constraint( RequiredConstraint::class )
             )
 
-        ) )->add( TextArea::class, 'content', array(
+        ) )->add( TextAreaField::class, 'content', array(
             'label'         => __( 'Description', TEXT_DOMAIN ),
             'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
             'constraints'   => array(
-                $this->builder->create_constraint( Required::class )
+                $this->builder->create_constraint( RequiredConstraint::class )
             )
         ) );
 
@@ -240,33 +236,33 @@ class Ticket extends ActionListener {
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
             $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-            $this->builder->add( Hidden::class, 'id', array(
+            $this->builder->add( HiddenField::class, 'id', array(
                 'value'       => $post->ID
 
-            ) )->add( SelectBox::class, 'agent', array(
+            ) )->add( SelectBoxField::class, 'agent', array(
                 'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
                 'label'       => __( 'Assigned To', TEXT_DOMAIN ),
                 'options'     => array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + $agents,
                 'value'       => get_post_meta( $post->ID, 'agent', true ),
                 'constraints' => array(
-                    $this->builder->create_constraint( Choice::class, array_keys( $agents ) )
+                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $agents ) )
                 )
 
-            ) )->add( SelectBox::class, 'status', array(
+            ) )->add( SelectBoxField::class, 'status', array(
                 'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
                 'label'       => __( 'Status', TEXT_DOMAIN ),
                 'options'     => $statuses,
                 'value'       => get_post_meta( $post->ID, 'status', true ),
                 'constraints' => array(
-                    $this->builder->create_constraint( Choice::class, array_keys( $statuses ) )
+                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $statuses ) )
                 )
-            ) )->add( SelectBox::class, 'priority', array(
+            ) )->add( SelectBoxField::class, 'priority', array(
                 'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
                 'label'       => __( 'Priority', TEXT_DOMAIN ),
                 'options'     => $priorities,
                 'value'       => get_post_meta( $post->ID, 'priority', true ),
                 'constraints' => array(
-                    $this->builder->create_constraint( Choice::class, array_keys( $priorities ) )
+                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $priorities ) )
                 )
             ) );
         }

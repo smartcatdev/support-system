@@ -2,8 +2,6 @@
 
 namespace smartcat\mail;
 
-use smartcat\debug\Log;
-
 if( !class_exists( '\smartcat\mail\EmailTemplateService' ) ) :
 
 class EmailTemplateService {

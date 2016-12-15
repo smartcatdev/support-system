@@ -2,21 +2,12 @@
 
 namespace SmartcatSupport\ajax;
 
-use SmartcatSupport\form\constraint\Required;
-use SmartcatSupport\form\field\Hidden;
-use SmartcatSupport\form\field\TextArea;
-use SmartcatSupport\form\FormBuilder;
 use function SmartcatSupport\render_template;
 use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
-use SmartcatSupport\util\TemplateRender;
 
-class Comment extends ActionListener {
-    private $builder;
-
-    public function __construct( FormBuilder $builder ) {
-        $this->builder = $builder;
-
+class CommentHandler extends ActionListener {
+    public function __construct() {
         $this->add_ajax_action( 'support_update_comment', 'update_comment' );
         $this->add_ajax_action( 'support_submit_comment', 'submit_comment' );
         $this->add_ajax_action( 'support_delete_comment', 'delete_comment' );

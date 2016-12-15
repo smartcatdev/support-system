@@ -2,9 +2,9 @@
 
 namespace smartcat\form;
 
-if( !class_exists( '\smartcat\form\TextArea' ) ) :
+if( !class_exists( '\smartcat\form\TextAreaField' ) ) :
 
-class TextArea extends Field {
+class TextAreaField extends Field {
     private $rows;
     private $cols;
 

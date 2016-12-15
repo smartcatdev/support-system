@@ -1,6 +1,5 @@
 <?php
 
-use function SmartcatSupport\convert_html_chars;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;

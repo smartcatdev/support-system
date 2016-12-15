@@ -1,8 +1,8 @@
 <?php
 
-namespace smartcat\admin;
+namespace smartcat\post;
 
-if( !class_exists( 'smartcat\admin\MetaBox' ) ) :
+if( !class_exists( 'smartcat\post\MetaBox' ) ) :
 
 /**
  * Abstract base class for meta classes, automatically registers required actions

@@ -2,9 +2,9 @@
 
 namespace smartcat\form;
 
-if( !class_exists( '\smarcat\form\SelectBox' ) ) :
+if( !class_exists( '\smarcat\form\SelectBoxField' ) ) :
 
-class SelectBox extends Field {
+class SelectBoxField extends Field {
     private $options;
 
     public function __construct( $id, array $args ) {
