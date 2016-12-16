@@ -9,9 +9,9 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
     <div class="inline-edit-group">
 
-        <?php foreach( $form->get_fields() as $field ) : ?>
+        <?php foreach( $form->fields as $field ) : ?>
 
-            <label for="<?php echo $field->get_id(); ?>"><span class="title"><?php _e( $field->get_label(), TEXT_DOMAIN ); ?></span>
+            <label for="<?php echo $field->id; ?>"><span class="title"><?php _e( $field->label, TEXT_DOMAIN ); ?></span>
 
                 <?php $field->render(); ?>
 
@@ -19,7 +19,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <?php endforeach; ?>
 
-        <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>"/>
+        <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>"/>
 
     </div>
 

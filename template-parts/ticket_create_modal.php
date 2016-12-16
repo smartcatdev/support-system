@@ -13,7 +13,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
         data-action="support_create_ticket"
         data-after="post_ticket_create">
 
-        <?php Form::form_fields( $form ); ?>
+        <?php Form::render_fields( $form ); ?>
 
         <div class="button_wrapper">
             <input type="submit" value="<?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>" class="button" />

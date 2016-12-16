@@ -6,6 +6,7 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
+use const SmartcatSupport\TEXT_DOMAIN;
 use SmartcatSupport\util\ActionListener;
 
 class TicketTable extends ActionListener {
@@ -113,14 +114,16 @@ class TicketTable extends ActionListener {
     private function column_data_callbacks() {
         add_action( 'support_ticket_table_agent_col', function ( $post_id ) {
             $agents = get_agents();
+            $agent = get_post_meta( $post_id, 'agent', true );
 
-            return $agents[ get_post_meta( $post_id, 'agent', true ) ];
+            return array_key_exists( $agent, $agents ) ? $agents[ $agent ] : __( 'Unassigned', TEXT_DOMAIN );
         } );
 
         add_action( 'support_ticket_table_priority_col', function ( $post_id ) {
             $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+            $priority =  get_post_meta( $post_id, 'priority', true );
 
-            return $priorities[ get_post_meta( $post_id, 'priority', true ) ];
+            return array_key_exists( $priority, $priorities ) ? $priorities [ $priority ] : '';
         } );
 
         add_action( 'support_ticket_table_date_col', function ( $post_id ) {

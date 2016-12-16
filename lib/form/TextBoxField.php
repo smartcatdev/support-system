@@ -7,10 +7,10 @@ if( !class_exists( '\smartcat\form\TextBoxField' ) ) :
 class TextBoxField extends Field {
     private $type = 'text';
     
-    public function __construct( $id, array $args = array() ) {
-        parent::__construct( $id, $args );
+    public function __construct( array $args ) {
+        parent::__construct( $args );
         
-        if( array_key_exists( 'type', $args ) ) {
+        if( !empty( $args['type'] ) ) {
             $this->type = $args['type'];
         }
     }

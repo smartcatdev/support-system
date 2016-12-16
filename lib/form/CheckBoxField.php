@@ -5,10 +5,10 @@ namespace smartcat\form;
 if( !class_exists( 'smartcat\form\CheckBoxField' ) ) :
 
 class CheckBoxField extends Field {
-    protected $cb_title;
+    public $cb_title;
 
-    public function __construct( $id, array $args ) {
-        parent::__construct( $id, $args );
+    public function __construct( array $args ) {
+        parent::__construct( $args );
 
         if( !empty( $args['cb_title'] ) ) {
             $this->cb_title = $args['cb_title'];

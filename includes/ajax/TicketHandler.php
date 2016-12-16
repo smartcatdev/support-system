@@ -2,9 +2,9 @@
 
 namespace SmartcatSupport\ajax;
 
+use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\form\ChoiceConstraint;
-use smartcat\form\FormBuilder;
 use smartcat\form\HiddenField;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextAreaField;
@@ -22,11 +22,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
  * @author ericg
  */
 class TicketHandler extends ActionListener {
-    private $builder;
-
-    public function __construct( FormBuilder $builder ) {
-        $this->builder = $builder;
-
+    public function __construct() {
         $this->add_ajax_action( 'support_update_meta', 'update_meta_field' );
         $this->add_ajax_action( 'support_new_ticket', 'new_ticket' );
         $this->add_ajax_action( 'support_create_ticket', 'create_ticket' );
@@ -39,7 +35,7 @@ class TicketHandler extends ActionListener {
         if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json(
                 render_template( 'ticket_create_modal', array(
-                    'form' => $this->configure_create_form()
+                    'form' => self::configure_create_form()
                 ) )
             );
         }
@@ -47,10 +43,10 @@ class TicketHandler extends ActionListener {
 
     public function create_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
-            $form = $this->configure_create_form();
+            $form = self::configure_create_form();
 
             if ( $form->is_valid() ) {
-                $data = $form->get_data();
+                $data = $form->data;
 
                 $post_id = wp_insert_post( array(
                     'post_title'     => $data['subject'],
@@ -76,7 +72,7 @@ class TicketHandler extends ActionListener {
                     wp_send_json_success();
                 }
             } else {
-                wp_send_json_error( $form->get_errors() );
+                wp_send_json_error( $form->errors );
             }
         }
     }
@@ -97,7 +93,7 @@ class TicketHandler extends ActionListener {
         if( current_user_can( 'edit_others_tickets' ) ) {
             wp_send_json(
                 render_template( 'ticket_edit_modal', array(
-                    'form' => $this->configure_meta_form( $ticket )
+                    'form' => self::configure_meta_form( $ticket )
                 ) )
             );
         }
@@ -114,10 +110,10 @@ class TicketHandler extends ActionListener {
 
         if( !empty( $ticket ) ) {
             if ( current_user_can( 'edit_others_tickets' ) ) {
-                $form = $this->configure_meta_form( $ticket );
+                $form = self::configure_meta_form( $ticket );
 
                 if ( $form->is_valid() ) {
-                    $data = $form->get_data();
+                    $data = $form->data;
 
                     $post_id = wp_update_post( array(
                         'ID' => $data['id'],
@@ -141,7 +137,7 @@ class TicketHandler extends ActionListener {
                         );
                     }
                 } else {
-                    wp_send_json_error( $form->get_errors() );
+                    wp_send_json_error( $form->errors );
                 }
             }
         }
@@ -166,107 +162,149 @@ class TicketHandler extends ActionListener {
         return $ticket;
     }
 
-    private function configure_create_form() {
-        $this->builder->clear_config();
+    private static function configure_create_form() {
         $user = wp_get_current_user();
         $products = get_products();
+        $form = new Form( 'create_ticket' );
 
-        $this->builder->add( TextBoxField::class, 'first_name', array(
-            'value'             => $user->first_name,
-            'label'             => __( 'First Name', TEXT_DOMAIN ),
-            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'       => array(
-                $this->builder->create_constraint( RequiredConstraint::class )
+        $form->add_field( new TextBoxField(
+            array(
+                'id'            => 'first_name',
+                'value'         => $user->first_name,
+                'label'         => __( 'First Name', TEXT_DOMAIN ),
+                'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+                'constraints'   => array(
+                    new RequiredConstraint()
+                )
             )
 
-        ) )->add( TextBoxField::class, 'last_name', array(
-            'value'             => $user->last_name,
-            'label'             => __( 'Last Name', TEXT_DOMAIN ),
-            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'       =>  array(
-                $this->builder->create_constraint( RequiredConstraint::class )
+        ) )->add_field( new TextBoxField(
+            array(
+                'id'            => 'last_name',
+                'value'         => $user->last_name,
+                'label'         => __( 'Last Name', TEXT_DOMAIN ),
+                'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+                'constraints'   =>  array(
+                    new RequiredConstraint()
+                )
             )
 
-        ) )->add( TextBoxField::class, 'email', array(
-            'type'              => 'email',
-            'value'             => $user->user_email,
-            'label'             => __( 'Contact Email', TEXT_DOMAIN ),
-            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'sanitize_callback' => 'sanitize_email',
-            'constraints'       => array(
-                $this->builder->create_constraint( RequiredConstraint::class )
+        ) )->add_field( new TextBoxField(
+            array(
+                'id'            => 'email',
+                'type'              => 'email',
+                'value'             => $user->user_email,
+                'label'             => __( 'Contact Email', TEXT_DOMAIN ),
+                'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+                'sanitize_callback' => 'sanitize_email',
+                'constraints'       => array(
+                    new RequiredConstraint()
+                )
             )
 
         ) );
 
         if( $products ) {
-            $this->builder->add( SelectBoxField::class, 'product', array(
-                'label'         => __( 'Product', TEXT_DOMAIN ),
-                'error_msg'     => __( 'Please Select a product', TEXT_DOMAIN ),
-                'options'       => array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + $products,
-                'constraints'   => array(
-                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $products ) )
+            $form->add_field( new SelectBoxField(
+                array(
+                    'id'            => 'product',
+                    'label'         => __( 'Product', TEXT_DOMAIN ),
+                    'error_msg'     => __( 'Please Select a product', TEXT_DOMAIN ),
+                    'options'       => array( '' => __( 'Select a Product', TEXT_DOMAIN ) ) + $products,
+                    'constraints'   => array(
+                        new ChoiceConstraint( array_keys( $products ) )
+                    )
                 )
+
             ) );
         }
 
-        $this->builder->add( TextBoxField::class, 'subject', array(
-            'label'         => __( 'Subject', TEXT_DOMAIN ),
-            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'   => array(
-                $this->builder->create_constraint( RequiredConstraint::class )
+        $form->add_field( new TextBoxField(
+            array(
+                'id'            => 'subject',
+                'label'         => __( 'Subject', TEXT_DOMAIN ),
+                'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+                'constraints'   => array(
+                    new RequiredConstraint()
+                )
             )
 
-        ) )->add( TextAreaField::class, 'content', array(
-            'label'         => __( 'Description', TEXT_DOMAIN ),
-            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'   => array(
-                $this->builder->create_constraint( RequiredConstraint::class )
+        ) )->add_field( new TextBoxField(
+            array(
+                'id'            => 'subject',
+                'label'         => __( 'Subject', TEXT_DOMAIN ),
+                'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+                'constraints'   => array(
+                    new RequiredConstraint()
+                )
             )
+
+        ) )->add_field( new TextAreaField(
+            array(
+                'id'            => 'content',
+                'label'         => __( 'Description', TEXT_DOMAIN ),
+                'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+                'constraints'   => array(
+                    new RequiredConstraint()
+                )
+            )
+
         ) );
 
-        return $this->builder->get_form();
+        return $form;
     }
 
-    private function configure_meta_form( $post ) {
-        $this->builder->clear_config();
+    private static function configure_meta_form( $post ) {
+        $agents     = get_agents();
+        $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+        $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-        if( current_user_can( 'edit_others_tickets' ) ) {
-            $agents = get_agents();
-            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
-            $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+        $form = new Form( 'meta_form' );
 
-            $this->builder->add( HiddenField::class, 'id', array(
-                'value'       => $post->ID
+        $form->add_field( new HiddenField(
+            array(
+                'id'    => 'id',
+                'value' => $post->ID
+            )
 
-            ) )->add( SelectBoxField::class, 'agent', array(
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'          => 'agent',
                 'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
                 'label'       => __( 'Assigned To', TEXT_DOMAIN ),
                 'options'     => array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + $agents,
                 'value'       => get_post_meta( $post->ID, 'agent', true ),
                 'constraints' => array(
-                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $agents ) )
+                    new ChoiceConstraint( array_keys( $agents ) )
                 )
+            )
 
-            ) )->add( SelectBoxField::class, 'status', array(
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'          => 'status',
                 'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
                 'label'       => __( 'Status', TEXT_DOMAIN ),
                 'options'     => $statuses,
                 'value'       => get_post_meta( $post->ID, 'status', true ),
                 'constraints' => array(
-                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $statuses ) )
+                    new ChoiceConstraint( array_keys( $statuses ) )
                 )
-            ) )->add( SelectBoxField::class, 'priority', array(
+            )
+
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'          => 'priority',
                 'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
                 'label'       => __( 'Priority', TEXT_DOMAIN ),
                 'options'     => $priorities,
                 'value'       => get_post_meta( $post->ID, 'priority', true ),
                 'constraints' => array(
-                    $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $priorities ) )
+                    new ChoiceConstraint( array_keys( $priorities ) )
                 )
-            ) );
-        }
+            )
 
-        return $this->builder->get_form();
+        ) );
+
+        return $form;
     }
 }

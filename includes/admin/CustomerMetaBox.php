@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\admin;
 
-use smartcat\form\FormBuilder;
+use smartcat\form\Form;
 use smartcat\form\TextBoxField;
 use smartcat\post\MetaBox;
 use function SmartcatSupport\render_template;
@@ -16,9 +16,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
  * @author Eric Green <eric@smartcat.ca>
  */
 class CustomerMetaBox extends MetaBox {
-    private $builder;
 
-    public function __construct( FormBuilder $builder ) {
+    public function __construct() {
         parent::__construct(
             'ticket_customer_meta',
             __( 'Customer Information', TEXT_DOMAIN ),
@@ -26,8 +25,6 @@ class CustomerMetaBox extends MetaBox {
             'advanced',
             'high'
         );
-
-        $this->builder = $builder;
     }
     
     /**
@@ -37,24 +34,30 @@ class CustomerMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function render( $post ) {
-        echo render_template( 'metabox', array( 'form' => $this->configure_form( $post ) ) );
+        echo render_template( 'metabox', array( 'form' => self::configure_form( $post ) ) );
     }
 
-    private function configure_form( $post ) {
+    private static function configure_form( $post ) {
+        $form = new Form( 'customer_meta_box' );
 
-        $this->builder->add( TextBoxField::class, 'email', array(
-            'type'              => 'email',
-            'label'             => __( 'Contact Email', TEXT_DOMAIN ),
-            'value'             => get_post_meta( $post->ID, 'email', true ),
-            'sanitize_callback' => 'sanitize_email'
+        $form->add_field( new TextBoxField(
+            array(
+                'id'                => 'email',
+                'type'              => 'email',
+                'label'             => __( 'Contact Email', TEXT_DOMAIN ),
+                'value'             => get_post_meta( $post->ID, 'email', true ),
+                'sanitize_callback' => 'sanitize_email'
+            )
+        ) )->add_field( new TextBoxField(
+            array(
+                'id'    => 'website_url',
+                'type'              => 'url',
+                'label'             => __( 'Website', TEXT_DOMAIN ),
+                'value'             => get_post_meta( $post->ID, 'website_url', true )
+            )
+        ) );
 
-        ) )->add( TextBoxField::class, 'website_url', array(
-            'type'              => 'url',
-            'label'             => __( 'Website', TEXT_DOMAIN ),
-            'value'             => get_post_meta( $post->ID, 'website_url', true )
-        ));
-
-        return $this->builder->get_form();
+        return $form;
     }
 
     /**
@@ -65,10 +68,10 @@ class CustomerMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function save( $post_id, $post ) {
-        $form = $this->configure_form( $post );
+        $form = self::configure_form( $post );
 
         if( $form->is_valid() ) {
-            $data = $form->get_data();
+            $data = $form->data;
 
             foreach( $data as $key => $value ) {
                 update_post_meta( $post->ID, $key, $value );

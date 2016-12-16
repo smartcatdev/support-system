@@ -7,8 +7,8 @@ if( !class_exists( '\smarcat\form\SelectBoxField' ) ) :
 class SelectBoxField extends Field {
     private $options;
 
-    public function __construct( $id, array $args ) {
-        parent::__construct( $id, $args );
+    public function __construct( array $args ) {
+        parent::__construct( $args );
         
         $this->options = $args['options'];
     }

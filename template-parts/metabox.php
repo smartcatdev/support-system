@@ -1,21 +1,14 @@
-<?php
-
-use const SmartcatSupport\TEXT_DOMAIN;
-
-?>
 <div class="support_ticket_metabox">
 
     <table class="form-table">
 
-        <?php foreach ( $form->get_fields() as $field ) : ?>
+        <?php foreach( $form->fields as $field ) : ?>
 
             <tr>
-                <?php if ( $field->get_label() != null ) : ?>
+                <?php if( !empty( $field->label ) ) : ?>
 
                     <th>
-                        <label>
-                            <?php esc_html_e( __( $field->get_label(), TEXT_DOMAIN ) ); ?>
-                        </label>
+                        <label><?php echo $field->label; ?></label>
                     </th>
 
                 <?php endif; ?>
@@ -23,11 +16,9 @@ use const SmartcatSupport\TEXT_DOMAIN;
                 <td>
                     <?php $field->render(); ?>
 
-                    <?php if ( $field->get_desc() != null ) : ?>
+                    <?php if( !empty( $field->desc ) ) : ?>
 
-                        <p class="description">
-                            <?php esc_html_e( __( $field->get_desc(), TEXT_DOMAIN ) ); ?>
-                        </p>
+                        <p class="description"><?php echo $field->desc; ?></p>
 
                     <?php endif; ?>
 
@@ -38,7 +29,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <tr>
             <td style="display: none">
-                <input type="hidden" name="<?php esc_attr_e( $form->get_id() ); ?>"/>
+                <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>"/>
             </td>
         </tr>
 

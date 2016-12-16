@@ -4,6 +4,7 @@ use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\register_form;
 use const SmartcatSupport\TEXT_DOMAIN;
+
 ?>
 
 <?php $signups = get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ); ?>
@@ -40,7 +41,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
                           data-action="support_register_user"
                           data-after="post_user_register">
 
-                        <?php Form::form_fields( register_form() ); ?>
+                        <?php Form::render_fields( register_form() ); ?>
 
                         <div class="button_wrapper">
 
@@ -51,8 +52,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
                             </button>
 
                             <input class="button"
-                                   type="submit"
-                                   value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>"/>
+                                type="submit"
+                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>"/>
 
                         </div>
 

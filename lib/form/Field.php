@@ -5,38 +5,38 @@ namespace smartcat\form;
 if( !class_exists( '\smartcat\form\Field' ) ) :
 
 abstract class Field {
-    protected $id;
-    protected $value;
-    protected $label;
-    protected $desc;
-    protected $error_message;
+    public $id;
+    public $value;
+    public $label;
+    public $desc;
+    public $error_message;
     protected $constraints = array();
     protected $sanitize_callback;
  
-    public function __construct( $id, array $args = array() ) {
-        $this->set_id( $id );
+    public function __construct( array $args ) {
+        $this->id = $args['id'];
 
-        if( isset( $args['error_msg'] ) ) {
-            $this->set_error_message( $args['error_msg'] );
+        if( !empty( $args['error_msg'] ) ) {
+            $this->error_message = $args['error_msg'];
         }
         
-        if( isset( $args['label'] ) ) {
-            $this->set_label( $args['label'] );
+        if( !empty( $args['label'] ) ) {
+            $this->label = $args['label'];
         }
 
-        if( isset( $args['constraints'] ) ) {
+        if( !empty( $args['constraints'] ) ) {
             $this->constraints = $args['constraints'];
         }
         
-        if( array_key_exists( 'desc', $args ) ) {
-            $this->set_desc( $args['desc'] );
+        if( !empty( $args['desc'] ) ) {
+            $this->desc = $args['desc'];
         }
         
-        if( array_key_exists( 'value', $args ) ) {
-            $this->set_value( $args['value'] );
+        if( !empty( $args['value'] ) ) {
+            $this->value = $args['value'];
         }
 
-        if( isset( $args['sanitize_callback'] ) ) {
+        if( !empty( $args['sanitize_callback'] ) ) {
             $this->sanitize_callback = $args['sanitize_callback'];
         }
     }
@@ -65,53 +65,6 @@ abstract class Field {
     }
 
     public abstract function render();
-    
-    // <editor-fold defaultstate="collapsed" desc="Getters / Setters">
-    public function get_desc() {
-        return $this->desc;
-    }
-
-    public function get_id() {
-        return $this->id;
-    }
-
-    public function get_value() {
-        return $this->value;
-    }
-
-    public function get_label() {
-        return $this->label;
-    }
-
-    public function set_id( $id ) {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function get_error_message() {
-        return $this->error_message;
-    }
-
-    public function set_error_message( $error_message ) {
-        $this->error_message = $error_message;
-        return $this;
-    }
-
-    public function set_desc( $desc ) {
-        $this->desc = $desc;
-        return $this;
-    }
-
-    public function set_value( $value ) {
-        $this->value = $value;
-        return $this;
-    }
-
-    public function set_label( $label ) {
-        $this->label = $label;
-        return $this;
-    }
-// </editor-fold>
 }
 
 endif;

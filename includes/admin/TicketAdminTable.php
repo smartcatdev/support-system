@@ -4,6 +4,7 @@ namespace SmartcatSupport\admin;
 
 use smartcat\form\CheckBoxField;
 use smartcat\form\ChoiceConstraint;
+use smartcat\form\Form;
 use smartcat\form\FormBuilder;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
@@ -62,12 +63,11 @@ class TicketAdminTable extends ActionListener {
 
         switch ( $column ) {
             case 'id':
-                $fields = $this->quick_edit_form()->get_fields();
                 echo $post_id;
                 echo '<div class="hidden" id="support_inline_' . $post_id . '">';
 
-                foreach ( $fields as $field ) {
-                    $id = $field->get_id();
+                foreach ( self::quick_edit_form()->fields as $field ) {
+                    $id = $field->id;
                     echo '<div class="' . $id . '">' . get_post_meta( $post_id, $id, true ) . '</div>';
                 }
 
@@ -152,19 +152,16 @@ class TicketAdminTable extends ActionListener {
 
     public function quick_edit( $column, $post_type ) {
         if( $post_type == 'support_ticket' && $column == 'id' ) {
-            echo render_template( 'ticket_quick_edit', array( 'form' => $this->quick_edit_form() ) );
+            echo render_template( 'ticket_quick_edit', array( 'form' => self::quick_edit_form() ) );
         }
     }
 
     public function quick_edit_save( $post_id ) {
         if( defined( 'DOING_AJAX' ) ) {
-            $form = $this->quick_edit_form( $post_id );
+            $form = self::quick_edit_form();
 
             if ( $form->is_valid() ) {
-                $data = $form->get_data();
-
-                foreach ( $data as $key => $value ) {
-                    error_log($key . ' ' . $value );
+                foreach ( $form->data as $key => $value ) {
                     update_post_meta( $post_id, $key, $value );
                 }
             }
@@ -173,8 +170,28 @@ class TicketAdminTable extends ActionListener {
 
     public function post_filters() {
         if ( get_current_screen()->post_type == 'support_ticket' ) {
-            agents_dropdown( 'agent', ! empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : '' );
-            boolean_meta_dropdown( 'meta', ! empty( $_REQUEST['meta'] ) ? $_REQUEST['meta'] : '' );
+
+            $agent_filter = new SelectBoxField(
+                array(
+                    'id'        => 'agent',
+                    'options'   =>  array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents(),
+                    'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
+                )
+            );
+
+            $meta_filter = new SelectBoxField(
+                array(
+                    'id'        => 'checked_meta',
+                    'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
+                    'options'   =>  array(
+                        '' => __( 'All Tickets', TEXT_DOMAIN ),
+                        'flagged' => __( 'Flagged', TEXT_DOMAIN )
+                    ),
+                )
+            );
+
+            $agent_filter->render();
+            $meta_filter->render();
         }
     }
 
@@ -188,8 +205,8 @@ class TicketAdminTable extends ActionListener {
                 $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
             }
 
-            if ( !empty( $_REQUEST['meta'] ) ) {
-                $meta_query[] = array( 'key' => $_REQUEST['meta'], 'value' => true );
+            if ( !empty( $_REQUEST['checked_meta'] ) ) {
+                $meta_query[] = array( 'key' => $_REQUEST['checked_meta'], 'value' => 'on' );
             }
 
             $query->query_vars['meta_query'] = $meta_query;
@@ -198,40 +215,52 @@ class TicketAdminTable extends ActionListener {
         return $query;
     }
 
-    private function quick_edit_form() {
-        $builder = new FormBuilder( 'quick_edit' );
+    private static function quick_edit_form() {
         $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
         $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-        $builder->add( CheckBoxField::class, 'flagged', array(
-            'cb_title'          => __( 'Flagged', TEXT_DOMAIN ),
-            'value'             => false
+        $form = new Form( 'ticket_quick_edit' );
 
-        ) )->add( SelectBoxField::class, 'agent', array(
-            'label'             => __( 'Assigned', TEXT_DOMAIN ),
-            'options'           => $agents,
-            'constraints'       => array(
-                $builder->create_constraint( ChoiceConstraint::class, array_keys( $agents ) )
+        $form->add_field( new CheckBoxField(
+            array(
+                'id'        => 'flagged',
+                'cb_title'  => __( 'Flagged', TEXT_DOMAIN ),
+                'value'     => false
             )
 
-        ) )->add( SelectBoxField::class, 'status', array(
-            'label'             => __( 'Status', TEXT_DOMAIN ),
-            'options'           => $statuses,
-            'constraints'       => array(
-                $builder->create_constraint( ChoiceConstraint::class, array_keys( $statuses ) )
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'            => 'agent',
+                'label'         => __( 'Assigned', TEXT_DOMAIN ),
+                'options'       => $agents,
+                'constraints'   => array(
+                    new ChoiceConstraint( array_keys( $agents ) )
+                )
             )
 
-        ) )->add( SelectBoxField::class, 'priority', array(
-            'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
-            'label'       => __( 'Priority', TEXT_DOMAIN ),
-            'options'     => $priorities,
-            'constraints' => array(
-                $builder->create_constraint( ChoiceConstraint::class, array_keys( $priorities ) )
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'            => 'status',
+                'label'         => __( 'Status', TEXT_DOMAIN ),
+                'options'       => $statuses,
+                'constraints'   => array(
+                    new ChoiceConstraint( array_keys( $statuses ) )
+                )
+            )
+
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'            => 'priority',
+                'label'         => __( 'Priority', TEXT_DOMAIN ),
+                'options'       => $priorities,
+                'constraints'   => array(
+                    new ChoiceConstraint( array_keys( $priorities ) )
+                )
             )
         ) );
 
-        return $builder->get_form();
+        return $form;
     }
 }
 

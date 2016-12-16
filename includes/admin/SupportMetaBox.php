@@ -3,7 +3,7 @@
 namespace SmartcatSupport\admin;
 
 use smartcat\form\ChoiceConstraint;
-use smartcat\form\FormBuilder;
+use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\post\MetaBox;
 use SmartcatSupport\descriptor\Option;
@@ -19,9 +19,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
  * @author Eric Green <eric@smartcat.ca>
  */
 class SupportMetaBox extends MetaBox {
-    private $builder;
 
-    public function __construct( FormBuilder $builder ) {
+    public function __construct() {
         parent::__construct(
             'ticket_support_meta',
             __( 'Ticket Information', TEXT_DOMAIN ),
@@ -29,8 +28,6 @@ class SupportMetaBox extends MetaBox {
             'side',
             'high'
         );
-
-        $this->builder = $builder;
     }
     
     /**
@@ -40,40 +37,52 @@ class SupportMetaBox extends MetaBox {
      * @author Eric Green <eric@smartcat.ca>
      */
     public function render( $post ) {
-        echo render_template( 'metabox', array( 'form' => $this->configure_form( $post ) ) );
+        echo render_template( 'metabox', array( 'form' => self::configure_form( $post ) ) );
     }
 
-    private function configure_form( $post ) {
+    private static function configure_form( $post ) {
         $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
         $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
         $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
-        $this->builder->add( SelectBoxField::class, 'agent', array(
-            'label'             => __( 'Assigned', TEXT_DOMAIN ),
-            'options'           => $agents,
-            'value'             => get_post_meta( $post->ID, 'agent', true ),
-            'constraints'       => array(
-                $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $agents ) )
+        $form = new Form( 'support_metabox' );
+
+        $form->add_field( new SelectBoxField(
+            array(
+                'id'            => 'agent',
+                'label'         => __( 'Assigned', TEXT_DOMAIN ),
+                'options'       => $agents,
+                'value'         => get_post_meta( $post->ID, 'agent', true ),
+                'constraints'   => array(
+                    new ChoiceConstraint( array_keys( $agents ) )
+                )
             )
 
-        ) )->add( SelectBoxField::class, 'status', array(
-            'label'             => __( 'Status', TEXT_DOMAIN ),
-            'options'           => $statuses,
-            'value'             => get_post_meta( $post->ID, 'status', true ),
-            'constraints'       => array(
-                $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $statuses ) )
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'            => 'status',
+                'label'         => __( 'Status', TEXT_DOMAIN ),
+                'options'       => $statuses,
+                'value'         => get_post_meta( $post->ID, 'status', true ),
+                'constraints'   => array(
+                    new ChoiceConstraint( array_keys( $statuses ) )
+                )
             )
-        ) )->add( SelectBoxField::class, 'priority', array(
-            'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
-            'label'       => __( 'Priority', TEXT_DOMAIN ),
-            'options'     => $priorities,
-            'value'       => get_post_meta( $post->ID, 'priority', true ),
-            'constraints' => array(
-                $this->builder->create_constraint( ChoiceConstraint::class, array_keys( $priorities ) )
+
+        ) )->add_field( new SelectBoxField(
+            array(
+                'id'          => 'priority',
+                'label'       => __( 'Priority', TEXT_DOMAIN ),
+                'options'     => $priorities,
+                'value'       => get_post_meta( $post->ID, 'priority', true ),
+                'constraints' => array(
+                    new ChoiceConstraint( array_keys( $priorities ) )
+                )
             )
+
         ) );
 
-        return $this->builder->get_form();
+        return $form;
     }
 
     /**
@@ -87,7 +96,7 @@ class SupportMetaBox extends MetaBox {
         $form = $this->configure_form( $post );
 
         if( $form->is_valid() ) {
-            $data = $form->get_data();
+            $data = $form->data;
 
             foreach( $data as $key => $value ) {
                 update_post_meta( $post->ID, $key, $value );

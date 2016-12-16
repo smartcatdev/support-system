@@ -8,8 +8,8 @@ class TextAreaField extends Field {
     protected $rows;
     protected $cols;
 
-    public function __construct( $id, array $args ) {
-        parent::__construct( $id, $args );
+    public function __construct( array $args ) {
+        parent::__construct( $args );
 
         if( isset( $args['rows'] ) ) {
             $this->rows = $args['rows'];

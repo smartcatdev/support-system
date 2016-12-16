@@ -2,9 +2,8 @@
 
 namespace SmartcatSupport;
 
-use smartcat\form\FormBuilder;
+use smartcat\form\Form;
 use smartcat\form\RequiredConstraint;
-use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
 use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\admin\CustomerMetaBox;
@@ -35,17 +34,17 @@ function bootstrap( $fs_context ) {
     $table_handler = new TicketTable();
 
     // Configure ticket Handler
-    $ticket_handler = new TicketHandler( new FormBuilder( 'ticket_form' ) );
+    $ticket_handler = new TicketHandler();
 
     // Configure comment handler
     $comment_handler = new CommentHandler();
 
-    // Configure the metabox
-    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox_support_form' ) );
+    // Configure metaboxes
+    $support_metabox = new SupportMetaBox();
 
-    $product_metabox = new ProductMetaBox( new FormBuilder( 'metabox_product_form' ) );
+    $product_metabox = new ProductMetaBox();
 
-    $customer_metabox = new CustomerMetaBox( new FormBuilder( 'metabox_customer_form' ) );
+    $customer_metabox = new CustomerMetaBox();
 
     $ticket_admin = new TicketAdminTable();
 
@@ -158,41 +157,49 @@ function render_template( $template, array $data = array() ) {
 }
 
 function register_form() {
-    $builder = new FormBuilder( 'register_form' );
+    $form = new Form( 'register_form' );
 
-    $builder->add( TextBoxField::class, 'first_name', array(
-        'label'             => __( 'First Name', TEXT_DOMAIN ),
-        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-        'constraints'       => array(
-            $builder->create_constraint( RequiredConstraint::class )
+    $form->add_field( new TextBoxField(
+        array(
+            'id'            => 'first_name',
+            'label'         => __( 'First Name', TEXT_DOMAIN ),
+            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'   => array(
+                new RequiredConstraint()
+            )
         )
 
-    ) )->add( TextBoxField::class, 'last_name', array(
-        'label'             => __( 'Last Name', TEXT_DOMAIN ),
-        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-        'constraints'       =>  array(
-            $builder->create_constraint( RequiredConstraint::class )
+    ) )->add_field( new TextBoxField(
+        array(
+            'id'            => 'last_name',
+            'label'         => __( 'Last Name', TEXT_DOMAIN ),
+            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'   =>  array(
+                new RequiredConstraint()
+            )
         )
 
-    ) )->add( TextBoxField::class, 'email', array(
-        'type'              => 'email',
-        'label'             => __( 'Email Address', TEXT_DOMAIN ),
-        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-        'sanitize_callback' => 'sanitize_email',
-        'constraints'       => array(
-            $builder->create_constraint( RequiredConstraint::class )
+    ) )->add_field( new TextBoxField(
+        array(
+            'id'            => 'email',
+            'type'              => 'email',
+            'label'             => __( 'Email Address', TEXT_DOMAIN ),
+            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'sanitize_callback' => 'sanitize_email',
+            'constraints'       => array(
+                new RequiredConstraint()
+            )
         )
-
     ) );
 
-    return $builder->get_form();
+    return $form;
 }
 
 function register_user() {
     $form = register_form();
 
     if( $form->is_valid() ) {
-        $data = $form->get_data();
+        $data = $form->data;
         $password = wp_generate_password();
 
         $user_id = wp_insert_user(
@@ -217,54 +224,6 @@ function register_user() {
         wp_set_auth_cookie( $user_id );
         wp_send_json_success();
     } else {
-        wp_send_json_error( $form->get_errors() );
+        wp_send_json_error( $form->errors );
     }
-}
-
-function agents_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBoxField( $name,
-        array(
-            'value' => $selected,
-            'options' => array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents()
-        )
-    );
-
-    if( $echo ) {
-        $select->render();
-        $select = null;
-    }
-
-    return $select;
-}
-
-function products_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBoxField( $name,
-        array(
-            'value' => $selected,
-            'options' => array( '' => __( 'All Products', TEXT_DOMAIN ) ) + get_products()
-        )
-    );
-
-    if( $echo ) {
-        $select->render();
-        $select = null;
-    }
-
-    return $select;
-}
-
-function boolean_meta_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBoxField( $name,
-        array(
-            'value' => $selected,
-            'options' => array( '' => __( 'All', TEXT_DOMAIN ), 'flagged' => __( 'Flagged', TEXT_DOMAIN ) )
-        )
-    );
-
-    if( $echo ) {
-        $select->render();
-        $select = null;
-    }
-
-    return $select;
 }
