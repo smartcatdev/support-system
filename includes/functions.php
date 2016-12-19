@@ -7,9 +7,10 @@ use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
 use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\admin\CustomerMetaBox;
+use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
-use SmartcatSupport\admin\TicketAdminTable;
+use SmartcatSupport\admin\PostTableModifiers;
 use SmartcatSupport\ajax\CommentHandler;
 use SmartcatSupport\ajax\TicketHandler;
 use SmartcatSupport\ajax\TicketTable;
@@ -39,14 +40,40 @@ function bootstrap( $fs_context ) {
     // Configure comment handler
     $comment_handler = new CommentHandler();
 
-    // Configure metaboxes
-    $support_metabox = new SupportMetaBox();
+   new MetaBox(
+        array(
+           'id'         => 'ticket_support_meta',
+            'title'     => __( 'Ticket Information', TEXT_DOMAIN ),
+            'post_type' => 'support_ticket',
+            'context'   => 'advanced',
+            'priority'  => 'high',
+            'config'    => SUPPORT_PATH . '/config/support_metabox_form.php'
+        )
+    );
 
-    $product_metabox = new ProductMetaBox();
+    new MetaBox(
+        array(
+            'id'         => 'ticket_product_meta',
+            'title'     => __( 'Product Information', TEXT_DOMAIN ),
+            'post_type' => 'support_ticket',
+            'context'   => 'side',
+            'priority'  => 'high',
+            'config'    => SUPPORT_PATH . '/config/product_metabox_form.php'
+        )
+    );
 
-    $customer_metabox = new CustomerMetaBox();
+    new MetaBox(
+        array(
+            'id'         => 'ticket_customer_meta',
+            'title'     => __( 'Customer Information', TEXT_DOMAIN ),
+            'post_type' => 'support_ticket',
+            'context'   => 'side',
+            'priority'  => 'high',
+            'config'    => SUPPORT_PATH . '/config/customer_metabox_form.php'
+        )
+    );
 
-    $ticket_admin = new TicketAdminTable();
+    PostTableModifiers::init();
 
 
     include_once 'hooks.php';
