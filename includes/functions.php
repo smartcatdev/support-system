@@ -10,7 +10,7 @@ use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
-use SmartcatSupport\admin\TicketAdminTable;
+use SmartcatSupport\admin\PostTableModifiers;
 use SmartcatSupport\ajax\CommentHandler;
 use SmartcatSupport\ajax\TicketHandler;
 use SmartcatSupport\ajax\TicketTable;
@@ -73,7 +73,7 @@ function bootstrap( $fs_context ) {
         )
     );
 
-    $ticket_admin = new TicketAdminTable();
+    PostTableModifiers::init();
 
 
     include_once 'hooks.php';
