@@ -2,14 +2,8 @@
 
 namespace SmartcatSupport\admin;
 
-use smartcat\form\CheckBoxField;
-use smartcat\form\ChoiceConstraint;
-use smartcat\form\Form;
-use smartcat\form\FormBuilder;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\agents_dropdown;
-use function SmartcatSupport\boolean_meta_dropdown;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
@@ -66,7 +60,9 @@ class TicketAdminTable extends ActionListener {
                 echo $post_id;
                 echo '<div class="hidden" id="support_inline_' . $post_id . '">';
 
-                foreach ( self::quick_edit_form()->fields as $field ) {
+                $form = include SUPPORT_PATH . '/config/quick_edit_form.php';
+
+                foreach( $form->fields as $field ) {
                     $id = $field->id;
                     echo '<div class="' . $id . '">' . get_post_meta( $post_id, $id, true ) . '</div>';
                 }
@@ -146,19 +142,22 @@ class TicketAdminTable extends ActionListener {
                 'assigned' => 'assigned',
                 'product'  => 'product',
             ),
+
             $columns
         );
     }
 
     public function quick_edit( $column, $post_type ) {
         if( $post_type == 'support_ticket' && $column == 'id' ) {
-            echo render_template( 'ticket_quick_edit', array( 'form' => self::quick_edit_form() ) );
+            $form = include SUPPORT_PATH . '/config/quick_edit_form.php';
+
+            echo render_template( 'ticket_quick_edit', array( 'form' => $form ) );
         }
     }
 
     public function quick_edit_save( $post_id ) {
         if( defined( 'DOING_AJAX' ) ) {
-            $form = self::quick_edit_form();
+            $form = include SUPPORT_PATH . '/config/quick_edit_form.php';
 
             if ( $form->is_valid() ) {
                 foreach ( $form->data as $key => $value ) {
@@ -170,7 +169,6 @@ class TicketAdminTable extends ActionListener {
 
     public function post_filters() {
         if ( get_current_screen()->post_type == 'support_ticket' ) {
-
             $agent_filter = new SelectBoxField(
                 array(
                     'id'        => 'agent',
@@ -178,6 +176,8 @@ class TicketAdminTable extends ActionListener {
                     'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
             );
+
+            $agent_filter->render();
 
             $meta_filter = new SelectBoxField(
                 array(
@@ -190,7 +190,6 @@ class TicketAdminTable extends ActionListener {
                 )
             );
 
-            $agent_filter->render();
             $meta_filter->render();
         }
     }
@@ -213,54 +212,6 @@ class TicketAdminTable extends ActionListener {
         }
 
         return $query;
-    }
-
-    private static function quick_edit_form() {
-        $agents = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
-        $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
-        $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
-
-        $form = new Form( 'ticket_quick_edit' );
-
-        $form->add_field( new CheckBoxField(
-            array(
-                'id'        => 'flagged',
-                'cb_title'  => __( 'Flagged', TEXT_DOMAIN ),
-                'value'     => false
-            )
-
-        ) )->add_field( new SelectBoxField(
-            array(
-                'id'            => 'agent',
-                'label'         => __( 'Assigned', TEXT_DOMAIN ),
-                'options'       => $agents,
-                'constraints'   => array(
-                    new ChoiceConstraint( array_keys( $agents ) )
-                )
-            )
-
-        ) )->add_field( new SelectBoxField(
-            array(
-                'id'            => 'status',
-                'label'         => __( 'Status', TEXT_DOMAIN ),
-                'options'       => $statuses,
-                'constraints'   => array(
-                    new ChoiceConstraint( array_keys( $statuses ) )
-                )
-            )
-
-        ) )->add_field( new SelectBoxField(
-            array(
-                'id'            => 'priority',
-                'label'         => __( 'Priority', TEXT_DOMAIN ),
-                'options'       => $priorities,
-                'constraints'   => array(
-                    new ChoiceConstraint( array_keys( $priorities ) )
-                )
-            )
-        ) );
-
-        return $form;
     }
 }
 
