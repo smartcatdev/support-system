@@ -53,13 +53,13 @@ abstract class MetaBox {
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public function __construct( array $args ) {
-        $this->id = $args['id'];
-        $this->title = $args['title'];
-        $this->post_type = $args['post_type'];
-        $this->context = $args['context'];
+    public function __construct( $id, $title, $post_type, $context = 'advanced', $priority = 'default' ) {
+        $this->id = $id;
+        $this->title = $title;
+        $this->post_type = $post_type;
+        $this->context = $context;
      
-        add_action( "add_meta_boxes_{$this->post_type}", array( $this, 'install' ) );
+        add_action( "add_meta_boxes_{$post_type}", array( $this, 'install' ) );
         add_action( 'save_post', array( $this, 'save' ), 10, 2 );
     }
 

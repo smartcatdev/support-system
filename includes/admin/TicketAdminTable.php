@@ -8,22 +8,26 @@ use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
 use const SmartcatSupport\TEXT_DOMAIN;
+use SmartcatSupport\util\ActionListener;
 
-final class PostTableModifiers {
+class TicketAdminTable extends ActionListener {
+    public function __construct() {
 
-    private function __construct() {}
-
-    public static function init() {
-        add_action( 'restrict_manage_posts', array ( __CLASS__, 'post_filters' ) );
-        add_action( 'parse_query', array ( __CLASS__, 'filter_posts' ) );
-        add_action( 'manage_support_ticket_posts_columns', array ( __CLASS__, 'post_columns' ) );
-        add_action( 'support_ticket_sortable_columns', array ( __CLASS__, 'sortable_columns' ) );
-        add_action( 'manage_support_ticket_posts_custom_column', array ( __CLASS__, 'post_column_data' ), 10, 2 );
-        add_action( 'quick_edit_custom_box', array ( __CLASS__, 'quick_edit' ), 10, 2 );
-        add_action( 'save_post', array ( __CLASS__, 'quick_edit_save' ));
+        $this->add_actions();
     }
 
-    public static function post_columns( $columns ) {
+    private function add_actions() {
+        $this->add_action( 'restrict_manage_posts', 'post_filters' );
+        $this->add_action( 'parse_query', 'filter_posts' );
+
+        $this->add_action( 'manage_support_ticket_posts_columns', 'post_columns' );
+        $this->add_action( 'manage_edit-support_ticket_sortable_columns', 'sortable_columns' );
+        $this->add_action( 'manage_support_ticket_posts_custom_column', 'post_column_data', 10, 2 );
+        $this->add_action( 'quick_edit_custom_box', 'quick_edit', 10, 2 );
+        $this->add_action( 'save_post', 'quick_edit_save' );
+    }
+
+    public function post_columns( $columns ) {
         unset( $columns['author'] );
 
         $left_cols = array_splice( $columns, 0, 2 );
@@ -48,7 +52,7 @@ final class PostTableModifiers {
         );
     }
 
-    public static function post_column_data( $column, $post_id ) {
+    public function post_column_data( $column, $post_id ) {
         $value = get_post_meta( $post_id, $column, true ) ;
 
         switch ( $column ) {
@@ -130,7 +134,7 @@ final class PostTableModifiers {
         }
     }
 
-    public static function sortable_columns( $columns ) {
+    public function sortable_columns( $columns ) {
         return array_merge(
             array(
                 'status'   => 'status',
@@ -143,7 +147,7 @@ final class PostTableModifiers {
         );
     }
 
-    public static function quick_edit( $column, $post_type ) {
+    public function quick_edit( $column, $post_type ) {
         if( $post_type == 'support_ticket' && $column == 'id' ) {
             $form = include SUPPORT_PATH . '/config/quick_edit_form.php';
 
@@ -151,7 +155,7 @@ final class PostTableModifiers {
         }
     }
 
-    public static function quick_edit_save( $post_id ) {
+    public function quick_edit_save( $post_id ) {
         if( defined( 'DOING_AJAX' ) ) {
             $form = include SUPPORT_PATH . '/config/quick_edit_form.php';
 
@@ -163,7 +167,7 @@ final class PostTableModifiers {
         }
     }
 
-    public static function post_filters() {
+    public function post_filters() {
         if ( get_current_screen()->post_type == 'support_ticket' ) {
             $agent_filter = new SelectBoxField(
                 array(
@@ -190,7 +194,7 @@ final class PostTableModifiers {
         }
     }
 
-    public static function filter_posts( $query ) {
+    public function filter_posts( $query ) {
         if ( ( ! empty( $GLOBALS['typenow'] ) && ! empty( $GLOBALS['pagenow'] ) ) &&
              ( $GLOBALS['typenow'] == 'support_ticket' && $GLOBALS['pagenow'] == 'edit.php' )
         ) {
