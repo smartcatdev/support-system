@@ -138,6 +138,20 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
         return $this->url;
     }
 
+    public function resource_path( $file ) {
+        return file_exists( "{$this->dir}/{$file}" ) ? "{$this->dir}/{$file}" : '';
+    }
+
+    public function resource_url( $file ) {
+        if( file_exists( "{$this->dir}/{$file}" ) ) {
+            $file = "{$this->url}/{$file}";
+        } else {
+            $file = '';
+        }
+
+        return $file;
+    }
+
     public function name() {
         return $this->name;
     }
