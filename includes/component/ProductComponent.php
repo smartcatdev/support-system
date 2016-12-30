@@ -49,19 +49,27 @@ class ProductComponent extends AbstractComponent implements HookSubscriber {
     }
 
     public function configure_customer_caps( $val ) {
-        if( $val == 'on' ) {
-            $this->plugin->add_caps( get_role( 'customer' ) );
-        } else {
-            $this->plugin->remove_caps( get_role( 'customer' ) );
+        if( $this->plugin->woo_active ) {
+            if( $val == 'on' ) {
+                $this->plugin->add_caps( get_role('customer') );
+            } else {
+                $this->plugin->remove_caps( get_role('customer') );
+            }
         }
+
+        return $val;
     }
 
     public function configure_subscriber_caps( $val ) {
-        if( $val == 'on' ) {
-            $this->plugin->add_caps( get_role( 'subscriber' ) );
-        } else {
-            $this->plugin->remove_caps( get_role( 'subscriber' ) );
+        if( $this->plugin->edd_active ) {
+            if ($val == 'on') {
+                $this->plugin->add_caps( get_role( 'subscriber' ) );
+            } else {
+                $this->plugin->remove_caps( get_role( 'subscriber' ) );
+            }
         }
+
+        return $val;
     }
 
     public function subscribed_hooks() {
