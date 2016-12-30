@@ -7,7 +7,7 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 final class PostTableActions {
 
@@ -27,21 +27,21 @@ final class PostTableActions {
         unset( $columns['author'] );
 
         $left_cols = array_splice( $columns, 0, 2 );
-        $left_cols['title'] = __( 'Subject', TEXT_DOMAIN );
+        $left_cols['title'] = __( 'Subject', PLUGIN_NAME );
         $product_cols = array();
 
         if( !empty( get_products() ) ) {
             $product_cols['thumb'] = '<span class="support_icon dashicons dashicons-format-image"></span>';
-            $product_cols['product'] = __( 'Product', TEXT_DOMAIN );
+            $product_cols['product'] = __( 'Product', PLUGIN_NAME );
         }
 
         return array_merge(
-            $left_cols, array( 'id' => __( 'Case #', TEXT_DOMAIN ) ), $product_cols,
+            $left_cols, array( 'id' => __( 'Case #', PLUGIN_NAME ) ), $product_cols,
             array(
-                'email'    => __( 'Email', TEXT_DOMAIN ),
-                'agent'    => __( 'Assigned', TEXT_DOMAIN ),
-                'status'   => __( 'Status', TEXT_DOMAIN ),
-                'priority' => __( 'Priority', TEXT_DOMAIN ),
+                'email'    => __( 'Email', PLUGIN_NAME ),
+                'agent'    => __( 'Assigned', PLUGIN_NAME ),
+                'status'   => __( 'Status', PLUGIN_NAME ),
+                'priority' => __( 'Priority', PLUGIN_NAME ),
                 'flagged'     => '<i class="support_icon icon-flag2"></i>'
             ),
             $columns
@@ -95,7 +95,7 @@ final class PostTableActions {
                 if( array_key_exists( $value, $agents ) ) {
                     echo $agents[ $value ];
                 } else {
-                    _e( 'Unassigned', TEXT_DOMAIN );
+                    _e( 'Unassigned', PLUGIN_NAME );
                 }
 
                 break;
@@ -168,7 +168,7 @@ final class PostTableActions {
             $agent_filter = new SelectBoxField(
                 array(
                     'id'        => 'agent',
-                    'options'   =>  array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents(),
+                    'options'   =>  array( '' => __( 'All Agents', PLUGIN_NAME ) ) + get_agents(),
                     'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
             );
@@ -180,8 +180,8 @@ final class PostTableActions {
                     'id'        => 'checked_meta',
                     'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
                     'options'   =>  array(
-                        '' => __( 'All Tickets', TEXT_DOMAIN ),
-                        'flagged' => __( 'Flagged', TEXT_DOMAIN )
+                        '' => __( 'All Tickets', PLUGIN_NAME ),
+                        'flagged' => __( 'Flagged', PLUGIN_NAME )
                     ),
                 )
             );

@@ -1,7 +1,7 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 ?>
 
@@ -21,7 +21,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
             <p class="date_posted">
 
-                <?php _e( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago', TEXT_DOMAIN ); ?>
+                <?php _e( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago', PLUGIN_NAME ); ?>
 
             </p>
 

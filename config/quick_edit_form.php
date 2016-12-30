@@ -6,9 +6,9 @@ use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
-$agents     = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
+$agents     = array( '' => __( 'Unassigned', PLUGIN_NAME ) ) + get_agents();
 $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
@@ -17,14 +17,14 @@ $form = new Form( 'ticket_quick_edit' );
 $form->add_field( new CheckBoxField(
     array(
         'id'        => 'flagged',
-        'cb_title'  => __( 'Flagged', TEXT_DOMAIN ),
+        'cb_title'  => __( 'Flagged', PLUGIN_NAME ),
         'value'     => false
     )
 
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'agent',
-        'label'         => __( 'Assigned', TEXT_DOMAIN ),
+        'label'         => __( 'Assigned', PLUGIN_NAME ),
         'options'       => $agents,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $agents ) )
@@ -34,7 +34,7 @@ $form->add_field( new CheckBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'status',
-        'label'         => __( 'Status', TEXT_DOMAIN ),
+        'label'         => __( 'Status', PLUGIN_NAME ),
         'options'       => $statuses,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $statuses ) )
@@ -44,7 +44,7 @@ $form->add_field( new CheckBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'priority',
-        'label'         => __( 'Priority', TEXT_DOMAIN ),
+        'label'         => __( 'Priority', PLUGIN_NAME ),
         'options'       => $priorities,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $priorities ) )

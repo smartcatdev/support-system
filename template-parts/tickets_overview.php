@@ -4,7 +4,7 @@ use smartcat\form\SelectBoxAbstractField;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 ?>
 
@@ -19,7 +19,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
                 <?php ( new SelectBoxAbstractField(
                     array(
                         'id'        => 'product',
-                        'options'   =>  array( '' => __( 'All Products', TEXT_DOMAIN ) ) + $products
+                        'options'   =>  array( '' => __( 'All Products', PLUGIN_NAME ) ) + $products
                     )
                 ) )->render(); ?>
 
@@ -28,7 +28,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
             <?php ( new SelectBoxAbstractField(
                 array(
                     'id'        => 'status',
-                    'options'   =>  array( '' => __( 'Any Status', TEXT_DOMAIN ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES )
+                    'options'   =>  array( '' => __( 'Any Status', PLUGIN_NAME ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES )
                 )
             ) )->render(); ?>
 
@@ -37,15 +37,15 @@ use const SmartcatSupport\TEXT_DOMAIN;
                 <?php ( new SelectBoxAbstractField(
                     array(
                         'id'        => 'agent',
-                        'options'   =>  array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents()
+                        'options'   =>  array( '' => __( 'All Agents', PLUGIN_NAME ) ) + get_agents()
                     )
                 ) )->render(); ?>
 
             <?php endif; ?>
 
 
-            <span class="trigger" data-action="filter_tickets"><i class="filter icon-filter"></i><?php _e( 'Filter', TEXT_DOMAIN ); ?></span>
-            <span class="trigger" data-action="refresh_tickets"><i class="refresh icon-loop2"></i><?php _e( 'Refresh', TEXT_DOMAIN ); ?></span>
+            <span class="trigger" data-action="filter_tickets"><i class="filter icon-filter"></i><?php _e( 'Filter', PLUGIN_NAME ); ?></span>
+            <span class="trigger" data-action="refresh_tickets"><i class="refresh icon-loop2"></i><?php _e( 'Refresh', PLUGIN_NAME ); ?></span>
 
         </form>
 

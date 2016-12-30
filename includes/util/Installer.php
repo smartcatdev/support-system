@@ -3,7 +3,7 @@
 namespace SmartcatSupport\util;
 
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 use const SmartcatSupport\PLUGIN_VERSION;
 
 /**
@@ -19,18 +19,18 @@ final class Installer {
     public static function init() {
         if( empty( self::$instance ) ) {
             self::$instance = new self();
-            self::$instance->add_actions();
+//            self::$instance->add_actions();
         }
 
         return self::$instance;
     }
+//
+//    private function __construct() {}
 
-    private function __construct() {}
-
-    private function add_actions() {
+//    private function add_actions() {
         //add_action( 'init', array( $this, 'register_post_type' ) );
         //add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-    }
+//    }
 
 //    public function enqueue_admin_scripts() {
 //        wp_enqueue_media();
@@ -50,106 +50,106 @@ final class Installer {
 //            SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
 //    }
 
-    public function activate() {
-        update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
+//    public function activate() {
+////        update_option( Option::PLUGIN_VERSION, PLUGIN_VERSION );
+//
+////        $this->register_template();
+//        $this->create_email_templates();
+////        $this->add_user_roles();
+//    }
+//
+//    public function deactivate() {
+////        unregister_post_type( 'support_ticket' );
+//
+////        $this->remove_user_roles();
+//    }
 
-//        $this->register_template();
-        $this->create_email_templates();
-        $this->add_user_roles();
-    }
-    
-    public function deactivate() {
-        unregister_post_type( 'support_ticket' );
+//    public function add_user_roles() {
+//        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), array(
+//            'view_support_tickets'      => true,
+//            'create_support_tickets'    => true,
+//            'unfiltered_html'           => true,
+//            'edit_others_tickets'       => true
+//        ) );
+//
+//        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), array(
+//            'view_support_tickets'      => true,
+//            'unfiltered_html'           => true,
+//            'edit_others_tickets'       => true
+//        ) );
+//
+//        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), array(
+//            'view_support_tickets'      => true,
+//            'create_support_tickets'    => true,
+//            'unfiltered_html'           => true
+//        ) );
+//
+//        $role = get_role( 'administrator' );
+//        $role->add_cap( 'view_support_tickets' );
+//        $role->add_cap( 'unfiltered_html' );
+//        $role->add_cap( 'edit_others_tickets' );
+//        $role->add_cap( 'create_support_tickets' );
+//    }
+//
+//    public function remove_user_roles() {
+//        $role = get_role( 'administrator' );
+//        $role->remove_cap( 'view_support_tickets' );
+//        $role->remove_cap( 'unfiltered_html' );
+//        $role->remove_cap( 'edit_others_tickets' );
+//        $role->remove_cap( 'create_support_tickets' );
+//
+//        remove_role( 'support_admin' );
+//        remove_role( 'support_agent' );
+//        remove_role( 'support_user' );
+//    }
+//
+//    public function append_user_caps( $role ) {
+//        $role = get_role( $role );
+//
+//        $role->add_cap( 'view_support_tickets' );
+//        $role->add_cap( 'create_support_tickets' );
+//        $role->add_cap( 'unfiltered_html' );
+//    }
+//
+//    public function remove_appended_caps( $role ) {
+//        $role = get_role( $role );
+//
+//        $role->remove_cap( 'view_support_tickets' );
+//        $role->remove_cap( 'create_support_tickets' );
+//        $role->remove_cap( 'unfiltered_html' );
+//    }
 
-        $this->remove_user_roles();
-    }
-
-    public function add_user_roles() {
-        add_role( 'support_admin', __( 'Support Admin', TEXT_DOMAIN ), array(
-            'view_support_tickets'      => true,
-            'create_support_tickets'    => true,
-            'unfiltered_html'           => true,
-            'edit_others_tickets'       => true
-        ) );
-
-        add_role( 'support_agent', __( 'Support Agent', TEXT_DOMAIN ), array(
-            'view_support_tickets'      => true,
-            'unfiltered_html'           => true,
-            'edit_others_tickets'       => true
-        ) );
-
-        add_role( 'support_user', __( 'Support User', TEXT_DOMAIN ), array(
-            'view_support_tickets'      => true,
-            'create_support_tickets'    => true,
-            'unfiltered_html'           => true
-        ) );
-
-        $role = get_role( 'administrator' );
-        $role->add_cap( 'view_support_tickets' );
-        $role->add_cap( 'unfiltered_html' );
-        $role->add_cap( 'edit_others_tickets' );
-        $role->add_cap( 'create_support_tickets' );
-    }
-    
-    public function remove_user_roles() {
-        $role = get_role( 'administrator' );
-        $role->remove_cap( 'view_support_tickets' );
-        $role->remove_cap( 'unfiltered_html' );
-        $role->remove_cap( 'edit_others_tickets' );
-        $role->remove_cap( 'create_support_tickets' );
-
-        remove_role( 'support_admin' );
-        remove_role( 'support_agent' );
-        remove_role( 'support_user' );
-    }
-
-    public function append_user_caps( $role ) {
-        $role = get_role( $role );
-
-        $role->add_cap( 'view_support_tickets' );
-        $role->add_cap( 'create_support_tickets' );
-        $role->add_cap( 'unfiltered_html' );
-    }
-
-    public function remove_appended_caps( $role ) {
-        $role = get_role( $role );
-
-        $role->remove_cap( 'view_support_tickets' );
-        $role->remove_cap( 'create_support_tickets' );
-        $role->remove_cap( 'unfiltered_html' );
-    }
-
-    public function create_email_templates() {
-        if( empty( get_post( get_option( Option::WELCOME_EMAIL_TEMPLATE ) ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => 'Welcome to Support',
-                    'post_content'  => file_get_contents( SUPPORT_PATH . '/emails/email_welcome.md' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
-            }
-        }
-
-        if( empty( get_post( get_option( Option::CLOSED_EMAIL_TEMPLATE ) ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => 'Your ticket has been closed',
-                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_ticket_closed.md' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
-            }
-        }
-    }
+//    public function create_email_templates() {
+//        if( empty( get_post( get_option( Option::WELCOME_EMAIL_TEMPLATE ) ) ) ) {
+//            $id = wp_insert_post(
+//                array(
+//                    'post_type'     => 'email_template',
+//                    'post_status'   => 'publish',
+//                    'post_title'    => 'Welcome to Support',
+//                    'post_content'  => file_get_contents( SUPPORT_PATH . '/emails/email_welcome.md' )
+//                )
+//            );
+//
+//            if( !empty( $id ) ) {
+//                update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
+//            }
+//        }
+//
+//        if( empty( get_post( get_option( Option::CLOSED_EMAIL_TEMPLATE ) ) ) ) {
+//            $id = wp_insert_post(
+//                array(
+//                    'post_type'     => 'email_template',
+//                    'post_status'   => 'publish',
+//                    'post_title'    => 'Your ticket has been closed',
+//                    'post_content'  => file_get_contents( SUPPORT_PATH . '/templates/email_ticket_closed.md' )
+//                )
+//            );
+//
+//            if( !empty( $id ) ) {
+//                update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
+//            }
+//        }
+//    }
 
 //    public function register_template() {
 //        $post_id = null;

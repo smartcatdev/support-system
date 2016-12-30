@@ -4,7 +4,7 @@ namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 class TicketCptComponent extends AbstractComponent implements HookSubscriber {
 
@@ -14,38 +14,38 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
 
     public function register_cpt() {
         $labels = array(
-            'name'                  => _x( 'Support Tickets', 'Post Type General Name', TEXT_DOMAIN ),
-            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', TEXT_DOMAIN ),
-            'menu_name'             => __( 'Support Tickets', TEXT_DOMAIN ),
-            'name_admin_bar'        => __( 'Support Tickets', TEXT_DOMAIN ),
-            'archives'              => __( 'Item Archives', TEXT_DOMAIN ),
-            'parent_item_colon'     => __( 'Parent Item:', TEXT_DOMAIN ),
-            'all_items'             => __( 'All Tickets', TEXT_DOMAIN ),
-            'add_new_item'          => __( 'New Ticket', TEXT_DOMAIN ),
-            'add_new'               => __( 'New Ticket', TEXT_DOMAIN ),
-            'new_item'              => __( 'New Ticket', TEXT_DOMAIN ),
-            'edit_item'             => __( 'Edit Ticket', TEXT_DOMAIN ),
-            'update_item'           => __( 'Update Ticket', TEXT_DOMAIN ),
-            'view_item'             => __( 'View Ticket', TEXT_DOMAIN ),
-            'search_items'          => __( 'Search Ticket', TEXT_DOMAIN ),
-            'not_found'             => __( 'Ticket Not found', TEXT_DOMAIN ),
-            'not_found_in_trash'    => __( 'Ticket Not found in Trash', TEXT_DOMAIN ),
-            'featured_image'        => __( 'Featured Image', TEXT_DOMAIN ),
-            'set_featured_image'    => __( 'Set featured image', TEXT_DOMAIN ),
-            'remove_featured_image' => __( 'Remove featured image', TEXT_DOMAIN ),
-            'use_featured_image'    => __( 'Use as featured image', TEXT_DOMAIN ),
-            'insert_into_item'      => __( 'Insert into ticket', TEXT_DOMAIN ),
-            'uploaded_to_this_item' => __( 'Uploaded to this ticket', TEXT_DOMAIN ),
-            'items_list'            => __( 'Tickets list', TEXT_DOMAIN ),
-            'items_list_navigation' => __( 'Tickets list navigation', TEXT_DOMAIN ),
-            'filter_items_list'     => __( 'Filter tickets list', TEXT_DOMAIN )
+            'name'                  => _x( 'Support Tickets', 'Post Type General Name', PLUGIN_NAME ),
+            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', PLUGIN_NAME ),
+            'menu_name'             => __( 'Support Tickets', PLUGIN_NAME ),
+            'name_admin_bar'        => __( 'Support Tickets', PLUGIN_NAME ),
+            'archives'              => __( 'Item Archives', PLUGIN_NAME ),
+            'parent_item_colon'     => __( 'Parent Item:', PLUGIN_NAME ),
+            'all_items'             => __( 'All Tickets', PLUGIN_NAME ),
+            'add_new_item'          => __( 'New Ticket', PLUGIN_NAME ),
+            'add_new'               => __( 'New Ticket', PLUGIN_NAME ),
+            'new_item'              => __( 'New Ticket', PLUGIN_NAME ),
+            'edit_item'             => __( 'Edit Ticket', PLUGIN_NAME ),
+            'update_item'           => __( 'Update Ticket', PLUGIN_NAME ),
+            'view_item'             => __( 'View Ticket', PLUGIN_NAME ),
+            'search_items'          => __( 'Search Ticket', PLUGIN_NAME ),
+            'not_found'             => __( 'Ticket Not found', PLUGIN_NAME ),
+            'not_found_in_trash'    => __( 'Ticket Not found in Trash', PLUGIN_NAME ),
+            'featured_image'        => __( 'Featured Image', PLUGIN_NAME ),
+            'set_featured_image'    => __( 'Set featured image', PLUGIN_NAME ),
+            'remove_featured_image' => __( 'Remove featured image', PLUGIN_NAME ),
+            'use_featured_image'    => __( 'Use as featured image', PLUGIN_NAME ),
+            'insert_into_item'      => __( 'Insert into ticket', PLUGIN_NAME ),
+            'uploaded_to_this_item' => __( 'Uploaded to this ticket', PLUGIN_NAME ),
+            'items_list'            => __( 'Tickets list', PLUGIN_NAME ),
+            'items_list_navigation' => __( 'Tickets list navigation', PLUGIN_NAME ),
+            'filter_items_list'     => __( 'Filter tickets list', PLUGIN_NAME )
         );
 
         $capabilities = array();
 
         $args = array(
-            'label'               => __( 'Support Ticket', TEXT_DOMAIN ),
-            'description'         => __( 'Tickets for support requests', TEXT_DOMAIN ),
+            'label'               => __( 'Support Ticket', PLUGIN_NAME ),
+            'description'         => __( 'Tickets for support requests', PLUGIN_NAME ),
             'labels'              => $labels,
             'supports'            => array( 'editor', 'comments', 'title' ),
             'hierarchical'        => false,

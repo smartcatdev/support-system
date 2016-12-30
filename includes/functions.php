@@ -25,8 +25,8 @@ function bootstrap( $fs_context ) {
     define( 'SUPPORT_PATH', dirname( $fs_context ) );
     define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
 
-    $installer = Installer::init();
-    EmailTemplateService::register( 'Smartcat Support', TEXT_DOMAIN );
+//    $installer = Installer::init();
+    EmailTemplateService::register( 'Smartcat Support', PLUGIN_NAME );
 
     // Configure table Handler
     $table_handler = new TicketTable();
@@ -39,7 +39,7 @@ function bootstrap( $fs_context ) {
    new MetaBox(
         array(
            'id'         => 'ticket_support_meta',
-            'title'     => __( 'Ticket Information', TEXT_DOMAIN ),
+            'title'     => __( 'Ticket Information', PLUGIN_NAME ),
             'post_type' => 'support_ticket',
             'context'   => 'advanced',
             'priority'  => 'high',
@@ -50,7 +50,7 @@ function bootstrap( $fs_context ) {
     new MetaBox(
         array(
             'id'         => 'ticket_product_meta',
-            'title'     => __( 'Product Information', TEXT_DOMAIN ),
+            'title'     => __( 'Product Information', PLUGIN_NAME ),
             'post_type' => 'support_ticket',
             'context'   => 'side',
             'priority'  => 'high',
@@ -61,7 +61,7 @@ function bootstrap( $fs_context ) {
     new MetaBox(
         array(
             'id'         => 'ticket_customer_meta',
-            'title'     => __( 'Customer Information', TEXT_DOMAIN ),
+            'title'     => __( 'Customer Information', PLUGIN_NAME ),
             'post_type' => 'support_ticket',
             'context'   => 'side',
             'priority'  => 'high',
@@ -180,74 +180,74 @@ function render_template( $template, array $data = array() ) {
     return ob_get_clean();
 }
 
-function register_form() {
-    $form = new Form( 'register_form' );
+//function register_form() {
+//    $form = new Form( 'register_form' );
+//
+//    $form->add_field( new TextBoxField(
+//        array(
+//            'id'            => 'first_name',
+//            'label'         => __( 'First Name', TEXT_DOMAIN ),
+//            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+//            'constraints'   => array(
+//                new RequiredConstraint()
+//            )
+//        )
+//
+//    ) )->add_field( new TextBoxField(
+//        array(
+//            'id'            => 'last_name',
+//            'label'         => __( 'Last Name', TEXT_DOMAIN ),
+//            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+//            'constraints'   =>  array(
+//                new RequiredConstraint()
+//            )
+//        )
+//
+//    ) )->add_field( new TextBoxField(
+//        array(
+//            'id'            => 'email',
+//            'type'              => 'email',
+//            'label'             => __( 'Email Address', TEXT_DOMAIN ),
+//            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+//            'sanitize_callback' => 'sanitize_email',
+//            'constraints'       => array(
+//                new RequiredConstraint()
+//            )
+//        )
+//    ) );
+//
+//    return $form;
+//}
 
-    $form->add_field( new TextBoxField(
-        array(
-            'id'            => 'first_name',
-            'label'         => __( 'First Name', TEXT_DOMAIN ),
-            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'   => array(
-                new RequiredConstraint()
-            )
-        )
-
-    ) )->add_field( new TextBoxField(
-        array(
-            'id'            => 'last_name',
-            'label'         => __( 'Last Name', TEXT_DOMAIN ),
-            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'constraints'   =>  array(
-                new RequiredConstraint()
-            )
-        )
-
-    ) )->add_field( new TextBoxField(
-        array(
-            'id'            => 'email',
-            'type'              => 'email',
-            'label'             => __( 'Email Address', TEXT_DOMAIN ),
-            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-            'sanitize_callback' => 'sanitize_email',
-            'constraints'       => array(
-                new RequiredConstraint()
-            )
-        )
-    ) );
-
-    return $form;
-}
-
-function register_user() {
-    $form = register_form();
-
-    if( $form->is_valid() ) {
-        $data = $form->data;
-        $password = wp_generate_password();
-
-        $user_id = wp_insert_user(
-            array(
-                'user_login'    => sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ),
-                'user_email'    => $data['email'],
-                'first_name'    => $data['first_name'],
-                'last_name'     => $data['last_name'],
-                'role'          => 'support_user',
-                'user_pass'     => $password
-            )
-        );
-
-        add_filter( 'replace_email_template_vars', function( $vars ) use ( $password ) {
-            $vars['password'] = $password;
-
-            return $vars;
-        } );
-
-        do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
-
-        wp_set_auth_cookie( $user_id );
-        wp_send_json_success();
-    } else {
-        wp_send_json_error( $form->errors );
-    }
-}
+//function register_user() {
+//    $form = register_form();
+//
+//    if( $form->is_valid() ) {
+//        $data = $form->data;
+//        $password = wp_generate_password();
+//
+//        $user_id = wp_insert_user(
+//            array(
+//                'user_login'    => sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ),
+//                'user_email'    => $data['email'],
+//                'first_name'    => $data['first_name'],
+//                'last_name'     => $data['last_name'],
+//                'role'          => 'support_user',
+//                'user_pass'     => $password
+//            )
+//        );
+//
+//        add_filter( 'replace_email_template_vars', function( $vars ) use ( $password ) {
+//            $vars['password'] = $password;
+//
+//            return $vars;
+//        } );
+//
+//        do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+//
+//        wp_set_auth_cookie( $user_id );
+//        wp_send_json_success();
+//    } else {
+//        wp_send_json_error( $form->errors );
+//    }
+//}

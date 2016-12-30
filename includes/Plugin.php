@@ -4,6 +4,8 @@ namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
+use SmartcatSupport\component\ProductComponent;
+use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\TicketCptComponent;
 use SmartcatSupport\descriptor\Option;
 
@@ -12,13 +14,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function start() {
         $this->add_api_subscriber( $this );
 
-        if( class_exists( 'WooCommerce' ) ) {
-            $this->edd_enabled = true;
-        }
-
-        if( class_exists( 'Easy_Digital_Downloads' ) ) {
-            $this->woo_enabled = true;
-        }
+        $this->woo_active = class_exists( 'WooCommerce' );
+        $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
         // Notify subscribers if there is a version upgrade
         $version = get_option( Option::PLUGIN_VERSION, 0 );
@@ -30,11 +27,24 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function activate() {
+        do_action( $this->name . '_setup' );
+
+        $this->add_caps( add_role( 'support_admin', __( 'Support Admin', PLUGIN_NAME ) ), true );
+        $this->add_caps( add_role( 'support_agent', __( 'Support Agent', PLUGIN_NAME ) ), true );
+        $this->add_caps( add_role( 'support_user', __( 'Support User', PLUGIN_NAME ) ) );
+        $this->add_caps( get_role( 'administrator'), true );
+
         $this->setup_template();
+        $this->create_email_templates();
     }
 
     public function deactivate() {
-        error_log( "deactivate called" );
+        $this->remove_caps( get_role( 'administrator'), true );
+
+        remove_role( 'support_admin' );
+        remove_role( 'support_agent' );
+        remove_role( 'support_user' );
+
         do_action( $this->name . '_cleanup' );
     }
 
@@ -72,8 +82,50 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return '';
     }
 
+    public function add_caps( \WP_Role $role, $privileged = false ) {
+        foreach( $this->caps( $privileged ) as $cap ) {
+            $role->add_cap( $cap );
+        }
+    }
+
+    public function remove_caps( \WP_Role $role, $privileged = false ) {
+        foreach( $this->caps( $privileged ) as $cap ) {
+            $role->remove_cap( $cap );
+        }
+    }
+
+    private function caps( $privileged ) {
+        $caps = array(
+            'view_support_tickets',
+            'create_support_tickets',
+            'unfiltered_html'
+        );
+
+        if( $privileged ) {
+            $caps[] = 'edit_others_tickets';
+        }
+
+        return $caps;
+    }
+
+    public function resource_path( $file ) {
+        return file_exists( "{$this->dir}/{$file}" ) ? "{$this->dir}/{$file}" : '';
+    }
+
+    public function resource_url( $file ) {
+        if( file_exists( "{$this->dir}/{$file}" ) ) {
+            $file = "{$this->url}/{$file}";
+        } else {
+            $file = '';
+        }
+
+        return $file;
+    }
+
     public function subscribed_hooks() {
         return array(
+            $this->name . 'resource_path' => array( 'resource_path' ),
+            $this->name . 'resource_url' => array( 'resource_url' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'template_include' => array( 'swap_template' ),
             'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
@@ -81,7 +133,27 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function components() {
-        return array( TicketCptComponent::class );
+        $components = array(
+            TicketCptComponent::class
+        );
+
+        if( $this->edd_active || $this->woo_active ) {
+            $components[] = ProductComponent::class;
+        }
+
+        if( get_option( Option::ALLOW_SIGNUPS ) == 'on' ) {
+            $components[] = RegistrationComponent::class;
+        }
+
+        return $components;
+    }
+
+    public function roles() {
+        return array(
+            'support_admin' => __( 'Support Admin', PLUGIN_NAME ),
+            'support_agent', __( 'Support Agent', PLUGIN_NAME ),
+            'support_user', __( 'Support User', PLUGIN_NAME )
+        );
     }
 
     private function setup_template() {
@@ -93,7 +165,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', TEXT_DOMAIN )
+                    'post_title' => __( 'Support', PLUGIN_NAME )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
@@ -106,6 +178,38 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         if( !empty( $post_id ) ) {
             update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        }
+    }
+
+    private function create_email_templates() {
+        if( empty( get_post( get_option( Option::WELCOME_EMAIL_TEMPLATE ) ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => 'Welcome to Support',
+                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.md' )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
+            }
+        }
+
+        if( empty( get_post( get_option( Option::CLOSED_EMAIL_TEMPLATE ) ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => 'Your ticket has been closed',
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_closed.md' )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
+            }
         }
     }
 }

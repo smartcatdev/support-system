@@ -1,6 +1,6 @@
 <?php
 
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 ?>
 
@@ -14,7 +14,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <th data-column_name="<?php echo $col; // For dynamically generating column names client-side ?>">
 
-                    <?php esc_html_e( $title, TEXT_DOMAIN ); ?>
+                    <?php esc_html_e( $title, PLUGIN_NAME ); ?>
 
                 </th>
 

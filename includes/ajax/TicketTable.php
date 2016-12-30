@@ -6,7 +6,7 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 use SmartcatSupport\util\ActionListener;
 
 class TicketTable extends ActionListener {
@@ -116,7 +116,7 @@ class TicketTable extends ActionListener {
             $agents = get_agents();
             $agent = get_post_meta( $post_id, 'agent', true );
 
-            return array_key_exists( $agent, $agents ) ? $agents[ $agent ] : __( 'Unassigned', TEXT_DOMAIN );
+            return array_key_exists( $agent, $agents ) ? $agents[ $agent ] : __( 'Unassigned', PLUGIN_NAME );
         } );
 
         add_action( 'support_ticket_table_priority_col', function ( $post_id ) {

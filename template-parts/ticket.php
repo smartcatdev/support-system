@@ -3,7 +3,7 @@
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 ?>
 
@@ -25,8 +25,8 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                 <p class="date_posted">
 
-                    <?php _e( 'Updated ', TEXT_DOMAIN ); ?>
-                    <?php _e( human_time_diff( strtotime( $post->post_date ), current_time( 'timestamp' ) ) . ' ago', TEXT_DOMAIN ); ?>
+                    <?php _e( 'Updated ', PLUGIN_NAME ); ?>
+                    <?php _e( human_time_diff( strtotime( $post->post_date ), current_time( 'timestamp' ) ) . ' ago', PLUGIN_NAME ); ?>
 
                     <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
 
@@ -73,7 +73,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <tr>
 
-                        <th class="label"><?php _e( 'Product', TEXT_DOMAIN ); ?></th>
+                        <th class="label"><?php _e( 'Product', PLUGIN_NAME ); ?></th>
 
                         <td><?php echo get_products()[ get_post_meta(  $post->ID, 'product', true ) ]; ?></td>
 
@@ -81,7 +81,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <tr>
 
-                        <th class="label"><?php _e( 'Status', TEXT_DOMAIN ); ?></th>
+                        <th class="label"><?php _e( 'Status', PLUGIN_NAME ); ?></th>
 
                         <td><?php echo get_option( Option::STATUSES, Option\Defaults::STATUSES ) [ get_post_meta( $post->ID, 'status', true ) ]; ?></td>
 
@@ -91,7 +91,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                         <tr>
 
-                            <th class="label"><?php _e( 'Assigned to', TEXT_DOMAIN ); ?></th>
+                            <th class="label"><?php _e( 'Assigned to', PLUGIN_NAME ); ?></th>
 
                             <td><?php echo get_agents() [ get_post_meta( $post->ID, 'agent', true ) ]; ?></td>
 
@@ -99,7 +99,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                         <tr>
 
-                            <th class="label"><?php _e( 'Priority', TEXT_DOMAIN ); ?></th>
+                            <th class="label"><?php _e( 'Priority', PLUGIN_NAME ); ?></th>
 
                             <td><?php echo get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES ) [ get_post_meta( $post->ID, 'priority', true ) ]; ?></td>
 
@@ -116,7 +116,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
         <div class="date_opened">
 
-            <?php _e( 'Opened ', TEXT_DOMAIN ); echo get_the_date( 'l F n, Y', $post ); ?>
+            <?php _e( 'Opened ', PLUGIN_NAME ); echo get_the_date( 'l F n, Y', $post ); ?>
 
         </div>
 

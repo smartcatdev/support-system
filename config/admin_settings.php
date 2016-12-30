@@ -9,32 +9,32 @@ use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
 use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 $admin = new TabbedSettingsPage(
     array(
         'type'          => 'submenu',
         'parent_menu'   => 'edit.php?post_type=support_ticket',
-        'page_title'    => __( 'Support Settings', TEXT_DOMAIN ),
-        'menu_title'    => __( 'Settings', TEXT_DOMAIN ),
+        'page_title'    => __( 'Support Settings', PLUGIN_NAME ),
+        'menu_title'    => __( 'Settings', PLUGIN_NAME ),
         'menu_slug'     => 'support_options',
         'tabs'          => array(
-            'general'     => __( 'General', TEXT_DOMAIN ),
-            'display'     => __( 'Display', TEXT_DOMAIN ),
-            'email'       => __( 'Email', TEXT_DOMAIN ),
-            'advanced'    => __( 'Advanced', TEXT_DOMAIN )
+            'general'     => __( 'General', PLUGIN_NAME ),
+            'display'     => __( 'Display', PLUGIN_NAME ),
+            'email'       => __( 'Email', PLUGIN_NAME ),
+            'advanced'    => __( 'Advanced', PLUGIN_NAME )
         )
     )
 );
 
-$text = new SettingsSection( 'text', __( 'Text & Labels', TEXT_DOMAIN ) );
+$text = new SettingsSection( 'text', __( 'Text & Labels', PLUGIN_NAME ) );
 
 $text->add_field( new TextField(
     array(
         'id'            => 'support_login_disclaimer',
         'option'        => Option::LOGIN_DISCLAIMER,
         'value'         => get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ),
-        'label'         => __( 'Login Disclaimer', TEXT_DOMAIN ),
+        'label'         => __( 'Login Disclaimer', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -43,7 +43,7 @@ $text->add_field( new TextField(
         'id'            => 'support_register_btn_text',
         'option'        => Option::REGISTER_BTN_TEXT,
         'value'         => get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ),
-        'label'         => __( 'Register Button Label', TEXT_DOMAIN ),
+        'label'         => __( 'Register Button Label', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -52,7 +52,7 @@ $text->add_field( new TextField(
         'id'            => 'support_login_btn_text',
         'option'        => Option::LOGIN_BTN_TEXT,
         'value'         => get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ),
-        'label'         => __( 'Login Button Label', TEXT_DOMAIN ),
+        'label'         => __( 'Login Button Label', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -61,7 +61,7 @@ $text->add_field( new TextField(
         'id'            => 'support_create_btn_text',
         'option'        => Option::CREATE_BTN_TEXT,
         'value'         => get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ),
-        'label'         => __( 'Create Ticket Button Label', TEXT_DOMAIN ),
+        'label'         => __( 'Create Ticket Button Label', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -70,7 +70,7 @@ $text->add_field( new TextField(
         'id'            => 'support_cancel_btn_text',
         'option'        => Option::CANCEL_BTN_TEXT,
         'value'         => get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ),
-        'label'         => __( 'Cancel Operation Button Label', TEXT_DOMAIN ),
+        'label'         => __( 'Cancel Operation Button Label', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -79,7 +79,7 @@ $text->add_field( new TextField(
         'id'            => 'support_ticket_created_msg',
         'option'        => Option::TICKET_CREATED_MSG,
         'value'         => get_option( Option::TICKET_CREATED_MSG, Option\Defaults::TICKET_CREATED_MSG ),
-        'label'         => __( 'Ticket Created Message', TEXT_DOMAIN ),
+        'label'         => __( 'Ticket Created Message', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -88,7 +88,7 @@ $text->add_field( new TextField(
         'id'            => 'support_ticket_updated_msg',
         'option'        => Option::TICKET_UPDATED_MSG,
         'value'         => get_option( Option::TICKET_UPDATED_MSG, Option\Defaults::TICKET_UPDATED_MSG ),
-        'label'         => __( 'Ticket Updated Message', TEXT_DOMAIN ),
+        'label'         => __( 'Ticket Updated Message', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -97,19 +97,19 @@ $text->add_field( new TextField(
         'id'            => 'support_empty_table_msg',
         'option'        => Option::EMPTY_TABLE_MSG,
         'value'         => get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ),
-        'label'         => __( 'No Tickets Message', TEXT_DOMAIN ),
+        'label'         => __( 'No Tickets Message', PLUGIN_NAME ),
         'validators'    => array( new TextFilter() )
     )
 ) );
 
-$general = new SettingsSection( 'general', __( 'General Settings', TEXT_DOMAIN ) );
+$general = new SettingsSection( 'general', __( 'General Settings', PLUGIN_NAME ) );
 
 $general->add_field( new TextField(
     array(
         'id'            => 'support_login_logo',
         'option'        => Option::LOGIN_LOGO,
         'value'         => get_option( Option::LOGIN_LOGO, Option\Defaults::LOGIN_LOGO ),
-        'label'         => __( 'Login Logo Image', TEXT_DOMAIN )
+        'label'         => __( 'Login Logo Image', PLUGIN_NAME )
     )
 
 ) )->add_field( new CheckBoxField(
@@ -117,8 +117,8 @@ $general->add_field( new TextField(
         'id'            => 'support_allow_signups',
         'option'        => Option::ALLOW_SIGNUPS,
         'value'         => get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ),
-        'label'         => __( 'Allow users to signup', TEXT_DOMAIN ),
-        'desc'          => __( 'Allow users to create accounts for submitting tickets', TEXT_DOMAIN ),
+        'label'         => __( 'Allow users to signup', PLUGIN_NAME ),
+        'desc'          => __( 'Allow users to create accounts for submitting tickets', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
@@ -127,8 +127,8 @@ $general->add_field( new TextField(
         'id'            => 'support_edd_integration',
         'option'        => Option::EDD_INTEGRATION,
         'value'         => get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ),
-        'label'         => __( 'Easy Digital Downloads', TEXT_DOMAIN ),
-        'desc'          => __( 'Enable integration with Easy Digital Downloads', TEXT_DOMAIN ),
+        'label'         => __( 'Easy Digital Downloads', PLUGIN_NAME ),
+        'desc'          => __( 'Enable integration with Easy Digital Downloads', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
@@ -137,14 +137,14 @@ $general->add_field( new TextField(
         'id'            => 'support_woo_integration',
         'option'        => Option::WOO_INTEGRATION,
         'value'         => get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ),
-        'label'         => __( 'WooCommerce', TEXT_DOMAIN ),
-        'desc'          => __( 'Enable integration with WooCommerce', TEXT_DOMAIN ),
+        'label'         => __( 'WooCommerce', PLUGIN_NAME ),
+        'desc'          => __( 'Enable integration with WooCommerce', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
 ) );
 
-$email = new SettingsSection( 'email', __( 'Email Templates', TEXT_DOMAIN ) );
+$email = new SettingsSection( 'email', __( 'Email Templates', PLUGIN_NAME ) );
 
 $email->add_field( new SelectBoxField(
     array(
@@ -152,8 +152,8 @@ $email->add_field( new SelectBoxField(
         'option'        => Option::WELCOME_EMAIL_TEMPLATE,
         'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
         'options'       => EmailTemplateService::template_dropdown_list(),
-        'label'         => __( 'Welcome Email Template', TEXT_DOMAIN ),
-        'desc'          => __( 'The email template to be sent out after registration', TEXT_DOMAIN ),
+        'label'         => __( 'Welcome Email Template', PLUGIN_NAME ),
+        'desc'          => __( 'The email template to be sent out after registration', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array_keys( EmailTemplateService::template_dropdown_list() ), '' ) )
     )
 ) )->add_field( new SelectBoxField(
@@ -162,21 +162,21 @@ $email->add_field( new SelectBoxField(
         'option'        => Option::CLOSED_EMAIL_TEMPLATE,
         'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE ),
         'options'       => EmailTemplateService::template_dropdown_list(),
-        'label'         => __( 'Ticket Closed Email Template', TEXT_DOMAIN ),
-        'desc'          => __( 'The email template to be sent out after a ticket has been closed', TEXT_DOMAIN ),
+        'label'         => __( 'Ticket Closed Email Template', PLUGIN_NAME ),
+        'desc'          => __( 'The email template to be sent out after a ticket has been closed', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array_keys( EmailTemplateService::template_dropdown_list() ), '' ) )
     )
 ) );
 
-$advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', TEXT_DOMAIN ) );
+$advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', PLUGIN_NAME ) );
 
 $advanced->add_field( new CheckBoxField(
     array(
         'id'            => 'support_nuke_data',
         'option'        => Option::NUKE,
         'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
-        'label'         => __( 'Erase All Data', TEXT_DOMAIN ),
-        'desc'          => __( 'Erase all data on plugin uninstall', TEXT_DOMAIN ),
+        'label'         => __( 'Erase All Data', PLUGIN_NAME ),
+        'desc'          => __( 'Erase all data on plugin uninstall', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
@@ -185,8 +185,8 @@ $advanced->add_field( new CheckBoxField(
         'id'            => 'support_restore_template',
         'option'        => Option::RESTORE_TEMPLATE,
         'value'         => '',
-        'label'         => __( 'Restore Template Page', TEXT_DOMAIN ),
-        'desc'          => __( 'Restore the template page if its been deleted', TEXT_DOMAIN ),
+        'label'         => __( 'Restore Template Page', PLUGIN_NAME ),
+        'desc'          => __( 'Restore the template page if its been deleted', PLUGIN_NAME ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 

@@ -3,7 +3,7 @@
 use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\register_form;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_NAME;
 
 ?>
 
@@ -25,7 +25,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <button class="trigger" data-action="toggle_register_form">
 
-                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_NAME ); ?>
 
                     </button>
 
@@ -41,19 +41,19 @@ use const SmartcatSupport\TEXT_DOMAIN;
                           data-action="support_register_user"
                           data-after="post_user_register">
 
-                        <?php Form::render_fields( register_form() ); ?>
+                        <?php Form::render_fields( include apply_filters( PLUGIN_NAME . 'resource_path', 'config/register_user_form.php' ) ); ?>
 
                         <div class="button_wrapper">
 
                             <button class="trigger" data-action="toggle_register_form">
 
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), PLUGIN_NAME ); ?>
 
                             </button>
 
                             <input class="button"
                                 type="submit"
-                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>"/>
+                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_NAME ); ?>"/>
 
                         </div>
 
@@ -66,7 +66,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
         </div>
         
         <div id="support-login-disclaimer">
-            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), TEXT_DOMAIN ); ?>
+            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), PLUGIN_NAME ); ?>
         </div>
         
     </div>
