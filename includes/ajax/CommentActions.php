@@ -4,18 +4,19 @@ namespace SmartcatSupport\ajax;
 
 use function SmartcatSupport\render_template;
 use const SmartcatSupport\TEXT_DOMAIN;
-use SmartcatSupport\util\ActionListener;
 
-class CommentHandler extends ActionListener {
-    public function __construct() {
-        $this->add_ajax_action( 'support_update_comment', 'update_comment' );
-        $this->add_ajax_action( 'support_submit_comment', 'submit_comment' );
-        $this->add_ajax_action( 'support_delete_comment', 'delete_comment' );
-        $this->add_ajax_action( 'support_ticket_comments', 'ticket_comments' );
+final class CommentActions {
+    private function __construct() {}
+
+    public static function init() {
+        add_action( 'wp_ajax_support_update_comment', array( __CLASS__, 'update_comment' ) );
+        add_action( 'wp_ajax_support_submit_comment', array( __CLASS__, 'submit_comment' ) );
+        add_action( 'wp_ajax_support_delete_comment', array( __CLASS__, 'delete_comment' ) );
+        add_action( 'wp_ajax_support_ticket_comments', array( __CLASS__, 'ticket_comments' ) );
     }
 
-    public function update_comment() {
-        $comment = $this->validate_comment_request();
+    public static function update_comment() {
+        $comment = self::validate_comment_request();
 
         if ( !empty( $comment ) && !empty( $_REQUEST['content'] ) ) {
             wp_update_comment( array(
@@ -35,8 +36,8 @@ class CommentHandler extends ActionListener {
         }
     }
 
-    public function submit_comment() {
-        $ticket = $this->valid_ticket_request();
+    public static function submit_comment() {
+        $ticket = self::valid_ticket_request();
 
         if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
             $user = wp_get_current_user();
@@ -67,8 +68,8 @@ class CommentHandler extends ActionListener {
         }
     }
 
-    public function delete_comment() {
-        $comment = $this->validate_comment_request();
+    public static function delete_comment() {
+        $comment = self::validate_comment_request();
 
         if( !empty( $comment ) ) {
             wp_delete_comment( $comment->comment_ID, true );
@@ -76,8 +77,8 @@ class CommentHandler extends ActionListener {
         }
     }
 
-    public function ticket_comments() {
-        $ticket = $this->valid_ticket_request();
+    public static function ticket_comments() {
+        $ticket = self::valid_ticket_request();
 
         if( !empty( $ticket ) ) {
             wp_send_json_success(
@@ -91,7 +92,7 @@ class CommentHandler extends ActionListener {
         }
     }
 
-    private function valid_ticket_request() {
+    private static function valid_ticket_request() {
         $ticket = null;
         $user = wp_get_current_user();
 
@@ -112,7 +113,7 @@ class CommentHandler extends ActionListener {
         return $ticket;
     }
 
-    private function validate_comment_request() {
+    private static function validate_comment_request() {
         $comment = null;
 
         if( isset( $_REQUEST['comment_id'] ) ) {

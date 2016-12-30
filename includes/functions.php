@@ -6,11 +6,9 @@ use smartcat\form\Form;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
 use smartcat\mail\EmailTemplateService;
-use SmartcatSupport\admin\CustomerMetaBox;
 use SmartcatSupport\admin\MetaBox;
-use SmartcatSupport\admin\ProductMetaBox;
-use SmartcatSupport\admin\SupportMetaBox;
-use SmartcatSupport\admin\PostTableModifiers;
+use SmartcatSupport\admin\PostTableActions;
+use SmartcatSupport\ajax\CommentActions;
 use SmartcatSupport\ajax\CommentHandler;
 use SmartcatSupport\ajax\TicketHandler;
 use SmartcatSupport\ajax\TicketTable;
@@ -37,8 +35,7 @@ function bootstrap( $fs_context ) {
     // Configure ticket Handler
     $ticket_handler = new TicketHandler();
 
-    // Configure comment handler
-    $comment_handler = new CommentHandler();
+
 
    new MetaBox(
         array(
@@ -73,7 +70,8 @@ function bootstrap( $fs_context ) {
         )
     );
 
-    PostTableModifiers::init();
+    PostTableActions::init();
+    CommentActions::init();
 
 
     include_once 'hooks.php';

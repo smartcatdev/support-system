@@ -9,7 +9,7 @@ use function SmartcatSupport\get_products;
 use function SmartcatSupport\render_template;
 use const SmartcatSupport\TEXT_DOMAIN;
 
-final class PostTableModifiers {
+final class PostTableActions {
 
     private function __construct() {}
 

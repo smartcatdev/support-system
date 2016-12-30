@@ -8,7 +8,7 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use const SmartcatSupport\TEXT_DOMAIN;
 
-$agents     = get_agents();
+$agents     = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
 $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
@@ -25,7 +25,7 @@ $form->add_field( new HiddenField(
         'id'          => 'agent',
         'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
         'label'       => __( 'Assigned To', TEXT_DOMAIN ),
-        'options'     => array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + $agents,
+        'options'     => $agents,
         'value'       => get_post_meta( $post->ID, 'agent', true ),
         'constraints' => array(
             new ChoiceConstraint( array_keys( $agents ) )
@@ -57,3 +57,5 @@ $form->add_field( new HiddenField(
     )
 
 ) );
+
+return $form;

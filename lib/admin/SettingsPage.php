@@ -4,122 +4,196 @@ namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
-class SettingsPage {
-    protected $type;
-    protected $page_title;
-    protected $menu_title;
-    protected $capability;
-    protected $menu_slug;
-    protected $parent_menu = '';
-    protected $icon;
-    protected $position;
-    protected $sections = [];
 
-    public function __construct( array $config ) {
+    /**
+     * A Standard single admin settings page.
+     *
+     * @package smartcat\admin
+     * @author Eric Green <eric@smartcat.ca>
+     * @since 1.0.0
+     */
+    class SettingsPage {
+        protected $type;
+        protected $page_title;
+        protected $menu_title;
+        protected $capability;
+        protected $menu_slug;
+        protected $parent_menu = '';
+        protected $icon;
+        protected $position;
+        protected $sections = [];
 
-        $this->page_title = $config['page_title'];
-        $this->menu_title = $config['menu_title'];
-        $this->menu_slug = $config['menu_slug'];
+        /**
+         * SettingsPage constructor.
+         *
+         * @param array $config
+         *  $args = [
+         *      'page_title'    => (string) Title to display on the page. Required.
+         *      'menu_title'    => (string) Title to display in admin menu. Required.
+         *      'menu_slug'     => (string) Slug name of settings page. Required.
+         *      'type'          => (string) The type of settings page. Default: options.
+         *      'capability'    => (string) Minimum capability required. Default: manage_options.
+         *      'icon'          => (string) Icon to display in admin menu. Default: dashicons-admin-generic.
+         *      'parent_menu'   => (string) Where the page should appear if it is a child of another.
+         *      'position'      => (int) Position page should appear in menu. Default: 100.
+         *    ]
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function __construct( array $config ) {
 
-        $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
+            $this->page_title = $config['page_title'];
+            $this->menu_title = $config['menu_title'];
+            $this->menu_slug = $config['menu_slug'];
 
-        if( $this->type == 'submenu' ) {
-            $this->parent_menu = $config['parent_menu'];
+            $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
+
+            if( $this->type == 'submenu' ) {
+                $this->parent_menu = $config['parent_menu'];
+            }
+
+            $this->capability = isset( $config['capability'] ) ? $config['capability'] : 'manage_options';
+            $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';
+            $this->position = isset( $config['position'] ) ? $config['position'] : 100;
+        }
+
+        /**
+         * Add WordPress actions.
+         *
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function register() {
+            add_action( 'admin_menu', array( $this, 'register_page' ) );
+            add_action( 'admin_init', array( $this, 'register_sections' ) );
+        }
+
+        /**
+         * Remove WordPress actions.
+         *
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function unregister() {
+            remove_action( 'admin_menu', array( $this, 'register_page' ) );
+            remove_action( 'admin_init', array( $this, 'register_sections' ) );
         }
 
 
-        $this->capability = isset( $config['capability'] ) ? $config['capability'] : 'manage_options';
-        $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';
-        $this->position = isset( $config['position'] ) ? $config['position'] : 100;
-    }
+        /**
+         * Add the page to the admin menu.
+         *
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function register_page() {
+            $config = array();
 
-    public function register() {
-        add_action( 'admin_menu', array( $this, 'register_page' ) );
-        add_action( 'admin_init', array( $this, 'register_sections' ) );
-    }
+            if( $this->type == 'submenu' && $this->parent_menu != '' ) {
+                $config[] = $this->parent_menu;
+            }
 
-    public function unregister() {
-        remove_action( 'admin_menu', array( $this, 'register_page' ) );
-        remove_action( 'admin_init', array( $this, 'register_sections' ) );
-    }
+            $config[] = $this->page_title;
+            $config[] = $this->menu_title;
+            $config[] = $this->capability;
+            $config[] = $this->menu_slug;
+            $config[] = array( $this, 'render' );
+            $config[] = $this->icon;
+            $config[] = $this->position;
 
-    public function register_page() {
-        $config = array();
-
-        if( $this->type == 'submenu' && $this->parent_menu != '' ) {
-            $config[] = $this->parent_menu;
+            call_user_func_array( "add_{$this->type}_page", $config );
         }
 
-        $config[] = $this->page_title;
-        $config[] = $this->menu_title;
-        $config[] = $this->capability;
-        $config[] = $this->menu_slug;
-        $config[] = array( $this, 'render' );
-        $config[] = $this->icon;
-        $config[] = $this->position;
-
-        call_user_func_array( "add_{$this->type}_page", $config );
-    }
-
-    public function add_section( SettingsSection $section ) {
-        $this->sections[ $section->get_slug() ] = $section;
-    }
-
-    public function remove_section( $id ) {
-        $result = $this->get_section( $id );
-
-        if( $result !== false ) {
-            unset( $this->sections[ $id ] );
+        /**
+         * Adds a section to the page.
+         *
+         * @param SettingsSection $section
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function add_section( SettingsSection $section ) {
+            $this->sections[ $section->get_slug() ] = $section;
         }
 
-        return $result;
-    }
+        /**
+         * Removes the section from the page and returns it.
+         *
+         * @param string $id The slug id of the section to remove.
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         * @return SettingsSection
+         */
+        public function remove_section( $id ) {
+            $result = $this->get_section( $id );
 
-    public function set_sections( array $sections ) {
-        $this->sections = $sections;
-    }
+            if( $result !== false ) {
+                unset( $this->sections[ $id ] );
+            }
 
-    public function get_section( $id ) {
-        $section = false;
-
-        if( isset( $this->sections[ $id ] ) ) {
-            $section = &$this->sections[ $id ];
+            return $result;
         }
 
-        return $section;
-    }
+        /**
+         * Gets a reference to a section of the settings page.
+         *
+         * @param string $id The slug id of the settings page.
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         * @return SettingsSection
+         */
+        public function get_section( $id ) {
+            $section = false;
 
-    public function register_sections() {
-        foreach( $this->sections as $section ) {
-            $section->register( $this->menu_slug );
+            if( isset( $this->sections[ $id ] ) ) {
+                $section = &$this->sections[ $id ];
+            }
+
+            return $section;
         }
+
+        /**
+         * Register each section with Settings API.
+         *
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function register_sections() {
+            foreach( $this->sections as $section ) {
+                $section->register( $this->menu_slug );
+            }
+        }
+
+        /**
+         * Output the settings page.
+         *
+         * @author Eric Green <eric@smartcat.ca>
+         * @since 1.0.0
+         */
+        public function render() { ?>
+
+            <div class="wrap">
+
+                <h2><?php echo $this->page_title; ?></h2>
+
+                <?php if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
+
+                   <?php settings_errors( $this->menu_slug ); ?>
+
+                <?php endif; ?>
+
+                <form method="post" action="options.php">
+
+                    <?php
+                        settings_fields( $this->menu_slug );
+                        do_settings_sections( $this->menu_slug );
+                        submit_button();
+                    ?>
+
+                </form>
+
+            </div>
+
+        <?php }
     }
-
-    public function render() { ?>
-
-        <div class="wrap">
-
-            <h2><?php echo $this->page_title; ?></h2>
-
-            <?php if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
-
-               <?php settings_errors( $this->menu_slug ); ?>
-
-            <?php endif; ?>
-
-            <form method="post" action="options.php">
-
-                <?php
-                    settings_fields( $this->menu_slug );
-                    do_settings_sections( $this->menu_slug );
-                    submit_button();
-                ?>
-
-            </form>
-
-        </div>
-
-    <?php }
-}
 
 endif;

@@ -96,3 +96,5 @@ $form->add_field( new TextBoxField(
     )
 
 ) );
+
+return $form;
