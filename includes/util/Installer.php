@@ -29,25 +29,25 @@ final class Installer {
 
     private function add_actions() {
         add_action( 'init', array( $this, 'register_post_type' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+        //add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
     }
 
     public function enqueue_admin_scripts() {
-        wp_enqueue_media();
-        wp_enqueue_script( 'wp_media_uploader',
-            SUPPORT_URL . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_register_script( 'support-admin-js',
-            SUPPORT_URL . 'assets/admin/admin.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_localize_script( 'support-admin-js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
-        wp_enqueue_script( 'support-admin-js' );
-
-        wp_enqueue_style( 'support-admin-icons',
-            SUPPORT_URL . '/assets/icons.css', null, PLUGIN_VERSION );
-
-        wp_enqueue_style( 'support-admin-css',
-            SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
+//        wp_enqueue_media();
+//        wp_enqueue_script( 'wp_media_uploader',
+//            SUPPORT_URL . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), PLUGIN_VERSION );
+//
+//        wp_register_script( 'support-admin-js',
+//            SUPPORT_URL . 'assets/admin/admin.js', array( 'jquery' ), PLUGIN_VERSION );
+//
+//        wp_localize_script( 'support-admin-js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
+//        wp_enqueue_script( 'support-admin-js' );
+//
+//        wp_enqueue_style( 'support-admin-icons',
+//            SUPPORT_URL . '/assets/icons.css', null, PLUGIN_VERSION );
+//
+//        wp_enqueue_style( 'support-admin-css',
+//            SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
     }
 
     public function activate() {

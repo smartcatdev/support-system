@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\admin;
 
-use smartcat\post\MetaBox as AbstractMetaBox;
+use smartcat\post\AbstractMetaBox;
 use function SmartcatSupport\render_template;
 
 class MetaBox extends AbstractMetaBox {
@@ -14,11 +14,11 @@ class MetaBox extends AbstractMetaBox {
         $this->config = $args['config'];
     }
 
-    public function render( $post ) {
+    public function render( \WP_Post $post ) {
         echo render_template( 'metabox', array( 'form' => include $this->config ) );
     }
 
-    public function save( $post_id, $post ) {
+    public function save( $post_id, \WP_Post $post ) {
         $form = include $this->config;
 
         if( $form->is_valid() ) {

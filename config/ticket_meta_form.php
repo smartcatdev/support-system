@@ -2,7 +2,7 @@
 
 use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
-use smartcat\form\HiddenField;
+use smartcat\form\HiddenAbstractField;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
@@ -14,7 +14,7 @@ $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
 $form = new Form( 'meta_form' );
 
-$form->add_field( new HiddenField(
+$form->add_field( new HiddenAbstractField(
     array(
         'id'    => 'id',
         'value' => $post->ID

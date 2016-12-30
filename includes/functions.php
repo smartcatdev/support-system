@@ -9,7 +9,6 @@ use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\admin\PostTableActions;
 use SmartcatSupport\ajax\CommentActions;
-use SmartcatSupport\ajax\CommentHandler;
 use SmartcatSupport\ajax\TicketHandler;
 use SmartcatSupport\ajax\TicketTable;
 use SmartcatSupport\descriptor\Option;

@@ -7,7 +7,6 @@
 
 namespace SmartcatSupport;
 
-
 // Die if access directly
 if( !defined( 'ABSPATH' ) ) {
     die();
@@ -23,5 +22,8 @@ const TEXT_DOMAIN = 'ca.smartcat.support';
 include_once 'vendor/autoload.php';
 include_once 'includes/functions.php';
 
+
+// Boot up the container
+Plugin::boot( TEXT_DOMAIN, PLUGIN_VERSION, __FILE__ );
 
 bootstrap( __FILE__ );
