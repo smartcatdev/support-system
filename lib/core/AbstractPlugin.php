@@ -34,7 +34,7 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
      * @param string $fs_context
      */
     public static final function boot( $name, $version, $fs_context ) {
-        if( !in_array( $name, self::$plugins_loaded ) ) {
+        if( !array_key_exists( $name, self::$plugins_loaded ) ) {
             $instance = new static( $name, $version, $fs_context );
 
             self::$plugins_loaded[ $name ] = $instance;
