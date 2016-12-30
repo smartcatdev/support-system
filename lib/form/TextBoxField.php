@@ -4,7 +4,7 @@ namespace smartcat\form;
 
 if( !class_exists( '\smartcat\form\TextBoxField' ) ) :
 
-class TextBoxField extends Field {
+class TextBoxField extends AbstractField {
     private $type = 'text';
     
     public function __construct( array $args ) {

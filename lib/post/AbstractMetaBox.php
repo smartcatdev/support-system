@@ -2,7 +2,7 @@
 
 namespace smartcat\post;
 
-if( !class_exists( 'smartcat\post\MetaBox' ) ) :
+if( !class_exists('smartcat\post\AbstractMetaBox') ) :
 
 /**
  * Abstract base class for meta classes, automatically registers required actions
@@ -13,7 +13,7 @@ if( !class_exists( 'smartcat\post\MetaBox' ) ) :
  * @package admin
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class MetaBox {
+abstract class AbstractMetaBox {
 
     public $id;
     public $title;

@@ -4,7 +4,7 @@ namespace smartcat\form;
 
 if( !class_exists( 'smartcat\form\CheckBoxField' ) ) :
 
-class CheckBoxField extends Field {
+class CheckBoxField extends AbstractField {
     public $cb_title;
 
     public function __construct( array $args ) {

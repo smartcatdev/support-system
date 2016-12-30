@@ -19,7 +19,7 @@ class Form {
         $this->action = $action;
     }
 
-    public function add_field( Field $field ) {
+    public function add_field(AbstractField $field ) {
         $this->fields[ $field->id ] = $field;
 
         return $this;

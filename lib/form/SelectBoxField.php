@@ -4,7 +4,7 @@ namespace smartcat\form;
 
 if( !class_exists( '\smarcat\form\SelectBoxField' ) ) :
 
-class SelectBoxField extends Field {
+class SelectBoxField extends AbstractField {
     private $options;
 
     public function __construct( array $args ) {

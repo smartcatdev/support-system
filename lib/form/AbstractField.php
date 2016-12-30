@@ -2,9 +2,9 @@
 
 namespace smartcat\form;
 
-if( !class_exists( '\smartcat\form\Field' ) ) :
+if( !class_exists('\smartcat\form\AbstractField') ) :
 
-abstract class Field {
+abstract class AbstractField {
     public $id;
     public $value;
     public $label;

@@ -2,9 +2,9 @@
 
 namespace smartcat\form;
 
-if( !class_exists( '\smartcat\form\HiddenField' ) ) :
+if( !class_exists('\smartcat\form\HiddenAbstractField') ) :
 
-class HiddenField extends Field {
+class HiddenAbstractField extends AbstractField {
     
     public function render() { ?>
 
