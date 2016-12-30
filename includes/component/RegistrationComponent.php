@@ -5,6 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
 
 class RegistrationComponent extends AbstractComponent implements HookSubscriber {
 
@@ -13,7 +14,7 @@ class RegistrationComponent extends AbstractComponent implements HookSubscriber 
     }
 
     public function register_user() {
-        $form = include $this->plugin->resource_path( 'config/register_user_form.php' );
+        $form = include Plugin::resource_dir( $this->plugin->name() ) . 'config/register_user_form.php';
 
         if( $form->is_valid() ) {
             $data = $form->data;

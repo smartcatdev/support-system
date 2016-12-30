@@ -2,7 +2,7 @@
 
 use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\register_form;
+use SmartcatSupport\Plugin;
 use const SmartcatSupport\PLUGIN_NAME;
 
 ?>
@@ -41,7 +41,7 @@ use const SmartcatSupport\PLUGIN_NAME;
                           data-action="support_register_user"
                           data-after="post_user_register">
 
-                        <?php Form::render_fields( include apply_filters( PLUGIN_NAME . 'resource_path', 'config/register_user_form.php' ) ); ?>
+                        <?php Form::render_fields( include Plugin::resource_dir( PLUGIN_NAME ) . 'config/register_user_form.php' ); ?>
 
                         <div class="button_wrapper">
 

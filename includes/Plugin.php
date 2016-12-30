@@ -110,8 +110,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function subscribed_hooks() {
         return array(
-            $this->name . 'resource_path' => array( 'resource_path' ),
-            $this->name . 'resource_url' => array( 'resource_url' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'template_include' => array( 'swap_template' ),
             'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )

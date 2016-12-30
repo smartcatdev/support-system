@@ -64,6 +64,14 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
         }
     }
 
+    public static final function resource_dir( $plugin ) {
+        return array_key_exists( $plugin, self::$plugins_loaded ) ? self::$plugins_loaded[ $plugin ]->dir : null;
+    }
+
+    public static final function resource_url( $plugin ) {
+        return array_key_exists( $plugin, self::$plugins_loaded ) ? self::$plugins_loaded[ $plugin ]->url : null;
+    }
+
     /**
      * Register the callbacks of an event listener with the Plugin API.
      *
@@ -136,20 +144,6 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
 
     public function url() {
         return $this->url;
-    }
-
-    public function resource_path( $file ) {
-        return file_exists( "{$this->dir}/{$file}" ) ? "{$this->dir}/{$file}" : '';
-    }
-
-    public function resource_url( $file ) {
-        if( file_exists( "{$this->dir}/{$file}" ) ) {
-            $file = "{$this->url}/{$file}";
-        } else {
-            $file = '';
-        }
-
-        return $file;
     }
 
     public function name() {
