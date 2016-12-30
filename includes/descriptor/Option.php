@@ -109,7 +109,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const RESTORE_TEMPLATE_PAGE = 'smartcat_support_regenerate-template';
+    const RESTORE_TEMPLATE = 'smartcat_support_regenerate-template';
 
     /**
      * @since 1.0.0

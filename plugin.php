@@ -14,8 +14,8 @@ if( !defined( 'ABSPATH' ) ) {
 
 
 // Plugin-wide constant declarations
-const PLUGIN_VERSION = 1;
-const TEXT_DOMAIN = 'ca.smartcat.support';
+const PLUGIN_VERSION = '1.0';
+const TEXT_DOMAIN = 'smartcat_support';
 
 
 // Manual includes

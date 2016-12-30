@@ -3,13 +3,13 @@
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\PLUGIN_VERSION;
 
-add_action( 'template_include', function ( $template ) {
-    if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-        $template = SUPPORT_PATH . '/template-parts/app.php';
-    }
-
-    return $template;
-} );
+//add_action( 'template_include', function ( $template ) {
+//    if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
+//        $template = SUPPORT_PATH . '/template-parts/app.php';
+//    }
+//
+//    return $template;
+//} );
 
 add_action( 'plugins_loaded', function() {
     if( class_exists( 'WooCommerce' ) ) {
@@ -22,13 +22,13 @@ add_action( 'plugins_loaded', function() {
 } );
 
 
-add_action( 'pre_update_option_' . Option::RESTORE_TEMPLATE_PAGE, function ( $value ) use ( $installer ) {
-    if( $value == 'on' ) {
-        $installer->register_template();
-    }
-
-    return '';
-} );
+//add_action( 'pre_update_option_' . Option::RESTORE_TEMPLATE_PAGE, function ( $value ) use ( $installer ) {
+//    if( $value == 'on' ) {
+//        $installer->register_template();
+//    }
+//
+//    return '';
+//} );
 
 if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) ) {
     add_action( 'wp_ajax_nopriv_support_register_user', '\SmartcatSupport\register_user' );

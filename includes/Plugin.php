@@ -4,6 +4,7 @@ namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
+use SmartcatSupport\component\TicketCptComponent;
 use SmartcatSupport\descriptor\Option;
 
 class Plugin extends AbstractPlugin implements HookSubscriber {
@@ -29,11 +30,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function activate() {
-
+        $this->setup_template();
     }
 
     public function deactivate() {
-
+        error_log( "deactivate called" );
+        do_action( $this->name . '_cleanup' );
     }
 
     public function admin_enqueue() {
@@ -54,13 +56,56 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
+    public function swap_template( $template ) {
+        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
+            $template = $this->dir . '/template-parts/app.php';
+        }
+
+        return $template;
+    }
+
+    public function restore_template( $val ) {
+        if( $val == 'on' ) {
+            $this->setup_template();
+        }
+
+        return '';
+    }
+
     public function subscribed_hooks() {
         return array(
-            'admin_enqueue_scripts' => array( 'admin_enqueue' )
+            'admin_enqueue_scripts' => array( 'admin_enqueue' ),
+            'template_include' => array( 'swap_template' ),
+            'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
         );
     }
 
     public function components() {
-        return array();
+        return array( TicketCptComponent::class );
+    }
+
+    private function setup_template() {
+        $post_id = null;
+        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
+
+        if( empty( $post ) ) {
+            $post_id = wp_insert_post(
+                array(
+                    'post_type' =>  'page',
+                    'post_status' => 'publish',
+                    'post_title' => __( 'Support', TEXT_DOMAIN )
+                )
+            );
+        } else if( $post->post_status == 'trash' ) {
+            wp_untrash_post( $post->ID );
+
+            $post_id = $post->ID;
+        } else {
+            $post_id = $post->ID;
+        }
+
+        if( !empty( $post_id ) ) {
+            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        }
     }
 }

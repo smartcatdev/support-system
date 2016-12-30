@@ -183,7 +183,7 @@ $advanced->add_field( new CheckBoxField(
 ) )->add_field( new CheckBoxField(
     array(
         'id'            => 'support_restore_template',
-        'option'        => Option::RESTORE_TEMPLATE_PAGE,
+        'option'        => Option::RESTORE_TEMPLATE,
         'value'         => '',
         'label'         => __( 'Restore Template Page', TEXT_DOMAIN ),
         'desc'          => __( 'Restore the template page if its been deleted', TEXT_DOMAIN ),
