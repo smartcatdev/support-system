@@ -6,8 +6,10 @@ use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
+use SmartcatSupport\component\TemplateComponent;
 use SmartcatSupport\component\TicketCptComponent;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\util\UserUtils;
 
 class Plugin extends AbstractPlugin implements HookSubscriber {
 
@@ -29,17 +31,16 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function activate() {
         do_action( $this->name . '_setup' );
 
-        $this->add_caps( add_role( 'support_admin', __( 'Support Admin', PLUGIN_NAME ) ), true );
-        $this->add_caps( add_role( 'support_agent', __( 'Support Agent', PLUGIN_NAME ) ), true );
-        $this->add_caps( add_role( 'support_user', __( 'Support User', PLUGIN_NAME ) ) );
-        $this->add_caps( get_role( 'administrator'), true );
+        UserUtils::add_caps( add_role( 'support_admin', __( 'Support Admin', PLUGIN_NAME ) ), true );
+        UserUtils::add_caps( add_role( 'support_agent', __( 'Support Agent', PLUGIN_NAME ) ), true );
+        UserUtils::add_caps( add_role( 'support_user', __( 'Support User', PLUGIN_NAME ) ) );
+        UserUtils::add_caps( get_role( 'administrator' ), true );
 
-        $this->setup_template();
         $this->create_email_templates();
     }
 
     public function deactivate() {
-        $this->remove_caps( get_role( 'administrator'), true );
+        UserUtils::remove_caps( get_role( 'administrator' ), true );
 
         remove_role( 'support_admin' );
         remove_role( 'support_agent' );
@@ -66,59 +67,16 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
-    public function swap_template( $template ) {
-        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-            $template = $this->dir . '/template-parts/app.php';
-        }
-
-        return $template;
-    }
-
-    public function restore_template( $val ) {
-        if( $val == 'on' ) {
-            $this->setup_template();
-        }
-
-        return '';
-    }
-
-    public function add_caps( \WP_Role $role, $privileged = false ) {
-        foreach( $this->caps( $privileged ) as $cap ) {
-            $role->add_cap( $cap );
-        }
-    }
-
-    public function remove_caps( \WP_Role $role, $privileged = false ) {
-        foreach( $this->caps( $privileged ) as $cap ) {
-            $role->remove_cap( $cap );
-        }
-    }
-
-    private function caps( $privileged ) {
-        $caps = array(
-            'view_support_tickets',
-            'create_support_tickets',
-            'unfiltered_html'
-        );
-
-        if( $privileged ) {
-            $caps[] = 'edit_others_tickets';
-        }
-
-        return $caps;
-    }
-
     public function subscribed_hooks() {
         return array(
-            'admin_enqueue_scripts' => array( 'admin_enqueue' ),
-            'template_include' => array( 'swap_template' ),
-            'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
+            'admin_enqueue_scripts' => array( 'admin_enqueue' )
         );
     }
 
     public function components() {
         $components = array(
-            TicketCptComponent::class
+            TicketCptComponent::class,
+            TemplateComponent::class
         );
 
         if( $this->edd_active || $this->woo_active ) {
@@ -130,39 +88,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
 
         return $components;
-    }
-
-    public function roles() {
-        return array(
-            'support_admin' => __( 'Support Admin', PLUGIN_NAME ),
-            'support_agent', __( 'Support Agent', PLUGIN_NAME ),
-            'support_user', __( 'Support User', PLUGIN_NAME )
-        );
-    }
-
-    private function setup_template() {
-        $post_id = null;
-        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
-
-        if( empty( $post ) ) {
-            $post_id = wp_insert_post(
-                array(
-                    'post_type' =>  'page',
-                    'post_status' => 'publish',
-                    'post_title' => __( 'Support', PLUGIN_NAME )
-                )
-            );
-        } else if( $post->post_status == 'trash' ) {
-            wp_untrash_post( $post->ID );
-
-            $post_id = $post->ID;
-        } else {
-            $post_id = $post->ID;
-        }
-
-        if( !empty( $post_id ) ) {
-            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
-        }
     }
 
     private function create_email_templates() {

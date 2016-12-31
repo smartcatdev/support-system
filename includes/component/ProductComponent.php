@@ -5,6 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\util\UserUtils;
 
 class ProductComponent extends AbstractComponent implements HookSubscriber {
 
@@ -51,9 +52,9 @@ class ProductComponent extends AbstractComponent implements HookSubscriber {
     public function configure_customer_caps( $val ) {
         if( $this->plugin->woo_active ) {
             if( $val == 'on' ) {
-                $this->plugin->add_caps( get_role('customer') );
+                UserUtils::add_caps( get_role( 'customer' ) );
             } else {
-                $this->plugin->remove_caps( get_role('customer') );
+                UserUtils::remove_caps( get_role( 'customer' ) );
             }
         }
 
@@ -62,10 +63,10 @@ class ProductComponent extends AbstractComponent implements HookSubscriber {
 
     public function configure_subscriber_caps( $val ) {
         if( $this->plugin->edd_active ) {
-            if ($val == 'on') {
-                $this->plugin->add_caps( get_role( 'subscriber' ) );
+            if ( $val == 'on' ) {
+                UserUtils::add_caps( get_role( 'subscriber' ) );
             } else {
-                $this->plugin->remove_caps( get_role( 'subscriber' ) );
+                UserUtils::remove_caps( get_role( 'subscriber' ) );
             }
         }
 
