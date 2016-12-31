@@ -4,10 +4,10 @@ use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\get_agents;
 use const SmartcatSupport\PLUGIN_NAME;
+use SmartcatSupport\util\UserUtils;
 
-$agents     = array( '' => __( 'Unassigned', PLUGIN_NAME ) ) + get_agents();
+$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_NAME ) ) );
 $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 

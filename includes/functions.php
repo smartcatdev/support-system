@@ -6,7 +6,7 @@ use smartcat\form\Form;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
 use smartcat\mail\EmailTemplateService;
-use SmartcatSupport\admin\MetaBox;
+use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\admin\PostTableActions;
 use SmartcatSupport\ajax\CommentActions;
 use SmartcatSupport\ajax\TicketHandler;
@@ -36,38 +36,38 @@ function bootstrap( $fs_context ) {
 
 
 
-   new MetaBox(
-        array(
-           'id'         => 'ticket_support_meta',
-            'title'     => __( 'Ticket Information', PLUGIN_NAME ),
-            'post_type' => 'support_ticket',
-            'context'   => 'advanced',
-            'priority'  => 'high',
-            'config'    =>  SUPPORT_PATH . '/config/support_metabox_form.php'
-        )
-    );
-
-    new MetaBox(
-        array(
-            'id'         => 'ticket_product_meta',
-            'title'     => __( 'Product Information', PLUGIN_NAME ),
-            'post_type' => 'support_ticket',
-            'context'   => 'side',
-            'priority'  => 'high',
-            'config'    =>  SUPPORT_PATH . '/config/product_metabox_form.php'
-        )
-    );
-
-    new MetaBox(
-        array(
-            'id'         => 'ticket_customer_meta',
-            'title'     => __( 'Customer Information', PLUGIN_NAME ),
-            'post_type' => 'support_ticket',
-            'context'   => 'side',
-            'priority'  => 'high',
-            'config'    =>  SUPPORT_PATH . '/config/customer_metabox_form.php'
-        )
-    );
+//   new FormMetaBox(
+//        array(
+//           'id'         => 'ticket_support_meta',
+//            'title'     => __( 'Ticket Information', PLUGIN_NAME ),
+//            'post_type' => 'support_ticket',
+//            'context'   => 'advanced',
+//            'priority'  => 'high',
+//            'config'    =>  SUPPORT_PATH . '/config/support_metabox_form.php'
+//        )
+//    );
+//
+//    new FormMetaBox(
+//        array(
+//            'id'         => 'ticket_product_meta',
+//            'title'     => __( 'Product Information', PLUGIN_NAME ),
+//            'post_type' => 'support_ticket',
+//            'context'   => 'side',
+//            'priority'  => 'high',
+//            'config'    =>  SUPPORT_PATH . '/config/product_metabox_form.php'
+//        )
+//    );
+//
+//    new FormMetaBox(
+//        array(
+//            'id'         => 'ticket_customer_meta',
+//            'title'     => __( 'Customer Information', PLUGIN_NAME ),
+//            'post_type' => 'support_ticket',
+//            'context'   => 'side',
+//            'priority'  => 'high',
+//            'config'    =>  SUPPORT_PATH . '/config/customer_metabox_form.php'
+//        )
+//    );
 
 //    PostTableActions::init();
     CommentActions::init();

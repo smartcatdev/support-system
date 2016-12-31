@@ -5,6 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
 use smartcat\form\SelectBoxField;
+use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\PLUGIN_NAME;
 use SmartcatSupport\util\UserUtils;
@@ -14,8 +15,42 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
     private $form;
 
     public function start() {
-        $this->plugin->add_api_subscriber( $this );
         $this->form = include $this->plugin->dir() . '/config/quick_edit_form.php';
+
+        $this->plugin->add_api_subscriber( $this );
+
+        $this->plugin->add_api_subscriber( new FormMetaBox(
+            array(
+                'id'        => 'ticket_support_meta',
+                'title'     => __( 'Ticket Information', PLUGIN_NAME ),
+                'post_type' => 'support_ticket',
+                'context'   => 'advanced',
+                'priority'  => 'high',
+                'config'    =>  $this->plugin->dir() . '/config/support_metabox_form.php'
+            )
+        ) );
+
+        $this->plugin->add_api_subscriber( new FormMetaBox(
+            array(
+                'id'        => 'ticket_product_meta',
+                'title'     => __( 'Product Information', PLUGIN_NAME ),
+                'post_type' => 'support_ticket',
+                'context'   => 'side',
+                'priority'  => 'high',
+                'config'    =>  $this->plugin->dir() . '/config/product_metabox_form.php'
+            )
+        ) );
+
+        $this->plugin->add_api_subscriber( new FormMetaBox(
+            array(
+                'id'        => 'ticket_customer_meta',
+                'title'     => __( 'Customer Information', PLUGIN_NAME ),
+                'post_type' => 'support_ticket',
+                'context'   => 'side',
+                'priority'  => 'high',
+                'config'    =>  $this->plugin->dir() . '/config/customer_metabox_form.php'
+            )
+        ) );
     }
 
     public function register_cpt() {

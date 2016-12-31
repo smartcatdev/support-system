@@ -4,7 +4,7 @@ namespace SmartcatSupport\admin;
 
 use smartcat\post\AbstractMetaBox;
 
-class MetaBox extends AbstractMetaBox {
+class FormMetaBox extends AbstractMetaBox {
     private $config;
 
     public function __construct( array $args ) {

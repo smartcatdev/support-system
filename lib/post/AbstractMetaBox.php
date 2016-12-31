@@ -2,6 +2,8 @@
 
 namespace smartcat\post;
 
+use smartcat\core\HookSubscriber;
+
 if( !class_exists('smartcat\post\AbstractMetaBox') ) :
 
 /**
@@ -13,7 +15,7 @@ if( !class_exists('smartcat\post\AbstractMetaBox') ) :
  * @package admin
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class AbstractMetaBox {
+abstract class AbstractMetaBox implements HookSubscriber {
 
     public $id;
     public $title;
@@ -46,9 +48,6 @@ abstract class AbstractMetaBox {
         if( !empty( $args['priority'] ) ) {
             $this->priority['priority'];
         }
-     
-        add_action( "add_meta_boxes_{$this->post_type}", array( $this, 'install' ) );
-        add_action( 'save_post', array( $this, 'save' ), 10, 2 );
     }
 
     /**
@@ -77,7 +76,14 @@ abstract class AbstractMetaBox {
     public function uninstall() {
         remove_meta_box( $this->id, $this->post_type, $this->context );
     }
-    
+
+    public function subscribed_hooks() {
+        return array(
+            'add_meta_boxes_' . $this->post_type => array( 'install' ),
+            'save_post' => array( 'save', 10, 2 )
+        );
+    }
+
     /**
      * Callback called by WordPress when the metabox is to be outputted.
      * 

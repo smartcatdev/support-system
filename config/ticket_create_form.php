@@ -6,7 +6,6 @@ use smartcat\form\RequiredConstraint;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextAreaField;
 use smartcat\form\TextBoxField;
-use function SmartcatSupport\get_products;
 use const SmartcatSupport\PLUGIN_NAME;
 
 $user     = wp_get_current_user();
