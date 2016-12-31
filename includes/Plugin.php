@@ -4,6 +4,7 @@ namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
+use SmartcatSupport\admin\SettingsComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\TemplateComponent;
@@ -15,6 +16,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function start() {
         $this->add_api_subscriber( $this );
+        $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
 
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );

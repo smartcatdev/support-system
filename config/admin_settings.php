@@ -197,4 +197,4 @@ $admin->add_section( $email, 'email' );
 $admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'display' );
 
-$admin->register();
+return $admin;

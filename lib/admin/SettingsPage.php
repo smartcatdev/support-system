@@ -2,6 +2,8 @@
 
 namespace smartcat\admin;
 
+use smartcat\core\HookSubscriber;
+
 if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
 
@@ -12,7 +14,7 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
      * @author Eric Green <eric@smartcat.ca>
      * @since 1.0.0
      */
-    class SettingsPage {
+    class SettingsPage implements HookSubscriber {
         protected $type;
         protected $page_title;
         protected $menu_title;
@@ -56,29 +58,6 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
             $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';
             $this->position = isset( $config['position'] ) ? $config['position'] : 100;
         }
-
-        /**
-         * Add WordPress actions.
-         *
-         * @author Eric Green <eric@smartcat.ca>
-         * @since 1.0.0
-         */
-        public function register() {
-            add_action( 'admin_menu', array( $this, 'register_page' ) );
-            add_action( 'admin_init', array( $this, 'register_sections' ) );
-        }
-
-        /**
-         * Remove WordPress actions.
-         *
-         * @author Eric Green <eric@smartcat.ca>
-         * @since 1.0.0
-         */
-        public function unregister() {
-            remove_action( 'admin_menu', array( $this, 'register_page' ) );
-            remove_action( 'admin_init', array( $this, 'register_sections' ) );
-        }
-
 
         /**
          * Add the page to the admin menu.
@@ -161,6 +140,13 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
             foreach( $this->sections as $section ) {
                 $section->register( $this->menu_slug );
             }
+        }
+
+        public function subscribed_hooks() {
+            return array(
+                'admin_menu' => array( 'register_page' ),
+                'admin_init' => array( 'register_sections' )
+            );
         }
 
         /**
