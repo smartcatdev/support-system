@@ -43,7 +43,7 @@ function bootstrap( $fs_context ) {
             'post_type' => 'support_ticket',
             'context'   => 'advanced',
             'priority'  => 'high',
-            'config'    => SUPPORT_PATH . '/config/support_metabox_form.php'
+            'config'    =>  SUPPORT_PATH . '/config/support_metabox_form.php'
         )
     );
 
@@ -54,7 +54,7 @@ function bootstrap( $fs_context ) {
             'post_type' => 'support_ticket',
             'context'   => 'side',
             'priority'  => 'high',
-            'config'    => SUPPORT_PATH . '/config/product_metabox_form.php'
+            'config'    =>  SUPPORT_PATH . '/config/product_metabox_form.php'
         )
     );
 
@@ -65,7 +65,7 @@ function bootstrap( $fs_context ) {
             'post_type' => 'support_ticket',
             'context'   => 'side',
             'priority'  => 'high',
-            'config'    => SUPPORT_PATH . '/config/customer_metabox_form.php'
+            'config'    =>  SUPPORT_PATH . '/config/customer_metabox_form.php'
         )
     );
 

@@ -3,7 +3,6 @@
 namespace SmartcatSupport\admin;
 
 use smartcat\post\AbstractMetaBox;
-use function SmartcatSupport\render_template;
 
 class MetaBox extends AbstractMetaBox {
     private $config;
@@ -14,12 +13,56 @@ class MetaBox extends AbstractMetaBox {
         $this->config = $args['config'];
     }
 
-    public function render( \WP_Post $post ) {
-        echo render_template( 'metabox', array( 'form' => include $this->config ) );
-    }
+    public function render( \WP_Post $post ) { ?>
+
+        <?php $form = include_once $this->config; ?>
+
+        <div class="support_ticket_metabox">
+
+            <table class="form-table">
+
+                <?php foreach( $form->fields as $field ) : ?>
+
+                    <tr>
+
+                        <?php if( !empty( $field->label ) ) : ?>
+
+                            <th>
+                                <label><?php echo $field->label; ?></label>
+                            </th>
+
+                        <?php endif; ?>
+
+                        <td>
+
+                            <?php $field->render(); ?>
+
+                            <?php if( !empty( $field->desc ) ) : ?>
+
+                                <p class="description"><?php echo $field->desc; ?></p>
+
+                            <?php endif; ?>
+
+                        </td>
+
+                    </tr>
+
+                <?php endforeach; ?>
+
+                <tr>
+                    <td style="display: none">
+                        <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>"/>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    <?php }
 
     public function save( $post_id, \WP_Post $post ) {
-        $form = include $this->config;
+        $form = include_once $this->config;
 
         if( $form->is_valid() ) {
             $data = $form->data;
