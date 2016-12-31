@@ -15,7 +15,7 @@ class MetaBox extends AbstractMetaBox {
 
     public function render( \WP_Post $post ) { ?>
 
-        <?php $form = include_once $this->config; ?>
+        <?php $form = include $this->config; ?>
 
         <div class="support_ticket_metabox">
 
@@ -62,7 +62,7 @@ class MetaBox extends AbstractMetaBox {
     <?php }
 
     public function save( $post_id, \WP_Post $post ) {
-        $form = include_once $this->config;
+        $form = include $this->config;
 
         if( $form->is_valid() ) {
             $data = $form->data;

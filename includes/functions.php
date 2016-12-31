@@ -69,7 +69,7 @@ function bootstrap( $fs_context ) {
         )
     );
 
-    PostTableActions::init();
+//    PostTableActions::init();
     CommentActions::init();
 
 
@@ -106,7 +106,7 @@ function bootstrap( $fs_context ) {
  * @return array The list of agents
  * @since 1.0.0
  */
-function get_agents() {
+function get_agents( ) {
     $agents = array();
     $users = get_users( array( 'role' => array( 'support_agent' ) ) );
 
