@@ -1,6 +1,6 @@
 <?php
 
-use smartcat\form\SelectBoxAbstractField;
+use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
@@ -16,7 +16,7 @@ use const SmartcatSupport\PLUGIN_NAME;
 
             <?php $products = get_products(); if( $products ) : ?>
 
-                <?php ( new SelectBoxAbstractField(
+                <?php ( new SelectBoxField(
                     array(
                         'id'        => 'product',
                         'options'   =>  array( '' => __( 'All Products', PLUGIN_NAME ) ) + $products
@@ -25,7 +25,7 @@ use const SmartcatSupport\PLUGIN_NAME;
 
             <?php endif; ?>
 
-            <?php ( new SelectBoxAbstractField(
+            <?php ( new SelectBoxField(
                 array(
                     'id'        => 'status',
                     'options'   =>  array( '' => __( 'Any Status', PLUGIN_NAME ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES )
@@ -34,7 +34,7 @@ use const SmartcatSupport\PLUGIN_NAME;
 
             <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
 
-                <?php ( new SelectBoxAbstractField(
+                <?php ( new SelectBoxField(
                     array(
                         'id'        => 'agent',
                         'options'   =>  array( '' => __( 'All Agents', PLUGIN_NAME ) ) + get_agents()
