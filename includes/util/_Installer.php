@@ -12,18 +12,18 @@ use const SmartcatSupport\PLUGIN_VERSION;
  *  @author Eric Green <eric@smartcat.ca>
  *  @since 1.0.0
  */
-final class Installer {
-
-    private static $instance;
-
-    public static function init() {
-        if( empty( self::$instance ) ) {
-            self::$instance = new self();
-//            self::$instance->add_actions();
-        }
-
-        return self::$instance;
-    }
+//final class Installer {
+//
+//    private static $instance;
+//
+//    public static function init() {
+//        if( empty( self::$instance ) ) {
+//            self::$instance = new self();
+////            self::$instance->add_actions();
+//        }
+//
+//        return self::$instance;
+//    }
 //
 //    private function __construct() {}
 
@@ -229,4 +229,4 @@ final class Installer {
 //
 //        register_post_type( 'support_ticket', $args );
 //    }
-}
+//}

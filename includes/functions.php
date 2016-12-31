@@ -73,7 +73,7 @@ function bootstrap( $fs_context ) {
     CommentActions::init();
 
 
-    include_once 'hooks.php';
+    include_once '_hooks.php';
     include_once SUPPORT_PATH . '/config/admin_settings.php';
 
 
