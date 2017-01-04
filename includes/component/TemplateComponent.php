@@ -5,7 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\PLUGIN_NAME;
+use const SmartcatSupport\PLUGIN_ID;
 
 class TemplateComponent extends AbstractComponent implements HookSubscriber {
 
@@ -38,7 +38,7 @@ class TemplateComponent extends AbstractComponent implements HookSubscriber {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', PLUGIN_NAME )
+                    'post_title' => __( 'Support', PLUGIN_ID )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
@@ -57,7 +57,7 @@ class TemplateComponent extends AbstractComponent implements HookSubscriber {
     public function subscribed_hooks() {
         return array(
             'template_include' => array( 'swap_template' ),
-            $this->plugin->name() . '_setup' => array( 'setup_template' ),
+            $this->plugin->id() . '_setup' => array( 'setup_template' ),
             'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
         );
     }

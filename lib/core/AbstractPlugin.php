@@ -13,16 +13,16 @@ if( !class_exists( '\smartcat\core\AbstractPlugin' ) ) :
 abstract class AbstractPlugin implements HookRegisterer, Plugin {
     protected $url;
     protected $dir;
-    protected $name;
+    protected $id;
     protected $version;
     protected $cache = array();
 
     private static $plugins_loaded = array();
 
-    protected function __construct( $name, $version, $fs_context ) {
+    protected function __construct( $id, $version, $fs_context ) {
         $this->dir = plugin_dir_path( $fs_context );
         $this->url = plugin_dir_url( $fs_context );
-        $this->name = $name;
+        $this->id = $id;
         $this->version = $version;
     }
 
@@ -53,13 +53,13 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
                         $component = new $class();
                         $component->init( $instance );
 
-                        add_action( $instance->name . '_components_loaded', array( $component, 'start' ) );
+                        add_action( $instance->id . '_components_loaded', array( $component, 'start' ) );
                     } else {
                         throw new \Exception( $class .' Does not comply with interface ' . Component::class );
                     }
                 }
 
-                do_action( $instance->name . '_components_loaded' );
+                do_action( $instance->id . '_components_loaded' );
             } );
         }
     }
@@ -146,8 +146,8 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
         return $this->url;
     }
 
-    public function name() {
-        return $this->name;
+    public function id() {
+        return $this->id;
     }
     public function version() {
         return $this->version;

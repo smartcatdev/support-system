@@ -3,7 +3,7 @@
 namespace SmartcatSupport\ajax;
 
 use function SmartcatSupport\render_template;
-use const SmartcatSupport\PLUGIN_NAME;
+use const SmartcatSupport\PLUGIN_ID;
 
 final class CommentActions {
     private function __construct() {}
@@ -32,7 +32,7 @@ final class CommentActions {
                 ) )
             );
         } else {
-            wp_send_json_error( array( 'content' => __( 'Cannot be blank', PLUGIN_NAME ) ) );
+            wp_send_json_error( array( 'content' => __( 'Cannot be blank', PLUGIN_ID ) ) );
         }
     }
 
@@ -64,7 +64,7 @@ final class CommentActions {
                 );
             }
         } else {
-            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', PLUGIN_NAME ) ) );
+            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', PLUGIN_ID ) ) );
         }
     }
 

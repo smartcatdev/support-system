@@ -3,7 +3,7 @@
 use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
-use const SmartcatSupport\PLUGIN_NAME;
+use const SmartcatSupport\PLUGIN_ID;
 
 ?>
 
@@ -25,7 +25,7 @@ use const SmartcatSupport\PLUGIN_NAME;
 
                     <button class="trigger" data-action="toggle_register_form">
 
-                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_NAME ); ?>
+                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_ID ); ?>
 
                     </button>
 
@@ -41,19 +41,19 @@ use const SmartcatSupport\PLUGIN_NAME;
                           data-action="support_register_user"
                           data-after="post_user_register">
 
-                        <?php Form::render_fields( include Plugin::resource_dir( PLUGIN_NAME ) . 'config/register_user_form.php' ); ?>
+                        <?php Form::render_fields( include Plugin::resource_dir( PLUGIN_ID ) . 'config/register_user_form.php' ); ?>
 
                         <div class="button_wrapper">
 
                             <button class="trigger" data-action="toggle_register_form">
 
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), PLUGIN_NAME ); ?>
+                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), PLUGIN_ID ); ?>
 
                             </button>
 
                             <input class="button"
                                 type="submit"
-                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_NAME ); ?>"/>
+                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_ID ); ?>"/>
 
                         </div>
 
@@ -66,7 +66,7 @@ use const SmartcatSupport\PLUGIN_NAME;
         </div>
         
         <div id="support-login-disclaimer">
-            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), PLUGIN_NAME ); ?>
+            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), PLUGIN_ID ); ?>
         </div>
         
     </div>

@@ -5,7 +5,7 @@ namespace SmartcatSupport;
 use smartcat\form\Form;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
-use smartcat\mail\EmailTemplateService;
+use smartcat\mail\MailerComponent;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\admin\PostTableActions;
 use SmartcatSupport\ajax\CommentActions;
@@ -26,7 +26,7 @@ function bootstrap( $fs_context ) {
     define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
 
 //    $installer = Installer::init();
-    EmailTemplateService::register( 'Smartcat Support', PLUGIN_NAME );
+   // MailerComponent::register( 'Smartcat Support', PLUGIN_NAME );
 
     // Configure table Handler
     $table_handler = new TicketTable();
@@ -74,7 +74,7 @@ function bootstrap( $fs_context ) {
 
 
 
-    include_once SUPPORT_PATH . '/config/admin_settings.php';
+   // include_once SUPPORT_PATH . '/config/admin_settings.php';
 
 
 }

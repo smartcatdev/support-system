@@ -1,10 +1,10 @@
 <?php
 
 use SmartcatSupport\Plugin;
-use const SmartcatSupport\PLUGIN_NAME;
+use const SmartcatSupport\PLUGIN_ID;
 
-$dir = Plugin::resource_dir( PLUGIN_NAME );
-$url = Plugin::resource_url( PLUGIN_NAME );
+$dir = Plugin::resource_dir( PLUGIN_ID );
+$url = Plugin::resource_url( PLUGIN_ID );
 
 ?>
 

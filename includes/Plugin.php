@@ -4,6 +4,7 @@ namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
+use smartcat\mail\Mailer;
 use SmartcatSupport\admin\SettingsComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
@@ -25,17 +26,21 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $version = get_option( Option::PLUGIN_VERSION, 0 );
 
         if( $this->version > $version ) {
-            do_action( $this->name . '_upgrade', $version, $this->version );
+            do_action( $this->id . '_upgrade', $version, $this->version );
             update_option( Option::PLUGIN_VERSION, $this->version );
         }
+
+        Mailer::init( $this );
+
+        include_once $this->dir . '/lib/tgm/TGM_Plugin_Activation.php';
     }
 
     public function activate() {
-        do_action( $this->name . '_setup' );
+        do_action( $this->id . '_setup' );
 
-        UserUtils::add_caps( add_role( 'support_admin', __( 'Support Admin', PLUGIN_NAME ) ), true );
-        UserUtils::add_caps( add_role( 'support_agent', __( 'Support Agent', PLUGIN_NAME ) ), true );
-        UserUtils::add_caps( add_role( 'support_user', __( 'Support User', PLUGIN_NAME ) ) );
+        UserUtils::add_caps( add_role( 'support_admin', __( 'Support Admin', PLUGIN_ID ) ), true );
+        UserUtils::add_caps( add_role( 'support_agent', __( 'Support Agent', PLUGIN_ID ) ), true );
+        UserUtils::add_caps( add_role( 'support_user', __( 'Support User', PLUGIN_ID ) ) );
         UserUtils::add_caps( get_role( 'administrator' ), true );
 
         $this->create_email_templates();
@@ -48,7 +53,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         remove_role( 'support_agent' );
         remove_role( 'support_user' );
 
-        do_action( $this->name . '_cleanup' );
+        do_action( $this->id . '_cleanup' );
     }
 
     public function admin_enqueue() {
@@ -69,9 +74,47 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
+    public function register_dependencies() {
+        $plugins = array(
+            array(
+                'name'     => 'WP SMTP',
+                'slug'     => 'wp-smtp',
+                'required' => false
+            )
+        );
+
+        $config = array(
+            'id'           => 'smartcat_support_required_plugins',
+            'default_path' => '',
+            'menu'         => 'tgmpa-install-plugins',
+            'parent_slug'  => 'plugins.php',
+            'capability'   => 'manage_options',
+            'has_notices'  => true,
+            'dismissable'  => true,
+            'dismiss_msg'  => '',
+            'is_automatic' => false,
+            'message'      => '',
+            'strings'      => array(
+                'notice_can_install_required' => _n_noop(
+                    'Smartcat Support requires the following plugin: %1$s.',
+                    'Smartcat Support requires the following plugins: %1$s.',
+                    PLUGIN_ID
+                ),
+                'notice_can_install_recommended' => _n_noop(
+                    'Smartcat Support recommends the following plugin: %1$s.',
+                    'Smartcat Support recommends the following plugins: %1$s.',
+                    PLUGIN_ID
+                ),
+            )
+        );
+
+        tgmpa( $plugins, $config );
+    }
+
     public function subscribed_hooks() {
         return array(
-            'admin_enqueue_scripts' => array( 'admin_enqueue' )
+            'admin_enqueue_scripts' => array( 'admin_enqueue' ),
+            'tgmpa_register' => array( 'register_dependencies' )
         );
     }
 
@@ -98,7 +141,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => 'Welcome to Support',
+                    'post_title'    => __( 'Welcome to Support', PLUGIN_ID ),
                     'post_content'  => file_get_contents( $this->dir . '/emails/welcome.md' )
                 )
             );
@@ -113,7 +156,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => 'Your ticket has been closed',
+                    'post_title'    => __( 'Your ticket has been closed', PLUGIN_ID ),
                     'post_content'  => file_get_contents( $this->dir . '/emails/ticket_closed.md' )
                 )
             );

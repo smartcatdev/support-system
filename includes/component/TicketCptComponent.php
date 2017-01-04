@@ -7,7 +7,7 @@ use smartcat\core\HookSubscriber;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\PLUGIN_NAME;
+use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\util\UserUtils;
 
 class TicketCptComponent extends AbstractComponent implements HookSubscriber {
@@ -22,7 +22,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_support_meta',
-                'title'     => __( 'Ticket Information', PLUGIN_NAME ),
+                'title'     => __( 'Ticket Information', PLUGIN_ID ),
                 'post_type' => 'support_ticket',
                 'context'   => 'advanced',
                 'priority'  => 'high',
@@ -33,7 +33,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_product_meta',
-                'title'     => __( 'Product Information', PLUGIN_NAME ),
+                'title'     => __( 'Product Information', PLUGIN_ID ),
                 'post_type' => 'support_ticket',
                 'context'   => 'side',
                 'priority'  => 'high',
@@ -44,7 +44,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_customer_meta',
-                'title'     => __( 'Customer Information', PLUGIN_NAME ),
+                'title'     => __( 'Customer Information', PLUGIN_ID ),
                 'post_type' => 'support_ticket',
                 'context'   => 'side',
                 'priority'  => 'high',
@@ -56,38 +56,38 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
     public function register_cpt() {
         //<editor-fold desc="$args array">
         $labels = array(
-            'name'                  => _x( 'Support Tickets', 'Post Type General Name', PLUGIN_NAME ),
-            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', PLUGIN_NAME ),
-            'menu_name'             => __( 'Support Tickets', PLUGIN_NAME ),
-            'name_admin_bar'        => __( 'Support Tickets', PLUGIN_NAME ),
-            'archives'              => __( 'Item Archives', PLUGIN_NAME ),
-            'parent_item_colon'     => __( 'Parent Item:', PLUGIN_NAME ),
-            'all_items'             => __( 'All Tickets', PLUGIN_NAME ),
-            'add_new_item'          => __( 'New Ticket', PLUGIN_NAME ),
-            'add_new'               => __( 'New Ticket', PLUGIN_NAME ),
-            'new_item'              => __( 'New Ticket', PLUGIN_NAME ),
-            'edit_item'             => __( 'Edit Ticket', PLUGIN_NAME ),
-            'update_item'           => __( 'Update Ticket', PLUGIN_NAME ),
-            'view_item'             => __( 'View Ticket', PLUGIN_NAME ),
-            'search_items'          => __( 'Search Ticket', PLUGIN_NAME ),
-            'not_found'             => __( 'Ticket Not found', PLUGIN_NAME ),
-            'not_found_in_trash'    => __( 'Ticket Not found in Trash', PLUGIN_NAME ),
-            'featured_image'        => __( 'Featured Image', PLUGIN_NAME ),
-            'set_featured_image'    => __( 'Set featured image', PLUGIN_NAME ),
-            'remove_featured_image' => __( 'Remove featured image', PLUGIN_NAME ),
-            'use_featured_image'    => __( 'Use as featured image', PLUGIN_NAME ),
-            'insert_into_item'      => __( 'Insert into ticket', PLUGIN_NAME ),
-            'uploaded_to_this_item' => __( 'Uploaded to this ticket', PLUGIN_NAME ),
-            'items_list'            => __( 'Tickets list', PLUGIN_NAME ),
-            'items_list_navigation' => __( 'Tickets list navigation', PLUGIN_NAME ),
-            'filter_items_list'     => __( 'Filter tickets list', PLUGIN_NAME )
+            'name'                  => _x( 'Support Tickets', 'Post Type General Name', PLUGIN_ID ),
+            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', PLUGIN_ID ),
+            'menu_name'             => __( 'Support Tickets', PLUGIN_ID ),
+            'name_admin_bar'        => __( 'Support Tickets', PLUGIN_ID ),
+            'archives'              => __( 'Item Archives', PLUGIN_ID ),
+            'parent_item_colon'     => __( 'Parent Item:', PLUGIN_ID ),
+            'all_items'             => __( 'All Tickets', PLUGIN_ID ),
+            'add_new_item'          => __( 'New Ticket', PLUGIN_ID ),
+            'add_new'               => __( 'New Ticket', PLUGIN_ID ),
+            'new_item'              => __( 'New Ticket', PLUGIN_ID ),
+            'edit_item'             => __( 'Edit Ticket', PLUGIN_ID ),
+            'update_item'           => __( 'Update Ticket', PLUGIN_ID ),
+            'view_item'             => __( 'View Ticket', PLUGIN_ID ),
+            'search_items'          => __( 'Search Ticket', PLUGIN_ID ),
+            'not_found'             => __( 'Ticket Not found', PLUGIN_ID ),
+            'not_found_in_trash'    => __( 'Ticket Not found in Trash', PLUGIN_ID ),
+            'featured_image'        => __( 'Featured Image', PLUGIN_ID ),
+            'set_featured_image'    => __( 'Set featured image', PLUGIN_ID ),
+            'remove_featured_image' => __( 'Remove featured image', PLUGIN_ID ),
+            'use_featured_image'    => __( 'Use as featured image', PLUGIN_ID ),
+            'insert_into_item'      => __( 'Insert into ticket', PLUGIN_ID ),
+            'uploaded_to_this_item' => __( 'Uploaded to this ticket', PLUGIN_ID ),
+            'items_list'            => __( 'Tickets list', PLUGIN_ID ),
+            'items_list_navigation' => __( 'Tickets list navigation', PLUGIN_ID ),
+            'filter_items_list'     => __( 'Filter tickets list', PLUGIN_ID )
         );
 
         $capabilities = array();
 
         $args = array(
-            'label'               => __( 'Support Ticket', PLUGIN_NAME ),
-            'description'         => __( 'Tickets for support requests', PLUGIN_NAME ),
+            'label'               => __( 'Support Ticket', PLUGIN_ID ),
+            'description'         => __( 'Tickets for support requests', PLUGIN_ID ),
             'labels'              => $labels,
             'supports'            => array( 'editor', 'comments', 'title' ),
             'hierarchical'        => false,
@@ -138,7 +138,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
 
                 <div class="inline-edit-col">
 
-                    <legend class="inline-edit-legend"><?php _e( 'Ticket Details', PLUGIN_NAME ); ?></legend>
+                    <legend class="inline-edit-legend"><?php _e( 'Ticket Details', PLUGIN_ID ); ?></legend>
 
                     <div class="inline-edit-group">
 
@@ -146,7 +146,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
 
                             <label for="<?php esc_attr_e( $field->id ); ?>">
 
-                                <span class="title"><?php _e( $field->label, PLUGIN_NAME ); ?></span>
+                                <span class="title"><?php _e( $field->label, PLUGIN_ID ); ?></span>
 
                                 <?php $field->render(); ?>
 
@@ -170,20 +170,20 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
         unset( $columns['author'] );
 
         $left_cols = array_splice( $columns, 0, 2 );
-        $left_cols['title'] = __( 'Subject', PLUGIN_NAME );
-        $left_cols['id'] = __( 'Case #', PLUGIN_NAME );
+        $left_cols['title'] = __( 'Subject', PLUGIN_ID );
+        $left_cols['id'] = __( 'Case #', PLUGIN_ID );
 
         if( $this->plugin->edd_active || $this->plugin->woo_active ) {
-            $left_cols['product'] = __( 'Product', PLUGIN_NAME );
+            $left_cols['product'] = __( 'Product', PLUGIN_ID );
         }
 
         return array_merge(
             $left_cols,
             array(
-                'email'    => __( 'Email', PLUGIN_NAME ),
-                'agent'    => __( 'Assigned', PLUGIN_NAME ),
-                'status'   => __( 'Status', PLUGIN_NAME ),
-                'priority' => __( 'Priority', PLUGIN_NAME ),
+                'email'    => __( 'Email', PLUGIN_ID ),
+                'agent'    => __( 'Assigned', PLUGIN_ID ),
+                'status'   => __( 'Status', PLUGIN_ID ),
+                'priority' => __( 'Priority', PLUGIN_ID ),
                 'flagged'  => '<i class="support_icon icon-flag2"></i>'
             ),
             $columns
@@ -220,7 +220,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
                 break;
 
             case 'agent':
-                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_NAME ) ) );
+                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_ID ) ) );
 
                 if( array_key_exists( $value, $agents ) ) {
                     echo $agents[ $value ];
@@ -262,7 +262,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
             $agent_filter = new SelectBoxField(
                 array(
                     'id'        => 'agent',
-                    'options'   =>  UserUtils::list_agents( array( '' => __( 'All Agents', PLUGIN_NAME ) ) ),
+                    'options'   =>  UserUtils::list_agents( array( '' => __( 'All Agents', PLUGIN_ID ) ) ),
                     'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
             );
@@ -274,8 +274,8 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
                     'id'        => 'checked_meta',
                     'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
                     'options'   =>  array(
-                        '' => __( 'All Tickets', PLUGIN_NAME ),
-                        'flagged' => __( 'Flagged', PLUGIN_NAME )
+                        '' => __( 'All Tickets', PLUGIN_ID ),
+                        'flagged' => __( 'Flagged', PLUGIN_ID )
                     ),
                 )
             );
@@ -314,7 +314,7 @@ class TicketCptComponent extends AbstractComponent implements HookSubscriber {
             'save_post' => array( 'quick_edit_save' ),
             'restrict_manage_posts' => array( 'post_table_filters' ),
             'parse_query' => array( 'filter_post_table' ),
-            $this->plugin->name() . '_cleanup' => array( 'cleanup' ),
+            $this->plugin->id() . '_cleanup' => array( 'cleanup' ),
             'quick_edit_custom_box' => array( 'render_quick_edit', 10, 2 ),
             'manage_support_ticket_posts_columns' => array( 'post_table_columns' ),
             'manage_support_ticket_posts_custom_column' => array( 'post_table_column_data', 10, 2 ),

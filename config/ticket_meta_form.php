@@ -5,10 +5,10 @@ use smartcat\form\Form;
 use smartcat\form\HiddenAbstractField;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\PLUGIN_NAME;
+use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\util\UserUtils;
 
-$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_NAME ) ) );
+$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_ID ) ) );
 $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
@@ -23,8 +23,8 @@ $form->add_field( new HiddenAbstractField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'agent',
-        'error_msg'   => __( 'Invalid agent selected', PLUGIN_NAME ),
-        'label'       => __( 'Assigned To', PLUGIN_NAME ),
+        'error_msg'   => __( 'Invalid agent selected', PLUGIN_ID ),
+        'label'       => __( 'Assigned To', PLUGIN_ID ),
         'options'     => $agents,
         'value'       => get_post_meta( $post->ID, 'agent', true ),
         'constraints' => array(
@@ -35,8 +35,8 @@ $form->add_field( new HiddenAbstractField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'status',
-        'error_msg'   => __( 'Invalid status selected', PLUGIN_NAME ),
-        'label'       => __( 'Status', PLUGIN_NAME ),
+        'error_msg'   => __( 'Invalid status selected', PLUGIN_ID ),
+        'label'       => __( 'Status', PLUGIN_ID ),
         'options'     => $statuses,
         'value'       => get_post_meta( $post->ID, 'status', true ),
         'constraints' => array(
@@ -47,8 +47,8 @@ $form->add_field( new HiddenAbstractField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'priority',
-        'error_msg'   => __( 'Invalid priority selected', PLUGIN_NAME ),
-        'label'       => __( 'Priority', PLUGIN_NAME ),
+        'error_msg'   => __( 'Invalid priority selected', PLUGIN_ID ),
+        'label'       => __( 'Priority', PLUGIN_ID ),
         'options'     => $priorities,
         'value'       => get_post_meta( $post->ID, 'priority', true ),
         'constraints' => array(

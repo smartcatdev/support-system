@@ -15,7 +15,7 @@ if( !defined( 'ABSPATH' ) ) {
 
 // Plugin-wide constant declarations
 const PLUGIN_VERSION = '1.0';
-const PLUGIN_NAME = 'smartcat_support';
+const PLUGIN_ID = 'smartcat_support';
 
 
 // Manual includes
@@ -24,6 +24,6 @@ include_once 'includes/functions.php';
 
 
 // Boot up the container
-Plugin::boot( PLUGIN_NAME, PLUGIN_VERSION, __FILE__ );
+Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
 
 bootstrap( __FILE__ );

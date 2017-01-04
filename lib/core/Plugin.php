@@ -44,7 +44,7 @@ interface Plugin {
     /**
      * @return string The name of the plugin.
      */
-    public function name();
+    public function id();
 
     /**
      * @return string The version of the plugin.

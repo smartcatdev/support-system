@@ -4,6 +4,7 @@ namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
+use smartcat\debug\Log;
 use SmartcatSupport\descriptor\Option;
 
 class RegistrationComponent extends AbstractComponent implements HookSubscriber {
@@ -17,7 +18,7 @@ class RegistrationComponent extends AbstractComponent implements HookSubscriber 
 
         if( $form->is_valid() ) {
             $data = $form->data;
-            $password = wp_generate_password();
+            $data['password'] = wp_generate_password();
 
             $user_id = wp_insert_user(
                 array(
@@ -26,17 +27,19 @@ class RegistrationComponent extends AbstractComponent implements HookSubscriber 
                     'first_name'    => $data['first_name'],
                     'last_name'     => $data['last_name'],
                     'role'          => 'support_user',
-                    'user_pass'     => $password
+                    'user_pass'     => $data['password']
                 )
             );
 
-            add_filter( 'replace_email_template_vars', function( $vars ) use ( $password ) {
-                $vars['password'] = $password;
+            add_filter( 'parse_email_template', function( $content, $recipient ) use ( $data ) {
+                if( $recipient == $data['email'] ) {
+                    $content = str_replace( '{%password%}', $data['password'], $content );
+                }
 
-                return $vars;
-            } );
+                return $content;
+            }, 10, 3 );
 
-            do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+            do_action( 'send_email_template', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
 
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();
