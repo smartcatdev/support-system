@@ -5,7 +5,6 @@ namespace SmartcatSupport;
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
-use SmartcatSupport\admin\SettingsComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\TemplateComponent;
@@ -52,6 +51,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         remove_role( 'support_admin' );
         remove_role( 'support_agent' );
         remove_role( 'support_user' );
+
+        Mailer::cleanup();
 
         do_action( $this->id . '_cleanup' );
     }
@@ -114,8 +115,13 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function subscribed_hooks() {
         return array(
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
-            'tgmpa_register' => array( 'register_dependencies' )
+            'tgmpa_register' => array( 'register_dependencies' ),
+            'mailer_consumers' => array( 'mailer_checkin' )
         );
+    }
+
+    public function mailer_checkin( $consumers ) {
+        return $consumers[] = $this->id;
     }
 
     public function components() {

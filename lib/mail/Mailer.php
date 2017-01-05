@@ -9,7 +9,6 @@ if( !class_exists( '\smartcat\mail\Mailer' ) ) :
 
 class Mailer implements HookSubscriber  {
 
-    private $consumers = array();
     private $text_domain = '';
 
     private static $instance;
@@ -21,12 +20,10 @@ class Mailer implements HookSubscriber  {
             $plugin->add_api_subscriber( self::$instance );
         }
 
-        self::$instance->consumers[] = $plugin;
-
         return self::$instance;
     }
 
-    public function replace_default_vars( $content, $recipient, $id ) {
+    public function replace_default_vars( $content, $recipient ) {
         $user = get_user_by( 'email', $recipient );
 
         if( !empty( $user ) ) {
@@ -97,7 +94,7 @@ class Mailer implements HookSubscriber  {
         register_post_type( 'email_template', $args );
     }
 
-    public function send_template( $template_id, $recipient ) {
+    public static function send_template( $template_id, $recipient ) {
         $template = get_post( $template_id );
 
         if( !empty( $template ) ) {
@@ -114,10 +111,23 @@ class Mailer implements HookSubscriber  {
         }
     }
 
+    public static function cleanup( $nuke = false ) {
+        if( empty( apply_filters( 'mailer_consumers', array() ) ) ) {
+            unregister_post_type( 'email_template' );
+
+            if( $nuke ) {
+                $query = new \WP_Query( array( 'post_type' => 'email_template' ) );
+
+                foreach( $query->posts as $post ) {
+                    wp_trash_post( $post->ID );
+                }
+            }
+        }
+    }
+
     public function subscribed_hooks() {
         return array(
             'init' => array( 'register_template_cpt' ),
-            'send_email_template' => array( 'send_template', 10, 2 ),
             'parse_email_template' => array( 'replace_default_vars', 10, 3 )
         );
     }
@@ -140,6 +150,7 @@ class Mailer implements HookSubscriber  {
 
         return $templates;
     }
+
 }
 
 endif;

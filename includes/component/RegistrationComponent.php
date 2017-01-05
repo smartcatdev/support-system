@@ -5,6 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\core\HookSubscriber;
 use smartcat\debug\Log;
+use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
 class RegistrationComponent extends AbstractComponent implements HookSubscriber {
@@ -39,7 +40,7 @@ class RegistrationComponent extends AbstractComponent implements HookSubscriber 
                 return $content;
             }, 10, 3 );
 
-            do_action( 'send_email_template', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+            Mailer::send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
 
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();

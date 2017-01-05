@@ -41,7 +41,7 @@ use const SmartcatSupport\PLUGIN_ID;
                           data-action="support_register_user"
                           data-after="post_user_register">
 
-                        <?php Form::render_fields( include Plugin::resource_dir( PLUGIN_ID ) . 'config/register_user_form.php' ); ?>
+                        <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/register_user_form.php' ); ?>
 
                         <div class="button_wrapper">
 

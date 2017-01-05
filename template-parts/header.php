@@ -3,8 +3,7 @@
 use SmartcatSupport\Plugin;
 use const SmartcatSupport\PLUGIN_ID;
 
-$dir = Plugin::resource_dir( PLUGIN_ID );
-$url = Plugin::resource_url( PLUGIN_ID );
+$url = Plugin::plugin_url( PLUGIN_ID );
 
 ?>
 

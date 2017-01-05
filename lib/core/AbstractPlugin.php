@@ -64,12 +64,16 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
         }
     }
 
-    public static final function resource_dir( $plugin ) {
+    public static final function plugin_dir( $plugin ) {
         return array_key_exists( $plugin, self::$plugins_loaded ) ? self::$plugins_loaded[ $plugin ]->dir : null;
     }
 
-    public static final function resource_url( $plugin ) {
+    public static final function plugin_url( $plugin ) {
         return array_key_exists( $plugin, self::$plugins_loaded ) ? self::$plugins_loaded[ $plugin ]->url : null;
+    }
+
+    public static function get_plugin( $plugin ) {
+        return array_key_exists( $plugin, self::$plugins_loaded ) ? self::$plugins_loaded[ $plugin ] : null;
     }
 
     /**
