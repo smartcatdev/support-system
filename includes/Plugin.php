@@ -4,6 +4,7 @@ namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
+use smartcat\debug\Log;
 use smartcat\mail\Mailer;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
@@ -37,10 +38,18 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function activate() {
         do_action( $this->id . '_setup' );
 
-        UserUtils::add_caps( add_role( 'support_admin', __( 'Support Admin', PLUGIN_ID ) ), true );
-        UserUtils::add_caps( add_role( 'support_agent', __( 'Support Agent', PLUGIN_ID ) ), true );
-        UserUtils::add_caps( add_role( 'support_user', __( 'Support User', PLUGIN_ID ) ) );
-        UserUtils::add_caps( get_role( 'administrator' ), true );
+        $roles = array(
+            array( add_role( 'support_admin', __( 'Support Admin', PLUGIN_ID ) ), true ),
+            array( add_role( 'support_agent', __( 'Support Agent', PLUGIN_ID ) ), true ),
+            array( add_role( 'support_user', __( 'Support User', PLUGIN_ID ) ), false ),
+            array( get_role( 'administrator' ), true )
+        );
+
+        foreach( $roles as $role ) {
+            if( $role[0] instanceof \WP_Role ) {
+                UserUtils::add_caps( $role[0], $role[1] );
+            }
+        }
 
         $this->create_email_templates();
     }
