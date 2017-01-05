@@ -3,21 +3,18 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\core\HookSubscriber;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\util\UserUtils;
 
-class TicketCptComponent extends AbstractComponent implements HookSubscriber {
+class TicketCptComponent extends AbstractComponent {
 
     private $form;
 
     public function start() {
         $this->form = include $this->plugin->dir() . '/config/quick_edit_form.php';
-
-        $this->plugin->add_api_subscriber( $this );
 
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(

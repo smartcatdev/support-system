@@ -10,16 +10,17 @@ if( !class_exists( '\smartcat\core\AbstractComponent' ) ) :
  * @package smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class AbstractComponent implements Component {
+abstract class AbstractComponent implements Component, HookSubscriber {
     protected $plugin;
 
     /**
      * Called after the Component is instantiated
      *
-     * @param Plugin $plugin The main plugin instance.
+     * @param AbstractPlugin $plugin The main plugin instance.
      */
-    public function init( Plugin $plugin ) {
+    public function init( AbstractPlugin $plugin ) {
         $this->plugin = $plugin;
+        $this->plugin->add_api_subscriber( $this );
     }
 
     /**
@@ -35,6 +36,10 @@ abstract class AbstractComponent implements Component {
      */
     public function plugin() {
         return $this->plugin;
+    }
+
+    public function subscribed_hooks() {
+        return array();
     }
 }
 

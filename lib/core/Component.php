@@ -19,7 +19,7 @@ interface Component {
      *
      * @param Plugin $plugin The main plugin instance.
      */
-    public function init( Plugin $plugin );
+    public function init( AbstractPlugin $plugin );
 
     /**
      * Convenience method called after all components have loaded.

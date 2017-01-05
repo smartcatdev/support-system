@@ -3,15 +3,10 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\core\HookSubscriber;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\UserUtils;
 
-class ProductComponent extends AbstractComponent implements HookSubscriber {
-
-    public function start() {
-        $this->plugin->add_api_subscriber( $this );
-    }
+class ProductComponent extends AbstractComponent {
 
     public function list_products( $products ) {
         $results = array();

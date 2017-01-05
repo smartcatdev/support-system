@@ -3,15 +3,10 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\core\HookSubscriber;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\PLUGIN_ID;
 
-class TemplateComponent extends AbstractComponent implements HookSubscriber {
-
-    public function start()  {
-        $this->plugin->add_api_subscriber( $this );
-    }
+class TemplateComponent extends AbstractComponent {
 
     public function swap_template( $template ) {
         if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {

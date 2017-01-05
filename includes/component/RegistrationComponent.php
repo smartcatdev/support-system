@@ -3,16 +3,10 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\core\HookSubscriber;
-use smartcat\debug\Log;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
-class RegistrationComponent extends AbstractComponent implements HookSubscriber {
-
-    public function start() {
-        $this->plugin->add_api_subscriber( $this );
-    }
+class RegistrationComponent extends AbstractComponent {
 
     public function register_user() {
         $form = include $this->plugin->dir() . 'config/register_user_form.php';
