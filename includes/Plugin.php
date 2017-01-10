@@ -125,12 +125,17 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return array(
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'tgmpa_register' => array( 'register_dependencies' ),
-            'mailer_consumers' => array( 'mailer_checkin' )
+            'mailer_consumers' => array( 'mailer_checkin' ),
+            'mailer_text_domain' => array( 'mailer_text_domain' )
         );
     }
 
     public function mailer_checkin( $consumers ) {
         return $consumers[] = $this->id;
+    }
+
+    public function mailer_text_domain( $text_domain ) {
+        return PLUGIN_ID;
     }
 
     public function components() {
