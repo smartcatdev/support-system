@@ -11,10 +11,10 @@ use SmartcatSupport\util\UserUtils;
 
 class TicketCptComponent extends AbstractComponent {
 
-    private $form;
+    private $quick_edit_form;
 
     public function start() {
-        $this->form = include $this->plugin->dir() . '/config/quick_edit_form.php';
+        $this->quick_edit_form = include $this->plugin->config_dir . '/quick_edit_form.php';
 
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
@@ -23,7 +23,7 @@ class TicketCptComponent extends AbstractComponent {
                 'post_type' => 'support_ticket',
                 'context'   => 'advanced',
                 'priority'  => 'high',
-                'config'    =>  $this->plugin->dir() . '/config/support_metabox_form.php'
+                'config'    =>  $this->plugin->config_dir . '/support_metabox_form.php'
             )
         ) );
 
@@ -34,7 +34,7 @@ class TicketCptComponent extends AbstractComponent {
                 'post_type' => 'support_ticket',
                 'context'   => 'side',
                 'priority'  => 'high',
-                'config'    =>  $this->plugin->dir() . '/config/product_metabox_form.php'
+                'config'    =>  $this->plugin->config_dir . '/product_metabox_form.php'
             )
         ) );
 
@@ -45,7 +45,7 @@ class TicketCptComponent extends AbstractComponent {
                 'post_type' => 'support_ticket',
                 'context'   => 'side',
                 'priority'  => 'high',
-                'config'    =>  $this->plugin->dir() . '/config/customer_metabox_form.php'
+                'config'    =>  $this->plugin->config_dir . '/customer_metabox_form.php'
             )
         ) );
     }
@@ -119,8 +119,8 @@ class TicketCptComponent extends AbstractComponent {
 
     public function quick_edit_save( $post_id ) {
         if( defined( 'DOING_AJAX' ) ) {
-            if( $this->form->is_valid() ) {
-                foreach( $this->form->data as $key => $value ) {
+            if( $this->quick_edit_form->is_valid() ) {
+                foreach( $this->quick_edit_form->data as $key => $value ) {
                     update_post_meta( $post_id, $key, $value );
                 }
             }
@@ -139,7 +139,7 @@ class TicketCptComponent extends AbstractComponent {
 
                     <div class="inline-edit-group">
 
-                        <?php foreach ( $this->form->fields as $field ) : ?>
+                        <?php foreach ( $this->quick_edit_form->fields as $field ) : ?>
 
                             <label for="<?php esc_attr_e( $field->id ); ?>">
 
@@ -151,7 +151,7 @@ class TicketCptComponent extends AbstractComponent {
 
                         <?php endforeach; ?>
 
-                        <input type="hidden" name="<?php esc_attr_e( $this->form->id ); ?>"/>
+                        <input type="hidden" name="<?php esc_attr_e( $this->quick_edit_form->id ); ?>"/>
 
                     </div>
 
@@ -195,7 +195,7 @@ class TicketCptComponent extends AbstractComponent {
                 echo $post_id;
                 echo '<div class="hidden" id="support_inline_' . $post_id . '">';
 
-                foreach( $this->form->fields as $field ) {
+                foreach( $this->quick_edit_form->fields as $field ) {
                     $id = $field->id;
                     echo '<div class="' . $id . '">' . get_post_meta( $post_id, $id, true ) . '</div>';
                 }

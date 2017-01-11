@@ -22,7 +22,7 @@ class CommentComponent extends AbstractComponent {
 
                 wp_send_json_success(
                     TemplateUtils::render_template(
-                        $this->plugin->dir() . '/template-parts/comment.php',
+                        $this->plugin->template_dir . '/comment.php',
                         array(
                             'comment' => get_comment( $comment->comment_ID )
                         )
@@ -57,7 +57,7 @@ class CommentComponent extends AbstractComponent {
             if ( !is_wp_error( $comment ) ) {
                 wp_send_json_success(
                     TemplateUtils::render_template(
-                        $this->plugin->dir() . '/template-parts/comment.php',
+                        $this->plugin->template_dir . '/comment.php',
                         array(
                             'comment' => $comment
                         )
@@ -83,7 +83,7 @@ class CommentComponent extends AbstractComponent {
         if( !empty( $ticket ) ) {
             wp_send_json_success(
                 TemplateUtils::render_template(
-                    $this->plugin->dir() . '/template-parts/comment_section.php',
+                    $this->plugin->template_dir . '/comment_section.php',
                     array(
                         'post' => $ticket,
                         'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )

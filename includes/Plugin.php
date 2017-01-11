@@ -20,6 +20,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $this->add_api_subscriber( $this );
         $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
 
+        $this->config_dir = $this->dir . '/config/';
+        $this->template_dir = $this->dir . '/template-parts/';
+
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 

@@ -11,9 +11,9 @@ class TicketComponent extends AbstractComponent {
         if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json(
                 TemplateUtils::render_template(
-                    $this->plugin->dir() . '/template-parts/ticket_create_modal.php',
+                    $this->plugin->template_dir . '/ticket_create_modal.php',
                     array(
-                        'form' => include $this->plugin->dir() . '/config/ticket_create_form.php'
+                        'form' => include $this->plugin->config_dir . '/ticket_create_form.php'
                     )
                 )
             );
@@ -22,7 +22,7 @@ class TicketComponent extends AbstractComponent {
 
     public function create_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
-            $form = include $this->plugin->dir() . '/config/ticket_create_form.php';
+            $form = include $this->plugin->config_dir . '/ticket_create_form.php';
 
             if ( $form->is_valid() ) {
                 $data = $form->data;
@@ -62,7 +62,7 @@ class TicketComponent extends AbstractComponent {
         if( !empty( $ticket ) ) {
             wp_send_json_success(
                 TemplateUtils::render_template(
-                    $this->plugin->dir() . '/template-parts/ticket.php',
+                    $this->plugin->template_dir . '/ticket.php',
                     array( 'post' => $ticket )
                 )
             );
@@ -71,11 +71,11 @@ class TicketComponent extends AbstractComponent {
 
     public function edit_ticket() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
-        $form = include $this->plugin->dir() . '/config/ticket_meta_form.php';
+        $form = include $this->plugin->config_dir . '/ticket_meta_form.php';
 
         wp_send_json(
             TemplateUtils::render_template(
-                $this->plugin->dir() . '/template-parts/ticket_edit_modal.php',
+                $this->plugin->template_dir . '/ticket_edit_modal.php',
                 array( 'form' => $form )
             )
         );

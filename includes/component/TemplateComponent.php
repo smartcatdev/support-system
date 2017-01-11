@@ -10,7 +10,7 @@ class TemplateComponent extends AbstractComponent {
 
     public function swap_template( $template ) {
         if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-            $template = $this->plugin->dir() . '/template-parts/app.php';
+            $template = $this->plugin->template_dir . '/app.php';
         }
 
         return $template;

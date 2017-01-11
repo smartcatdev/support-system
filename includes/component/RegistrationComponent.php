@@ -9,7 +9,7 @@ use SmartcatSupport\descriptor\Option;
 class RegistrationComponent extends AbstractComponent {
 
     public function register_user() {
-        $form = include $this->plugin->dir() . 'config/register_user_form.php';
+        $form = include $this->plugin->config_dir . '/register_user_form.php';
 
         if( $form->is_valid() ) {
             $data = $form->data;
