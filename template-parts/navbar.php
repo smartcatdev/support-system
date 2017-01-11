@@ -1,3 +1,7 @@
+<?php
+$user = wp_get_current_user();
+
+?>
 <div id="navbar" class="background-secondary">
     <div class="container">
         <div class="row">
@@ -25,7 +29,7 @@
                     <div class="row-table-cell">
                         <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">
                             <span class="glyphicon-log-out glyphicon"></span>
-                            <?php _e( 'Logout', OPENERP_DOMAIN ); ?>
+                            <?php _e( 'Logout' ); ?>
                         </a>          
                     </div>
                 </div>

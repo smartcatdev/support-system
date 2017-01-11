@@ -117,4 +117,9 @@ input[type="submit"]{
     display: none;
 }
 
-
+/* 
+## Navbar 
+*/
+#navbar{ 
+    background: #009DDC 
+}
