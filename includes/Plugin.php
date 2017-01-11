@@ -9,6 +9,7 @@ use SmartcatSupport\component\CommentComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\TemplateComponent;
+use SmartcatSupport\component\TicketComponent;
 use SmartcatSupport\component\TicketCptComponent;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\UserUtils;
@@ -142,6 +143,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $components = array(
             TicketCptComponent::class,
             TemplateComponent::class,
+            TicketComponent::class,
             CommentComponent::class
         );
 

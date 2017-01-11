@@ -4,6 +4,7 @@ use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
 use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\util\UserUtils;
 
 ?>
 
@@ -75,7 +76,10 @@ use const SmartcatSupport\PLUGIN_ID;
 
                         <th class="label"><?php _e( 'Product', PLUGIN_ID ); ?></th>
 
-                        <td><?php echo get_products()[ get_post_meta(  $post->ID, 'product', true ) ]; ?></td>
+                        <td>
+                            <?php $products = apply_filters( 'support_list_products', array( '' => '' ) ); ?>
+                            <?php echo $products[ get_post_meta(  $post->ID, 'product', true ) ]; ?>
+                        </td>
 
                     </tr>
 
@@ -83,7 +87,10 @@ use const SmartcatSupport\PLUGIN_ID;
 
                         <th class="label"><?php _e( 'Status', PLUGIN_ID ); ?></th>
 
-                        <td><?php echo get_option( Option::STATUSES, Option\Defaults::STATUSES ) [ get_post_meta( $post->ID, 'status', true ) ]; ?></td>
+                        <td>
+                            <?php $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES ); ?>
+                            <?php echo $statuses[ get_post_meta( $post->ID, 'status', true ) ]; ?>
+                        </td>
 
                     </tr>
 
@@ -93,7 +100,10 @@ use const SmartcatSupport\PLUGIN_ID;
 
                             <th class="label"><?php _e( 'Assigned to', PLUGIN_ID ); ?></th>
 
-                            <td><?php echo get_agents() [ get_post_meta( $post->ID, 'agent', true ) ]; ?></td>
+                            <td>
+                                <?php $agents = UserUtils::list_agents(); ?>
+                                <?php echo $agents[ get_post_meta( $post->ID, 'agent', true ) ]; ?>
+                            </td>
 
                         </tr>
 
@@ -101,7 +111,10 @@ use const SmartcatSupport\PLUGIN_ID;
 
                             <th class="label"><?php _e( 'Priority', PLUGIN_ID ); ?></th>
 
-                            <td><?php echo get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES ) [ get_post_meta( $post->ID, 'priority', true ) ]; ?></td>
+                            <td>
+                                <?php $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES ); ?>
+                                <?php echo $priorities[ get_post_meta( $post->ID, 'priority', true ) ]; ?>
+                            </td>
 
                         </tr>
 

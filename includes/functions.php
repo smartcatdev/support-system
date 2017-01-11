@@ -32,7 +32,7 @@ function bootstrap( $fs_context ) {
     $table_handler = new TicketTable();
 
     // Configure ticket Handler
-    $ticket_handler = new TicketHandler();
+//    $ticket_handler = new TicketHandler();
 
 
 

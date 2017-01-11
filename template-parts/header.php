@@ -13,6 +13,7 @@ $url = Plugin::plugin_url( PLUGIN_ID );
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link href="<?php echo $url . 'assets/css/common.css' ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/css/style.css' ?>" rel="stylesheet">
+        <link href="<?php echo $url . 'assets/icons.css' ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/datatables/datatables.min.css' ?>" rel="stylesheet"/>
         <link href="<?php echo $url . 'assets/lib/modal/jquery.modal.min.css' ?>" rel="stylesheet"/>
 

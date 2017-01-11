@@ -103,7 +103,7 @@ class CommentComponent extends AbstractComponent {
     }
 
     private function get_ticket( $id ) {
-        $args = array( 'ID' => $id, 'post_type' => 'support_ticket' );
+        $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
         if( !current_user_can( 'edit_others_tickets' ) ) {
             $args['post_author'] = wp_get_current_user()->ID;
