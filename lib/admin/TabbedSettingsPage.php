@@ -11,7 +11,9 @@ class TabbedSettingsPage extends SettingsPage {
     public function __construct( array $config ) {
         parent::__construct( $config );
 
-        $this->tabs = $config['tabs'];
+        foreach( $config['tabs'] as $tab => $title ) {
+            $this->tabs[ $tab ] = $title;
+        }
     }
 
     public function add_section( SettingsSection $section, $tab = '' ) {
@@ -20,7 +22,7 @@ class TabbedSettingsPage extends SettingsPage {
 
     public function register_sections() {
         foreach( $this->sections as $slug => $section ) {
-            $section['section']->register( $section['tab'] );
+            $section['section']->register( $this->menu_slug . '_' . $section['tab'] );
         }
     }
 
@@ -61,9 +63,9 @@ class TabbedSettingsPage extends SettingsPage {
 
             <form method="post" action="options.php">
 
-                <?php settings_fields( $active_tab ); ?>
+                <?php settings_fields( $this->menu_slug . '_' .$active_tab ); ?>
 
-                <?php do_settings_sections( $active_tab ); ?>
+                <?php do_settings_sections( $this->menu_slug . '_' . $active_tab ); ?>
 
                 <?php submit_button(); ?>
 

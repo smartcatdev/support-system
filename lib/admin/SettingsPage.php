@@ -16,14 +16,17 @@ class SettingsPage {
     protected $sections = [];
 
     public function __construct( array $config ) {
-        $this->type = $config['type'];
+
         $this->page_title = $config['page_title'];
         $this->menu_title = $config['menu_title'];
         $this->menu_slug = $config['menu_slug'];
 
+        $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
+
         if( $this->type == 'submenu' ) {
             $this->parent_menu = $config['parent_menu'];
         }
+
 
         $this->capability = isset( $config['capability'] ) ? $config['capability'] : 'manage_options';
         $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';

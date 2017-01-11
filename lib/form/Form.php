@@ -5,20 +5,24 @@ namespace smartcat\form;
 if( !class_exists( '\smartcat\form\Form' ) ) :
 
 class Form {
+    public $id;
+    public $method;
+    public $action;
+    public $valid = false;
+    public $fields = array();
+    public $data = array();
+    public $errors = array();
 
-    protected $id;
-    protected $fields = [ ];
-    protected $method;
-    protected $action;
-    protected $valid = false;
-    protected $valid_values = array();
-    protected $errors = array();
-
-    public function __construct( $id, array $fields, $method, $action ) {
+    public function __construct( $id, $method = '', $action = '' ) {
         $this->id = $id;
-        $this->fields = $fields;
         $this->method = strtoupper( $method );
         $this->action = $action;
+    }
+
+    public function add_field( Field $field ) {
+        $this->fields[ $field->id ] = $field;
+
+        return $this;
     }
 
     public function is_valid() {
@@ -27,9 +31,9 @@ class Form {
         if ( $this->is_submitted() ) {
             foreach ( $this->fields as $id => $field ) {
                 if ( $field->validate( $_REQUEST[ $id ] ) ) {
-                    $this->valid_values[ $id ] = $field->sanitize( $_REQUEST[ $id ] );
+                    $this->data[ $id ] = $field->sanitize( $_REQUEST[ $id ] );
                 } else {
-                    $this->errors[ $id ] = $field->get_error_message();
+                    $this->errors[ $id ] = $field->error_message;
                     $valid = false;
                 }
             }
@@ -44,65 +48,23 @@ class Form {
         return isset( $_REQUEST[ $this->id ] );
     }
 
-    public function get_data() {
-        return $this->valid_values;
-    }
+    public static function render_fields( Form $form ) { ?>
 
-    public function get_errors() {
-        return $this->errors;
-    }
-
-    public function get_fields() {
-        return $this->fields;
-    }
-
-    public function get_id() {
-        return $this->id;
-    }
-
-    public function get_method() {
-        return $this->method;
-    }
-
-    public function get_action() {
-        return $this->action;
-    }
-
-    public function set_id( $id ) {
-        $this->id = $id;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="Display Logic">
-    public static function form_start( Form $form ) { ?>
-
-        <form id="<?php esc_attr_e( $form->id ); ?>"
-              method="<?php esc_attr_e( $form->get_method() ); ?>"
-              action="<?php esc_attr_e( $form->get_action() ); ?>">
-
-    <?php }
-
-        public static function form_fields( Form $form ) { ?>
-
-        <?php foreach ( $form->get_fields() as $field ) : ?>
+            <?php foreach ( $form->fields as $field ) : ?>
 
             <p>
 
-                <?php if ( $field->get_label() != null ) : ?>
+                <?php if( !empty( $field->label ) ) : ?>
 
-                    <label>
-                        <?php echo $field->get_label(); ?>
-                    </label>
+                    <label><?php echo $field->label; ?></label>
 
                 <?php endif; ?>
 
+                <?php $field->render(); ?>
 
-                    <?php $field->render(); ?>
+                <?php if( !empty( $field->desc ) ) : ?>
 
-                <?php if ( $field->get_desc() != null ) : ?>
-
-                    <p class="description">
-                        <?php echo $field->get_desc(); ?>
-                    </p>
+                    <p class="description"><?php echo $field->desc; ?></p>
 
                 <?php endif; ?>
 
@@ -114,13 +76,17 @@ class Form {
 
     <?php }
 
-    public static function form_end( Form $form ) { ?>
+    public static function render( Form $form ) { ?>
+
+        <form id="<?php esc_attr_e( $form->id ); ?>"
+            method="<?php esc_attr_e( $form->method ); ?>"
+            action="<?php esc_attr_e( $form->action ); ?>">
+
+            <?php Form::render_fields( $form ); ?>
 
         </form>
 
     <?php }
-
-// </editor-fold>
 }
 
 endif;

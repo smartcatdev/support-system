@@ -2,18 +2,19 @@
 
 namespace SmartcatSupport;
 
+use smartcat\form\Form;
+use smartcat\form\RequiredConstraint;
+use smartcat\form\TextBoxField;
+use smartcat\mail\EmailTemplateService;
 use SmartcatSupport\admin\CustomerMetaBox;
+use SmartcatSupport\admin\MetaBox;
 use SmartcatSupport\admin\ProductMetaBox;
 use SmartcatSupport\admin\SupportMetaBox;
-use SmartcatSupport\admin\TicketAdminTable;
-use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\Ticket;
+use SmartcatSupport\admin\PostTableModifiers;
+use SmartcatSupport\ajax\CommentHandler;
+use SmartcatSupport\ajax\TicketHandler;
 use SmartcatSupport\ajax\TicketTable;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\form\constraint\Required;
-use SmartcatSupport\form\field\SelectBox;
-use SmartcatSupport\form\field\TextBox;
-use SmartcatSupport\form\FormBuilder;
 use SmartcatSupport\util\Installer;
 
 
@@ -23,107 +24,62 @@ use SmartcatSupport\util\Installer;
  * @author Eric Green <eric@smartcat.ca>
  * @since 1.0.0
  */
-function init( $fs_context ) {
-    add_filter('bulk_actions-support_ticket', function ( $actions ){
-        unset( $actions['inline'] );
-        return $actions;
-    });
-    // Configure the application
-//    $plugin_dir = plugin_dir_path( $fs_context );
-//    $plugin_url = plugin_dir_url( $fs_context );
+function bootstrap( $fs_context ) {
+    define( 'SUPPORT_PATH', dirname( $fs_context ) );
+    define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
+
+    $installer = Installer::init();
+    EmailTemplateService::register( 'Smartcat Support', TEXT_DOMAIN );
 
     // Configure table Handler
     $table_handler = new TicketTable();
 
     // Configure ticket Handler
-    $ticket_handler = new Ticket( new FormBuilder( 'ticket_form' ) );
+    $ticket_handler = new TicketHandler();
 
     // Configure comment handler
-    $comment_handler = new Comment( new FormBuilder( 'comment_form' ) );
+    $comment_handler = new CommentHandler();
 
-    // Configure the metabox
-    $support_metabox = new SupportMetaBox( new FormBuilder( 'metabox__support_form' ) );
+   new MetaBox(
+        array(
+           'id'         => 'ticket_support_meta',
+            'title'     => __( 'Ticket Information', TEXT_DOMAIN ),
+            'post_type' => 'support_ticket',
+            'context'   => 'advanced',
+            'priority'  => 'high',
+            'config'    => SUPPORT_PATH . '/config/support_metabox_form.php'
+        )
+    );
 
-    $product_metabox = new ProductMetaBox( new FormBuilder( 'metabox_product_form' ) );
+    new MetaBox(
+        array(
+            'id'         => 'ticket_product_meta',
+            'title'     => __( 'Product Information', TEXT_DOMAIN ),
+            'post_type' => 'support_ticket',
+            'context'   => 'side',
+            'priority'  => 'high',
+            'config'    => SUPPORT_PATH . '/config/product_metabox_form.php'
+        )
+    );
 
-    $customer_metabox = new CustomerMetaBox( new FormBuilder( 'metabox_customer_form' ) );
+    new MetaBox(
+        array(
+            'id'         => 'ticket_customer_meta',
+            'title'     => __( 'Customer Information', TEXT_DOMAIN ),
+            'post_type' => 'support_ticket',
+            'context'   => 'side',
+            'priority'  => 'high',
+            'config'    => SUPPORT_PATH . '/config/customer_metabox_form.php'
+        )
+    );
 
-    $ticket_admin = new TicketAdminTable();
+    PostTableModifiers::init();
 
-    include_once 'admin.php';
 
-    // Configure installer
-    $installer = new Installer();
+    include_once 'hooks.php';
+    include_once SUPPORT_PATH . '/config/admin_settings.php';
 
-    add_action( 'plugins_loaded', function() use ( $fs_context ) {
-        if( class_exists( 'WooCommerce' ) ) {
-            define( 'SUPPORT_WOO_ACTIVE', 1 );
-        }
 
-        if( class_exists( 'Easy_Digital_Downloads' ) ) {
-            define( 'SUPPORT_EDD_ACTIVE', 1 );
-        }
-
-        define( 'SUPPORT_PATH', dirname( $fs_context ) );
-        define( 'SUPPORT_URL', plugin_dir_url( $fs_context ) );
-    } );
-
-    add_action( 'template_include', function ( $template ) {
-        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
-            $template = SUPPORT_PATH . '/templates/template.php';
-        }
-
-        return $template;
-    } );
-
-    if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) ) {
-        add_action( 'wp_ajax_nopriv_support_register_user', '\SmartcatSupport\register_user' );
-    }
-
-    // Temporarily add/remove roles until we get a settings page
-    add_action( 'admin_init', function() {
-        if ( defined( 'SUPPORT_EDD_ACTIVE' ) ) {
-            if ( get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ) ) {
-                append_user_caps( 'subscriber' );
-            } else {
-                remove_appended_caps( 'subscriber' );
-            }
-        }
-
-        if ( defined( 'SUPPORT_WOO_ACTIVE' ) ) {
-            if ( get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ) ) {
-                append_user_caps( 'customer' );
-            } else {
-                remove_appended_caps( 'customer' );
-            }
-        }
-    } );
-
-    add_action( 'admin_enqueue_scripts', function () {
-        wp_enqueue_media();
-        wp_enqueue_script( 'wp_media_uploader',
-            SUPPORT_URL . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_register_script( 'support-admin-js',
-            SUPPORT_URL . 'assets/admin/admin.js', array( 'jquery' ), PLUGIN_VERSION );
-
-        wp_localize_script( 'support-admin-js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
-        wp_enqueue_script( 'support-admin-js' );
-
-        wp_enqueue_style( 'support-admin-icons', SUPPORT_URL . '/assets/icons.css', null, PLUGIN_VERSION );
-        wp_enqueue_style( 'support-admin-css', SUPPORT_URL . '/assets/admin/admin.css', null, PLUGIN_VERSION );
-    } );
-
-    add_action( 'pre_update_option_' . Option::RESTORE_TEMPLATE_PAGE, function ( $value ) use ( $installer ) {
-        if( $value == 'on' ) {
-            $installer->register_template();
-        }
-
-        return '';
-    } );
-
-    register_activation_hook( $fs_context, array( $installer, 'activate' ) );
-    register_deactivation_hook( $fs_context, array( $installer, 'deactivate' ) );
 }
 
 /**
@@ -219,129 +175,82 @@ function get_products() {
  * @author Eric Green <eric@smartcat.ca>
  */
 function render_template( $template, array $data = array() ) {
-    if( is_array( $data ) ) {
-        extract( $data );
-    }
-
+    extract( $data );
     ob_start();
 
-    include ( SUPPORT_PATH . '/templates/' . $template . '.php' );
+    include ( SUPPORT_PATH . '/template-parts/' . $template . '.php' );
 
     return ob_get_clean();
 }
 
 function register_form() {
-    $builder = new FormBuilder( 'register_form' );
+    $form = new Form( 'register_form' );
 
-    $builder->add( TextBox::class, 'first_name', array(
-        'label'             => __( 'First Name', TEXT_DOMAIN ),
-        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-        'constraints'       => array(
-            $builder->create_constraint( Required::class )
+    $form->add_field( new TextBoxField(
+        array(
+            'id'            => 'first_name',
+            'label'         => __( 'First Name', TEXT_DOMAIN ),
+            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'   => array(
+                new RequiredConstraint()
+            )
         )
 
-    ) )->add( TextBox::class, 'last_name', array(
-        'label'             => __( 'Last Name', TEXT_DOMAIN ),
-        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-        'constraints'       =>  array(
-            $builder->create_constraint( Required::class )
+    ) )->add_field( new TextBoxField(
+        array(
+            'id'            => 'last_name',
+            'label'         => __( 'Last Name', TEXT_DOMAIN ),
+            'error_msg'     => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'constraints'   =>  array(
+                new RequiredConstraint()
+            )
         )
 
-    ) )->add( TextBox::class, 'email', array(
-        'type'              => 'email',
-        'label'             => __( 'Email Address', TEXT_DOMAIN ),
-        'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
-        'sanitize_callback' => 'sanitize_email',
-        'constraints'       => array(
-            $builder->create_constraint( Required::class )
+    ) )->add_field( new TextBoxField(
+        array(
+            'id'            => 'email',
+            'type'              => 'email',
+            'label'             => __( 'Email Address', TEXT_DOMAIN ),
+            'error_msg'         => __( 'Cannot be blank', TEXT_DOMAIN ),
+            'sanitize_callback' => 'sanitize_email',
+            'constraints'       => array(
+                new RequiredConstraint()
+            )
         )
-
     ) );
 
-    return $builder->get_form();
+    return $form;
 }
 
 function register_user() {
     $form = register_form();
 
     if( $form->is_valid() ) {
-        $data = $form->get_data();
+        $data = $form->data;
+        $password = wp_generate_password();
 
-        $user_id = register_new_user(
-            sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ), $data['email']
+        $user_id = wp_insert_user(
+            array(
+                'user_login'    => sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ),
+                'user_email'    => $data['email'],
+                'first_name'    => $data['first_name'],
+                'last_name'     => $data['last_name'],
+                'role'          => 'support_user',
+                'user_pass'     => $password
+            )
         );
 
-        if( !empty( $user_id ) ) {
-            get_user_by( 'ID', $user_id )->set_role( 'support_user' );
-            wp_set_auth_cookie( $user_id );
-            wp_send_json_success();
-        }
+        add_filter( 'replace_email_template_vars', function( $vars ) use ( $password ) {
+            $vars['password'] = $password;
 
+            return $vars;
+        } );
+
+        do_action( 'smartcat_send_mail', get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+
+        wp_set_auth_cookie( $user_id );
+        wp_send_json_success();
     } else {
-        wp_send_json_error( $form->get_errors() );
+        wp_send_json_error( $form->errors );
     }
-}
-
-function append_user_caps( $role ) {
-    $role = get_role( $role );
-
-    $role->add_cap( 'view_support_tickets' );
-    $role->add_cap( 'create_support_tickets' );
-    $role->add_cap( 'unfiltered_html' );
-}
-
-function remove_appended_caps( $role ) {
-    $role = get_role( $role );
-
-    $role->remove_cap( 'view_support_tickets' );
-    $role->remove_cap( 'create_support_tickets' );
-    $role->remove_cap( 'unfiltered_html' );
-}
-
-function agents_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBox( $name,
-        array(
-            'value' => $selected,
-            'options' => array( '' => __( 'All Agents', TEXT_DOMAIN ) ) + get_agents()
-        )
-    );
-
-    if( $echo ) {
-        $select->render();
-        $select = null;
-    }
-
-    return $select;
-}
-
-function products_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBox( $name,
-        array(
-            'value' => $selected,
-            'options' => array( '' => __( 'All Products', TEXT_DOMAIN ) ) + get_products()
-        )
-    );
-
-    if( $echo ) {
-        $select->render();
-        $select = null;
-    }
-
-    return $select;
-}
-
-function boolean_meta_dropdown( $name, $selected = '', $echo = true ) {
-    $select = new SelectBox( $name,
-        array(
-            'value' => $selected,
-            'options' => array( '' => __( 'All', TEXT_DOMAIN ), 'flagged' => __( 'Flagged', TEXT_DOMAIN ) )
-        )
-    );
-
-    if( $echo ) {
-        $select->render();
-        $select = null;
-    }
-
-    return $select;
 }
