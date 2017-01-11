@@ -1,8 +1,12 @@
 <?php
 
+
 use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
 use const SmartcatSupport\PLUGIN_ID;
+
+$form = include Plugin::plugin_dir( PLUGIN_ID ) . '/config/ticket_meta_form.php';
 
 ?>
 

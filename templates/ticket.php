@@ -10,24 +10,24 @@ use SmartcatSupport\util\UserUtils;
 
 <div class="support_ticket">
 
-    <div class="ticket support_card" data-id="<?php esc_attr_e( $post->ID ); ?>">
+    <div class="ticket support_card" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
 
         <div class="status_bar">
 
             <div class="image_wrapper">
 
-                <?php echo get_avatar( $post, 48 ); ?>
+                <?php echo get_avatar( $ticket, 48 ); ?>
 
             </div>
 
             <div class="meta_wrapper">
 
-                <p class="author_name"><?php esc_html_e( get_the_author_meta( 'display_name', $post->post_author ) ); ?></p>
+                <p class="author_name"><?php esc_html_e( get_the_author_meta( 'display_name', $ticket->post_author ) ); ?></p>
 
                 <p class="date_posted">
 
                     <?php _e( 'Updated ', PLUGIN_ID ); ?>
-                    <?php _e( human_time_diff( strtotime( $post->post_date ), current_time( 'timestamp' ) ) . ' ago', PLUGIN_ID ); ?>
+                    <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', PLUGIN_ID ); ?>
 
                     <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
 
@@ -35,7 +35,7 @@ use SmartcatSupport\util\UserUtils;
 
                         <span class="author_name">
 
-                        <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $post->ID, '_edit_last', true ) ) ); ?>
+                        <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $ticket->ID, '_edit_last', true ) ) ); ?>
 
                     </span>
 
@@ -49,7 +49,7 @@ use SmartcatSupport\util\UserUtils;
 
                 <div class="actions">
 
-                    <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $post->ID; ?>"
+                    <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $ticket->ID; ?>"
                        rel="modal:open">
 
                         <i class="icon-pencil"></i>
@@ -64,9 +64,9 @@ use SmartcatSupport\util\UserUtils;
 
         <div class="inner">
 
-            <h2 class="subject"><?php esc_html_e( $post->post_title ); ?></h2>
+            <h2 class="subject"><?php esc_html_e( $ticket->post_title ); ?></h2>
 
-            <div class="content"><?php echo $post->post_content; ?></div>
+            <div class="content"><?php echo $ticket->post_content; ?></div>
 
             <div class="meta">
 
@@ -78,7 +78,7 @@ use SmartcatSupport\util\UserUtils;
 
                         <td>
                             <?php $products = apply_filters( 'support_list_products', array( '' => '' ) ); ?>
-                            <?php echo $products[ get_post_meta(  $post->ID, 'product', true ) ]; ?>
+                            <?php echo $products[ get_post_meta(  $ticket->ID, 'product', true ) ]; ?>
                         </td>
 
                     </tr>
@@ -89,8 +89,7 @@ use SmartcatSupport\util\UserUtils;
 
                         <td>
                             <?php $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES ); ?>
-                            <?php echo $statuses[ get_post_meta( $post->ID, 'status', true ) ]; ?>
-                        </td>
+                            <?php echo $statuses[ get_post_meta( $ticket->ID, 'status', true ) ]; ?></td>
 
                     </tr>
 
@@ -102,7 +101,7 @@ use SmartcatSupport\util\UserUtils;
 
                             <td>
                                 <?php $agents = UserUtils::list_agents(); ?>
-                                <?php echo $agents[ get_post_meta( $post->ID, 'agent', true ) ]; ?>
+                                <?php echo $agents[ get_post_meta( $ticket->ID, 'agent', true ) ]; ?>
                             </td>
 
                         </tr>
@@ -113,7 +112,7 @@ use SmartcatSupport\util\UserUtils;
 
                             <td>
                                 <?php $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES ); ?>
-                                <?php echo $priorities[ get_post_meta( $post->ID, 'priority', true ) ]; ?>
+                                <?php echo $priorities[ get_post_meta( $ticket->ID, 'priority', true ) ]; ?>
                             </td>
 
                         </tr>
@@ -129,7 +128,7 @@ use SmartcatSupport\util\UserUtils;
 
         <div class="date_opened">
 
-            <?php _e( 'Opened ', PLUGIN_ID ); echo get_the_date( 'l F n, Y', $post ); ?>
+            <?php _e( 'Opened ', PLUGIN_ID ); echo get_the_date( 'l F n, Y', $ticket ); ?>
 
         </div>
 

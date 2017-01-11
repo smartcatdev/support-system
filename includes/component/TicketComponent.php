@@ -10,12 +10,7 @@ class TicketComponent extends AbstractComponent {
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json(
-                TemplateUtils::render_template(
-                    $this->plugin->template_dir . '/ticket_create_modal.php',
-                    array(
-                        'form' => include $this->plugin->config_dir . '/ticket_create_form.php'
-                    )
-                )
+                TemplateUtils::render_template( $this->plugin->template_dir . '/ticket_create_modal.php' )
             );
         }
     }
@@ -62,8 +57,7 @@ class TicketComponent extends AbstractComponent {
         if( !empty( $ticket ) ) {
             wp_send_json_success(
                 TemplateUtils::render_template(
-                    $this->plugin->template_dir . '/ticket.php',
-                    array( 'post' => $ticket )
+                    $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
                 )
             );
         }
@@ -71,12 +65,10 @@ class TicketComponent extends AbstractComponent {
 
     public function edit_ticket() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
-        $form = include $this->plugin->config_dir . '/ticket_meta_form.php';
 
         wp_send_json(
             TemplateUtils::render_template(
-                $this->plugin->template_dir . '/ticket_edit_modal.php',
-                array( 'form' => $form )
+                $this->plugin->template_dir . '/ticket_edit_modal.php', array( 'ticket' => $ticket )
             )
         );
     }
@@ -85,7 +77,7 @@ class TicketComponent extends AbstractComponent {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) ) {
-            $form = include $this->plugin->dir() . '/config/ticket_meta_form.php';
+            $form = include $this->plugin->config_dir . '/ticket_meta_form.php';
 
             if( $form->is_valid() ) {
                 $data = $form->data;
@@ -108,8 +100,7 @@ class TicketComponent extends AbstractComponent {
                             'success' => true,
                             'id'      => $post_id,
                             'data'    => TemplateUtils::render_template(
-                                $this->plugin->dir() . '/template-parts/ticket.php',
-                                array( 'post' => $ticket )
+                                $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
                             )
                         )
                     );
