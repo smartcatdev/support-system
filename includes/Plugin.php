@@ -4,8 +4,8 @@ namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
-use smartcat\debug\Log;
 use smartcat\mail\Mailer;
+use SmartcatSupport\component\CommentComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\TemplateComponent;
@@ -141,7 +141,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function components() {
         $components = array(
             TicketCptComponent::class,
-            TemplateComponent::class
+            TemplateComponent::class,
+            CommentComponent::class
         );
 
         if( $this->edd_active || $this->woo_active ) {

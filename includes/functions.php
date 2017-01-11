@@ -70,7 +70,7 @@ function bootstrap( $fs_context ) {
 //    );
 
 //    PostTableActions::init();
-    CommentActions::init();
+//    CommentActions::init();
 
 
 
