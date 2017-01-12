@@ -1,7 +1,12 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
+<<<<<<< HEAD:template-parts/dash.php
 use const SmartcatSupport\TEXT_DOMAIN;
+=======
+use const SmartcatSupport\PLUGIN_ID;
+
+>>>>>>> c7635e3221bef82f49ec2b6d1787698e7af87f6a:templates/dash.php
 ?>
 
 <div class="container">
@@ -16,7 +21,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>
 
+<<<<<<< HEAD:template-parts/dash.php
                 </a>
+=======
+            <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), PLUGIN_ID ); ?>
+>>>>>>> c7635e3221bef82f49ec2b6d1787698e7af87f6a:templates/dash.php
 
             <?php endif; ?>
 
@@ -34,7 +43,11 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                             <?php _e( 'Tickets', TEXT_DOMAIN ); ?>
 
+<<<<<<< HEAD:template-parts/dash.php
                         </a>
+=======
+                        <?php _e( 'Tickets', PLUGIN_ID ); ?>
+>>>>>>> c7635e3221bef82f49ec2b6d1787698e7af87f6a:templates/dash.php
 
                     </li>
 

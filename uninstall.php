@@ -4,6 +4,7 @@ namespace SmartcatSupport;
 
 include_once 'vendor/autoload.php';
 
+use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
 if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -11,6 +12,8 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 if( get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
+
+    Mailer::cleanup( true );
 
     // Trash the template page
     wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );

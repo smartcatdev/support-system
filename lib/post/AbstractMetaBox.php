@@ -2,7 +2,9 @@
 
 namespace smartcat\post;
 
-if( !class_exists( 'smartcat\post\MetaBox' ) ) :
+use smartcat\core\HookSubscriber;
+
+if( !class_exists('smartcat\post\AbstractMetaBox') ) :
 
 /**
  * Abstract base class for meta classes, automatically registers required actions
@@ -13,43 +15,24 @@ if( !class_exists( 'smartcat\post\MetaBox' ) ) :
  * @package admin
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class MetaBox {
-    /**
-     * @var string The metabox ID.
-     * @since 1.0.0
-     */
+abstract class AbstractMetaBox implements HookSubscriber {
+
     public $id;
-    
-    /**
-     * @var string The metabox title.
-     * @since 1.0.0
-     */
     public $title;
-    
-    /**
-     * @var string The associated post type.
-     * @since 1.0.0 
-     */
     public $post_type;
-    
-    /**
-     * @var string The context where the metabox should display.
-     * @since 1.0.0 
-     */
     public $context;
-    
-    /**
-     * @var string The priority of the metabox.
-     * @since 1.0.0
-     */
     public $priority;
     
     /**
-     * @param string $id        The ID of the metabox.
-     * @param string $title     The title to display above the metabox.
-     * @param string $post_type The type of post to display the metabox on.
-     * @param string $context   When to display the metabox.
-     * @param string $priority  The order in which the meta box should appear.
+     * @param array $args
+     *  $args = [
+     *      'id'            => (string) The slug id of the metabox. Required.
+     *      'title'         => (string) The title to display on the metabox. Required.
+     *      'post_type'     => (string) The post type where the metabox should be displayed. Required.
+     *      'context'       => (string) The type of settings page. Default: advanced.
+     *      'priority'      => (int)    The priority in which the metabox should display. Default: default.
+     *    ]
+     *
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
@@ -57,10 +40,14 @@ abstract class MetaBox {
         $this->id = $args['id'];
         $this->title = $args['title'];
         $this->post_type = $args['post_type'];
-        $this->context = $args['context'];
-     
-        add_action( "add_meta_boxes_{$this->post_type}", array( $this, 'install' ) );
-        add_action( 'save_post', array( $this, 'save' ), 10, 2 );
+
+        if( !empty( $args['context'] ) ) {
+            $this->context = $args['context'];
+        }
+
+        if( !empty( $args['priority'] ) ) {
+            $this->priority['priority'];
+        }
     }
 
     /**
@@ -89,25 +76,32 @@ abstract class MetaBox {
     public function uninstall() {
         remove_meta_box( $this->id, $this->post_type, $this->context );
     }
-    
+
+    public function subscribed_hooks() {
+        return array(
+            'add_meta_boxes_' . $this->post_type => array( 'install' ),
+            'save_post' => array( 'save', 10, 2 )
+        );
+    }
+
     /**
      * Callback called by WordPress when the metabox is to be outputted.
      * 
      * @abstract
-     * @param WP_Post $post The post object that the metabox gets its data from.
+     * @param \WP_Post $post The post object that the metabox gets its data from.
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public abstract function render( $post );
+    public abstract function render( \WP_Post $post );
     
     /**
      * Callback called by WordPress when the metabox is to be saved.
      * 
      * @abstract
      * @param int $post_id The ID of the post to be saved.
-     * @param WP_Post $post The post object that contains the data to be saved.
+     * @param \WP_Post $post The post object that contains the data to be saved.
      */
-    public abstract function save( $post_id, $post );
+    public abstract function save( $post_id, \WP_Post $post );
 }
 
 endif;

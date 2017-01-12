@@ -4,7 +4,7 @@ namespace smartcat\form;
 
 if( !class_exists( '\smartcat\form\TextAreaField' ) ) :
 
-class TextAreaField extends Field {
+class TextAreaField extends AbstractField {
     protected $rows;
     protected $cols;
 

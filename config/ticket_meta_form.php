@@ -5,10 +5,10 @@ use smartcat\form\Form;
 use smartcat\form\HiddenField;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\get_agents;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\util\UserUtils;
 
-$agents     = get_agents();
+$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_ID ) ) );
 $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
@@ -17,16 +17,16 @@ $form = new Form( 'meta_form' );
 $form->add_field( new HiddenField(
     array(
         'id'    => 'id',
-        'value' => $post->ID
+        'value' => $ticket->ID
     )
 
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'agent',
-        'error_msg'   => __( 'Invalid agent selected', TEXT_DOMAIN ),
-        'label'       => __( 'Assigned To', TEXT_DOMAIN ),
-        'options'     => array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + $agents,
-        'value'       => get_post_meta( $post->ID, 'agent', true ),
+        'error_msg'   => __( 'Invalid agent selected', PLUGIN_ID ),
+        'label'       => __( 'Assigned To', PLUGIN_ID ),
+        'options'     => $agents,
+        'value'       => get_post_meta( $ticket->ID, 'agent', true ),
         'constraints' => array(
             new ChoiceConstraint( array_keys( $agents ) )
         )
@@ -35,10 +35,10 @@ $form->add_field( new HiddenField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'status',
-        'error_msg'   => __( 'Invalid status selected', TEXT_DOMAIN ),
-        'label'       => __( 'Status', TEXT_DOMAIN ),
+        'error_msg'   => __( 'Invalid status selected', PLUGIN_ID ),
+        'label'       => __( 'Status', PLUGIN_ID ),
         'options'     => $statuses,
-        'value'       => get_post_meta( $post->ID, 'status', true ),
+        'value'       => get_post_meta( $ticket->ID, 'status', true ),
         'constraints' => array(
             new ChoiceConstraint( array_keys( $statuses ) )
         )
@@ -47,13 +47,15 @@ $form->add_field( new HiddenField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'priority',
-        'error_msg'   => __( 'Invalid priority selected', TEXT_DOMAIN ),
-        'label'       => __( 'Priority', TEXT_DOMAIN ),
+        'error_msg'   => __( 'Invalid priority selected', PLUGIN_ID ),
+        'label'       => __( 'Priority', PLUGIN_ID ),
         'options'     => $priorities,
-        'value'       => get_post_meta( $post->ID, 'priority', true ),
+        'value'       => get_post_meta( $ticket->ID, 'priority', true ),
         'constraints' => array(
             new ChoiceConstraint( array_keys( $priorities ) )
         )
     )
 
 ) );
+
+return $form;

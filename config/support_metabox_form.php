@@ -4,10 +4,10 @@ use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\get_agents;
-use const SmartcatSupport\TEXT_DOMAIN;
+use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\util\UserUtils;
 
-$agents     = array( '' => __( 'Unassigned', TEXT_DOMAIN ) ) + get_agents();
+$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_ID ) ) );
 $statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
 
@@ -16,7 +16,7 @@ $form = new Form( 'support_metabox' );
 $form->add_field( new SelectBoxField(
     array(
         'id'            => 'agent',
-        'label'         => __( 'Assigned', TEXT_DOMAIN ),
+        'label'         => __( 'Assigned', PLUGIN_ID ),
         'options'       => $agents,
         'value'         => get_post_meta( $post->ID, 'agent', true ),
         'constraints'   => array(
@@ -27,7 +27,7 @@ $form->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'status',
-        'label'         => __( 'Status', TEXT_DOMAIN ),
+        'label'         => __( 'Status', PLUGIN_ID ),
         'options'       => $statuses,
         'value'         => get_post_meta( $post->ID, 'status', true ),
         'constraints'   => array(
@@ -38,7 +38,7 @@ $form->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'priority',
-        'label'       => __( 'Priority', TEXT_DOMAIN ),
+        'label'       => __( 'Priority', PLUGIN_ID ),
         'options'     => $priorities,
         'value'       => get_post_meta( $post->ID, 'priority', true ),
         'constraints' => array(
