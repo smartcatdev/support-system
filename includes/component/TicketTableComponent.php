@@ -151,7 +151,6 @@ class TicketTableComponent extends AbstractComponent {
     public function subscribed_hooks() {
         return array(
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
-            'wp_ajax_support_refresh_tickets' => array( 'list_tickets' ),
             'support_tickets_table_column_data' => array( 'table_data', 10, 2 ),
             'support_tickets_table_filters' => array( 'filter_fields' ),
             'support_ticket_table_query_vars' => array( 'filter_tickets' )
