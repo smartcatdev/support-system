@@ -38,7 +38,7 @@
     },
 
     app.submit_form = function (e) {
-        
+
         e.preventDefault();
 
         var form = $(this);
@@ -182,7 +182,7 @@
     },
 
     app.remove_filter = function() {
-        set_session_obj('tickets_filter', []);
+        app.set_session_obj('filter_active', true);
 
         $('#ticket_filter .form_field').each(function () {
             $(this).val('');
@@ -192,21 +192,19 @@
     },
 
     app.filter_tickets = function (trigger) {
-        if(trigger.hasClass('active')) {
-            trigger.removeClass('active');
+        if(app.get_session_obj('filter_active', false)) {
             app.remove_filter();
+            trigger.removeClass('active');
         } else {
-            trigger.addClass('active');
-
-            // Save this fore future refreshes
-            set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
+            app.set_session_obj('filter_active', true);
             app.refresh_tickets();
+            trigger.addClass('active');
         }
     },
 
     app.refresh_tickets = function () {
         if( $('#support_tickets_table').length > 0 ) {
-            var data = get_session_obj('tickets_filter', []);
+            var data = $('#ticket_filter').serializeArray();
 
             $('#ticket_filter').find('.refresh').addClass('rotate');
 
@@ -248,9 +246,9 @@
     app.toggle_register_form = function () {
         $('#login_form').toggle();
         $('#register_form').toggle();
-    }
+    },
 
-    function get_session_obj(key, default_value) {
+    app.get_session_obj = function (key, default_value) {
         var data = default_value;
 
         try{
@@ -260,9 +258,9 @@
         }
 
         return data;
-    }
+    },
 
-    function set_session_obj(key, value) {
+    app.set_session_obj = function (key, value) {
         try {
             window.sessionStorage[ key ] = JSON.stringify(value);
         } catch (ex) {
