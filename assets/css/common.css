@@ -9,7 +9,7 @@ Description: Styles for frontend application
 ## Navbar
 ## Sidebar
 ## Main
-
+## Datatable
 */
 
 /*
@@ -18,6 +18,12 @@ Description: Styles for frontend application
 
 body{
     font-family: 'Open Sans', sans-serif !important;
+}
+
+a:hover,
+a:focus,
+a:visited{
+    text-decoration: none;
 }
 
 .button-primary,
@@ -31,6 +37,15 @@ input[type="submit"]{
     color: #fff;
     border: none;
     border-radius: 3px;
+}
+
+.button-primary:hover,
+.button-primary:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus{
+    color: #fff;
+    text-decoration: none;
+    background: #0088bf;
 }
 
 .trigger {
@@ -137,7 +152,7 @@ input[type="submit"]{
 */
 #navbar{ 
     background: #009DDC;
-    margin-bottom: 30px;
+    margin-bottom: 0;
 }
 
 #navbar .row-table-cell{ 
@@ -167,9 +182,85 @@ input[type="submit"]{
 ## Main
 */
 .ui-tabs .ui-tabs-nav {
-    padding-left: 0;
+    
+    background: #009DDC;
+    padding-top: 10px;
+    border-radius: 3px;
 }
 
 .ui-tabs .ui-tabs-nav li:first-child {
     margin-left: 0;
+}
+
+#support-dashboard-page {
+    background: #e9f0f9;
+    padding: 20px 0;
+}
+
+/**
+## Datatable
+*/
+
+table {
+    color: #6d6d6d;
+}
+
+table th {
+    color: #009DDC;
+    padding: 8px 10px !important;
+}
+
+table.dataTable.display tbody td{
+    border-top: 1px solid #efefef !important;
+    font-size: 12px;
+}
+
+table.dataTable thead th,
+table.dataTable thead td,
+table.dataTable.no-footer{
+    border-bottom: 1px solid #e2e2e2 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    color: #009DDC !important;
+    background: #fff !important;
+    border: 1px solid #efefef !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: #009DDC !important;
+    color: #fff;
+    border: 1px solid #efefef !important;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    outline: none !important;
+    border: 1px solid #e2e2e2 !important;
+}
+
+#support_system .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #fff !important;
+}
+
+#support_system table .trigger {
+    background: none;
+    color: none;
+}
+
+#support_system table .action-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #414141;
+    padding: 0;
+    font-size: 16px;
+    background: #009DDC;
+    color: #fff;
+    margin-right: 3px;
+    border-radius: 3px;
+}
+
+#support_system table .action-icon i {
+    line-height: 30px;
 }
