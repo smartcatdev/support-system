@@ -41,8 +41,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function activate() {
-        do_action( $this->id . '_setup' );
-
         $roles = array(
             array( add_role( 'support_admin', __( 'Support Admin', PLUGIN_ID ) ), true ),
             array( add_role( 'support_agent', __( 'Support Agent', PLUGIN_ID ) ), true ),
@@ -57,6 +55,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
 
         $this->create_email_templates();
+        $this->setup_template_page();
     }
 
     public function deactivate() {
@@ -131,7 +130,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
-            'mailer_text_domain' => array( 'mailer_text_domain' )
+            'mailer_text_domain' => array( 'mailer_text_domain' ),
+            'template_include' => array( 'swap_template' ),
+            'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
         );
     }
 
@@ -146,7 +147,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function components() {
         $components = array(
             TicketCptComponent::class,
-            TemplateComponent::class,
             TicketComponent::class,
             TicketTableComponent::class,
             CommentComponent::class
@@ -161,6 +161,22 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
 
         return $components;
+    }
+
+    public function swap_template( $template ) {
+        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
+            $template = $this->template_dir . '/app.php';
+        }
+
+        return $template;
+    }
+
+    public function restore_template( $val ) {
+        if( $val == 'on' ) {
+            $this->setup_template_page();
+        }
+
+        return '';
     }
 
     private function create_email_templates() {
@@ -192,6 +208,31 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             if( !empty( $id ) ) {
                 update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
             }
+        }
+    }
+
+    private function setup_template_page() {
+        $post_id = null;
+        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
+
+        if( empty( $post ) ) {
+            $post_id = wp_insert_post(
+                array(
+                    'post_type' =>  'page',
+                    'post_status' => 'publish',
+                    'post_title' => __( 'Support', PLUGIN_ID )
+                )
+            );
+        } else if( $post->post_status == 'trash' ) {
+            wp_untrash_post( $post->ID );
+
+            $post_id = $post->ID;
+        } else {
+            $post_id = $post->ID;
+        }
+
+        if( !empty( $post_id ) ) {
+            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
         }
     }
 }

@@ -48,6 +48,7 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
              * Encapsulate the component loader code.
              */
             add_action( 'plugins_loaded', function () use ( $instance ) {
+
                 foreach( $instance->components() as $class ) {
                     if( is_a( $class, Component::class, true ) ) {
                         $component = new $class();
