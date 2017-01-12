@@ -21,8 +21,6 @@
                 console.log('result: ' + result + ' status: ' + status + ' xhr:' + xhr);
             }
         });
-
-        // $.post(app.ajaxURL, $.param(data), callback);
     },
 
     app.tinymce = function (selector) {
@@ -46,7 +44,7 @@
         var form = $(this);
 
         app.ajax(form.data('action'), form.serializeArray(), function (response) {
-            
+
             form.find('.error_field').removeClass('error_field');
             form.find('.error_msg').remove();
 
@@ -213,13 +211,11 @@
             $('#ticket_filter').find('.refresh').addClass('rotate');
 
             //Get the data from the last filter
-            app.ajax('support_refresh_tickets', data, function (response) {
-                if (response.success) {
-                    $('#ticket_filter').find('.refresh').removeClass('rotate');
-                    $('#support_tickets_table_wrapper').replaceWith(response.data);
+            app.ajax('support_list_tickets', data, function (response) {
+                $('#ticket_filter').find('.refresh').removeClass('rotate');
+                $('#tickets_overview').replaceWith(response);
 
-                    app.init_table();
-                }
+                app.init_table();
             });
         } else {
             app.ajax('support_list_tickets', null, function (response) {

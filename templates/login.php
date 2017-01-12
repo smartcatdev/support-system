@@ -1,9 +1,10 @@
 <?php
 
+use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\register_form;
-use SmartcatSupport\form\Form;
-use const SmartcatSupport\TEXT_DOMAIN;
+use SmartcatSupport\Plugin;
+use const SmartcatSupport\PLUGIN_ID;
+
 ?>
 
 <?php $signups = get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ); ?>
@@ -24,7 +25,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
 
                     <button class="trigger" data-action="toggle_register_form">
 
-                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_ID ); ?>
 
                     </button>
 
@@ -40,19 +41,19 @@ use const SmartcatSupport\TEXT_DOMAIN;
                           data-action="support_register_user"
                           data-after="post_user_register">
 
-                        <?php Form::form_fields( register_form() ); ?>
+                        <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/register_user_form.php' ); ?>
 
                         <div class="button_wrapper">
 
                             <button class="trigger" data-action="toggle_register_form">
 
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), PLUGIN_ID ); ?>
 
                             </button>
 
                             <input class="button"
-                                   type="submit"
-                                   value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), TEXT_DOMAIN ); ?>"/>
+                                type="submit"
+                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), PLUGIN_ID ); ?>"/>
 
                         </div>
 
@@ -65,7 +66,7 @@ use const SmartcatSupport\TEXT_DOMAIN;
         </div>
         
         <div id="support-login-disclaimer">
-            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), TEXT_DOMAIN ); ?>
+            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), PLUGIN_ID ); ?>
         </div>
         
     </div>

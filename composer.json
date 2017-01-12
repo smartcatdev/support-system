@@ -1,7 +1,8 @@
 {
     "autoload" : {
         "psr-4" : {
-            "SmartcatSupport\\" : "includes/"
+            "SmartcatSupport\\": "includes/",
+            "smartcat\\": "lib/"
         }
     }
 }

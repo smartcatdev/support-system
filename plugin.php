@@ -7,7 +7,6 @@
 
 namespace SmartcatSupport;
 
-
 // Die if access directly
 if( !defined( 'ABSPATH' ) ) {
     die();
@@ -15,13 +14,13 @@ if( !defined( 'ABSPATH' ) ) {
 
 
 // Plugin-wide constant declarations
-const PLUGIN_VERSION = 1;
-const TEXT_DOMAIN = 'ca.smartcat.support';
+const PLUGIN_VERSION = '1.0';
+const PLUGIN_ID = 'smartcat_support';
 
 
 // Manual includes
 include_once 'vendor/autoload.php';
-include_once 'functions.php';
 
 
-init( __FILE__ );
+// Boot up the container
+Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );

@@ -7,39 +7,24 @@ namespace Composer\Autoload;
 class ComposerStaticInit4945093086bf31695a3648589ed85b77
 {
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'smartcat\\' => 9,
+        ),
         'S' => 
         array (
             'SmartcatSupport\\' => 16,
         ),
-        'I' => 
-        array (
-            'Illuminate\\Contracts\\' => 21,
-            'Illuminate\\Container\\' => 21,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'smartcat\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib',
+        ),
         'SmartcatSupport\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',
-        ),
-        'Illuminate\\Contracts\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/contracts',
-        ),
-        'Illuminate\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/container',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'Pimple' => 
-            array (
-                0 => __DIR__ . '/..' . '/pimple/pimple/src',
-            ),
         ),
     );
 
@@ -48,7 +33,6 @@ class ComposerStaticInit4945093086bf31695a3648589ed85b77
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4945093086bf31695a3648589ed85b77::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4945093086bf31695a3648589ed85b77::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4945093086bf31695a3648589ed85b77::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
