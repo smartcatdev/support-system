@@ -37,7 +37,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         Mailer::init( $this );
 
-        include_once $this->dir . '/lib/tgm/TGM_Plugin_Activation.php';
+        include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
     public function activate() {
