@@ -36,11 +36,7 @@ use const SmartcatSupport\PLUGIN_ID;
 
                             <?php _e( 'Tickets', PLUGIN_ID ); ?>
 
-                            
                         </a>
-
-                        <?php _e( 'Tickets', PLUGIN_ID ); ?>
-
 
                     </li>
 
