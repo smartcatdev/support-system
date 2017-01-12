@@ -11,6 +11,7 @@ use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\TemplateComponent;
 use SmartcatSupport\component\TicketComponent;
 use SmartcatSupport\component\TicketCptComponent;
+use SmartcatSupport\component\TicketTableComponent;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\UserUtils;
 
@@ -147,6 +148,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             TicketCptComponent::class,
             TemplateComponent::class,
             TicketComponent::class,
+            TicketTableComponent::class,
             CommentComponent::class
         );
 

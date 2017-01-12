@@ -3,7 +3,10 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
+use SmartcatSupport\descriptor\Option;
+use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\util\TemplateUtils;
+use SmartcatSupport\util\UserUtils;
 
 class TicketComponent extends AbstractComponent {
 
@@ -124,7 +127,7 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_view_ticket' => array( 'view_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
-            'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
+            'wp_ajax_support_update_meta' => array( 'update_meta_field' )
         );
     }
 
