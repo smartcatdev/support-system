@@ -23,7 +23,6 @@ use const SmartcatSupport\TEXT_DOMAIN;
         </div>
         
         <div id="support_system" class="col-sm-12">
-
             
             <div class="tabs">
 

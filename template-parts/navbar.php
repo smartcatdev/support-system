@@ -17,7 +17,6 @@ $user = wp_get_current_user();
                             <span class="current-time"><?php echo current_time( 'H:i a' ); ?></span>
                         </a>
 
-
                     </div>
                 </div>
                 <div class="col-sm-6 alignright row-table">
