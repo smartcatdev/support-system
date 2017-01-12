@@ -1,6 +1,8 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
+use const SmartcatSupport\PLUGIN_ID;
 
 ?>
 
@@ -12,7 +14,7 @@ use SmartcatSupport\descriptor\Option;
 
             <?php foreach ( $comments as $comment ) : ?>
 
-                <?php include 'comment.php'; ?>
+                <?php include Plugin::plugin_dir( PLUGIN_ID ) . '/templates/comment.php'; ?>
 
             <?php endforeach; ?>
 

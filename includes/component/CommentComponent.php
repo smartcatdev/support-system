@@ -79,7 +79,7 @@ class CommentComponent extends AbstractComponent {
 
     public function list_comments() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
-
+          
         if( !empty( $ticket ) ) {
             wp_send_json_success(
                 TemplateUtils::render_template(
