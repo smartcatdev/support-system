@@ -33,7 +33,7 @@ $user = wp_get_current_user();
                                 <li>
                                     <a href="#" class="alignright background-secondary hover menu-item">
                                         <span class="glyphicon glyphicon-cog"></span>
-                                        <?php _e( 'Settings', \SmartcatSupport\TEXT_DOMAIN ); ?>
+                                        <?php _e( 'Settings', SmartcatSupport\PLUGIN_ID ); ?>
                                     </a>    
                                 </li>
 
@@ -42,7 +42,7 @@ $user = wp_get_current_user();
                                 <li>
                                     <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">
                                         <span class="glyphicon-log-out glyphicon"></span>
-                                        <?php _e( 'Logout', \SmartcatSupport\TEXT_DOMAIN ); ?>
+                                        <?php _e( 'Logout', SmartcatSupport\PLUGIN_ID); ?>
                                     </a>    
                                 </li>
                             </ul>

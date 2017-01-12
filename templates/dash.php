@@ -1,12 +1,9 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-<<<<<<< HEAD:template-parts/dash.php
-use const SmartcatSupport\TEXT_DOMAIN;
-=======
 use const SmartcatSupport\PLUGIN_ID;
 
->>>>>>> c7635e3221bef82f49ec2b6d1787698e7af87f6a:templates/dash.php
+
 ?>
 
 <div class="container">
@@ -19,13 +16,9 @@ use const SmartcatSupport\PLUGIN_ID;
 
                 <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket' ?>"  rel="modal:open" class="button">
 
-                    <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                    <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), PLUGIN_ID ); ?>
 
-<<<<<<< HEAD:template-parts/dash.php
                 </a>
-=======
-            <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), PLUGIN_ID ); ?>
->>>>>>> c7635e3221bef82f49ec2b6d1787698e7af87f6a:templates/dash.php
 
             <?php endif; ?>
 
@@ -41,13 +34,13 @@ use const SmartcatSupport\PLUGIN_ID;
 
                         <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
 
-                            <?php _e( 'Tickets', TEXT_DOMAIN ); ?>
+                            <?php _e( 'Tickets', PLUGIN_ID ); ?>
 
-<<<<<<< HEAD:template-parts/dash.php
+                            
                         </a>
-=======
+
                         <?php _e( 'Tickets', PLUGIN_ID ); ?>
->>>>>>> c7635e3221bef82f49ec2b6d1787698e7af87f6a:templates/dash.php
+
 
                     </li>
 
