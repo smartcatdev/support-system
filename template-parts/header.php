@@ -7,6 +7,7 @@
         <link href="<?php echo esc_url( SUPPORT_URL ) . 'assets/css/common.css' ?>" rel="stylesheet">
 
         <?php // temporarily add this style sheet back in ?>
+        <link href="<?php echo esc_url( SUPPORT_URL ) . 'assets/icons.css' ?>" rel="stylesheet">
         <link href="<?php echo esc_url( SUPPORT_URL ) . 'assets/css/style.css' ?>" rel="stylesheet">
 
         <link href="<?php echo esc_url( SUPPORT_URL ) . 'assets/lib/datatables/datatables.min.css' ?>" rel="stylesheet"/>

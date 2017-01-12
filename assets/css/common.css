@@ -38,6 +38,21 @@ input[type="submit"]{
     color: #fff;
 }
 
+.alignright{
+    text-align: right;
+}
+
+
+.row-table{
+    display: table;
+}
+
+.row-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
 /*
 ## Login page
 */
@@ -121,5 +136,40 @@ input[type="submit"]{
 ## Navbar 
 */
 #navbar{ 
-    background: #009DDC 
+    background: #009DDC;
+    margin-bottom: 30px;
+}
+
+#navbar .row-table-cell{ 
+    height: 50px; 
+}
+
+#navbar .dropdown-wrapper{
+    position: relative;
+}
+
+#navbar ul.dropdown-menu{
+    right: 0;
+    left: auto;
+    max-width: 200px;
+}
+
+#navbar a {
+    color: #fff;
+}
+
+#navbar ul.dropdown-menu a {
+    color: #414141;
+    text-align: left;
+}
+
+/**
+## Main
+*/
+.ui-tabs .ui-tabs-nav {
+    padding-left: 0;
+}
+
+.ui-tabs .ui-tabs-nav li:first-child {
+    margin-left: 0;
 }

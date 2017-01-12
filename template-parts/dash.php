@@ -2,37 +2,50 @@
 
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\TEXT_DOMAIN;
-
 ?>
 
-<div id="support_system">
+<div class="container">
 
-    <?php if( current_user_can( 'create_support_tickets' ) ) : ?>
+    <div class="row">
+        
+        <div class="col-sm-12">
+        
+            <?php if ( current_user_can( 'create_support_tickets' ) ) : ?>
 
-        <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket'?>"  rel="modal:open" class="button">
+                <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket' ?>"  rel="modal:open" class="button">
 
-            <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>
+                    <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), TEXT_DOMAIN ); ?>
 
-        </a>
+                </a>
 
-    <?php endif; ?>
+            <?php endif; ?>
 
-    <div class="tabs">
+        </div>
+        
+        <div id="support_system" class="col-sm-12">
 
-            <ul>
+            
+            <div class="tabs">
 
-                <li>
+                <ul>
 
-                    <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
+                    <li>
 
-                        <?php _e( 'Tickets', TEXT_DOMAIN ); ?>
+                        <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
 
-                    </a>
+                            <?php _e( 'Tickets', TEXT_DOMAIN ); ?>
 
-                </li>
+                        </a>
 
-            </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
