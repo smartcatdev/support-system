@@ -156,7 +156,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             $components[] = ProductComponent::class;
         }
 
-        if( get_option( Option::ALLOW_SIGNUPS ) == 'on' ) {
+        if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
             $components[] = RegistrationComponent::class;
         }
 
