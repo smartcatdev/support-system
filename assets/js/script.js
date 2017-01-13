@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
 
     // Bind events
     $(document).on('submit', '.support_form', SupportSystem.submit_form);
-
+    $(document).on('change', '.meta_form', SupportSystem.submit_form);
     $(window).resize(SupportSystem.resize);
 
     $(document).on('click', '.trigger', function (e) {

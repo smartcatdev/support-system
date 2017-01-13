@@ -23,9 +23,7 @@ class CommentComponent extends AbstractComponent {
                 wp_send_json_success(
                     TemplateUtils::render_template(
                         $this->plugin->template_dir . '/comment.php',
-                        array(
-                            'comment' => get_comment( $comment->comment_ID )
-                        )
+                        array( 'comment' => get_comment( $comment->comment_ID ) )
                     )
                 );
             } else {
@@ -38,7 +36,6 @@ class CommentComponent extends AbstractComponent {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
-
             $response = array( 'success' => true, 'ticket_updated' => false );
             $user = wp_get_current_user();
 

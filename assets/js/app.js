@@ -141,7 +141,7 @@
         tinyMCE.activeEditor.setContent('');
 
         if(response.ticket_updated) {
-            $('.ticket[data-id="' + response.ticket_id + '"]').replaceWith(response.ticket);
+            $('.ticket[data-id="' + response.ticket_id + '"]').parent().replaceWith(response.ticket);
             app.refresh_tickets();
         }
 
