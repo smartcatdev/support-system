@@ -21,11 +21,43 @@ $admin = new TabbedSettingsPage(
         'tabs'          => array(
             'general'     => __( 'General', PLUGIN_ID ),
             'display'     => __( 'Display', PLUGIN_ID ),
+            'appearance'  => __( 'Appearance', PLUGIN_ID ),
             'email'       => __( 'Email', PLUGIN_ID ),
             'advanced'    => __( 'Advanced', PLUGIN_ID )
         )
     )
 );
+
+$appearance = new SettingsSection( 'appearance', __( 'Appearance', PLUGIN_ID ) );
+
+$appearance->add_field( new TextField(
+    array(
+        'id'            => 'support_primary_color',
+        'option'        => Option::PRIMARY_COLOR,
+        'value'         => get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ),
+        'label'         => __( 'Primary color', PLUGIN_ID ),
+        'validators'    => array( new TextFilter() )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_hover_color',
+        'option'        => Option::HOVER_COLOR,
+        'value'         => get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ),
+        'label'         => __( 'Hover color', PLUGIN_ID ),
+        'validators'    => array( new TextFilter() )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_secondary_color',
+        'option'        => Option::SECONDARY_COLOR,
+        'value'         => get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ),
+        'label'         => __( 'Secondary color', PLUGIN_ID ),
+        'validators'    => array( new TextFilter() )
+    )
+
+) );
 
 $text = new SettingsSection( 'text', __( 'Text & Labels', PLUGIN_ID ) );
 
@@ -146,7 +178,7 @@ $general->add_field( new TextField(
 
 $email = new SettingsSection( 'email', __( 'Email Templates', PLUGIN_ID ) );
 
-$email_templates = Mailer::list_templates();
+$email_templates = array( '' => __( 'Select an email template', PLUGIN_ID ) ) + Mailer::list_templates();
 
 $email->add_field( new SelectBoxField(
     array(
@@ -184,6 +216,16 @@ $advanced->add_field( new CheckBoxField(
 
 ) )->add_field( new CheckBoxField(
     array(
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::DEV_MODE,
+        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
+        'label'         => __( 'Developer Mode', PLUGIN_ID ),
+        'desc'          => __( 'Enable Development functionality', PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new CheckBoxField(
+    array(
         'id'            => 'support_restore_template',
         'option'        => Option::RESTORE_TEMPLATE,
         'value'         => '',
@@ -198,5 +240,6 @@ $admin->add_section( $general, 'general' );
 $admin->add_section( $email, 'email' );
 $admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'display' );
+$admin->add_section( $appearance, 'appearance' );
 
 return $admin;

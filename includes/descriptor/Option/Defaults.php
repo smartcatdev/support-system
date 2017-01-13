@@ -19,8 +19,14 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
+    const DEV_MODE = '';
+
+    /**
+     * @since 1.0.0
+     */
     const STATUSES = array(
         'new'           => 'New',
+        'viewed'        => 'Viewed',
         'in_progress'   => 'In Progress',
         'resolved'      => 'Resolved',
         'waiting'       => 'Waiting',
@@ -111,4 +117,19 @@ final class Defaults {
      * @since 1.0.0
      */
     const LOGIN_LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
+
+    /**
+     * @since 1.0.0
+     */
+    const PRIMARY_COLOR = '1abc9c';
+
+    /**
+     * @since 1.0.0
+     */
+    const SECONDARY_COLOR = '34495e';
+
+    /**
+     * @since 1.0.0
+     */
+    const HOVER_COLOR = '48c9b0';
 }

@@ -2,9 +2,12 @@
 
 use SmartcatSupport\Plugin;
 use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\descriptor\Option;
 
 $url = Plugin::plugin_url( PLUGIN_ID );
-
+$primary_color = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
+$hover_color = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
+$secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
 ?>
 
 <html>
@@ -26,5 +29,34 @@ $url = Plugin::plugin_url( PLUGIN_ID );
         <script>SupportSystem = { ajaxUrl : "<?php echo admin_url( 'admin-ajax.php' ); ?>" };</script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/script.js' ?>" ></script>
+        
+        <style type="text/css">
+            
+            /* Primary color */
+            
+            .button-primary,
+            .trigger,
+            input[type="submit"]{
+                background: #<?php echo $primary_color; ?>;
+            }
+            
+            table th {
+                color: #<?php echo $primary_color; ?>;
+            }
+            
+            #support-login-wrapper input[type="text"]:focus,
+            #support-login-wrapper input[type="email"]:focus,
+            #support-login-wrapper input[type="password"]:focus{
+                border: 1px solid #<?php echo $primary_color; ?>;
+            }
+            
+            /* Secondary color */
+            #navbar,
+            .ui-tabs .ui-tabs-nav{
+                background: #<?php echo $secondary_color; ?>;
+            }
+            
+        </style>
+        
     </head>
     <body>

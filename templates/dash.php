@@ -5,46 +5,51 @@ use const SmartcatSupport\PLUGIN_ID;
 
 
 ?>
+<div id="support-dashboard-page">
+    
+    <div class="container">
 
-<div class="container">
+        <div class="row">
 
-    <div class="row">
-        
-        <div class="col-sm-12">
-        
-            <?php if ( current_user_can( 'create_support_tickets' ) ) : ?>
+            <div class="alignright">
 
-                <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket' ?>"  rel="modal:open" class="button">
+                <?php if ( current_user_can( 'create_support_tickets' ) ) : ?>
 
-                    <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), PLUGIN_ID ); ?>
+                    <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket' ?>"  rel="modal:open" class="button button-primary">
+                        
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), PLUGIN_ID ); ?>
 
-                </a>
+                    </a>
 
-            <?php endif; ?>
-
-        </div>
-        
-        <div id="support_system" class="col-sm-12">
+                <?php endif; ?>
+                
+                <div class="clear"></div>
+                
+            </div>
             
-            <div class="tabs">
+            
 
-                <ul>
+            <div id="support_system" class="">
 
-                    <li>
+                <div class="tabs">
 
-                        <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
+                    <ul>
 
-                            <?php _e( 'Tickets', PLUGIN_ID ); ?>
+                        <li>
 
-                            
-                        </a>
+                            <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
 
-                        <?php _e( 'Tickets', PLUGIN_ID ); ?>
+                                <?php _e( 'Tickets', PLUGIN_ID ); ?>
 
 
-                    </li>
+                            </a>
 
-                </ul>
+                        </li>
+
+                    </ul>
+
+                </div>
 
             </div>
 
@@ -53,4 +58,3 @@ use const SmartcatSupport\PLUGIN_ID;
     </div>
 
 </div>
-

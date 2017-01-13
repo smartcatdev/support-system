@@ -87,11 +87,11 @@ class TicketTableComponent extends AbstractComponent {
                 echo '<div class="actions">';
 
                 if( current_user_can( 'edit_others_tickets' ) ) {
-                    echo '<a style="display: table; width: 100%;" href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $ticket->ID . '" ' .
-                         'rel="modal:open"><i class="left icon-pencil"></i></a>';
+                    echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $ticket->ID . '" ' .
+                         'rel="modal:open" class="action-icon"><i class="left icon-pencil"></i></a>';
                 }
 
-                echo '<i class="right trigger icon-bubbles" data-action="view_ticket"></i></div>';
+                echo '<i class="right trigger icon-bubbles action-icon" data-action="view_ticket"></i></div>';
                 break;
         }
     }

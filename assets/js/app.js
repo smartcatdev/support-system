@@ -38,7 +38,7 @@
     },
 
     app.submit_form = function (e) {
-        
+
         e.preventDefault();
 
         var form = $(this);
@@ -111,6 +111,8 @@
                 if (response.success) {
                     tab.html(response.data);
 
+                    app.refresh_tickets();
+
                     app.ajax('support_ticket_comments', {id: row.id}, function (response) {
                         if (response.success) {
                             tab.find('.support_ticket').parent().append(response.data);
@@ -137,7 +139,13 @@
 
     app.post_comment_submit = function (response, form) {
         tinyMCE.activeEditor.setContent('');
-        form.parents('.comment_section').find('.comments').append(response.data);
+
+        if(response.ticket_updated) {
+            $('.ticket[data-id="' + response.ticket_id + '"]').replaceWith(response.ticket);
+            app.refresh_tickets();
+        }
+
+        form.parents('.comment_section').find('.comments').append(response.comment);
     },
 
     app.post_comment_update = function (response, form) {
@@ -182,7 +190,7 @@
     },
 
     app.remove_filter = function() {
-        set_session_obj('tickets_filter', []);
+        app.set_session_obj('filter_active', true);
 
         $('#ticket_filter .form_field').each(function () {
             $(this).val('');
@@ -191,22 +199,18 @@
         app.refresh_tickets();
     },
 
-    app.filter_tickets = function (trigger) {
-        if(trigger.hasClass('active')) {
-            trigger.removeClass('active');
+    app.filter_tickets = function () {
+        if(app.get_session_obj('filter_active', false)) {
             app.remove_filter();
         } else {
-            trigger.addClass('active');
-
-            // Save this fore future refreshes
-            set_session_obj('tickets_filter', $('#ticket_filter').serializeArray());
+            app.set_session_obj('filter_active', true);
             app.refresh_tickets();
         }
     },
 
     app.refresh_tickets = function () {
         if( $('#support_tickets_table').length > 0 ) {
-            var data = get_session_obj('tickets_filter', []);
+            var data = $('#ticket_filter').serializeArray();
 
             $('#ticket_filter').find('.refresh').addClass('rotate');
 
@@ -240,7 +244,7 @@
         });
 
         $('#support_tickets_table').DataTable({
-            // responsive: true,
+//             responsive: true,
             columns: cols
         });
     },
@@ -248,9 +252,9 @@
     app.toggle_register_form = function () {
         $('#login_form').toggle();
         $('#register_form').toggle();
-    }
+    },
 
-    function get_session_obj(key, default_value) {
+    app.get_session_obj = function (key, default_value) {
         var data = default_value;
 
         try{
@@ -260,9 +264,9 @@
         }
 
         return data;
-    }
+    },
 
-    function set_session_obj(key, value) {
+    app.set_session_obj = function (key, value) {
         try {
             window.sessionStorage[ key ] = JSON.stringify(value);
         } catch (ex) {

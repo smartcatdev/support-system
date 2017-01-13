@@ -24,6 +24,11 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const DEV_MODE = 'smartcat_support_dev-mode';
+
+    /**
+     * @since 1.0.0
+     */
     const STATUSES = 'smartcat_support_statuses';
 
     /**
@@ -120,4 +125,19 @@ final class Option {
      * @since 1.0.0
      */
     const CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
+
+    /**
+     * @since 1.0.0
+     */
+    const PRIMARY_COLOR = 'smartcat_support_primary-color';
+
+    /**
+     * @since 1.0.0
+     */
+    const SECONDARY_COLOR = 'smartcat_support_secondary-color';
+
+    /**
+     * @since 1.0.0
+     */
+    const HOVER_COLOR = 'smartcat_support_hover-color';
 }

@@ -32,9 +32,7 @@ table.collapsible tr {
 }
 
 #support_system {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+    background: #fff;
 }
 
 /*** SUPPORT CARD *************************************************************/
@@ -106,8 +104,8 @@ table.collapsible tr {
 }
 
 .ui-tabs .ui-tabs-nav {
-    height: 40px;
-    margin: 10px 20px;
+    height: 50px;
+    margin-top: 15px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -186,7 +184,7 @@ table.collapsible tr {
     text-align: center;
 }
 
-.button {
+/*.button {
     padding: 5px 10px;
     margin-top: 20px;
     color: #fff;
@@ -194,7 +192,7 @@ table.collapsible tr {
     width: 97%;
     height: 40px;
     background-color: #378ccd;
-}
+}*/
 
 .button[disabled] {
     opacity: 0.75;
@@ -421,10 +419,10 @@ table.collapsible tr {
     }
 }
 
-#support_tickets_table .actions i {
+/*#support_tickets_table .actions i {
     color: #fff;
     height: 30px;
-    width: 50%;
+    width: 30px;
     display: table-cell;
     vertical-align: middle;
 }
@@ -435,13 +433,13 @@ table.collapsible tr {
 
 #support_tickets_table .actions i.left {
     border-radius: 8px 0 0 8px;
-}
+}*/
 
-#support_tickets_table .actions i.right {
+/*#support_tickets_table .actions i.right {
     border-radius: 0 8px 8px 0;
-}
+}*/
 
-#support_tickets_table .actions {
+/*#support_tickets_table .actions {
     width :80%;
     margin: 0 auto;
     text-align: center;
@@ -449,8 +447,8 @@ table.collapsible tr {
     border-radius: 8px;
     display: table;
 
-}
+}*/
 
 .modal {
-    border-radius: 2px;
+    border-radius: 3px;
 }
