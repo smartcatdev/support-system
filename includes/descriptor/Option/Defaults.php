@@ -96,12 +96,12 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = 'on';
+    const EDD_INTEGRATION = '';
 
     /**
      * @since 1.0.0
      */
-    const WOO_INTEGRATION = 'on';
+    const WOO_INTEGRATION = '';
 
     /**
      * @since 1.0.0

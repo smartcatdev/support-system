@@ -3,7 +3,6 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\debug\Log;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\UserUtils;
 
