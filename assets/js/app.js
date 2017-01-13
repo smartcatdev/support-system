@@ -8,7 +8,7 @@
                 data['action'] = action;
             }
         } else {
-            data = {action: action}
+            data = {action: action};
         }
 
         $.ajax({
