@@ -8,15 +8,19 @@ use const SmartcatSupport\PLUGIN_ID;
 
 <div class="support_ticket">
 
-    <div>
+    <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
 
-        <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
+        <div>
 
-            <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/ticket_meta_form.php' ); ?>
+            <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
 
-        </form>
+                <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/ticket_meta_form.php' ); ?>
 
-    </div>
+            </form>
+
+        </div>
+
+    <?php endif; ?>
 
     <div class="ticket support_card" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
 
