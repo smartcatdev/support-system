@@ -91,7 +91,7 @@ class TicketComponent extends AbstractComponent {
 
                 $post_id = wp_update_post( array(
                     'ID'          => $data['id'],
-                    'post_author' => null,
+                    'post_author' => $ticket->post_author,
                     'post_date'   => current_time( 'mysql' )
                 ) );
 
