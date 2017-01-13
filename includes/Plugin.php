@@ -8,6 +8,7 @@ use smartcat\mail\Mailer;
 use SmartcatSupport\component\CommentComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
+use SmartcatSupport\component\SettingsComponent;
 use SmartcatSupport\component\TemplateComponent;
 use SmartcatSupport\component\TicketComponent;
 use SmartcatSupport\component\TicketCptComponent;
@@ -68,6 +69,16 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         Mailer::cleanup();
 
         do_action( $this->id . '_cleanup' );
+
+        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+            $options = new \ReflectionClass( Option::class );
+
+            foreach( $options->getConstants() as $option ) {
+                delete_option( $option );
+            }
+
+            update_option( Option::DEV_MODE, 'on' );
+        }
     }
 
     public function admin_enqueue() {
@@ -149,7 +160,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             TicketCptComponent::class,
             TicketComponent::class,
             TicketTableComponent::class,
-            CommentComponent::class
+            CommentComponent::class,
+            SettingsComponent::class
         );
 
         if( $this->edd_active || $this->woo_active ) {

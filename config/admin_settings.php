@@ -184,6 +184,16 @@ $advanced->add_field( new CheckBoxField(
 
 ) )->add_field( new CheckBoxField(
     array(
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::DEV_MODE,
+        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
+        'label'         => __( 'Developer Mode', PLUGIN_ID ),
+        'desc'          => __( 'Enable Development functionality', PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new CheckBoxField(
+    array(
         'id'            => 'support_restore_template',
         'option'        => Option::RESTORE_TEMPLATE,
         'value'         => '',
