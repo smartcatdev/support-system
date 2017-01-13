@@ -26,6 +26,7 @@ final class Defaults {
      */
     const STATUSES = array(
         'new'           => 'New',
+        'viewed'        => 'Viewed',
         'in_progress'   => 'In Progress',
         'resolved'      => 'Resolved',
         'waiting'       => 'Waiting',

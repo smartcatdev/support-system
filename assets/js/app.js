@@ -111,6 +111,8 @@
                 if (response.success) {
                     tab.html(response.data);
 
+                    app.refresh_tickets();
+
                     app.ajax('support_ticket_comments', {id: row.id}, function (response) {
                         if (response.success) {
                             tab.find('.support_ticket').parent().append(response.data);
@@ -191,14 +193,12 @@
         app.refresh_tickets();
     },
 
-    app.filter_tickets = function (trigger) {
+    app.filter_tickets = function () {
         if(app.get_session_obj('filter_active', false)) {
             app.remove_filter();
-            trigger.removeClass('active');
         } else {
             app.set_session_obj('filter_active', true);
             app.refresh_tickets();
-            trigger.addClass('active');
         }
     },
 

@@ -58,6 +58,10 @@ class TicketComponent extends AbstractComponent {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) ) {
+            if( get_post_meta( $ticket->ID, 'status', true ) == 'new' ) {
+                update_post_meta( $ticket->ID, 'status', 'viewed' );
+            }
+
             wp_send_json_success(
                 TemplateUtils::render_template(
                     $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
