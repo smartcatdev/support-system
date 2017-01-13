@@ -31,7 +31,7 @@ $user = wp_get_current_user();
                             <ul class="dropdown-menu">
 
                                 <li>
-                                    <a href="#" class="alignright background-secondary hover menu-item">
+                                    <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_settings" rel="modal:open" class="alignright background-secondary hover menu-item">
                                         <span class="glyphicon glyphicon-cog"></span>
                                         <?php _e( 'Settings', SmartcatSupport\PLUGIN_ID ); ?>
                                     </a>    
