@@ -146,7 +146,7 @@ $general->add_field( new TextField(
 
 $email = new SettingsSection( 'email', __( 'Email Templates', PLUGIN_ID ) );
 
-$email_templates = Mailer::list_templates();
+$email_templates = array( '' => __( 'Select an email template', PLUGIN_ID ) ) + Mailer::list_templates();
 
 $email->add_field( new SelectBoxField(
     array(
