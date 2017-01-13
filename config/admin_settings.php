@@ -21,11 +21,43 @@ $admin = new TabbedSettingsPage(
         'tabs'          => array(
             'general'     => __( 'General', PLUGIN_ID ),
             'display'     => __( 'Display', PLUGIN_ID ),
+            'appearance'  => __( 'Appearance', PLUGIN_ID ),
             'email'       => __( 'Email', PLUGIN_ID ),
             'advanced'    => __( 'Advanced', PLUGIN_ID )
         )
     )
 );
+
+$appearance = new SettingsSection( 'appearance', __( 'Appearance', PLUGIN_ID ) );
+
+$appearance->add_field( new TextField(
+    array(
+        'id'            => 'support_primary_color',
+        'option'        => Option::PRIMARY_COLOR,
+        'value'         => get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ),
+        'label'         => __( 'Primary color', PLUGIN_ID ),
+        'validators'    => array( new TextFilter() )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_hover_color',
+        'option'        => Option::HOVER_COLOR,
+        'value'         => get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ),
+        'label'         => __( 'Hover color', PLUGIN_ID ),
+        'validators'    => array( new TextFilter() )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_secondary_color',
+        'option'        => Option::SECONDARY_COLOR,
+        'value'         => get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ),
+        'label'         => __( 'Secondary color', PLUGIN_ID ),
+        'validators'    => array( new TextFilter() )
+    )
+
+) );
 
 $text = new SettingsSection( 'text', __( 'Text & Labels', PLUGIN_ID ) );
 
@@ -198,5 +230,6 @@ $admin->add_section( $general, 'general' );
 $admin->add_section( $email, 'email' );
 $admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'display' );
+$admin->add_section( $appearance, 'appearance' );
 
 return $admin;

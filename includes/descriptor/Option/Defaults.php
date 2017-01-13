@@ -111,4 +111,19 @@ final class Defaults {
      * @since 1.0.0
      */
     const LOGIN_LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
+
+    /**
+     * @since 1.0.0
+     */
+    const PRIMARY_COLOR = '1abc9c';
+
+    /**
+     * @since 1.0.0
+     */
+    const SECONDARY_COLOR = '34495e';
+
+    /**
+     * @since 1.0.0
+     */
+    const HOVER_COLOR = '48c9b0';
 }

@@ -33,7 +33,6 @@ input[type="submit"]{
     outline: none;
     padding: 10px 25px;
     font-size: 14px;
-    background: #009DDC;
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -122,12 +121,6 @@ input[type="submit"]:focus{
     display: block;
 }
 
-#support-login-wrapper input[type="text"]:focus,
-#support-login-wrapper input[type="email"]:focus,
-#support-login-wrapper input[type="password"]:focus{
-    border: 1px solid #009DDC;
-}
-
 #support-login-wrapper label {
     color: #7b858d;
 }
@@ -150,8 +143,7 @@ input[type="submit"]:focus{
 /* 
 ## Navbar 
 */
-#navbar{ 
-    background: #009DDC;
+#navbar{
     margin-bottom: 0;
 }
 
@@ -182,8 +174,6 @@ input[type="submit"]:focus{
 ## Main
 */
 .ui-tabs .ui-tabs-nav {
-    
-    background: #009DDC;
     padding-top: 10px;
     border-radius: 3px;
 }
@@ -206,7 +196,6 @@ table {
 }
 
 table th {
-    color: #009DDC;
     padding: 8px 10px !important;
 }
 
@@ -259,8 +248,25 @@ table.dataTable.no-footer{
     color: #fff;
     margin-right: 3px;
     border-radius: 3px;
+    margin-bottom: 3px;
 }
 
 #support_system table .action-icon i {
     line-height: 30px;
+}
+
+@media( max-width: 768px ) {
+    #support_system table tr th,
+    #support_system table tr td {
+        display: none;
+    }
+    
+    #support_system table tr th:first-child,
+    #support_system table tr th:nth-child(2),
+    #support_system table tr th:last-child,
+    #support_system table tr td:first-child,
+    #support_system table tr td:nth-child(2),
+    #support_system table tr td:last-child {
+        display: table-cell;
+    }
 }

@@ -240,7 +240,7 @@
         });
 
         $('#support_tickets_table').DataTable({
-            // responsive: true,
+//             responsive: true,
             columns: cols
         });
     },
