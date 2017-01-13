@@ -139,7 +139,13 @@
 
     app.post_comment_submit = function (response, form) {
         tinyMCE.activeEditor.setContent('');
-        form.parents('.comment_section').find('.comments').append(response.data);
+
+        if(response.ticket_updated) {
+            $('.ticket[data-id="' + response.ticket_id + '"]').replaceWith(response.ticket);
+            app.refresh_tickets();
+        }
+
+        form.parents('.comment_section').find('.comments').append(response.comment);
     },
 
     app.post_comment_update = function (response, form) {

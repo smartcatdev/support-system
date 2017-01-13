@@ -38,6 +38,8 @@ class CommentComponent extends AbstractComponent {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
+
+            $response = array( 'success' => true, 'ticket_updated' => false );
             $user = wp_get_current_user();
 
             //TODO add error for flooding
@@ -54,15 +56,28 @@ class CommentComponent extends AbstractComponent {
                 '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
             ] );
 
+            if( current_user_can( 'edit_others_tickets' ) ) {
+                $status = get_post_meta( $ticket->ID, 'status', true );
+
+                if( $status == 'new' || $status == 'viewed' ) {
+                    update_post_meta( $ticket->ID, 'status', 'in_progress' );
+
+                    $response['ticket'] = TemplateUtils::render_template(
+                        $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
+                    );
+
+                    $response['ticket_updated'] = true;
+                    $response['ticket_id'] = $ticket->ID;
+                }
+            }
+
             if ( !is_wp_error( $comment ) ) {
-                wp_send_json_success(
-                    TemplateUtils::render_template(
-                        $this->plugin->template_dir . '/comment.php',
-                        array(
-                            'comment' => $comment
-                        )
-                    )
+
+                $response['comment'] = TemplateUtils::render_template(
+                    $this->plugin->template_dir . '/comment.php', array( 'comment' => $comment )
                 );
+
+                wp_send_json( $response );
             }
         } else {
             wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', PLUGIN_ID ) ) );
