@@ -3,14 +3,13 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
+use smartcat\debug\Log;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\UserUtils;
 
 class ProductComponent extends AbstractComponent {
 
     public function list_products( $products ) {
-        $results = array();
-
         if( $this->plugin->woo_active && get_option( Option::WOO_INTEGRATION ) == 'on' ) {
             $args = array(
                 'post_type' => 'product',
@@ -20,7 +19,7 @@ class ProductComponent extends AbstractComponent {
             $query = new \WP_Query( $args );
 
             while( $query->have_posts() ) {
-                $results[ $query->post->ID ] = $query->post->post_title;
+                $products[ $query->post->ID ] = $query->post->post_title;
 
                 $query->next_post();
             }
@@ -35,13 +34,13 @@ class ProductComponent extends AbstractComponent {
             $query = new \WP_Query( $args );
 
             while( $query->have_posts() ) {
-                $results[ $query->post->ID ] = $query->post->post_title;
+                $products[ $query->post->ID ] = $query->post->post_title;
 
                 $query->next_post();
             }
         }
 
-        return array_merge( $products, $results );
+        return $products;
     }
 
     public function configure_customer_caps( $val ) {

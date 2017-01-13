@@ -19,6 +19,11 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
+    const DEV_MODE = '';
+
+    /**
+     * @since 1.0.0
+     */
     const STATUSES = array(
         'new'           => 'New',
         'in_progress'   => 'In Progress',

@@ -24,6 +24,11 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const DEV_MODE = 'smartcat_support_dev-mode';
+
+    /**
+     * @since 1.0.0
+     */
     const STATUSES = 'smartcat_support_statuses';
 
     /**

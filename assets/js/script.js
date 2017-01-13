@@ -14,7 +14,7 @@ jQuery(document).ready(function ($) {
     } );
 
     $(document).on('change', '#ticket_filter .form_field', function (e) {
-        $('#ticket_filter').find('.filter').parent().removeClass('active');
+        SupportSystem.set_session_obj('filter_active', false);
     });
 
 

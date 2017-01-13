@@ -178,7 +178,7 @@ $general->add_field( new TextField(
 
 $email = new SettingsSection( 'email', __( 'Email Templates', PLUGIN_ID ) );
 
-$email_templates = Mailer::list_templates();
+$email_templates = array( '' => __( 'Select an email template', PLUGIN_ID ) ) + Mailer::list_templates();
 
 $email->add_field( new SelectBoxField(
     array(
@@ -211,6 +211,16 @@ $advanced->add_field( new CheckBoxField(
         'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
         'label'         => __( 'Erase All Data', PLUGIN_ID ),
         'desc'          => __( 'Erase all data on plugin uninstall', PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::DEV_MODE,
+        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
+        'label'         => __( 'Developer Mode', PLUGIN_ID ),
+        'desc'          => __( 'Enable Development functionality', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
