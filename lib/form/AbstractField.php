@@ -6,7 +6,7 @@ if( !class_exists('\smartcat\form\AbstractField') ) :
 
 abstract class AbstractField {
     public $id;
-    public $value;
+    public $value = '';
     public $label;
     public $desc;
     public $error_message;

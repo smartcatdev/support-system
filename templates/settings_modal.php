@@ -8,11 +8,13 @@ $form = include_once Plugin::plugin_dir( PLUGIN_ID ) . '/config/settings_form.ph
 
 ?>
 
-<div class="settings">
+<div class="support_settings">
 
-    <form>
+    <form class="settings_form" data-action="support_save_settings" data-before="validate_settings">
 
         <?php Form::render_fields( $form ); ?>
+
+        <input type="submit" value="<?php _e( 'Save Settings', PLUGIN_ID ); ?>" />
 
     </form>
 

@@ -8,14 +8,14 @@ $form = new Form( 'support_settings' );
 
 $form->add_field( new TextBoxField(
     array(
-        'id'        => 'firstname',
+        'id'        => 'first_name',
         'label'     => __( 'First Name', PLUGIN_ID ),
         'value'     => wp_get_current_user()->first_name
     )
 
 ) )->add_field( new TextBoxField(
     array(
-        'id'        => 'lastname',
+        'id'        => 'last_name',
         'label'     => __( 'Last Name', PLUGIN_ID ),
         'value'     => wp_get_current_user()->last_name
     )
