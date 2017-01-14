@@ -24,11 +24,9 @@ class TicketComponent extends AbstractComponent {
             $form = include $this->plugin->config_dir . '/ticket_create_form.php';
 
             if ( $form->is_valid() ) {
-                $data = $form->data;
-
                 $post_id = wp_insert_post( array(
-                    'post_title'     => $data['subject'],
-                    'post_content'   => $data['content'],
+                    'post_title'     => $form->data['subject'],
+                    'post_content'   => $form->data['content'],
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open'
@@ -37,10 +35,10 @@ class TicketComponent extends AbstractComponent {
                 if( !empty( $post_id ) ) {
 
                     // Remove them so that they are not saved as meta
-                    unset( $data['subject'] );
-                    unset( $data['content'] );
+                    unset( $form->data['subject'] );
+                    unset( $form->data['content'] );
 
-                    foreach ( $data as $field => $value ) {
+                    foreach( $form->data as $field => $value ) {
                         update_post_meta( $post_id, $field, $value );
                     }
 
@@ -88,16 +86,14 @@ class TicketComponent extends AbstractComponent {
             $form = include $this->plugin->config_dir . '/ticket_meta_form.php';
 
             if( $form->is_valid() ) {
-                $data = $form->data;
-
                 $post_id = wp_update_post( array(
-                    'ID'          => $data['id'],
+                    'ID'          => $form->data['id'],
                     'post_author' => $ticket->post_author,
                     'post_date'   => current_time( 'mysql' )
                 ) );
 
                 if( !empty( $post_id ) ) {
-                    foreach( $data as $field => $value ) {
+                    foreach( $form->data as $field => $value ) {
                         update_post_meta( $post_id, $field, $value );
                     }
 
