@@ -65,9 +65,7 @@ class FormMetaBox extends AbstractMetaBox {
         $form = include $this->config;
 
         if( $form->is_valid() ) {
-            $data = $form->data;
-
-            foreach( $data as $key => $value ) {
+            foreach( $form->data as $key => $value ) {
                 update_post_meta( $post->ID, $key, $value );
             }
         }

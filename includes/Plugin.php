@@ -207,7 +207,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             }
         }
 
-        if( empty( get_post( get_option( Option::STATUS_EMAIL_TEMPLATE ) ) ) ) {
+        if( empty( get_post( get_option( Option::CLOSED_EMAIL_TEMPLATE ) ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
@@ -218,7 +218,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             );
 
             if( !empty( $id ) ) {
-                update_option( Option::STATUS_EMAIL_TEMPLATE, $id );
+                update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
             }
         }
     }

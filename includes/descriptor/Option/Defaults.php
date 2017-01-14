@@ -106,7 +106,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const NOTIFY_STATUS = 'on';
+    const NOTIFY_CLOSED = 'on';
 
     /**
      * @since 1.0.0

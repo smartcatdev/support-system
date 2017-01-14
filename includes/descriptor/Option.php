@@ -29,7 +29,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const NOTIFY_STATUS = 'smartcat_support_notify-status';
+    const NOTIFY_CLOSED = 'smartcat_support_notify-closed';
 
     /**
      * @since 1.0.0
@@ -129,7 +129,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const STATUS_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
+    const CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
 
     /**
      * @since 1.0.0

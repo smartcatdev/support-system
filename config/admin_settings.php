@@ -193,8 +193,8 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_closed_email_template',
-        'option'        => Option::STATUS_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::STATUS_EMAIL_TEMPLATE ),
+        'option'        => Option::CLOSED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Status Changed', PLUGIN_ID ),
         'desc'          => __( 'Template Variables: status, subject, username, first_name, last_name, full_name, email', PLUGIN_ID ),
@@ -207,11 +207,11 @@ $email_notifications = new SettingsSection( 'email_notifications', __( 'Notifica
 
 $email_notifications->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_notify_status_change',
+        'id'            => 'support_notify_ticket_closed',
         'option'        => Option::NOTIFY_STATUS,
-        'value'         => get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_STATUS ),
-        'label'         => __( 'Notify Status Change', PLUGIN_ID ),
-        'desc'          => __( 'Notify the user when the status of their ticket changes', PLUGIN_ID ),
+        'value'         => get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_CLOSED ),
+        'label'         => __( 'Notify Ticket Closed', PLUGIN_ID ),
+        'desc'          => __( 'Notify the user when their ticket is closed', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 

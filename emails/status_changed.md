@@ -1,1 +1,1 @@
-<p>The status of your ticket "{%subject%}" has been updated to {%status%}</p> 
+<p>Your ticket "{%subject%}" has been closed.</p> 
