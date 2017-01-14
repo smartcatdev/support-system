@@ -125,9 +125,18 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function notify_status_change( $null, $obj_id, $key, $new, $prev ) {
+    public function notify_status_change( $null, $obj_id, $key, $new ) {
         if( get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_STATUS ) == 'on' ) {
-            if( $key == 'status' && $prev != $new ) {
+
+            $previous = get_post_meta( $obj_id, 'status', true );
+            $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+
+            if( $key == 'status' && !empty( $new ) && $previous != $new ) {
+
+                add_filter( 'parse_email_template', function( $content ) use ( $new, $statuses ) {
+                    return str_replace( '{%status%}', $statuses[ $new ], $content );
+                } );
+
                 Mailer::send_template(
                     get_option( Option::STATUS_EMAIL_TEMPLATE ),
                     get_post_meta( $obj_id, 'email', true )
@@ -144,7 +153,7 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
             'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
-            'update_post_metadata' => array( 'notify_status_change', 10, 5 )
+            'update_post_metadata' => array( 'notify_status_change', 10, 4 )
         );
     }
 
