@@ -125,10 +125,10 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function notify_ticket_closed( $null, $obj_id, $key, $new ) {
-        if( get_option( Option::NOTIFY_CLOSED, Option\Defaults::NOTIFY_CLOSED ) == 'on' ) {
+    public function notify_ticket_resolved( $null, $obj_id, $key, $new ) {
+        if( get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ) == 'on' ) {
 
-            if( $key == 'status' && $new == 'closed' ) {
+            if( $key == 'status' && $new == 'resolved' ) {
 
                 $ticket = get_post( $obj_id );
 
@@ -137,7 +137,7 @@ class TicketComponent extends AbstractComponent {
                 } );
 
                 Mailer::send_template(
-                    get_option( Option::CLOSED_EMAIL_TEMPLATE ),
+                    get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
                     get_post_meta( $obj_id, 'email', true )
                 );
             }
@@ -152,7 +152,7 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
             'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
-            'update_post_metadata' => array( 'notify_ticket_closed', 10, 4 )
+            'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
         );
     }
 

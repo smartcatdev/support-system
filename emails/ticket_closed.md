@@ -1,1 +1,0 @@
-<p>Your ticket "{%subject%}" has been closed.</p> 

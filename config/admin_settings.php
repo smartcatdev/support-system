@@ -192,11 +192,11 @@ $emails->add_field( new SelectBoxField(
     )
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'support_closed_email_template',
-        'option'        => Option::CLOSED_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE ),
+        'id'            => 'support_resolved_email_template',
+        'option'        => Option::RESOLVED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Closed', PLUGIN_ID ),
+        'label'         => __( 'Ticket Resolved', PLUGIN_ID ),
         'desc'          => __( 'Template Variables: subject, username, first_name, last_name, full_name, email', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
@@ -218,11 +218,11 @@ $email_notifications = new SettingsSection( 'email_notifications', __( 'Notifica
 
 $email_notifications->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_notify_ticket_closed',
-        'option'        => Option::NOTIFY_CLOSED,
-        'value'         => get_option( Option::NOTIFY_CLOSED, Option\Defaults::NOTIFY_CLOSED ),
-        'label'         => __( 'Ticket Closed Notification', PLUGIN_ID ),
-        'desc'          => __( 'Notify the user when their ticket is closed', PLUGIN_ID ),
+        'id'            => 'support_notify_ticket_resolved',
+        'option'        => Option::NOTIFY_RESOLVED,
+        'value'         => get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ),
+        'label'         => __( 'Ticket Resolved Notification', PLUGIN_ID ),
+        'desc'          => __( 'Notify the user when their ticket is resolved', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
