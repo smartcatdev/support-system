@@ -106,6 +106,11 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
+    const NOTIFY_STATUS = 'on';
+
+    /**
+     * @since 1.0.0
+     */
     const ALLOW_SIGNUPS = 'on';
 
     /**

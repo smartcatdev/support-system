@@ -207,18 +207,18 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             }
         }
 
-        if( empty( get_post( get_option( Option::CLOSED_EMAIL_TEMPLATE ) ) ) ) {
+        if( empty( get_post( get_option( Option::STATUS_EMAIL_TEMPLATE ) ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Your ticket has been closed', PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_closed.md' )
+                    'post_title'    => __( 'The status of your ticket has been updated', PLUGIN_ID ),
+                    'post_content'  => file_get_contents( $this->dir . '/emails/status_changed.md' )
                 )
             );
 
             if( !empty( $id ) ) {
-                update_option( Option::CLOSED_EMAIL_TEMPLATE, $id );
+                update_option( Option::STATUS_EMAIL_TEMPLATE, $id );
             }
         }
     }

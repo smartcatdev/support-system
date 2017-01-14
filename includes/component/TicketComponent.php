@@ -3,6 +3,7 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
+use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\util\TemplateUtils;
@@ -124,6 +125,17 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
+    public function notify_status_change( $null, $obj_id, $key, $new, $prev ) {
+        if( get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_STATUS ) == 'on' ) {
+            if( $key == 'status' && $prev != $new ) {
+                Mailer::send_template(
+                    get_option( Option::STATUS_EMAIL_TEMPLATE ),
+                    get_post_meta( $obj_id, 'email', true )
+                );
+            }
+        }
+    }
+
     public function subscribed_hooks() {
         return array(
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
@@ -131,7 +143,8 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_view_ticket' => array( 'view_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
-            'wp_ajax_support_update_meta' => array( 'update_meta_field' )
+            'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
+            'update_post_metadata' => array( 'notify_status_change', 10, 5 )
         );
     }
 
