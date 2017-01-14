@@ -196,8 +196,19 @@ $emails->add_field( new SelectBoxField(
         'option'        => Option::CLOSED_EMAIL_TEMPLATE,
         'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Status Changed', PLUGIN_ID ),
-        'desc'          => __( 'Template Variables: status, subject, username, first_name, last_name, full_name, email', PLUGIN_ID ),
+        'label'         => __( 'Ticket Closed', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: subject, username, first_name, last_name, full_name, email', PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_reply_email_template',
+        'option'        => Option::REPLY_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::REPLY_EMAIL_TEMPLATE ),
+        'options'       => $email_templates,
+        'label'         => __( 'Reply To Ticket', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: subject, agent, username, first_name, last_name, full_name, email, reply', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
@@ -208,9 +219,9 @@ $email_notifications = new SettingsSection( 'email_notifications', __( 'Notifica
 $email_notifications->add_field( new CheckBoxField(
     array(
         'id'            => 'support_notify_ticket_closed',
-        'option'        => Option::NOTIFY_STATUS,
-        'value'         => get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_CLOSED ),
-        'label'         => __( 'Notify Ticket Closed', PLUGIN_ID ),
+        'option'        => Option::NOTIFY_CLOSED,
+        'value'         => get_option( Option::NOTIFY_CLOSED, Option\Defaults::NOTIFY_CLOSED ),
+        'label'         => __( 'Ticket Closed Notification', PLUGIN_ID ),
         'desc'          => __( 'Notify the user when their ticket is closed', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )

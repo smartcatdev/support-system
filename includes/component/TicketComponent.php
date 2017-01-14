@@ -126,7 +126,7 @@ class TicketComponent extends AbstractComponent {
     }
 
     public function notify_ticket_closed( $null, $obj_id, $key, $new ) {
-        if( get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_CLOSED ) == 'on' ) {
+        if( get_option( Option::NOTIFY_CLOSED, Option\Defaults::NOTIFY_CLOSED ) == 'on' ) {
 
             if( $key == 'status' && $new == 'closed' ) {
 

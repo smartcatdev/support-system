@@ -134,6 +134,11 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const REPLY_EMAIL_TEMPLATE = 'smartcat_support_reply-template';
+
+    /**
+     * @since 1.0.0
+     */
     const PRIMARY_COLOR = 'smartcat_support_primary-color';
 
     /**
