@@ -128,13 +128,17 @@ class TicketComponent extends AbstractComponent {
     public function notify_status_change( $null, $obj_id, $key, $new ) {
         if( get_option( Option::NOTIFY_STATUS, Option\Defaults::NOTIFY_STATUS ) == 'on' ) {
 
+            $ticket = get_post( $obj_id );
             $previous = get_post_meta( $obj_id, 'status', true );
             $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
 
             if( $key == 'status' && !empty( $new ) && $previous != $new ) {
 
-                add_filter( 'parse_email_template', function( $content ) use ( $new, $statuses ) {
-                    return str_replace( '{%status%}', $statuses[ $new ], $content );
+                add_filter( 'parse_email_template', function( $content ) use ( $new, $ticket, $statuses ) {
+                    $content = str_replace( '{%status%}', $statuses[ $new ], $content );
+                    $content = str_replace( '{%subject%}', $ticket->post_title, $content );
+
+                    return $content;
                 } );
 
                 Mailer::send_template(

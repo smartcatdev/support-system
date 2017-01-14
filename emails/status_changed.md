@@ -1,0 +1,1 @@
+<p>The status of your ticket "{%subject%}" has been updated to {%status%}</p> 
