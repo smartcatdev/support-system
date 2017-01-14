@@ -8,10 +8,10 @@ class UserUtils {
     private function __construct() {}
 
     public static function list_agents( array $agents = array() ) {
-        $users = get_users( array( 'role' => array( 'support_agent' ) ) );
+        $users = get_users();
 
-        if( $users != null ) {
-            foreach( $users as $user ) {
+        foreach( $users as $user ) {
+            if( $user->has_cap( 'edit_others_tickets' ) ) {
                 $agents[ $user->ID ] = $user->display_name;
             }
         }

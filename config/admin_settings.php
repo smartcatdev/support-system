@@ -19,11 +19,11 @@ $admin = new TabbedSettingsPage(
         'menu_title'    => __( 'Settings', PLUGIN_ID ),
         'menu_slug'     => 'support_options',
         'tabs'          => array(
-            'general'     => __( 'General', PLUGIN_ID ),
-            'display'     => __( 'Display', PLUGIN_ID ),
-            'appearance'  => __( 'Appearance', PLUGIN_ID ),
-            'email'       => __( 'Email', PLUGIN_ID ),
-            'advanced'    => __( 'Advanced', PLUGIN_ID )
+            'general'       => __( 'General', PLUGIN_ID ),
+            'display'       => __( 'Display', PLUGIN_ID ),
+            'appearance'    => __( 'Appearance', PLUGIN_ID ),
+            'notifications' => __( 'Notifications', PLUGIN_ID ),
+            'advanced'      => __( 'Advanced', PLUGIN_ID )
         )
     )
 );
@@ -176,30 +176,56 @@ $general->add_field( new TextField(
 
 ) );
 
-$email = new SettingsSection( 'email', __( 'Email Templates', PLUGIN_ID ) );
+$emails = new SettingsSection( 'email_templates', __( 'Email Templates', PLUGIN_ID ) );
 
 $email_templates = array( '' => __( 'Select an email template', PLUGIN_ID ) ) + Mailer::list_templates();
 
-$email->add_field( new SelectBoxField(
+$emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_welcome_email_template',
         'option'        => Option::WELCOME_EMAIL_TEMPLATE,
         'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Welcome Email Template', PLUGIN_ID ),
-        'desc'          => __( 'The email template to be sent out after registration', PLUGIN_ID ),
+        'label'         => __( 'Welcome', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: username, password, first_name, last_name, full_name, email', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'support_closed_email_template',
-        'option'        => Option::CLOSED_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::CLOSED_EMAIL_TEMPLATE ),
+        'id'            => 'support_resolved_email_template',
+        'option'        => Option::RESOLVED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Closed Email Template', PLUGIN_ID ),
-        'desc'          => __( 'The email template to be sent out after a ticket has been closed', PLUGIN_ID ),
+        'label'         => __( 'Ticket Resolved', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: subject, username, first_name, last_name, full_name, email', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_reply_email_template',
+        'option'        => Option::REPLY_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::REPLY_EMAIL_TEMPLATE ),
+        'options'       => $email_templates,
+        'label'         => __( 'Reply To Ticket', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: subject, agent, username, first_name, last_name, full_name, email, reply', PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
+) );
+
+$email_notifications = new SettingsSection( 'email_notifications', __( 'Notifications', PLUGIN_ID ) );
+
+$email_notifications->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_notify_ticket_resolved',
+        'option'        => Option::NOTIFY_RESOLVED,
+        'value'         => get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ),
+        'label'         => __( 'Ticket Resolved Notification', PLUGIN_ID ),
+        'desc'          => __( 'Notify the user when their ticket is resolved', PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
 
 $advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', PLUGIN_ID ) );
@@ -237,7 +263,8 @@ $advanced->add_field( new CheckBoxField(
 ) );
 
 $admin->add_section( $general, 'general' );
-$admin->add_section( $email, 'email' );
+$admin->add_section( $email_notifications, 'notifications' );
+$admin->add_section( $emails, 'notifications' );
 $admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'display' );
 $admin->add_section( $appearance, 'appearance' );

@@ -3,6 +3,7 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
+use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\util\TemplateUtils;
@@ -23,11 +24,9 @@ class TicketComponent extends AbstractComponent {
             $form = include $this->plugin->config_dir . '/ticket_create_form.php';
 
             if ( $form->is_valid() ) {
-                $data = $form->data;
-
                 $post_id = wp_insert_post( array(
-                    'post_title'     => $data['subject'],
-                    'post_content'   => $data['content'],
+                    'post_title'     => $form->data['subject'],
+                    'post_content'   => $form->data['content'],
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open'
@@ -36,10 +35,10 @@ class TicketComponent extends AbstractComponent {
                 if( !empty( $post_id ) ) {
 
                     // Remove them so that they are not saved as meta
-                    unset( $data['subject'] );
-                    unset( $data['content'] );
+                    unset( $form->data['subject'] );
+                    unset( $form->data['content'] );
 
-                    foreach ( $data as $field => $value ) {
+                    foreach( $form->data as $field => $value ) {
                         update_post_meta( $post_id, $field, $value );
                     }
 
@@ -87,16 +86,14 @@ class TicketComponent extends AbstractComponent {
             $form = include $this->plugin->config_dir . '/ticket_meta_form.php';
 
             if( $form->is_valid() ) {
-                $data = $form->data;
-
                 $post_id = wp_update_post( array(
-                    'ID'          => $data['id'],
+                    'ID'          => $form->data['id'],
                     'post_author' => $ticket->post_author,
                     'post_date'   => current_time( 'mysql' )
                 ) );
 
                 if( !empty( $post_id ) ) {
-                    foreach( $data as $field => $value ) {
+                    foreach( $form->data as $field => $value ) {
                         update_post_meta( $post_id, $field, $value );
                     }
 
@@ -124,6 +121,25 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
+    public function notify_ticket_resolved( $null, $obj_id, $key, $new ) {
+        if( get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ) == 'on' ) {
+
+            if( $key == 'status' && $new == 'resolved' ) {
+
+                $ticket = get_post( $obj_id );
+
+                add_filter( 'parse_email_template', function( $content ) use ( $new, $ticket ) {
+                    return str_replace( '{%subject%}', $ticket->post_title, $content );
+                } );
+
+                Mailer::send_template(
+                    get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
+                    get_post_meta( $obj_id, 'email', true )
+                );
+            }
+        }
+    }
+
     public function subscribed_hooks() {
         return array(
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
@@ -131,7 +147,8 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_view_ticket' => array( 'view_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
-            'wp_ajax_support_update_meta' => array( 'update_meta_field' )
+            'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
+            'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
         );
     }
 

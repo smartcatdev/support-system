@@ -3,6 +3,9 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
+use smartcat\debug\Log;
+use smartcat\mail\Mailer;
+use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TemplateUtils;
 use const SmartcatSupport\PLUGIN_ID;
 
@@ -38,6 +41,7 @@ class CommentComponent extends AbstractComponent {
         if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
             $response = array( 'success' => true, 'ticket_updated' => false );
             $user = wp_get_current_user();
+            $recipient = get_post_meta( $ticket->ID, 'email', true );
 
             //TODO add error for flooding
             add_filter( 'comment_flood_filter', '__return_false' );
@@ -53,22 +57,31 @@ class CommentComponent extends AbstractComponent {
                 '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
             ] );
 
-            if( current_user_can( 'edit_others_tickets' ) ) {
-                $status = get_post_meta( $ticket->ID, 'status', true );
+            if( !is_wp_error( $comment ) ) {
+                if( current_user_can( 'edit_others_tickets' ) ) {
+                    $status = get_post_meta( $ticket->ID, 'status', true );
 
-                if( $status == 'new' || $status == 'viewed' ) {
-                    update_post_meta( $ticket->ID, 'status', 'in_progress' );
+                    if( $status == 'new' || $status == 'viewed' ) {
+                        update_post_meta( $ticket->ID, 'status', 'in_progress' );
 
-                    $response['ticket'] = TemplateUtils::render_template(
-                        $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
-                    );
+                        $response['ticket'] = TemplateUtils::render_template(
+                            $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
+                        );
 
-                    $response['ticket_updated'] = true;
-                    $response['ticket_id'] = $ticket->ID;
+                        $response['ticket_updated'] = true;
+                        $response['ticket_id'] = $ticket->ID;
+                    }
+
+                    add_filter( 'parse_email_template', function( $content ) use ( $comment, $ticket ) {
+                        return str_replace(
+                            array( '{%agent%}', '{%reply%}', '{%subject%}' ),
+                            array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
+                            $content
+                        );
+                    } );
+
+                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), $recipient );
                 }
-            }
-
-            if ( !is_wp_error( $comment ) ) {
 
                 $response['comment'] = TemplateUtils::render_template(
                     $this->plugin->template_dir . '/comment.php', array( 'comment' => $comment )
