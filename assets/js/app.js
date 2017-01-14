@@ -8,7 +8,7 @@
                 data['action'] = action;
             }
         } else {
-            data = {action: action}
+            data = {action: action};
         }
 
         $.ajax({
@@ -141,7 +141,7 @@
         tinyMCE.activeEditor.setContent('');
 
         if(response.ticket_updated) {
-            $('.ticket[data-id="' + response.ticket_id + '"]').replaceWith(response.ticket);
+            $('.ticket[data-id="' + response.ticket_id + '"]').parent().replaceWith(response.ticket);
             app.refresh_tickets();
         }
 
@@ -243,10 +243,7 @@
             cols.push({ data: $(this).data('column_name') });
         });
 
-        $('#support_tickets_table').DataTable({
-//             responsive: true,
-            columns: cols
-        });
+        $('#support_tickets_table').DataTable({ columns: cols });
     },
 
     app.toggle_register_form = function () {
@@ -254,14 +251,26 @@
         $('#register_form').toggle();
     },
 
+    app.validate_password = function () {
+        var field = $(this);
+
+        field.siblings('.error_msg').remove();
+        field.removeClass('error_field');
+        field.parents('form').find('input[type="submit"]').prop('disabled', false);
+
+        if(field.val() !== $('[name="new_password"]').val()) {
+            field.addClass('error_field');
+            field.parent().append('<span class="error_msg glyphicon glyphicon-exclamation-sign"></span>');
+            field.parents('form').find('input[type="submit"]').prop('disabled', true);
+        }
+    },
+
     app.get_session_obj = function (key, default_value) {
         var data = default_value;
 
         try{
             data = JSON.parse(window.sessionStorage[ key ]);
-        } catch (ex) {
-
-        }
+        } catch (ex) {}
 
         return data;
     },

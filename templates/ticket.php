@@ -1,14 +1,26 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\get_agents;
-use function SmartcatSupport\get_products;
+use smartcat\form\Form;
+use SmartcatSupport\Plugin;
 use const SmartcatSupport\PLUGIN_ID;
-use SmartcatSupport\util\UserUtils;
 
 ?>
 
 <div class="support_ticket">
+
+    <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
+
+        <div>
+
+            <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
+
+                <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/ticket_meta_form.php' ); ?>
+
+            </form>
+
+        </div>
+
+    <?php endif; ?>
 
     <div class="ticket support_card" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
 
@@ -45,21 +57,6 @@ use SmartcatSupport\util\UserUtils;
 
             </div>
 
-            <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
-
-                <div class="actions">
-
-                    <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $ticket->ID; ?>"
-                       rel="modal:open">
-
-                        <i class="icon-pencil"></i>
-
-                    </a>
-
-                </div>
-
-            <?php endif; ?>
-
         </div>
 
         <div class="inner">
@@ -67,62 +64,6 @@ use SmartcatSupport\util\UserUtils;
             <h2 class="subject"><?php esc_html_e( $ticket->post_title ); ?></h2>
 
             <div class="content"><?php echo $ticket->post_content; ?></div>
-
-            <div class="meta">
-
-                <table>
-
-                    <tr>
-
-                        <th class="label"><?php _e( 'Product', PLUGIN_ID ); ?></th>
-
-                        <td>
-                            <?php $products = apply_filters( 'support_list_products', array( '' => '' ) ); ?>
-                            <?php echo $products[ get_post_meta(  $ticket->ID, 'product', true ) ]; ?>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <th class="label"><?php _e( 'Status', PLUGIN_ID ); ?></th>
-
-                        <td>
-                            <?php $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES ); ?>
-                            <?php echo $statuses[ get_post_meta( $ticket->ID, 'status', true ) ]; ?></td>
-
-                    </tr>
-
-                    <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
-
-                        <tr>
-
-                            <th class="label"><?php _e( 'Assigned to', PLUGIN_ID ); ?></th>
-
-                            <td>
-                                <?php $agents = UserUtils::list_agents(); ?>
-                                <?php echo $agents[ get_post_meta( $ticket->ID, 'agent', true ) ]; ?>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th class="label"><?php _e( 'Priority', PLUGIN_ID ); ?></th>
-
-                            <td>
-                                <?php $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES ); ?>
-                                <?php echo $priorities[ get_post_meta( $ticket->ID, 'priority', true ) ]; ?>
-                            </td>
-
-                        </tr>
-
-                    <?php endif; ?>
-
-                </table>
-
-            </div>
-
 
         </div>
 

@@ -323,11 +323,11 @@ table.collapsible tr {
     padding: 5px 5px 10px 5px;
 }
 
-.support_form .error_field {
+.error_field {
     border: 1px solid red !important;
 }
 
-.support_form .error_msg {
+.error_msg {
     color: red;
     font-size: 0.9em;
     margin: 2px;

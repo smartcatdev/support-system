@@ -2,7 +2,9 @@ jQuery(document).ready(function ($) {
 
     // Bind events
     $(document).on('submit', '.support_form', SupportSystem.submit_form);
-
+    $(document).on('submit', '.settings_form', SupportSystem.submit_form);
+    $(document).on('change', '.meta_form', SupportSystem.submit_form);
+    $(document).on('keyup', '[name="confirm_password"]', SupportSystem.validate_password);
     $(window).resize(SupportSystem.resize);
 
     $(document).on('click', '.trigger', function (e) {

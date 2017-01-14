@@ -48,6 +48,7 @@ class UserUtils {
 
         if( $privileged ) {
             $caps[] = 'edit_others_tickets';
+            $caps[] = 'edit_comments';
         }
 
         return $caps;

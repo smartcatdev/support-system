@@ -29,7 +29,7 @@ use const SmartcatSupport\PLUGIN_ID;
 
         <div class="actions">
 
-            <?php if ( $comment->user_id == wp_get_current_user()->ID ) : ?>
+            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) ) : ?>
 
                 <i class="trigger icon-bin" data-action="delete_comment"></i>
                 <i class="trigger icon-pencil" data-action="edit_comment"></i>
