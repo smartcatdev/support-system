@@ -34,6 +34,12 @@ if( !class_exists( '\smartcat\admin\CSelectBoxField' ) ) :
 
             </select>
 
+            <?php if( !empty( $this->desc ) ) : ?>
+
+                <p class="description"><?php echo $this->desc; ?></p>
+
+            <?php endif; ?>
+
         <?php }
     }
 

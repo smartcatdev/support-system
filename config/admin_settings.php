@@ -186,8 +186,8 @@ $emails->add_field( new SelectBoxField(
         'option'        => Option::WELCOME_EMAIL_TEMPLATE,
         'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Welcome Email Template', PLUGIN_ID ),
-        'desc'          => __( 'The email template to be sent out after registration', PLUGIN_ID ),
+        'label'         => __( 'Welcome', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: username, password, first_name, last_name, full_name, email', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 ) )->add_field( new SelectBoxField(
@@ -196,8 +196,8 @@ $emails->add_field( new SelectBoxField(
         'option'        => Option::STATUS_EMAIL_TEMPLATE,
         'value'         => get_option( Option::STATUS_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Closed Email Template', PLUGIN_ID ),
-        'desc'          => __( 'The email template to be sent out after a ticket has been closed', PLUGIN_ID ),
+        'label'         => __( 'Ticket Status Changed', PLUGIN_ID ),
+        'desc'          => __( 'Template Variables: status, subject, username, first_name, last_name, full_name, email', PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
