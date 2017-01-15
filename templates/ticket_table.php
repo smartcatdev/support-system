@@ -51,7 +51,7 @@ use const SmartcatSupport\PLUGIN_ID;
 
             <?php foreach( $data as $ticket ) : ?>
 
-                <tr class="<?php echo get_post_meta( $ticket->ID, 'status', true ) == 'new' ? 'new' : 'viewed'; ?>">
+                <tr class="<?php echo get_post_meta( $ticket->ID, 'status', true ) == 'new' ? 'new' : get_post_meta( $ticket->ID, 'status', true ); ?>">
 
                     <?php foreach( $headers as $col => $title ) : ?>
 

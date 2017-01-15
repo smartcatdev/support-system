@@ -17,7 +17,8 @@ Description: Styles for frontend application
 */
 
 body{
-    font-family: 'Open Sans', sans-serif !important;
+    /*font-family: 'Open Sans', sans-serif !important;*/
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 a:hover,
@@ -253,6 +254,11 @@ table.dataTable.no-footer{
 
 #support_system table .action-icon i {
     line-height: 30px;
+}
+
+#support_system table tr.new td {
+    font-weight: 800;
+    color: #000;
 }
 
 @media( max-width: 768px ) {
