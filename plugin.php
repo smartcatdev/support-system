@@ -1,8 +1,14 @@
 <?php
 /*
- * Plugin Name: Support System
+ * Plugin Name: uCare - Support Ticket System
  * Author: Smartcat
- * Description: WordPress integrated support ticketing system
+ * Description: WordPress integrated support ticketing system. 
+ * Version: 1.0
+ * Author: Smartcat
+ * Author URI: https://smartcatdesign.net
+ * License: GPL V2
+ * 
+ * 
  */
 
 namespace SmartcatSupport;

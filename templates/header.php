@@ -57,6 +57,14 @@ $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Default
                 background: #<?php echo $secondary_color; ?>;
             }
             
+            /* Hover color */
+            .button-primary:hover,
+            .button-primary:focus,
+            input[type="submit"]:hover,
+            input[type="submit"]:focus {
+                background: #<?php echo $hover_color; ?>;
+            }
+            
         </style>
         
     </head>
