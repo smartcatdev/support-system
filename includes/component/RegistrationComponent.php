@@ -17,7 +17,7 @@ class RegistrationComponent extends AbstractComponent {
 
             $user_id = wp_insert_user(
                 array(
-                    'user_login'    => sanitize_title( $data['first_name'] . ' ' . $data['last_name'] ),
+                    'user_login'    => $data['email'],
                     'user_email'    => $data['email'],
                     'first_name'    => $data['first_name'],
                     'last_name'     => $data['last_name'],
