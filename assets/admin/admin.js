@@ -62,8 +62,6 @@ jQuery(document).ready(function ($) {
         buttonText: 'Select image'
     });
 
-    $( '#support_primary_color' ).wpColorPicker();
-    $( '#support_secondary_color' ).wpColorPicker();
-    $( '#support_hover_color' ).wpColorPicker();
+    $( '.color_picker' ).wpColorPicker();
 
 });

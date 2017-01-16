@@ -36,6 +36,7 @@ $appearance->add_field( new TextField(
         'option'        => Option::PRIMARY_COLOR,
         'value'         => get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ),
         'label'         => __( 'Primary color', PLUGIN_ID ),
+        'class'         => array( 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -45,6 +46,7 @@ $appearance->add_field( new TextField(
         'option'        => Option::HOVER_COLOR,
         'value'         => get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ),
         'label'         => __( 'Hover color', PLUGIN_ID ),
+        'class'         => array( 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -54,6 +56,7 @@ $appearance->add_field( new TextField(
         'option'        => Option::SECONDARY_COLOR,
         'value'         => get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ),
         'label'         => __( 'Secondary color', PLUGIN_ID ),
+        'class'         => array( 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
