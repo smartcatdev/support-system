@@ -38,23 +38,23 @@ $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Default
             .button-primary,
             .trigger,
             input[type="submit"]{
-                background: #<?php echo $primary_color; ?>;
+                background: <?php echo $primary_color; ?>;
             }
             
             table th {
-                color: #<?php echo $primary_color; ?>;
+                color: <?php echo $primary_color; ?>;
             }
             
             #support-login-wrapper input[type="text"]:focus,
             #support-login-wrapper input[type="email"]:focus,
             #support-login-wrapper input[type="password"]:focus{
-                border: 1px solid #<?php echo $primary_color; ?>;
+                border: 1px solid <?php echo $primary_color; ?>;
             }
             
             /* Secondary color */
             #navbar,
-            .ui-tabs .ui-tabs-nav{
-                background: #<?php echo $secondary_color; ?>;
+            .ui-tabs .ui-tabs-nav {
+                background: <?php echo $secondary_color; ?>;
             }
             
             /* Hover color */
