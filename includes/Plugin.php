@@ -83,6 +83,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function admin_enqueue() {
         wp_enqueue_media();
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'wp-color-picker' );
+
         wp_enqueue_script( 'wp_media_uploader',
             $this->url . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $this->version );
 
