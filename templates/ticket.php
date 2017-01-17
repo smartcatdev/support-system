@@ -27,8 +27,8 @@ use const SmartcatSupport\PLUGIN_ID;
         <div class="status_bar">
 
             <div class="image_wrapper">
-
-                <?php echo get_avatar( $ticket, 48 ); ?>
+                
+                <?php echo get_avatar( $ticket->post_author, 48 ); ?>
 
             </div>
 

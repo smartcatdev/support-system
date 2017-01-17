@@ -48,6 +48,7 @@ table.collapsible tr {
     padding: 4px 0px;
     border: 1px solid #ddd;
     position: relative;
+    overflow: hidden;
 }
 
 .support_card .status_bar .image_wrapper {
@@ -119,6 +120,8 @@ table.collapsible tr {
     white-space: nowrap;
     background-color:  #DBF0F0;
     border: 1px solid #ddd;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 .ui-tabs .ui-tabs-nav li a {
@@ -145,7 +148,6 @@ table.collapsible tr {
 
 .ui-tabs .ui-tabs-nav li .ui-icon-close:hover {
     color: #fff;
-    background-color: red;
 }
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected {

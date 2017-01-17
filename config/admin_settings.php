@@ -60,6 +60,16 @@ $appearance->add_field( new TextField(
         'validators'    => array( new TextFilter() )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_tertiary_color',
+        'option'        => Option::TERTIARY_COLOR,
+        'value'         => get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ),
+        'label'         => __( 'Tertiary color', PLUGIN_ID ),
+        'class'         => array( 'color_picker' ),
+        'validators'    => array( new TextFilter() )
+    )
+
 ) );
 
 $text = new SettingsSection( 'text', __( 'Text & Labels', PLUGIN_ID ) );

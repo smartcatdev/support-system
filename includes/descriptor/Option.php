@@ -149,5 +149,10 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const TERTIARY_COLOR = 'smartcat_support_tertiary-color';
+
+    /**
+     * @since 1.0.0
+     */
     const HOVER_COLOR = 'smartcat_support_hover-color';
 }

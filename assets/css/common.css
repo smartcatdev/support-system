@@ -33,7 +33,8 @@ a:visited{
 
 .button-primary,
 .trigger,
-input[type="submit"]{
+input[type="submit"],
+.button{
     text-shadow: none;
     outline: none;
     padding: 10px 25px;
@@ -195,8 +196,15 @@ input[type="submit"]:focus{
 ## Datatable
 */
 
-table {
-    color: #6d6d6d;
+table,
+select,
+.dataTables_wrapper .dataTables_info,
+label {
+    color: #6d6d6d !important;
+}
+
+table.dataTable thead .sorting{
+    background-image: url("../lib/datatables/images/sort_both.png") !important;
 }
 
 table th {
@@ -228,12 +236,10 @@ table.dataTable.no-footer{
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{
-    color: #009DDC !important;
     background: #fff !important;
     border: 1px solid #efefef !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
-    background: #009DDC !important;
     color: #fff;
     border: 1px solid #efefef !important;
 }
@@ -241,6 +247,10 @@ table.dataTable.no-footer{
 .dataTables_wrapper .dataTables_filter input {
     outline: none !important;
     border: 1px solid #e2e2e2 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 3px !important;
 }
 
 #support_system .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
@@ -275,6 +285,45 @@ table.dataTable.no-footer{
 #support_system table tr.new td {
     font-weight: 800;
     color: #000;
+}
+
+#support_system table tr.resolved td {
+    /*font-weight: 300;*/
+    /*color: #e9e9e9;*/
+}
+
+table.dataTable.display tbody td span {
+    display: inline-block;
+}
+
+table.dataTable.display tbody td span.ticket-status.in_progress:before {
+    content: "\e178";
+    font-family: "Glyphicons Halflings";
+}
+
+table.dataTable.display tbody td span.ticket-status.viewed:before {
+    content: "\e105";
+    font-family: "Glyphicons Halflings";
+}
+
+table.dataTable.display tbody td span.ticket-status.resolved:before {
+    content: "\e084";
+    font-family: "Glyphicons Halflings";
+}
+
+table.dataTable.display tbody td span.ticket-status.new:before {
+    content: "\e124";
+    font-family: "Glyphicons Halflings";
+}
+
+table.dataTable.display tbody td span.ticket-status.waiting:before {
+    content: "\e101";
+    font-family: "Glyphicons Halflings";
+}
+
+table.dataTable.display tbody td span.ticket-status.follow_up:before {
+    content: "\e095";
+    font-family: "Glyphicons Halflings";
 }
 
 @media( max-width: 768px ) {

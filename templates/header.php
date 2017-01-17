@@ -8,6 +8,7 @@ $url = Plugin::plugin_url( PLUGIN_ID );
 $primary_color = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
 $hover_color = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
 $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
+$tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ) );
 ?>
 
 <html>
@@ -37,11 +38,17 @@ $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Default
             
             .button-primary,
             .trigger,
-            input[type="submit"]{
+            input[type="submit"],
+            .button{
                 background: <?php echo $primary_color; ?>;
             }
             
-            table th {
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+                background: <?php echo $primary_color; ?> !important;                
+            }
+            
+            table th,
+            a{
                 color: <?php echo $primary_color; ?>;
             }
             
@@ -58,13 +65,27 @@ $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Default
             }
             
             /* Hover color */
+            
+            a:focus,a:hover{
+                color: <?php echo $hover_color; ?>;
+            }
+            
             .button-primary:hover,
             .button-primary:focus,
             input[type="submit"]:hover,
             input[type="submit"]:focus {
-                background: #<?php echo $hover_color; ?>;
+                background: <?php echo $hover_color; ?>;
             }
             
+            .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+                background: <?php echo $hover_color; ?> !important;                
+            }
+            
+            /* Tertiary color */
+            #support_system table .action-icon,
+            .ui-tabs .ui-tabs-nav li .ui-icon-close:hover{
+                background: <?php echo $tertiary_color; ?>;
+            }
         </style>
         
     </head>
