@@ -72,9 +72,10 @@ table.collapsible tr {
 }
 
 .support_card .status_bar .actions i {
-    margin: 0 10px;
+    margin: 0 3px;
     cursor: pointer;
-    color: #686868;
+    color: #fff;
+    padding: 6px;
 }
 
 .support_card .status_bar .author_name {
@@ -253,11 +254,15 @@ table.collapsible tr {
 /*** SINGLE TICKET ************************************************************/
 
 .ticket {
-    margin: 20px auto;
+    margin: 0 auto 20px auto;
 }
 
 .ticket .inner {
     padding: 20px;
+}
+
+.ticket .inner h2 {
+    margin: 0;
 }
 
 .ticket .status_bar img {
@@ -326,7 +331,7 @@ table.collapsible tr {
 }
 
 .error_field {
-    border: 1px solid red !important;
+    border: 2px solid #e74c3c !important;
 }
 
 .error_msg {
@@ -340,12 +345,19 @@ table.collapsible tr {
     font-weight: 600;
 }
 
-.support_form .form_field {
+.support_form .form_field,
+.support_settings .form_field,
+#support-login-wrapper input[type="text"],
+#support-login-wrapper input[type="email"],
+#support-login-wrapper input[type="password"]{
     font-size: 0.9em;
     padding: 10px;
     width: 100%;
     background-color: #fff;
     color: #000;
+    border-radius: 3px;
+    border: 2px solid #bdc3c7;
+    color: #34495e;
 }
 
 /*** COMMENTS ****************************************************************/

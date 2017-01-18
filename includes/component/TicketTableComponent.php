@@ -42,7 +42,10 @@ class TicketTableComponent extends AbstractComponent {
                 $status = get_post_meta( $ticket->ID, 'status', true );
 
                 if( array_key_exists( $status, $statuses ) ) {
-                    echo '<span class="ticket-status ' . $status . '"></span>';
+                    echo '<span class="status-wrapper">'
+                            . '<span class="ticket-status ' . $status . '"></span>'
+                            . '<span class="status-tooltip">' . $statuses[ $status ] . '</span>'
+                            . '</span>';
                 }
 
                 break;

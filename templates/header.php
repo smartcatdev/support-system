@@ -55,7 +55,12 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
             #support-login-wrapper input[type="text"]:focus,
             #support-login-wrapper input[type="email"]:focus,
             #support-login-wrapper input[type="password"]:focus{
-                border: 1px solid <?php echo $primary_color; ?>;
+                border: 2px solid <?php echo $primary_color; ?>;
+            }
+            
+            .support_form .form_field:focus,
+            .support_settings .form_field:focus{
+                border-color: <?php echo $primary_color; ?>;
             }
             
             /* Secondary color */

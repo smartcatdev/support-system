@@ -10,6 +10,7 @@ Description: Styles for frontend application
 ## Sidebar
 ## Main
 ## Datatable
+## Modal
 */
 
 /*
@@ -95,7 +96,7 @@ input[type="submit"]:focus{
 #support-login-form{
     padding: 20px;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 3px;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.1),0 2px 4px 0 rgba(0,0,0,0.05);
     margin-bottom: 20px;
 }
@@ -110,20 +111,6 @@ input[type="submit"]:focus{
 #support-login-disclaimer {
     color: #7b858d;
     text-align: center;
-}
-
-#support-login-wrapper input[type="text"],
-#support-login-wrapper input[type="email"],
-#support-login-wrapper input[type="password"]{
-    padding: 10px 10px;
-    outline: none;
-    width: 100%;
-    font-size: 14px;
-    background: #FCFCFC;
-    border: 1px solid #DDDDDD;
-    box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.06);
-    border-radius: 3px;
-    display: block;
 }
 
 #support-login-wrapper label {
@@ -173,6 +160,13 @@ input[type="submit"]:focus{
 #navbar ul.dropdown-menu a {
     color: #414141;
     text-align: left;
+}
+
+#navbar .left-header a {
+    margin-right: 5px;
+}
+
+#navbar .right-header img {
 }
 
 /**
@@ -235,10 +229,15 @@ table.dataTable.no-footer{
     height: 38px;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current{
-    background: #fff !important;
+#support_tickets_table_wrapper.dataTables_wrapper .dataTables_paginate .paginate_button.current{
     border: 1px solid #efefef !important;
+    color: #fff !important;
 }
+
+#support_tickets_table_wrapper.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+    color: #fff !important;
+}
+
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
     color: #fff;
     border: 1px solid #efefef !important;
@@ -326,6 +325,56 @@ table.dataTable.display tbody td span.ticket-status.follow_up:before {
     font-family: "Glyphicons Halflings";
 }
 
+table.dataTable.display .status-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+table.dataTable.display .status-tooltip {
+    position: absolute;
+    background: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    left: -30px;
+    bottom: 20px;
+    width: 70px;
+    text-align: center;
+    display: none;
+
+}
+
+table.dataTable.display .status-wrapper:hover .status-tooltip {
+    display: inline-block;
+}
+
+.ticket-status {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.ticket-status.resolved {
+    color: #1abc9c;
+}
+
+.ticket-status.viewed {
+    color: #9B59B6;
+}
+
+.ticket-status.in_progress {
+    color: #f1c40f;
+}
+
+.ticket-status.follow_up {
+    color: #e74c3c;
+}
+
+.ticket-status.new {
+    color: #3498db;
+}
+
+
+
 @media( max-width: 768px ) {
     #support_system table tr th,
     #support_system table tr td {
@@ -340,4 +389,17 @@ table.dataTable.display tbody td span.ticket-status.follow_up:before {
     #support_system table tr td:last-child {
         display: table-cell;
     }
+}
+
+/* ## Modal */
+.modal a.close-modal {
+    top: 5px !important;
+    right: 5px !important;
+    background: url('../lib/modal/images/close.png') !important;
+    background-size: 25px !important;
+    background-repeat: no-repeat !important;
+}
+
+.modal-spinner {
+    background: none !important;
 }

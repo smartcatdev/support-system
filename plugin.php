@@ -2,7 +2,7 @@
 /*
  * Plugin Name: uCare - Support Ticket System
  * Author: Smartcat
- * Description: WordPress integrated support ticketing system. 
+ * Description: A full blown support ticket system, with notifications and user roles. Compatible with WooCommerce and Easy Digital Downloads 
  * Version: 1.0
  * Author: Smartcat
  * Author URI: https://smartcatdesign.net
