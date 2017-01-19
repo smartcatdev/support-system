@@ -42,7 +42,10 @@ class TicketTableComponent extends AbstractComponent {
                 $status = get_post_meta( $ticket->ID, 'status', true );
 
                 if( array_key_exists( $status, $statuses ) ) {
-                    echo $statuses[ $status ];
+                    echo '<span class="status-wrapper">'
+                            . '<span class="ticket-status ' . $status . '"></span>'
+                            . '<span class="status-tooltip">' . $statuses[ $status ] . '</span>'
+                            . '</span>';
                 }
 
                 break;
@@ -176,9 +179,9 @@ class TicketTableComponent extends AbstractComponent {
     private function table_headers() {
         $headers = array(
             'id'        => __( 'Case #', PLUGIN_ID ),
+            'status'    => __( 'Status', PLUGIN_ID ),
             'subject'   => __( 'Subject', PLUGIN_ID ),
             'email'     => __( 'Email', PLUGIN_ID ),
-            'status'    => __( 'Status', PLUGIN_ID ),
             'date'      => __( 'Date', PLUGIN_ID )
         );
 

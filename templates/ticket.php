@@ -6,29 +6,15 @@ use const SmartcatSupport\PLUGIN_ID;
 
 ?>
 
-<div class="support_ticket">
+<div class="support_ticket row">
 
-    <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
-
-        <div>
-
-            <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
-
-                <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/ticket_meta_form.php' ); ?>
-
-            </form>
-
-        </div>
-
-    <?php endif; ?>
-
-    <div class="ticket support_card" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
+    <div class="ticket support_card col-sm-8" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
 
         <div class="status_bar">
 
             <div class="image_wrapper">
-
-                <?php echo get_avatar( $ticket, 48 ); ?>
+                
+                <?php echo get_avatar( $ticket->post_author, 48 ); ?>
 
             </div>
 
@@ -73,4 +59,22 @@ use const SmartcatSupport\PLUGIN_ID;
 
         </div>
 
-</div>
+
+    </div>
+    
+
+    <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
+
+        <div id="ticket-sidebar" class="col-sm-4">
+
+            <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
+
+                <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/ticket_meta_form.php' ); ?>
+
+            </form>
+
+        </div>
+
+    <?php endif; ?>
+    
+    </div>

@@ -126,15 +126,20 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const PRIMARY_COLOR = '1abc9c';
+    const PRIMARY_COLOR = '#1abc9c';
 
     /**
      * @since 1.0.0
      */
-    const SECONDARY_COLOR = '34495e';
+    const SECONDARY_COLOR = '#34495e';
 
     /**
      * @since 1.0.0
      */
-    const HOVER_COLOR = '48c9b0';
+    const TERTIARY_COLOR = '#e74c3c';
+
+    /**
+     * @since 1.0.0
+     */
+    const HOVER_COLOR = '#48c9b0';
 }

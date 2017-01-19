@@ -48,6 +48,7 @@ jQuery(document).ready(function ($) {
         $( '#' + tab ).remove();
         tabs.tabs( 'refresh' );
     });
-
+    
+    
     
 });
