@@ -235,7 +235,7 @@ class TicketCptComponent extends AbstractComponent {
                 break;
 
             case 'priority':
-                $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+                $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
 
                 if( array_key_exists( $value, $priorities ) ) {
                     echo $priorities[ $value ];
