@@ -5,9 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TemplateUtils;
-use SmartcatSupport\util\UserUtils;
 
 class TicketComponent extends AbstractComponent {
 

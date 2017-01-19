@@ -38,7 +38,7 @@ class TicketTableComponent extends AbstractComponent {
                 break;
 
             case 'status':
-                $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+                $statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
                 $status = get_post_meta( $ticket->ID, 'status', true );
 
                 if( array_key_exists( $status, $statuses ) ) {
@@ -52,7 +52,7 @@ class TicketTableComponent extends AbstractComponent {
 
 
             case 'priority':
-                $priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+                $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
                 $priority = get_post_meta( $ticket->ID, 'priority', true );
 
                 if( array_key_exists( $priority, $priorities ) ) {
@@ -127,7 +127,7 @@ class TicketTableComponent extends AbstractComponent {
         $statuses = new SelectBoxField(
             array(
                 'id'      => 'status',
-                'options' => array( '' => __( 'Any Status', Plugin::ID ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES ),
+                'options' => array( '' => __( 'Any Status', Plugin::ID ) ) + get_option( Option::STATUSES, Option\Defaults::$STATUSES ),
                 'value'   => isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : ''
             )
         );
