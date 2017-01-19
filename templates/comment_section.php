@@ -2,7 +2,6 @@
 
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\Plugin;
 
 ?>
 

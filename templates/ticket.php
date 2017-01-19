@@ -2,7 +2,6 @@
 
 use smartcat\form\Form;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\Plugin;
 
 ?>
 

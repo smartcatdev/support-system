@@ -226,7 +226,7 @@ class TicketCptComponent extends AbstractComponent {
                 break;
 
             case 'status':
-                $statuses = get_option( Option::STATUSES, Option\Defaults::STATUSES );
+                $statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
 
                 if( array_key_exists( $value, $statuses ) ) {
                     echo $statuses[ $value ];

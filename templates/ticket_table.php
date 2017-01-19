@@ -1,9 +1,6 @@
 <?php
 
-use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use function SmartcatSupport\get_agents;
-use function SmartcatSupport\get_products;
 use SmartcatSupport\Plugin;
 
 ?>
