@@ -18,6 +18,9 @@ use SmartcatSupport\util\UserUtils;
 
 class Plugin extends AbstractPlugin implements HookSubscriber {
 
+    const VERSION = '1.0';
+    const ID = 'smartcat_support';
+
     public function start() {
         $this->add_api_subscriber( $this );
         $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
@@ -43,9 +46,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function activate() {
         $roles = array(
-            array( add_role( 'support_admin', __( 'Support Admin', PLUGIN_ID ) ), true ),
-            array( add_role( 'support_agent', __( 'Support Agent', PLUGIN_ID ) ), true ),
-            array( add_role( 'support_user', __( 'Support User', PLUGIN_ID ) ), false ),
+            array( add_role( 'support_admin', __( 'Support Admin', Plugin::ID ) ), true ),
+            array( add_role( 'support_agent', __( 'Support Agent', Plugin::ID ) ), true ),
+            array( add_role( 'support_user', __( 'Support User', Plugin::ID ) ), false ),
             array( get_role( 'administrator' ), true )
         );
 
@@ -126,12 +129,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 'notice_can_install_required' => _n_noop(
                     'Smartcat Support requires the following plugin: %1$s.',
                     'Smartcat Support requires the following plugins: %1$s.',
-                    PLUGIN_ID
+                    Plugin::ID
                 ),
                 'notice_can_install_recommended' => _n_noop(
                     'Smartcat Support recommends the following plugin: %1$s.',
                     'Smartcat Support recommends the following plugins: %1$s.',
-                    PLUGIN_ID
+                    Plugin::ID
                 ),
             )
         );
@@ -155,7 +158,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function mailer_text_domain( $text_domain ) {
-        return PLUGIN_ID;
+        return Plugin::ID;
     }
 
     public function components() {
@@ -200,7 +203,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Welcome to Support', PLUGIN_ID ),
+                    'post_title'    => __( 'Welcome to Support', Plugin::ID ),
                     'post_content'  => file_get_contents( $this->dir . '/emails/welcome.md' )
                 )
             );
@@ -215,7 +218,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Your request for support has been marked as resolved', PLUGIN_ID ),
+                    'post_title'    => __( 'Your request for support has been marked as resolved', Plugin::ID ),
                     'post_content'  => file_get_contents( $this->dir . '/emails/ticket_resolved.md' )
                 )
             );
@@ -230,7 +233,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Reply to your request for support', PLUGIN_ID ),
+                    'post_title'    => __( 'Reply to your request for support', Plugin::ID ),
                     'post_content'  => file_get_contents( $this->dir . '/emails/ticket_reply.md' )
                 )
             );
@@ -250,7 +253,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', PLUGIN_ID )
+                    'post_title' => __( 'Support', Plugin::ID )
                 )
             );
         } else if( $post->post_status == 'trash' ) {

@@ -5,7 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\util\UserUtils;
 

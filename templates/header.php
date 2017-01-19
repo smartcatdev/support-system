@@ -1,10 +1,9 @@
 <?php
 
 use SmartcatSupport\Plugin;
-use const SmartcatSupport\PLUGIN_ID;
 use SmartcatSupport\descriptor\Option;
 
-$url = Plugin::plugin_url( PLUGIN_ID );
+$url = Plugin::plugin_url( Plugin::ID );
 $primary_color = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
 $hover_color = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
 $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );

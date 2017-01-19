@@ -6,7 +6,7 @@ use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 use SmartcatSupport\util\UserUtils;
 
 class TicketCptComponent extends AbstractComponent {
@@ -19,7 +19,7 @@ class TicketCptComponent extends AbstractComponent {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_support_meta',
-                'title'     => __( 'Ticket Information', PLUGIN_ID ),
+                'title'     => __( 'Ticket Information', Plugin::ID ),
                 'post_type' => 'support_ticket',
                 'context'   => 'advanced',
                 'priority'  => 'high',
@@ -30,7 +30,7 @@ class TicketCptComponent extends AbstractComponent {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_product_meta',
-                'title'     => __( 'Product Information', PLUGIN_ID ),
+                'title'     => __( 'Product Information', Plugin::ID ),
                 'post_type' => 'support_ticket',
                 'context'   => 'side',
                 'priority'  => 'high',
@@ -41,7 +41,7 @@ class TicketCptComponent extends AbstractComponent {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_customer_meta',
-                'title'     => __( 'Customer Information', PLUGIN_ID ),
+                'title'     => __( 'Customer Information', Plugin::ID ),
                 'post_type' => 'support_ticket',
                 'context'   => 'side',
                 'priority'  => 'high',
@@ -53,38 +53,38 @@ class TicketCptComponent extends AbstractComponent {
     public function register_cpt() {
         //<editor-fold desc="$args array">
         $labels = array(
-            'name'                  => _x( 'Support Tickets', 'Post Type General Name', PLUGIN_ID ),
-            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', PLUGIN_ID ),
-            'menu_name'             => __( 'Support Tickets', PLUGIN_ID ),
-            'name_admin_bar'        => __( 'Support Tickets', PLUGIN_ID ),
-            'archives'              => __( 'Item Archives', PLUGIN_ID ),
-            'parent_item_colon'     => __( 'Parent Item:', PLUGIN_ID ),
-            'all_items'             => __( 'All Tickets', PLUGIN_ID ),
-            'add_new_item'          => __( 'New Ticket', PLUGIN_ID ),
-            'add_new'               => __( 'New Ticket', PLUGIN_ID ),
-            'new_item'              => __( 'New Ticket', PLUGIN_ID ),
-            'edit_item'             => __( 'Edit Ticket', PLUGIN_ID ),
-            'update_item'           => __( 'Update Ticket', PLUGIN_ID ),
-            'view_item'             => __( 'View Ticket', PLUGIN_ID ),
-            'search_items'          => __( 'Search Ticket', PLUGIN_ID ),
-            'not_found'             => __( 'Ticket Not found', PLUGIN_ID ),
-            'not_found_in_trash'    => __( 'Ticket Not found in Trash', PLUGIN_ID ),
-            'featured_image'        => __( 'Featured Image', PLUGIN_ID ),
-            'set_featured_image'    => __( 'Set featured image', PLUGIN_ID ),
-            'remove_featured_image' => __( 'Remove featured image', PLUGIN_ID ),
-            'use_featured_image'    => __( 'Use as featured image', PLUGIN_ID ),
-            'insert_into_item'      => __( 'Insert into ticket', PLUGIN_ID ),
-            'uploaded_to_this_item' => __( 'Uploaded to this ticket', PLUGIN_ID ),
-            'items_list'            => __( 'Tickets list', PLUGIN_ID ),
-            'items_list_navigation' => __( 'Tickets list navigation', PLUGIN_ID ),
-            'filter_items_list'     => __( 'Filter tickets list', PLUGIN_ID )
+            'name'                  => _x( 'Support Tickets', 'Post Type General Name', Plugin::ID ),
+            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', Plugin::ID ),
+            'menu_name'             => __( 'Support Tickets', Plugin::ID ),
+            'name_admin_bar'        => __( 'Support Tickets', Plugin::ID ),
+            'archives'              => __( 'Item Archives', Plugin::ID ),
+            'parent_item_colon'     => __( 'Parent Item:', Plugin::ID ),
+            'all_items'             => __( 'All Tickets', Plugin::ID ),
+            'add_new_item'          => __( 'New Ticket', Plugin::ID ),
+            'add_new'               => __( 'New Ticket', Plugin::ID ),
+            'new_item'              => __( 'New Ticket', Plugin::ID ),
+            'edit_item'             => __( 'Edit Ticket', Plugin::ID ),
+            'update_item'           => __( 'Update Ticket', Plugin::ID ),
+            'view_item'             => __( 'View Ticket', Plugin::ID ),
+            'search_items'          => __( 'Search Ticket', Plugin::ID ),
+            'not_found'             => __( 'Ticket Not found', Plugin::ID ),
+            'not_found_in_trash'    => __( 'Ticket Not found in Trash', Plugin::ID ),
+            'featured_image'        => __( 'Featured Image', Plugin::ID ),
+            'set_featured_image'    => __( 'Set featured image', Plugin::ID ),
+            'remove_featured_image' => __( 'Remove featured image', Plugin::ID ),
+            'use_featured_image'    => __( 'Use as featured image', Plugin::ID ),
+            'insert_into_item'      => __( 'Insert into ticket', Plugin::ID ),
+            'uploaded_to_this_item' => __( 'Uploaded to this ticket', Plugin::ID ),
+            'items_list'            => __( 'Tickets list', Plugin::ID ),
+            'items_list_navigation' => __( 'Tickets list navigation', Plugin::ID ),
+            'filter_items_list'     => __( 'Filter tickets list', Plugin::ID )
         );
 
         $capabilities = array();
 
         $args = array(
-            'label'               => __( 'Support Ticket', PLUGIN_ID ),
-            'description'         => __( 'Tickets for support requests', PLUGIN_ID ),
+            'label'               => __( 'Support Ticket', Plugin::ID ),
+            'description'         => __( 'Tickets for support requests', Plugin::ID ),
             'labels'              => $labels,
             'supports'            => array( 'editor', 'comments', 'title' ),
             'hierarchical'        => false,
@@ -135,7 +135,7 @@ class TicketCptComponent extends AbstractComponent {
 
                 <div class="inline-edit-col">
 
-                    <legend class="inline-edit-legend"><?php _e( 'Ticket Details', PLUGIN_ID ); ?></legend>
+                    <legend class="inline-edit-legend"><?php _e( 'Ticket Details', Plugin::ID ); ?></legend>
 
                     <div class="inline-edit-group">
 
@@ -143,7 +143,7 @@ class TicketCptComponent extends AbstractComponent {
 
                             <label for="<?php esc_attr_e( $field->id ); ?>">
 
-                                <span class="title"><?php _e( $field->label, PLUGIN_ID ); ?></span>
+                                <span class="title"><?php _e( $field->label, Plugin::ID ); ?></span>
 
                                 <?php $field->render(); ?>
 
@@ -167,20 +167,20 @@ class TicketCptComponent extends AbstractComponent {
         unset( $columns['author'] );
 
         $left_cols = array_splice( $columns, 0, 2 );
-        $left_cols['title'] = __( 'Subject', PLUGIN_ID );
-        $left_cols['id'] = __( 'Case #', PLUGIN_ID );
+        $left_cols['title'] = __( 'Subject', Plugin::ID );
+        $left_cols['id'] = __( 'Case #', Plugin::ID );
 
         if( $this->plugin->edd_active || $this->plugin->woo_active ) {
-            $left_cols['product'] = __( 'Product', PLUGIN_ID );
+            $left_cols['product'] = __( 'Product', Plugin::ID );
         }
 
         return array_merge(
             $left_cols,
             array(
-                'email'    => __( 'Email', PLUGIN_ID ),
-                'agent'    => __( 'Assigned', PLUGIN_ID ),
-                'status'   => __( 'Status', PLUGIN_ID ),
-                'priority' => __( 'Priority', PLUGIN_ID ),
+                'email'    => __( 'Email', Plugin::ID ),
+                'agent'    => __( 'Assigned', Plugin::ID ),
+                'status'   => __( 'Status', Plugin::ID ),
+                'priority' => __( 'Priority', Plugin::ID ),
                 'flagged'  => '<i class="support_icon icon-flag2"></i>'
             ),
             $columns
@@ -217,7 +217,7 @@ class TicketCptComponent extends AbstractComponent {
                 break;
 
             case 'agent':
-                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_ID ) ) );
+                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', Plugin::ID ) ) );
 
                 if( array_key_exists( $value, $agents ) ) {
                     echo $agents[ $value ];
@@ -259,7 +259,7 @@ class TicketCptComponent extends AbstractComponent {
             $agent_filter = new SelectBoxField(
                 array(
                     'id'        => 'agent',
-                    'options'   =>  UserUtils::list_agents( array( '' => __( 'All Agents', PLUGIN_ID ) ) ),
+                    'options'   =>  UserUtils::list_agents( array( '' => __( 'All Agents', Plugin::ID ) ) ),
                     'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
             );
@@ -271,8 +271,8 @@ class TicketCptComponent extends AbstractComponent {
                     'id'        => 'checked_meta',
                     'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
                     'options'   =>  array(
-                        '' => __( 'All Tickets', PLUGIN_ID ),
-                        'flagged' => __( 'Flagged', PLUGIN_ID )
+                        '' => __( 'All Tickets', Plugin::ID ),
+                        'flagged' => __( 'Flagged', Plugin::ID )
                     ),
                 )
             );
