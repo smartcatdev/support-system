@@ -24,7 +24,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const STATUSES = array(
+    static $STATUSES = array(
         'new'           => 'New',
         'viewed'        => 'Viewed',
         'in_progress'   => 'In Progress',
@@ -37,7 +37,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const PRIORITIES = array(
+    static $PRIORITIES = array(
         'low'   => 'Low',
         'med'   => 'Medium',
         'high'  => 'High'

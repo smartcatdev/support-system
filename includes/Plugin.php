@@ -9,7 +9,6 @@ use SmartcatSupport\component\CommentComponent;
 use SmartcatSupport\component\ProductComponent;
 use SmartcatSupport\component\RegistrationComponent;
 use SmartcatSupport\component\SettingsComponent;
-use SmartcatSupport\component\TemplateComponent;
 use SmartcatSupport\component\TicketComponent;
 use SmartcatSupport\component\TicketCptComponent;
 use SmartcatSupport\component\TicketTableComponent;

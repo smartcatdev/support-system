@@ -2,7 +2,6 @@
 
 use smartcat\form\Form;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\Plugin;
 
 $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/settings_form.php';
 

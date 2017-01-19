@@ -9,8 +9,8 @@ use SmartcatSupport\Plugin;
 use SmartcatSupport\util\UserUtils;
 
 $agents     = UserUtils::list_agents(array( '' => __( 'Unassigned', Plugin::ID ) ) );
-$statuses   = get_option( Option::STATUSES, Option\Defaults::STATUSES );
-$priorities = get_option( Option::PRIORITIES, Option\Defaults::PRIORITIES );
+$statuses   = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
+$priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
 
 $form = new Form( 'ticket_quick_edit' );
 

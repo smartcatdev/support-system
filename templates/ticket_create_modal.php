@@ -3,7 +3,6 @@
 use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\Plugin;
 
 $form = include Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_create_form.php';
 
