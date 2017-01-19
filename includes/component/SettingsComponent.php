@@ -3,7 +3,7 @@
 namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TemplateUtils;
 
 class SettingsComponent extends AbstractComponent {
@@ -30,7 +30,7 @@ class SettingsComponent extends AbstractComponent {
                 )
             );
 
-            wp_send_json_success( __( 'Settings updated', PLUGIN_ID ) );
+            wp_send_json_success( __( 'Settings updated', Plugin::ID ) );
         } else {
             wp_send_json_error( $form->errors );
         }

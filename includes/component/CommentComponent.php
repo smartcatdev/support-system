@@ -7,7 +7,7 @@ use smartcat\debug\Log;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TemplateUtils;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 
 class CommentComponent extends AbstractComponent {
 
@@ -30,7 +30,7 @@ class CommentComponent extends AbstractComponent {
                     )
                 );
             } else {
-                wp_send_json_error( array( 'content' => __( 'Cannot be blank', PLUGIN_ID ) ) );
+                wp_send_json_error( array( 'content' => __( 'Cannot be blank', Plugin::ID ) ) );
             }
         }
     }
@@ -90,7 +90,7 @@ class CommentComponent extends AbstractComponent {
                 wp_send_json( $response );
             }
         } else {
-            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', PLUGIN_ID ) ) );
+            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', Plugin::ID ) ) );
         }
     }
 

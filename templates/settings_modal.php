@@ -2,9 +2,9 @@
 
 use smartcat\form\Form;
 use SmartcatSupport\Plugin;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 
-$form = include_once Plugin::plugin_dir( PLUGIN_ID ) . '/config/settings_form.php';
+$form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/settings_form.php';
 
 ?>
 
@@ -14,7 +14,7 @@ $form = include_once Plugin::plugin_dir( PLUGIN_ID ) . '/config/settings_form.ph
 
         <?php Form::render_fields( $form ); ?>
 
-        <input type="submit" value="<?php _e( 'Save Settings', PLUGIN_ID ); ?>" />
+        <input type="submit" value="<?php _e( 'Save Settings', Plugin::ID ); ?>" />
 
     </form>
 

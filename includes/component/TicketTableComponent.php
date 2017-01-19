@@ -5,7 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\util\UserUtils;
 
@@ -66,7 +66,7 @@ class TicketTableComponent extends AbstractComponent {
                 break;
 
             case 'agent':
-                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', PLUGIN_ID ) ) );
+                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', Plugin::ID ) ) );
                 $agent = get_post_meta( $ticket->ID, 'agent', true );
 
                 if( array_key_exists( $agent ,$agents ) ) {
@@ -104,7 +104,7 @@ class TicketTableComponent extends AbstractComponent {
             $products = new SelectBoxField(
                 array(
                     'id'      => 'product',
-                    'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', PLUGIN_ID ) ) ),
+                    'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', Plugin::ID ) ) ),
                     'value'   => isset( $_REQUEST['product'] ) ? $_REQUEST['product'] : ''
                 )
             );
@@ -116,7 +116,7 @@ class TicketTableComponent extends AbstractComponent {
             $agents = new SelectBoxField(
                 array(
                     'id'      => 'agent',
-                    'options' => UserUtils::list_agents( array( '' => __( 'All Agents', PLUGIN_ID ) ) ),
+                    'options' => UserUtils::list_agents( array( '' => __( 'All Agents', Plugin::ID ) ) ),
                     'value'   => isset( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
             );
@@ -127,7 +127,7 @@ class TicketTableComponent extends AbstractComponent {
         $statuses = new SelectBoxField(
             array(
                 'id'      => 'status',
-                'options' => array( '' => __( 'Any Status', PLUGIN_ID ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES ),
+                'options' => array( '' => __( 'Any Status', Plugin::ID ) ) + get_option( Option::STATUSES, Option\Defaults::STATUSES ),
                 'value'   => isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : ''
             )
         );
@@ -178,23 +178,23 @@ class TicketTableComponent extends AbstractComponent {
 
     private function table_headers() {
         $headers = array(
-            'id'        => __( 'Case #', PLUGIN_ID ),
-            'status'    => __( 'Status', PLUGIN_ID ),
-            'subject'   => __( 'Subject', PLUGIN_ID ),
-            'email'     => __( 'Email', PLUGIN_ID ),
-            'date'      => __( 'Date', PLUGIN_ID )
+            'id'        => __( 'Case #', Plugin::ID ),
+            'status'    => __( 'Status', Plugin::ID ),
+            'subject'   => __( 'Subject', Plugin::ID ),
+            'email'     => __( 'Email', Plugin::ID ),
+            'date'      => __( 'Date', Plugin::ID )
         );
 
         if( $this->plugin->edd_active || $this->plugin->woo_active ) {
-            $headers['product'] = __( 'Product', PLUGIN_ID );
+            $headers['product'] = __( 'Product', Plugin::ID );
         }
 
         if( current_user_can( 'edit_others_tickets' ) ) {
-            $headers['priority'] = __( 'Priority', PLUGIN_ID );
-            $headers['agent'] = __( 'Assigned', PLUGIN_ID );
+            $headers['priority'] = __( 'Priority', Plugin::ID );
+            $headers['agent'] = __( 'Assigned', Plugin::ID );
         }
 
-        $headers['actions'] = __( 'Actions', PLUGIN_ID );
+        $headers['actions'] = __( 'Actions', Plugin::ID );
 
         return apply_filters( 'support_ticket_table_headers', $headers );
     }

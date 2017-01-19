@@ -2,7 +2,7 @@
 
 namespace SmartcatSupport\util;
 
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 
 class UserUtils {
     private function __construct() {}
@@ -33,9 +33,9 @@ class UserUtils {
 
     public static function roles() {
         return array(
-            'support_admin' => __( 'Support Admin', PLUGIN_ID ),
-            'support_agent', __( 'Support Agent', PLUGIN_ID ),
-            'support_user', __( 'Support User', PLUGIN_ID )
+            'support_admin' => __( 'Support Admin', Plugin::ID ),
+            'support_agent', __( 'Support Agent', Plugin::ID ),
+            'support_user', __( 'Support User', Plugin::ID )
         );
     }
 

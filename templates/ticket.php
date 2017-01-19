@@ -2,7 +2,7 @@
 
 use smartcat\form\Form;
 use SmartcatSupport\Plugin;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 
 ?>
 
@@ -24,8 +24,8 @@ use const SmartcatSupport\PLUGIN_ID;
 
                 <p class="date_posted">
 
-                    <?php _e( 'Updated ', PLUGIN_ID ); ?>
-                    <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', PLUGIN_ID ); ?>
+                    <?php _e( 'Updated ', Plugin::ID ); ?>
+                    <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', Plugin::ID ); ?>
 
                     <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
 
@@ -55,7 +55,7 @@ use const SmartcatSupport\PLUGIN_ID;
 
         <div class="date_opened">
 
-            <?php _e( 'Opened ', PLUGIN_ID ); echo get_the_date( 'l F n, Y', $ticket ); ?>
+            <?php _e( 'Opened ', Plugin::ID ); echo get_the_date( 'l F n, Y', $ticket ); ?>
 
         </div>
 
@@ -69,7 +69,7 @@ use const SmartcatSupport\PLUGIN_ID;
 
             <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
 
-                <?php Form::render_fields( include Plugin::plugin_dir( PLUGIN_ID ) . 'config/ticket_meta_form.php' ); ?>
+                <?php Form::render_fields( include Plugin::plugin_dir( Plugin::ID ) . 'config/ticket_meta_form.php' ); ?>
 
             </form>
 
