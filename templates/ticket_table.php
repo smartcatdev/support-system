@@ -4,7 +4,7 @@ use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
 use function SmartcatSupport\get_agents;
 use function SmartcatSupport\get_products;
-use const SmartcatSupport\PLUGIN_ID;
+use SmartcatSupport\Plugin;
 
 ?>
 
@@ -16,11 +16,11 @@ use const SmartcatSupport\PLUGIN_ID;
         <?php do_action( 'support_tickets_table_filters' ); ?>
 
         <span class="trigger" data-action="filter_tickets">
-                <i class="filter icon-filter"></i><?php _e( 'Filter', PLUGIN_ID ); ?>
+                <i class="filter icon-filter"></i><?php _e( 'Filter', Plugin::ID ); ?>
             </span>
 
         <span class="trigger" data-action="refresh_tickets">
-                <i class="refresh icon-loop2"></i><?php _e( 'Refresh', PLUGIN_ID ); ?>
+                <i class="refresh icon-loop2"></i><?php _e( 'Refresh', Plugin::ID ); ?>
             </span>
 
     </form>

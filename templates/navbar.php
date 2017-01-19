@@ -40,7 +40,7 @@ $user = wp_get_current_user();
                                 <li>
                                     <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_settings" rel="modal:open" class="alignright background-secondary hover menu-item">
                                         <span class="glyphicon glyphicon-cog"></span>
-                                        <?php _e( 'Settings', SmartcatSupport\PLUGIN_ID ); ?>
+                                        <?php _e( 'Settings', SmartcatSupport\Plugin::ID ); ?>
                                     </a>    
                                 </li>
 
@@ -49,7 +49,7 @@ $user = wp_get_current_user();
                                 <li>
                                     <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">
                                         <span class="glyphicon-log-out glyphicon"></span>
-                                        <?php _e( 'Logout', SmartcatSupport\PLUGIN_ID ); ?>
+                                        <?php _e( 'Logout', SmartcatSupport\Plugin::ID ); ?>
                                     </a>    
                                 </li>
                             </ul>
