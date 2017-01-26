@@ -84,7 +84,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Open App',  self::ID ), 'manage_options', 'open_app', function () {} );
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Open Application',  self::ID ), 'manage_options', 'open_app', function () {} );
     }
 
     public function settings_shortcut_redirect() {
