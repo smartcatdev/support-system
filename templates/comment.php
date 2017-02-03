@@ -29,7 +29,7 @@ use SmartcatSupport\Plugin;
 
         <div class="actions">
 
-            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) ) : ?>
+            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) && !$comments_closed ) : ?>
 
                 <i class="trigger icon-bin" data-action="delete_comment"></i>
                 <i class="trigger icon-pencil" data-action="edit_comment"></i>
@@ -44,37 +44,42 @@ use SmartcatSupport\Plugin;
 
         <div class="content"><?php echo $comment->comment_content; ?></div>
 
-        <div class="editor hidden">
+        <?php if( !$comments_closed ) : ?>
 
-            <form class="support_form"
-                  data-action="support_update_comment"
-                  data-after="post_comment_update">
+            <div class="editor hidden">
 
-                <textarea name="content"><?php echo $comment->comment_content; ?></textarea>
+                <form class="support_form"
+                      data-action="support_update_comment"
+                      data-after="post_comment_update">
 
-                <input type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
+                    <textarea name="content"><?php echo $comment->comment_content; ?></textarea>
 
-                <?php wp_comment_form_unfiltered_html_nonce(); ?>
+                    <input type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
-                <div class="button_wrapper">
+                    <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                    <button class="trigger button cancel" data-action="cancel_comment_edit">
+                    <div class="button_wrapper">
 
-                        <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+                        <button class="trigger button cancel" data-action="cancel_comment_edit">
 
-                    </button>
+                            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
-                    <button type="input" class="button submit">
+                        </button>
 
-                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                        <button type="input" class="button submit">
 
-                    </button>
+                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
-                </div>
+                        </button>
 
-            </form>
+                    </div>
 
-        </div>
+                </form>
+
+            </div>
+
+        <?php endif; ?>
+
     </div>
 
 </div>
