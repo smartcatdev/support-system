@@ -46,7 +46,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const TICKET_CREATED_MSG = 'We\'ve received your request for support and an agent will get back to you soon';
+    const TICKET_CREATED_MSG = "We've received your request for support and an agent will get back to you soon";
 
     /**
      * @since 1.0.0
@@ -57,6 +57,11 @@ final class Defaults {
      * @since 1.0.0
      */
     const EMPTY_TABLE_MSG = 'There are no tickets yet';
+
+    /**
+     * @since 1.0.0
+     */
+    const COMMENTS_CLOSED_MSG = 'This ticket has been marked as closed and comments have been disabled';
 
     /**
      * @since 1.0.0
