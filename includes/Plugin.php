@@ -143,6 +143,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function subscribed_hooks() {
         return array(
+
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
