@@ -11,4 +11,8 @@ class TicketUtils {
 
         return $status !== 'closed' && $status !== 'resolved';
     }
+
+    public static function ticket_ids() {
+        return wp_list_pluck( get_posts( array( 'post_type' => 'support_ticket' ) ), 'ID' );
+    }
 }

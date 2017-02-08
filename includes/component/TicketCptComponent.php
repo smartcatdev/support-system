@@ -7,6 +7,7 @@ use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
+use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
 class TicketCptComponent extends AbstractComponent {
@@ -324,6 +325,12 @@ class TicketCptComponent extends AbstractComponent {
         }
     }
 
+    public function remove_widget_comments( $args ) {
+        $args['post__not_in'] = $this->plugin->ticket_ids;
+
+        return $args;
+    }
+
     public function subscribed_hooks() {
         return array(
             'do_feed_rss2' => array( 'remove_feed_comments', 1 ),
@@ -331,6 +338,7 @@ class TicketCptComponent extends AbstractComponent {
             'do_feed_rdf' => array( 'remove_feed_comments', 1 ),
             'do_feed_atom' => array( 'remove_feed_comments', 1 ),
             'do_feed' => array( 'remove_feed_comments', 1 ),
+            'widget_comments_args' => array( 'remove_widget_comments' ),
 
             'init' => array( 'register_cpt' ),
             'save_post' => array( 'quick_edit_save' ),
