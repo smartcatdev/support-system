@@ -6,6 +6,9 @@ use SmartcatSupport\util\TicketUtils;
 
 $comments_enabled = TicketUtils::comments_enabled( $post->ID );
 
+$ticket_status = get_post_meta( $post->ID, 'status', true );
+$comments_closed = $ticket_status === 'resolved' || $ticket_status === 'closed';
+
 ?>
 
 <div class="comment_section">
