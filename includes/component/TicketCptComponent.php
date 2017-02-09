@@ -7,6 +7,7 @@ use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
+use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
 class TicketCptComponent extends AbstractComponent {
@@ -99,7 +100,8 @@ class TicketCptComponent extends AbstractComponent {
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
-            'capabilities'        => $capabilities
+            'capabilities'        => $capabilities,
+            'feeds'               => null
         );
         //</editor-fold>
 
@@ -305,8 +307,39 @@ class TicketCptComponent extends AbstractComponent {
         unregister_post_type( 'support_ticket' );
     }
 
+    public function remove_feed_comments( $for_comments ) {
+        if( $for_comments ) {
+
+            $comments = $GLOBALS['wp_query']->comments;
+            $num_comments = $GLOBALS['wp_query']->comment_count;
+
+            for( $ctr = 0; $ctr < $num_comments; $ctr++ ) {
+
+                $post = get_post( $comments[ $ctr ]->comment_post_ID );
+
+                if ( $post && $post->post_type == 'support_ticket' ) {
+                    unset( $GLOBALS['wp_query']->comments[ $ctr ] );
+                    $GLOBALS['wp_query']->comment_count--;
+                }
+            }
+        }
+    }
+
+    public function remove_widget_comments( $args ) {
+        $args['post__not_in'] = $this->plugin->ticket_ids;
+
+        return $args;
+    }
+
     public function subscribed_hooks() {
         return array(
+            'do_feed_rss2' => array( 'remove_feed_comments', 1 ),
+            'do_feed_rss' => array( 'remove_feed_comments', 1 ),
+            'do_feed_rdf' => array( 'remove_feed_comments', 1 ),
+            'do_feed_atom' => array( 'remove_feed_comments', 1 ),
+            'do_feed' => array( 'remove_feed_comments', 1 ),
+            'widget_comments_args' => array( 'remove_widget_comments' ),
+
             'init' => array( 'register_cpt' ),
             'save_post' => array( 'quick_edit_save' ),
             'restrict_manage_posts' => array( 'post_table_filters' ),
@@ -315,7 +348,7 @@ class TicketCptComponent extends AbstractComponent {
             'quick_edit_custom_box' => array( 'render_quick_edit', 10, 2 ),
             'manage_support_ticket_posts_columns' => array( 'post_table_columns' ),
             'manage_support_ticket_posts_custom_column' => array( 'post_table_column_data', 10, 2 ),
-            'manage_edit-support_ticket_sortable_columns' => array( 'post_table_sortable_columns' ),
+            'manage_edit-support_ticket_sortable_columns' => array( 'post_table_sortable_columns' )
         );
     }
 }

@@ -59,6 +59,11 @@ final class Option {
     /**
      * @since 1.0.0
      */
+    const COMMENTS_CLOSED_MSG = 'smartcat_support_string_comments-closed';
+
+    /**
+     * @since 1.0.0
+     */
     const CREATE_BTN_TEXT = 'smartcat_support_string_create-ticket-btn';
 
     /**
