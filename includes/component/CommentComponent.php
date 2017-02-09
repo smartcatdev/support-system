@@ -7,13 +7,14 @@ use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\Plugin;
+use SmartcatSupport\util\TicketUtils;
 
 class CommentComponent extends AbstractComponent {
 
     public function update_comment() {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
-        if( !empty( $comment ) ) {
+        if( !empty( $comment ) && TicketUtils::comments_enabled( $comment->comment_post_ID ) ) {
             if ( ! empty( $_REQUEST['content'] ) ) {
                 wp_update_comment( array(
                     'comment_ID'       => $comment->comment_ID,
@@ -37,7 +38,7 @@ class CommentComponent extends AbstractComponent {
     public function submit_comment() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
-        if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
+        if( !empty( $ticket ) && TicketUtils::comments_enabled( $ticket->ID ) && !empty( $_REQUEST['content'] ) ) {
             $response = array( 'success' => true, 'ticket_updated' => false );
             $user = wp_get_current_user();
             $recipient = get_post_meta( $ticket->ID, 'email', true );
@@ -96,7 +97,7 @@ class CommentComponent extends AbstractComponent {
     public function delete_comment() {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
-        if( !empty( $comment ) ) {
+        if( !empty( $comment ) && TicketUtils::comments_enabled( $comment->comment_post_ID ) ) {
             wp_send_json( array( 'success' => wp_delete_comment( $comment->comment_ID, true ) ) );
         }
     }
@@ -134,8 +135,9 @@ class CommentComponent extends AbstractComponent {
         }
 
         $query = new \WP_Query( $args );
+        $post = $query->post;
 
-        return $query->post;
+        return $post;
     }
 
     private function get_comment( $id ) {

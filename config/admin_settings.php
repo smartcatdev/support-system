@@ -145,6 +145,14 @@ $text->add_field( new TextField(
         'label'         => __( 'No Tickets Message', Plugin::ID ),
         'validators'    => array( new TextFilter() )
     )
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_comments_closed_msg',
+        'option'        => Option::COMMENTS_CLOSED_MSG,
+        'value'         => get_option( Option::COMMENTS_CLOSED_MSG, Option\Defaults::COMMENTS_CLOSED_MSG ),
+        'label'         => __( 'Comments Closed Message', Plugin::ID ),
+        'validators'    => array( new TextFilter() )
+    )
 ) );
 
 $general = new SettingsSection( 'general', __( 'General Settings', Plugin::ID ) );

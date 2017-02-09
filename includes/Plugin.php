@@ -13,6 +13,7 @@ use SmartcatSupport\component\TicketComponent;
 use SmartcatSupport\component\TicketCptComponent;
 use SmartcatSupport\component\TicketTableComponent;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
 class Plugin extends AbstractPlugin implements HookSubscriber {
@@ -29,6 +30,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
+
+        // Cache a list of all ticket IDs
+        $this->ticket_ids = TicketUtils::ticket_ids();
 
         // Notify subscribers if there is a version upgrade
         $version = get_option( Option::PLUGIN_VERSION, 0 );
