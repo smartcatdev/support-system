@@ -66,6 +66,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function deactivate() {
+        // Trash the template page
+        wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
+
         UserUtils::remove_caps( get_role( 'administrator' ), true );
 
         remove_role( 'support_admin' );

@@ -15,9 +15,6 @@ if( get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
 
     Mailer::cleanup( true );
 
-    // Trash the template page
-    wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
-
 
     // Trash all support tickets
     $query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
