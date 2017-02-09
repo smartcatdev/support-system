@@ -15,6 +15,8 @@ $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/settings_form.p
 
         <input type="submit" value="<?php _e( 'Save Settings', Plugin::ID ); ?>" />
 
+        <p class="status hidden"></p>
+
     </form>
 
 </div>

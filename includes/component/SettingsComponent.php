@@ -8,6 +8,13 @@ use SmartcatSupport\util\TemplateUtils;
 
 class SettingsComponent extends AbstractComponent {
 
+    public function subscribed_hooks() {
+        return array(
+            'wp_ajax_support_settings' => array( 'settings' ),
+            'wp_ajax_support_save_settings' => array( 'save_settings' ),
+        );
+    }
+
     public function settings() {
         if( current_user_can( 'view_support_tickets' ) ) {
             wp_send_json( TemplateUtils::render_template( $this->plugin->template_dir . '/settings_modal.php' ) );
@@ -19,27 +26,23 @@ class SettingsComponent extends AbstractComponent {
 
         if( $form->is_valid() ) {
             if( !empty( $form->data['new_password'] ) ) {
-                wp_set_password( $form->data['new_password'], wp_get_current_user()->ID );
+                if( $form->data['new_password'] == $form->data['confirm_password'] ) {
+                    wp_set_password( $form->data['new_password'], wp_get_current_user()->ID );
+                }
             }
 
             wp_update_user(
                 array(
-                    'ID' => wp_get_current_user()->ID,
+                    'ID'         => wp_get_current_user()->ID,
                     'first_name' => $form->data['first_name'],
-                    'last_name' => $form->data['last_name']
+                    'last_name'  => $form->data['last_name']
                 )
             );
 
-            wp_send_json_success( __( 'Settings updated', Plugin::ID ) );
+            wp_send_json_success( __( 'Settings updated refresh to apply your changes', Plugin::ID ) );
+
         } else {
             wp_send_json_error( $form->errors );
         }
-    }
-
-    public function subscribed_hooks() {
-        return array(
-            'wp_ajax_support_settings' => array( 'settings' ),
-            'wp_ajax_support_save_settings' => array( 'save_settings' ),
-        );
     }
 }

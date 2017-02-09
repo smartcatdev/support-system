@@ -30,7 +30,8 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
         <script>SupportSystem = { ajaxUrl : "<?php echo admin_url( 'admin-ajax.php' ); ?>" };</script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/script.js' ?>" ></script>
-        
+        <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
+
         <style type="text/css">
             
             /* Primary color */
