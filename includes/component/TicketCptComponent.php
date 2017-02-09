@@ -53,16 +53,16 @@ class TicketCptComponent extends AbstractComponent {
     public function register_cpt() {
         //<editor-fold desc="$args array">
         $labels = array(
-            'name'                  => _x( 'Support Tickets', 'Post Type General Name', Plugin::ID ),
+            'name'                  => _x( 'Support Ticket', 'Post Type General Name', Plugin::ID ),
             'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', Plugin::ID ),
-            'menu_name'             => __( 'Support Tickets', Plugin::ID ),
-            'name_admin_bar'        => __( 'Support Tickets', Plugin::ID ),
+            'menu_name'             => __( 'uCare Support', Plugin::ID ),
+            'name_admin_bar'        => __( 'uCare Support', Plugin::ID ),
             'archives'              => __( 'Item Archives', Plugin::ID ),
             'parent_item_colon'     => __( 'Parent Item:', Plugin::ID ),
-            'all_items'             => __( 'All Tickets', Plugin::ID ),
-            'add_new_item'          => __( 'New Ticket', Plugin::ID ),
-            'add_new'               => __( 'New Ticket', Plugin::ID ),
-            'new_item'              => __( 'New Ticket', Plugin::ID ),
+            'all_items'             => __( 'Support Tickets', Plugin::ID ),
+            'add_new_item'          => __( 'Create Ticket', Plugin::ID ),
+            'add_new'               => __( 'Create Ticket', Plugin::ID ),
+            'new_item'              => __( 'Create Ticket', Plugin::ID ),
             'edit_item'             => __( 'Edit Ticket', Plugin::ID ),
             'update_item'           => __( 'Update Ticket', Plugin::ID ),
             'view_item'             => __( 'View Ticket', Plugin::ID ),

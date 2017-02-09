@@ -403,3 +403,8 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 .modal-spinner {
     background: none !important;
 }
+
+/* ## Sidebar */
+#ticket-sidebar select.form_field {
+    display: block;
+}

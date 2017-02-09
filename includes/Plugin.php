@@ -83,6 +83,16 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
+    public function add_settings_shortcut() {
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Open Application',  self::ID ), 'manage_options', 'open_app', function () {} );
+    }
+
+    public function settings_shortcut_redirect() {
+        if( isset( $_GET['page'] ) && $_GET['page'] == 'open_app' ) {
+            wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
+        }
+    }
+
     public function admin_enqueue() {
         wp_enqueue_media();
         wp_enqueue_style( 'wp-color-picker' );
@@ -143,6 +153,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function subscribed_hooks() {
         return array(
+            'admin_menu' => array( 'add_settings_shortcut'),
+            'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
