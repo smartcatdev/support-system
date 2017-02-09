@@ -2,6 +2,18 @@
 
 <?php if( is_user_logged_in() && current_user_can( 'view_support_tickets' ) ) : ?>
 
+    <?php if( empty( get_user_meta( wp_get_current_user()->ID, 'first_login', true ) ) ) : ?>
+
+        <script src="<?php echo $url . '/assets/js/first_login.js'; ?>"></script>
+
+        <?php include_once 'first_login.php'; ?>
+
+        <?php do_action( 'support_first_login' ); ?>
+
+        <?php update_user_meta( wp_get_current_user()->ID, 'first_login', true ); ?>
+
+    <?php endif; ?>
+
     <?php include_once 'navbar.php'; ?>
     <?php include_once 'dash.php'; ?>
 
