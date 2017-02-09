@@ -48,7 +48,7 @@ use SmartcatSupport\Plugin;
 
             <?php foreach( $data as $ticket ) : ?>
 
-                <tr class="<?php echo get_post_meta( $ticket->ID, 'status', true ) == 'new' ? 'new' : get_post_meta( $ticket->ID, 'status', true ); ?>">
+                <tr class="<?php echo get_post_meta( $ticket->ID, 'status', true ); ?>">
 
                     <?php foreach( $headers as $col => $title ) : ?>
 

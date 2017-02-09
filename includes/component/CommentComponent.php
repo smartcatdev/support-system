@@ -41,7 +41,7 @@ class CommentComponent extends AbstractComponent {
         if( !empty( $ticket ) && TicketUtils::comments_enabled( $ticket->ID ) && !empty( $_REQUEST['content'] ) ) {
             $response = array( 'success' => true, 'ticket_updated' => false );
             $user = wp_get_current_user();
-            $recipient = get_post_meta( $ticket->ID, 'email', true );
+            $status = get_post_meta( $ticket->ID, 'status', true );
 
             //TODO add error for flooding
             add_filter( 'comment_flood_filter', '__return_false' );
@@ -59,18 +59,14 @@ class CommentComponent extends AbstractComponent {
 
             if( !is_wp_error( $comment ) ) {
                 if( current_user_can( 'edit_others_tickets' ) ) {
-                    $status = get_post_meta( $ticket->ID, 'status', true );
+                    update_post_meta( $ticket->ID, 'status', 'waiting' );
 
-                    if( $status == 'new' || $status == 'viewed' ) {
-                        update_post_meta( $ticket->ID, 'status', 'in_progress' );
+                    $response['ticket'] = TemplateUtils::render_template(
+                        $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
+                    );
 
-                        $response['ticket'] = TemplateUtils::render_template(
-                            $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
-                        );
-
-                        $response['ticket_updated'] = true;
-                        $response['ticket_id'] = $ticket->ID;
-                    }
+                    $response['ticket_updated'] = true;
+                    $response['ticket_id'] = $ticket->ID;
 
                     add_filter( 'parse_email_template', function( $content ) use ( $comment, $ticket ) {
                         return str_replace(
@@ -80,7 +76,9 @@ class CommentComponent extends AbstractComponent {
                         );
                     } );
 
-                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), $recipient );
+                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), get_post_meta( $ticket->ID, 'email', true ) );
+                } elseif( $status != 'new' ) {
+                    update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
 
                 $response['comment'] = TemplateUtils::render_template(
@@ -90,7 +88,7 @@ class CommentComponent extends AbstractComponent {
                 wp_send_json( $response );
             }
         } else {
-            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', Plugin::ID ) ) );
+            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', Plugin::ID ) ), 400 );
         }
     }
 

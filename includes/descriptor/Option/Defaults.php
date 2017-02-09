@@ -25,13 +25,13 @@ final class Defaults {
      * @since 1.0.0
      */
     static $STATUSES = array(
-        'new'           => 'New',
-        'viewed'        => 'Viewed',
-        'in_progress'   => 'In Progress',
-        'resolved'      => 'Resolved',
-        'waiting'       => 'Waiting',
-        'follow_up'     => 'Follow Up',
-        'closed'        => 'Closed'
+        'new'               => 'New',
+        'waiting'           => 'Waiting',
+        'opened'            => 'Opened',
+        'responded'         => 'Responded',
+        'needs_attention'   => 'Needs Attention',
+        'resolved'          => 'Resolved',
+        'closed'            => 'Closed'
     );
 
     /**
