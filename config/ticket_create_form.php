@@ -61,6 +61,13 @@ if( $products ) {
             )
         )
 
+    ) )->add_field( new TextBoxField(
+        array(
+            'id'                => 'receipt_id',
+            'label'             => __( 'Receipt #', Plugin::ID ),
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+
     ) );
 }
 
