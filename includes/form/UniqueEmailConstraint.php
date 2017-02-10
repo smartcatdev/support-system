@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\util;
+namespace SmartcatSupport\form;
 
 use smartcat\form\Constraint;
 

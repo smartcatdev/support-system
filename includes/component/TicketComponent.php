@@ -6,6 +6,7 @@ use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TemplateUtils;
+use SmartcatSupport\util\TicketUtils;
 
 class TicketComponent extends AbstractComponent {
 
@@ -121,12 +122,12 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function notify_ticket_resolved( $null, $obj_id, $key, $new ) {
+    public function notify_ticket_resolved( $null, $post_id, $key, $new ) {
         if( get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ) == 'on' ) {
 
             if( $key == 'status' && $new == 'resolved' ) {
 
-                $ticket = get_post( $obj_id );
+                $ticket = get_post( $post_id );
 
                 add_filter( 'parse_email_template', function( $content ) use ( $new, $ticket ) {
                     return str_replace( '{%subject%}', $ticket->post_title, $content );
@@ -134,7 +135,7 @@ class TicketComponent extends AbstractComponent {
 
                 Mailer::send_template(
                     get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
-                    get_post_meta( $obj_id, 'email', true )
+                    TicketUtils::ticket_author_email( $ticket )
                 );
             }
         }

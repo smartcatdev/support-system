@@ -7,6 +7,7 @@ use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TemplateUtils;
+use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
 class TicketTableComponent extends AbstractComponent {
@@ -34,7 +35,7 @@ class TicketTableComponent extends AbstractComponent {
                 break;
 
             case 'email':
-                echo get_post_meta( $ticket->ID, 'email', true );
+                echo TicketUtils::ticket_author_email( $ticket );
                 break;
 
             case 'status':
