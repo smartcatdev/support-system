@@ -1,61 +1,60 @@
-"use strict";
+jQuery("document").ready(function ($) {
+    "use strict";
 
-jQuery( "document" ).ready( function ( $ ) {
+    var SupportSettings = (function() {
 
-    var settingsEvents = {
-        initialize: function () {
-            $( "body" ).on( "keyup", ".settings_form input[name=\"confirm_password\"]", settingsActions.validate_password );
-            $( "body" ).on( "submit", ".settings_form", settingsActions.save_settings );
-        }
-    };
+        var initialize_events = function () {
+            var body = $("body");
 
-    var settingsActions = {
-        validate_password: function () {
-            var field = $( this );
-            var password_field = $( ".settings_form input[name=\"new_password\"]" );
+            $(body).on("keyup", ".settings_form input[name=\"confirm_password\"]", validate_password);
+            $(body).on("submit", ".settings_form", save_settings);
+        };
 
-            field.siblings( ".error_msg" ).remove();
-            field.removeClass( "error_field" );
-            $( ".settings_form input[type=\"submit\"]" ).prop( "disabled", false);
+        var validate_password = function (e) {
+            var field = $(e.target);
+            var submit_button = $(".settings_form input[type=\"submit\"]");
+            var password_field = $(".settings_form input[name=\"new_password\"]");
 
-            if( field.val() !== password_field.val() && field.val() !== "" ) {
-                field.addClass( "error_field" );
-                field.parent().append( "<span class=\"error_msg glyphicon glyphicon-exclamation-sign\"></span>" );
-                field.parents( "form").find( "input[type=\"submit\"]" ).prop( "disabled", true );
+            field.siblings(".error_msg").remove();
+            field.removeClass("error_field");
+            submit_button.prop("disabled", false);
+
+            if (field.val() !== password_field.val() && field.val() !== "") {
+                field.addClass("error_field");
+                field.parent().append("<span class=\"error_msg glyphicon glyphicon-exclamation-sign\"></span>");
+                submit_button.prop("disabled", true);
             }
-        },
+        };
 
-        save_settings: function ( e ) {
+        var save_settings = function (e) {
             e.preventDefault();
 
-            var form = $( ".settings_form" );
+            var form = $(".settings_form");
 
-            form.find( ".error_field" ).removeClass( "error_field" );
-            form.find(" .error_msg" ).remove();
+            form.find(".error_field").removeClass("error_field");
+            form.find(".error_msg").remove();
 
-            $.ajax( {
+            $.ajax({
                 type: "post",
                 url: SupportSystem.ajaxUrl + "?action=support_save_settings",
                 data: form.serializeArray(),
-                success: function ( response ) {
+                success: function (response) {
 
-                    if( response.success ) {
-                        form.find( "p.status" ).text( response.data ).removeClass( "hidden" );
+                    if (response.success) {
+                        form.find("p.status").text(response.data).removeClass("hidden");
                     } else {
-                        $.each( response.data, function ( key, value) {
-                            var field = $( ".settings_form" ).find( "[name=\"" + key + "\"]" );
-                            field.addClass( "error_field" );
-                            field.parent().append( "<span class=\"error_msg\">" + value + "</span>" );
-                        } );
+                        $.each(response.data, function (key, value) {
+                            var field = $(".settings_form").find("[name=\"" + key + "\"]");
+                            field.addClass("error_field");
+                            field.parent().append("<span class=\"error_msg\">" + value + "</span>");
+                        });
                     }
-
                 }
-            } );
-        }
-    };
+            });
+        };
 
-    $( function () {
-        settingsEvents.initialize();
-    } );
+        initialize_events();
 
-} );
+    })();
+
+});
