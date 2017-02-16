@@ -95,7 +95,9 @@ class TicketTableComponent extends AbstractComponent {
                          'rel="modal:open" class="action-icon"><i class="left icon-pencil"></i></a>';
                 }
 
-                echo '<i class="right trigger icon-bubbles action-icon" data-action="view_ticket"></i></div>';
+                echo '<button type="button" class="right trigger icon-bubbles open-ticket"' .
+                         'data-action="view_ticket"' .
+                         'data-id="' . $ticket->ID . '"></button></div>';
                 break;
         }
     }

@@ -52,7 +52,7 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function view_ticket() {
+    public function open_ticket() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) ) {
@@ -62,9 +62,13 @@ class TicketComponent extends AbstractComponent {
                 update_post_meta( $ticket->ID, 'status', 'opened' );
             }
 
-            wp_send_json_success(
-                TemplateUtils::render_template(
-                    $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
+            wp_send_json(
+                array(
+                    'id' => $ticket->ID,
+                    'title' => $ticket->post_title,
+                    'content' => TemplateUtils::render_template(
+                        $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
+                    )
                 )
             );
         }
@@ -145,7 +149,7 @@ class TicketComponent extends AbstractComponent {
         return array(
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
             'wp_ajax_support_create_ticket' => array( 'create_ticket' ),
-            'wp_ajax_support_view_ticket' => array( 'view_ticket' ),
+            'wp_ajax_support_open_ticket' => array( 'open_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
             'wp_ajax_support_update_meta' => array( 'update_meta_field' ),

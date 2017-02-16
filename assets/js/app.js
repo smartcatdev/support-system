@@ -1,70 +1,58 @@
-var Tabs = (function(module, $, window) {
+var App = (function(module, $, window, globals) {
     "use strict";
 
     var tabs;
 
-    module.close = function () {
+    var close_tab = function () {
 
     };
 
-    module.open = function () {
+    var open_tab = function (data) {
+        var existing = false;
 
+        tabs.find("li").each(function (index, element) {
+            if ($(element).data("id") === data.id) {
+                existing = index;
+            }
+        });
+
+        if (!existing) {
+            var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><i class=\"ui-icon-close icon-cross\"></i></li>");
+            var panel = $($.parseHTML("<div id=\"" + data.id + "\"></div>"));
+
+            li.data("id", data.id);
+            panel.html(data.content);
+
+            tabs.find("ul").append(li);
+            tabs.append(panel);
+
+            tabs.tabs("refresh");
+            tabs.tabs("option", "active", li.index());
+        } else {
+            tabs.tabs("option", "active", existing);
+        }
     };
 
-    module.initialize = function () {
+    var initialize = function () {
         tabs = $("#tabs");
         tabs.tabs();
     };
 
-    return module;
+    return {
+        initialize: initialize,
+        open_tab: open_tab
+    };
 
-})(Tabs || {}, jQuery, window);
-
-
-//
-// var Comments = (function () {
-//
-//     var initialize_events = function() {
-//
-//     };
-//
-//     var save_comment = function () {
-//
-//     };
-//
-//     var delete_comment = function () {
-//
-//     };
-//
-//     var edit_comment = function () {
-//
-//     };
-//
-//     var load_comments = function () {
-//
-//     };
-//
-// });
-//
-// var Sidebar = (function() {
-//
-//     var initialize_events = function() {
-//
-//     };
-//
-//     var update = function () {
-//
-//     };
-//
-// });
-
-
+})(App || {}, jQuery, window, Globals);
 
 
 jQuery(document).ready(function ($) {
     "use strict";
 
-    Tabs.initialize();
+    App.initialize();
     Tickets.initialize();
 
 });
+
+
+

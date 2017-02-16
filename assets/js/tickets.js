@@ -1,4 +1,4 @@
-var Tickets = (function (module, $, window, globals) {
+var Tickets = (function (module, $, window, globals, app) {
     "use strict";
 
     var container;
@@ -10,8 +10,15 @@ var Tickets = (function (module, $, window, globals) {
 
     };
 
-    var load_ticket = function () {
-
+    var open_ticket = function (e) {
+        $.ajax({
+            url: globals.ajaxUrl + "?action=support_open_ticket",
+            dataType: "json",
+            data: {
+                id: $(e.target).data("id")
+            },
+            success: app.open_tab
+        });
     };
 
     var filter_off = function () {
@@ -73,10 +80,12 @@ var Tickets = (function (module, $, window, globals) {
         filter = $("#ticket_filter");
 
         load_tickets();
+        setInterval(load_tickets, 1000 * 60);
 
         filter_toggle.click(toggle_filter);
         filter.children().change(filter_off);
         $("#refresh-tickets").click(load_tickets);
+        $("body").on("click", "button.open-ticket", open_ticket);
     };
 
     return {
@@ -84,4 +93,4 @@ var Tickets = (function (module, $, window, globals) {
         initialize: initialize
     };
 
-})(Tickets || {}, jQuery, window, Globals);
+})(Tickets || {}, jQuery, window, Globals, App);
