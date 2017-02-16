@@ -18,34 +18,34 @@ jQuery(document).ready(function ($) {
     });
 
 
-    var tabs = $('#support_system .tabs').tabs({
-        beforeLoad: function( event, ui ) {
-            if ( ui.tab.data( 'loaded' ) ) {
-                event.preventDefault();
-                return;
-            }
-        },
-
-        load: function (even, ui) {
-            ui.tab.data( 'loaded', true );
-            SupportSystem.init_table();
-        },
-
-        create: function(event, ui) {
-            ui.tab.width(window.innerWidth / 10);
-        },
-
-        activate: function(event, ui) {
-            ui.newTab.width(window.innerWidth / 10);
-        }
-
-    });
-
-    tabs.on('click', '.ui-icon-close', function () {
-        var tab = $( this ).closest( 'li' ).remove().attr( 'aria-controls' );
-        $( '#' + tab ).remove();
-        tabs.tabs( 'refresh' );
-    });
+    // var tabs = $('#support_system .tabs').tabs({
+    //     beforeLoad: function( event, ui ) {
+    //         if ( ui.tab.data( 'loaded' ) ) {
+    //             event.preventDefault();
+    //             return;
+    //         }
+    //     },
+    //
+    //     load: function (even, ui) {
+    //         ui.tab.data( 'loaded', true );
+    //         SupportSystem.init_table();
+    //     },
+    //
+    //     create: function(event, ui) {
+    //         ui.tab.width(window.innerWidth / 10);
+    //     },
+    //
+    //     activate: function(event, ui) {
+    //         ui.newTab.width(window.innerWidth / 10);
+    //     }
+    //
+    // });
+    //
+    // tabs.on('click', '.ui-icon-close', function () {
+    //     var tab = $( this ).closest( 'li' ).remove().attr( 'aria-controls' );
+    //     $( '#' + tab ).remove();
+    //     tabs.tabs( 'refresh' );
+    // });
     
     
     

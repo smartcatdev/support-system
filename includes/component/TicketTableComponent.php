@@ -13,7 +13,7 @@ use SmartcatSupport\util\UserUtils;
 class TicketTableComponent extends AbstractComponent {
 
     public function list_tickets() {
-        wp_send_json(
+        wp_send_json_success(
             TemplateUtils::render_template(
                 $this->plugin->template_dir . '/ticket_table.php',
                 array(

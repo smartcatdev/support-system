@@ -1,7 +1,7 @@
 jQuery("document").ready(function ($) {
     "use strict";
 
-    var SupportSettings = (function() {
+    var Settings = (function() {
 
         var initialize_events = function () {
             var body = $("body");

@@ -27,9 +27,10 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
         <script src="<?php echo $url . 'assets/lib/datatables/datatables.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/lib/modal/jquery.modal.min.js' ?>" ></script>
         <script src="<?php echo includes_url( 'js/tinymce/' ) . 'wp-tinymce.php' ?>" ></script>
-        <script>SupportSystem = { ajaxUrl : "<?php echo admin_url( 'admin-ajax.php' ); ?>" };</script>
+        <script>var Globals = { ajaxUrl : "<?php echo admin_url( 'admin-ajax.php' ); ?>" };</script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/script.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/tickets.js' ?>" ></script>
+<!--        <script src="--><?php //echo $url . 'assets/js/script.js' ?><!--" ></script>-->
         <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
 
         <style type="text/css">

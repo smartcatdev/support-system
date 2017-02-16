@@ -5,26 +5,10 @@ use SmartcatSupport\Plugin;
 
 ?>
 
-<div id="tickets_overview">
-
-
-    <form id="ticket_filter">
-
-        <?php do_action( 'support_tickets_table_filters' ); ?>
-
-        <span class="trigger" data-action="filter_tickets">
-                <i class="filter icon-filter"></i><?php _e( 'Filter', Plugin::ID ); ?>
-            </span>
-
-        <span class="trigger" data-action="refresh_tickets">
-                <i class="refresh icon-loop2"></i><?php _e( 'Refresh', Plugin::ID ); ?>
-            </span>
-
-    </form>
 
     <?php if( !empty( $data ) ) : ?>
 
-        <table id="support_tickets_table" class="display" cellspacing="0" width="100%">
+        <table id="tickets-list" class="display" cellspacing="0" width="100%">
 
             <thead>
 
@@ -74,6 +58,6 @@ use SmartcatSupport\Plugin;
 
     <?php endif; ?>
 
-</div>
+
 
 

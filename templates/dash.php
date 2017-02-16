@@ -27,27 +27,34 @@ use SmartcatSupport\Plugin;
                 <div class="clear"></div>
                 
             </div>
-            
-            
 
-            <div id="support_system" class="">
+            <div id="tabs">
 
-                <div class="tabs">
+                <ul>
 
-                    <ul>
+                    <li>
+                        <a href="#tickets"><?php _e( 'Tickets', Plugin::ID ); ?></a>
+                    </li>
 
-                        <li>
+                </ul>
 
-                            <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_list_tickets">
+                <div id="tickets">
 
-                                <?php _e( 'Tickets', Plugin::ID ); ?>
+                    <form id="ticket_filter">
 
+                        <?php do_action( 'support_tickets_table_filters' ); ?>
 
-                            </a>
+                        <button type="button" class="trigger" id="filter-toggle">
+                            <i class="filter icon-filter"></i><?php _e( 'Filter', Plugin::ID ); ?>
+                        </button>
 
-                        </li>
+                        <button type="button" class="trigger" id="refresh-tickets">
+                            <i class="refresh icon-loop2"></i><?php _e( 'Refresh', Plugin::ID ); ?>
+                        </button>
 
-                    </ul>
+                    </form>
+
+                    <div id="tickets-container"></div>
 
                 </div>
 
