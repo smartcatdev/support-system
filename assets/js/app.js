@@ -3,21 +3,28 @@ var App = (function(module, $, window, globals) {
 
     var tabs;
 
-    var close_tab = function () {
-
-    };
-
-    var open_tab = function (data) {
-        var existing = false;
+    var find_tab = function (id) {
+        var tab = false;
 
         tabs.find("li").each(function (index, element) {
-            if ($(element).data("id") === data.id) {
-                existing = index;
+            if ($(element).data("id") === id) {
+                tab = index;
             }
         });
 
-        if (!existing) {
-            var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><i class=\"ui-icon-close icon-cross\"></i></li>");
+        return tab;
+    };
+
+    var close_tab = function (e) {
+        var tab = $(e.target).closest("li").remove().attr("aria-controls");
+
+        $("#" + tab).remove();
+        tabs.tabs("refresh");
+    };
+
+    var open_tab = function (data) {
+        if (!find_tab(data.id)) {
+            var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><span class=\"ui-icon-close close-tab icon-cross\"></span></li>");
             var panel = $($.parseHTML("<div id=\"" + data.id + "\"></div>"));
 
             li.data("id", data.id);
@@ -36,6 +43,8 @@ var App = (function(module, $, window, globals) {
     var initialize = function () {
         tabs = $("#tabs");
         tabs.tabs();
+
+        $("body").on("click", "span.close-tab", close_tab);
     };
 
     return {
