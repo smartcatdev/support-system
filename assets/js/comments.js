@@ -119,7 +119,6 @@ var Comments = (function (module, $, window, globals) {
     };
 
     var initialize = function () {
-
         setInterval(function () {
             $("div.panel").each(function (index, element) {
                 var id = $(element).attr("id");
@@ -130,12 +129,15 @@ var Comments = (function (module, $, window, globals) {
             });
         }, 1000 * 30);
 
+        _bind_events();
+    };
+
+    var _bind_events = function () {
         $(window.document).on("click", "span.delete-comment", _delete_comment);
         $(window.document).on("click", "span.edit-comment", _show_editor);
         $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
         $(window.document).on("click", "button.save-comment", _save_comment);
         $(window.document).on("submit", "form.comment-form", _submit_comment);
-
     };
 
     return {
@@ -144,3 +146,10 @@ var Comments = (function (module, $, window, globals) {
     };
 
 })(Comments || {}, jQuery, window, Globals);
+
+jQuery(document).ready(function ($) {
+    "use strict";
+
+    Comments.initialize();
+
+});

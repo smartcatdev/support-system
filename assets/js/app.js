@@ -67,6 +67,10 @@ var App = (function (module, $, window, globals) {
             _add_registration_toggle();
         }
 
+        _bind_events();
+    };
+
+    var _bind_events = function () {
         $(window.document).on("click", "span.close-tab", _close_tab);
         $(".registration-toggle").click(_toggle_registration);
     };
@@ -78,6 +82,12 @@ var App = (function (module, $, window, globals) {
 
 })(App || {}, jQuery, window, Globals);
 
+jQuery(document).ready(function ($) {
+    "use strict";
+
+    App.initialize();
+
+});
 
 
 

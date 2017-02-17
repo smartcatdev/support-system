@@ -92,6 +92,10 @@ var Tickets = (function (module, $, window, globals, app, comments) {
         load_tickets();
         setInterval(load_tickets, 1000 * 60);
 
+        _bind_events();
+    };
+
+    var _bind_events = function () {
         _filter_toggle.click(_toggle_filter);
         _filter.children().change(_filter_off);
         $("#refresh-tickets").click(load_tickets);
@@ -104,3 +108,10 @@ var Tickets = (function (module, $, window, globals, app, comments) {
     };
 
 })(Tickets || {}, jQuery, window, Globals, App, Comments);
+
+jQuery(document).ready(function ($) {
+    "use strict";
+
+    Tickets.initialize();
+
+});
