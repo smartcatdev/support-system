@@ -110,7 +110,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
         <div class="inner">
 
-            <form class="comment_form">
+            <form class="comment-form">
 
                 <textarea name="content"></textarea>
 

@@ -30,7 +30,7 @@ class CommentComponent extends AbstractComponent {
                     )
                 );
             } else {
-                wp_send_json_error( array( 'content' => __( 'Cannot be blank', Plugin::ID ) ) );
+                wp_send_json_error( array( 'content' => __( 'Cannot be blank', Plugin::ID ) ), 400 );
             }
         }
     }
@@ -39,7 +39,6 @@ class CommentComponent extends AbstractComponent {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) && TicketUtils::comments_enabled( $ticket->ID ) && !empty( $_REQUEST['content'] ) ) {
-            $response = array( 'success' => true, 'ticket_updated' => false );
             $user = wp_get_current_user();
             $status = get_post_meta( $ticket->ID, 'status', true );
 
@@ -61,13 +60,6 @@ class CommentComponent extends AbstractComponent {
                 if( current_user_can( 'edit_others_tickets' ) ) {
                     update_post_meta( $ticket->ID, 'status', 'waiting' );
 
-                    $response['ticket'] = TemplateUtils::render_template(
-                        $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
-                    );
-
-                    $response['ticket_updated'] = true;
-                    $response['ticket_id'] = $ticket->ID;
-
                     add_filter( 'parse_email_template', function( $content ) use ( $comment, $ticket ) {
                         return str_replace(
                             array( '{%agent%}', '{%reply%}', '{%subject%}' ),
@@ -81,14 +73,17 @@ class CommentComponent extends AbstractComponent {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
 
-                $response['comment'] = TemplateUtils::render_template(
-                    $this->plugin->template_dir . '/comment.php', array( 'comment' => $comment )
-                );
-
-                wp_send_json( $response );
+                wp_send_json_success(
+                    TemplateUtils::render_template(
+                        $this->plugin->template_dir . '/comment.php',
+                        array(
+                            'comment' => $comment,
+                            'comments_enabled' => TicketUtils::comments_enabled( $ticket->ID )
+                        )
+                ), 201 );
             }
         } else {
-            wp_send_json_error( array( 'content' => __( 'Reply cannot be blank', Plugin::ID ) ), 400 );
+            wp_send_json_error( __( 'Reply cannot be blank', Plugin::ID ), 400 );
         }
     }
 

@@ -20,6 +20,30 @@ var Comments = (function (module, $, window, globals) {
         });
     };
 
+    var _submit_comment = function (e) {
+        e.preventDefault();
+
+        var form = $(e.target);
+
+        var data = {
+            url: globals.ajaxUrl + "?action=support_submit_comment",
+            dataType: "json",
+            method: "post",
+            data: form.serializeArray(),
+            success: function (response) {
+                form.parents().find(".comments").append(response.data);
+                form.find("textarea").val("");
+            },
+            error: function (xhr, status, error) {
+                form.append("<p class=\"error\">" + xhr.responseJSON.data + "</p>");
+            }
+        };
+
+        form.find(".error").remove();
+
+        $.ajax(data);
+    };
+
     var _save_comment = function (e) {
 
     };
@@ -58,9 +82,11 @@ var Comments = (function (module, $, window, globals) {
             });
         }, 1000 * 30);
 
-        $(window.document).on("click", ".delete-comment", _delete_comment);
-        $(window.document).on("click", ".edit-comment", _toggle_editor);
-        $(window.document).on("click", ".cancel-edit-comment", _toggle_editor);
+        $(window.document).on("click", "span.delete-comment", _delete_comment);
+        $(window.document).on("click", "span.edit-comment", _toggle_editor);
+        $(window.document).on("click", "button.cancel-edit-comment", _toggle_editor);
+        $(window.document).on("submit", "form.comment-form", _submit_comment);
+
 
     };
 
