@@ -83,7 +83,6 @@ var Comments = (function (module, $, window, globals) {
         content.hide();
         editor.addClass("active");
         editor.find(".editor-content").val(content.text());
-
     };
 
     var _close_editor = function (e) {

@@ -24,18 +24,20 @@ var Tickets = (function (module, $, window, globals, app, comments) {
     var _open_ticket = function (e) {
         var id = $(e.target).data("id");
 
-        $.ajax({
-            url: globals.ajaxUrl,
-            dataType: "json",
-            data: {
-                id: id,
-                action: "support_open_ticket"
-            },
-            success: function (data) {
-                app.open_tab(data);
-                comments.load_comments(id);
-            }
-        });
+        if (!app.open_tab(id)) {
+            $.ajax({
+                url: globals.ajaxUrl,
+                dataType: "json",
+                data: {
+                    id: id,
+                    action: "support_open_ticket"
+                },
+                success: function (data) {
+                    app.new_tab(data);
+                    comments.load_comments(id);
+                }
+            });
+        }
     };
 
     var _filter_off = function () {

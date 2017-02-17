@@ -27,24 +27,29 @@ var App = (function (module, $, window, globals) {
         _tabs.tabs("refresh");
     };
 
-    var open_tab = function (data) {
-        var tab = _find_tab(data.id);
+    var new_tab = function (data) {
+        var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><span class=\"ui-icon-close close-tab icon-cross\"></span></li>");
+        var panel = $($.parseHTML("<div id=\"" + data.id + "\" class=\"panel\"></div>"));
 
-        if (!tab) {
-            var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><span class=\"ui-icon-close close-tab icon-cross\"></span></li>");
-            var panel = $($.parseHTML("<div id=\"" + data.id + "\" class=\"panel\"></div>"));
+        li.data("id", data.id);
+        panel.html(data.content);
 
-            li.data("id", data.id);
-            panel.html(data.content);
+        _tabs.find("ul").append(li);
+        _tabs.append(panel);
 
-            _tabs.find("ul").append(li);
-            _tabs.append(panel);
+        _tabs.tabs("refresh");
+        _tabs.tabs("option", "active", li.index());
+    };
 
+    var open_tab = function (tab) {
+        var index = _find_tab(tab);
+
+        if (index !== false) {
+            _tabs.tabs("option", "active", index);
             _tabs.tabs("refresh");
-            _tabs.tabs("option", "active", li.index());
-        } else {
-            _tabs.tabs("option", "active", tab);
         }
+
+        return index !== false;
     };
 
     var _register_user = function () {
@@ -77,7 +82,8 @@ var App = (function (module, $, window, globals) {
 
     return {
         initialize: initialize,
-        open_tab: open_tab
+        open_tab: open_tab,
+        new_tab: new_tab
     };
 
 })(App || {}, jQuery, window, Globals);
