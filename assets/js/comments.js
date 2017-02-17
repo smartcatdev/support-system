@@ -1,6 +1,14 @@
 var Comments = (function (module, $, window, globals) {
     "use strict";
 
+    var _delete_comment = function (e) {
+
+    };
+
+    var _save_comment = function (e) {
+
+    };
+
     var load_comments = function (id) {
         $.ajax({
             url: globals.ajaxUrl,

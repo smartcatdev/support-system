@@ -40,7 +40,7 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
         <script src="<?php echo $url . 'assets/js/comments.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/tickets.js' ?>" ></script>
 
-<!--        <script src="--><?php //echo $url . 'assets/js/script.js' ?><!--" ></script>-->
+        <script src="<?php echo $url . 'assets/js/script.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
 
 

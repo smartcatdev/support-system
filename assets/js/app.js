@@ -79,14 +79,7 @@ var App = (function (module, $, window, globals) {
 })(App || {}, jQuery, window, Globals);
 
 
-jQuery(document).ready(function ($) {
-    "use strict";
 
-    App.initialize();
-    Tickets.initialize();
-    Comments.initialize();
-
-});
 
 
 

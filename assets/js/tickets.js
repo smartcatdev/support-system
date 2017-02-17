@@ -68,11 +68,8 @@ var Tickets = (function (module, $, window, globals, app, comments) {
     var load_tickets = function () {
         var refresh = $(".refresh");
         var data = {
-            url: globals.ajaxUrl,
+            url: globals.ajaxUrl + "?action=support_list_tickets",
             dataType: "json",
-            data: {
-                action: "support_list_tickets"
-            },
             success: _init_list
         };
 
