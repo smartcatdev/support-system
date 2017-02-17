@@ -10,7 +10,9 @@ var Comments = (function (module, $, window, globals) {
                 id: id
             },
             success: function (response) {
-                $("#" + id).find(".comments").html(response.data);
+                var pane = $("#" + id);
+                pane.find(".comments").html(response.data);
+                pane.find(".comment_reply").show();
             }
         });
     };
