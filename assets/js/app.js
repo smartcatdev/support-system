@@ -67,7 +67,7 @@ var App = (function (module, $, window, globals) {
             _add_registration_toggle();
         }
 
-        $("body").on("click", "span.close-tab", _close_tab);
+        $(window.document).on("click", "span.close-tab", _close_tab);
         $(".registration-toggle").click(_toggle_registration);
     };
 

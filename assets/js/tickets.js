@@ -95,7 +95,7 @@ var Tickets = (function (module, $, window, globals, app, comments) {
         _filter_toggle.click(_toggle_filter);
         _filter.children().change(_filter_off);
         $("#refresh-tickets").click(load_tickets);
-        $("body").on("click", "button.open-ticket", _open_ticket);
+        $(window.document).on("click", "button.open-ticket", _open_ticket);
     };
 
     return {

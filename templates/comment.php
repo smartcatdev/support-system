@@ -60,7 +60,7 @@ use SmartcatSupport\Plugin;
 
                     <div class="button_wrapper">
 
-                        <button type="button" class="trigger button button-primary cancel" data-action="cancel_comment_edit">
+                        <button type="button" class="trigger button button-primary cancel-edit-comment">
 
                             <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 

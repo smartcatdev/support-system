@@ -24,8 +24,10 @@ var Comments = (function (module, $, window, globals) {
 
     };
 
-    var _edit_comment = function (e) {
-
+    var _toggle_editor = function (e) {
+        var comment = $(e.target).parents(".comment");
+        comment.find(".editor").toggle();
+        comment.find(".content").toggle();
     };
 
     var load_comments = function (id) {
@@ -56,7 +58,9 @@ var Comments = (function (module, $, window, globals) {
             });
         }, 1000 * 30);
 
-        $("body").on("click", ".delete-comment", _delete_comment);
+        $(window.document).on("click", ".delete-comment", _delete_comment);
+        $(window.document).on("click", ".edit-comment", _toggle_editor);
+        $(window.document).on("click", ".cancel-edit-comment", _toggle_editor);
 
     };
 
