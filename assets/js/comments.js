@@ -45,7 +45,26 @@ var Comments = (function (module, $, window, globals) {
     };
 
     var _save_comment = function (e) {
+        e.preventDefault();
 
+        var target = $(e.target);
+        var comment = target.parents(".comment");
+        var form = target.parents(".edit-comment-form");
+        var data = {
+            url: globals.ajaxUrl + "?action=support_update_comment",
+            dataType: "json",
+            method: "post",
+            success: function (response) {
+                comment.replaceWith(response.data);
+            },
+            error: function (xhr, status, error) {
+
+            }
+        };
+
+        data.data = form.serializeArray();
+
+        $.ajax(data);
     };
 
     var _show_editor = function (e) {
@@ -58,7 +77,6 @@ var Comments = (function (module, $, window, globals) {
         editor.find(".editor-content").val(content.text());
 
     };
-
 
     var _close_editor = function (e) {
         var comment = $(e.target).parents(".comment");
@@ -115,8 +133,8 @@ var Comments = (function (module, $, window, globals) {
         $(window.document).on("click", "span.delete-comment", _delete_comment);
         $(window.document).on("click", "span.edit-comment", _show_editor);
         $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
+        $(window.document).on("click", "button.save-comment", _save_comment);
         $(window.document).on("submit", "form.comment-form", _submit_comment);
-
 
     };
 

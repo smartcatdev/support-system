@@ -50,7 +50,7 @@ use SmartcatSupport\Plugin;
 
             <div class="editor">
 
-                <form class="edit_comment_form">
+                <form class="edit-comment-form">
 
                     <textarea class="editor-content" name="content"></textarea>
 
@@ -66,7 +66,7 @@ use SmartcatSupport\Plugin;
 
                         </button>
 
-                        <button type="input" class="button button-cancel">
+                        <button type="input" class="button button-primary save-comment">
 
                             <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 

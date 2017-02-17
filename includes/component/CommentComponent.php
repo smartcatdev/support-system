@@ -15,6 +15,8 @@ class CommentComponent extends AbstractComponent {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
         if( !empty( $comment ) && TicketUtils::comments_enabled( $comment->comment_post_ID ) ) {
+            $ticket = $this->get_ticket( $comment->comment_post_ID );
+
             if ( ! empty( $_REQUEST['content'] ) ) {
                 wp_update_comment( array(
                     'comment_ID'       => $comment->comment_ID,
@@ -26,11 +28,14 @@ class CommentComponent extends AbstractComponent {
                 wp_send_json_success(
                     TemplateUtils::render_template(
                         $this->plugin->template_dir . '/comment.php',
-                        array( 'comment' => get_comment( $comment->comment_ID ) )
+                        array(
+                            'comment' => get_comment( $comment->comment_ID ),
+                            'comments_enabled' => TicketUtils::comments_enabled( $ticket->ID )
+                        )
                     )
                 );
             } else {
-                wp_send_json_error( array( 'content' => __( 'Cannot be blank', Plugin::ID ) ), 400 );
+                wp_send_json_error( __( 'Cannot be blank', Plugin::ID ), 400 );
             }
         }
     }
