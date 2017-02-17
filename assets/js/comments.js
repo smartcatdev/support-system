@@ -24,47 +24,46 @@ var Comments = (function (module, $, window, globals) {
         e.preventDefault();
 
         var form = $(e.target);
+        var content = form.find(".editor-content");
+        var submit_button = form.find(".button-submit");
 
-        var data = {
+        $.ajax({
             url: globals.ajaxUrl + "?action=support_submit_comment",
             dataType: "json",
             method: "post",
             data: form.serializeArray(),
             success: function (response) {
                 form.parents().find(".comments").append(response.data);
-                form.find("textarea").val("");
-            },
-            error: function (xhr, status, error) {
-                form.append("<p class=\"error\">" + xhr.responseJSON.data + "</p>");
+                content.val("");
+                submit_button.prop("disabled", true);
             }
-        };
-
-        form.find(".error").remove();
-
-        $.ajax(data);
+        });
     };
 
     var _save_comment = function (e) {
         e.preventDefault();
 
-        var target = $(e.target);
-        var comment = target.parents(".comment");
-        var form = target.parents(".edit-comment-form");
-        var data = {
+        var form = $(e.target);
+        var comment = form.parents(".comment");
+        var message = comment.find(".message");
+
+        $.ajax({
             url: globals.ajaxUrl + "?action=support_update_comment",
             dataType: "json",
             method: "post",
+            data: form.serializeArray(),
             success: function (response) {
                 comment.replaceWith(response.data);
-            },
-            error: function (xhr, status, error) {
-
             }
-        };
+        });
+    };
 
-        data.data = form.serializeArray();
+    var _empty_save_disable = function (e) {
+        var form = $(e.target).parents("form");
+        var content = form.find(".editor-content");
+        var submit_button = form.find(".button-submit");
 
-        $.ajax(data);
+        submit_button.prop("disabled", content.val() === "");
     };
 
     var _show_editor = function (e) {
@@ -81,10 +80,10 @@ var Comments = (function (module, $, window, globals) {
     var _close_editor = function (e) {
         var comment = $(e.target).parents(".comment");
         var editor = comment.find(".editor");
-        var content = comment.find(".comment-content");
 
         editor.removeClass("active");
-        content.show();
+        editor.find(".button-submit").prop("disabled", false);
+        comment.find(".comment-content").show();
     };
 
     var load_comments = function (id) {
@@ -136,8 +135,10 @@ var Comments = (function (module, $, window, globals) {
         $(window.document).on("click", "span.delete-comment", _delete_comment);
         $(window.document).on("click", "span.edit-comment", _show_editor);
         $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
-        $(window.document).on("click", "button.save-comment", _save_comment);
+        $(window.document).on("submit", "form.edit-comment-form", _save_comment);
         $(window.document).on("submit", "form.comment-form", _submit_comment);
+        $(window.document).on("keyup", "form.edit-comment-form", _empty_save_disable);
+        $(window.document).on("keyup", "form.comment-form", _empty_save_disable);
     };
 
     return {

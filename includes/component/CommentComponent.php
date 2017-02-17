@@ -35,7 +35,7 @@ class CommentComponent extends AbstractComponent {
                     )
                 );
             } else {
-                wp_send_json_error( __( 'Cannot be blank', Plugin::ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', Plugin::ID ), 400 );
             }
         }
     }

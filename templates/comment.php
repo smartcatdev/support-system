@@ -58,7 +58,9 @@ use SmartcatSupport\Plugin;
 
                     <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                    <div class="button_wrapper">
+                    <div class="bottom">
+
+                        <span class="message"></span>
 
                         <button type="button" class="trigger button button-primary cancel-edit-comment">
 
@@ -66,7 +68,7 @@ use SmartcatSupport\Plugin;
 
                         </button>
 
-                        <button type="input" class="button button-primary save-comment">
+                        <button type="submit" class="button button-primary save-comment button-submit">
 
                             <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 

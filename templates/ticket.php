@@ -112,7 +112,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
             <form class="comment-form">
 
-                <textarea name="content"></textarea>
+                <textarea class="editor-content" name="content"></textarea>
 
                 <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
 
@@ -120,7 +120,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
                 <div class="button_wrapper">
 
-                    <button type="submit" class="button submit">
+                    <button type="submit" class="button button-primary button-submit" disabled="true">
 
                         <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
 
