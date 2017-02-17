@@ -106,7 +106,7 @@ class CommentComponent extends AbstractComponent {
         if( !empty( $ticket ) ) {
             wp_send_json_success(
                 TemplateUtils::render_template(
-                    $this->plugin->template_dir . '/comment_section.php',
+                    $this->plugin->template_dir . '/comments.php',
                     array(
                         'post' => $ticket,
                         'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
@@ -145,7 +145,7 @@ class CommentComponent extends AbstractComponent {
             'wp_ajax_support_update_comment' => array( 'update_comment' ),
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_delete_comment' => array( 'delete_comment' ),
-            'wp_ajax_support_ticket_comments' => array( 'list_comments' ),
+            'wp_ajax_support_list_comments' => array( 'list_comments' ),
 
             'widget_comments_args' => array( 'remove_widget_comments' ),
             'do_feed_rss2' => array( 'remove_feed_comments', 1 ),

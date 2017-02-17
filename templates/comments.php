@@ -11,9 +11,7 @@ $comments_closed = $ticket_status === 'resolved' || $ticket_status === 'closed';
 
 ?>
 
-<div class="comment_section">
 
-        <div class="comments">
 
             <?php if( !empty( $comments ) ) : ?>
 
@@ -25,7 +23,7 @@ $comments_closed = $ticket_status === 'resolved' || $ticket_status === 'closed';
 
             <?php endif; ?>
 
-        </div>
+      
 
     <?php if( $comments_enabled ) : ?>
 
@@ -85,4 +83,4 @@ $comments_closed = $ticket_status === 'resolved' || $ticket_status === 'closed';
 
     <?php endif; ?>
 
-</div>
+

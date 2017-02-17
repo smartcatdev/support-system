@@ -76,4 +76,6 @@ use SmartcatSupport\Plugin;
 
     <?php endif; ?>
     
-    </div>
+</div>
+
+<div class="comments"></div>

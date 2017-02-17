@@ -16,60 +16,40 @@ use SmartcatSupport\Plugin;
             
             <img class="logo" src="<?php echo get_option( Option::LOGIN_LOGO, Option\Defaults::LOGIN_LOGO ) ?>"/>
             
-            <div id="login_form">
+            <div id="login">
 
                 <?php wp_login_form(); ?>
-
-                <?php if ( $signups ) : ?>
-
-                    <button class="trigger" data-action="toggle_register_form">
-
-                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), Plugin::ID ); ?>
-
-                    </button>
-
-                <?php endif; ?>
 
             </div>
 
             <?php if ( $signups ) : ?>
 
-                <div id="register_form">
+                <div id="register" style="display: none">
 
-                    <form class="support_form"
-                          data-action="support_register_user"
-                          data-after="post_user_register">
+                    <form id="registration_form">
 
                         <?php Form::render_fields( include Plugin::plugin_dir( Plugin::ID ) . 'config/register_user_form.php' ); ?>
 
-                        <div class="button_wrapper">
+                        <p class="registration-submit">
 
-                            <button class="trigger" data-action="toggle_register_form">
-
+                            <button type="button" class="button button-primary registration-toggle">
                                 <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), Plugin::ID ); ?>
-
                             </button>
 
-                            <input class="button"
+                            <input class="button button-primary"
                                 type="submit"
                                 value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), Plugin::ID ); ?>"/>
 
-                        </div>
+                        </p>
 
                     </form>
 
                 </div>
 
-
             <?php endif; ?>
-        </div>
-        
-        <div id="support-login-disclaimer">
-            <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), Plugin::ID ); ?>
+
         </div>
         
     </div>
-
-
 
 </div>

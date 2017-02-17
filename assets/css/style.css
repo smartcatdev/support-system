@@ -462,3 +462,8 @@ table.collapsible tr {
 .modal {
     border-radius: 3px;
 }
+
+#support-login-wrapper .button-primary {
+    width: auto !important;
+    display: inline-block;
+}
