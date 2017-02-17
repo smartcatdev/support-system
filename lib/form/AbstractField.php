@@ -9,6 +9,7 @@ abstract class AbstractField {
     public $value = '';
     public $label;
     public $desc;
+    public $class = array();
     public $error_message;
     protected $constraints = array();
     protected $sanitize_callback;
@@ -16,28 +17,12 @@ abstract class AbstractField {
     public function __construct( array $args ) {
         $this->id = $args['id'];
 
-        if( !empty( $args['error_msg'] ) ) {
-            $this->error_message = $args['error_msg'];
-        }
-        
-        if( !empty( $args['label'] ) ) {
-            $this->label = $args['label'];
-        }
+        unset( $args['id'] );
 
-        if( !empty( $args['constraints'] ) ) {
-            $this->constraints = $args['constraints'];
-        }
-        
-        if( !empty( $args['desc'] ) ) {
-            $this->desc = $args['desc'];
-        }
-        
-        if( !empty( $args['value'] ) ) {
-            $this->value = $args['value'];
-        }
-
-        if( !empty( $args['sanitize_callback'] ) ) {
-            $this->sanitize_callback = $args['sanitize_callback'];
+        foreach( $args as $arg => $value ) {
+            if( property_exists( __CLASS__, $arg ) ) {
+                $this->{ $arg } = $value;
+            }
         }
     }
 

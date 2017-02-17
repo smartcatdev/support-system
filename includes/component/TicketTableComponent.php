@@ -107,6 +107,7 @@ class TicketTableComponent extends AbstractComponent {
             $products = new SelectBoxField(
                 array(
                     'id'      => 'product',
+                    'class'   => array( 'filter-field' ),
                     'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', Plugin::ID ) ) ),
                     'value'   => isset( $_REQUEST['product'] ) ? $_REQUEST['product'] : ''
                 )
@@ -119,6 +120,7 @@ class TicketTableComponent extends AbstractComponent {
             $agents = new SelectBoxField(
                 array(
                     'id'      => 'agent',
+                    'class'   => array( 'filter-field' ),
                     'options' => UserUtils::list_agents( array( '' => __( 'All Agents', Plugin::ID ) ) ),
                     'value'   => isset( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
@@ -130,6 +132,7 @@ class TicketTableComponent extends AbstractComponent {
         $statuses = new SelectBoxField(
             array(
                 'id'      => 'status',
+                'class'   => array( 'filter-field' ),
                 'options' => array( '' => __( 'Any Status', Plugin::ID ) ) + get_option( Option::STATUSES, Option\Defaults::$STATUSES ),
                 'value'   => isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : ''
             )

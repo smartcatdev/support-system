@@ -118,7 +118,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
                 <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                <div class="button_wrapper">
+                <div class="bottom">
 
                     <button type="submit" class="button button-primary button-submit" disabled="true">
 

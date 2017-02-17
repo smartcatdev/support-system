@@ -5,11 +5,12 @@ var Tickets = (function (module, $, window, globals, app, comments) {
     var _list;
     var _filter;
     var _filter_toggle;
+    var _filter_fields;
 
     var _bind_events = function () {
-        _filter_toggle.click(_toggle_filter);
-        _filter.children().change(_filter_off);
-        $("#refresh-tickets").click(load_tickets);
+        $(window.document).on("click", "#filter-toggle", _toggle_filter);
+        $(window.document).on("change", ".filter-field", _filter_off);
+        $(window.document).on("click", "#refresh-tickets", load_tickets);
         $(window.document).on("click", "button.open-ticket", _open_ticket);
     };
 
@@ -48,7 +49,7 @@ var Tickets = (function (module, $, window, globals, app, comments) {
         _filter_toggle.toggleClass("active");
 
         if (!_filter_toggle.hasClass("active")) {
-            _filter.children().each(function (index, element) {
+            _filter_fields.each(function (index, element) {
                 $(element).val("");
             });
         }
@@ -97,6 +98,7 @@ var Tickets = (function (module, $, window, globals, app, comments) {
         _container = $("#tickets-container");
         _filter_toggle = $("#filter-toggle");
         _filter = $("#ticket_filter");
+        _filter_fields = _filter.find(".filter-field");
 
         load_tickets();
         window.setInterval(load_tickets, 1000 * 60);
