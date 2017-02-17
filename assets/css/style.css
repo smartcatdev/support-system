@@ -388,6 +388,8 @@ table.collapsible tr {
     display: none;
 }
 
+
+
 @media( min-width: 767px ) {
     .comment_section form.comment_form .error_msg {
         position: absolute;

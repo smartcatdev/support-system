@@ -408,3 +408,14 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 #ticket-sidebar select.form_field {
     display: block;
 }
+
+/**
+## Comment Editor
+*/
+.comment .editor {
+    display: none;
+}
+
+.comment .editor.active {
+    display: block;
+}

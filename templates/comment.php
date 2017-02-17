@@ -44,17 +44,17 @@ use SmartcatSupport\Plugin;
 
     <div class="inner">
 
-        <div class="content"><?php echo $comment->comment_content; ?></div>
+        <div class="comment-content"><?php echo $comment->comment_content; ?></div>
 
         <?php if( $comments_enabled ) : ?>
 
-            <div class="editor" style="display: none">
+            <div class="editor">
 
                 <form class="edit_comment_form">
 
-                    <textarea name="content"><?php echo $comment->comment_content; ?></textarea>
+                    <textarea class="editor-content" name="content"></textarea>
 
-                    <input type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
+                    <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
                     <?php wp_comment_form_unfiltered_html_nonce(); ?>
 

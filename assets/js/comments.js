@@ -48,13 +48,31 @@ var Comments = (function (module, $, window, globals) {
 
     };
 
-    var _toggle_editor = function (e) {
+    var _show_editor = function (e) {
         var comment = $(e.target).parents(".comment");
-        comment.find(".editor").toggle();
-        comment.find(".content").toggle();
+        var editor = comment.find(".editor");
+        var content = comment.find(".comment-content");
+
+        content.hide();
+        editor.addClass("active");
+        editor.find(".editor-content").val(content.text());
+
+    };
+
+
+    var _close_editor = function (e) {
+        var comment = $(e.target).parents(".comment");
+        var editor = comment.find(".editor");
+        var content = comment.find(".comment-content");
+
+        editor.removeClass("active");
+        content.show();
     };
 
     var load_comments = function (id) {
+        var pane = $("#" + id);
+        var comments = pane.find(".comments");
+
         $.ajax({
             url: globals.ajaxUrl,
             dataType: "json",
@@ -63,10 +81,22 @@ var Comments = (function (module, $, window, globals) {
                 id: id
             },
             success: function (response) {
-                var pane = $("#" + id);
-                pane.find(".comments").html(response.data);
-                pane.find(".comment_reply").show();
+
+                $.each(response.data, function (index, new_comment) {
+                    var old_comment = comments.find("#comment-" + index);
+
+                    if (old_comment.length) {
+                        if (!$(old_comment.find("editor").hasClass("active"))) {
+                            old_comment.replaceWith(new_comment);
+                        }
+                    } else {
+                        comments.append(new_comment);
+                    }
+                });
+
             }
+        }).done(function () {
+            pane.find(".comment_reply").show();
         });
     };
 
@@ -83,8 +113,8 @@ var Comments = (function (module, $, window, globals) {
         }, 1000 * 30);
 
         $(window.document).on("click", "span.delete-comment", _delete_comment);
-        $(window.document).on("click", "span.edit-comment", _toggle_editor);
-        $(window.document).on("click", "button.cancel-edit-comment", _toggle_editor);
+        $(window.document).on("click", "span.edit-comment", _show_editor);
+        $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
         $(window.document).on("submit", "form.comment-form", _submit_comment);
 
 

@@ -99,15 +99,18 @@ class CommentComponent extends AbstractComponent {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
           
         if( !empty( $ticket ) ) {
-            wp_send_json_success(
-                TemplateUtils::render_template(
-                    $this->plugin->template_dir . '/comments.php',
+            $comments = array();
+
+            foreach( get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) ) as $comment ) {
+                $comments[ $comment->comment_ID ] = TemplateUtils::render_template(
+                    $this->plugin->template_dir . '/comment.php',
                     array(
-                        'post' => $ticket,
-                        'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
-                    )
-                )
-            );
+                        'comment' => $comment,
+                        'comments_enabled' => TicketUtils::comments_enabled( $ticket->ID )
+                    ) );
+            }
+
+            wp_send_json_success( $comments );
         }
     }
 
