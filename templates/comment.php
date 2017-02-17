@@ -5,7 +5,9 @@ use SmartcatSupport\Plugin;
 
 ?>
 
-<div class="comment support_card" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
+<div id="comment-<?php echo $comment->comment_ID; ?>"
+     data-id="<?php esc_attr_e( $comment->comment_ID ); ?>"
+     class="comment support_card">
 
     <div class="status_bar">
 
@@ -31,8 +33,8 @@ use SmartcatSupport\Plugin;
 
             <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) && $comments_enabled ) : ?>
 
-                <i class="trigger icon-bin" data-action="delete_comment"></i>
-                <i class="trigger icon-pencil" data-action="edit_comment"></i>
+                <span class="trigger icon-bin delete-comment" data-id="<?php echo $comment->comment_ID; ?>"></span>
+                <span class="trigger icon-pencil edit-comment"></span>
 
             <?php endif; ?>
 
@@ -46,11 +48,9 @@ use SmartcatSupport\Plugin;
 
         <?php if( $comments_enabled ) : ?>
 
-            <div class="editor hidden">
+            <div class="editor" style="display: none">
 
-                <form class="support_form"
-                      data-action="support_update_comment"
-                      data-after="post_comment_update">
+                <form class="edit_comment_form">
 
                     <textarea name="content"><?php echo $comment->comment_content; ?></textarea>
 
@@ -60,13 +60,13 @@ use SmartcatSupport\Plugin;
 
                     <div class="button_wrapper">
 
-                        <button class="trigger button cancel" data-action="cancel_comment_edit">
+                        <button type="button" class="trigger button button-primary cancel" data-action="cancel_comment_edit">
 
                             <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
                         </button>
 
-                        <button type="input" class="button submit">
+                        <button type="input" class="button button-cancel">
 
                             <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 

@@ -2,10 +2,29 @@ var Comments = (function (module, $, window, globals) {
     "use strict";
 
     var _delete_comment = function (e) {
+        var target = $(e.target);
+        var id = target.data("id");
 
+        $.ajax({
+            url: globals.ajaxUrl,
+            dataType: "json",
+            data: {
+                action: "support_delete_comment",
+                comment_id: id
+            },
+            success: function (response) {
+                if (response.success) {
+                    target.parents("#comment-" + id).remove();
+                }
+            }
+        });
     };
 
     var _save_comment = function (e) {
+
+    };
+
+    var _edit_comment = function (e) {
 
     };
 
@@ -36,6 +55,8 @@ var Comments = (function (module, $, window, globals) {
                 }
             });
         }, 1000 * 30);
+
+        $("body").on("click", ".delete-comment", _delete_comment);
 
     };
 
