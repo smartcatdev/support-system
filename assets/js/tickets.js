@@ -6,6 +6,13 @@ var Tickets = (function (module, $, window, globals, app, comments) {
     var _filter;
     var _filter_toggle;
 
+    var _bind_events = function () {
+        _filter_toggle.click(_toggle_filter);
+        _filter.children().change(_filter_off);
+        $("#refresh-tickets").click(load_tickets);
+        $(window.document).on("click", "button.open-ticket", _open_ticket);
+    };
+
     var _quick_edit_save = function (e) {
 
     };
@@ -90,16 +97,9 @@ var Tickets = (function (module, $, window, globals, app, comments) {
         _filter = $("#ticket_filter");
 
         load_tickets();
-        setInterval(load_tickets, 1000 * 60);
+        window.setInterval(load_tickets, 1000 * 60);
 
         _bind_events();
-    };
-
-    var _bind_events = function () {
-        _filter_toggle.click(_toggle_filter);
-        _filter.children().change(_filter_off);
-        $("#refresh-tickets").click(load_tickets);
-        $(window.document).on("click", "button.open-ticket", _open_ticket);
     };
 
     return {

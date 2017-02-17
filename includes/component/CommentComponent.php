@@ -96,7 +96,11 @@ class CommentComponent extends AbstractComponent {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
         if( !empty( $comment ) && TicketUtils::comments_enabled( $comment->comment_post_ID ) ) {
-            wp_send_json( array( 'success' => wp_delete_comment( $comment->comment_ID, true ) ) );
+            if( wp_delete_comment( $comment->comment_ID, true ) ) {
+                wp_send_json_success( null );
+            } else {
+                wp_send_json_error( null, 500 );
+            }
         }
     }
 

@@ -3,6 +3,11 @@ var App = (function (module, $, window, globals) {
 
     var _tabs;
 
+    var _bind_events = function () {
+        $(window.document).on("click", "span.close-tab", _close_tab);
+        $(".registration-toggle").click(_toggle_registration);
+    };
+
     var _find_tab = function (id) {
         var tab = false;
 
@@ -68,11 +73,6 @@ var App = (function (module, $, window, globals) {
         }
 
         _bind_events();
-    };
-
-    var _bind_events = function () {
-        $(window.document).on("click", "span.close-tab", _close_tab);
-        $(".registration-toggle").click(_toggle_registration);
     };
 
     return {

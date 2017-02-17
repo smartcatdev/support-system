@@ -1,6 +1,16 @@
 var Comments = (function (module, $, window, globals) {
     "use strict";
 
+    var _bind_events = function () {
+        $(window.document).on("click", "span.delete-comment", _delete_comment);
+        $(window.document).on("click", "span.edit-comment", _show_editor);
+        $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
+        $(window.document).on("submit", "form.edit-comment-form", _save_comment);
+        $(window.document).on("submit", "form.comment-form", _submit_comment);
+        $(window.document).on("keyup", "form.edit-comment-form", _empty_save_disable);
+        $(window.document).on("keyup", "form.comment-form", _empty_save_disable);
+    };
+
     var _delete_comment = function (e) {
         var target = $(e.target);
         var id = target.data("id");
@@ -45,7 +55,6 @@ var Comments = (function (module, $, window, globals) {
 
         var form = $(e.target);
         var comment = form.parents(".comment");
-        var message = comment.find(".message");
 
         $.ajax({
             url: globals.ajaxUrl + "?action=support_update_comment",
@@ -118,7 +127,7 @@ var Comments = (function (module, $, window, globals) {
     };
 
     var initialize = function () {
-        setInterval(function () {
+        window.setInterval(function () {
             $("div.panel").each(function (index, element) {
                 var id = $(element).attr("id");
 
@@ -129,16 +138,6 @@ var Comments = (function (module, $, window, globals) {
         }, 1000 * 30);
 
         _bind_events();
-    };
-
-    var _bind_events = function () {
-        $(window.document).on("click", "span.delete-comment", _delete_comment);
-        $(window.document).on("click", "span.edit-comment", _show_editor);
-        $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
-        $(window.document).on("submit", "form.edit-comment-form", _save_comment);
-        $(window.document).on("submit", "form.comment-form", _submit_comment);
-        $(window.document).on("keyup", "form.edit-comment-form", _empty_save_disable);
-        $(window.document).on("keyup", "form.comment-form", _empty_save_disable);
     };
 
     return {
