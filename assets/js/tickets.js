@@ -1,4 +1,4 @@
-var Tickets = (function (module, $, window, globals, app, comments) {
+var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
     "use strict";
 
     var _container;
@@ -36,6 +36,7 @@ var Tickets = (function (module, $, window, globals, app, comments) {
                 success: function (data) {
                     app.new_tab(data);
                     comments.load_comments(id);
+                    sidebar.load_sidebar(id);
                     $("#" + id).find(".comment-reply").show();
                 }
             });
@@ -71,8 +72,9 @@ var Tickets = (function (module, $, window, globals, app, comments) {
             });
         });
 
-        _list.DataTable({
-            columns: cols
+        _list.dataTable({
+            columns: cols,
+            saveState: true
         });
     };
 
@@ -112,7 +114,7 @@ var Tickets = (function (module, $, window, globals, app, comments) {
         initialize: initialize
     };
 
-})(Tickets || {}, jQuery, window, Globals, App, Comments);
+})(Tickets || {}, jQuery, window, Globals, App, Comments, Sidebar);
 
 jQuery(document).ready(function ($) {
     "use strict";

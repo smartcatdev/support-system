@@ -36,8 +36,9 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
         <script src="<?php echo $url . 'assets/lib/datatables/datatables.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/lib/modal/jquery.modal.min.js' ?>" ></script>
         <script src="<?php echo includes_url( 'js/tinymce/' ) . 'wp-tinymce.php' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/comments.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/sidebar.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/tickets.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
 

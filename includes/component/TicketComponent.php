@@ -5,6 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\util\TicketUtils;
 
@@ -145,6 +146,16 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
+    public function sidebar() {
+        $ticket = $this->get_ticket( $_REQUEST['id'] );
+
+        if( $ticket ) {
+            wp_send_json_success( TemplateUtils::render_template(
+                $this->plugin->template_dir . '/sidebar.php', array( 'ticket' => $ticket )
+            ) );
+        }
+    }
+
     public function subscribed_hooks() {
         return array(
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
@@ -153,6 +164,8 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
             'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
+            'wp_ajax_support_ticket_sidebar' => array( 'sidebar' ),
+
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
         );
     }
