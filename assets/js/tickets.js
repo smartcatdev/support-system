@@ -36,6 +36,7 @@ var Tickets = (function (module, $, window, globals, app, comments) {
                 success: function (data) {
                     app.new_tab(data);
                     comments.load_comments(id);
+                    $("#" + id).find(".comment-reply").show();
                 }
             });
         }

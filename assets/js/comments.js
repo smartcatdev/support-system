@@ -1,6 +1,8 @@
 var Comments = (function (module, $, window, globals) {
     "use strict";
 
+    var _doing_ajax = false;
+
     var _bind_events = function () {
         $(window.document).on("click", "span.delete-comment", _delete_comment);
         $(window.document).on("click", "span.edit-comment", _show_editor);
@@ -11,60 +13,84 @@ var Comments = (function (module, $, window, globals) {
         $(window.document).on("keyup", "form.comment-form", _empty_save_disable);
     };
 
-    var _delete_comment = function (e) {
-        var target = $(e.target);
-        var id = target.data("id");
+    var _unlock = function () {
+      _doing_ajax = false;
+    };
 
-        $.ajax({
-            url: globals.ajaxUrl,
-            dataType: "json",
-            data: {
-                action: "support_delete_comment",
-                comment_id: id
-            },
-            success: function (response) {
-                if (response.success) {
-                    target.parents("#comment-" + id).remove();
+    var _lock = function () {
+      _doing_ajax = true;
+    };
+
+    var locked = function () {
+        return _doing_ajax;
+    };
+
+    var _delete_comment = function (e) {
+        if (!locked()) {
+            _lock();
+
+            var target = $(e.target);
+            var id = target.data("id");
+
+            $.ajax({
+                url: globals.ajaxUrl,
+                dataType: "json",
+                data: {
+                    action: "support_delete_comment",
+                    comment_id: id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        target.parents("#comment-" + id).remove();
+                    }
                 }
-            }
-        });
+            }).done(_unlock);
+        }
     };
 
     var _submit_comment = function (e) {
         e.preventDefault();
 
-        var form = $(e.target);
-        var content = form.find(".editor-content");
-        var submit_button = form.find(".button-submit");
+        if (!locked()) {
+            _lock();
 
-        $.ajax({
-            url: globals.ajaxUrl + "?action=support_submit_comment",
-            dataType: "json",
-            method: "post",
-            data: form.serializeArray(),
-            success: function (response) {
-                form.parents().find(".comments").append(response.data);
-                content.val("");
-                submit_button.prop("disabled", true);
-            }
-        });
+            var form = $(e.target);
+            var content = form.find(".editor-content");
+            var submit_button = form.find(".button-submit");
+
+            $.ajax({
+                url: globals.ajaxUrl + "?action=support_submit_comment",
+                dataType: "json",
+                method: "post",
+                data: form.serializeArray(),
+                success: function (response) {
+                    form.parents().find(".comments").append(response.data);
+                    content.val("");
+                    submit_button.prop("disabled", true);
+                }
+            }).done(_unlock);
+        }
     };
 
     var _save_comment = function (e) {
         e.preventDefault();
 
-        var form = $(e.target);
-        var comment = form.parents(".comment");
+        if (!locked()) {
+            _lock();
 
-        $.ajax({
-            url: globals.ajaxUrl + "?action=support_update_comment",
-            dataType: "json",
-            method: "post",
-            data: form.serializeArray(),
-            success: function (response) {
-                comment.replaceWith(response.data);
-            }
-        });
+            var form = $(e.target);
+            var comment = form.parents(".comment");
+
+            $.ajax({
+                url: globals.ajaxUrl + "?action=support_update_comment",
+                dataType: "json",
+                method: "post",
+                data: form.serializeArray(),
+                success: function (response) {
+                    comment.replaceWith(response.data);
+                }
+            }).done(_unlock);
+        }
     };
 
     var _empty_save_disable = function (e) {
@@ -82,7 +108,7 @@ var Comments = (function (module, $, window, globals) {
 
         content.hide();
         editor.addClass("active");
-        editor.find(".editor-content").val(content.text());
+        editor.find(".editor-content").val(content.html());
     };
 
     var _close_editor = function (e) {
@@ -95,34 +121,36 @@ var Comments = (function (module, $, window, globals) {
     };
 
     var load_comments = function (id) {
-        var pane = $("#" + id);
-        var comments = pane.find(".comments");
+        if (!locked()) {
+            _lock();
 
-        $.ajax({
-            url: globals.ajaxUrl,
-            dataType: "json",
-            data: {
-                action: "support_list_comments",
-                id: id
-            },
-            success: function (response) {
+            var pane = $("#" + id);
+            var comments = pane.find(".comments");
 
-                $.each(response.data, function (index, new_comment) {
-                    var old_comment = comments.find("#comment-" + index);
+            $.ajax({
+                url: globals.ajaxUrl,
+                dataType: "json",
+                data: {
+                    action: "support_list_comments",
+                    id: id
+                },
+                success: function (response) {
 
-                    if (old_comment.length) {
-                        if (!$(old_comment.find("editor").hasClass("active"))) {
-                            old_comment.replaceWith(new_comment);
+                    $.each(response.data, function (index, new_comment) {
+                        var old_comment = comments.find("#comment-" + index);
+
+                        if (old_comment.length) {
+                            if (!$(old_comment.find("editor").hasClass("active"))) {
+                                old_comment.replaceWith(new_comment);
+                            }
+                        } else {
+                            comments.append(new_comment);
                         }
-                    } else {
-                        comments.append(new_comment);
-                    }
-                });
+                    });
 
-            }
-        }).done(function () {
-            pane.find(".comment_reply").show();
-        });
+                }
+            }).done(_unlock);
+        }
     };
 
     var initialize = function () {
@@ -141,7 +169,8 @@ var Comments = (function (module, $, window, globals) {
 
     return {
         initialize: initialize,
-        load_comments: load_comments
+        load_comments: load_comments,
+        locked: locked
     };
 
 })(Comments || {}, jQuery, window, Globals);

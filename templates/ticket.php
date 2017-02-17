@@ -86,7 +86,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
 <?php if( $comments_enabled ) : ?>
 
-    <div class="comment_reply support_card" style="display: none;">
+    <div class="comment-reply support_card" style="display: none;">
 
         <div class="status_bar">
 
