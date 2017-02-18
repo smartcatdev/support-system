@@ -47,13 +47,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
                         <div class="media-left">
 
-                            <?php echo get_avatar( $comment, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
-
-                        </div>
-
-                        <div class="media-body" style="width: auto">
-
-                            <p class="media-heading"><?php echo $comment->comment_author; ?></p>
+                            <?php echo get_avatar( $ticket, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
 
                         </div>
 
@@ -69,7 +63,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
                             <textarea class="editor-content" name="content" rows="5"></textarea>
 
-                            <input class="comment-id" type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
+                            <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
 
                             <?php wp_comment_form_unfiltered_html_nonce(); ?>
 

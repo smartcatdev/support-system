@@ -14,15 +14,10 @@ $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
 
 $form = new Form( 'meta_form' );
 
-$form->add_field( new HiddenField(
-    array(
-        'id'    => 'id',
-        'value' => $ticket->ID
-    )
-
-) )->add_field( new SelectBoxField(
+$form->add_field( new SelectBoxField(
     array(
         'id'          => 'agent',
+        'class'       => array( 'form-control' ),
         'error_msg'   => __( 'Invalid agent selected', Plugin::ID ),
         'label'       => __( 'Assigned To', Plugin::ID ),
         'options'     => $agents,
@@ -35,6 +30,7 @@ $form->add_field( new HiddenField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'status',
+        'class'       => array( 'form-control' ),
         'error_msg'   => __( 'Invalid status selected', Plugin::ID ),
         'label'       => __( 'Status', Plugin::ID ),
         'options'     => $statuses,
@@ -47,6 +43,7 @@ $form->add_field( new HiddenField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'priority',
+        'class'       => array( 'form-control' ),
         'error_msg'   => __( 'Invalid priority selected', Plugin::ID ),
         'label'       => __( 'Priority', Plugin::ID ),
         'options'     => $priorities,

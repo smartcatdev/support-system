@@ -1,5 +1,6 @@
 <?php
 
+use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TicketUtils;
@@ -72,7 +73,39 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     <div class="panel-body">
 
-        <p><?php _e( TicketUtils::ticket_author_email( $ticket ), Plugin::ID ); ?></p>
+        <form class="ticket-status-form">
+
+            <?php $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_status_form.php'; ?>
+
+            <?php foreach( $form->fields as $field ) : ?>
+
+                <div class="form-group">
+
+                    <label><?php echo $field->label; ?></label>
+
+                    <?php $field->render(); ?>
+
+                </div>
+
+            <?php endforeach; ?>
+
+            <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>" />
+
+            <div class="row">
+
+                <div class="bottom col-sm-12">
+
+                    <button type="submit" class="button button-submit">
+
+                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
 
     </div>
 

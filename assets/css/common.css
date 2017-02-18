@@ -30,6 +30,15 @@ p {
     margin: auto !important;
 }
 
+form {
+    margin: 0;
+}
+
+form .bottom {
+    margin-top: 15px;
+    text-align: right;
+}
+
 a:hover,
 a:focus,
 a:visited{
@@ -430,16 +439,6 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 .comment .editor.active {
     display: block;
 }
-
-.editor form {
-    margin: 0;
-}
-
-.editor form .bottom {
-    margin-top: 15px;
-    text-align: right;
-}
-
 
 .editor textarea {
     width: 100%;
