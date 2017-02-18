@@ -13,7 +13,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
     <div class="sidebar col-sm-4"></div>
 
-    <div class="col-sm-8 pull-right">
+    <div class="col-sm-8">
 
         <div class="ticket panel panel-default ">
 
@@ -33,53 +33,65 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
     </div>
 
-    <div class="comments col-sm-8 pull-right"></div>
+    <div class="comments col-sm-8"></div>
 
     <?php if( $comments_enabled ) : ?>
 
-        <div class="comment-reply support_card col-sm-8 pull-right" style="display: none;">
+        <div class="col-sm-8">
 
-            <div class="status_bar">
+            <div class="comment-reply panel panel-default ">
 
-                <div class="wrapper">
+                <div class="panel-heading">
 
-                    <div class="image_wrapper">
+                    <div class="media meta">
 
-                        <?php echo get_avatar( wp_get_current_user()->ID, 36 ); ?>
+                        <div class="media-left">
 
-                    </div>
+                            <?php echo get_avatar( $comment, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
 
-                    <div class="meta_wrapper">
+                        </div>
 
-                        <p class="author_name"><?php esc_html_e( wp_get_current_user()->display_name ); ?></p>
+                        <div class="media-body" style="width: auto">
+
+                            <p class="media-heading"><?php echo $comment->comment_author; ?></p>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+                <div class="panel-body">
 
-            <div class="inner">
+                    <div class="editor">
 
-                <form class="comment-form">
+                        <form class="comment-form">
 
-                    <textarea class="editor-content" name="content"></textarea>
+                            <textarea class="editor-content" name="content" rows="5"></textarea>
 
-                    <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
+                            <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
-                    <?php wp_comment_form_unfiltered_html_nonce(); ?>
+                            <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                    <div class="bottom">
+                            <div class="row">
 
-                        <button type="submit" class="button button-primary button-submit" disabled="true">
+                                <div class="bottom col-sm-12">
 
-                            <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+                                    <button type="submit" class="button button-submit" disabled="true">
 
-                        </button>
+                                        <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </form>
 
                     </div>
 
-                </form>
+                </div>
 
             </div>
 
@@ -90,7 +102,5 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
         <p class="comments_closed_msg"><?php echo get_option( Option::COMMENTS_CLOSED_MSG, Option\Defaults::COMMENTS_CLOSED_MSG ); ?></p>
 
     <?php endif; ?>
-
-
 
 </div>

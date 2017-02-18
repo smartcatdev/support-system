@@ -13,7 +13,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     <div class="panel-body">
 
-        <p class="lead"><?php _e( in_array( $status, $statuses ) ? $statuses[ $status ] : $statuses['new'], Plugin::ID ); ?></p>
+        <div class="lead"><?php _e( in_array( $status, $statuses ) ? $statuses[ $status ] : $statuses['new'], Plugin::ID ); ?></div>
 
         <p>
             <?php _e( 'Since ', Plugin::ID ); ?>
@@ -36,13 +36,27 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     <div class="panel-body">
 
-        <p>
+        <div class="media">
 
-            <strong><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
+            <div class="media-left">
 
-        </p>
+                <?php echo get_avatar( $ticket, 48, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
 
-        <p><?php _e( 'Email: ', Plugin::ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+            </div>
+
+            <div class="media-body" style="width: auto">
+
+                <p>
+
+                    <strong class="media-middle"><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
+
+                </p>
+
+                <p><?php _e( 'Email: ', Plugin::ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+
+            </div>
+
+        </div>
 
     </div>
 

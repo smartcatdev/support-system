@@ -26,6 +26,10 @@ body{
     font-family: 'Montserrat', sans-serif !important;
 }
 
+p {
+    margin: auto !important;
+}
+
 a:hover,
 a:focus,
 a:visited{
@@ -414,7 +418,6 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 */
 .comment .meta p {
     font-size: 8pt;
-    margin: 0;
 }
 
 /**
@@ -428,15 +431,16 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
     display: block;
 }
 
-.edit-comment-form {
+.editor form {
     margin: 0;
 }
 
-.edit-comment-form .bottom {
+.editor form .bottom {
     margin-top: 15px;
+    text-align: right;
 }
 
 
-.edit-comment-form textarea {
+.editor textarea {
     width: 100%;
 }

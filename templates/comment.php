@@ -70,17 +70,17 @@ use SmartcatSupport\Plugin;
 
                         <div class="bottom col-sm-12">
 
-                        <button type="button" class="button cancel-edit-comment pull-right">
+                            <button type="button" class="button cancel-edit-comment">
 
-                            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+                                <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
-                        </button>
+                            </button>
 
-                        <button type="submit" class="button save-comment button-submit pull-right">
+                            <button type="submit" class="button save-comment button-submit">
 
-                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                                <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
-                        </button>
+                            </button>
 
                         </div>
 
