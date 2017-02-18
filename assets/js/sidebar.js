@@ -1,5 +1,4 @@
-var Sidebar = (function (module, $, window
-) {
+var Sidebar = (function (module, $, window) {
     "use strict";
 
     var load_sidebar = function (id) {

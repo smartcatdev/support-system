@@ -8,7 +8,14 @@ use SmartcatSupport\util\UserUtils;
 
 class ProductComponent extends AbstractComponent {
 
-    public function list_products( $products ) {
+    /**
+     * List WooCommerce and EDD products.
+     *
+     * @param $products
+     * @return array
+     * @since 1.0.0
+     */
+    public function list_products( $products = array() ) {
         if( $this->plugin->woo_active && get_option( Option::WOO_INTEGRATION ) == 'on' ) {
             $args = array(
                 'post_type' => 'product',
@@ -42,6 +49,13 @@ class ProductComponent extends AbstractComponent {
         return $products;
     }
 
+    /**
+     * Configure capabilities for customer role when WooCommerce is enabled.
+     *
+     * @param $val
+     * @return mixed
+     * @since 1.0.0
+     */
     public function configure_customer_caps( $val ) {
         if( $this->plugin->woo_active ) {
             if( $val == 'on' ) {
@@ -54,6 +68,13 @@ class ProductComponent extends AbstractComponent {
         return $val;
     }
 
+    /**
+     * Configure capabilities for subscriber role when EDD is enabled.
+     *
+     * @param $val
+     * @return mixed
+     * @since 1.0.0
+     */
     public function configure_subscriber_caps( $val ) {
         if( $this->plugin->edd_active ) {
             if ( $val == 'on' ) {
@@ -66,6 +87,14 @@ class ProductComponent extends AbstractComponent {
         return $val;
     }
 
+    /**
+     * Hooks that the Component is subscribed to.
+     *
+     * @see \smartcat\core\AbstractComponent
+     * @see \smartcat\core\HookSubscriber
+     * @return array $hooks
+     * @since 1.0.0
+     */
     public function subscribed_hooks() {
         return array(
             'support_list_products' => array( 'list_products' ),

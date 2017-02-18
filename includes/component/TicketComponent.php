@@ -5,18 +5,27 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\util\TicketUtils;
 
 class TicketComponent extends AbstractComponent {
 
+    /**
+     * AJAX action to launch the ticket creation screen.
+     *
+     * @since 1.0.0
+     */
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
             wp_send_json( include_once $this->plugin->template_dir . '/ticket_create_modal.php' );
         }
     }
 
+    /**
+     * AJAX action for creating new tickets.
+     *
+     * @see config/ticket_create_form.php
+     * @since 1.0.0
+     */
     public function create_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
 
@@ -52,8 +61,14 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * AJAX action for loading a ticket. If the ticket is new, sets the status to opened.
+     *
+     * @uses $_GET['id'] The ID of the ticket.
+     * @since 1.0.0
+     */
     public function load_ticket() {
-        $ticket = $this->get_ticket( $_REQUEST['id'] );
+        $ticket = $this->get_ticket( $_GET['id'] );
 
         if( !empty( $ticket ) ) {
             $status = get_post_meta( $ticket->ID, 'status', true );
@@ -73,15 +88,27 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * AJAX action for launching ticket quick edit screen.
+     *
+     * @uses $_GET['id'] The ID of the ticket to edit.
+     * @since 1.0.0
+     */
     public function edit_ticket() {
-        $ticket = $this->get_ticket( $_REQUEST['id'] );
+        $ticket = $this->get_ticket( $_GET['id'] );
 
         wp_send_json( include_once $this->plugin->template_dir . '/ticket_edit_modal.php' );
     }
 
+    /**
+     * AJAX action for saving the ticket properties.
+     *
+     * @see config/ticket_properties_form.php
+     * @since 1.0.0
+     */
     public function update_ticket_properties() {
         if( current_user_can( 'edit_others_tickets' ) ) {
-            $ticket = $this->get_ticket( $_REQUEST['id'] );
+            $ticket = $this->get_ticket( $_POST['id'] );
 
             if ( !empty( $ticket ) ) {
                 $form = include $this->plugin->config_dir . '/ticket_properties_form.php';
@@ -112,6 +139,29 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * AJAX action for loading the sidebar for a ticket.
+     *
+     * @users $_GET['id'] The ID of the ticket.
+     * @since 1.0.0
+     */
+    public function sidebar() {
+        $ticket = $this->get_ticket( $_GET['id'] );
+
+        if( !empty( $ticket ) ) {
+            wp_send_json_success( include_once $this->plugin->template_dir . '/sidebar.php' );
+        }
+    }
+
+    /**
+     * Sends an email to the user to notify them that their ticket has been marked as resolved.
+     *
+     * @param $null
+     * @param $post_id
+     * @param $key
+     * @param $new
+     * @since 1.0.0
+     */
     public function notify_ticket_resolved( $null, $post_id, $key, $new ) {
         if( get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ) == 'on' ) {
 
@@ -131,14 +181,14 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function sidebar() {
-        $ticket = $this->get_ticket( $_REQUEST['id'] );
-
-        if( !empty( $ticket ) ) {
-            wp_send_json_success( include_once $this->plugin->template_dir . '/sidebar.php' );
-        }
-    }
-
+    /**
+     * Hooks that the Component is subscribed to.
+     *
+     * @see \smartcat\core\AbstractComponent
+     * @see \smartcat\core\HookSubscriber
+     * @return array $hooks
+     * @since 1.0.0
+     */
     public function subscribed_hooks() {
         return array(
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
@@ -153,10 +203,18 @@ class TicketComponent extends AbstractComponent {
         );
     }
 
-    private function get_ticket( $id, $restrict = false ) {
+    /**
+     * Gets a ticket.
+     *
+     * @param int $id The ticket ID.
+     * @param bool $strict Whether to restrict to the current user.
+     * @return \WP_Post
+     * @since 1.0.0
+     */
+    private function get_ticket( $id, $strict = false ) {
         $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
-        if( $restrict && !current_user_can( 'edit_others_tickets' ) ) {
+        if( $strict || !current_user_can( 'edit_others_tickets' ) ) {
             $args['post_author'] = wp_get_current_user()->ID;
         }
 

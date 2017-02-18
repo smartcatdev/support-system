@@ -4,23 +4,26 @@ namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\util\TemplateUtils;
 
 class SettingsComponent extends AbstractComponent {
 
-    public function subscribed_hooks() {
-        return array(
-            'wp_ajax_support_settings' => array( 'settings' ),
-            'wp_ajax_support_save_settings' => array( 'save_settings' ),
-        );
-    }
-
+    /**
+     * AJAX action to launch the user settings screen.
+     *
+     * @since 1.0.0
+     */
     public function settings() {
         if( current_user_can( 'view_support_tickets' ) ) {
             wp_send_json( include_once $this->plugin->template_dir . '/settings_modal.php' );
         }
     }
 
+    /**
+     * AJAX action to save the user's settings.
+     *
+     * @see config/settings_form.php
+     * @since 1.0.0
+     */
     public function save_settings() {
         $form = include $this->plugin->dir() . '/config/settings_form.php';
 
@@ -44,5 +47,20 @@ class SettingsComponent extends AbstractComponent {
         } else {
             wp_send_json_error( $form->errors );
         }
+    }
+
+    /**
+     * Hooks that the Component is subscribed to.
+     *
+     * @see \smartcat\core\AbstractComponent
+     * @see \smartcat\core\HookSubscriber
+     * @return array $hooks
+     * @since 1.0.0
+     */
+    public function subscribed_hooks() {
+        return array(
+            'wp_ajax_support_settings' => array( 'settings' ),
+            'wp_ajax_support_save_settings' => array( 'save_settings' ),
+        );
     }
 }

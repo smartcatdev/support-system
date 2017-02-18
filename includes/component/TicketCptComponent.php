@@ -7,7 +7,6 @@ use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
 class TicketCptComponent extends AbstractComponent {

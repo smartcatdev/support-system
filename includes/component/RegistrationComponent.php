@@ -8,6 +8,12 @@ use SmartcatSupport\descriptor\Option;
 
 class RegistrationComponent extends AbstractComponent {
 
+    /**
+     * AJAX action to process new user registration. Creates a new user, sends a welcome email and then logs them in.
+     *
+     * @see config/register_user_form.php.
+     * @since 1.0.0
+     */
     public function register_user() {
         $form = include $this->plugin->config_dir . '/register_user_form.php';
 
@@ -26,6 +32,7 @@ class RegistrationComponent extends AbstractComponent {
                 )
             );
 
+            // Capture user's password as a email template variable
             add_filter( 'parse_email_template', function( $content, $recipient ) use ( $data ) {
                 if( $recipient == $data['email'] ) {
                     $content = str_replace( '{%password%}', $data['password'], $content );
@@ -43,6 +50,14 @@ class RegistrationComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * Hooks that the Component is subscribed to.
+     *
+     * @see \smartcat\core\AbstractComponent
+     * @see \smartcat\core\HookSubscriber
+     * @return array $hooks
+     * @since 1.0.0
+     */
     public function subscribed_hooks() {
         return array(
             'wp_ajax_nopriv_support_register_user' => array( 'register_user' )

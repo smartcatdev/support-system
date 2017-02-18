@@ -5,27 +5,34 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\Plugin;
 
 class CommentComponent extends AbstractComponent {
 
+    /**
+     * AJAX action to update a comment on a ticket.
+     *
+     * @uses $_POST['comment_id'] The ID of the comment to be updated.
+     * @uses $_POST['content'] The new content of the comment.
+     * @since 1.0.0
+     */
     public function update_comment() {
-        $comment = $this->get_comment( $_REQUEST['comment_id'] );
+        $comment = $this->get_comment( $_POST['comment_id'] );
 
         if( !empty( $comment ) ) {
             $ticket = $this->get_ticket( $comment->comment_post_ID );
 
-            if ( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
+            if ( !empty( $ticket ) && !empty( $_POST['content'] ) ) {
                 $result = wp_update_comment( array(
                     'comment_ID'       => $comment->comment_ID,
-                    'comment_content'  => $_REQUEST['content'],
+                    'comment_content'  => $_POST['content'],
                     'comment_date'     => current_time( 'mysql' ),
                     'comment_date_gmt' => current_time( 'mysql', 1 )
                 ) );
 
                 if( $result ) {
                     $comment = $this->get_comment( $comment->comment_ID );
+
                     wp_send_json_success( include_once $this->plugin->template_dir . '/comment.php' );
                 }
             } else {
@@ -34,10 +41,19 @@ class CommentComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * AJAX action for submitting new tickets. Ensure user has proper privileges and then emails
+     * the comments content. If the user is an agent, sets the status to waiting, else sets the
+     * status to responded.
+     *
+     * @uses $_POST['id'] The id of the ticket to comment on.
+     * @uses $_POST['content'] The content of the comment.
+     * @since 1.0.0
+     */
     public function submit_comment() {
-        $ticket = $this->get_ticket( $_REQUEST['id'] );
+        $ticket = $this->get_ticket( $_POST['id'] );
 
-        if ( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
+        if ( !empty( $ticket ) && !empty( $_POST['content'] ) ) {
             $user   = wp_get_current_user();
             $status = get_post_meta( $ticket->ID, 'status', true );
 
@@ -49,7 +65,7 @@ class CommentComponent extends AbstractComponent {
                 'author'                      => $user->display_name,
                 'email'                       => $user->user_email,
                 'url'                         => $user->user_url,
-                'comment'                     => $_REQUEST['content'],
+                'comment'                     => $_POST['content'],
                 'comment_parent'              => 0,
                 'user_id'                     => $user->ID,
                 '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
@@ -59,6 +75,7 @@ class CommentComponent extends AbstractComponent {
                 if ( current_user_can( 'edit_others_tickets' ) ) {
                     update_post_meta( $ticket->ID, 'status', 'waiting' );
 
+                    // Grab email template vars
                     add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
                         return str_replace(
                             array( '{%agent%}', '{%reply%}', '{%subject%}' ),
@@ -84,6 +101,12 @@ class CommentComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * AJAX action to delete a comment. Ensures user has proper privilege.
+     *
+     * @uses $_REQUEST['comment_id'] The ID of the comment to delete.
+     * @since 1.0.0
+     */
     public function delete_comment() {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
@@ -96,8 +119,14 @@ class CommentComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * AJAX action to retrieve all comments for a ticket. Returns an array of rendered comments.
+     *
+     * @uses $_GET['id'] The ID of the ticket to retrieve comments for.
+     * @since 1.0.0
+     */
     public function list_comments() {
-        $ticket = $this->get_ticket( $_REQUEST['id'] );
+        $ticket = $this->get_ticket( $_GET['id'] );
           
         if( !empty( $ticket ) ) {
             $comments = array();
@@ -110,6 +139,12 @@ class CommentComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * Hack to remove all comments on support tickets from feeds.
+     *
+     * @param $for_comments
+     * @since 1.0.0
+     */
     public function remove_feed_comments( $for_comments ) {
         if( $for_comments ) {
 
@@ -128,12 +163,27 @@ class CommentComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * Hack to remove all ticket comments from recent comments widget.
+     *
+     * @param $args
+     * @return mixed $args
+     * @since 1.0.0
+     */
     public function remove_widget_comments( $args ) {
         $args['post__not_in'] = $this->plugin->ticket_ids;
 
         return $args;
     }
 
+    /**
+     * Hooks that the Component is subscribed to.
+     *
+     * @see \smartcat\core\AbstractComponent
+     * @see \smartcat\core\HookSubscriber
+     * @return array $hooks
+     * @since 1.0.0
+     */
     public function subscribed_hooks() {
         return array(
             'wp_ajax_support_update_comment' => array( 'update_comment' ),
@@ -150,6 +200,13 @@ class CommentComponent extends AbstractComponent {
         );
     }
 
+    /**
+     * Gets a ticket.
+     *
+     * @param $id The ID of the ticket.
+     * @return null || \WP_Post
+     * @since 1.0.0
+     */
     private function get_ticket( $id ) {
         $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
@@ -163,6 +220,13 @@ class CommentComponent extends AbstractComponent {
         return $post;
     }
 
+    /**
+     * Gets a comment
+     *
+     * @param $id The ID of the comment.
+     * @return null || \WP_Comment
+     * @since 1.0.0
+     */
     private function get_comment( $id ) {
         $comment = null;
         $query = new \WP_Comment_Query( array(
