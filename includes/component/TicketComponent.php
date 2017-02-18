@@ -106,7 +106,7 @@ class TicketComponent extends AbstractComponent {
                         }
 
                         update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                        wp_send_json_success();
+                        wp_send_json_success( $post_id );
                     }
                 }
             }

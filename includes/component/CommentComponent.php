@@ -14,7 +14,7 @@ class CommentComponent extends AbstractComponent {
     public function update_comment() {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
-        if( !empty( $comment ) && TicketUtils::comments_enabled( $comment->comment_post_ID ) ) {
+        if( !empty( $comment ) ) {
             $ticket = $this->get_ticket( $comment->comment_post_ID );
 
             if ( ! empty( $_REQUEST['content'] ) ) {
@@ -29,8 +29,7 @@ class CommentComponent extends AbstractComponent {
                     TemplateUtils::render_template(
                         $this->plugin->template_dir . '/comment.php',
                         array(
-                            'comment' => get_comment( $comment->comment_ID ),
-                            'comments_enabled' => TicketUtils::comments_enabled( $ticket->ID )
+                            'comment' => get_comment( $comment->comment_ID )
                         )
                     )
                 );
@@ -43,7 +42,7 @@ class CommentComponent extends AbstractComponent {
     public function submit_comment() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
-        if( !empty( $ticket ) && TicketUtils::comments_enabled( $ticket->ID ) && !empty( $_REQUEST['content'] ) ) {
+        if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
             $user = wp_get_current_user();
             $status = get_post_meta( $ticket->ID, 'status', true );
 
@@ -82,8 +81,7 @@ class CommentComponent extends AbstractComponent {
                     TemplateUtils::render_template(
                         $this->plugin->template_dir . '/comment.php',
                         array(
-                            'comment' => $comment,
-                            'comments_enabled' => TicketUtils::comments_enabled( $ticket->ID )
+                            'comment' => $comment
                         )
                 ), 201 );
             }
@@ -95,7 +93,7 @@ class CommentComponent extends AbstractComponent {
     public function delete_comment() {
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
-        if( !empty( $comment ) && TicketUtils::comments_enabled( $comment->comment_post_ID ) ) {
+        if( !empty( $comment ) ) {
             if( wp_delete_comment( $comment->comment_ID, true ) ) {
                 wp_send_json_success( null );
             } else {
@@ -114,8 +112,7 @@ class CommentComponent extends AbstractComponent {
                 $comments[ $comment->comment_ID ] = TemplateUtils::render_template(
                     $this->plugin->template_dir . '/comment.php',
                     array(
-                        'comment' => $comment,
-                        'comments_enabled' => TicketUtils::comments_enabled( $ticket->ID )
+                        'comment' => $comment
                     ) );
             }
 

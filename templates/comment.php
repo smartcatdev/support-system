@@ -33,7 +33,7 @@ use SmartcatSupport\Plugin;
 
             <div class="btn-group">
 
-                <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) && $comments_enabled ) : ?>
+                <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) ) : ?>
 
                     <button class="btn btn-default icon-bin delete-comment"
                             data-id="<?php echo $comment->comment_ID; ?>"></button>
@@ -54,43 +54,40 @@ use SmartcatSupport\Plugin;
 
         <div class="comment-content"><?php echo $comment->comment_content; ?></div>
 
-        <?php if( $comments_enabled ) : ?>
+        <div class="editor">
 
-            <div class="editor">
+            <form class="edit-comment-form">
 
-                <form class="edit-comment-form">
+                <textarea class="editor-content" name="content" rows="5"></textarea>
 
-                    <textarea class="editor-content" name="content" rows="5"></textarea>
+                <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
-                    <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
+                <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                    <?php wp_comment_form_unfiltered_html_nonce(); ?>
+                <div class="row">
 
-                    <div class="row">
+                    <div class="bottom col-sm-12">
 
-                        <div class="bottom col-sm-12">
+                        <button type="button" class="button cancel-edit-comment">
 
-                            <button type="button" class="button cancel-edit-comment">
+                            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
-                                <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+                        </button>
 
-                            </button>
+                        <button type="submit" class="button save-comment button-submit">
 
-                            <button type="submit" class="button save-comment button-submit">
+                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
-                                <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
-
-                            </button>
-
-                        </div>
+                        </button>
 
                     </div>
 
-                </form>
+                </div>
 
-            </div>
+            </form>
 
-        <?php endif; ?>
+        </div>
+
 
     </div>
 
