@@ -410,6 +410,14 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 }
 
 /**
+## Comment
+*/
+.comment .meta p {
+    font-size: 8pt;
+    margin: 0;
+}
+
+/**
 ## Comment Editor
 */
 .comment .editor {
@@ -418,4 +426,17 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 
 .comment .editor.active {
     display: block;
+}
+
+.edit-comment-form {
+    margin: 0;
+}
+
+.edit-comment-form .bottom {
+    margin-top: 15px;
+}
+
+
+.edit-comment-form textarea {
+    width: 100%;
 }

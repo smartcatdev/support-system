@@ -13,29 +13,21 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
     <div class="sidebar col-sm-4"></div>
 
-    <div class="ticket support_card col-sm-8" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
+    <div class="col-sm-8 pull-right">
 
-        <div class="status_bar">
+        <div class="ticket panel panel-default ">
 
-            <div class="image_wrapper">
-                
-                <?php echo get_avatar( $ticket->post_author, 48 ); ?>
+            <div class="panel-heading">
+
+                <p class="panel-title"><?php esc_html_e( $ticket->post_title ); ?></p>
 
             </div>
 
-        </div>
+            <div class="panel-body">
 
-        <div class="inner">
+                <p><?php echo $ticket->post_content; ?></p>
 
-            <h2 class="subject"><?php esc_html_e( $ticket->post_title ); ?></h2>
-
-            <div class="content"><?php echo $ticket->post_content; ?></div>
-
-        </div>
-
-        <div class="date_opened">
-
-            <?php _e( 'Opened ', Plugin::ID ); echo get_the_date( 'l F n, Y', $ticket ); ?>
+            </div>
 
         </div>
 

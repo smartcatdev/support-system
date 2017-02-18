@@ -7,42 +7,50 @@ use SmartcatSupport\Plugin;
 
 <div id="comment-<?php echo $comment->comment_ID; ?>"
      data-id="<?php esc_attr_e( $comment->comment_ID ); ?>"
-     class="comment support_card">
+     class="comment panel panel-default">
 
-    <div class="status_bar">
+    <div class="panel-heading">
 
-        <div class="image_wrapper">
+        <div class="media pull-left meta">
 
-            <?php echo get_avatar( $comment, 36 ); ?>
+            <div class="media-left">
+
+                <?php echo get_avatar( $comment, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+
+            </div>
+
+            <div class="media-body" style="width: auto">
+
+                <p class="media-heading"><?php echo $comment->comment_author; ?></p>
+
+                <p class="text-muted"><?php _e( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago', Plugin::ID ); ?></p>
+
+            </div>
+
+        </div>
+
+        <div class="pull-right">
+
+            <div class="btn-group">
+
+                <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) && $comments_enabled ) : ?>
+
+                    <button class="btn btn-default icon-bin delete-comment"
+                            data-id="<?php echo $comment->comment_ID; ?>"></button>
+
+                    <button class="btn btn-default icon-pencil edit-comment"></button>
+
+                <?php endif; ?>
+
+            </div>
 
         </div>
 
-        <div class="meta_wrapper">
-
-            <p class="author_name"><?php esc_html_e( $comment->comment_author ); ?></p>
-
-            <p class="date_posted">
-
-                <?php _e( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago', Plugin::ID ); ?>
-
-            </p>
-
-        </div>
-
-        <div class="actions">
-
-            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) && $comments_enabled ) : ?>
-
-                <span class="trigger icon-bin delete-comment" data-id="<?php echo $comment->comment_ID; ?>"></span>
-                <span class="trigger icon-pencil edit-comment"></span>
-
-            <?php endif; ?>
-
-        </div>
+        <div class="clearfix"></div>
 
     </div>
 
-    <div class="inner">
+    <div class="panel-body">
 
         <div class="comment-content"><?php echo $comment->comment_content; ?></div>
 
@@ -52,27 +60,29 @@ use SmartcatSupport\Plugin;
 
                 <form class="edit-comment-form">
 
-                    <textarea class="editor-content" name="content"></textarea>
+                    <textarea class="editor-content" name="content" rows="5"></textarea>
 
                     <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
                     <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                    <div class="bottom">
+                    <div class="row">
 
-                        <span class="message"></span>
+                        <div class="bottom col-sm-12">
 
-                        <button type="button" class="trigger button button-primary cancel-edit-comment">
+                        <button type="button" class="button cancel-edit-comment pull-right">
 
                             <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
                         </button>
 
-                        <button type="submit" class="button button-primary save-comment button-submit">
+                        <button type="submit" class="button save-comment button-submit pull-right">
 
                             <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
                         </button>
+
+                        </div>
 
                     </div>
 
@@ -85,5 +95,4 @@ use SmartcatSupport\Plugin;
     </div>
 
 </div>
-
 

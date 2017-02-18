@@ -4,8 +4,8 @@ var Comments = (function (module, $, window, globals) {
     var _doing_ajax = false;
 
     var _bind_events = function () {
-        $(window.document).on("click", "span.delete-comment", _delete_comment);
-        $(window.document).on("click", "span.edit-comment", _show_editor);
+        $(window.document).on("click", "button.delete-comment", _delete_comment);
+        $(window.document).on("click", "button.edit-comment", _show_editor);
         $(window.document).on("click", "button.cancel-edit-comment", _close_editor);
         $(window.document).on("submit", "form.edit-comment-form", _save_comment);
         $(window.document).on("submit", "form.comment-form", _submit_comment);
