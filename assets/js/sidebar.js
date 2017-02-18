@@ -15,8 +15,27 @@ var Sidebar = (function (module, $, window, globals, comments) {
         });
     };
 
+    var initialize = function () {
+        window.setInterval(function () {
+            $("div.pane").each(function (index, element) {
+
+                var id = $(element).attr("id");
+                if (!isNaN(id)) {
+                    load_sidebar(id);
+                }
+            });
+        }, 1000 * 30);
+    };
+
     return {
-      load_sidebar: load_sidebar
+        load_sidebar: load_sidebar,
+        initialize: initialize
     };
 
 })(Sidebar || {}, jQuery, window, Globals, Comments);
+
+jQuery(document).ready(function ($) {
+
+    Sidebar.initialize();
+
+});
