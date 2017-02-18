@@ -45,7 +45,7 @@ class TicketComponent extends AbstractComponent {
                     update_post_meta( $post_id, 'status', 'new' );
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
 
-                    wp_send_json_success();
+                    wp_send_json_success( $post_id );
                 }
             } else {
                 wp_send_json_error( $form->errors );
@@ -53,7 +53,7 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function open_ticket() {
+    public function load_ticket() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
         if( !empty( $ticket ) ) {
@@ -151,7 +151,7 @@ class TicketComponent extends AbstractComponent {
         return array(
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
             'wp_ajax_support_create_ticket' => array( 'create_ticket' ),
-            'wp_ajax_support_open_ticket' => array( 'open_ticket' ),
+            'wp_ajax_support_load_ticket' => array( 'load_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_update_meta' => array( 'update_meta_field' ),

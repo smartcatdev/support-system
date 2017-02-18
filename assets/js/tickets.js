@@ -23,6 +23,25 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
 
     };
 
+    var reload_ticket = function (id) {
+        $.ajax({
+            url: globals.ajaxUrl,
+            dataType: "json",
+            data: {
+                id: id,
+                action: "support_load_ticket"
+            },
+            success: function (response) {
+                var pane = $("#" + response.id);
+
+                pane.html(response.content);
+                comments.load_comments(response.id);
+                sidebar.load_sidebar(response.id);
+                pane.find(".comment-reply").show();
+            }
+        });
+    };
+
     var _save_properties = function (e) {
         e.preventDefault();
 
@@ -32,7 +51,8 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
             dataType: "json",
             method: "post",
             success: function (response) {
-                console.log(response);
+                reload_ticket(response.data);
+                load_tickets();
             }
         };
 
@@ -50,7 +70,7 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
                 dataType: "json",
                 data: {
                     id: id,
-                    action: "support_open_ticket"
+                    action: "support_load_ticket"
                 },
                 success: function (data) {
                     app.new_tab(data);
