@@ -69,7 +69,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
                             <textarea class="editor-content" name="content" rows="5"></textarea>
 
-                            <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
+                            <input class="comment-id" type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
 
                             <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
