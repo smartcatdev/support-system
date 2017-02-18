@@ -3,6 +3,8 @@
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 
+ob_start();
+
 ?>
 
 <div id="comment-<?php echo $comment->comment_ID; ?>"
@@ -93,3 +95,4 @@ use SmartcatSupport\Plugin;
 
 </div>
 
+<?php return ob_get_clean(); ?>

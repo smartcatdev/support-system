@@ -13,15 +13,10 @@ use SmartcatSupport\util\UserUtils;
 class TicketTableComponent extends AbstractComponent {
 
     public function list_tickets() {
-        wp_send_json_success(
-            TemplateUtils::render_template(
-                $this->plugin->template_dir . '/ticket_table.php',
-                array(
-                    'headers' => $this->table_headers(),
-                    'data' => $this->get_tickets()
-                )
-            )
-        );
+        $headers =  $this->table_headers();
+        $data = $this->get_tickets();
+
+        wp_send_json_success( include_once $this->plugin->template_dir . '/ticket_table.php' );
     }
 
     public function table_data( $col, $ticket ) {

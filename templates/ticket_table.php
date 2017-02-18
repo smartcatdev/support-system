@@ -3,6 +3,8 @@
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 
+ob_start();
+
 ?>
 
 
@@ -58,6 +60,4 @@ use SmartcatSupport\Plugin;
 
     <?php endif; ?>
 
-
-
-
+<?php return ob_get_clean(); ?>

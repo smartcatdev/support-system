@@ -5,6 +5,8 @@ use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 
+ob_start();
+
 $form = include Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_meta_form.php';
 
 ?>
@@ -25,3 +27,5 @@ $form = include Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_meta_form.php
     </form>
 
 </div>
+
+<?php return ob_get_clean(); ?>

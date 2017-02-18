@@ -13,14 +13,13 @@ class TicketComponent extends AbstractComponent {
 
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
-            wp_send_json(
-                TemplateUtils::render_template( $this->plugin->template_dir . '/ticket_create_modal.php' )
-            );
+            wp_send_json( include_once $this->plugin->template_dir . '/ticket_create_modal.php' );
         }
     }
 
     public function create_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
+
             $form = include $this->plugin->config_dir . '/ticket_create_form.php';
 
             if ( $form->is_valid() ) {
@@ -68,9 +67,7 @@ class TicketComponent extends AbstractComponent {
                     'success' => true,
                     'id' => $ticket->ID,
                     'title' => $ticket->post_title,
-                    'content' => TemplateUtils::render_template(
-                        $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
-                    )
+                    'content' => include_once $this->plugin->template_dir . '/ticket.php'
                 )
             );
         }
@@ -79,11 +76,7 @@ class TicketComponent extends AbstractComponent {
     public function edit_ticket() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
-        wp_send_json(
-            TemplateUtils::render_template(
-                $this->plugin->template_dir . '/ticket_edit_modal.php', array( 'ticket' => $ticket )
-            )
-        );
+        wp_send_json( include_once $this->plugin->template_dir . '/ticket_edit_modal.php' );
     }
 
     public function update_ticket_properties() {
@@ -141,10 +134,8 @@ class TicketComponent extends AbstractComponent {
     public function sidebar() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
-        if( $ticket ) {
-            wp_send_json_success( TemplateUtils::render_template(
-                $this->plugin->template_dir . '/sidebar.php', array( 'ticket' => $ticket )
-            ) );
+        if( !empty( $ticket ) ) {
+            wp_send_json_success( include_once $this->plugin->template_dir . '/sidebar.php' );
         }
     }
 

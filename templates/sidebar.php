@@ -7,6 +7,8 @@ use SmartcatSupport\util\TicketUtils;
 $statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
 $status = get_post_meta( $ticket->ID, 'status', true );
 
+ob_start();
+
 ?>
 
 <div class="panel panel-default ticket-details">
@@ -124,3 +126,5 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 <?php endif; ?>
 
 <?php do_action( 'support_ticket_side_bar', $ticket ); ?>
+
+<?php return ob_get_clean(); ?>

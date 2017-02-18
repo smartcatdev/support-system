@@ -17,7 +17,7 @@ class SettingsComponent extends AbstractComponent {
 
     public function settings() {
         if( current_user_can( 'view_support_tickets' ) ) {
-            wp_send_json( TemplateUtils::render_template( $this->plugin->template_dir . '/settings_modal.php' ) );
+            wp_send_json( include_once $this->plugin->template_dir . '/settings_modal.php' );
         }
     }
 

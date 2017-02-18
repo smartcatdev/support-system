@@ -1,4 +1,5 @@
-var Sidebar = (function (module, $, window) {
+var Sidebar = (function (module, $, window
+) {
     "use strict";
 
     var load_sidebar = function (id) {
@@ -24,7 +25,7 @@ var Sidebar = (function (module, $, window) {
                     load_sidebar(id);
                 }
             });
-        }, 1000 * 30);
+        }, 1000 * 60);
     };
 
     return {
