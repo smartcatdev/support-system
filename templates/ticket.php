@@ -93,7 +93,11 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
     <?php else : ?>
 
-        <p class="comments_closed_msg"><?php echo get_option( Option::COMMENTS_CLOSED_MSG, Option\Defaults::COMMENTS_CLOSED_MSG ); ?></p>
+        <div class="col-sm-8">
+
+            <p class="text-center"><?php echo get_option( Option::COMMENTS_CLOSED_MSG, Option\Defaults::COMMENTS_CLOSED_MSG ); ?></p>
+
+        </div>
 
     <?php endif; ?>
 

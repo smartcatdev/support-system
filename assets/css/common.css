@@ -418,6 +418,11 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 }
 
 /* ## Sidebar */
+@media(min-width: 768px) {
+    .sidebar {
+        height: 100% !important;
+    }
+}
 
 /**
 ## Comment
