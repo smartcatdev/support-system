@@ -1,4 +1,4 @@
-var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
+var Tickets = (function (module, $, window) {
     "use strict";
 
     var _container;
@@ -28,11 +28,11 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
 
         var form = $(e.target);
         var data = {
-            url: globals.ajaxUrl + "?action=support_update_ticket",
+            url: Globals.ajaxUrl + "?action=support_update_ticket",
             dataType: "json",
             method: "post",
             success: function (response) {
-                sidebar.load_sidebar(response.data);
+                Sidebar.load_sidebar(response.data);
                 load_tickets();
             }
         };
@@ -45,18 +45,18 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
     var _open_ticket = function (e) {
         var id = $(e.target).data("id");
 
-        if (!app.open_tab(id)) {
+        if (!App.open_tab(id)) {
             $.ajax({
-                url: globals.ajaxUrl,
+                url: Globals.ajaxUrl,
                 dataType: "json",
                 data: {
                     id: id,
                     action: "support_load_ticket"
                 },
                 success: function (data) {
-                    app.new_tab(data);
-                    comments.load_comments(id);
-                    sidebar.load_sidebar(id);
+                    App.new_tab(data);
+                    Comments.load_comments(id);
+                    Sidebar.load_sidebar(id);
                     $("#" + id).find(".comment-reply").show();
                 }
             });
@@ -101,7 +101,7 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
     var load_tickets = function () {
         var refresh = $(".refresh");
         var data = {
-            url: globals.ajaxUrl + "?action=support_list_tickets",
+            url: Globals.ajaxUrl + "?action=support_list_tickets",
             dataType: "json",
             success: _init_list
         };
@@ -134,7 +134,7 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
         initialize: initialize
     };
 
-})(Tickets || {}, jQuery, window, Globals, App, Comments, Sidebar);
+})(Tickets || {}, jQuery, window);
 
 jQuery(document).ready(function ($) {
     "use strict";

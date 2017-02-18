@@ -1,4 +1,4 @@
-var Comments = (function (module, $, window, globals) {
+var Comments = (function (module, $, window) {
     "use strict";
 
     var _doing_ajax = false;
@@ -33,7 +33,7 @@ var Comments = (function (module, $, window, globals) {
             var id = target.data("id");
 
             $.ajax({
-                url: globals.ajaxUrl,
+                url: Globals.ajaxUrl,
                 dataType: "json",
                 data: {
                     action: "support_delete_comment",
@@ -59,7 +59,7 @@ var Comments = (function (module, $, window, globals) {
             var submit_button = form.find(".button-submit");
 
             $.ajax({
-                url: globals.ajaxUrl + "?action=support_submit_comment",
+                url: Globals.ajaxUrl + "?action=support_submit_comment",
                 dataType: "json",
                 method: "post",
                 data: form.serializeArray(),
@@ -67,6 +67,7 @@ var Comments = (function (module, $, window, globals) {
                     form.parents().find(".comments").append(response.data);
                     content.val("");
                     submit_button.prop("disabled", true);
+                    Sidebar.load_sidebar(response.ticket);
                 }
             }).done(_unlock);
         }
@@ -82,7 +83,7 @@ var Comments = (function (module, $, window, globals) {
             var comment = form.parents(".comment");
 
             $.ajax({
-                url: globals.ajaxUrl + "?action=support_update_comment",
+                url: Globals.ajaxUrl + "?action=support_update_comment",
                 dataType: "json",
                 method: "post",
                 data: form.serializeArray(),
@@ -126,7 +127,7 @@ var Comments = (function (module, $, window, globals) {
             var comments = pane.find(".comments");
 
             $.ajax({
-                url: globals.ajaxUrl,
+                url: Globals.ajaxUrl,
                 dataType: "json",
                 data: {
                     action: "support_list_comments",
@@ -171,7 +172,7 @@ var Comments = (function (module, $, window, globals) {
         locked: locked
     };
 
-})(Comments || {}, jQuery, window, Globals);
+})(Comments || {}, jQuery, window);
 
 jQuery(document).ready(function ($) {
     "use strict";

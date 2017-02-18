@@ -1,9 +1,9 @@
-var Sidebar = (function (module, $, window, globals, comments) {
+var Sidebar = (function (module, $, window) {
     "use strict";
 
     var load_sidebar = function (id) {
         $.ajax({
-            url: globals.ajaxUrl,
+            url: Globals.ajaxUrl,
             dataType: "json",
             data: {
                 action: "support_ticket_sidebar",
@@ -32,7 +32,7 @@ var Sidebar = (function (module, $, window, globals, comments) {
         initialize: initialize
     };
 
-})(Sidebar || {}, jQuery, window, Globals, Comments);
+})(Sidebar || {}, jQuery, window);
 
 jQuery(document).ready(function ($) {
 

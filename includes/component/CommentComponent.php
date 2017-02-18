@@ -42,8 +42,8 @@ class CommentComponent extends AbstractComponent {
     public function submit_comment() {
         $ticket = $this->get_ticket( $_REQUEST['id'] );
 
-        if( !empty( $ticket ) && !empty( $_REQUEST['content'] ) ) {
-            $user = wp_get_current_user();
+        if ( ! empty( $ticket ) && ! empty( $_REQUEST['content'] ) ) {
+            $user   = wp_get_current_user();
             $status = get_post_meta( $ticket->ID, 'status', true );
 
             //TODO add error for flooding
@@ -60,11 +60,11 @@ class CommentComponent extends AbstractComponent {
                 '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
             ] );
 
-            if( !is_wp_error( $comment ) ) {
-                if( current_user_can( 'edit_others_tickets' ) ) {
+            if ( ! is_wp_error( $comment ) ) {
+                if ( current_user_can( 'edit_others_tickets' ) ) {
                     update_post_meta( $ticket->ID, 'status', 'waiting' );
 
-                    add_filter( 'parse_email_template', function( $content ) use ( $comment, $ticket ) {
+                    add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
                         return str_replace(
                             array( '{%agent%}', '{%reply%}', '{%subject%}' ),
                             array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
@@ -73,20 +73,18 @@ class CommentComponent extends AbstractComponent {
                     } );
 
                     Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), get_post_meta( $ticket->ID, 'email', true ) );
-                } elseif( $status != 'new' ) {
+                } elseif ( $status != 'new' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
 
-                wp_send_json_success(
-                    TemplateUtils::render_template(
-                        $this->plugin->template_dir . '/comment.php',
-                        array(
-                            'comment' => $comment
-                        )
-                ), 201 );
+                wp_send_json(
+                    array(
+                        'data'   => TemplateUtils::render_template( $this->plugin->template_dir . '/comment.php', array( 'comment' => $comment ) ),
+                        'ticket' => $ticket->ID
+                    ), 201 );
+            } else {
+                wp_send_json_error( __( 'Reply cannot be blank', Plugin::ID ), 400 );
             }
-        } else {
-            wp_send_json_error( __( 'Reply cannot be blank', Plugin::ID ), 400 );
         }
     }
 

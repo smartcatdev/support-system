@@ -1,4 +1,4 @@
-var App = (function (module, $, window, globals) {
+var App = (function (module, $, window) {
     "use strict";
 
     var _tabs;
@@ -64,7 +64,7 @@ var App = (function (module, $, window, globals) {
     var _add_registration_toggle = function () {
         $("p.login-submit").prepend(
             "<button class=\"button button-primary registration-toggle\" type=\"button\">" +
-                globals.strings.register_form_toggle +
+                Globals.strings.register_form_toggle +
             "</button>"
         );
     };
@@ -91,7 +91,7 @@ var App = (function (module, $, window, globals) {
         form_errors: form_errors
     };
 
-})(App || {}, jQuery, window, Globals);
+})(App || {}, jQuery, window);
 
 jQuery(document).ready(function ($) {
     "use strict";
