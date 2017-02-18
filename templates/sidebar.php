@@ -80,7 +80,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
             <form class="ticket-status-form">
 
-                <?php $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_status_form.php'; ?>
+                <?php $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_properties_form.php'; ?>
 
                 <?php foreach( $form->fields as $field ) : ?>
 
@@ -95,6 +95,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
                 <?php endforeach; ?>
 
                 <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>" />
+                <input type="hidden" name="<?php echo $form->id; ?>" />
 
                 <div class="row">
 

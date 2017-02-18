@@ -69,6 +69,10 @@ var App = (function (module, $, window, globals) {
         );
     };
 
+    var form_errors = function (form) {
+
+    };
+
     var initialize = function () {
         _tabs = $("#tabs");
         _tabs.tabs();
@@ -83,7 +87,8 @@ var App = (function (module, $, window, globals) {
     return {
         initialize: initialize,
         open_tab: open_tab,
-        new_tab: new_tab
+        new_tab: new_tab,
+        form_errors: form_errors
     };
 
 })(App || {}, jQuery, window, Globals);

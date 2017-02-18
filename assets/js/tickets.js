@@ -12,6 +12,7 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
         $(window.document).on("change", ".filter-field", _filter_off);
         $(window.document).on("click", "#refresh-tickets", load_tickets);
         $(window.document).on("click", "button.open-ticket", _open_ticket);
+        $(window.document).on("submit", "form.ticket-status-form", _save_properties);
     };
 
     var _quick_edit_save = function (e) {
@@ -20,6 +21,24 @@ var Tickets = (function (module, $, window, globals, app, comments, sidebar) {
 
     var _create_ticket = function (e) {
 
+    };
+
+    var _save_properties = function (e) {
+        e.preventDefault();
+
+        var form = $(e.target);
+        var data = {
+            url: globals.ajaxUrl + "?action=support_update_ticket",
+            dataType: "json",
+            method: "post",
+            success: function (response) {
+                console.log(response);
+            }
+        };
+
+        data.data = form.serializeArray();
+
+        $.ajax(data);
     };
 
     var _open_ticket = function (e) {

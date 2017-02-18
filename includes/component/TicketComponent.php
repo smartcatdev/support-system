@@ -85,38 +85,29 @@ class TicketComponent extends AbstractComponent {
         );
     }
 
-    public function update_ticket() {
-        $ticket = $this->get_ticket( $_REQUEST['id'] );
+    public function update_ticket_properties() {
+        if( current_user_can( 'edit_others_tickets' ) ) {
+            $ticket = $this->get_ticket( $_REQUEST['id'] );
 
-        if( !empty( $ticket ) ) {
-            $form = include $this->plugin->config_dir . '/ticket_meta_form.php';
+            if ( !empty( $ticket ) ) {
+                $form = include $this->plugin->config_dir . '/ticket_properties_form.php';
 
-            if( $form->is_valid() ) {
-                $post_id = wp_update_post( array(
-                    'ID'          => $form->data['id'],
-                    'post_author' => $ticket->post_author,
-                    'post_date'   => current_time( 'mysql' )
-                ) );
+                if ( $form->is_valid() ) {
+                    $post_id = wp_update_post( array(
+                        'ID'          => $_REQUEST['id'],
+                        'post_author' => $ticket->post_author,
+                        'post_date'   => current_time( 'mysql' )
+                    ) );
 
-                if( !empty( $post_id ) ) {
-                    foreach( $form->data as $field => $value ) {
-                        update_post_meta( $post_id, $field, $value );
+                    if ( is_int( $post_id ) ) {
+                        foreach ( $form->data as $field => $value ) {
+                            update_post_meta( $post_id, $field, $value );
+                        }
+
+                        update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
+                        wp_send_json_success();
                     }
-
-                    update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-
-                    wp_send_json(
-                        array(
-                            'success' => true,
-                            'id'      => $post_id,
-                            'data'    => TemplateUtils::render_template(
-                                $this->plugin->template_dir . '/ticket.php', array( 'ticket' => $ticket )
-                            )
-                        )
-                    );
                 }
-            } else {
-                wp_send_json_error( $form->errors );
             }
         }
     }
@@ -162,7 +153,7 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_create_ticket' => array( 'create_ticket' ),
             'wp_ajax_support_open_ticket' => array( 'open_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
-            'wp_ajax_support_update_ticket' => array( 'update_ticket' ),
+            'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
             'wp_ajax_support_ticket_sidebar' => array( 'sidebar' ),
 
@@ -170,10 +161,10 @@ class TicketComponent extends AbstractComponent {
         );
     }
 
-    private function get_ticket( $id ) {
+    private function get_ticket( $id, $restrict = false ) {
         $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
-        if( !current_user_can( 'edit_others_tickets' ) ) {
+        if( $restrict && !current_user_can( 'edit_others_tickets' ) ) {
             $args['post_author'] = wp_get_current_user()->ID;
         }
 
