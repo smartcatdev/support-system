@@ -37,7 +37,7 @@ $comments_enabled = TicketUtils::comments_enabled( $ticket->ID );
 
     <?php if( $comments_enabled ) : ?>
 
-        <div class="col-sm-8">
+        <div class="col-sm-8 comment-reply-wrapper">
 
             <div class="comment-reply panel panel-default ">
 

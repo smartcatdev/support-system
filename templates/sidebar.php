@@ -1,6 +1,5 @@
 <?php
 
-use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TicketUtils;

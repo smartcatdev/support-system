@@ -418,9 +418,6 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 }
 
 /* ## Sidebar */
-#ticket-sidebar select.form_field {
-    display: block;
-}
 
 /**
 ## Comment
@@ -442,4 +439,10 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 
 .editor textarea {
     width: 100%;
+}
+
+@media(min-width: 766px) {
+    .comment-reply-wrapper {
+        float: right !important;
+    }
 }
