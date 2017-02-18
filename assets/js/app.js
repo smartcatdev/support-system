@@ -29,7 +29,7 @@ var App = (function (module, $, window, globals) {
 
     var new_tab = function (data) {
         var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><span class=\"ui-icon-close close-tab icon-cross\"></span></li>");
-        var panel = $($.parseHTML("<div id=\"" + data.id + "\" class=\"panel\"></div>"));
+        var panel = $($.parseHTML("<div id=\"" + data.id + "\" class=\"pane\"></div>"));
 
         li.data("id", data.id);
         panel.html(data.content);

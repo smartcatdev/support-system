@@ -122,8 +122,6 @@ var Comments = (function (module, $, window, globals) {
 
     var load_comments = function (id) {
         if (!locked()) {
-            _lock();
-
             var pane = $("#" + id);
             var comments = pane.find(".comments");
 
@@ -149,15 +147,15 @@ var Comments = (function (module, $, window, globals) {
                     });
 
                 }
-            }).done(_unlock);
+            });
         }
     };
 
     var initialize = function () {
         window.setInterval(function () {
-            $("div.panel").each(function (index, element) {
-                var id = $(element).attr("id");
+            $("div.pane").each(function (index, element) {
 
+                var id = $(element).attr("id");
                 if (!isNaN(id)) {
                     load_comments(id);
                 }
