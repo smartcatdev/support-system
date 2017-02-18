@@ -59,12 +59,13 @@ class TicketComponent extends AbstractComponent {
         if( !empty( $ticket ) ) {
             $status = get_post_meta( $ticket->ID, 'status', true );
 
-            if( current_user_can( 'edit_others_tickets' ) && $status != 'closed' && $status != 'resolved' ) {
+            if( current_user_can( 'edit_others_tickets' ) && $status == 'new' ) {
                 update_post_meta( $ticket->ID, 'status', 'opened' );
             }
 
             wp_send_json(
                 array(
+                    'success' => true,
                     'id' => $ticket->ID,
                     'title' => $ticket->post_title,
                     'content' => TemplateUtils::render_template(
