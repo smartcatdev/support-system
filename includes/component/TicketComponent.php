@@ -133,9 +133,12 @@ class TicketComponent extends AbstractComponent {
         }
     }
 
-    public function update_meta_field() {
-        if( !empty( $this->get_ticket( $_REQUEST['id'] ) ) ) {
-            update_post_meta( $_REQUEST['id'], $_REQUEST['meta'], $_REQUEST['value'] );
+    public function toggle_flag() {
+        if( current_user_can( 'edit_others_tickets' ) ) {
+            $flag = get_post_meta( $_POST['id'], 'flagged', true ) === 'on' ? '' : 'on';
+
+            update_post_meta( $_POST['id'], 'flagged', $flag );
+            wp_send_json_success( $flag );
         }
     }
 
@@ -196,7 +199,7 @@ class TicketComponent extends AbstractComponent {
             'wp_ajax_support_load_ticket' => array( 'load_ticket' ),
             'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
-            'wp_ajax_support_update_meta' => array( 'update_meta_field' ),
+            'wp_ajax_support_toggle_flag' => array( 'toggle_flag' ),
             'wp_ajax_support_ticket_sidebar' => array( 'sidebar' ),
 
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )

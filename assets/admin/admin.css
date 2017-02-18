@@ -1,12 +1,12 @@
-.support_icon.flag.active {
+.flag-ticket.active {
     color: red;
 }
 
-.support_icon.flag {
+.flag-ticket {
     color: #b4b9be;
 }
 
-.support_icon {
+.support-icon {
     font-size: 1.3em;
 }
 

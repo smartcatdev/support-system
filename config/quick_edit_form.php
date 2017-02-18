@@ -8,7 +8,7 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\UserUtils;
 
-$agents     = UserUtils::list_agents(array( '' => __( 'Unassigned', Plugin::ID ) ) );
+$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', Plugin::ID ) ) );
 $statuses   = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
 
@@ -17,6 +17,7 @@ $form = new Form( 'ticket_quick_edit' );
 $form->add_field( new CheckBoxField(
     array(
         'id'        => 'flagged',
+        'class'     => array( 'quick-edit-field', 'flagged' ),
         'cb_title'  => __( 'Flagged', Plugin::ID ),
         'value'     => false
     )
@@ -24,6 +25,7 @@ $form->add_field( new CheckBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'agent',
+        'class'         => array( 'quick-edit-field', 'agent' ),
         'label'         => __( 'Assigned', Plugin::ID ),
         'options'       => $agents,
         'constraints'   => array(
@@ -34,6 +36,7 @@ $form->add_field( new CheckBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'status',
+        'class'         => array( 'quick-edit-field', 'status' ),
         'label'         => __( 'Status', Plugin::ID ),
         'options'       => $statuses,
         'constraints'   => array(
@@ -44,6 +47,7 @@ $form->add_field( new CheckBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'priority',
+        'class'         => array( 'quick-edit-field', 'priority' ),
         'label'         => __( 'Priority', Plugin::ID ),
         'options'       => $priorities,
         'constraints'   => array(

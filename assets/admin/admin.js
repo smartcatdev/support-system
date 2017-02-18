@@ -1,67 +1,85 @@
-jQuery(document).ready(function ($) {
-    var toggleFlag = function () {
-        var field = $(this);
+var SupportAdmin = (function (module, $, window) {
+    "use strict";
+
+    var $wp_inline_edit;
+
+    var _toggle_flag = function (e) {
+        var flag = $(e.target);
 
         $.ajax({
             url: SupportSystem.ajaxURL,
+            method: "post",
+            dataType: "json",
             data: {
-                action: 'support_update_meta',
-                meta: field.attr('name'),
-                value: field.hasClass('active') ? '' : 'on',
-                id: field.data('id')
+                action: "support_toggle_flag",
+                id: flag.data("id")
             },
+            success: function (response) {
+                var inline = $("#support_inline_" + flag.data("id")).children(".flagged");
 
-            success: function () {
-                if (field.hasClass('active')) {
-                    field.removeClass('active');
-                    $('#support_inline_' + field.data('id')).children('.flagged').text('');
+                if (response.data === "on") {
+                    flag.addClass("active");
+                    inline.text("on");
                 } else {
-                    $('#support_inline_' + field.data('id')).children('.flagged').text('on');
-                    field.addClass('active');
+                    flag.removeClass("active");
+                    inline.text("");
                 }
             }
         });
-    }
+    };
 
-    $('.support_admin_toggle[name="flagged"]').on('click', toggleFlag);
+    var _bind_events = function () {
+        $(window.document).on("click", ".flag-ticket", _toggle_flag);
+    };
 
-    if(window.inlineEditPost != null) {
+    var initialize = function () {
+        _bind_events();
 
-        var $wp_inline_edit = inlineEditPost.edit;
+        $.wpMediaUploader({
+            target: "#support_login_logo",
+            buttonText: "Select image"
+        });
 
-        inlineEditPost.edit = function (id) {
+        $(".color_picker").wpColorPicker();
 
-            $wp_inline_edit.apply(this, arguments);
+        if (window.inlineEditPost !== null) {
+            $wp_inline_edit = inlineEditPost.edit;
 
-            var $post_id = 0;
-            if (typeof( id ) == 'object') {
-                $post_id = parseInt(this.getId(id));
-            }
+            inlineEditPost.edit = function (id) {
+                $wp_inline_edit.apply(this, arguments);
 
-            if ($post_id > 0) {
-                $('#support_inline_' + $post_id).children().each(function () {
-                    var field = $('.form_field[name="' + $(this).attr('class') + '"]');
+                var $post_id = 0;
 
-                    if (field.attr('type') == 'checkbox') {
-                        field.attr('checked', $(this).text() === 'on');
-                    } else {
-                        field.val($(this).text());
-                    }
+                if (typeof(id) === "object") {
+                    $post_id = parseInt(this.getId(id));
+                }
+
+                if ($post_id > 0) {
+                    $("#support_inline_" + $post_id).children().each(function (index, element) {
+                        var data = $(element);
+                        var field = $(".quick-edit-field." + data.attr("class"));
+
+                        if (field.attr("type") === "checkbox") {
+                            field.attr("checked", data.text() === "on");
+                        } else {
+                            field.val(data.text());
+                        }
+                    });
+                }
+            };
+        }
+    };
+
+    return {
+        initialize: initialize
+    };
+
+})(SupportAdmin, jQuery, window);
 
 
-                });
+jQuery(document).ready(function ($) {
+    "use strict";
 
-            }
-
-        };
-
-    }
-
-    $.wpMediaUploader({
-        target : '#support_login_logo',
-        buttonText: 'Select image'
-    });
-
-    $( '.color_picker' ).wpColorPicker();
+    SupportAdmin.initialize();
 
 });

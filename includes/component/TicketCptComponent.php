@@ -248,7 +248,7 @@ class TicketCptComponent extends AbstractComponent {
                 $flagged = get_post_meta( $post_id, 'flagged', true ) == 'on';
 
                 echo '<p style="display: none;">' . ( $flagged ? 1 : 0 ) . '</p>' .
-                     '<i class="support_admin_toggle support_icon flag icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
+                     '<span class="support_admin_toggle flag-ticket support-icon icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
                         'name="flagged"' .
                         'data-id="' . $post_id .'"></i>';
                 break;
