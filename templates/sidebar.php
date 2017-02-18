@@ -30,29 +30,33 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     <div class="panel-heading">
 
-        <p class="panel-title"><?php _e( 'Customer Details', Plugin::ID ); ?></p>
+        <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Customer Details', Plugin::ID ); ?></a>
 
     </div>
 
-    <div class="panel-body">
+    <div id="collapse-customer-<?php echo $ticket->ID; ?>" class="panel-collapse in">
 
-        <div class="media">
+        <div class="panel-body">
 
-            <div class="media-left">
+            <div class="media">
 
-                <?php echo get_avatar( $ticket, 48, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+                <div class="media-left">
 
-            </div>
+                    <?php echo get_avatar( $ticket, 48, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
 
-            <div class="media-body" style="width: auto">
+                </div>
 
-                <p>
+                <div class="media-body" style="width: auto">
 
-                    <strong class="media-middle"><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
+                    <p>
 
-                </p>
+                        <strong class="media-middle"><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
 
-                <p><?php _e( 'Email: ', Plugin::ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+                    </p>
+
+                    <p><?php _e( 'Email: ', Plugin::ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+
+                </div>
 
             </div>
 
@@ -66,45 +70,49 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     <div class="panel-heading">
 
-        <p class="panel-title"><?php _e( 'Ticket Properties', Plugin::ID ); ?></p>
+        <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Ticket Properties', Plugin::ID ); ?></a>
 
     </div>
 
-    <div class="panel-body">
+    <div id="collapse-details-<?php echo $ticket->ID; ?>" class="panel-collapse in">
 
-        <form class="ticket-status-form">
+        <div class="panel-body">
 
-            <?php $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_status_form.php'; ?>
+            <form class="ticket-status-form">
 
-            <?php foreach( $form->fields as $field ) : ?>
+                <?php $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_status_form.php'; ?>
 
-                <div class="form-group">
+                <?php foreach( $form->fields as $field ) : ?>
 
-                    <label><?php echo $field->label; ?></label>
+                    <div class="form-group">
 
-                    <?php $field->render(); ?>
+                        <label><?php echo $field->label; ?></label>
+
+                        <?php $field->render(); ?>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+                <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>" />
+
+                <div class="row">
+
+                    <div class="bottom col-sm-12">
+
+                        <button type="submit" class="button button-submit">
+
+                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+
+                        </button>
+
+                    </div>
 
                 </div>
 
-            <?php endforeach; ?>
+            </form>
 
-            <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>" />
-
-            <div class="row">
-
-                <div class="bottom col-sm-12">
-
-                    <button type="submit" class="button button-submit">
-
-                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </form>
+        </div>
 
     </div>
 
