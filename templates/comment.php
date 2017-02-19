@@ -33,7 +33,7 @@ ob_start();
 
         <div class="pull-right">
 
-            <div class="btn-group">
+            <div class="btn-group comment-controls">
 
                 <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) ) : ?>
 

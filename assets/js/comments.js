@@ -116,6 +116,7 @@ var Comments = (function (module, $, window) {
         var editor = comment.find(".editor");
         var content = comment.find(".comment-content");
 
+        comment.find(".comment-controls").hide();
         content.hide();
         editor.addClass("active");
         editor.find(".editor-content").val(content.html());
@@ -128,6 +129,7 @@ var Comments = (function (module, $, window) {
         editor.removeClass("active");
         editor.find(".button-submit").prop("disabled", false);
         comment.find(".comment-content").show();
+        comment.find(".comment-controls").show();
     };
 
     var load_comments = function (id) {
