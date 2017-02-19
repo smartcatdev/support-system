@@ -67,7 +67,7 @@ var Comments = (function (module, $, window) {
                     form.parents().find(".comments").append(response.data);
                     content.val("");
                     submit_button.prop("disabled", true);
-                    Sidebar.load_sidebar(response.ticket);
+                    Tickets.load_sidebar(response.ticket);
                 }
             }).done(_unlock);
         }

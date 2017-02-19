@@ -28,7 +28,7 @@ var Tickets = (function (module, $, window) {
             dataType: "json",
             method: "post",
             success: function (response) {
-                Sidebar.load_sidebar(response.data);
+                load_sidebar(response.data);
                 load_tickets();
             }
         };
@@ -52,7 +52,7 @@ var Tickets = (function (module, $, window) {
                 success: function (data) {
                     App.new_tab(data);
                     Comments.load_comments(id);
-                    Sidebar.load_sidebar(id);
+                    load_sidebar(id);
                     $("#" + id).find(".comment-reply").show();
                 }
             });
@@ -113,6 +113,20 @@ var Tickets = (function (module, $, window) {
         });
     };
 
+    var load_sidebar = function (id) {
+        $.ajax({
+            url: Globals.ajaxUrl,
+            dataType: "json",
+            data: {
+                action: "support_ticket_sidebar",
+                id: id
+            },
+            success: function (response) {
+                $("#" + id).find(".sidebar").html(response.data);
+            }
+        });
+    };
+
     var initialize = function () {
         _container = $("#tickets-container");
         _filter_toggle = $("#filter-toggle");
@@ -122,11 +136,22 @@ var Tickets = (function (module, $, window) {
         load_tickets();
         window.setInterval(load_tickets, 1000 * 60);
 
+        window.setInterval(function () {
+            $("div.pane").each(function (index, element) {
+
+                var id = $(element).attr("id");
+                if (!isNaN(id)) {
+                    load_sidebar(id);
+                }
+            });
+        }, 1000 * 60);
+
         _bind_events();
     };
 
     return {
         load_tickets: load_tickets,
+        load_sidebar: load_sidebar,
         initialize: initialize
     };
 
