@@ -8,7 +8,7 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\UserUtils;
 
-$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', Plugin::ID ) ) );
+$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) );
 $statuses   = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
 $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
 
@@ -18,7 +18,7 @@ $form->add_field( new CheckBoxField(
     array(
         'id'        => 'flagged',
         'class'     => array( 'quick-edit-field', 'flagged' ),
-        'cb_title'  => __( 'Flagged', Plugin::ID ),
+        'cb_title'  => __( 'Flagged', \SmartcatSupport\PLUGIN_ID ),
         'value'     => false
     )
 
@@ -26,7 +26,7 @@ $form->add_field( new CheckBoxField(
     array(
         'id'            => 'agent',
         'class'         => array( 'quick-edit-field', 'agent' ),
-        'label'         => __( 'Assigned', Plugin::ID ),
+        'label'         => __( 'Assigned', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $agents,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $agents ) )
@@ -37,7 +37,7 @@ $form->add_field( new CheckBoxField(
     array(
         'id'            => 'status',
         'class'         => array( 'quick-edit-field', 'status' ),
-        'label'         => __( 'Status', Plugin::ID ),
+        'label'         => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $statuses,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $statuses ) )
@@ -48,7 +48,7 @@ $form->add_field( new CheckBoxField(
     array(
         'id'            => 'priority',
         'class'         => array( 'quick-edit-field', 'priority' ),
-        'label'         => __( 'Priority', Plugin::ID ),
+        'label'         => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $priorities,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $priorities ) )

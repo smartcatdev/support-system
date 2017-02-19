@@ -18,7 +18,7 @@ use SmartcatSupport\Plugin;
                     <a href="<?php echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket' ?>"  rel="modal:open" class="button button-primary">
                         
                         <span class="glyphicon glyphicon-plus-sign"></span>
-                        <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), Plugin::ID ); ?>
+                        <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
 
                     </a>
 
@@ -33,7 +33,7 @@ use SmartcatSupport\Plugin;
                 <ul>
 
                     <li>
-                        <a href="#tickets"><?php _e( 'Tickets', Plugin::ID ); ?></a>
+                        <a href="#tickets"><?php _e( 'Tickets', \SmartcatSupport\PLUGIN_ID ); ?></a>
                     </li>
 
                 </ul>
@@ -45,11 +45,11 @@ use SmartcatSupport\Plugin;
                         <?php do_action( 'support_tickets_table_filters' ); ?>
 
                         <button type="button" class="trigger" id="filter-toggle">
-                            <i class="filter icon-filter"></i><?php _e( 'Filter', Plugin::ID ); ?>
+                            <i class="filter icon-filter"></i><?php _e( 'Filter', \SmartcatSupport\PLUGIN_ID ); ?>
                         </button>
 
                         <button type="button" class="trigger" id="refresh-tickets">
-                            <i class="refresh icon-loop2"></i><?php _e( 'Refresh', Plugin::ID ); ?>
+                            <i class="refresh icon-loop2"></i><?php _e( 'Refresh', \SmartcatSupport\PLUGIN_ID ); ?>
                         </button>
 
                     </form>

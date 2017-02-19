@@ -11,8 +11,8 @@ $form = new Form( 'register_form' );
 $form->add_field( new TextBoxField(
     array(
         'id'            => 'first_name',
-        'label'         => __( 'First Name', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
+        'label'         => __( 'First Name', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
             new RequiredConstraint()
         )
@@ -21,8 +21,8 @@ $form->add_field( new TextBoxField(
 ) )->add_field( new TextBoxField(
     array(
         'id'            => 'last_name',
-        'label'         => __( 'Last Name', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
+        'label'         => __( 'Last Name', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   =>  array(
             new RequiredConstraint()
         )
@@ -32,8 +32,8 @@ $form->add_field( new TextBoxField(
     array(
         'id'                => 'email',
         'type'              => 'email',
-        'label'             => __( 'Email Address', Plugin::ID ),
-        'error_msg'         => __( 'Email cannot be empty or already in use', Plugin::ID ),
+        'label'             => __( 'Email Address', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'         => __( 'Email cannot be empty or already in use', \SmartcatSupport\PLUGIN_ID ),
         'sanitize_callback' => 'sanitize_email',
         'constraints'       => array(
             new RequiredConstraint(), new UniqueEmailConstraint()

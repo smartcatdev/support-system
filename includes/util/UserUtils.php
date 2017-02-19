@@ -33,9 +33,9 @@ class UserUtils {
 
     public static function roles() {
         return array(
-            'support_admin' => __( 'Support Admin', Plugin::ID ),
-            'support_agent', __( 'Support Agent', Plugin::ID ),
-            'support_user', __( 'Support User', Plugin::ID )
+            'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
+            'support_agent', __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
+            'support_user', __( 'Support User', \SmartcatSupport\PLUGIN_ID )
         );
     }
 

@@ -3,7 +3,7 @@
 use SmartcatSupport\Plugin;
 use SmartcatSupport\descriptor\Option;
 
-$url = Plugin::plugin_url( Plugin::ID );
+$url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
 $primary_color = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
 $hover_color = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
 $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
@@ -25,7 +25,7 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
             var Globals = {
                 ajaxUrl: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
                 strings: <?php echo json_encode( array(
-                            'register_form_toggle' => __( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), Plugin::ID ),
+                            'register_form_toggle' => __( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ),
                         ) ); ?>
             };
         </script>

@@ -15,14 +15,14 @@ ob_start();
 
     <div class="panel-body">
 
-        <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : 'New' ), Plugin::ID ); ?></div>
+        <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : 'New' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
 
         <p>
-            <?php _e( 'Since ', Plugin::ID ); ?>
-            <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', Plugin::ID ); ?>
+            <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?>
+            <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID ); ?>
         </p>
 
-        <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), Plugin::ID ); ?></p>
+        <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
     </div>
 
@@ -34,7 +34,7 @@ ob_start();
 
         <div class="panel-heading">
 
-            <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Customer Details', Plugin::ID ); ?></a>
+            <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Customer Details', \SmartcatSupport\PLUGIN_ID ); ?></a>
 
         </div>
 
@@ -58,7 +58,7 @@ ob_start();
 
                         </p>
 
-                        <p><?php _e( 'Email: ', Plugin::ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+                        <p><?php _e( 'Email: ', \SmartcatSupport\PLUGIN_ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
 
                     </div>
 
@@ -74,7 +74,7 @@ ob_start();
 
         <div class="panel-heading">
 
-            <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Ticket Properties', Plugin::ID ); ?></a>
+            <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Ticket Properties', \SmartcatSupport\PLUGIN_ID ); ?></a>
 
         </div>
 
@@ -84,7 +84,7 @@ ob_start();
 
                 <form class="ticket-status-form">
 
-                    <?php $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/ticket_properties_form.php'; ?>
+                    <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
 
                     <?php foreach( $form->fields as $field ) : ?>
 

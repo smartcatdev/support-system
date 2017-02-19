@@ -36,7 +36,7 @@ class CommentComponent extends AbstractComponent {
                     wp_send_json_success( include_once $this->plugin->template_dir . '/comment.php' );
                 }
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', Plugin::ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
             }
         }
     }
@@ -96,7 +96,7 @@ class CommentComponent extends AbstractComponent {
                         'ticket' => $ticket->ID
                     ), 201 );
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', Plugin::ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
             }
         }
     }

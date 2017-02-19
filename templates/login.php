@@ -28,17 +28,17 @@ use SmartcatSupport\Plugin;
 
                     <form id="registration_form">
 
-                        <?php Form::render_fields( include Plugin::plugin_dir( Plugin::ID ) . 'config/register_user_form.php' ); ?>
+                        <?php Form::render_fields( include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . 'config/register_user_form.php' ); ?>
 
                         <p class="registration-submit">
 
                             <button type="button" class="button button-primary registration-toggle">
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), Plugin::ID ); ?>
+                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
                             </button>
 
                             <input class="button button-primary"
                                 type="submit"
-                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), Plugin::ID ); ?>"/>
+                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>"/>
 
                         </p>
 

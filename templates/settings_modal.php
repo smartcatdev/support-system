@@ -5,7 +5,7 @@ use SmartcatSupport\Plugin;
 
 ob_start();
 
-$form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/settings_form.php';
+$form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/settings_form.php';
 
 ?>
 
@@ -15,7 +15,7 @@ $form = include_once Plugin::plugin_dir( Plugin::ID ) . '/config/settings_form.p
 
         <?php Form::render_fields( $form ); ?>
 
-        <input type="submit" value="<?php _e( 'Save Settings', Plugin::ID ); ?>" />
+        <input type="submit" value="<?php _e( 'Save Settings', \SmartcatSupport\PLUGIN_ID ); ?>" />
 
         <p class="status hidden"></p>
 
