@@ -1,13 +1,11 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\ajax;
 
-use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
 
-class Comments extends AbstractComponent {
+class Comments extends AjaxComponent {
 
     /**
      * AJAX action to update a comment on a ticket.
@@ -140,43 +138,6 @@ class Comments extends AbstractComponent {
     }
 
     /**
-     * Hack to remove all comments on support tickets from feeds.
-     *
-     * @param $for_comments
-     * @since 1.0.0
-     */
-    public function remove_feed_comments( $for_comments ) {
-        if( $for_comments ) {
-
-            $comments = $GLOBALS['wp_query']->comments;
-            $num_comments = $GLOBALS['wp_query']->comment_count;
-
-            for( $ctr = 0; $ctr < $num_comments; $ctr++ ) {
-
-                $post = get_post( $comments[ $ctr ]->comment_post_ID );
-
-                if ( $post && $post->post_type == 'support_ticket' ) {
-                    unset( $GLOBALS['wp_query']->comments[ $ctr ] );
-                    $GLOBALS['wp_query']->comment_count--;
-                }
-            }
-        }
-    }
-
-    /**
-     * Hack to remove all ticket comments from recent comments widget.
-     *
-     * @param $args
-     * @return mixed $args
-     * @since 1.0.0
-     */
-    public function remove_widget_comments( $args ) {
-        $args['post__not_in'] = $this->plugin->ticket_ids;
-
-        return $args;
-    }
-
-    /**
      * Hooks that the Component is subscribed to.
      *
      * @see \smartcat\core\AbstractComponent
@@ -189,14 +150,7 @@ class Comments extends AbstractComponent {
             'wp_ajax_support_update_comment' => array( 'update_comment' ),
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_delete_comment' => array( 'delete_comment' ),
-            'wp_ajax_support_list_comments' => array( 'list_comments' ),
-
-            'widget_comments_args' => array( 'remove_widget_comments' ),
-            'do_feed_rss2' => array( 'remove_feed_comments', 1 ),
-            'do_feed_rss' => array( 'remove_feed_comments', 1 ),
-            'do_feed_rdf' => array( 'remove_feed_comments', 1 ),
-            'do_feed_atom' => array( 'remove_feed_comments', 1 ),
-            'do_feed' => array( 'remove_feed_comments', 1 )
+            'wp_ajax_support_list_comments' => array( 'list_comments' )
         );
     }
 

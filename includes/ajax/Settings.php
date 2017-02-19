@@ -1,11 +1,9 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\ajax;
 
-use smartcat\core\AbstractComponent;
-use SmartcatSupport\Plugin;
 
-class Settings extends AbstractComponent {
+class Settings extends AjaxComponent {
 
     /**
      * AJAX action to launch the user settings screen.

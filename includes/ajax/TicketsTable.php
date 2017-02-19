@@ -1,16 +1,13 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\ajax;
 
-use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
-class TicketsTable extends AbstractComponent {
+class TicketsTable extends AjaxComponent {
 
     public function list_tickets() {
         $headers =  $this->table_headers();

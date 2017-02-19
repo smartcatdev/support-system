@@ -1,13 +1,12 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\ajax;
 
-use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TicketUtils;
 
-class Tickets extends AbstractComponent {
+class Tickets extends AjaxComponent {
 
     /**
      * AJAX action to launch the ticket creation screen.

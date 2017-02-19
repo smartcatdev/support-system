@@ -1,12 +1,12 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\ajax;
 
-use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
+use SmartcatSupport\ajax\AjaxComponent;
 use SmartcatSupport\descriptor\Option;
 
-class Registration extends AbstractComponent {
+class Registration extends AjaxComponent {
 
     /**
      * AJAX action to process new user registration. Creates a new user, sends a welcome email and then logs them in.

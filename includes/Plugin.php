@@ -5,13 +5,14 @@ namespace SmartcatSupport;
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
-use SmartcatSupport\component\Comments;
+use SmartcatSupport\ajax\Tickets;
+use SmartcatSupport\ajax\Comments;
+use SmartcatSupport\ajax\TicketsTable;
+use SmartcatSupport\ajax\Settings;
+use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\Products;
-use SmartcatSupport\component\Registration;
-use SmartcatSupport\component\Settings;
-use SmartcatSupport\component\Tickets;
 use SmartcatSupport\component\TicketCPT;
-use SmartcatSupport\component\TicketsTable;
+use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
@@ -182,7 +183,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             Tickets::class,
             TicketsTable::class,
             Comments::class,
-            Settings::class
+            Settings::class,
+            Hacks::class
         );
 
         if( $this->edd_active || $this->woo_active ) {
