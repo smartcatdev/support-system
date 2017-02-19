@@ -32,6 +32,8 @@ var Comments = (function (module, $, window) {
             var target = $(e.target);
             var id = target.data("id");
 
+            target.prop("disabled", true);
+
             $.ajax({
                 url: Globals.ajaxUrl,
                 dataType: "json",
@@ -58,6 +60,8 @@ var Comments = (function (module, $, window) {
             var content = form.find(".editor-content");
             var submit_button = form.find(".button-submit");
 
+            submit_button.prop("disabled", true);
+
             $.ajax({
                 url: Globals.ajaxUrl + "?action=support_submit_comment",
                 dataType: "json",
@@ -66,7 +70,6 @@ var Comments = (function (module, $, window) {
                 success: function (response) {
                     form.parents().find(".comments").append(response.data);
                     content.val("");
-                    submit_button.prop("disabled", true);
                     Tickets.load_sidebar(response.ticket);
                 }
             }).done(_unlock);
@@ -81,6 +84,9 @@ var Comments = (function (module, $, window) {
 
             var form = $(e.target);
             var comment = form.parents(".comment");
+            var submit_button = form.find(".button-submit");
+
+            submit_button.prop("disabled", true);
 
             $.ajax({
                 url: Globals.ajaxUrl + "?action=support_update_comment",
@@ -90,7 +96,10 @@ var Comments = (function (module, $, window) {
                 success: function (response) {
                     comment.replaceWith(response.data);
                 }
-            }).done(_unlock);
+            }).done(function () {
+                _unlock();
+                submit_button.prop("disabled", false);
+            });
         }
     };
 

@@ -35,6 +35,8 @@ var Tickets = (function (module, $, window) {
 
         data.data = form.serializeArray();
 
+        form.find(".button-submit").prop("disabled", true);
+
         $.ajax(data);
     };
 
