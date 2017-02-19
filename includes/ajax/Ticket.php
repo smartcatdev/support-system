@@ -6,7 +6,7 @@ use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TicketUtils;
 
-class Tickets extends AjaxComponent {
+class Ticket extends AjaxComponent {
 
     /**
      * AJAX action to launch the ticket creation screen.
@@ -156,6 +156,93 @@ class Tickets extends AjaxComponent {
     }
 
     /**
+     * AJAX action to retrieve all comments for a ticket. Returns an array of rendered comments.
+     *
+     * @uses $_GET['id'] The ID of the ticket to retrieve comments for.
+     * @since 1.0.0
+     */
+    public function list_comments() {
+        $ticket = $this->get_ticket( $_GET['id'] );
+
+        if( !empty( $ticket ) ) {
+
+            $html = $this->render( $this->plugin->template_dir . '/comments.php',
+                array(
+                    'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
+                )
+            );
+
+            wp_send_json_success( $html );
+        }
+    }
+
+    /**
+     * AJAX action for submitting new tickets. Ensure user has proper privileges and then emails
+     * the comments content. If the user is an agent, sets the status to waiting, else sets the
+     * status to responded.
+     *
+     * @uses $_POST['id'] The id of the ticket to comment on.
+     * @uses $_POST['content'] The content of the comment.
+     * @since 1.0.0
+     */
+    public function submit_comment() {
+        $ticket = $this->get_ticket( $_POST['id'] );
+
+        if ( !empty( $ticket ) && !empty( $_POST['content'] ) ) {
+            $user   = wp_get_current_user();
+            $status = get_post_meta( $ticket->ID, 'status', true );
+
+            //TODO add error for flooding
+            add_filter( 'comment_flood_filter', '__return_false' );
+
+            $comment = wp_handle_comment_submission( array(
+                'comment_post_ID'             => $ticket->ID,
+                'author'                      => $user->display_name,
+                'email'                       => $user->user_email,
+                'url'                         => $user->user_url,
+                'comment'                     => $_POST['content'],
+                'comment_parent'              => 0,
+                'user_id'                     => $user->ID,
+                '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
+            ) );
+
+            if ( !is_wp_error( $comment ) ) {
+                if ( current_user_can( 'edit_others_tickets' ) ) {
+                    update_post_meta( $ticket->ID, 'status', 'waiting' );
+
+                    // Grab email template vars
+                    add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
+                        return str_replace(
+                            array( '{%agent%}', '{%reply%}', '{%subject%}' ),
+                            array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
+                            $content
+                        );
+                    } );
+
+                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), get_post_meta( $ticket->ID, 'email', true ) );
+                } elseif ( $status != 'new' ) {
+                    update_post_meta( $ticket->ID, 'status', 'responded' );
+                }
+
+                $html = $this->render( $this->plugin->template_dir . '/comment.php',
+                    array(
+                        'comment' => $comment
+                    )
+                );
+
+                wp_send_json(
+                    array(
+                        'success' => true,
+                        'data'    => $html,
+                        'ticket'  => $ticket->ID
+                    ), 201 );
+            } else {
+                wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
+            }
+        }
+    }
+
+    /**
      * Sends an email to the user to notify them that their ticket has been marked as resolved.
      *
      * @param $null
@@ -199,6 +286,9 @@ class Tickets extends AjaxComponent {
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_toggle_flag' => array( 'toggle_flag' ),
             'wp_ajax_support_ticket_sidebar' => array( 'sidebar' ),
+
+            'wp_ajax_support_list_comments' => array( 'list_comments' ),
+            'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
 
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
         );

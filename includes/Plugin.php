@@ -5,8 +5,8 @@ namespace SmartcatSupport;
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
-use SmartcatSupport\ajax\Tickets;
-use SmartcatSupport\ajax\Comments;
+use SmartcatSupport\ajax\Ticket;
+use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\TicketsTable;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
@@ -180,9 +180,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function components() {
         $components = array(
             TicketCPT::class,
-            Tickets::class,
+            Ticket::class,
             TicketsTable::class,
-            Comments::class,
+            Comment::class,
             Settings::class,
             Hacks::class
         );
