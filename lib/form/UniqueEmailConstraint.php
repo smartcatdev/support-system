@@ -1,8 +1,7 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace smartcat\form;
 
-use smartcat\form\Constraint;
 
 class UniqueEmailConstraint implements Constraint {
 

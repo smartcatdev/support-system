@@ -3,8 +3,7 @@
 use smartcat\form\Form;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\form\UniqueEmailConstraint;
+use smartcat\form\UniqueEmailConstraint;
 
 $form = new Form( 'register_form' );
 
