@@ -74,7 +74,7 @@ var SupportAdmin = (function (module, $, window) {
         initialize: initialize
     };
 
-})(SupportAdmin, jQuery, window);
+})(SupportAdmin || {}, jQuery, window);
 
 
 jQuery(document).ready(function ($) {
