@@ -5,7 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use SmartcatSupport\Plugin;
 
-class SettingsComponent extends AbstractComponent {
+class Settings extends AbstractComponent {
 
     /**
      * AJAX action to launch the user settings screen.

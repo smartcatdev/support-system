@@ -6,7 +6,7 @@ use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
-class RegistrationComponent extends AbstractComponent {
+class Registration extends AbstractComponent {
 
     /**
      * AJAX action to process new user registration. Creates a new user, sends a welcome email and then logs them in.

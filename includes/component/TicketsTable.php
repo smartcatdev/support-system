@@ -10,7 +10,7 @@ use SmartcatSupport\util\TemplateUtils;
 use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
-class TicketTableComponent extends AbstractComponent {
+class TicketsTable extends AbstractComponent {
 
     public function list_tickets() {
         $headers =  $this->table_headers();

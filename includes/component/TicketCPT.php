@@ -9,7 +9,7 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\UserUtils;
 
-class TicketCptComponent extends AbstractComponent {
+class TicketCPT extends AbstractComponent {
 
     private $quick_edit_form;
 

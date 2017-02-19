@@ -5,13 +5,13 @@ namespace SmartcatSupport;
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
-use SmartcatSupport\component\CommentComponent;
-use SmartcatSupport\component\ProductComponent;
-use SmartcatSupport\component\RegistrationComponent;
-use SmartcatSupport\component\SettingsComponent;
-use SmartcatSupport\component\TicketComponent;
-use SmartcatSupport\component\TicketCptComponent;
-use SmartcatSupport\component\TicketTableComponent;
+use SmartcatSupport\component\Comments;
+use SmartcatSupport\component\Products;
+use SmartcatSupport\component\Registration;
+use SmartcatSupport\component\Settings;
+use SmartcatSupport\component\Tickets;
+use SmartcatSupport\component\TicketCPT;
+use SmartcatSupport\component\TicketsTable;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
@@ -178,19 +178,19 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function components() {
         $components = array(
-            TicketCptComponent::class,
-            TicketComponent::class,
-            TicketTableComponent::class,
-            CommentComponent::class,
-            SettingsComponent::class
+            TicketCPT::class,
+            Tickets::class,
+            TicketsTable::class,
+            Comments::class,
+            Settings::class
         );
 
         if( $this->edd_active || $this->woo_active ) {
-            $components[] = ProductComponent::class;
+            $components[] = Products::class;
         }
 
         if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
-            $components[] = RegistrationComponent::class;
+            $components[] = Registration::class;
         }
 
         return $components;

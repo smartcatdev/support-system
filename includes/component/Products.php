@@ -6,7 +6,7 @@ use smartcat\core\AbstractComponent;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\UserUtils;
 
-class ProductComponent extends AbstractComponent {
+class Products extends AbstractComponent {
 
     /**
      * List WooCommerce and EDD products.

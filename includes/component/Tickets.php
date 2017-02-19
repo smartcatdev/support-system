@@ -7,7 +7,7 @@ use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TicketUtils;
 
-class TicketComponent extends AbstractComponent {
+class Tickets extends AbstractComponent {
 
     /**
      * AJAX action to launch the ticket creation screen.

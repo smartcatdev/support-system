@@ -7,7 +7,7 @@ use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 
-class CommentComponent extends AbstractComponent {
+class Comments extends AbstractComponent {
 
     /**
      * AJAX action to update a comment on a ticket.
