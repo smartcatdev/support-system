@@ -83,15 +83,8 @@ class TicketsTable extends AbstractComponent {
                 break;
 
             case 'actions':
-                echo '<div class="actions">';
-
-                if( current_user_can( 'edit_others_tickets' ) ) {
-                    echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=support_edit_ticket&id=' . $ticket->ID . '" ' .
-                         'rel="modal:open" class="action-icon"><i class="left icon-pencil"></i></a>';
-                }
-
-                echo '<button type="button" class="right trigger icon-bubbles open-ticket"' .
-                         'data-action="view_ticket"' .
+                echo '<div class="actions">' .
+                        '<button type="button" class="trigger icon-bubbles open-ticket"' .
                          'data-id="' . $ticket->ID . '"></button></div>';
                 break;
         }

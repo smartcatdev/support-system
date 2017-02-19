@@ -15,10 +15,6 @@ var Tickets = (function (module, $, window) {
         $(window.document).on("submit", "form.ticket-status-form", _save_properties);
     };
 
-    var _quick_edit_save = function (e) {
-
-    };
-
     var _create_ticket = function (e) {
 
     };

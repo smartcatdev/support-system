@@ -89,18 +89,6 @@ class Tickets extends AbstractComponent {
     }
 
     /**
-     * AJAX action for launching ticket quick edit screen.
-     *
-     * @uses $_GET['id'] The ID of the ticket to edit.
-     * @since 1.0.0
-     */
-    public function edit_ticket() {
-        $ticket = $this->get_ticket( $_GET['id'] );
-
-        wp_send_json( include_once $this->plugin->template_dir . '/ticket_edit_modal.php' );
-    }
-
-    /**
      * AJAX action for saving the ticket properties.
      *
      * @see config/ticket_properties_form.php
@@ -197,7 +185,6 @@ class Tickets extends AbstractComponent {
             'wp_ajax_support_new_ticket' => array( 'new_ticket' ),
             'wp_ajax_support_create_ticket' => array( 'create_ticket' ),
             'wp_ajax_support_load_ticket' => array( 'load_ticket' ),
-            'wp_ajax_support_edit_ticket' => array( 'edit_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_toggle_flag' => array( 'toggle_flag' ),
             'wp_ajax_support_ticket_sidebar' => array( 'sidebar' ),
