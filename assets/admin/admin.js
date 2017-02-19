@@ -42,7 +42,7 @@ var SupportAdmin = (function (module, $, window) {
 
         $(".color_picker").wpColorPicker();
 
-        if (window.inlineEditPost !== null) {
+        if (window.inlineEditPost !== undefined) {
             $wp_inline_edit = inlineEditPost.edit;
 
             inlineEditPost.edit = function (id) {

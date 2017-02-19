@@ -26,7 +26,7 @@ class TextAreaField extends AbstractField {
             name="<?php esc_attr_e( $this->id ); ?>"
             rows="<?php esc_attr_e( $this->rows ); ?>"
             cols="<?php esc_attr_e( $this->cols ); ?>"
-            class="form_field"><?php echo $this->value; ?></textarea>
+            <?php $this->classes(); ?>><?php echo $this->value; ?></textarea>
 
         <?php }
 }

@@ -50,6 +50,12 @@ abstract class AbstractField {
     }
 
     public abstract function render();
+
+    protected function classes() {
+        if( !empty( $this->class ) ) {
+            echo ' class="' . implode( $this->class, ' ' ) . '" ';
+        }
+    }
 }
 
 endif;

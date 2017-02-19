@@ -23,11 +23,7 @@ class CheckBoxField extends AbstractField {
 
             type="checkbox"
 
-            <?php if( !empty( $this->class ) ) : ?>
-
-                class="<?php esc_attr_e( implode( $this->class, ' ' ) ); ?>"
-
-            <?php endif; ?> />
+            <?php $this->classes() ?> />
 
         <span class="checkbox-title"><?php echo $this->cb_title; ?></span>
 

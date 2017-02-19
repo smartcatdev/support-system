@@ -13,6 +13,7 @@ $form = new Form( 'product_metabox' );
 $form->add_field( new TextBoxField(
     array(
         'id'                => 'receipt_id',
+        'class'             => array( 'metabox-field' ),
         'type'              => 'text',
         'label'             => __( 'Receipt #', \SmartcatSupport\PLUGIN_ID ),
         'value'             => get_post_meta( $post->ID, 'receipt_id', true ),
@@ -22,6 +23,7 @@ $form->add_field( new TextBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'          => 'product',
+        'class'       => array( 'metabox-field' ),
         'label'       => __( 'Product', \SmartcatSupport\PLUGIN_ID ),
         'value'       => get_post_meta( $post->ID, 'product', true ),
         'options'     => $products,

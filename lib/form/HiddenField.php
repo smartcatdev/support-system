@@ -11,7 +11,7 @@ class HiddenField extends AbstractField {
         <input name="<?php esc_attr_e( $this->id ); ?>"
             value="<?php esc_attr_e( $this->value ); ?>"
             type="hidden"
-            class="form_field" />
+            <?php $this->classes(); ?> />
 
     <?php }
 }

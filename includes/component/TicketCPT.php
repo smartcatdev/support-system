@@ -37,17 +37,6 @@ class TicketCPT extends AbstractComponent {
                 'config'    =>  $this->plugin->config_dir . '/product_metabox_form.php'
             )
         ) );
-
-        $this->plugin->add_api_subscriber( new FormMetaBox(
-            array(
-                'id'        => 'ticket_customer_meta',
-                'title'     => __( 'Customer Information', \SmartcatSupport\PLUGIN_ID ),
-                'post_type' => 'support_ticket',
-                'context'   => 'side',
-                'priority'  => 'high',
-                'config'    =>  $this->plugin->config_dir . '/customer_metabox_form.php'
-            )
-        ) );
     }
 
     public function register_cpt() {

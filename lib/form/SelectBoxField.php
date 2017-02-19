@@ -17,11 +17,7 @@ class SelectBoxField extends AbstractField {
 
         <select name="<?php esc_attr_e( $this->id ); ?>"
 
-            <?php if( !empty( $this->class ) ) : ?>
-
-                class="<?php esc_attr_e( implode( $this->class, ' ' ) ); ?>">
-
-            <?php endif; ?>>
+            <?php $this->classes(); ?>>
 
             <?php foreach( $this->options as $value => $label ) : ?>
                 
