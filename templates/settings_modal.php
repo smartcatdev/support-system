@@ -3,8 +3,6 @@
 use smartcat\form\Form;
 use SmartcatSupport\Plugin;
 
-ob_start();
-
 $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/settings_form.php';
 
 ?>
@@ -22,5 +20,3 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
     </form>
 
 </div>
-
-<?php return ob_get_clean(); ?>

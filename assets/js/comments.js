@@ -146,17 +146,19 @@ var Comments = (function (module, $, window) {
                 },
                 success: function (response) {
 
-                    $.each(response.data, function (index, new_comment) {
-                        var old_comment = comments.find("#comment-" + index);
+                    comments.html(response.data);
 
-                        if (old_comment.length) {
-                            if (!$(old_comment.find("editor").hasClass("active"))) {
-                                old_comment.replaceWith(new_comment);
-                            }
-                        } else {
-                            comments.append(new_comment);
-                        }
-                    });
+                    // $.each(response.data, function (index, new_comment) {
+                    //     var old_comment = comments.find("#comment-" + index);
+                    //
+                    //     if (old_comment.length) {
+                    //         if (!$(old_comment.find("editor").hasClass("active"))) {
+                    //             old_comment.replaceWith(new_comment);
+                    //         }
+                    //     } else {
+                    //         comments.append(new_comment);
+                    //     }
+                    // });
 
                 }
             });

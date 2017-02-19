@@ -10,10 +10,14 @@ use SmartcatSupport\util\UserUtils;
 class TicketsTable extends AjaxComponent {
 
     public function list_tickets() {
-        $headers =  $this->table_headers();
-        $data = $this->get_tickets();
+        $html = $this->render( $this->plugin->template_dir . '/ticket_table.php',
+            array(
+                'headers' => $this->table_headers(),
+                'data' => $this->get_tickets()
+            )
+        );
 
-        wp_send_json_success( include_once $this->plugin->template_dir . '/ticket_table.php' );
+        wp_send_json_success( $html );
     }
 
     public function table_data( $col, $ticket ) {

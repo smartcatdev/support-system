@@ -12,7 +12,7 @@ class Settings extends AjaxComponent {
      */
     public function settings() {
         if( current_user_can( 'view_support_tickets' ) ) {
-            wp_send_json( include_once $this->plugin->template_dir . '/settings_modal.php' );
+            wp_send_json( $this->render( $this->plugin->template_dir . '/settings_modal.php' ) );
         }
     }
 

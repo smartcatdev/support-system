@@ -5,8 +5,6 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TicketUtils;
 
-ob_start();
-
 ?>
 
 <div class="row">
@@ -91,5 +89,3 @@ ob_start();
     </div>
 
 </div>
-
-<?php return ob_get_clean(); ?>

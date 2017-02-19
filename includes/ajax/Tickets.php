@@ -15,7 +15,7 @@ class Tickets extends AjaxComponent {
      */
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
-            wp_send_json( include_once $this->plugin->template_dir . '/ticket_create_modal.php' );
+            wp_send_json( $this->render( $this->plugin->template_dir . '/ticket_create_modal.php' ) );
         }
     }
 
@@ -76,12 +76,18 @@ class Tickets extends AjaxComponent {
                 update_post_meta( $ticket->ID, 'status', 'opened' );
             }
 
+            $html = $this->render( $this->plugin->template_dir . '/ticket.php',
+                array(
+                    'ticket' => $ticket
+                )
+            );
+
             wp_send_json(
                 array(
                     'success' => true,
                     'id' => $ticket->ID,
                     'title' => $ticket->post_title,
-                    'content' => include_once $this->plugin->template_dir . '/ticket.php'
+                    'content' => $html
                 )
             );
         }
@@ -139,7 +145,13 @@ class Tickets extends AjaxComponent {
         $ticket = $this->get_ticket( $_GET['id'] );
 
         if( !empty( $ticket ) ) {
-            wp_send_json_success( include_once $this->plugin->template_dir . '/sidebar.php' );
+            $html = $this->render(  $this->plugin->template_dir . '/sidebar.php',
+                array(
+                    'ticket' => $ticket
+                )
+            );
+
+            wp_send_json_success( $html );
         }
     }
 

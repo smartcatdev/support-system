@@ -28,10 +28,14 @@ class Comments extends AjaxComponent {
                     'comment_date_gmt' => current_time( 'mysql', 1 )
                 ) );
 
-                if( $result ) {
-                    $comment = $this->get_comment( $comment->comment_ID );
+                $html = $this->render( $this->plugin->template_dir . '/comment.php',
+                    array(
+                        'comment' => $this->get_comment( $comment->comment_ID )
+                    )
+                );
 
-                    wp_send_json_success( include_once $this->plugin->template_dir . '/comment.php' );
+                if( $result ) {
+                    wp_send_json_success( $html );
                 }
             } else {
                 wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
@@ -87,11 +91,17 @@ class Comments extends AjaxComponent {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
 
+                $html = $this->render( $this->plugin->template_dir . '/comment.php',
+                    array(
+                        'comment' => $comment
+                    )
+                );
+
                 wp_send_json(
                     array(
                         'success' => true,
-                        'data'   => include_once $this->plugin->template_dir . '/comment.php',
-                        'ticket' => $ticket->ID
+                        'data'    => $html,
+                        'ticket'  => $ticket->ID
                     ), 201 );
             } else {
                 wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
@@ -127,13 +137,14 @@ class Comments extends AjaxComponent {
         $ticket = $this->get_ticket( $_GET['id'] );
           
         if( !empty( $ticket ) ) {
-            $comments = array();
 
-            foreach( get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) ) as $comment ) {
-                $comments[ $comment->comment_ID ] = include $this->plugin->template_dir . '/comment.php';
-            }
+            $html = $this->render( $this->plugin->template_dir . '/comments.php',
+                array(
+                    'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
+                )
+            );
 
-            wp_send_json_success( $comments );
+            wp_send_json_success( $html );
         }
     }
 
