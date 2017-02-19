@@ -7,7 +7,7 @@ use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\TicketsTable;
+use SmartcatSupport\ajax\TicketTable;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\Products;
@@ -28,9 +28,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
-
-        // Cache a list of all ticket IDs
-        $this->ticket_ids = TicketUtils::ticket_ids();
 
         // Notify subscribers if there is a version upgrade
         $version = get_option( Option::PLUGIN_VERSION, 0 );
@@ -181,7 +178,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $components = array(
             TicketCPT::class,
             Ticket::class,
-            TicketsTable::class,
+            TicketTable::class,
             Comment::class,
             Settings::class,
             Hacks::class

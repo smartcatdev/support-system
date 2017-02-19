@@ -7,7 +7,7 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\util\TicketUtils;
 use SmartcatSupport\util\UserUtils;
 
-class TicketsTable extends AjaxComponent {
+class TicketTable extends AjaxComponent {
 
     public function list_tickets() {
         $html = $this->render( $this->plugin->template_dir . '/ticket_table.php',
