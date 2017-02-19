@@ -15,9 +15,7 @@ class Comment extends AjaxComponent {
         $comment = $this->get_comment( $_POST['comment_id'] );
 
         if( !empty( $comment ) ) {
-            $ticket = $this->get_ticket( $comment->comment_post_ID );
-
-            if ( !empty( $ticket ) && !empty( $_POST['content'] ) ) {
+            if ( !empty( $_POST['content'] ) ) {
                 $result = wp_update_comment( array(
                     'comment_ID'       => $comment->comment_ID,
                     'comment_content'  => $_POST['content'],
