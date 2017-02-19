@@ -122,7 +122,28 @@ var Tickets = (function (module, $, window) {
                 id: id
             },
             success: function (response) {
-                $("#" + id).find(".sidebar").html(response.data);
+                var sidebar = $("#" + id).find(".sidebar");
+                var collapsed = [];
+
+                sidebar.find(".panel").each(function (index, element) {
+                    var panel = $(element);
+
+                    if (panel.find(".panel-collapse").attr("aria-expanded") === "false") {
+                        collapsed.push(index);
+                    }
+                });
+
+                sidebar.html(response.data);
+                sidebar.find(".panel").each(function (index, element) {
+                    var panel = $(element);
+
+                    if (collapsed.indexOf(index) !== -1) {
+                        panel.find(".panel-collapse")
+                             .removeClass("in")
+                             .addClass("collapse")
+                             .attr("aria-expanded", false);
+                    }
+                });
             }
         });
     };
