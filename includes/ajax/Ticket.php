@@ -15,7 +15,7 @@ class Ticket extends AjaxComponent {
      */
     public function new_ticket() {
         if( current_user_can( 'create_support_tickets' ) ) {
-            wp_send_json( $this->render( $this->plugin->template_dir . '/ticket_create_modal.php' ) );
+            wp_send_json( $this->render( $this->plugin->template_dir . '/create_ticket.php' ) );
         }
     }
 

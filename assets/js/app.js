@@ -1,27 +1,27 @@
-var App = (function (module, $, window) {
+var App = (function ($) {
     "use strict";
 
     var _tabs;
+    var _filter;
+    var _filter_toggle;
+    var _filter_fields;
+    var _tickets_container;
+    var _list;
 
     var _bind_events = function () {
-        $(window.document).on("click", "span.close-tab", _close_tab);
-        $(".registration-toggle").click(_toggle_registration);
-    };
-
-    var _find_tab = function (id) {
-        var tab = false;
-
-        _tabs.find("li").each(function (index, element) {
-            if ($(element).data("id") === id) {
-                tab = index;
-            }
-        });
-
-        return tab;
+        $(document).on("click", ".close-tab", _close_tab);
+        $(document).on("click", "#filter-toggle", _toggle_filter);
+        $(document).on("click", "#refresh-tickets", load_tickets);
+        $(document).on("click", ".toggle-register", _toggle_registration);
+        $(document).on("submit", ".settings-form", _save_settings);
+        $(document).on("submit", ".register-user-form", _register_user);
+        $(document).on("change", ".filter-field", _filter_off);
     };
 
     var _close_tab = function (e) {
-        var tab = $(e.target).closest("li").remove().attr("aria-controls");
+        var tab = $(e.target).closest("li")
+                             .remove()
+                             .attr("aria-controls");
 
         $("#" + tab).remove();
         _tabs.tabs("refresh");
@@ -29,7 +29,7 @@ var App = (function (module, $, window) {
 
     var new_tab = function (data) {
         var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><span class=\"ui-icon-close close-tab icon-cross\"></span></li>");
-        var panel = $($.parseHTML("<div id=\"" + data.id + "\" class=\"pane\"></div>"));
+        var panel = $("<div id=\"" + data.id + "\" class=\"pane\"></div>");
 
         li.data("id", data.id);
         panel.html(data.content);
@@ -52,8 +52,78 @@ var App = (function (module, $, window) {
         return index !== false;
     };
 
-    var _register_user = function () {
+    var _find_tab = function (id) {
+        var tab = false;
 
+        _tabs.find("li").each(function (index, element) {
+            if ($(element).data("id") === id) {
+                tab = index;
+            }
+        });
+
+        return tab;
+    };
+
+    var _save_settings = function (e) {
+
+    };
+
+    var load_tickets = function (e) {
+        var refresh = $(".refresh");
+        var data = {
+            url: Globals.ajaxUrl + "?action=support_list_tickets",
+            dataType: "json",
+            success: _init_list
+        };
+
+        refresh.addClass("rotate");
+
+        if (_filter_toggle.hasClass("active")) {
+            data.data = _filter.serializeArray();
+        }
+
+        $.ajax(data).done(function () {
+            refresh.removeClass("rotate");
+        });
+    };
+
+    var _init_list = function (data) {
+        _tickets_container.html(data.data);
+
+        _list = $("#tickets-list");
+
+        var cols = [];
+
+        _list.find("th").each(function (index, element) {
+            cols.push({
+                data: $(element).data("column_name")
+            });
+        });
+
+        _list.dataTable({
+            columns: cols,
+            saveState: true
+        });
+    };
+
+    var _register_user = function (e) {
+
+    };
+
+    var _filter_off = function () {
+        _filter_toggle.removeClass("active");
+    };
+
+    var _toggle_filter = function () {
+        _filter_toggle.toggleClass("active");
+
+        if (!_filter_toggle.hasClass("active")) {
+            _filter_fields.each(function (index, element) {
+                $(element).val("");
+            });
+        }
+
+        load_tickets();
     };
 
     var _toggle_registration = function () {
@@ -61,46 +131,27 @@ var App = (function (module, $, window) {
         $("#register").toggle();
     };
 
-    var _add_registration_toggle = function () {
-        $("p.login-submit").prepend(
-            "<button class=\"button button-primary registration-toggle\" type=\"button\">" +
-                Globals.strings.register_form_toggle +
-            "</button>"
-        );
-    };
-
-    var form_errors = function (form) {
-
-    };
-
     var initialize = function () {
-        _tabs = $("#tabs");
-        _tabs.tabs();
-
-        if ($("#register_form")) {
-            _add_registration_toggle();
-        }
+        _tabs = $("#tabs").tabs();
+        _filter = $("#ticket_filter");
+        _filter_toggle = $("#filter-toggle");
+        _filter_fields = _filter.find(".filter-field");
+        _tickets_container = $("#tickets-container");
 
         _bind_events();
+        load_tickets();
+        setInterval(load_tickets, 1000 * 60);
     };
 
     return {
+        load_tickets: load_tickets,
         initialize: initialize,
-        open_tab: open_tab,
         new_tab: new_tab,
-        form_errors: form_errors
+        open_tab: open_tab
     };
 
-})(App || {}, jQuery, window);
+})(jQuery);
 
-jQuery(document).ready(function ($) {
-    "use strict";
-
+jQuery(document).ready(function () {
     App.initialize();
-
 });
-
-
-
-
-
