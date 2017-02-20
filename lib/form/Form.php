@@ -19,8 +19,8 @@ class Form {
         $this->action = $action;
     }
 
-    public function add_field(AbstractField $field ) {
-        $this->fields[ $field->id ] = $field;
+    public function add_field( AbstractField $field ) {
+        $this->fields[ $field->name ] = $field;
 
         return $this;
     }
@@ -29,12 +29,14 @@ class Form {
         $valid = true;
 
         if ( $this->is_submitted() ) {
-            foreach ( $this->fields as $id => $field ) {
-                if ( $field->validate( $_REQUEST[ $id ] ) ) {
-                    $this->data[ $id ] = $field->sanitize( $_REQUEST[ $id ] );
-                } else {
-                    $this->errors[ $id ] = $field->error_message;
-                    $valid = false;
+            foreach ( $this->fields as $name => $field ) {
+                if( isset( $_REQUEST[ $name ] ) ) {
+                    if ( $field->validate( $_REQUEST[ $name ] ) ) {
+                        $this->data[ $name ] = $field->sanitize( $_REQUEST[ $name ] );
+                    } else {
+                        $this->errors[] = $name;
+                        $valid = false;
+                    }
                 }
             }
 

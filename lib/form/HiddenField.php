@@ -2,15 +2,18 @@
 
 namespace smartcat\form;
 
-if( !class_exists( '\smartcat\form\HiddenAbstractField' ) ) :
+if( !class_exists( '\smartcat\form\HiddenField' ) ) :
 
 class HiddenField extends AbstractField {
     
     public function render() { ?>
 
-        <input name="<?php esc_attr_e( $this->id ); ?>"
-            value="<?php esc_attr_e( $this->value ); ?>"
-            type="hidden"
+        <input id="<?php echo $this->id; ?>"
+               name="<?php echo $this->name; ?>"
+               value="<?php echo $this->value; ?>"
+               type="hidden"
+
+            <?php $this->props(); ?>
             <?php $this->classes(); ?> />
 
     <?php }

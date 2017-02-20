@@ -24,19 +24,6 @@
     width: auto;
 }
 
-table.wp-list-table td.column-thumb img {
-    margin: 0;
-    width: auto;
-    height: auto;
-    max-width: 40px;
-    max-height: 40px;
-    vertical-align: middle;
-}
-
-table.wp-list-table img {
-    margin: 1px 2px;
-}
-
 table.wp-list-table th i {
     margin: auto 0;
 }
@@ -46,10 +33,6 @@ table.wp-list-table td.thumb {
     text-align: center;
 }
 
-.inline-edit-col .form_field {
-   min-width: 150px;
-}
-
-.inline-edit-col .form_field[type=checkbox] {
-    min-width: auto;
+.inline-edit-col .quick-edit-field {
+   width: 100%;
 }

@@ -23,7 +23,7 @@ class TicketCPT extends AbstractComponent {
                 'post_type' => 'support_ticket',
                 'context'   => 'advanced',
                 'priority'  => 'high',
-                'config'    =>  $this->plugin->config_dir . '/support_metabox_form.php'
+                'config'    =>  $this->plugin->config_dir . '/properties_metabox_form.php'
             )
         ) );
 
@@ -131,11 +131,15 @@ class TicketCPT extends AbstractComponent {
 
                         <?php foreach ( $this->quick_edit_form->fields as $field ) : ?>
 
-                            <label for="<?php esc_attr_e( $field->id ); ?>">
+                            <label>
 
                                 <span class="title"><?php _e( $field->label, \SmartcatSupport\PLUGIN_ID ); ?></span>
 
-                                <?php $field->render(); ?>
+                                <span class="input-text-wrap">
+
+                                    <?php $field->render(); ?>
+
+                                </span>
 
                             </label>
 
@@ -185,8 +189,8 @@ class TicketCPT extends AbstractComponent {
                 echo $post_id;
                 echo '<div class="hidden" id="support_inline_' . $post_id . '">';
 
-                foreach( $this->quick_edit_form->fields as $field ) {
-                    $id = $field->id;
+                foreach( $this->quick_edit_form->fields as $name => $field ) {
+                    $id = $field->name;
                     echo '<div class="' . $id . '">' . get_post_meta( $post_id, $id, true ) . '</div>';
                 }
 

@@ -2,8 +2,6 @@
 
 namespace SmartcatSupport\util;
 
-use SmartcatSupport\Plugin;
-
 class UserUtils {
     private function __construct() {}
 

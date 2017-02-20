@@ -15,7 +15,7 @@ $form = new Form( 'support_metabox' );
 
 $form->add_field( new SelectBoxField(
     array(
-        'id'            => 'agent',
+        'name'          => 'agent',
         'class'         => array( 'metabox-field' ),
         'label'         => __( 'Assigned', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $agents,
@@ -27,7 +27,7 @@ $form->add_field( new SelectBoxField(
 
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'status',
+        'name'          => 'status',
         'class'         => array( 'metabox-field' ),
         'label'         => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $statuses,
@@ -39,7 +39,7 @@ $form->add_field( new SelectBoxField(
 
 ) )->add_field( new SelectBoxField(
     array(
-        'id'          => 'priority',
+        'name'        => 'priority',
         'class'       => array( 'metabox-field' ),
         'label'       => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
         'options'     => $priorities,

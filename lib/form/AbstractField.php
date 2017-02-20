@@ -6,19 +6,17 @@ if( !class_exists('\smartcat\form\AbstractField') ) :
 
 abstract class AbstractField {
     public $id;
+    public $name;
     public $value = '';
     public $label;
     public $desc;
     public $class = array();
+    public $props = array();
     public $error_message;
     protected $constraints = array();
     protected $sanitize_callback;
  
     public function __construct( array $args ) {
-        $this->id = $args['id'];
-
-        unset( $args['id'] );
-
         foreach( $args as $arg => $value ) {
             if( property_exists( __CLASS__, $arg ) ) {
                 $this->{ $arg } = $value;
@@ -49,11 +47,19 @@ abstract class AbstractField {
         return $valid;
     }
 
-    public abstract function render();
+    public function render() {}
 
     protected function classes() {
         if( !empty( $this->class ) ) {
             echo ' class="' . implode( $this->class, ' ' ) . '" ';
+        }
+    }
+
+    protected function props() {
+        if( !empty( $this->props ) ) {
+            foreach( $this->props as $prop => $values ) {
+                echo $prop . '="' . implode( $values, ' ' ) . '"';
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ $form = new Form( 'product_metabox' );
 
 $form->add_field( new TextBoxField(
     array(
-        'id'                => 'receipt_id',
+        'name'              => 'receipt_id',
         'class'             => array( 'metabox-field' ),
         'type'              => 'text',
         'label'             => __( 'Receipt #', \SmartcatSupport\PLUGIN_ID ),
