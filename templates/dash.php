@@ -105,19 +105,23 @@ use SmartcatSupport\Plugin;
 
             <div id="tabs">
 
-                <ul>
+                <ul class="nav nav-tabs">
 
-                    <li>
-                        <a href="#tickets"><?php _e( 'Tickets', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                    <li class="tab active">
+                        <a data-toggle="tab" href="#tickets"><?php _e( 'Tickets', \SmartcatSupport\PLUGIN_ID ); ?></a>
                     </li>
 
                 </ul>
 
-                <div id="tickets">
+                <div class="tab-content">
 
-                    <?php include_once 'ticket_filter.php'; ?>
+                    <div id="tickets" class="tab-pane fade in active">
 
-                    <div id="tickets-container"></div>
+                        <?php include_once 'ticket_filter.php'; ?>
+
+                        <div id="tickets-container"></div>
+
+                    </div>
 
                 </div>
 

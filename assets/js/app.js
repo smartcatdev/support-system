@@ -18,46 +18,45 @@ var App = (function ($) {
     };
 
     var _close_tab = function (e) {
-        var tab = $(e.target).closest("li").remove().attr("aria-controls");
-        $("#" + tab).remove();
-        _tabs.tabs("refresh");
+        var tab = $(e.target).closest("li");
+        var prev =  tab.prev().find("a");
+        var next = tab.next();
+
+        $("#" + tab.data("id")).remove();
+        tab.remove();
+
+        if (next.length === 0) {
+            prev.tab("show");
+        }
     };
 
     var new_tab = function (data) {
-        var li = $("<li><a href=\"#" + data.id + "\">" + data.title + "</a><span class=\"ui-icon-close close-tab icon-cross\"></span></li>");
-        var panel = $("<div id=\"" + data.id + "\" class=\"pane\"></div>");
-
-        li.data("id", data.id);
-        panel.html(data.content);
+        var li = $("<li class=\"tab\" data-id=\"" + data.id + "\">" +
+                        "<a href=\"#" + data.id + "\" data-toggle=\"tab\">" +
+                            "<span class=\"title\">" + data.title + "</span>" +
+                            "<span class=\"close close-tab\">&times;</span>" +
+                        "</a>" +
+                    "</li>");
+        var panel = $("<div id=\"" + data.id + "\" class=\"tab-pane fade\">" + data.content + "</div>");
 
         _tabs.find("ul").append(li);
-        _tabs.append(panel);
+        _tabs.find(".tab-content").append(panel);
 
-        _tabs.tabs("refresh");
-        _tabs.tabs("option", "active", li.index());
+        li.find("a").tab("show");
     };
 
     var open_tab = function (tab) {
-        var index = _find_tab(tab);
+        var tab = _find_tab(tab);
 
-        if (index !== false) {
-            _tabs.tabs("option", "active", index);
-            _tabs.tabs("refresh");
+        if (tab.length > 0) {
+            tab.find("a").tab("show");
         }
 
-        return index !== false;
+        return tab.length > 0;
     };
 
     var _find_tab = function (id) {
-        var tab = false;
-
-        _tabs.find("li").each(function (index, element) {
-            if ($(element).data("id") === id) {
-                tab = index;
-            }
-        });
-
-        return tab;
+        return $("li.tab").filter("[data-id=\"" + id + "\"]");
     };
 
     var load_tickets = function (e) {
@@ -141,7 +140,7 @@ var App = (function ($) {
     };
 
     var initialize = function () {
-        _tabs = $("#tabs").tabs();
+        _tabs = $("#tabs");
         _filter = $("#ticket_filter");
         _filter_toggle = $("#filter-toggle");
         _filter_fields = _filter.find(".filter-field");

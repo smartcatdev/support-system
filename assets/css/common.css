@@ -184,13 +184,13 @@ input[type="submit"]:focus{
 /**
 ## Main
 */
-.ui-tabs .ui-tabs-nav {
-    padding-top: 10px;
-    border-radius: 3px;
+
+.nav-tabs .tab {
+    width: 150px;
 }
 
-.ui-tabs .ui-tabs-nav li:first-child {
-    margin-left: 0;
+.nav-tabs .tab .close {
+    margin-left: 20px;
 }
 
 #support-dashboard-page {
