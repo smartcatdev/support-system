@@ -18,9 +18,7 @@ var App = (function ($) {
     };
 
     var _close_tab = function (e) {
-        var tab = $(e.target).closest("li");
-
-        tab.remove().attr("aria-controls");
+        var tab = $(e.target).closest("li").remove().attr("aria-controls");
         $("#" + tab).remove();
         _tabs.tabs("refresh");
     };
