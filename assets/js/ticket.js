@@ -51,12 +51,20 @@ var Ticket = (function ($) {
             }
         };
 
-        data.data = form.serializeArray();
-
         form.find(".button-submit").prop("disabled", true);
         sidebar.addClass("saving");
 
-        $.ajax(data);
+        form.submit({
+            url: Globals.ajaxUrl,
+            action: "support_update_ticket",
+            method: "post",
+            success: function (response) {
+                load_sidebar(response.data);
+                App.load_tickets();
+            }
+        }).done(function () {
+            sidebar.removeClass("saving");
+        });
     };
 
     var load_sidebar = function (id) {
