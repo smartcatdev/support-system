@@ -8,17 +8,36 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
 ?>
 
-<div id="ticket_info_modal">
+<div id="create_ticket">
 
-    <form class="support_form"
-        data-message="<?php _e( get_option( Option::TICKET_CREATED_MSG, Option\Defaults::TICKET_CREATED_MSG ), \SmartcatSupport\PLUGIN_ID ); ?>"
-        data-action="support_create_ticket"
-        data-after="post_ticket_create">
+    <form id="create-ticket-form">
 
-        <?php Form::render_fields( $form ); ?>
+        <?php foreach( $form->fields as $name => $field ) : ?>
 
-        <div class="button_wrapper">
-            <input type="submit" value="<?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>" class="button" />
+            <div class="form-group">
+
+                <label for="<?php echo $field->id; ?>"><?php echo $field->label; ?></label>
+
+                <?php $field->render(); ?>
+
+            </div>
+
+        <?php endforeach; ?>
+
+        <input type="hidden" name="<?php echo $form->id; ?>" />
+
+        <div class="row">
+
+            <div class="bottom col-sm-12">
+
+                <button type="submit" class="button button-submit">
+
+                    <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ) ); ?>
+
+                </button>
+
+            </div>
+
         </div>
 
     </form>

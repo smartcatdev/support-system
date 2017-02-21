@@ -35,7 +35,6 @@ var Settings = (function ($) {
             url: Globals.ajaxUrl,
             action: "support_save_settings",
             method: "post",
-            data: settings.serializeArray(),
             success: function (response) {
                 var new_password = $("#new-password");
                 var confirm_password = $("#confirm-password");

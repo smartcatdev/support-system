@@ -7,7 +7,7 @@
         var _defaults = {
             method: "get",
             success: function (response) {},
-            error: function (xhr, status, error) {}
+            error: function (xhr, status, error) {},
         };
 
         var _settings = $.extend(_defaults, options);
@@ -39,7 +39,7 @@
         return $.ajax({
             url: _settings.url + "?action=" + _settings.action,
             method: _settings.method,
-            data: _settings.data,
+            data: _form.serializeArray(),
             success: _settings.success,
             error: function (xhr, status, error) {
                 _show_errors(xhr.responseJSON.data);

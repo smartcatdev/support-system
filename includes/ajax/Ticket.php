@@ -33,7 +33,7 @@ class Ticket extends AjaxComponent {
             if ( $form->is_valid() ) {
                 $post_id = wp_insert_post( array(
                     'post_title'     => $form->data['subject'],
-                    'post_content'   => $form->data['content'],
+                    'post_content'   => $form->data['description'],
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open'
@@ -43,7 +43,7 @@ class Ticket extends AjaxComponent {
 
                     // Remove them so that they are not saved as meta
                     unset( $form->data['subject'] );
-                    unset( $form->data['content'] );
+                    unset( $form->data['description'] );
 
                     foreach( $form->data as $field => $value ) {
                         update_post_meta( $post_id, $field, $value );
@@ -55,7 +55,7 @@ class Ticket extends AjaxComponent {
                     wp_send_json_success( $post_id );
                 }
             } else {
-                wp_send_json_error( $form->errors );
+                wp_send_json_error( $form->errors, 400 );
             }
         }
     }

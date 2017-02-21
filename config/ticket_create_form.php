@@ -12,9 +12,11 @@ $products = apply_filters( 'support_list_products', array( '' => __( 'Select a P
 $form     = new Form( 'create_ticket' );
 
 if( $products ) {
+
     $form->add_field( new SelectBoxField(
         array(
-            'id'            => 'product',
+            'name'          => 'product',
+            'class'         => array( 'form-control' ),
             'label'         => __( 'Product', \SmartcatSupport\PLUGIN_ID ),
             'error_msg'     => __( 'Please Select a product', \SmartcatSupport\PLUGIN_ID ),
             'options'       => $products,
@@ -25,7 +27,8 @@ if( $products ) {
 
     ) )->add_field( new TextBoxField(
         array(
-            'id'                => 'receipt_id',
+            'name'              => 'receipt_id',
+            'class'             => array( 'form-control' ),
             'label'             => __( 'Receipt #', \SmartcatSupport\PLUGIN_ID ),
             'sanitize_callback' => 'sanitize_text_field',
         )
@@ -35,7 +38,8 @@ if( $products ) {
 
 $form->add_field( new TextBoxField(
     array(
-        'id'            => 'subject',
+        'name'          => 'subject',
+        'class'         => array( 'form-control' ),
         'label'         => __( 'Subject', \SmartcatSupport\PLUGIN_ID ),
         'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
@@ -45,9 +49,10 @@ $form->add_field( new TextBoxField(
 
 ) )->add_field( new TextBoxField(
     array(
-        'id'            => 'subject',
+        'name'          => 'subject',
+        'class'         => array( 'form-control' ),
         'label'         => __( 'Subject', \SmartcatSupport\PLUGIN_ID ),
-        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Subject cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
             new RequiredConstraint()
         )
@@ -55,9 +60,11 @@ $form->add_field( new TextBoxField(
 
 ) )->add_field( new TextAreaField(
     array(
-        'id'            => 'content',
+        'name'          => 'description',
+        'props'         => array( 'rows' => array( 8 ) ),
+        'class'         => array( 'form-control' ),
         'label'         => __( 'Description', \SmartcatSupport\PLUGIN_ID ),
-        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Description cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
             new RequiredConstraint()
         )
