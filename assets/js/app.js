@@ -59,7 +59,7 @@ var App = (function ($) {
         return $("li.tab").filter("[data-id=\"" + id + "\"]");
     };
 
-    var load_tickets = function (e) {
+    var load_tickets = function () {
         var refresh = $("#refresh-tickets").find(".refresh");
         var request = {
             url: Globals.ajax_url + "?action=support_list_tickets",

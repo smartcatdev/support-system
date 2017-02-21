@@ -84,6 +84,7 @@ var Ticket = (function ($) {
 
                 sidebar.find(".message").html(message);
                 sidebar.removeClass("saving");
+
                 load_sidebar(response.ticket_id);
                 App.load_tickets();
             },
@@ -102,26 +103,29 @@ var Ticket = (function ($) {
                 url: Globals.ajax_url,
                 dataType: "json",
                 data: {
-                    action: "support_ticket_sidebar",
                     id: id,
+                    action: "support_ticket_sidebar",
                     _ajax_nonce: Globals.ajax_nonce
                 },
                 success: function (response) {
                     var collapsed = [];
+                    var message = sidebar.find(".message");
 
                     sidebar.find(".panel").each(function (index, element) {
                         var panel = $(element);
 
                         if (panel.find(".panel-collapse").attr("aria-expanded") === "false") {
-                            collapsed.push(index);
+                            collapsed.push(panel.data("id"));
                         }
                     });
 
                     sidebar.html(response.data);
+                    sidebar.find(".message").html(message);
+
                     sidebar.find(".panel").each(function (index, element) {
                         var panel = $(element);
 
-                        if (collapsed.indexOf(index) !== -1) {
+                        if (collapsed.indexOf(panel.data("id")) !== -1) {
                             panel.find(".panel-collapse")
                                 .removeClass("in")
                                 .addClass("collapse")

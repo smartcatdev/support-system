@@ -11,7 +11,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
 <div class="panel-group">
 
-    <div class="panel panel-default ticket-details">
+    <div class="panel panel-default ticket-details" data-id="ticket-details">
 
         <div class="panel-body">
 
@@ -30,7 +30,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
 
-        <div class="panel panel-default customer-details">
+        <div class="panel panel-default customer-details" data-id="customer-details">
 
             <div class="panel-heading">
 
@@ -72,7 +72,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
         </div>
 
-        <div class="panel panel-default ticket-properties">
+        <div class="panel panel-default ticket-properties" data-id="ticket-properties">
 
             <div class="panel-heading">
 
