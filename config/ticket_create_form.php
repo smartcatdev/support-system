@@ -6,12 +6,14 @@ use smartcat\form\RequiredConstraint;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextAreaField;
 use smartcat\form\TextBoxField;
-use SmartcatSupport\Plugin;
 
-$products = apply_filters( 'support_list_products', array( '' => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) );
-$form     = new Form( 'create_ticket' );
+$products = \SmartcatSupport\util\ticket\products();
 
-if( $products ) {
+$products = array_merge( array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ), $products );
+
+$form = new Form( 'create_ticket' );
+
+if( !empty( $products ) ) {
 
     $form->add_field( new SelectBoxField(
         array(

@@ -5,7 +5,6 @@ var Comment = (function ($) {
         $(window.document).on("click", ".edit-comment", _toggle_editor);
         $(window.document).on("click", ".cancel-edit-comment", _toggle_editor);
         $(window.document).on("submit", ".edit-comment-form", _save_comment);
-        $(window.document).on("submit", ".comment-form", _submit_comment);
         $(window.document).on("keyup", ".edit-comment-form", _empty_save_disable);
         $(window.document).on("keyup", ".comment-form", _empty_save_disable);
     };
@@ -32,33 +31,6 @@ var Comment = (function ($) {
         });
     };
 
-    var _submit_comment = function (e) {
-        e.preventDefault();
-
-        var form = $(e.target);
-        var content = form.find(".editor-content");
-        var submit_button = form.find(".button-submit");
-        var data = form.serializeArray();
-
-        submit_button.prop("disabled", true);
-        data.push({ name: "_ajax_nonce", value:  Globals.ajax_nonce });
-
-        $.ajax({
-            url: Globals.ajax_url + "?action=support_submit_comment",
-            dataType: "json",
-            method: "post",
-            data: data,
-            success: function (response) {
-                form.parents().find(".comments").append(response.data);
-                content.val("");
-                Ticket.load_sidebar(response.ticket);
-            },
-            complete: function () {
-                submit_button.prop("disabled", false);
-            }
-        });
-    };
-
     var _save_comment = function (e) {
         e.preventDefault();
 
@@ -69,8 +41,6 @@ var Comment = (function ($) {
 
         submit_button.prop("disabled", true);
         data.push({ name: "_ajax_nonce", value:  Globals.ajax_nonce });
-
-        console.log(data);
 
         $.ajax({
             url: Globals.ajax_url + "?action=support_update_comment",

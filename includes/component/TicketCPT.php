@@ -175,7 +175,7 @@ class TicketCPT extends AbstractComponent {
                 'agent'    => __( 'Assigned', \SmartcatSupport\PLUGIN_ID ),
                 'status'   => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
                 'priority' => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
-                'flagged'  => '<i class="support_icon icon-flag2"></i>'
+                'flagged'  => '<span class="support_icon icon-flag2"></span>'
             ),
             $columns
         );
@@ -202,25 +202,21 @@ class TicketCPT extends AbstractComponent {
                 break;
 
             case 'product':
-                $products = apply_filters( 'support_list_products', array() );
+                $products = \SmartcatSupport\util\ticket\products();
 
-                if( !empty( $products ) && array_key_exists( $value, $products ) ) {
-                    echo $products[ $value ];
-                }
+                echo array_key_exists( $value, $products ) ? $products[ $value ] : '—';
 
                 break;
 
             case 'agent':
-                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) );
+                $agents = \SmartcatSupport\util\user\list_agents();
 
-                if( array_key_exists( $value, $agents ) ) {
-                    echo $agents[ $value ];
-                }
+                echo array_key_exists( $value, $agents ) ? $agents[ $value ] : __( 'Unassigned', \SmartcatSupport\PLUGIN_ID );
 
                 break;
 
             case 'status':
-                $statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
+                $statuses = \SmartcatSupport\util\ticket\statuses();
 
                 if( array_key_exists( $value, $statuses ) ) {
                     echo $statuses[ $value ];
@@ -229,11 +225,9 @@ class TicketCPT extends AbstractComponent {
                 break;
 
             case 'priority':
-                $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
+                $priorities = \SmartcatSupport\util\ticket\priorities();
 
-                if( array_key_exists( $value, $priorities ) ) {
-                    echo $priorities[ $value ];
-                }
+                echo array_key_exists( $value, $priorities ) ? $priorities[ $value ] : '—';
 
                 break;
 
@@ -241,7 +235,7 @@ class TicketCPT extends AbstractComponent {
                 $flagged = get_post_meta( $post_id, 'flagged', true ) == 'on';
 
                 echo '<p style="display: none;">' . ( $flagged ? 1 : 0 ) . '</p>' .
-                     '<span class="support_admin_toggle flag-ticket support-icon icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
+                     '<span class="toggle flag-ticket support-icon icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
                         'name="flagged"' .
                         'data-id="' . $post_id .'"></i>';
                 break;
@@ -250,19 +244,21 @@ class TicketCPT extends AbstractComponent {
 
     public function post_table_filters() {
         if( get_current_screen()->post_type == 'support_ticket' ) {
+
+            $agents = \SmartcatSupport\util\user\list_agents();
+            $agents = array_merge( array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ), $agents );
+
             $agent_filter = new SelectBoxField(
                 array(
-                    'id'        => 'agent',
-                    'options'   =>  UserUtils::list_agents( array( '' => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) ),
+                    'name'      => 'agent',
+                    'options'   =>  $agents,
                     'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
                 )
             );
 
-            $agent_filter->render();
-
             $meta_filter = new SelectBoxField(
                 array(
-                    'id'        => 'checked_meta',
+                    'name'      => 'checked_meta',
                     'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
                     'options'   =>  array(
                         '' => __( 'All Tickets', \SmartcatSupport\PLUGIN_ID ),
@@ -271,6 +267,7 @@ class TicketCPT extends AbstractComponent {
                 )
             );
 
+            $agent_filter->render();
             $meta_filter->render();
         }
     }

@@ -4,8 +4,8 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TicketUtils;
 
-$statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
-$status   = get_post_meta( $ticket->ID, 'status', true );
+$statuses = \SmartcatSupport\util\ticket\statuses();
+$status = get_post_meta( $ticket->ID, 'status', true );
 
 ?>
 
@@ -15,7 +15,7 @@ $status   = get_post_meta( $ticket->ID, 'status', true );
 
         <div class="panel-body">
 
-            <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : 'New' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
+            <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
 
             <p>
                 <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?>
@@ -60,7 +60,7 @@ $status   = get_post_meta( $ticket->ID, 'status', true );
                             </p>
 
                             <p><?php _e( 'Email: ', \SmartcatSupport\PLUGIN_ID );
-                                echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+                                echo \SmartcatSupport\util\ticket\author_email( $ticket ); ?></p>
 
                         </div>
 

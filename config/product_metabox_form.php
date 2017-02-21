@@ -4,9 +4,10 @@ use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
-use SmartcatSupport\Plugin;
 
-$products = apply_filters( 'support_list_products', array( '' => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) );
+$products = \SmartcatSupport\util\ticket\products();
+
+$products = array_merge( array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) );
 
 $form = new Form( 'product_metabox' );
 

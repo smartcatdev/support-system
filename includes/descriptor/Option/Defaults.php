@@ -24,28 +24,6 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    static $STATUSES = array(
-        'new'               => 'New',
-        'waiting'           => 'Waiting',
-        'opened'            => 'Opened',
-        'responded'         => 'Responded',
-        'needs_attention'   => 'Needs Attention',
-        'resolved'          => 'Resolved',
-        'closed'            => 'Closed'
-    );
-
-    /**
-     * @since 1.0.0
-     */
-    static $PRIORITIES = array(
-        'low'   => 'Low',
-        'med'   => 'Medium',
-        'high'  => 'High'
-    );
-
-    /**
-     * @since 1.0.0
-     */
     const TICKET_CREATED_MSG = "We've received your request for support and an agent will get back to you soon";
 
     /**

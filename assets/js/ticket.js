@@ -4,6 +4,7 @@ var Ticket = (function ($) {
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
         $(document).on("click", "#create-ticket", _create_ticket);
+        $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
     };
 
@@ -82,12 +83,11 @@ var Ticket = (function ($) {
                                 "</div>");
 
                 sidebar.find(".message").html(message);
-
+                sidebar.removeClass("saving");
                 load_sidebar(response.ticket_id);
                 App.load_tickets();
             },
             complete: function (xhr) {
-
                 sidebar.removeClass("saving");
                 form.find(".button-submit").prop("disabled", false);
             }
@@ -153,11 +153,38 @@ var Ticket = (function ($) {
         }
     };
 
+    var _submit_comment = function (e) {
+        e.preventDefault();
+
+        var form = $(e.target);
+        var content = form.find(".editor-content");
+        var submit_button = form.find(".button-submit");
+        var data = form.serializeArray();
+
+        submit_button.prop("disabled", true);
+        data.push({ name: "_ajax_nonce", value:  Globals.ajax_nonce });
+
+        $.ajax({
+            url: Globals.ajax_url + "?action=support_submit_comment",
+            dataType: "json",
+            method: "post",
+            data: data,
+            success: function (response) {
+                form.parents().find(".comments").append(response.data);
+                content.val("");
+                load_sidebar(response.ticket);
+            },
+            complete: function () {
+                submit_button.prop("disabled", false);
+            }
+        });
+    };
+
     var initialize = function () {
         _bind_events();
 
         setInterval(function () {
-            $("div.pane").each(function (index, element) {
+            $("div.tab-pane").each(function (index, element) {
                 var id = $(element).attr("id");
 
                 if (!isNaN(id)) {

@@ -23,6 +23,7 @@ class TicketTable extends AjaxComponent {
     }
 
     public function table_data( $col, $ticket ) {
+
         switch( $col ) {
             case 'id':
                 echo $ticket->ID;
@@ -33,11 +34,11 @@ class TicketTable extends AjaxComponent {
                 break;
 
             case 'email':
-                echo TicketUtils::ticket_author_email( $ticket );
+                echo \SmartcatSupport\util\ticket\author_email( $ticket );
                 break;
 
             case 'status':
-                $statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
+                $statuses = \SmartcatSupport\util\ticket\statuses();
                 $status = get_post_meta( $ticket->ID, 'status', true );
 
                 if( array_key_exists( $status, $statuses ) ) {
@@ -49,9 +50,8 @@ class TicketTable extends AjaxComponent {
 
                 break;
 
-
             case 'priority':
-                $priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
+                $priorities = \SmartcatSupport\util\ticket\priorities();
                 $priority = get_post_meta( $ticket->ID, 'priority', true );
 
                 if( array_key_exists( $priority, $priorities ) ) {
@@ -65,18 +65,16 @@ class TicketTable extends AjaxComponent {
                 break;
 
             case 'agent':
-                $agents = UserUtils::list_agents( array( '' => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) );
+                $agents = \SmartcatSupport\util\user\list_agents();
+                $agents = array_merge( array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ), $agents );
                 $agent = get_post_meta( $ticket->ID, 'agent', true );
 
-                if( array_key_exists( $agent ,$agents ) ) {
-                    echo $agents[ $agent ];
-                }
+                echo $agents[ $agent ];
 
                 break;
 
-
             case 'product':
-                $products = apply_filters( 'support_list_products', array() );
+                $products = \SmartcatSupport\util\ticket\products();
                 $product = get_post_meta( $ticket->ID, 'product', true );
 
                 if( array_key_exists( $product, $products ) ) {

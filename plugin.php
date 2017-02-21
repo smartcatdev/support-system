@@ -24,6 +24,7 @@ const PLUGIN_VERSION = '1.0.0';
 
 // Manual includes
 include_once 'vendor/autoload.php';
+include_once 'includes/functions.php';
 
 
 // Boot up the container

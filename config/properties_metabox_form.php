@@ -3,13 +3,12 @@
 use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\util\UserUtils;
 
-$agents     = UserUtils::list_agents( array( '' => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) );
-$statuses   = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
-$priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
+$agents = \SmartcatSupport\util\user\list_agents();
+$statuses = \SmartcatSupport\util\ticket\statuses();
+$priorities = \SmartcatSupport\util\ticket\priorities();
+
+$agents = array_merge( array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ), $agents );
 
 $form = new Form( 'support_metabox' );
 

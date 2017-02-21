@@ -268,7 +268,7 @@ class Ticket extends AjaxComponent {
 
                 Mailer::send_template(
                     get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
-                    TicketUtils::ticket_author_email( $ticket )
+                    \SmartcatSupport\util\ticket\author_email( $ticket )
                 );
             }
         }

@@ -4,7 +4,6 @@ use smartcat\form\Form;
 use smartcat\form\MatchConstraint;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
-use SmartcatSupport\Plugin;
 
 $form = new Form( 'support_settings' );
 

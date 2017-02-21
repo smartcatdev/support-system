@@ -2,12 +2,13 @@
 
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
-use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\util\UserUtils;
 
 $form = new Form( 'ticket_filter' );
 $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
+$agents = \SmartcatSupport\util\user\list_agents();
+$statuses = \SmartcatSupport\util\ticket\statuses();
+$products = \SmartcatSupport\util\ticket\products();
 
 if( $plugin->edd_active || $plugin->woo_active ) {
 
@@ -15,7 +16,7 @@ if( $plugin->edd_active || $plugin->woo_active ) {
         array(
             'name'    => 'product',
             'class'   => array( 'filter-field', 'form-control' ),
-            'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ) )
+            'options' => array_merge( array( 0 => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ), $products )
         )
 
     ) );
@@ -28,7 +29,7 @@ if( current_user_can( 'edit_others_tickets' ) ) {
         array(
             'name'    => 'agent',
             'class'   => array( 'filter-field', 'form-control' ),
-            'options' => UserUtils::list_agents( array( '' => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) )
+            'options' => array_merge( array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ), $agents )
         )
 
     ) );
@@ -39,7 +40,7 @@ if( current_user_can( 'edit_others_tickets' ) ) {
         array(
             'name'    => 'status',
             'class'   => array( 'filter-field', 'form-control' ),
-            'options' => array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ) + get_option( Option::STATUSES, Option\Defaults::$STATUSES )
+            'options' => array_merge( array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ), $statuses )
         )
 
     ) );

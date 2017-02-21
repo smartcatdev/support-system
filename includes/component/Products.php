@@ -97,7 +97,6 @@ class Products extends AbstractComponent {
      */
     public function subscribed_hooks() {
         return array(
-            'support_list_products' => array( 'list_products' ),
             'pre_update_option_' . Option::EDD_INTEGRATION => array( 'configure_subscriber_caps' ),
             'pre_update_option_' . Option::WOO_INTEGRATION => array( 'configure_customer_caps' ),
         );
