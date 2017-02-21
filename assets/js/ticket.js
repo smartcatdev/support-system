@@ -69,7 +69,7 @@ var Ticket = (function ($) {
             action: "support_update_ticket",
             method: "post",
             success: function (response) {
-                var message = $("<div style=\"border-radius: 0\" class=\"alert alert-success fade in\">" +
+                var message = $("<div style=\"border-radius: 0; margin: 0\" class=\"alert alert-success fade in\">" +
                                     "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>" +
                                     response.data +
                                 "</div>");

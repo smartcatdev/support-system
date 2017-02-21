@@ -5,58 +5,64 @@ use SmartcatSupport\Plugin;
 use SmartcatSupport\util\TicketUtils;
 
 $statuses = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
-$status = get_post_meta( $ticket->ID, 'status', true );
+$status   = get_post_meta( $ticket->ID, 'status', true );
 
 ?>
 
-<div class="panel panel-default ticket-details">
+<div class="panel-group">
 
-    <div class="panel-body">
+    <div class="panel panel-default ticket-details">
 
-        <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : 'New' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
+        <div class="panel-body">
 
-        <p>
-            <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?>
-            <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID ); ?>
-        </p>
+            <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : 'New' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
 
-        <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
+            <p>
+                <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?>
+                <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID ); ?>
+            </p>
 
-    </div>
-
-</div>
-
-<?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
-
-    <div class="panel panel-default customer-details">
-
-        <div class="panel-heading">
-
-            <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Customer Details', \SmartcatSupport\PLUGIN_ID ); ?></a>
+            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
         </div>
 
-        <div id="collapse-customer-<?php echo $ticket->ID; ?>" class="panel-collapse in">
+    </div>
 
-            <div class="panel-body">
+    <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
 
-                <div class="media">
+        <div class="panel panel-default customer-details">
 
-                    <div class="media-left">
+            <div class="panel-heading">
 
-                        <?php echo get_avatar( $ticket, 48, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+                <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse"
+                   class="panel-title"><?php _e( 'Customer Details', \SmartcatSupport\PLUGIN_ID ); ?></a>
 
-                    </div>
+            </div>
 
-                    <div class="media-body" style="width: auto">
+            <div id="collapse-customer-<?php echo $ticket->ID; ?>" class="panel-collapse in">
 
-                        <p>
+                <div class="panel-body">
 
-                            <strong class="media-middle"><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
+                    <div class="media">
 
-                        </p>
+                        <div class="media-left">
 
-                        <p><?php _e( 'Email: ', \SmartcatSupport\PLUGIN_ID ); echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+                            <?php echo get_avatar( $ticket, 48, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+
+                        </div>
+
+                        <div class="media-body" style="width: auto">
+
+                            <p>
+
+                                <strong class="media-middle"><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
+
+                            </p>
+
+                            <p><?php _e( 'Email: ', \SmartcatSupport\PLUGIN_ID );
+                                echo TicketUtils::ticket_author_email( $ticket ); ?></p>
+
+                        </div>
 
                     </div>
 
@@ -66,63 +72,64 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
         </div>
 
-    </div>
+        <div class="panel panel-default ticket-properties">
 
-    <div class="panel panel-default ticket-properties">
+            <div class="panel-heading">
 
-        <div class="panel-heading">
+                <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse"
+                   class="panel-title"><?php _e( 'Ticket Properties', \SmartcatSupport\PLUGIN_ID ); ?></a>
 
-            <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse" class="panel-title"><?php _e( 'Ticket Properties', \SmartcatSupport\PLUGIN_ID ); ?></a>
+            </div>
 
-        </div>
+            <div id="collapse-details-<?php echo $ticket->ID; ?>" class="panel-collapse in">
 
-        <div id="collapse-details-<?php echo $ticket->ID; ?>" class="panel-collapse in">
+                <div class="message"></div>
 
-            <div class="message"></div>
+                <div class="panel-body">
 
-            <div class="panel-body">
+                    <form class="ticket-status-form">
 
-                <form class="ticket-status-form">
+                        <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
 
-                    <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
+                        <?php foreach ( $form->fields as $field ) : ?>
 
-                    <?php foreach( $form->fields as $field ) : ?>
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label><?php echo $field->label; ?></label>
 
-                            <label><?php echo $field->label; ?></label>
+                                <?php $field->render(); ?>
 
-                            <?php $field->render(); ?>
+                            </div>
+
+                        <?php endforeach; ?>
+
+                        <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>"/>
+                        <input type="hidden" name="<?php echo $form->id; ?>"/>
+
+                        <div class="row">
+
+                            <div class="bottom col-sm-12">
+
+                                <button type="submit" class="button button-submit">
+
+                                    <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+
+                                </button>
+
+                            </div>
 
                         </div>
 
-                    <?php endforeach; ?>
+                    </form>
 
-                    <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>" />
-                    <input type="hidden" name="<?php echo $form->id; ?>" />
-
-                    <div class="row">
-
-                        <div class="bottom col-sm-12">
-
-                            <button type="submit" class="button button-submit">
-
-                                <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </form>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    <?php endif; ?>
 
-<?php endif; ?>
+    <?php do_action( 'support_ticket_side_bar', $ticket ); ?>
 
-<?php do_action( 'support_ticket_side_bar', $ticket ); ?>
+</div>
