@@ -30,18 +30,18 @@ class Form {
 
         if ( $this->is_submitted() ) {
             foreach ( $this->fields as $name => $field ) {
-                if( isset( $_REQUEST[ $name ] ) ) {
-                    if ( $field->validate( $_REQUEST[ $name ] ) ) {
-                        $this->data[ $name ] = $field->sanitize( $_REQUEST[ $name ] );
-                    } else {
-                        $this->errors[] = $name;
-                        $valid = false;
-                    }
+                if ( isset( $_REQUEST[ $name ] ) && $field->validate( $_REQUEST[ $name ] ) ) {
+                    $this->data[ $name ] = $field->sanitize( $_REQUEST[ $name ] );
+                } else {
+                    $this->errors[ $name ] = $field->error_msg;
+                    $valid = false;
                 }
             }
-
-            $this->valid = $valid;
+        } else {
+            $valid = false;
         }
+
+        $this->valid = $valid;
 
         return $valid;
     }

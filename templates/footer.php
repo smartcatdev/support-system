@@ -22,6 +22,7 @@ use SmartcatSupport\descriptor\Option;
     <script src="<?php echo $url . 'assets/lib/modal/jquery.modal.min.js' ?>" ></script>
 <!--    <script src="--><?php //echo includes_url( 'js/tinymce/' ) . 'wp-tinymce.php' ?><!--" ></script>-->
 
+    <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
     <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
     <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
     <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>

@@ -12,11 +12,11 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
     <form id="settings-form">
 
-        <?php foreach( $form->fields as $field ) :?>
+        <?php foreach( $form->fields as $name => $field ) : ?>
 
-            <div class="form-group row">
+            <div class="form-group">
 
-                <label><?php echo $field->label; ?></label>
+                <label for="<?php echo $field->id; ?>"><?php echo $field->label; ?></label>
 
                 <?php $field->render(); ?>
 

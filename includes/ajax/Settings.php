@@ -43,7 +43,7 @@ class Settings extends AjaxComponent {
             wp_send_json_success( __( 'Settings updated refresh to apply your changes', \SmartcatSupport\PLUGIN_ID ) );
 
         } else {
-            wp_send_json_error( $form->errors );
+            wp_send_json_error( $form->errors, 400 );
         }
     }
 

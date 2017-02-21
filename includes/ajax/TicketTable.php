@@ -95,10 +95,9 @@ class TicketTable extends AjaxComponent {
         if( $this->plugin->edd_active || $this->plugin->woo_active ) {
             $products = new SelectBoxField(
                 array(
-                    'id'      => 'product',
+                    'name'    => 'product',
                     'class'   => array( 'filter-field' ),
-                    'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ) ),
-                    'value'   => isset( $_REQUEST['product'] ) ? $_REQUEST['product'] : ''
+                    'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ) )
                 )
             );
 
@@ -108,10 +107,9 @@ class TicketTable extends AjaxComponent {
         if( current_user_can( 'edit_others_tickets' ) ) {
             $agents = new SelectBoxField(
                 array(
-                    'id'      => 'agent',
+                    'name'    => 'agent',
                     'class'   => array( 'filter-field' ),
-                    'options' => UserUtils::list_agents( array( '' => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) ),
-                    'value'   => isset( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
+                    'options' => UserUtils::list_agents( array( '' => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) )
                 )
             );
 
@@ -120,10 +118,9 @@ class TicketTable extends AjaxComponent {
 
         $statuses = new SelectBoxField(
             array(
-                'id'      => 'status',
+                'name'    => 'status',
                 'class'   => array( 'filter-field' ),
-                'options' => array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ) + get_option( Option::STATUSES, Option\Defaults::$STATUSES ),
-                'value'   => isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : ''
+                'options' => array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ) + get_option( Option::STATUSES, Option\Defaults::$STATUSES )
             )
         );
 

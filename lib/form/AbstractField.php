@@ -12,7 +12,7 @@ abstract class AbstractField {
     public $desc;
     public $class = array();
     public $props = array();
-    public $error_message;
+    public $error_msg;
     protected $constraints = array();
     protected $sanitize_callback;
  
