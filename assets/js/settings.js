@@ -3,7 +3,7 @@ var Settings = (function ($) {
 
     var _bind_events = function () {
         $(document).on("keyup", "#confirm-password", _validate_password);
-        $(document).on("submit", "#settings-form", _save_settings);
+        $(document).on("click", "#save-settings", _save_settings);
     };
 
     var _validate_password = function (e) {
@@ -27,8 +27,6 @@ var Settings = (function ($) {
     };
 
     var _save_settings = function (e) {
-        e.preventDefault();
-
         var settings = $("#settings-form");
 
         settings.submit({

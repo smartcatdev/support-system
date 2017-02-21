@@ -26,20 +26,6 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         <input type="hidden" name="<?php echo $form->id; ?>" />
 
-        <div class="row">
-
-            <div class="bottom col-sm-12">
-
-                <button type="submit" class="button button-submit">
-
-                    <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
-
-                </button>
-
-            </div>
-
-        </div>
-
     </form>
 
 </div>

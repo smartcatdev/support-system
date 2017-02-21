@@ -7,37 +7,33 @@ use SmartcatSupport\Plugin;
 ?>
 <div id="support-dashboard-page">
 
+    <div id="settings-modal" class="modal fade">
 
+        <div class="modal-dialog">
 
-        <div id="create-modal" class="modal fade">
+            <div class="modal-content">
 
-            <div class="modal-dialog">
+                <div class="modal-header">
 
-                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <div class="modal-header">
+                    <h4 class="modal-title"><?php _e( 'Settings', \SmartcatSupport\PLUGIN_ID ); ?></h4>
 
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
 
-                        <h4 class="modal-title"><?php _e( 'New Support Request', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+                <div class="modal-body">
 
-                    </div>
+                    <?php include_once 'settings.php'; ?>
 
-                    <div class="modal-body">
+                </div>
 
-                        <?php include_once 'create_ticket.php'; ?>
+                <div class="modal-footer">
 
-                    </div>
+                    <button id="save-settings" type="button" class="button button-submit">
 
-                    <div class="modal-footer">
+                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
-                        <button id="create-ticket" type="button" class="button button-submit">
-
-                            <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ) ); ?>
-
-                        </button>
-
-                    </div>
+                    </button>
 
                 </div>
 
@@ -45,7 +41,44 @@ use SmartcatSupport\Plugin;
 
         </div>
 
+    </div>
 
+
+    <div id="create-modal" class="modal fade">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title"><?php _e( 'New Support Request', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <?php include_once 'create_ticket.php'; ?>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button id="create-ticket" type="button" class="button button-submit">
+
+                        <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ) ); ?>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
     
     <div class="container">
 
@@ -61,13 +94,6 @@ use SmartcatSupport\Plugin;
                         <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
 
                     </button>
-
-<!--                    <a href="--><?php //echo admin_url( 'admin-ajax.php' ) . '?action=support_new_ticket' ?><!--"  rel="modal:open" class="button button-primary">-->
-<!---->
-<!--                        <span class="glyphicon glyphicon-plus-sign"></span>-->
-<!--                        --><?php //_e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
-<!---->
-<!--                    </a>-->
 
                 <?php endif; ?>
 
