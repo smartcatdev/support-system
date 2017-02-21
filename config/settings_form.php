@@ -1,6 +1,7 @@
 <?php
 
 use smartcat\form\Form;
+use smartcat\form\MatchConstraint;
 use smartcat\form\RequiredConstraint;
 use smartcat\form\TextBoxField;
 use SmartcatSupport\Plugin;
@@ -49,7 +50,10 @@ $form->add_field( new TextBoxField(
         'class'     => array( 'form-control', 'settings-control' ),
         'type'      => 'password',
         'error_msg'     => __( 'Passwords don\'t match', \SmartcatSupport\PLUGIN_ID ),
-        'label'     => __( 'Confirm Password', \SmartcatSupport\PLUGIN_ID )
+        'label'     => __( 'Confirm Password', \SmartcatSupport\PLUGIN_ID ),
+        'constraints'   => array(
+            new MatchConstraint( $_REQUEST[ 'new_password'] )
+        )
     )
 
 ) );

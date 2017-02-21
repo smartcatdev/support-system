@@ -14,7 +14,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         <?php foreach( $form->fields as $name => $field ) : ?>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $name == "confirm_password" ? "has-feedback" : ""; ?>">
 
                 <label for="<?php echo $field->id; ?>"><?php echo $field->label; ?></label>
 

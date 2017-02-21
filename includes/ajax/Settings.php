@@ -24,6 +24,7 @@ class Settings extends AjaxComponent {
      */
     public function save_settings() {
         $form = include $this->plugin->dir() . '/config/settings_form.php';
+        $error = false;
 
         if( $form->is_valid() ) {
             if( !empty( $form->data['new_password'] ) ) {
