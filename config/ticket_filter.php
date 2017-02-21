@@ -15,6 +15,9 @@ if( $plugin->edd_active || $plugin->woo_active ) {
     $form->add_field( new SelectBoxField(
         array(
             'name'    => 'product',
+            'props'   => array(
+                'data-default' => array( 0 )
+            ),
             'class'   => array( 'filter-field', 'form-control' ),
             'options' => array_merge( array( 0 => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ), $products )
         )
@@ -28,6 +31,9 @@ if( current_user_can( 'edit_others_tickets' ) ) {
     $form->add_field( new SelectBoxField(
         array(
             'name'    => 'agent',
+            'props'    => array(
+                'data-default' => array( 0 )
+            ),
             'class'   => array( 'filter-field', 'form-control' ),
             'options' => array_merge( array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ), $agents )
         )
@@ -36,13 +42,16 @@ if( current_user_can( 'edit_others_tickets' ) ) {
 
 }
 
-    $form->add_field( new SelectBoxField(
-        array(
-            'name'    => 'status',
-            'class'   => array( 'filter-field', 'form-control' ),
-            'options' => array_merge( array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ), $statuses )
-        )
+$form->add_field( new SelectBoxField(
+    array(
+        'name'    => 'status',
+        'props'    => array(
+            'data-default' => array( '' )
+        ),
+        'class'   => array( 'filter-field', 'form-control' ),
+        'options' => array_merge( array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ), $statuses )
+    )
 
-    ) );
+) );
 
 return $form;

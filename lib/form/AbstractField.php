@@ -51,14 +51,14 @@ abstract class AbstractField {
 
     protected function classes() {
         if( !empty( $this->class ) ) {
-            echo ' class="' . implode( $this->class, ' ' ) . '" ';
+            echo ' class="' . implode( ' ', $this->class ) . '" ';
         }
     }
 
     protected function props() {
         if( !empty( $this->props ) ) {
             foreach( $this->props as $prop => $values ) {
-                echo $prop . '="' . implode( $values, ' ' ) . '"';
+                echo $prop . '="' . implode( ' ', $values ) . '"';
             }
         }
     }

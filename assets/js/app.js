@@ -135,7 +135,9 @@ var App = (function ($) {
 
         if (!_filter_toggle.hasClass("active")) {
             _filter_fields.each(function (index, element) {
-                $(element).val("");
+                var field = $(element);
+
+                field.val(field.data("default"));
             });
         }
 
