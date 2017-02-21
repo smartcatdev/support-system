@@ -3,19 +3,23 @@ var Ticket = (function ($) {
 
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
-        $(document).on("submit", "#create-ticket-form", _create_ticket);
+        $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".ticket-status-form", _save_properties);
     };
 
     var _create_ticket = function (e) {
-        e.preventDefault();
-
-        var form = $(e.target);
+        var form = $("#create-ticket-form");
 
         form.submit({
             url: Globals.ajaxUrl,
             action: "support_create_ticket",
             success: function (response) {
+                $("#create-modal").modal('toggle');
+
+                form.find(".form-control").each(function (index, element) {
+                    $(element).val("");
+                });
+
                 App.load_tickets();
             }
         });

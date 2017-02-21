@@ -19,7 +19,7 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
         <link href="<?php echo $url . 'assets/css/style.css' ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/icons.css' ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/datatables/datatables.min.css' ?>" rel="stylesheet"/>
-        <link href="<?php echo $url . 'assets/lib/modal/jquery.modal.min.css' ?>" rel="stylesheet"/>
+<!--        <link href="--><?php //echo $url . 'assets/lib/modal/jquery.modal.min.css' ?><!--" rel="stylesheet"/>-->
 
         <style type="text/css">
             

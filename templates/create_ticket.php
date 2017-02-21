@@ -26,20 +26,6 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
         <input type="hidden" name="<?php echo $form->id; ?>" />
 
-        <div class="row">
-
-            <div class="bottom col-sm-12">
-
-                <button type="submit" class="button button-submit">
-
-                    <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ) ); ?>
-
-                </button>
-
-            </div>
-
-        </div>
-
     </form>
 
 </div>
