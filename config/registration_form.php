@@ -9,9 +9,10 @@ $form = new Form( 'register_form' );
 
 $form->add_field( new TextBoxField(
     array(
-        'name'            => 'first_name',
+        'name'          => 'first_name',
+        'class'         => array( 'form-control' ),
         'label'         => __( 'First Name', \SmartcatSupport\PLUGIN_ID ),
-        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'First name cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
             new RequiredConstraint()
         )
@@ -19,9 +20,10 @@ $form->add_field( new TextBoxField(
 
 ) )->add_field( new TextBoxField(
     array(
-        'name'            => 'last_name',
+        'name'          => 'last_name',
+        'class'         => array( 'form-control' ),
         'label'         => __( 'Last Name', \SmartcatSupport\PLUGIN_ID ),
-        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Last name cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   =>  array(
             new RequiredConstraint()
         )
@@ -30,6 +32,7 @@ $form->add_field( new TextBoxField(
 ) )->add_field( new TextBoxField(
     array(
         'name'              => 'email',
+        'class'             => array( 'form-control' ),
         'type'              => 'email',
         'label'             => __( 'Email Address', \SmartcatSupport\PLUGIN_ID ),
         'error_msg'         => __( 'Email cannot be empty or already in use', \SmartcatSupport\PLUGIN_ID ),

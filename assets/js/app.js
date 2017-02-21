@@ -12,17 +12,15 @@ var App = (function ($) {
         $(document).on("click", ".close-tab", _close_tab);
         $(document).on("click", "#filter-toggle", _toggle_filter);
         $(document).on("click", "#refresh-tickets", load_tickets);
-        $(document).on("click", ".toggle-register", _toggle_registration);
-        $(document).on("submit", ".settings-form", _save_settings);
-        $(document).on("submit", ".register-user-form", _register_user);
+        $(document).on("click", ".registration-toggle", _toggle_registration);
+        $(document).on("submit", "#registration-form", _register_user);
         $(document).on("change", ".filter-field", _filter_off);
     };
 
     var _close_tab = function (e) {
-        var tab = $(e.target).closest("li")
-                             .remove()
-                             .attr("aria-controls");
+        var tab = $(e.target).closest("li");
 
+        tab.remove().attr("aria-controls");
         $("#" + tab).remove();
         _tabs.tabs("refresh");
     };
@@ -64,10 +62,6 @@ var App = (function ($) {
         return tab;
     };
 
-    var _save_settings = function (e) {
-
-    };
-
     var load_tickets = function (e) {
         var refresh = $(".refresh");
         var data = {
@@ -107,7 +101,18 @@ var App = (function ($) {
     };
 
     var _register_user = function (e) {
+        e.preventDefault();
 
+        var form = $(e.target);
+
+        form.submit({
+            url: Globals.ajaxUrl,
+            action: "support_register_user",
+            method: "post",
+            success: function (response) {
+                window.location.reload();
+            }
+        });
     };
 
     var _filter_off = function () {
@@ -137,6 +142,8 @@ var App = (function ($) {
         _filter_toggle = $("#filter-toggle");
         _filter_fields = _filter.find(".filter-field");
         _tickets_container = $("#tickets-container");
+
+        $(".login-submit").prepend($("#show-registration")).addClass("text-center");
 
         _bind_events();
         load_tickets();

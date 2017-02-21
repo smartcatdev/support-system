@@ -3,7 +3,6 @@
 namespace SmartcatSupport\ajax;
 
 use smartcat\mail\Mailer;
-use SmartcatSupport\ajax\AjaxComponent;
 use SmartcatSupport\descriptor\Option;
 
 class Registration extends AjaxComponent {
@@ -15,7 +14,7 @@ class Registration extends AjaxComponent {
      * @since 1.0.0
      */
     public function register_user() {
-        $form = include $this->plugin->config_dir . '/register_user_form.php';
+        $form = include $this->plugin->config_dir . '/registration_form.php';
 
         if( $form->is_valid() ) {
             $data = $form->data;
@@ -46,7 +45,7 @@ class Registration extends AjaxComponent {
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();
         } else {
-            wp_send_json_error( $form->errors );
+            wp_send_json_error( $form->errors, 400 );
         }
     }
 

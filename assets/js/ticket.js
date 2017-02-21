@@ -74,6 +74,7 @@ var Ticket = (function ($) {
             }
         }).done(function () {
             sidebar.removeClass("saving");
+            form.find(".button-submit").prop("disabled", false);
         });
     };
 

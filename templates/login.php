@@ -20,27 +20,59 @@ use SmartcatSupport\Plugin;
 
                 <?php wp_login_form(); ?>
 
+                <button id="show-registration" type="button" class="button button-primary registration-toggle">
+
+                    <?php echo get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ); ?>
+
+                </button>
+
             </div>
 
             <?php if ( $signups ) : ?>
 
+                <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '\config\registration_form.php'; ?>
+
                 <div id="register" style="display: none">
 
-                    <form id="registration_form">
+                    <form id="registration-form">
 
-                        <?php Form::render_fields( include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . 'config/register_user_form.php' ); ?>
+                        <?php foreach( $form->fields as $field ) : ?>
 
-                        <p class="registration-submit">
+                            <div class="form-group">
 
-                            <button type="button" class="button button-primary registration-toggle">
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
-                            </button>
+                                <label><?php echo $field->label; ?></label>
 
-                            <input class="button button-primary"
-                                type="submit"
-                                value="<?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>"/>
+                                <?php $field->render(); ?>
 
-                        </p>
+                            </div>
+
+                        <?php endforeach; ?>
+
+                        <input type="hidden" name="<?php echo $form->id; ?>" />
+
+                        <div class="row">
+
+                            <div class="col-sm-12">
+
+                                <p class="registration-submit text-center">
+
+                                    <button type="button" class="button button-primary registration-toggle">
+
+                                        <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                    </button>
+
+                                    <button id="registration-submit" type="submit" class="button button-primary">
+
+                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                        </div>
 
                     </form>
 
