@@ -160,15 +160,18 @@ class TicketCPT extends AbstractComponent {
     public function post_table_columns( $columns ) {
         unset( $columns['author'] );
 
-        $left_cols = array_splice( $columns, 0, 2 );
+        $cb = array_splice( $columns, 0, 1 );
+        $left_cols = array_splice( $columns, 0, 1 );
         $left_cols['title'] = __( 'Subject', \SmartcatSupport\PLUGIN_ID );
-        $left_cols['id'] = __( 'Case #', \SmartcatSupport\PLUGIN_ID );
+
+        $left_cols = array_merge( array( 'id' => __( 'Case', \SmartcatSupport\PLUGIN_ID ) ), $left_cols );
 
         if( $this->plugin->edd_active || $this->plugin->woo_active ) {
             $left_cols['product'] = __( 'Product', \SmartcatSupport\PLUGIN_ID );
         }
 
         return array_merge(
+            $cb,
             $left_cols,
             array(
                 'email'    => __( 'Email', \SmartcatSupport\PLUGIN_ID ),
@@ -183,6 +186,7 @@ class TicketCPT extends AbstractComponent {
 
     public function post_table_column_data( $column, $post_id ) {
         $value = get_post_meta( $post_id, $column, true ) ;
+        $ticket = get_post( $post_id );
 
         switch ( $column ) {
             case 'id':
@@ -198,7 +202,7 @@ class TicketCPT extends AbstractComponent {
                 break;
 
             case 'email':
-                esc_html_e( get_post_meta( $post_id, 'email', true ) );
+                echo \SmartcatSupport\util\ticket\author_email( $ticket );
                 break;
 
             case 'product':

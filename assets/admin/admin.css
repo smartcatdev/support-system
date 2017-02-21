@@ -36,3 +36,7 @@ table.wp-list-table td.thumb {
 .inline-edit-col .quick-edit-field {
    width: 100%;
 }
+
+td.column-id.id:before {
+    content: '' !important;
+}

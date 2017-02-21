@@ -54,9 +54,7 @@ class TicketTable extends AjaxComponent {
                 $priorities = \SmartcatSupport\util\ticket\priorities();
                 $priority = get_post_meta( $ticket->ID, 'priority', true );
 
-                if( array_key_exists( $priority, $priorities ) ) {
-                    echo $priorities[ $priority ];
-                }
+                echo array_key_exists( $priority, $priorities ) ? $priorities[ $priority ] : '—';
 
                 break;
 
@@ -66,10 +64,9 @@ class TicketTable extends AjaxComponent {
 
             case 'agent':
                 $agents = \SmartcatSupport\util\user\list_agents();
-                $agents = array_merge( array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ), $agents );
                 $agent = get_post_meta( $ticket->ID, 'agent', true );
 
-                echo $agents[ $agent ];
+                echo array_key_exists( $agent, $agents ) ? $agents[ $agent ] : __( 'Unassigned', \SmartcatSupport\PLUGIN_ID );
 
                 break;
 

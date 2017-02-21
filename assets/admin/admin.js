@@ -33,16 +33,7 @@ var SupportAdmin = (function (module, $, window) {
         $(window.document).on("click", ".flag-ticket", _toggle_flag);
     };
 
-    var initialize = function () {
-        _bind_events();
-
-        $.wpMediaUploader({
-            target: "#support_login_logo",
-            buttonText: "Select image"
-        });
-
-        $(".color_picker").wpColorPicker();
-
+    var _initialize_quick_editor = function () {
         if (window.inlineEditPost !== undefined) {
             $wp_inline_edit = inlineEditPost.edit;
 
@@ -69,6 +60,20 @@ var SupportAdmin = (function (module, $, window) {
                 }
             };
         }
+    };
+
+    var initialize = function () {
+        _bind_events();
+        _initialize_quick_editor();
+
+        $("#id.manage-column").addClass("column-primary");
+
+        $.wpMediaUploader({
+            target: "#support_login_logo",
+            buttonText: "Select image"
+        });
+
+        $(".color_picker").wpColorPicker();
     };
 
     return {
