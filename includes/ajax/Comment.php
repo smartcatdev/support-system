@@ -12,6 +12,7 @@ class Comment extends AjaxComponent {
      * @since 1.0.0
      */
     public function update_comment() {
+        $this->validate_request();
         $comment = $this->get_comment( $_POST['comment_id'] );
 
         if( !empty( $comment ) ) {
@@ -45,6 +46,7 @@ class Comment extends AjaxComponent {
      * @since 1.0.0
      */
     public function delete_comment() {
+        $this->validate_request();
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
         if( !empty( $comment ) ) {

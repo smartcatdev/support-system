@@ -10,6 +10,8 @@ use SmartcatSupport\util\UserUtils;
 class TicketTable extends AjaxComponent {
 
     public function list_tickets() {
+        $this->validate_request();
+
         $html = $this->render( $this->plugin->template_dir . '/ticket_table.php',
             array(
                 'headers' => $this->table_headers(),
@@ -92,6 +94,7 @@ class TicketTable extends AjaxComponent {
     }
 
     public function filter_tickets( $args ) {
+        $this->validate_request();
         $form = include $this->plugin->config_dir . '/ticket_filter.php';
 
         if( $form->is_valid() ) {

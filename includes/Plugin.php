@@ -106,7 +106,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         wp_register_script( 'support-admin-js',
             $this->url . 'assets/admin/admin.js', array( 'jquery' ), $this->version );
 
-        wp_localize_script( 'support-admin-js', 'SupportSystem', array( 'ajaxURL' => admin_url( 'admin-ajax.php' ) ) );
+        wp_localize_script( 'support-admin-js',
+            'SupportSystem', array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+            )
+        );
         wp_enqueue_script( 'support-admin-js' );
 
         wp_enqueue_style( 'support-admin-icons',

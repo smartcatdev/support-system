@@ -7,12 +7,13 @@ var SupportAdmin = (function (module, $, window) {
         var flag = $(e.target);
 
         $.ajax({
-            url: SupportSystem.ajaxURL,
+            url: SupportSystem.ajax_url,
             method: "post",
             dataType: "json",
             data: {
                 action: "support_toggle_flag",
-                id: flag.data("id")
+                id: flag.data("id"),
+                _ajax_nonce: SupportSystem.ajax_nonce
             },
             success: function (response) {
                 var inline = $("#support_inline_" + flag.data("id")).children(".flagged");

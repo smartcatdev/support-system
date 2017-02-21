@@ -17,11 +17,12 @@ var Comment = (function ($) {
         target.prop("disabled", true);
 
         $.ajax({
-            url: Globals.ajaxUrl,
+            url: Globals.ajax_url,
             dataType: "json",
             data: {
                 action: "support_delete_comment",
-                comment_id: id
+                comment_id: id,
+                _ajax_nonce: Globals.ajax_nonce
             },
             success: function (response) {
                 if (response.success) {
@@ -37,18 +38,23 @@ var Comment = (function ($) {
         var form = $(e.target);
         var content = form.find(".editor-content");
         var submit_button = form.find(".button-submit");
+        var data = form.serializeArray();
 
         submit_button.prop("disabled", true);
+        data.push({ name: "_ajax_nonce", value:  Globals.ajax_nonce });
 
         $.ajax({
-            url: Globals.ajaxUrl + "?action=support_submit_comment",
+            url: Globals.ajax_url + "?action=support_submit_comment",
             dataType: "json",
             method: "post",
-            data: form.serializeArray(),
+            data: data,
             success: function (response) {
                 form.parents().find(".comments").append(response.data);
                 content.val("");
                 Ticket.load_sidebar(response.ticket);
+            },
+            complete: function () {
+                submit_button.prop("disabled", false);
             }
         });
     };
@@ -59,19 +65,24 @@ var Comment = (function ($) {
         var form = $(e.target);
         var comment = form.parents(".comment");
         var submit_button = form.find(".button-submit");
+        var data = form.serializeArray();
 
         submit_button.prop("disabled", true);
+        data.push({ name: "_ajax_nonce", value:  Globals.ajax_nonce });
+
+        console.log(data);
 
         $.ajax({
-            url: Globals.ajaxUrl + "?action=support_update_comment",
+            url: Globals.ajax_url + "?action=support_update_comment",
             dataType: "json",
             method: "post",
-            data: form.serializeArray(),
+            data: data,
             success: function (response) {
                 comment.replaceWith(response.data);
+            },
+            complete: function () {
+                submit_button.prop("disabled", false);
             }
-        }).done(function () {
-            submit_button.prop("disabled", false);
         });
     };
 

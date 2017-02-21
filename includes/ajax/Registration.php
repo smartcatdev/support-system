@@ -14,6 +14,7 @@ class Registration extends AjaxComponent {
      * @since 1.0.0
      */
     public function register_user() {
+        $this->validate_request();
         $form = include $this->plugin->config_dir . '/registration_form.php';
 
         if( $form->is_valid() ) {

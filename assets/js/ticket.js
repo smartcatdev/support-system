@@ -14,8 +14,11 @@ var Ticket = (function ($) {
         submit.prop("disabled", true);
 
         form.submit({
-            url: Globals.ajaxUrl,
+            url: Globals.ajax_url,
             action: "support_create_ticket",
+            extras: {
+                _ajax_nonce: Globals.ajax_nonce
+            },
             success: function (response) {
                 $("#create-modal").modal('toggle');
 
@@ -39,11 +42,12 @@ var Ticket = (function ($) {
             target.prop("disabled", true);
 
             $.ajax({
-                url: Globals.ajaxUrl,
+                url: Globals.ajax_url,
                 dataType: "json",
                 data: {
                     id: id,
-                    action: "support_load_ticket"
+                    action: "support_load_ticket",
+                    _ajax_nonce: Globals.ajax_nonce
                 },
                 success: function (data) {
                     App.new_tab(data);
@@ -65,9 +69,12 @@ var Ticket = (function ($) {
         sidebar.addClass("saving");
 
         form.submit({
-            url: Globals.ajaxUrl,
+            url: Globals.ajax_url,
             action: "support_update_ticket",
             method: "post",
+            extras: {
+              _ajax_nonce: Globals.ajax_nonce
+            },
             success: function (response) {
                 var message = $("<div style=\"border-radius: 0; margin: 0\" class=\"alert alert-success fade in\">" +
                                     "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>" +
@@ -92,11 +99,12 @@ var Ticket = (function ($) {
 
         if (!sidebar.hasClass("saving")) {
             $.ajax({
-                url: Globals.ajaxUrl,
+                url: Globals.ajax_url,
                 dataType: "json",
                 data: {
                     action: "support_ticket_sidebar",
-                    id: id
+                    id: id,
+                    _ajax_nonce: Globals.ajax_nonce
                 },
                 success: function (response) {
                     var collapsed = [];
@@ -131,11 +139,12 @@ var Ticket = (function ($) {
 
         if (comments.find(".editor.active").length === 0) {
             $.ajax({
-                url: Globals.ajaxUrl,
+                url: Globals.ajax_url,
                 dataType: "json",
                 data: {
                     action: "support_list_comments",
-                    id: id
+                    id: id,
+                    _ajax_nonce: Globals.ajax_nonce
                 },
                 success: function (response) {
                     comments.html(response.data);

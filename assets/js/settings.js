@@ -34,9 +34,12 @@ var Settings = (function ($) {
         submit.prop("disabled", true);
 
         settings.submit({
-            url: Globals.ajaxUrl,
+            url: Globals.ajax_url,
             action: "support_save_settings",
             method: "post",
+            extras: {
+                _ajax_nonce: Globals.ajax_nonce
+            },
             success: function (response) {
                 var new_password = $("#new-password");
                 var confirm_password = $("#confirm-password");

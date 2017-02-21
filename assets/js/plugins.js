@@ -8,7 +8,8 @@
             method: "get",
             success: function (response) {},
             error: function (xhr, status, error) {},
-            complete: function (xhr, status) {}
+            complete: function (xhr, status) {},
+            extras: {}
         };
 
         var _settings = $.extend(_defaults, options);
@@ -38,9 +39,9 @@
         _clear_errors();
 
         return $.ajax({
-            url: _settings.url + "?action=" + _settings.action,
+            url: _settings.url + "?action=" + _settings.action + "&" + _form.serialize(),
             method: _settings.method,
-            data: _form.serializeArray(),
+            data: _settings.extras,
             success: _settings.success,
             complete: _settings.complete,
             error: function (xhr, status, error) {

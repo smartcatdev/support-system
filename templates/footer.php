@@ -7,10 +7,8 @@ use SmartcatSupport\descriptor\Option;
     <script>
 
         var Globals = {
-            ajaxUrl: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
-            strings: <?php echo json_encode( array(
-                'register_form_toggle' => __( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ),
-            ) ); ?>
+            ajax_url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
+            ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>"
         };
 
     </script>

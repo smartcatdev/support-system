@@ -7,6 +7,9 @@ use smartcat\core\AbstractComponent;
 
 abstract class AjaxComponent extends AbstractComponent {
 
+    protected function validate_request () {
+        check_ajax_referer( 'support_ajax' );
+    }
 
     protected function render( $template, array $data = array() ) {
         extract( $data );

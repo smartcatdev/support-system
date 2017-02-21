@@ -61,21 +61,26 @@ var App = (function ($) {
 
     var load_tickets = function (e) {
         var refresh = $("#refresh-tickets").find(".refresh");
-        var data = {
-            url: Globals.ajaxUrl + "?action=support_list_tickets",
+        var request = {
+            url: Globals.ajax_url + "?action=support_list_tickets",
             dataType: "json",
-            success: _init_list
+            data: [{
+                name: "_ajax_nonce",
+                value: Globals.ajax_nonce
+            }],
+            success: _init_list,
+            complete: function () {
+                refresh.removeClass("rotate");
+            }
         };
 
-        refresh.addClass("rotate");
-
         if (_filter_toggle.hasClass("active")) {
-            data.data = _filter.serializeArray();
+            request.data = request.data.concat(_filter.serializeArray());
         }
 
-        $.ajax(data).done(function () {
-            refresh.removeClass("rotate");
-        });
+        request.data.push();
+        refresh.addClass("rotate");
+        $.ajax(request);
     };
 
     var _init_list = function (data) {
@@ -106,9 +111,12 @@ var App = (function ($) {
         submit.prop("disabled", true);
 
         form.submit({
-            url: Globals.ajaxUrl,
+            url: Globals.ajax_url,
             action: "support_register_user",
             method: "post",
+            extras: {
+                _ajax_nonce: Globals.ajax_nonce
+            },
             success: function (response) {
                 window.location.reload();
             },
