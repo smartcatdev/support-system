@@ -91,53 +91,15 @@ class TicketTable extends AjaxComponent {
         }
     }
 
-    public function filter_fields() {
-        if( $this->plugin->edd_active || $this->plugin->woo_active ) {
-            $products = new SelectBoxField(
-                array(
-                    'name'    => 'product',
-                    'class'   => array( 'filter-field' ),
-                    'options' => apply_filters( 'support_list_products', array( '' => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ) )
-                )
-            );
-
-            $products->render();
-        }
-
-        if( current_user_can( 'edit_others_tickets' ) ) {
-            $agents = new SelectBoxField(
-                array(
-                    'name'    => 'agent',
-                    'class'   => array( 'filter-field' ),
-                    'options' => UserUtils::list_agents( array( '' => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) )
-                )
-            );
-
-            $agents->render();
-        }
-
-        $statuses = new SelectBoxField(
-            array(
-                'name'    => 'status',
-                'class'   => array( 'filter-field' ),
-                'options' => array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ) + get_option( Option::STATUSES, Option\Defaults::$STATUSES )
-            )
-        );
-
-        $statuses->render();
-    }
-
     public function filter_tickets( $args ) {
-        if( !empty( $_REQUEST['product'] ) ) {
-            $args['meta_query'][] = array( 'key' => 'product', 'value' => $_REQUEST['product'] );
-        }
+        $form = include $this->plugin->config_dir . '/ticket_filter.php';
 
-        if( !empty( $_REQUEST['agent'] ) ) {
-            $args['meta_query'][] = array( 'key' => 'agent', 'value' => $_REQUEST['agent'] );
-        }
-
-        if( !empty( $_REQUEST['status'] ) ) {
-            $args['meta_query'][] = array( 'key' => 'status', 'value' => $_REQUEST['status'] );
+        if( $form->is_valid() ) {
+            foreach( $form->data as $name => $value ) {
+                if( !empty( $value ) ) {
+                    $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
+                }
+            }
         }
 
         return $args;
@@ -147,7 +109,6 @@ class TicketTable extends AjaxComponent {
         return array(
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
             'support_tickets_table_column_data' => array( 'table_data', 10, 2 ),
-            'support_tickets_table_filters' => array( 'filter_fields' ),
             'support_ticket_table_query_vars' => array( 'filter_tickets' )
         );
     }

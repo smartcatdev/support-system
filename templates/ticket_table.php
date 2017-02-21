@@ -5,6 +5,7 @@ use SmartcatSupport\Plugin;
 
 ?>
 
+<div class="row">
 
     <?php if( !empty( $data ) ) : ?>
 
@@ -57,3 +58,5 @@ use SmartcatSupport\Plugin;
         </div>
 
     <?php endif; ?>
+
+</div>

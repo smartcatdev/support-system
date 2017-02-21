@@ -115,19 +115,7 @@ use SmartcatSupport\Plugin;
 
                 <div id="tickets">
 
-                    <form id="ticket_filter">
-
-                        <?php do_action( 'support_tickets_table_filters' ); ?>
-
-                        <button type="button" class="trigger" id="filter-toggle">
-                            <i class="filter icon-filter"></i><?php _e( 'Filter', \SmartcatSupport\PLUGIN_ID ); ?>
-                        </button>
-
-                        <button type="button" class="trigger" id="refresh-tickets">
-                            <i class="refresh icon-loop2"></i><?php _e( 'Refresh', \SmartcatSupport\PLUGIN_ID ); ?>
-                        </button>
-
-                    </form>
+                    <?php include_once 'ticket_filter.php'; ?>
 
                     <div id="tickets-container"></div>
 

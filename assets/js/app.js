@@ -61,7 +61,7 @@ var App = (function ($) {
     };
 
     var load_tickets = function (e) {
-        var refresh = $(".refresh");
+        var refresh = $("#refresh-tickets").find(".refresh");
         var data = {
             url: Globals.ajaxUrl + "?action=support_list_tickets",
             dataType: "json",

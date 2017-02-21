@@ -31,6 +31,10 @@ $tertiary_color = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults:
             .button{
                 background: <?php echo $primary_color; ?>;
             }
+
+            #filter-toggle.active {
+                background: <?php echo $primary_color; ?>;
+            }
             
             .dataTables_wrapper .dataTables_paginate .paginate_button.current{
                 background: <?php echo $primary_color; ?> !important;                
