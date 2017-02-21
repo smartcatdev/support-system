@@ -49,46 +49,6 @@ class Form {
     public function is_submitted() {
         return isset( $_REQUEST[ $this->id ] );
     }
-
-    public static function render_fields( Form $form ) { ?>
-
-            <?php foreach ( $form->fields as $field ) : ?>
-
-            <p>
-
-                <?php if( !empty( $field->label ) ) : ?>
-
-                    <label><?php echo $field->label; ?></label>
-
-                <?php endif; ?>
-
-                <?php $field->render(); ?>
-
-                <?php if( !empty( $field->desc ) ) : ?>
-
-                    <p class="description"><?php echo $field->desc; ?></p>
-
-                <?php endif; ?>
-
-            </p>
-
-        <?php endforeach; ?>
-
-        <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>" />
-
-    <?php }
-
-    public static function render( Form $form ) { ?>
-
-        <form id="<?php esc_attr_e( $form->id ); ?>"
-            method="<?php esc_attr_e( $form->method ); ?>"
-            action="<?php esc_attr_e( $form->action ); ?>">
-
-            <?php Form::render_fields( $form ); ?>
-
-        </form>
-
-    <?php }
 }
 
 endif;
