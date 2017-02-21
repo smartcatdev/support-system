@@ -119,7 +119,12 @@ class Ticket extends AjaxComponent {
                         }
 
                         update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                        wp_send_json_success( $post_id );
+                        wp_send_json(
+                            array(
+                                'ticket_id' => $post_id,
+                                'data' => __( 'Ticket Successfully Updated', \SmartcatSupport\PLUGIN_ID )
+                            )
+                        );
                     }
                 }
             }

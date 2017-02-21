@@ -78,6 +78,8 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
         <div id="collapse-details-<?php echo $ticket->ID; ?>" class="panel-collapse in">
 
+            <div class="message"></div>
+
             <div class="panel-body">
 
                 <form class="ticket-status-form">

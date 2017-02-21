@@ -60,16 +60,6 @@ var Ticket = (function ($) {
 
         var form = $(e.target);
         var sidebar = form.parents(".sidebar");
-        var data = {
-            url: Globals.ajaxUrl + "?action=support_update_ticket",
-            dataType: "json",
-            method: "post",
-            success: function (response) {
-                sidebar.removeClass("saving");
-                load_sidebar(response.data);
-                App.load_tickets();
-            }
-        };
 
         form.find(".button-submit").prop("disabled", true);
         sidebar.addClass("saving");
@@ -79,10 +69,18 @@ var Ticket = (function ($) {
             action: "support_update_ticket",
             method: "post",
             success: function (response) {
-                load_sidebar(response.data);
+                var message = $("<div style=\"border-radius: 0\" class=\"alert alert-success fade in\">" +
+                                    "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>" +
+                                    response.data +
+                                "</div>");
+
+                sidebar.find(".message").html(message);
+
+                load_sidebar(response.ticket_id);
                 App.load_tickets();
             },
-            complete: function () {
+            complete: function (xhr) {
+
                 sidebar.removeClass("saving");
                 form.find(".button-submit").prop("disabled", false);
             }
