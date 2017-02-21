@@ -8,6 +8,7 @@
             method: "get",
             success: function (response) {},
             error: function (xhr, status, error) {},
+            complete: function (xhr, status) {}
         };
 
         var _settings = $.extend(_defaults, options);
@@ -41,6 +42,7 @@
             method: _settings.method,
             data: _form.serializeArray(),
             success: _settings.success,
+            complete: _settings.complete,
             error: function (xhr, status, error) {
                 _show_errors(xhr.responseJSON.data);
                 _settings.error(xhr, status, error);

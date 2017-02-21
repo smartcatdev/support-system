@@ -102,6 +102,9 @@ var App = (function ($) {
         e.preventDefault();
 
         var form = $(e.target);
+        var submit = $("#registration-submit");
+
+        submit.prop("disabled", true);
 
         form.submit({
             url: Globals.ajaxUrl,
@@ -109,6 +112,9 @@ var App = (function ($) {
             method: "post",
             success: function (response) {
                 window.location.reload();
+            },
+            complete: function () {
+                submit.prop("disabled", false);
             }
         });
     };

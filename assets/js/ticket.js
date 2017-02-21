@@ -9,6 +9,9 @@ var Ticket = (function ($) {
 
     var _create_ticket = function (e) {
         var form = $("#create-ticket-form");
+        var submit = $(e.target);
+
+        submit.prop("disabled", true);
 
         form.submit({
             url: Globals.ajaxUrl,
@@ -21,6 +24,9 @@ var Ticket = (function ($) {
                 });
 
                 App.load_tickets();
+            },
+            complete: function () {
+                submit.prop("disabled", false);
             }
         });
     };
@@ -75,10 +81,11 @@ var Ticket = (function ($) {
             success: function (response) {
                 load_sidebar(response.data);
                 App.load_tickets();
+            },
+            complete: function () {
+                sidebar.removeClass("saving");
+                form.find(".button-submit").prop("disabled", false);
             }
-        }).done(function () {
-            sidebar.removeClass("saving");
-            form.find(".button-submit").prop("disabled", false);
         });
     };
 

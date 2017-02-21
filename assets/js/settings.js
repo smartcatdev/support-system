@@ -9,7 +9,7 @@ var Settings = (function ($) {
     var _validate_password = function (e) {
         var confirm_password = $(e.target);
         var new_password = $("#new-password");
-        var submit = $("#settings-form").find(".button-submit");
+        var submit = $("#save-settings");
         var group = confirm_password.parents(".form-group");
 
         group.removeClass("has-error has-success");
@@ -28,6 +28,10 @@ var Settings = (function ($) {
 
     var _save_settings = function (e) {
         var settings = $("#settings-form");
+        var submit = $(e.target);
+        var modal_footer = submit.parent();
+
+        submit.prop("disabled", true);
 
         settings.submit({
             url: Globals.ajaxUrl,
@@ -42,6 +46,10 @@ var Settings = (function ($) {
                confirm_password.val("");
                container.find(".form-control-feedback").remove();
                container.removeClass("has-success");
+               modal_footer.prepend("<div class=\"pull-left\">" + response.data + "</div>");
+            },
+            complete: function () {
+                submit.prop("disabled", false);
             }
         });
     };
