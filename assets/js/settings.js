@@ -29,7 +29,7 @@ var Settings = (function ($) {
     var _save_settings = function (e) {
         var settings = $("#settings-form");
         var submit = $(e.target);
-        var modal_footer = submit.parent();
+        var modal = submit.parents(".modal");
 
         submit.prop("disabled", true);
 
@@ -41,12 +41,16 @@ var Settings = (function ($) {
                 var new_password = $("#new-password");
                 var confirm_password = $("#confirm-password");
                 var container = confirm_password.parents(".form-group");
+                var message = $("<div style=\"border-radius: 0\" class=\"alert alert-success fade in\">" +
+                                    "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>" +
+                                    response.data +
+                                "</div>");
 
-               new_password .val("");
+               new_password.val("");
                confirm_password.val("");
                container.find(".form-control-feedback").remove();
                container.removeClass("has-success");
-               modal_footer.prepend("<div class=\"pull-left\">" + response.data + "</div>");
+               modal.find(".message").html(message);
             },
             complete: function () {
                 submit.prop("disabled", false);

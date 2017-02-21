@@ -21,6 +21,8 @@ use SmartcatSupport\Plugin;
 
                 </div>
 
+                <div class="message"></div>
+
                 <div class="modal-body">
 
                     <?php include_once 'settings.php'; ?>
