@@ -263,6 +263,34 @@ class Ticket extends AjaxComponent {
         }
     }
 
+    public function list_tickets() {
+        $html = $this->render( $this->plugin->template_dir . '/ticket_list.php',
+            array(
+                'query' => $this->query_tickets()
+            )
+        );
+
+        wp_send_json_success( $html );
+    }
+
+    public function filter_tickets( $args ) {
+        $form = include $this->plugin->config_dir . '/ticket_filter.php';
+
+        $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
+
+        if( $form->is_valid() ) {
+            unset( $form->data['search'] );
+
+            foreach( $form->data as $name => $value ) {
+                if( !empty( $value ) ) {
+                    $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
+                }
+            }
+        }
+
+        return $args;
+    }
+
     /**
      * Hooks that the Component is subscribed to.
      *
@@ -281,7 +309,9 @@ class Ticket extends AjaxComponent {
 
             'wp_ajax_support_list_comments' => array( 'list_comments' ),
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
+            'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
 
+            'support_ticket_table_query_vars' => array( 'filter_tickets' ),
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
         ) );
     }
@@ -304,5 +334,20 @@ class Ticket extends AjaxComponent {
         $query = new \WP_Query( $args );
 
         return $query->post;
+    }
+
+    private function query_tickets() {
+        $args = array(
+            'post_type'      => 'support_ticket',
+            'post_status'    => 'publish',
+            'posts_per_page' => 5,
+            'paged'          => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
+        );
+
+        if ( ! current_user_can( 'edit_others_tickets' ) ) {
+            $args['author'] = wp_get_current_user()->ID;
+        }
+
+        return new \WP_Query( apply_filters( 'support_ticket_table_query_vars', $args ) );
     }
 }

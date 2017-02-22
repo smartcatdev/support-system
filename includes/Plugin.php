@@ -7,7 +7,7 @@ use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\TicketTable;
+use SmartcatSupport\ajax\TicketList;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\Products;
@@ -196,7 +196,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $components = array(
             TicketCPT::class,
             Ticket::class,
-            TicketTable::class,
             Comment::class,
             Settings::class,
             Hacks::class
