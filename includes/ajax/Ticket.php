@@ -60,7 +60,7 @@ class Ticket extends AjaxComponent {
         if( !empty( $ticket ) ) {
             $status = get_post_meta( $ticket->ID, 'status', true );
 
-            if( current_user_can( 'edit_others_tickets' ) && $status == 'new' ) {
+            if( current_user_can( 'manage_support_tickets' ) && $status == 'new' ) {
                 update_post_meta( $ticket->ID, 'status', 'opened' );
             }
 
@@ -88,7 +88,7 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function update_ticket_properties() {
-        if( current_user_can( 'edit_others_tickets' ) ) {
+        if( current_user_can( 'manage_support_tickets' ) ) {
             $ticket = $this->get_ticket( $_POST['id'] );
 
             if ( !empty( $ticket ) ) {
@@ -120,7 +120,7 @@ class Ticket extends AjaxComponent {
     }
 
     public function toggle_flag() {
-        if( current_user_can( 'edit_others_tickets' ) ) {
+        if( current_user_can( 'manage_support_tickets' ) ) {
             $flag = get_post_meta( $_POST['id'], 'flagged', true ) === 'on' ? '' : 'on';
 
             update_post_meta( $_POST['id'], 'flagged', $flag );
@@ -200,7 +200,7 @@ class Ticket extends AjaxComponent {
             ) );
 
             if ( !is_wp_error( $comment ) ) {
-                if ( current_user_can( 'edit_others_tickets' ) ) {
+                if ( current_user_can( 'manage_support_tickets' ) ) {
                     update_post_meta( $ticket->ID, 'status', 'waiting' );
 
                     // Grab email template vars
@@ -297,7 +297,7 @@ class Ticket extends AjaxComponent {
     private function get_ticket( $id, $strict = false ) {
         $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
-        if( $strict || !current_user_can( 'edit_others_tickets' ) ) {
+        if( $strict || !current_user_can( 'manage_support_tickets' ) ) {
             $args['post_author'] = wp_get_current_user()->ID;
         }
 

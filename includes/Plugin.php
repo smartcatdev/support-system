@@ -43,18 +43,26 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function activate() {
-        $roles = array(
-            array( add_role( 'support_admin', __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ) ), true ),
-            array( add_role( 'support_agent', __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ) ), true ),
-            array( add_role( 'support_user', __( 'Support User', \SmartcatSupport\PLUGIN_ID ) ), false ),
-            array( get_role( 'administrator' ), true )
-        );
 
-        foreach( $roles as $role ) {
-            if( $role[0] instanceof \WP_Role ) {
-                UserUtils::add_caps( $role[0], $role[1] );
-            }
+        $roles = array( 'administrator' => get_role( 'administrator' ) );
+
+        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
+            $roles[ $role ] = add_role( $role, $name );
         }
+
+        if( !empty( $roles['support_user'] ) ) {
+            \SmartcatSupport\util\user\append_role_caps( $roles['support_user'] );
+        }
+
+        if( !empty( $roles['support_agent'] ) ) {
+            \SmartcatSupport\util\user\append_priv_role_caps( $roles['support_agent'] );
+        }
+
+        if( !empty( $roles['support_admin'] ) ) {
+            \SmartcatSupport\util\user\append_priv_role_caps( $roles['support_admin'] );
+        }
+
+        \SmartcatSupport\util\user\append_priv_role_caps( $roles['administrator'] );
 
         $this->create_email_templates();
         $this->setup_template_page();
@@ -64,11 +72,18 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        UserUtils::remove_caps( get_role( 'administrator' ), true );
+        \SmartcatSupport\util\user\remove_role_caps( get_role( 'subscriber') );
+        \SmartcatSupport\util\user\remove_priv_role_caps( get_role( 'administrator') );
 
-        remove_role( 'support_admin' );
-        remove_role( 'support_agent' );
-        remove_role( 'support_user' );
+        $customer = get_role( 'customer' );
+
+        if( $customer instanceof \WP_Role ) {
+            \SmartcatSupport\util\user\remove_role_caps( $customer );
+        }
+
+        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
+             remove_role( $role );
+        }
 
         Mailer::cleanup();
 

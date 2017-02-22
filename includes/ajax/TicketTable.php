@@ -132,7 +132,7 @@ class TicketTable extends AjaxComponent {
             $headers['product'] = __( 'Product', \SmartcatSupport\PLUGIN_ID );
         }
 
-        if( current_user_can( 'edit_others_tickets' ) ) {
+        if( current_user_can( 'manage_support_tickets' ) ) {
             $headers['priority'] = __( 'Priority', \SmartcatSupport\PLUGIN_ID );
             $headers['agent'] = __( 'Assigned', \SmartcatSupport\PLUGIN_ID );
         }

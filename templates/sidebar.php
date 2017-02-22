@@ -28,7 +28,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 
     </div>
 
-    <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
+    <?php if ( current_user_can( 'manage_support_tickets' ) ) : ?>
 
         <div class="panel panel-default customer-details" data-id="customer-details">
 

@@ -75,8 +75,7 @@ namespace SmartcatSupport\util\user {
         $agents = array();
 
         foreach( $users as $user ) {
-
-            if( $user->has_cap( 'edit_others_tickets' ) ) {
+            if( $user->has_cap( 'manage_support_tickets' ) ) {
                 $agents[ $user->ID ] = $user->display_name;
             }
         }
@@ -87,39 +86,33 @@ namespace SmartcatSupport\util\user {
     function roles() {
         return array(
             'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
-            'support_agent', __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
-            'support_user', __( 'Support User', \SmartcatSupport\PLUGIN_ID )
+            'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
+            'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID )
         );
     }
 
     function append_role_caps( \WP_Role $role ) {
         $role->add_cap( 'create_support_tickets' );
-        $role->add_cap( 'view_support_tickets' );
-        $role->add_cap( 'comment_on_support_tickets' );
         $role->add_cap( 'unfiltered_html' );
+        $role->add_cap( 'use_support' );
     }
 
     function remove_role_caps( \WP_Role $role ) {
         $role->remove_cap( 'create_support_tickets' );
-        $role->remove_cap( 'view_support_tickets' );
-        $role->remove_cap( 'comment_on_support_tickets' );
         $role->remove_cap( 'unfiltered_html' );
+        $role->remove_cap( 'use_support' );
     }
 
     function append_priv_role_caps( \WP_Role $role ) {
-        $role->add_cap( 'create_support_tickets' );
-        $role->add_cap( 'view_support_tickets' );
-        $role->add_cap( 'comment_on_support_tickets' );
-        $role->add_cap( 'unfiltered_html' );
+        append_role_caps( $role );
+
         $role->add_cap( 'manage_support_tickets' );
         $role->add_cap( 'edit_support_ticket_comments' );
     }
 
     function remove_priv_role_caps( \WP_Role $role ) {
-        $role->remove_cap( 'create_support_tickets' );
-        $role->remove_cap( 'view_support_tickets' );
-        $role->remove_cap( 'comment_on_support_tickets' );
-        $role->remove_cap( 'unfiltered_html' );
+        remove_role_caps( $role );
+
         $role->remove_cap( 'manage_support_tickets' );
         $role->remove_cap( 'edit_support_ticket_comments' );
     }

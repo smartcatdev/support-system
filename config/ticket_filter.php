@@ -26,7 +26,7 @@ if( $plugin->edd_active || $plugin->woo_active ) {
 
 }
 
-if( current_user_can( 'edit_others_tickets' ) ) {
+if( current_user_can( 'manage_support_tickets' ) ) {
 
     $form->add_field( new SelectBoxField(
         array(

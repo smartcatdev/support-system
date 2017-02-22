@@ -33,7 +33,7 @@ use SmartcatSupport\Plugin;
 
             <div class="btn-group comment-controls">
 
-                <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) ) : ?>
+                <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
 
                     <button class="btn btn-default icon-bin delete-comment"
                             data-id="<?php echo $comment->comment_ID; ?>"></button>

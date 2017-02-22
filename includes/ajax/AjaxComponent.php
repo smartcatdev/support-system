@@ -14,10 +14,14 @@ abstract class AjaxComponent extends AbstractComponent {
     }
 
     public function start() {
-        if( defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) ) {
+        if( wp_doing_ajax() && isset( $_REQUEST['action'] ) ) {
             array_filter( $this->hooks, function ( $hook ) {
 
                 if( strpos( $hook, $_REQUEST['action'] ) !== false ) {
+                    if( strpos( 'nopriv', $hook ) === false && !current_user_can( 'use_support' ) ) {
+                        wp_die( -1, 403 );
+                    }
+
                     $this->validate_request();
 
                     return;

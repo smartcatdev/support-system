@@ -5,9 +5,6 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\util\UserUtils;
 
 class TicketCPT extends AbstractComponent {
 
@@ -42,7 +39,7 @@ class TicketCPT extends AbstractComponent {
     public function register_cpt() {
         //<editor-fold desc="$args array">
         $labels = array(
-            'name'                  => _x( 'Support Ticket', 'Post Type General Name', \SmartcatSupport\PLUGIN_ID ),
+            'name'                  => _x( 'Support Tickets', 'Post Type General Name', \SmartcatSupport\PLUGIN_ID ),
             'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', \SmartcatSupport\PLUGIN_ID ),
             'menu_name'             => __( 'uCare Support', \SmartcatSupport\PLUGIN_ID ),
             'name_admin_bar'        => __( 'uCare Support', \SmartcatSupport\PLUGIN_ID ),
