@@ -12,7 +12,6 @@ class Comment extends AjaxComponent {
      * @since 1.0.0
      */
     public function update_comment() {
-        $this->validate_request();
         $comment = $this->get_comment( $_POST['comment_id'] );
 
         if( !empty( $comment ) ) {
@@ -46,7 +45,6 @@ class Comment extends AjaxComponent {
      * @since 1.0.0
      */
     public function delete_comment() {
-        $this->validate_request();
         $comment = $this->get_comment( $_REQUEST['comment_id'] );
 
         if( !empty( $comment ) ) {
@@ -67,10 +65,10 @@ class Comment extends AjaxComponent {
      * @since 1.0.0
      */
     public function subscribed_hooks() {
-        return array(
+        return parent::subscribed_hooks( array(
             'wp_ajax_support_update_comment' => array( 'update_comment' ),
-            'wp_ajax_support_delete_comment' => array( 'delete_comment' )
-        );
+            'wp_ajax_support_delete_comment' => array( 'delete_comment' ),
+        ) );
     }
 
     /**

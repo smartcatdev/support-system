@@ -14,7 +14,6 @@ class Registration extends AjaxComponent {
      * @since 1.0.0
      */
     public function register_user() {
-        $this->validate_request();
         $form = include $this->plugin->config_dir . '/registration_form.php';
 
         if( $form->is_valid() ) {
@@ -59,8 +58,8 @@ class Registration extends AjaxComponent {
      * @since 1.0.0
      */
     public function subscribed_hooks() {
-        return array(
+        return parent::subscribed_hooks( array(
             'wp_ajax_nopriv_support_register_user' => array( 'register_user' )
-        );
+        ) );
     }
 }

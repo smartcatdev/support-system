@@ -2,16 +2,10 @@
 
 namespace SmartcatSupport\ajax;
 
-use smartcat\form\SelectBoxField;
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\util\TicketUtils;
-use SmartcatSupport\util\UserUtils;
 
 class TicketTable extends AjaxComponent {
 
     public function list_tickets() {
-        $this->validate_request();
-
         $html = $this->render( $this->plugin->template_dir . '/ticket_table.php',
             array(
                 'headers' => $this->table_headers(),
@@ -23,7 +17,6 @@ class TicketTable extends AjaxComponent {
     }
 
     public function table_data( $col, $ticket ) {
-
         switch( $col ) {
             case 'id':
                 echo $ticket->ID;
@@ -89,7 +82,6 @@ class TicketTable extends AjaxComponent {
     }
 
     public function filter_tickets( $args ) {
-        $this->validate_request();
         $form = include $this->plugin->config_dir . '/ticket_filter.php';
 
         if( $form->is_valid() ) {
@@ -104,11 +96,11 @@ class TicketTable extends AjaxComponent {
     }
 
     public function subscribed_hooks() {
-        return array(
+        return parent::subscribed_hooks( array(
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
             'support_tickets_table_column_data' => array( 'table_data', 10, 2 ),
             'support_ticket_table_query_vars' => array( 'filter_tickets' )
-        );
+        ) );
     }
 
     private function get_tickets() {

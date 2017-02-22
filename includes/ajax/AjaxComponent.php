@@ -7,8 +7,30 @@ use smartcat\core\AbstractComponent;
 
 abstract class AjaxComponent extends AbstractComponent {
 
+    private $hooks;
+
     protected function validate_request () {
         check_ajax_referer( 'support_ajax' );
+    }
+
+    public function start() {
+        if( defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) ) {
+            array_filter( $this->hooks, function ( $hook ) {
+
+                if( strpos( $hook, $_REQUEST['action'] ) !== false ) {
+                    $this->validate_request();
+
+                    return;
+                }
+
+            } );
+        }
+    }
+
+    public function subscribed_hooks( $hooks = array () ) {
+        $this->hooks = array_keys( $hooks );
+
+        return $hooks;
     }
 
     protected function render( $template, array $data = array() ) {
@@ -18,6 +40,5 @@ abstract class AjaxComponent extends AbstractComponent {
         include( $template );
 
         return ob_get_clean();
-
     }
 }

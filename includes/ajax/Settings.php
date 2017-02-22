@@ -12,7 +12,6 @@ class Settings extends AjaxComponent {
      * @since 1.0.0
      */
     public function save_settings() {
-        $this->validate_request();
         $form = include $this->plugin->dir() . '/config/settings_form.php';
 
         if( $form->is_valid() ) {
@@ -46,8 +45,8 @@ class Settings extends AjaxComponent {
      * @since 1.0.0
      */
     public function subscribed_hooks() {
-        return array(
+        return parent::subscribed_hooks( array(
             'wp_ajax_support_save_settings' => array( 'save_settings' ),
-        );
+        ) );
     }
 }

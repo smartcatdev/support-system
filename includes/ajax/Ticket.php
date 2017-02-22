@@ -4,7 +4,6 @@ namespace SmartcatSupport\ajax;
 
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\util\TicketUtils;
 
 class Ticket extends AjaxComponent {
 
@@ -15,8 +14,6 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function create_ticket() {
-        $this->validate_request();
-
         if( current_user_can( 'create_support_tickets' ) ) {
 
             $form = include $this->plugin->config_dir . '/ticket_create_form.php';
@@ -58,7 +55,6 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function load_ticket() {
-        $this->validate_request();
         $ticket = $this->get_ticket( $_GET['id'] );
 
         if( !empty( $ticket ) ) {
@@ -92,8 +88,6 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function update_ticket_properties() {
-        $this->validate_request();
-
         if( current_user_can( 'edit_others_tickets' ) ) {
             $ticket = $this->get_ticket( $_POST['id'] );
 
@@ -126,8 +120,6 @@ class Ticket extends AjaxComponent {
     }
 
     public function toggle_flag() {
-        $this->validate_request();
-
         if( current_user_can( 'edit_others_tickets' ) ) {
             $flag = get_post_meta( $_POST['id'], 'flagged', true ) === 'on' ? '' : 'on';
 
@@ -143,7 +135,6 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function sidebar() {
-        $this->validate_request();
         $ticket = $this->get_ticket( $_GET['id'] );
 
         if( !empty( $ticket ) ) {
@@ -164,7 +155,6 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function list_comments() {
-        $this->validate_request();
         $ticket = $this->get_ticket( $_GET['id'] );
 
         if( !empty( $ticket ) ) {
@@ -189,7 +179,6 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function submit_comment() {
-        $this->validate_request();
         $ticket = $this->get_ticket( $_POST['id'] );
 
         if ( !empty( $ticket ) && !empty( $_POST['content'] ) ) {
@@ -283,7 +272,7 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function subscribed_hooks() {
-        return array(
+        return parent::subscribed_hooks( array(
             'wp_ajax_support_create_ticket' => array( 'create_ticket' ),
             'wp_ajax_support_load_ticket' => array( 'load_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
@@ -294,7 +283,7 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
 
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
-        );
+        ) );
     }
 
     /**
