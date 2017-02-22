@@ -397,14 +397,7 @@ table.collapsible tr {
     }
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
-.rotate {
-    animation: spin 2s linear infinite;
-}
 
 .trigger {
     cursor: pointer;
@@ -429,6 +422,15 @@ table.collapsible tr {
     #ticket_filter {
         text-align: right;
     }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotate {
+    animation: spin 2s linear infinite;
 }
 
 /*#support_tickets_table .actions i {

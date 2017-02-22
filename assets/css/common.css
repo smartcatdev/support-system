@@ -71,6 +71,25 @@ input[type="submit"]:focus{
     color: #fff;
 }
 
+@media( min-width: 767px ) {
+    #ticket_filter select {
+        width: 150px !important;
+    }
+
+    #ticket_filter {
+        text-align: right;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotate {
+    animation: spin 2s linear infinite;
+}
+
 .alignright{
     text-align: right;
 }
@@ -414,6 +433,15 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 
 .modal-spinner {
     background: none !important;
+}
+
+/* ## Ticket List */
+.ticket-list .ticket {
+    padding: 5px 15px;
+}
+
+.ticket-list .ticket-title {
+    margin: 5px 0;
 }
 
 /* ## Sidebar */
