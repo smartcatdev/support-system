@@ -5,6 +5,7 @@ namespace SmartcatSupport\component;
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use SmartcatSupport\admin\FormMetaBox;
+use SmartcatSupport\descriptor\Option;
 
 class TicketCPT extends AbstractComponent {
 
@@ -24,16 +25,20 @@ class TicketCPT extends AbstractComponent {
             )
         ) );
 
-        $this->plugin->add_api_subscriber( new FormMetaBox(
-            array(
-                'id'        => 'ticket_product_meta',
-                'title'     => __( 'Product Information', \SmartcatSupport\PLUGIN_ID ),
-                'post_type' => 'support_ticket',
-                'context'   => 'side',
-                'priority'  => 'high',
-                'config'    =>  $this->plugin->config_dir . '/product_metabox_form.php'
-            )
-        ) );
+        if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
+
+            $this->plugin->add_api_subscriber( new FormMetaBox(
+                array(
+                    'id'        => 'ticket_product_meta',
+                    'title'     => __( 'Product Information', \SmartcatSupport\PLUGIN_ID ),
+                    'post_type' => 'support_ticket',
+                    'context'   => 'side',
+                    'priority'  => 'high',
+                    'config'    => $this->plugin->config_dir . '/product_metabox_form.php'
+                )
+            ) );
+
+        }
     }
 
     public function register_cpt() {
@@ -105,7 +110,7 @@ class TicketCPT extends AbstractComponent {
     }
 
     public function quick_edit_save( $post_id ) {
-        if( defined( 'DOING_AJAX' ) ) {
+        if( wp_doing_ajax() ) {
             if( $this->quick_edit_form->is_valid() ) {
                 foreach( $this->quick_edit_form->data as $key => $value ) {
                     update_post_meta( $post_id, $key, $value );
@@ -163,7 +168,7 @@ class TicketCPT extends AbstractComponent {
 
         $left_cols = array_merge( array( 'id' => __( 'Case', \SmartcatSupport\PLUGIN_ID ) ), $left_cols );
 
-        if( $this->plugin->edd_active || $this->plugin->woo_active ) {
+        if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
             $left_cols['product'] = __( 'Product', \SmartcatSupport\PLUGIN_ID );
         }
 

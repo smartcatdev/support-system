@@ -33,28 +33,23 @@ namespace SmartcatSupport\util\ticket {
         $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
         $products = array();
 
-        if( $plugin->woo_active && get_option( Option::WOO_INTEGRATION ) == 'on' ) {
-            $args = array(
-                'post_type' => 'product',
-                'post_status' => 'publish',
-            );
+        if( get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ) ) {
+            $post_type = array();
 
-            $query = new \WP_Query( $args );
-
-            while( $query->have_posts() ) {
-                $products[ $query->post->ID ] = $query->post->post_title;
-
-                $query->next_post();
+            if ( $plugin->woo_active ) {
+                $post_type[] = 'product';
             }
-        }
 
-        if( $plugin->edd_active && get_option( Option::EDD_INTEGRATION ) == 'on' ) {
-            $args = array(
-                'post_type' => 'download',
-                'post_status' => 'publish',
+            if ( $plugin->edd_active ) {
+                $post_type[] = 'download';
+            }
+
+            $query = new \WP_Query(
+                array(
+                    'post_type'   => $post_type,
+                    'post_status' => 'publish'
+                )
             );
-
-            $query = new \WP_Query( $args );
 
             while( $query->have_posts() ) {
                 $products[ $query->post->ID ] = $query->post->post_title;
@@ -64,6 +59,19 @@ namespace SmartcatSupport\util\ticket {
         }
 
         return $products;
+    }
+
+    function ecommerce_enabled() {
+        $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
+        $enabled = false;
+
+        if( get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ) ) {
+            if( $plugin->woo_active || $plugin->edd_active ) {
+                $enabled = true;
+            }
+        }
+
+        return $enabled;
     }
 
 }

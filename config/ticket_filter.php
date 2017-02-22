@@ -10,7 +10,7 @@ $agents = \SmartcatSupport\util\user\list_agents();
 $statuses = \SmartcatSupport\util\ticket\statuses();
 $products = \SmartcatSupport\util\ticket\products();
 
-if( $plugin->edd_active || $plugin->woo_active ) {
+if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
 
     $form->add_field( new SelectBoxField(
         array(

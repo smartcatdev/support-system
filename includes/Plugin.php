@@ -14,8 +14,6 @@ use SmartcatSupport\component\Products;
 use SmartcatSupport\component\TicketCPT;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\util\TicketUtils;
-use SmartcatSupport\util\UserUtils;
 
 class Plugin extends AbstractPlugin implements HookSubscriber {
 

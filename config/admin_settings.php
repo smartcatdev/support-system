@@ -177,21 +177,11 @@ $general->add_field( new TextField(
 
 ) )->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_edd_integration',
-        'option'        => Option::EDD_INTEGRATION,
-        'value'         => get_option( Option::EDD_INTEGRATION, Option\Defaults::EDD_INTEGRATION ),
-        'label'         => __( 'Easy Digital Downloads', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Enable integration with Easy Digital Downloads', \SmartcatSupport\PLUGIN_ID ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
-) )->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_woo_integration',
-        'option'        => Option::WOO_INTEGRATION,
-        'value'         => get_option( Option::WOO_INTEGRATION, Option\Defaults::WOO_INTEGRATION ),
-        'label'         => __( 'WooCommerce', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Enable integration with WooCommerce', \SmartcatSupport\PLUGIN_ID ),
+        'id'            => 'support_ecommerce_integration',
+        'option'        => Option::ECOMMERCE_INTEGRATION,
+        'value'         => get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ),
+        'label'         => __( 'E-Commerce Integration', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Enable integration with Easy Digital Downloads or WooCommerce', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 

@@ -13,7 +13,7 @@ $products = array_merge( array( 0 => __( 'Select a Product', \SmartcatSupport\PL
 
 $form = new Form( 'create_ticket' );
 
-if( !empty( $products ) ) {
+if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
 
     $form->add_field( new SelectBoxField(
         array(

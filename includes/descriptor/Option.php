@@ -99,12 +99,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = 'smartcat_support_edd-integration';
-
-    /**
-     * @since 1.0.0
-     */
-    const WOO_INTEGRATION = 'smartcat_support_woo-integration';
+    const ECOMMERCE_INTEGRATION = 'smartcat_support_ecommerce-integration';
 
     /**
      * @since 1.0.0

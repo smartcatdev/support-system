@@ -128,7 +128,7 @@ class TicketTable extends AjaxComponent {
             'date'      => __( 'Date', \SmartcatSupport\PLUGIN_ID )
         );
 
-        if( $this->plugin->edd_active || $this->plugin->woo_active ) {
+        if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
             $headers['product'] = __( 'Product', \SmartcatSupport\PLUGIN_ID );
         }
 

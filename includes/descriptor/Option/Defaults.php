@@ -79,12 +79,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = '';
-
-    /**
-     * @since 1.0.0
-     */
-    const WOO_INTEGRATION = '';
+    const ECOMMERCE_INTEGRATION = '';
 
     /**
      * @since 1.0.0
