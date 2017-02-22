@@ -152,7 +152,12 @@ final class Option {
     const TERTIARY_COLOR = 'smartcat_support_tertiary-color';
 
     /**
+ * @since 1.0.0
+ */
+    const HOVER_COLOR = 'smartcat_support_hover-color';
+
+    /**
      * @since 1.0.0
      */
-    const HOVER_COLOR = 'smartcat_support_hover-color';
+    const MAX_TICKETS = 'smartcat_support_max-tickets-per-page';
 }

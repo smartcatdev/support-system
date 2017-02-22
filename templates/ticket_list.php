@@ -21,7 +21,13 @@
 
             <?php for( $ctr = 0; $ctr < $query->max_num_pages; $ctr++ ): ?>
 
-                <li><a class="page" href="#" data-id="<?php echo $ctr + 1; ?>"><?php echo $ctr + 1; ?></a></li>
+                <?php $page = $ctr + 1; ?>
+
+                <li class="<?php echo ( $query->query['paged'] == $page ? 'active' : '' ); ?>">
+
+                    <a class="page" href="#" data-id="<?php echo $page; ?>"><?php echo $page; ?></a>
+
+                </li>
 
             <?php endfor; ?>
 

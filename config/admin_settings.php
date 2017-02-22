@@ -1,6 +1,7 @@
 <?php
 
 use smartcat\admin\CheckBoxField;
+use smartcat\admin\IntegerValidator;
 use smartcat\admin\MatchFilter;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
@@ -185,6 +186,16 @@ $general->add_field( new TextField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_empty_table_msg',
+        'type'          => 'number',
+        'option'        => Option::MAX_TICKETS,
+        'value'         => get_option( Option::MAX_TICKETS, Option\Defaults::MAX_TICKETS ),
+        'label'         => __( 'Tickets Per Page', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'The maximum number of tickets to be loaded per page', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new IntegerValidator() )
+    )
 ) );
 
 $emails = new SettingsSection( 'email_templates', __( 'Email Templates', \SmartcatSupport\PLUGIN_ID ) );

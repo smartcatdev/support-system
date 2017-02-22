@@ -120,4 +120,9 @@ final class Defaults {
      * @since 1.0.0
      */
     const HOVER_COLOR = '#48c9b0';
+
+    /**
+     * @since 1.0.0
+     */
+    const MAX_TICKETS = 20;
 }
