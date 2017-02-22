@@ -2,6 +2,7 @@
 
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
+use SmartcatSupport\form\SearchBox;
 use SmartcatSupport\Plugin;
 
 $form = new Form( 'ticket_filter' );
@@ -50,6 +51,19 @@ $form->add_field( new SelectBoxField(
         ),
         'class'   => array( 'filter-field', 'form-control' ),
         'options' => array_merge( array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ), $statuses )
+    )
+
+) );
+
+$form->add_field( new SearchBox(
+    array(
+        'id'      => 'search',
+        'name'    => 'search',
+        'props'   => array(
+            'data-default' => array( '' ),
+            'placeholder' => array( 'Search' )
+        ),
+        'class'   => array( 'filter-field', 'form-control' )
     )
 
 ) );

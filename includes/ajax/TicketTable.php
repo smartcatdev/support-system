@@ -95,6 +95,11 @@ class TicketTable extends AjaxComponent {
         $form = include $this->plugin->config_dir . '/ticket_filter.php';
 
         if( $form->is_valid() ) {
+
+            $args['s'] = $form->data['search'];
+
+            unset( $form->data['search'] );
+
             foreach( $form->data as $name => $value ) {
                 if( !empty( $value ) ) {
                     $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
