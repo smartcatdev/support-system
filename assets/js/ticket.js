@@ -54,6 +54,8 @@ var Ticket = (function ($) {
                     App.new_tab(data);
                     load_sidebar(data.id);
                     load_comments(data.id);
+                },
+                complete: function () {
                     target.prop("disabled", false);
                 }
             });

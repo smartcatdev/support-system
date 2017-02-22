@@ -13,8 +13,14 @@ var App = (function ($) {
         $(document).on("click", "#filter-toggle", _toggle_filter);
         $(document).on("click", "#refresh-tickets", load_tickets);
         $(document).on("click", ".registration-toggle", _toggle_registration);
+        $(document).on("click", ".page", _page);
         $(document).on("submit", "#registration-form", _register_user);
         $(document).on("change", ".filter-field", _filter_off);
+    };
+
+    var _page = function (e) {
+        sessionStorage.setItem("page", $(e.target).data("id"));
+        load_tickets();
     };
 
     var _close_tab = function (e) {
@@ -39,7 +45,7 @@ var App = (function ($) {
                     "</li>");
         var panel = $("<div id=\"" + data.id + "\" class=\"tab-pane fade\">" + data.content + "</div>");
 
-        _tabs.find("ul").append(li);
+        _tabs.find(".nav").append(li);
         _tabs.find(".tab-content").append(panel);
 
         li.find("a").tab("show");
@@ -61,13 +67,18 @@ var App = (function ($) {
 
     var load_tickets = function () {
         var refresh = $("#refresh-tickets").find(".refresh");
+        var page = sessionStorage.getItem("page");
         var request = {
             url: Globals.ajax_url + "?action=support_list_tickets",
             dataType: "json",
             data: [{
                 name: "_ajax_nonce",
                 value: Globals.ajax_nonce
-            }],
+            },
+                {
+                    name: "page",
+                    value: page === undefined ? 1 : page
+                }],
             success: _init_list,
             complete: function () {
                 refresh.removeClass("rotate");

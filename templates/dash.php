@@ -119,7 +119,7 @@ use SmartcatSupport\Plugin;
 
                         <?php include_once 'ticket_filter.php'; ?>
 
-                        <div id="tickets-container"></div>
+                        <div id="tickets-container" class="row"></div>
 
                     </div>
 

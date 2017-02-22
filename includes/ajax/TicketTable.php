@@ -5,11 +5,21 @@ namespace SmartcatSupport\ajax;
 
 class TicketTable extends AjaxComponent {
 
+//    public function list_tickets() {
+//        $html = $this->render( $this->plugin->template_dir . '/ticket_table.php',
+//            array(
+//                'headers' => $this->table_headers(),
+//                'data' => $this->get_tickets()
+//            )
+//        );
+//
+//        wp_send_json_success( $html );
+//    }
+
     public function list_tickets() {
-        $html = $this->render( $this->plugin->template_dir . '/ticket_table.php',
+        $html = $this->render( $this->plugin->template_dir . '/ticket_list.php',
             array(
-                'headers' => $this->table_headers(),
-                'data' => $this->get_tickets()
+                'query' => $this->get_tickets()
             )
         );
 
@@ -107,16 +117,19 @@ class TicketTable extends AjaxComponent {
         $args = array(
             'post_type' => 'support_ticket',
             'post_status' => 'publish',
-            'posts_per_page' => -1
+            'posts_per_page' => 5,
+            'paged' => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
         );
 
         if( !current_user_can( 'edit_others_tickets' ) ) {
             $args['author'] = wp_get_current_user()->ID;
         }
 
-        $query = new \WP_Query( apply_filters( 'support_ticket_table_query_vars', $args ) );
+//        $query = new \WP_Query( apply_filters( 'support_ticket_table_query_vars', $args ) );
 
-        return $query->posts;
+//        return $query->posts;
+
+        return new \WP_Query( apply_filters( 'support_ticket_table_query_vars', $args ) );
     }
 
     private function table_headers() {
