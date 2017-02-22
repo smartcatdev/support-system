@@ -14,9 +14,14 @@ var App = (function ($) {
         $(document).on("click", "#refresh-tickets", load_tickets);
         $(document).on("click", ".registration-toggle", _toggle_registration);
         $(document).on("click", ".page", _page);
+        $(document).on("keyup", "#search", _search);
         $(document).on("submit", "#registration-form", _register_user);
         $(document).on("change", ".filter-field", _filter_off);
     };
+
+    var _search = _.debounce(function (){
+        load_tickets();
+    }, 250);
 
     var _page = function (e) {
         sessionStorage.setItem("page", $(e.target).data("id"));
@@ -74,11 +79,13 @@ var App = (function ($) {
             data: [{
                 name: "_ajax_nonce",
                 value: Globals.ajax_nonce
-            },
-                {
-                    name: "page",
-                    value: page === undefined ? 1 : page
-                }],
+            }, {
+                name: "page",
+                value: page === undefined ? "1" : page
+            }, {
+                name: "search",
+                value: $("#search").val()
+            }],
             success: _init_list,
             complete: function () {
                 refresh.removeClass("rotate");
