@@ -14,7 +14,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
             <button type="button" id="show-filters" class="btn btn-default">
 
-                <span style="line-height: 20px" class="indicator"></span>
+                <span style="line-height: 20px" class="indicator glyphicon glyphicon-chevron-down"></span>
 
             </button>
 
@@ -62,7 +62,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         <div class="row">
 
-            <form id="ticket_filter form-horizontal">
+            <form id="ticket_filter" class="form-horizontal">
 
                 <?php foreach ( $form->fields as $name => $field ) : ?>
 

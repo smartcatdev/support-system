@@ -87,8 +87,6 @@ use SmartcatSupport\descriptor\Option;
 
             <div class="text-right">
 
-
-
                 <div class="clear"></div>
 
             </div>

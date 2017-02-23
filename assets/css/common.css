@@ -482,6 +482,8 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 
 /* ## Sidebar */
 
+
+
 /* ## Ticket List */
 #tickets-container {
     padding-top: 10px;
@@ -503,15 +505,22 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
     color: #ff0000;
 }
 
-#show-filters .indicator:after {
-    font-family: 'Glyphicons Halflings';
-    content: '\e602';
+.first-create-ticket {
+    width: 100%;
+    margin-top: 200px;
 }
 
-#show-filters .indicator.active:after {
-    font-family: 'Glyphicons Halflings';
-    content: '\e601';
+.first-create-ticket .button {
+    height: 80px;
+    width: 190px;
+    font-size: 16px;
 }
+
+.first-create-ticket .button .glyphicon {
+    padding: 5px;
+}
+
+
 
 /* ## Ticket */
 .ticket .media-right {

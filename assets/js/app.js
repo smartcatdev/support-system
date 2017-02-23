@@ -19,7 +19,7 @@ var App = (function ($) {
         $(document).on("change", ".filter-field", _filter_off);
     };
 
-    var _search = _.debounce(function (){
+    var _search = _.debounce(function () {
         load_tickets();
     }, 250);
 
@@ -95,10 +95,9 @@ var App = (function ($) {
         };
 
         if (_filter_toggle.hasClass("active")) {
-            request.data = request.data.concat(_filter.serializeArray());
+            request.data = $.merge(request.data, _filter.serializeArray());
         }
 
-        request.data.push();
         refresh.addClass("rotate");
         $.ajax(request);
     };

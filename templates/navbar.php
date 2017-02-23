@@ -41,7 +41,7 @@ $user = wp_get_current_user();
 
                 <div class="row-table pull-right">
 
-                    <?php if (current_user_can('create_support_tickets')) : ?>
+                    <?php if ( current_user_can('create_support_tickets') ) : ?>
 
                         <div class="row-table-cell">
 
@@ -49,7 +49,7 @@ $user = wp_get_current_user();
 
                                 <span class="glyphicon glyphicon-plus-sign"></span>
 
-                                <?php _e(get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID); ?>
+                                <?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID ); ?>
 
                             </button>
 
