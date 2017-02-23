@@ -22,7 +22,6 @@ Description: Styles for frontend application
 }
 
 body{
-    /*font-family: 'Open Sans', sans-serif !important;*/
     font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -69,6 +68,10 @@ input[type="submit"]:focus{
 .trigger {
     background: #8B8C8C;
     color: #fff;
+}
+
+.row {
+    padding: 20px;
 }
 
 @media( min-width: 767px ) {
@@ -213,7 +216,6 @@ input[type="submit"]:focus{
 }
 
 #support-dashboard-page {
-    background: #e9f0f9;
     padding: 20px 0;
 }
 
@@ -436,6 +438,10 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 }
 
 /* ## Ticket List */
+.ticket-list {
+    padding: 0;
+}
+
 .ticket-list .ticket {
     padding: 5px 15px;
 }
@@ -444,12 +450,19 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
     margin: 5px 0;
 }
 
-/* ## Sidebar */
-@media(min-width: 768px) {
-    .sidebar {
-        height: 100% !important;
-    }
+.filter-controls {
+    margin: 0;
+    padding: 0;
+    width: auto;
 }
+
+/* ## Sidebar */
+
+/* ## Ticket */
+.ticket .media-right {
+    vertical-align: middle;
+}
+
 
 /**
 ## Comment
@@ -471,10 +484,4 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 
 .editor textarea {
     width: 100%;
-}
-
-@media(min-width: 766px) {
-    .comment-reply-wrapper {
-        float: right !important;
-    }
 }

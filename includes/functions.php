@@ -1,5 +1,13 @@
 <?php
 
+namespace  SmartcatSupport\util {
+
+    function get( $return, $default ) {
+        return empty( $return ) ? $default : $return;
+    }
+
+}
+
 namespace SmartcatSupport\util\ticket {
 
     use SmartcatSupport\descriptor\Option;

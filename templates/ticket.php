@@ -1,17 +1,14 @@
 <?php
 
-use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\util\TicketUtils;
 
 ?>
 
 <div class="row">
 
-    <div class="sidebar col-sm-4"></div>
+    <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
 
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-sm-pull-4">
 
         <div class="ticket panel panel-default ">
 
@@ -31,10 +28,9 @@ use SmartcatSupport\util\TicketUtils;
 
     </div>
 
-    <div class="comments col-sm-8"></div>
+    <div class="comments col-sm-8 col-sm-pull-4"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
 
-
-    <div class="col-sm-8 comment-reply-wrapper">
+    <div class="col-sm-8 col-sm-pull-4 comment-reply-wrapper">
 
         <div class="comment-reply panel panel-default ">
 

@@ -55,17 +55,17 @@ $form->add_field( new SelectBoxField(
 
 ) );
 
-$form->add_field( new SearchBox(
-    array(
-        'id'      => 'search',
-        'name'    => 'search',
-        'props'   => array(
-            'data-default' => array( '' ),
-            'placeholder' => array( 'Search' )
-        ),
-        'class'   => array( 'filter-field', 'form-control' )
-    )
-
-) );
+//$form->add_field( new SearchBox(
+//    array(
+//        'id'      => 'search',
+//        'name'    => 'search',
+//        'props'   => array(
+//            'data-default' => array( '' ),
+//            'placeholder' => array( 'Search' )
+//        ),
+//        'class'   => array( 'filter-field', 'form-control' )
+//    )
+//
+//) );
 
 return $form;

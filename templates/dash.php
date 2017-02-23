@@ -1,10 +1,9 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-
 
 ?>
+
 <div id="support-dashboard-page">
 
     <div id="settings-modal" class="modal fade">
@@ -82,7 +81,7 @@ use SmartcatSupport\Plugin;
 
     </div>
     
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
 
@@ -119,7 +118,11 @@ use SmartcatSupport\Plugin;
 
                         <?php include_once 'ticket_filter.php'; ?>
 
-                        <div id="tickets-container" class="row"></div>
+                        <div id="tickets-container" class="row">
+
+                            <p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p>
+
+                        </div>
 
                     </div>
 

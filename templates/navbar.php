@@ -1,26 +1,44 @@
 <?php
+
 $user = wp_get_current_user();
+
 ?>
 <div id="navbar" class="background-secondary">
-    <div class="container">
+
+    <div class="container-fluid">
+
         <div class="row">
+
             <?php if ( !empty( $user ) ) : ?>
-                <div class="col-sm-6 alignleft row-table left-header">
+
+                <div class="row-table pull-left">
+
                     <div class="row-table-cell">
 
                         <a href="#date" class="background-secondary hover menu-item">
+
                             <span class="glyphicon-calendar glyphicon"></span>
-                            <?php echo current_time( 'M d' ); ?>
+
+                            <?php echo date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) ); ?>
+
                         </a>
-                        <a>|</a>
+
+                        <span class="text-muted">|</span>
+
                         <a href="#time" class="background-secondary hover menu-item">
+
                             <span class="glyphicon-time glyphicon"></span>
-                            <span class="current-time"><?php echo current_time( 'H:i a' ); ?></span>
+
+                            <span id="time"></span>
+
                         </a>
 
                     </div>
+
                 </div>
-                <div class="col-sm-6 alignright row-table right-header">
+
+                <div class="row-table pull-right">
+
                     <div class="row-table-cell">
                         
                         <div class="dropdown-wrapper">
@@ -31,8 +49,11 @@ $user = wp_get_current_user();
                                role="button" 
                                aria-haspopup="true" 
                                aria-expanded="false">
+
                                 <?php echo get_avatar( $user->ID, 46 ); ?>
+
                                 <?php echo $user->user_firstname; ?> <span class="caret"></span>
+
                             </a>
                             
                             <ul class="dropdown-menu">
@@ -42,6 +63,7 @@ $user = wp_get_current_user();
                                     <a href="#" data-toggle="modal" data-target="#settings-modal">
 
                                         <span class="glyphicon glyphicon-cog"></span>
+
                                         <?php _e( 'Settings', \SmartcatSupport\PLUGIN_ID ); ?>
 
                                     </a>
@@ -52,17 +74,27 @@ $user = wp_get_current_user();
 
                                 <li>
                                     <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">
+
                                         <span class="glyphicon-log-out glyphicon"></span>
+
                                         <?php _e( 'Logout', \SmartcatSupport\PLUGIN_ID ); ?>
-                                    </a>    
+
+                                    </a>
+
                                 </li>
+
                             </ul>
 
                         </div>
 
                     </div>
+
                 </div>
+
             <?php endif; ?>
+
         </div>
+
     </div>
+
 </div>

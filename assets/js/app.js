@@ -167,6 +167,11 @@ var App = (function ($) {
         $("#register").toggle();
     };
 
+    var _time = function () {
+        var time = $("#time");
+
+    };
+
     var initialize = function () {
         _tabs = $("#tabs");
         _filter = $("#ticket_filter");
@@ -176,6 +181,7 @@ var App = (function ($) {
 
         $(".login-submit").prepend($("#show-registration")).addClass("text-center");
 
+        _time();
         _bind_events();
         load_tickets();
         setInterval(load_tickets, 1000 * 60);
