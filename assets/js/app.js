@@ -145,7 +145,7 @@ var App = (function ($) {
     };
 
     var _toggle_filter_display = function (e) {
-        $("#filters").toggle();
+        $("#filters").slideToggle();
     };
 
     var _toggle_registration = function () {

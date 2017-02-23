@@ -23,6 +23,14 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
         background: <?php echo $primary_color; ?>;
     }
 
+    #filter-toggle .toggle-label:after {
+        content: "<?php _e( 'Apply', \SmartcatSupport\PLUGIN_ID ); ?>";
+    }
+
+    #filter-toggle.active .toggle-label:after {
+        content: "<?php _e( 'Applied', \SmartcatSupport\PLUGIN_ID ); ?>";
+    }
+
     #support-login-wrapper input[type="text"]:focus,
     #support-login-wrapper input[type="email"]:focus,
     #support-login-wrapper input[type="password"]:focus{
@@ -39,7 +47,7 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
     }
 
     /* Hover color */
-    a:focus,a:hover{
+    a:focus, a:hover{
         color: <?php echo $hover_color; ?>;
     }
 

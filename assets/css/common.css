@@ -74,15 +74,15 @@ input[type="submit"]:focus{
     padding: 20px;
 }
 
-@media( min-width: 767px ) {
-    #ticket_filter select {
-        width: 150px !important;
-    }
+/*@media( min-width: 767px ) {*/
+    /*#ticket_filter select {*/
+        /*width: 150px !important;*/
+    /*}*/
 
-    #ticket_filter {
-        text-align: right;
-    }
-}
+    /*#ticket_filter {*/
+        /*text-align: right;*/
+    /*}*/
+/*}*/
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
