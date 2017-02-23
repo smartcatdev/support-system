@@ -6,54 +6,61 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
 ?>
 
+<div id="filter-controls" class="row">
 
-    <div class="row-fluid">
+    <div class="row-table">
 
-            <div class="col-xs-10">
+    <div class="row-table-cell additional-filters">
 
-                 <div class="search input-group">
+            <button type="button" class="btn btn-default">
 
-                    <input id="#search"
-                           name="search"
-                           data-default=""
-                           placeholder="<?php _e( 'Search', \SmartcatSupport\PLUGIN_ID ); ?>"
-                           class="form-control filter-field" />
+                <span style="line-height: 20px" class=" filter glyphicon glyphicon-chevron-down"></span>
 
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+            </button>
 
-                </div>
+        </div>
 
-            </div>
+        <div class="row-table-cell search">
 
-                <div class="col-xs-2">
+            <div class="search input-group">
 
+                <input id="search"
+                       name="search"
+                       data-default=""
+                       placeholder="<?php _e('Search', \SmartcatSupport\PLUGIN_ID); ?>"
+                       class="form-control filter-field"/>
 
-
-                <div class="filter-controls btn-group input-group">
-
-                    <button type="button" class="btn btn-default" id="filter-toggle">
-
-                        <span style="line-height: 20px"
-                              class=" filter glyphicon glyphicon-filter"></span>
-
-                    </button>
-
-                    <button type="button" class="btn btn-default" id="refresh-tickets">
-
-                        <span style="line-height: 20px"
-                              class="refresh glyphicon glyphicon-refresh"></span>
-
-                    </button>
-
-                </div>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
 
             </div>
 
+        </div>
 
+        <div class="row-table-cell pull-right">
 
-    <div class="col-sm-12">
+            <div class="filter-controls btn-group input-group">
 
-    <form id="ticket_filter" class="form-inline">
+                <button type="button" class="btn btn-default" id="filter-toggle">
+
+                    <span style="line-height: 20px" class=" filter glyphicon glyphicon-filter"></span>
+
+                </button>
+
+                <button type="button" class="btn btn-default" id="refresh-tickets">
+
+                    <span style="line-height: 20px" class="refresh glyphicon glyphicon-refresh"></span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xs-12">
+
+        <form id="ticket_filter" class="form-inline hidden  ">
 
         <?php foreach ( $form->fields as $name => $field ) : ?>
 
@@ -67,11 +74,8 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         <input type="hidden" name="<?php echo $form->id; ?>"/>
 
-        <?php do_action( 'support_tickets_table_filters' ); ?>
-
-
-
     </form>
 
+    </div>
 
 </div>

@@ -10,40 +10,52 @@
 
                 <div class="media">
 
-                <div class="media-body">
+                    <div class="media-body">
 
-                    <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>"><h4 class="ticket-title"><?php echo $post->post_title; ?></h4></a>
-                    <p class="text-muted"># <?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?></p>
+                        <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>"><h4 class="ticket-title"><?php echo $post->post_title; ?></h4></a>
+                        <p class="text-muted"># <?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?></p>
+
+                    </div>
+
+                    <div class="media-right">
+
+                        <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
+
+                            <span class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
+
+                        <?php endif; ?>
+
+                    </div>
 
                 </div>
 
-                <div class="media-right">
-
-                    <span class="glyphicon glyphicon-flag pull-right"></span>
-
-                </div>
-                </div>
             </div>
 
         <?php endforeach; ?>
 
-        <div class="bottom text-right">
-            <ul class="pagination">
+        <?php if( !empty( $query->posts ) ) : ?>
 
-                <?php for( $ctr = 0; $ctr < $query->max_num_pages; $ctr++ ): ?>
+            <div class="list-group-item bottom text-right">
 
-                    <?php $page = $ctr + 1; ?>
+                <ul class="pagination">
 
-                    <li class="<?php echo ( $query->query['paged'] == $page ? 'active' : '' ); ?>">
+                    <?php for( $ctr = 0; $ctr < $query->max_num_pages; $ctr++ ): ?>
 
-                        <a class="page" href="#" data-id="<?php echo $page; ?>"><?php echo $page; ?></a>
+                        <?php $page = $ctr + 1; ?>
 
-                    </li>
+                        <li class="<?php echo ( $query->query['paged'] == $page ? 'active' : '' ); ?>">
 
-                <?php endfor; ?>
+                            <a class="page" href="#" data-id="<?php echo $page; ?>"><?php echo $page; ?></a>
 
-            </ul>
-        </div>
+                        </li>
+
+                    <?php endfor; ?>
+
+                </ul>
+
+            </div>
+
+        <?php endif; ?>
 
     </div>
 

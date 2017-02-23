@@ -6,7 +6,6 @@ var App = (function ($) {
     var _filter_toggle;
     var _filter_fields;
     var _tickets_container;
-    var _list;
 
     var _bind_events = function () {
         $(document).on("click", ".close-tab", _close_tab);
@@ -86,7 +85,9 @@ var App = (function ($) {
                 name: "search",
                 value: $("#search").val()
             }],
-            success: _init_list,
+            success: function (response) {
+                _tickets_container.html(response.data);
+            },
             complete: function () {
                 refresh.removeClass("rotate");
             }
@@ -99,25 +100,6 @@ var App = (function ($) {
         request.data.push();
         refresh.addClass("rotate");
         $.ajax(request);
-    };
-
-    var _init_list = function (data) {
-        _tickets_container.html(data.data);
-
-        _list = $("#tickets-list");
-
-        var cols = [];
-
-        _list.find("th").each(function (index, element) {
-            cols.push({
-                data: $(element).data("column_name")
-            });
-        });
-
-        _list.dataTable({
-            columns: cols,
-            saveState: true
-        });
     };
 
     var _register_user = function (e) {

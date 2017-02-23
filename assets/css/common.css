@@ -98,13 +98,14 @@ input[type="submit"]:focus{
 }
 
 
-.row-table{
+.row-table {
     display: table;
 }
 
 .row-table-cell {
     display: table-cell;
     vertical-align: middle;
+    width: auto;
 }
 
 /*
@@ -456,7 +457,41 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
     width: auto;
 }
 
+#filter-controls .row-table {
+    width: 100%;
+}
+
+.search {
+    max-width: 400px;
+}
+
+.additional-filters {
+    width: 30px;
+    padding-right: 10px;
+}
+
 /* ## Sidebar */
+
+/* ## Ticket List */
+#tickets-container {
+    padding-top: 10px;
+}
+
+#tickets-container .pagination {
+    margin: 0;
+}
+
+#tickets-container .pagination a {
+    cursor: pointer;
+}
+
+.ticket .flagged {
+    cursor: pointer;
+}
+
+.ticket .flagged.active {
+    color: #ff0000;
+}
 
 /* ## Ticket */
 .ticket .media-right {
