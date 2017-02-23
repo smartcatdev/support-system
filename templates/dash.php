@@ -87,16 +87,7 @@ use SmartcatSupport\descriptor\Option;
 
             <div class="text-right">
 
-                <?php if ( current_user_can( 'create_support_tickets' ) ) : ?>
 
-                    <button class="button button-primary" data-toggle="modal" data-target="#create-modal">
-
-                        <span class="glyphicon glyphicon-plus-sign"></span>
-                        <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
-
-                    </button>
-
-                <?php endif; ?>
 
                 <div class="clear"></div>
 

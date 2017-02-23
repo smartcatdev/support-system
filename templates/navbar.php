@@ -1,5 +1,7 @@
 <?php
 
+use SmartcatSupport\descriptor\Option;
+
 $user = wp_get_current_user();
 
 ?>
@@ -39,6 +41,22 @@ $user = wp_get_current_user();
 
                 <div class="row-table pull-right">
 
+                    <?php if (current_user_can('create_support_tickets')) : ?>
+
+                        <div class="row-table-cell">
+
+                            <button class="button button-primary" data-toggle="modal" data-target="#create-modal">
+
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+
+                                <?php _e(get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID); ?>
+
+                            </button>
+
+                        </div>
+
+                    <?php endif; ?>
+
                     <div class="row-table-cell">
                         
                         <div class="dropdown-wrapper">
@@ -52,7 +70,7 @@ $user = wp_get_current_user();
 
                                 <?php echo get_avatar( $user->ID, 46 ); ?>
 
-                                <?php echo $user->user_firstname; ?> <span class="caret"></span>
+                                <?php echo $user->user_firstname ?> <span class="caret"></span>
 
                             </a>
                             

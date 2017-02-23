@@ -170,19 +170,19 @@ input[type="submit"]:focus{
 /* 
 ## Navbar 
 */
-#navbar{
+#navbar {
     margin-bottom: 0;
 }
 
-#navbar .row-table-cell{ 
+#navbar .row-table-cell {
     height: 50px; 
 }
 
-#navbar .dropdown-wrapper{
+#navbar .dropdown-wrapper {
     position: relative;
 }
 
-#navbar ul.dropdown-menu{
+#navbar ul.dropdown-menu {
     right: 0;
     left: auto;
     max-width: 200px;
@@ -201,7 +201,17 @@ input[type="submit"]:focus{
     margin-right: 5px;
 }
 
-#navbar .right-header img {
+#navbar img {
+    border-radius: 2px;
+}
+
+#navbar .button {
+    line-height: 26px;
+    margin: 0 20px;
+}
+
+#navbar .button span {
+    padding-right: 4px;
 }
 
 /**
@@ -491,6 +501,16 @@ table.dataTable.display .status-wrapper:hover .status-tooltip {
 
 .ticket .flagged.active {
     color: #ff0000;
+}
+
+#show-filters .indicator:after {
+    font-family: 'Glyphicons Halflings';
+    content: '\e602';
+}
+
+#show-filters .indicator.active:after {
+    font-family: 'Glyphicons Halflings';
+    content: '\e601';
 }
 
 /* ## Ticket */

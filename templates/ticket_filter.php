@@ -12,9 +12,9 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
     <div class="row-table-cell additional-filters">
 
-            <button type="button" class="btn btn-default">
+            <button type="button" id="show-filters" class="btn btn-default">
 
-                <span style="line-height: 20px" class=" filter glyphicon glyphicon-chevron-down"></span>
+                <span style="line-height: 20px" class="indicator"></span>
 
             </button>
 
@@ -58,23 +58,39 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
     </div>
 
-    <div class="col-xs-12">
+    <div id="filters">
 
-        <form id="ticket_filter" class="form-inline hidden  ">
+        <div class="row">
 
-        <?php foreach ( $form->fields as $name => $field ) : ?>
+            <form id="ticket_filter form-horizontal">
 
-            <div class="form-group">
+                <?php foreach ( $form->fields as $name => $field ) : ?>
 
-                <?php $field->render(); ?>
+                    <div class="form-group">
 
-            </div>
+                        <div class="col-sm-2">
 
-        <?php endforeach; ?>
+                            <label class="control-label" for="<?php echo $field->id; ?>"><?php echo $field->label; ?></label>
 
-        <input type="hidden" name="<?php echo $form->id; ?>"/>
+                        </div>
 
-    </form>
+                        <div class="col-sm-4">
+
+                            <?php $field->render(); ?>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+                <input type="hidden" name="<?php echo $form->id; ?>"/>
+
+            </form>
+
+        </div>
 
     </div>
 

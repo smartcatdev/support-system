@@ -10,6 +10,7 @@ var App = (function ($) {
     var _bind_events = function () {
         $(document).on("click", ".close-tab", _close_tab);
         $(document).on("click", "#filter-toggle", _toggle_filter);
+        $(document).on("click", "#show-filters", _toggle_filter_display);
         $(document).on("click", "#refresh-tickets", load_tickets);
         $(document).on("click", ".registration-toggle", _toggle_registration);
         $(document).on("click", ".page", _page);
@@ -142,6 +143,10 @@ var App = (function ($) {
         }
 
         load_tickets();
+    };
+
+    var _toggle_filter_display = function (e) {
+        $("#filters").toggle();
     };
 
     var _toggle_registration = function () {
