@@ -62,7 +62,10 @@ var Ticket = (function ($) {
                     target.prop("disabled", false);
 
                     setTimeout(function () {
-                        $("#" + id).find(".ticket-detail").fadeToggle();
+                        var ticket = $("#" + id);
+
+                        ticket.find(".ticket-detail").fadeToggle();
+                        ticket.find(".loader-mask").hide();
                     }, 2000);
                 }
             });
