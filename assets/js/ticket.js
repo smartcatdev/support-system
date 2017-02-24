@@ -173,6 +173,7 @@ var Ticket = (function ($) {
         e.preventDefault();
 
         var form = $(e.target);
+        var comments = form.parents(".discussion-area").find(".comments");
         var content = form.find(".editor-content");
         var submit_button = form.find(".button-submit");
         var data = form.serializeArray();
@@ -189,7 +190,7 @@ var Ticket = (function ($) {
                 var comment = $(response.data);
 
                 comment.hide();
-                form.parents().find(".comments").append(comment);
+                comments.append(comment);
                 comment.fadeToggle();
                 content.val("");
 

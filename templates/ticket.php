@@ -9,7 +9,7 @@ use SmartcatSupport\descriptor\Option;
 
     <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
 
-    <div class="col-sm-8 col-sm-pull-4">
+    <div class="discussion-area col-sm-8 col-sm-pull-4">
 
         <div class="ticket panel panel-default ">
 
