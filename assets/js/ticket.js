@@ -38,7 +38,7 @@ var Ticket = (function ($) {
     var _open_ticket = function (e) {
         var target = $(e.target);
         var id = target.data("id");
-console.log(id);
+
         if (!App.open_tab(id)) {
             target.prop("disabled", true);
 
@@ -52,11 +52,18 @@ console.log(id);
                 },
                 success: function (data) {
                     App.new_tab(data);
+
+                    $("#" + id).find(".loader-mask").html(App.ajax_loader(Globals.strings.loading_generic));
+
                     load_sidebar(data.id);
                     load_comments(data.id);
                 },
                 complete: function () {
                     target.prop("disabled", false);
+
+                    setTimeout(function () {
+                        $("#" + id).find(".ticket-detail").fadeToggle();
+                    }, 2000);
                 }
             });
         }

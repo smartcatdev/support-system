@@ -374,7 +374,9 @@ button span {
 }
 
 /* ## Sidebar */
-
+.panel-group .panel+.panel {
+    margin-top: 15px !important;
+}
 
 
 /* ## Ticket List */

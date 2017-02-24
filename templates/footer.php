@@ -28,25 +28,12 @@ use SmartcatSupport\descriptor\Option;
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
                 strings: {
                     loading_tickets: "Loading Tickets...",
-                    loading_generic: "Loading.."
+                    loading_generic: "Loading..."
                 }
             };
 
         </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-        <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
-        <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ); ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/datatables/datatables.min.js' ?>" ></script>
-
-
-        <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
 
         <script type="text/template" class="ajax-loader-mask">
 
@@ -75,6 +62,21 @@ use SmartcatSupport\descriptor\Option;
             </div>
 
         </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+        <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
+        <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ); ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/datatables/datatables.min.js' ?>" ></script>
+
+
+        <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
+
 
     </body>
 

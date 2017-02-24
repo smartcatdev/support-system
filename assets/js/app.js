@@ -7,7 +7,7 @@ var App = (function ($) {
     var _filter_fields;
     var _tickets_container;
 
-    var _ajax_loader;
+    var ajax_loader = _.template($("script.ajax-loader-mask").html());
 
     var _bind_events = function () {
         $(document).on("click", ".close-tab", _close_tab);
@@ -176,8 +176,8 @@ var App = (function ($) {
         _filter_fields = _filter.find(".filter-field");
         _tickets_container = $("#tickets-container");
 
-        _ajax_loader = _.template($("script.ajax-loader-mask").html());
-        _tickets_container.html(_ajax_loader(Globals.strings.loading_tickets));
+        ajax_loader = _.template($("script.ajax-loader-mask").html());
+        _tickets_container.html(ajax_loader(Globals.strings.loading_tickets));
 
         $(".login-submit").prepend($("#show-registration")).addClass("text-center");
 
@@ -191,7 +191,8 @@ var App = (function ($) {
         load_tickets: load_tickets,
         initialize: initialize,
         new_tab: new_tab,
-        open_tab: open_tab
+        open_tab: open_tab,
+        ajax_loader: ajax_loader
     };
 
 })(jQuery);

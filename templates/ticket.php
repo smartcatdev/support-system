@@ -3,8 +3,9 @@
 use SmartcatSupport\descriptor\Option;
 
 ?>
+<div class="loader-mask"></div>
 
-<div class="row ticket-detail">
+<div class="row ticket-detail" style="display: none">
 
     <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
 
