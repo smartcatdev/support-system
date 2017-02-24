@@ -64,23 +64,19 @@ use SmartcatSupport\Plugin;
 
                 <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                <div class="row">
+                <div class="bottom text-right">
 
-                    <div class="bottom col-sm-12">
+                    <button type="button" class="button cancel-edit-comment">
 
-                        <button type="button" class="button cancel-edit-comment">
+                        <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
-                            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+                    </button>
 
-                        </button>
+                    <button type="submit" class="button save-comment button-submit">
 
-                        <button type="submit" class="button save-comment button-submit">
+                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
-                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
-
-                        </button>
-
-                    </div>
+                    </button>
 
                 </div>
 
