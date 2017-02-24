@@ -4,6 +4,8 @@ use SmartcatSupport\descriptor\Option;
 
 ?>
 
+
+
 <div id="support-dashboard-page">
 
     <div id="settings-modal" class="modal fade">
@@ -129,9 +131,9 @@ use SmartcatSupport\descriptor\Option;
 
                                 </div>
 
-                            </div>
+                                <p class="text-center"><?php _e( 'Loading Tickets...', \SmartcatSupport\PLUGIN_ID ); ?></p>
 
-<!--                            <p class="text-center">--><?php //_e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?><!--</p>-->
+                            </div>
 
                         </div>
 

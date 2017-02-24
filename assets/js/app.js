@@ -88,9 +88,11 @@ var App = (function ($) {
             }],
             success: function (response) {
                 _tickets_container.html(response.data);
+
             },
             complete: function () {
                 refresh.removeClass("rotate");
+                _tickets_container.fadeToggle();
             }
         };
 
@@ -98,6 +100,7 @@ var App = (function ($) {
             request.data = $.merge(request.data, _filter.serializeArray());
         }
 
+        _tickets_container.fadeToggle();
         refresh.addClass("rotate");
         $.ajax(request);
     };
@@ -170,8 +173,8 @@ var App = (function ($) {
 
         _time();
         _bind_events();
-        //load_tickets();
-        //setInterval(load_tickets, 1000 * 60);
+        load_tickets();
+        setInterval(load_tickets, 1000 * 60);
     };
 
     return {

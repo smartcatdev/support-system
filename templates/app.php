@@ -14,8 +14,10 @@
 
     <?php endif; ?>
 
-    <?php include_once 'navbar.php'; ?>
-    <?php include_once 'dash.php'; ?>
+    <div id="page-container">
+
+        <?php include_once 'navbar.php'; ?>
+        <?php include_once 'dash.php'; ?>
 
 <?php else : ?>
 
@@ -23,4 +25,6 @@
 
 <?php endif; ?>
 
-<?php include_once 'footer.php'; ?>
+    <?php include_once 'footer.php'; ?>
+
+</div>
