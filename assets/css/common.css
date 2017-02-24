@@ -398,6 +398,12 @@ button span {
     color: #ff0000;
 }
 
+.ticket-title {
+    pointer-events: none;
+}
+
+
+
 .first-create-ticket {
     width: 100%;
 }

@@ -58,8 +58,8 @@ var App = (function ($) {
         li.find("a").tab("show");
     };
 
-    var open_tab = function (tab) {
-        var tab = _find_tab(tab);
+    var open_tab = function (id) {
+        var tab = _find_tab(id);
 
         if (tab.length > 0) {
             tab.find("a").tab("show");
@@ -69,7 +69,9 @@ var App = (function ($) {
     };
 
     var _find_tab = function (id) {
-        return $("li.tab").filter("[data-id=\"" + id + "\"]");
+        return $("li.tab").filter(function () {
+            return $(this).data("id") === id;
+        });
     };
 
     var load_tickets = function () {
@@ -175,8 +177,7 @@ var App = (function ($) {
         _tickets_container = $("#tickets-container");
 
         _ajax_loader = _.template($("script.ajax-loader-mask").html());
-
-        _tickets_container.html(_ajax_loader("Loading Tickets..."));
+        _tickets_container.html(_ajax_loader(Globals.strings.loading_tickets));
 
         $(".login-submit").prepend($("#show-registration")).addClass("text-center");
 

@@ -25,7 +25,11 @@ use SmartcatSupport\descriptor\Option;
 
             var Globals = {
                 ajax_url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
-                ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>"
+                ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
+                strings: {
+                    loading_tickets: "Loading Tickets...",
+                    loading_generic: "Loading.."
+                }
             };
 
         </script>

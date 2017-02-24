@@ -38,7 +38,7 @@ var Ticket = (function ($) {
     var _open_ticket = function (e) {
         var target = $(e.target);
         var id = target.data("id");
-
+console.log(id);
         if (!App.open_tab(id)) {
             target.prop("disabled", true);
 

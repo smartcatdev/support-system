@@ -44,7 +44,6 @@ use SmartcatSupport\descriptor\Option;
 
     </div>
 
-
     <div id="create-modal" class="modal fade">
 
         <div class="modal-dialog">
@@ -107,11 +106,7 @@ use SmartcatSupport\descriptor\Option;
 
                         <?php include_once 'ticket_filter.php'; ?>
 
-                        <div id="tickets-container" class="row">
-
-
-
-                        </div>
+                        <div id="tickets-container" class="row"></div>
 
                     </div>
 
