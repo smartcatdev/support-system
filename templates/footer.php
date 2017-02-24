@@ -26,5 +26,23 @@ use SmartcatSupport\descriptor\Option;
     <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
     <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
     <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
+
+
+    <?php if( get_option( Option::SHOW_FOOTER, Option\Defaults::SHOW_FOOTER ) == 'on' ) : ?>
+
+        <footer class="footer navbar-fixed-bottom">
+
+            <div class="container">
+
+                <hr>
+
+                <p class="footer-text text-center"><?php echo get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?></p>
+
+            </div>
+
+        </footer>
+
+    <?php endif; ?>
+
     </body>
 </html>

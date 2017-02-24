@@ -160,4 +160,14 @@ final class Option {
      * @since 1.0.0
      */
     const MAX_TICKETS = 'smartcat_support_max-tickets-per-page';
+
+    /**
+     * @since 1.0.0
+     */
+    const SHOW_FOOTER = 'smartcat_support_display-footer';
+
+    /**
+     * @since 1.0.0
+     */
+    const FOOTER_TEXT = 'smartcat_support_footer-text';
 }

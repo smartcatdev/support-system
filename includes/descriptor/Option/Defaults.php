@@ -125,4 +125,14 @@ final class Defaults {
      * @since 1.0.0
      */
     const MAX_TICKETS = 20;
+
+    /**
+     * @since 1.0.0
+     */
+    const SHOW_FOOTER = 'on';
+
+    /**
+     * @since 1.0.0
+     */
+    const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
 }

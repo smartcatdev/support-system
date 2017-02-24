@@ -14,9 +14,9 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
             <button type="button" id="show-filters" class="btn btn-default">
 
-                <span style="line-height: 20px" class="indicator glyphicon glyphicon-chevron-down"></span>
+                    <span class="animation-rotate-flip-180 indicator glyphicon glyphicon-chevron-up"></span>
 
-                <span><?php _e( 'Filter By', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                <?php _e( 'Filter By', \SmartcatSupport\PLUGIN_ID ); ?>
 
             </button>
 
@@ -44,7 +44,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
                 <button type="button" class="btn btn-default" id="filter-toggle">
 
-                    <span class="filter glyphicon glyphicon-filter"></span>
+                    <span style="line-height: 20px" class="filter glyphicon glyphicon-filter"></span>
 
                     <span class="toggle-label"></span>
 
@@ -53,7 +53,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
                 <button type="button" class="btn btn-default" id="refresh-tickets">
 
-                    <span style="line-height: 20px" class="refresh glyphicon glyphicon-refresh"></span>
+                    <span style="line-height: 22px" class="refresh glyphicon glyphicon-refresh"></span>
 
                 </button>
 

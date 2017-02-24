@@ -16,6 +16,6 @@ $url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
         <link href="<?php echo $url . 'assets/icons.css' ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/datatables/datatables.min.css' ?>" rel="stylesheet"/>
 
-        <?php include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/assets/css/configurable.php'; ?>
+        <?php include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/assets/css/dynamic_styles.php'; ?>
     </head>
     <body>
