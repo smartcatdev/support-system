@@ -1,34 +1,60 @@
 var Comment = (function ($) {
 
+    var _warning = _.template($("script.notice-comment-deleted").html());
+
     var _bind_events = function () {
         $(window.document).on("click", ".delete-comment", _delete_comment);
         $(window.document).on("click", ".edit-comment", _toggle_editor);
         $(window.document).on("click", ".cancel-edit-comment", _toggle_editor);
+        $(window.document).on("click", ".undo-delete-comment", _undo_delete);
         $(window.document).on("submit", ".edit-comment-form", _save_comment);
         $(window.document).on("keyup", ".edit-comment-form", _empty_save_disable);
         $(window.document).on("keyup", ".comment-form", _empty_save_disable);
     };
 
+    var _undo_delete = function (e) {
+        var target = $(e.target).parents(".alert").hide();
+
+        target.parents(".wrapper")
+            .find(".comment")
+            .data("delete", false)
+            .fadeToggle()
+            .find(".delete-comment")
+            .prop("disabled", false);
+    };
+
     var _delete_comment = function (e) {
-        var target = $(e.target);
+        var target = $(e.target).prop("disabled", true);
         var id = target.data("id");
+        var comment = $("#comment-" + id);
 
-        target.prop("disabled", true);
-
-        $.ajax({
-            url: Globals.ajax_url,
-            dataType: "json",
-            data: {
-                action: "support_delete_comment",
-                comment_id: id,
-                _ajax_nonce: Globals.ajax_nonce
-            },
-            success: function (response) {
-                if (response.success) {
-                    target.parents("#comment-" + id).remove();
-                }
-            }
+        comment.fadeToggle("slow", function () {
+            comment.parents(".wrapper").append(_warning());
         });
+
+        comment.data("delete", true);
+
+        setTimeout(function () {
+
+            if (comment.data("delete")) {
+                $.ajax({
+                    url: Globals.ajax_url,
+                    dataType: "json",
+                    data: {
+                        action: "support_delete_comment",
+                        comment_id: id,
+                        _ajax_nonce: Globals.ajax_nonce
+                    },
+                    success: function (response) {
+                        comment.parents(".wrapper").fadeToggle("slow", function () {
+                            $(this).remove();
+                        });
+                    }
+                });
+            }
+
+        }, 1000 * 15);
+
     };
 
     var _save_comment = function (e) {

@@ -186,8 +186,13 @@ var Ticket = (function ($) {
             method: "post",
             data: data,
             success: function (response) {
-                form.parents().find(".comments").append(response.data);
+                var comment = $(response.data);
+
+                comment.hide();
+                form.parents().find(".comments").append(comment);
+                comment.fadeToggle();
                 content.val("");
+
                 load_sidebar(response.ticket);
             },
             complete: function () {
@@ -205,7 +210,7 @@ var Ticket = (function ($) {
 
                 if (!isNaN(id)) {
                     load_sidebar(id);
-                    load_comments(id);
+                    //load_comments(id);
                 }
             });
         }, 1000 * 30);
