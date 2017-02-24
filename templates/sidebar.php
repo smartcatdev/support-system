@@ -106,17 +106,13 @@ $status = get_post_meta( $ticket->ID, 'status', true );
                         <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>"/>
                         <input type="hidden" name="<?php echo $form->id; ?>"/>
 
-                        <div class="row">
+                        <div class="bottom text-right">
 
-                            <div class="bottom col-sm-12">
+                            <button type="submit" class="button button-submit">
 
-                                <button type="submit" class="button button-submit">
+                                <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
-                                    <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
-
-                                </button>
-
-                            </div>
+                            </button>
 
                         </div>
 

@@ -61,17 +61,14 @@ use SmartcatSupport\descriptor\Option;
 
                         <?php wp_comment_form_unfiltered_html_nonce(); ?>
 
-                        <div class="row">
 
-                            <div class="bottom col-sm-12">
+                        <div class="bottom text-right">
 
-                                <button type="submit" class="button button-submit" disabled="true">
+                            <button type="submit" class="button button-submit" disabled="true">
 
-                                    <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+                                <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
 
-                                </button>
-
-                            </div>
+                            </button>
 
                         </div>
 
