@@ -72,6 +72,7 @@ var App = (function ($) {
 
     var load_tickets = function () {
         var refresh = $("#refresh-tickets").find(".refresh");
+        var filter_controls = $("#filter-controls");
         var page = sessionStorage.getItem("page");
         var request = {
             url: Globals.ajax_url + "?action=support_list_tickets",
@@ -89,10 +90,13 @@ var App = (function ($) {
             success: function (response) {
                 _tickets_container.html(response.data);
 
+                if (filter_controls.css("display") === "none") {
+                    filter_controls.slideToggle();
+                }
             },
             complete: function () {
                 refresh.removeClass("rotate");
-                _tickets_container.fadeToggle();
+                _tickets_container.slideToggle();
             }
         };
 
@@ -100,7 +104,7 @@ var App = (function ($) {
             request.data = $.merge(request.data, _filter.serializeArray());
         }
 
-        _tickets_container.fadeToggle();
+        _tickets_container.slideToggle();
         refresh.addClass("rotate");
         $.ajax(request);
     };

@@ -6,7 +6,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
 ?>
 
-<div id="filter-controls" class="row">
+<div id="filter-controls" class="row" style="display: none">
 
     <div class="row-table">
 
