@@ -39,7 +39,7 @@ use SmartcatSupport\descriptor\Option;
                         <div class="media-body">
 
                             <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>"><h4 class="ticket-title"><?php echo $post->post_title; ?></h4></a>
-                            <p class="text-muted"># <?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?></p>
+                            <p class="text-muted">#<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?></p>
 
                         </div>
 

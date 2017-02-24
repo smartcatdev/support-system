@@ -70,6 +70,10 @@ input[type="submit"]:focus{
     color: #fff;
 }
 
+button span {
+    pointer-events: none;
+}
+
 .row {
     padding: 20px;
 }
@@ -111,10 +115,57 @@ input[type="submit"]:focus{
     width: auto;
 }
 
-.ajax-loading {
-    background: #000;
-    width: 100%;
+@keyframes animation-pulse {
+    0% { opacity: 1 }
+    25% { opacity: 0 }
+    50% { opacity: 0 }
+    75% { opacity: 0 }
+    100% { opacity: 1 }
 }
+
+@keyframes animation-bounce {
+    0% { transform: translateY(0px); }
+    25% { transform: translateY(-15px); }
+    50% { transform: translateY(-15px); }
+    75% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+
+.ajax-loader {
+    width: 100%;
+    text-align: center;
+}
+
+.ajax-loader .dot-container {
+    display: inline-block;
+    width: 100px;
+}
+
+.ajax-loader .dot {
+    border-radius: 4px;
+    height: 60px;
+    margin: 50px auto;
+    width: 60px;
+    opacity: 1;
+}
+
+.dot-1 {
+    background: #60D4C8;
+    animation: animation-pulse 1.4s linear 200ms infinite, animation-bounce 1.4s ease 200ms infinite;
+}
+
+.dot-2 {
+    background: #46BAAF;
+    animation: animation-pulse 1.4s linear 400ms infinite, animation-bounce 1.4s ease 400ms infinite;
+}
+
+.dot-3 {
+    background: #3EA69B;
+    animation: animation-pulse 1.4s linear 600ms infinite, animation-bounce 1.4s ease 600ms infinite;
+}
+
+
 
 /* ## footer */
 .footer-text {
@@ -351,13 +402,19 @@ input[type="submit"]:focus{
 /* ## Filter */
 #show-filters .indicator {
     line-height: 20px;
-    transform: rotate(180deg);
     padding: 0 2px;
+    transform: rotate(180deg);
 }
 
 #show-filters .indicator.down {
     transform: none;
 }
+
+.toggle-label {
+    vertical-align: text-bottom;
+}
+
+
 
 
 /* ## Ticket */

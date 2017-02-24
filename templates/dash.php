@@ -109,7 +109,29 @@ use SmartcatSupport\descriptor\Option;
 
                         <div id="tickets-container" class="row">
 
-                            <p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p>
+                            <div class="ajax-loader">
+
+                                <div class="dot-container">
+
+                                  <div class="dot dot-1"></div>
+
+                                </div>
+
+                                <div class="dot-container">
+
+                                    <div class="dot dot-2"></div>
+
+                                </div>
+
+                                <div class="dot-container">
+
+                                    <div class="dot dot-3"></div>
+
+                                </div>
+
+                            </div>
+
+<!--                            <p class="text-center">--><?php //_e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?><!--</p>-->
 
                         </div>
 

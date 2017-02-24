@@ -170,8 +170,8 @@ var App = (function ($) {
 
         _time();
         _bind_events();
-        load_tickets();
-        setInterval(load_tickets, 1000 * 60);
+        //load_tickets();
+        //setInterval(load_tickets, 1000 * 60);
     };
 
     return {

@@ -24,7 +24,7 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
     }
 
     #filter-toggle .toggle-label:after {
-        content: "<?php _e( 'Apply Filter', \SmartcatSupport\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Apply Filters', \SmartcatSupport\PLUGIN_ID ); ?>";
     }
 
     #filter-toggle.active .toggle-label:after {
