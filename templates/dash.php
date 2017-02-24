@@ -4,8 +4,6 @@ use SmartcatSupport\descriptor\Option;
 
 ?>
 
-
-
 <div id="support-dashboard-page">
 
     <div id="settings-modal" class="modal fade">
@@ -111,29 +109,7 @@ use SmartcatSupport\descriptor\Option;
 
                         <div id="tickets-container" class="row">
 
-                            <div class="ajax-loader">
 
-                                <div class="dot-container">
-
-                                  <div class="dot dot-1"></div>
-
-                                </div>
-
-                                <div class="dot-container">
-
-                                    <div class="dot dot-2"></div>
-
-                                </div>
-
-                                <div class="dot-container">
-
-                                    <div class="dot dot-3"></div>
-
-                                </div>
-
-                                <p class="text-center"><?php _e( 'Loading Tickets...', \SmartcatSupport\PLUGIN_ID ); ?></p>
-
-                            </div>
 
                         </div>
 

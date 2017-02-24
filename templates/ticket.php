@@ -4,7 +4,7 @@ use SmartcatSupport\descriptor\Option;
 
 ?>
 
-<div class="row ticket-detail hidden">
+<div class="row ticket-detail ">
 
     <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
 

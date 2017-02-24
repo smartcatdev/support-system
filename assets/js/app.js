@@ -7,6 +7,8 @@ var App = (function ($) {
     var _filter_fields;
     var _tickets_container;
 
+    var _ajax_loader;
+
     var _bind_events = function () {
         $(document).on("click", ".close-tab", _close_tab);
         $(document).on("click", "#filter-toggle", _toggle_filter);
@@ -92,11 +94,11 @@ var App = (function ($) {
 
                 if (filter_controls.css("display") === "none") {
                     filter_controls.slideToggle();
+                    _tickets_container.hide().fadeToggle();
                 }
             },
             complete: function () {
                 refresh.removeClass("rotate");
-                _tickets_container.slideToggle();
             }
         };
 
@@ -104,7 +106,6 @@ var App = (function ($) {
             request.data = $.merge(request.data, _filter.serializeArray());
         }
 
-        _tickets_container.slideToggle();
         refresh.addClass("rotate");
         $.ajax(request);
     };
@@ -172,6 +173,10 @@ var App = (function ($) {
         _filter_toggle = $("#filter-toggle");
         _filter_fields = _filter.find(".filter-field");
         _tickets_container = $("#tickets-container");
+
+        _ajax_loader = _.template($("script.ajax-loader-mask").html());
+
+        _tickets_container.html(_ajax_loader("Loading Tickets..."));
 
         $(".login-submit").prepend($("#show-registration")).addClass("text-center");
 
