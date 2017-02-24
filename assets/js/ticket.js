@@ -153,7 +153,7 @@ var Ticket = (function ($) {
         var pane = $("#" + id);
         var comments = pane.find(".comments");
 
-        if (comments.find(".editor.active").length === 0) {
+        if (comments.find(".editor.active").length === 0 && comments.find(".alert").length === 0) {
             $.ajax({
                 url: Globals.ajax_url,
                 dataType: "json",
@@ -205,16 +205,20 @@ var Ticket = (function ($) {
     var initialize = function () {
         _bind_events();
 
-        setInterval(function () {
-            $("div.tab-pane").each(function (index, element) {
-                var id = $(element).attr("id");
+        var looper = function(callback) {
+            return function () {
+                $("div.tab-pane").each(function (index, element) {
+                    var id = $(element).attr("id");
 
-                if (!isNaN(id)) {
-                    load_sidebar(id);
-                    //load_comments(id);
-                }
-            });
-        }, 1000 * 30);
+                    if (!isNaN(id)) {
+                        callback(id);
+                    }
+                });
+            };
+        };
+
+        setInterval(looper(load_comments), 1000 * 15);
+        setInterval(looper(load_sidebar), 1000 * 30);
     };
 
     return {

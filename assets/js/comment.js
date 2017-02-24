@@ -13,6 +13,8 @@ var Comment = (function ($) {
     };
 
     var _undo_delete = function (e) {
+        e.preventDefault();
+
         var target = $(e.target).parents(".alert").hide();
 
         target.parents(".wrapper")
