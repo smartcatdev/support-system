@@ -71,8 +71,8 @@ var Comment = (function ($) {
 
         if (editor.hasClass("active")) {
             editor.removeClass("active");
-            editor.find(".button-submit").prop("disabled", false);
             comment.find(".comment-content").show();
+            editor.find(".button-submit").prop("disabled", false);
             comment.find(".comment-controls").show();
         } else {
             comment.find(".comment-controls").hide();

@@ -301,12 +301,16 @@ button span {
 ## Main
 */
 
-.nav-tabs .tab {
-    width: 150px;
+.nav-tabs .tab .title {
+    display: inline-block;
+    width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
-.nav-tabs .tab .close {
-    margin-left: 20px;
+.nav-tabs .close {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 #support-dashboard-page {
