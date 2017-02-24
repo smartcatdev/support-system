@@ -27,7 +27,7 @@ use SmartcatSupport\descriptor\Option;
 
         </div>
 
-        <div class="comments"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
+        <div class="comments"></div>
 
         <div class="comment-reply-wrapper">
 
