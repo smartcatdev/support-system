@@ -21,10 +21,12 @@ var Ticket = (function ($) {
                 _ajax_nonce: Globals.ajax_nonce
             },
             success: function (response) {
-                $("#create-modal").modal('toggle');
+                $("#create-modal").modal("toggle");
 
                 form.find(".form-control").each(function (index, element) {
-                    $(element).val("");
+                    var field = $(element);
+
+                    field.val(field.data("default"));
                 });
 
                 App.load_tickets();
@@ -66,6 +68,7 @@ var Ticket = (function ($) {
 
                         ticket.find(".ticket-detail").fadeToggle();
                         ticket.find(".loader-mask").hide();
+
                     }, 1000);
                 }
             });
@@ -89,12 +92,9 @@ var Ticket = (function ($) {
               _ajax_nonce: Globals.ajax_nonce
             },
             success: function (response) {
-                var message = $("<div style=\"border-radius: 0; margin: 0\" class=\"alert alert-success fade in\">" +
-                                    "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>" +
-                                    response.data +
-                                "</div>");
+                var message = _.template($("script.notice-inline").html());
 
-                sidebar.find(".message").html(message);
+                sidebar.find(".message").html(message(response.data));
                 sidebar.removeClass("saving");
 
                 load_sidebar(response.ticket_id);

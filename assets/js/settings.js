@@ -7,21 +7,22 @@ var Settings = (function ($) {
     };
 
     var _validate_password = function (e) {
-        var confirm_password = $(e.target);
-        var new_password = $("#new-password");
         var submit = $("#save-settings");
-        var group = confirm_password.parents(".form-group");
+        var confirm = $(e.target);
+        var group = confirm.parents(".form-group");
 
-        group.removeClass("has-error has-success");
-        group.find(".form-control-feedback").remove();
         submit.prop("disabled", false);
 
-        if (new_password.val() !== confirm_password.val()) {
+        group.removeClass("has-error has-success")
+            .find(".form-control-feedback")
+            .remove();
+
+        if (confirm.val() !== $("#new-password").val()) {
             group.addClass("has-error");
-            group.append("<span class=\"glyphicon glyphicon-remove form-control-feedback\"></span>");
+            group.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
             submit.prop("disabled", true);
         } else {
-            group.append("<span class=\"glyphicon glyphicon-ok form-control-feedback\"></span>");
+            group.append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
             group.addClass("has-success");
         }
     };
@@ -41,19 +42,14 @@ var Settings = (function ($) {
                 _ajax_nonce: Globals.ajax_nonce
             },
             success: function (response) {
-                var new_password = $("#new-password");
-                var confirm_password = $("#confirm-password");
-                var container = confirm_password.parents(".form-group");
-                var message = $("<div style=\"border-radius: 0\" class=\"alert alert-success fade in\">" +
-                                    "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>" +
-                                    response.data +
-                                "</div>");
+                var message = _.template($("script.notice-inline").html());
 
-               new_password.val("");
-               confirm_password.val("");
-               container.find(".form-control-feedback").remove();
-               container.removeClass("has-success");
-               modal.find(".message").html(message);
+                $("#new-password").val("");
+                $("#confirm-password").val("");
+
+                settings.find(".form-control-feedback").remove();
+                settings.find(".has-success").remove();
+                modal.find(".message").html(message(response.data));
             },
             complete: function () {
                 submit.prop("disabled", false);

@@ -72,6 +72,16 @@ use SmartcatSupport\descriptor\Option;
 
         </script>
 
+        <script type="text/template" class="notice-inline">
+
+            <div style="border-radius: 0; margin: 0" class="alert alert-success fade in">
+
+                <a href="#" class="close" data-dismiss="alert">×</a><%= obj %>
+
+            </div>
+
+        </script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>

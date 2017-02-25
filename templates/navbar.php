@@ -11,8 +11,6 @@ $user = wp_get_current_user();
 
         <div class="row">
 
-            <?php if ( !empty( $user ) ) : ?>
-
                 <div class="row-table pull-left">
 
                     <div class="row-table-cell">
@@ -109,7 +107,6 @@ $user = wp_get_current_user();
 
                 </div>
 
-            <?php endif; ?>
 
         </div>
 
