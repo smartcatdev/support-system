@@ -50,27 +50,19 @@ use SmartcatSupport\Plugin;
 
                         <input type="hidden" name="<?php echo $form->id; ?>" />
 
-                        <div class="row">
+                        <div class="text-center registration-submit">
 
-                            <div class="col-sm-12">
+                            <button type="button" class="button button-primary registration-toggle">
 
-                                <p class="registration-submit text-center">
+                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
 
-                                    <button type="button" class="button button-primary registration-toggle">
+                            </button>
 
-                                        <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
+                            <button id="registration-submit" type="submit" class="button button-primary">
 
-                                    </button>
+                                <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
 
-                                    <button id="registration-submit" type="submit" class="button button-primary">
-
-                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
-
-                                    </button>
-
-                                </p>
-
-                            </div>
+                            </button>
 
                         </div>
 

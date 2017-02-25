@@ -176,7 +176,7 @@ button > * {
 }
 
 /* ## Login ****************************************************************************/
-#support-login-page{
+#support-login-page {
     background-image: url('https://cdn.desk.com/assets/login-bkg-a3243b2940db100097dcfff095bc9675.jpg');
     width: 100%;
     height: 100%;
@@ -193,15 +193,46 @@ button > * {
     position: relative;
 }
 
-#support-login-form{
+#support-login-form {
     padding: 20px;
     background: #fff;
     border-radius: 3px;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.1),0 2px 4px 0 rgba(0,0,0,0.05);
-    margin-bottom: 20px;
 }
 
-#support-login-form img.logo{
+#loginform {
+    margin-bottom: -10px;
+}
+
+#login p {
+    margin-bottom: 15px !important;
+}
+
+#login input[type="text"],
+#login input[type="password"] {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#support-login-form .login-submit .button,
+#support-login-form .registration-submit .button {
+    width: 46%;
+    display: inline;
+    margin-top: 20px;
+}
+
+#support-login-form img.logo {
 
     max-width: 125px;
     display: block;
@@ -220,11 +251,6 @@ button > * {
 #support-login-wrapper .button-primary {
     text-transform: uppercase;
     width: 100%;
-    display: block;
-}
-
-#support-login-wrapper th,
-#support-login-wrapper td {
     display: block;
 }
 
