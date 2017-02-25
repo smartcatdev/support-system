@@ -1,22 +1,23 @@
-/* 
-Created on : 30-Nov-2016, 6:38:28 PM
-Author     : bilal
-Description: Styles for frontend application
-
-
-## General
-## Login page
-## Navbar
-## Sidebar
-## Main
-## Datatable
-## Modal
-*/
-
 /*
-## General
+
+# General
+    ## Animations
+    ## Widgets
+
+# Layout
+    ## Login
+    ## Nav
+    ## Body
+        ### Tabs
+        ### Ticket List
+        ### Ticket
+            #### Sidebar
+            #### Comments
+    ## Footer
+
 */
 
+/* # General **************************************************************************/
 * {
     outline: none !important;
 }
@@ -44,22 +45,9 @@ a:visited{
     text-decoration: none;
 }
 
-#page-container {
-    min-height: 100%;
-    position: relative;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 80px;
-}
-
+.button,
 .button-primary,
-.trigger,
-input[type="submit"],
-.button{
+input[type="submit"] {
     text-shadow: none;
     outline: none;
     padding: 10px 25px;
@@ -72,59 +60,19 @@ input[type="submit"],
 .button-primary:hover,
 .button-primary:focus,
 input[type="submit"]:hover,
-input[type="submit"]:focus{
+input[type="submit"]:focus {
     color: #fff;
     text-decoration: none;
 }
 
-.trigger {
-    background: #8B8C8C;
-    color: #fff;
-}
-
-button span {
+button > * {
     pointer-events: none;
 }
 
-.row {
-    padding: 20px;
-}
-
+/* ## Animations ***********************************************************************/
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.rotate {
-    animation: spin 2s linear infinite;
-}
-
-.animation-rotate-flip-180 {
-    transition: all 300ms linear;
-}
-
-.animation-rotate-flip-180.down {
-    transform:rotate(180deg);
-}
-
-.animation-grow-width {
-    transition: width 2s linear 1s;
-}
-
-
-.row-table {
-    display: table;
-}
-
-.row-table-cell {
-    display: table-cell;
-    vertical-align: middle;
-    width: auto;
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes animation-pulse {
@@ -143,7 +91,23 @@ button span {
     100% { transform: translateY(0px); }
 }
 
+.rotate {
+    animation: spin 2s linear infinite;
+}
 
+.animation-rotate-flip-180 {
+    transition: all 300ms linear;
+}
+
+.animation-rotate-flip-180.down {
+    transform:rotate(180deg);
+}
+
+.animation-grow-width {
+    transition: width 2s linear 1s;
+}
+
+/* ## Widgets **************************************************************************/
 .ajax-loader {
     width: 100%;
     text-align: center;
@@ -168,31 +132,50 @@ button span {
 
 .dot-1 {
     background: #60D4C8;
-    animation: animation-pulse 1.4s linear 200ms infinite, animation-bounce 1.4s ease 200ms infinite;
+    animation: animation-pulse 1.4s linear 200ms infinite,
+                animation-bounce 1.4s ease 200ms infinite;
 }
 
 .dot-2 {
     background: #46BAAF;
-    animation: animation-pulse 1.4s linear 400ms infinite, animation-bounce 1.4s ease 400ms infinite;
+    animation: animation-pulse 1.4s linear 400ms infinite,
+                animation-bounce 1.4s ease 400ms infinite;
 }
 
 .dot-3 {
     background: #3EA69B;
-    animation: animation-pulse 1.4s linear 600ms infinite, animation-bounce 1.4s ease 600ms infinite;
+    animation: animation-pulse 1.4s linear 600ms infinite,
+                animation-bounce 1.4s ease 600ms infinite;
 }
 
-
-/* ## footer */
-.footer-text {
-    padding-bottom: 20px;
-    font-size: 12px;
-    color: #c9c9c9;
+/* # Layout ***************************************************************************/
+#page-container {
+    min-height: 100%;
+    position: relative;
 }
 
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+}
 
-/*
-## Login page
-*/
+.row {
+    padding: 20px;
+}
+
+.row-table {
+    display: table;
+}
+
+.row-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    width: auto;
+}
+
+/* ## Login ****************************************************************************/
 #support-login-page{
     background-image: url('https://cdn.desk.com/assets/login-bkg-a3243b2940db100097dcfff095bc9675.jpg');
     width: 100%;
@@ -219,7 +202,7 @@ button span {
 }
 
 #support-login-form img.logo{
-    
+
     max-width: 125px;
     display: block;
     margin: 0 auto 20px auto;
@@ -245,13 +228,11 @@ button span {
     display: block;
 }
 
-#register_form{
+#register_form {
     display: none;
 }
 
-/* 
-## Navbar 
-*/
+/* ## Nav ******************************************************************************/
 #navbar {
     margin-bottom: 0;
 }
@@ -297,10 +278,12 @@ button span {
     padding-right: 4px;
 }
 
-/**
-## Main
-*/
+/* ## Body *****************************************************************************/
+#support-dashboard-page {
+    padding: 20px 0;
+}
 
+/* ### Tabs ****************************************************************************/
 .nav-tabs .tab .title {
     display: inline-block;
     width: 90px;
@@ -313,11 +296,44 @@ button span {
     margin-left: 10px;
 }
 
-#support-dashboard-page {
-    padding: 20px 0;
+/* ### Ticket List *********************************************************************/
+#tickets-container {
+    padding-top: 10px;
 }
 
-.ticket-status {
+#tickets-container .ticket-list {
+    padding: 0;
+}
+
+#tickets-container .ticket-list .ticket {
+    padding: 5px 15px;
+}
+
+.ticket-list .ticket-title {
+    margin: 5px 0;
+}
+
+#tickets-container .pagination {
+    margin: 0;
+}
+
+#tickets-container .pagination a {
+    cursor: pointer;
+}
+
+#tickets-container .ticket .flagged {
+    cursor: pointer;
+}
+
+#tickets-container .ticket .flagged.active {
+    color: #ff0000;
+}
+
+#tickets-container .ticket-title {
+    pointer-events: none;
+}
+
+#tickets-container .ticket-status {
     display: inline-block;
     font-size: 14px;
 }
@@ -342,90 +358,11 @@ button span {
     color: #3498db;
 }
 
-/* ## Modal */
-
-
-/* ## Ticket List */
-.ticket-list {
-    padding: 0;
-}
-
-.ticket-list .ticket {
-    padding: 5px 15px;
-}
-
-.ticket-list .ticket-title {
-    margin: 5px 0;
-}
-
-.filter-controls {
+#filter-actions {
     margin: 0;
     padding: 0;
     width: auto;
 }
-
-#filter-controls .row-table {
-    width: 100%;
-}
-
-.search {
-    max-width: 400px;
-}
-
-.additional-filters {
-    width: 30px;
-    padding-right: 10px;
-}
-
-/* ## Sidebar */
-.panel-group .panel+.panel {
-    margin-top: 15px !important;
-}
-
-
-/* ## Ticket List */
-#tickets-container {
-    padding-top: 10px;
-}
-
-#tickets-container .pagination {
-    margin: 0;
-}
-
-#tickets-container .pagination a {
-    cursor: pointer;
-}
-
-.ticket .flagged {
-    cursor: pointer;
-}
-
-.ticket .flagged.active {
-    color: #ff0000;
-}
-
-.ticket-title {
-    pointer-events: none;
-}
-
-
-
-.first-create-ticket {
-    width: 100%;
-}
-
-.first-create-ticket .button {
-    height: 80px;
-    width: 190px;
-    font-size: 16px;
-}
-
-.first-create-ticket .button .glyphicon {
-    padding: 5px;
-}
-
-
-/* ## Filter */
 #show-filters .indicator {
     line-height: 20px;
     padding: 0 2px;
@@ -436,14 +373,24 @@ button span {
     transform: none;
 }
 
-.toggle-label {
+#filter-controls .toggle-label {
     vertical-align: text-bottom;
 }
 
+#filter-controls .row-table {
+    width: 100%;
+}
 
+#search-wrapper {
+    max-width: 400px;
+}
 
+.additional-filters {
+    width: 30px;
+    padding-right: 10px;
+}
 
-/* ## Ticket */
+/* ### Ticket **************************************************************************/
 .ticket .media-right {
     vertical-align: middle;
 }
@@ -463,16 +410,16 @@ button span {
     z-index: 999;
 }
 
-/**
-## Comment
-*/
+/* #### Sidebar ************************************************************************/
+.panel-group .panel+.panel {
+    margin-top: 15px !important;
+}
+
+/* #### Comments ***********************************************************************/
 .comment .meta p {
     font-size: 8pt;
 }
 
-/**
-## Comment Editor
-*/
 .comment .editor {
     display: none;
 }
@@ -483,4 +430,11 @@ button span {
 
 .editor textarea {
     width: 100%;
+}
+
+/* ## Footer ***************************************************************************/
+.footer-text {
+    padding-bottom: 20px;
+    font-size: 12px;
+    color: #c9c9c9;
 }

@@ -24,7 +24,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         <div class="row-table-cell search">
 
-            <div class="search input-group">
+            <div id="search-wrapper" class="input-group">
 
                 <input id="search"
                        name="search"
@@ -40,7 +40,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         <div class="row-table-cell pull-right">
 
-            <div class="filter-controls btn-group input-group">
+            <div id="filter-actions" class="btn-group input-group">
 
                 <button type="button" class="btn btn-default" id="filter-toggle">
 
