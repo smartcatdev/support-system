@@ -164,8 +164,16 @@ var App = (function ($) {
     };
 
     var _time = function () {
-        var time = $("#time");
+        var clock = $("#sys-time");
+        var date = $("#sys-date");
 
+        setInterval(function () {
+            var time = moment();
+
+            clock.text(time.format("hh:mm:ss a"));
+            date.text(time.format("MMMM, DD, YYYY"));
+
+        }, 1000);
     };
 
     var initialize = function () {

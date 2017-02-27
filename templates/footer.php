@@ -87,6 +87,7 @@ use SmartcatSupport\descriptor\Option;
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
         <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
         <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ); ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>

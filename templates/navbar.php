@@ -19,7 +19,7 @@ $user = wp_get_current_user();
 
                             <span class="glyphicon-calendar glyphicon"></span>
 
-                            <?php echo date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) ); ?>
+                            <span id="sys-date"></span>
 
                         </a>
 
@@ -29,7 +29,7 @@ $user = wp_get_current_user();
 
                             <span class="glyphicon-time glyphicon"></span>
 
-                            <span id="time"></span>
+                            <span id="sys-time"></span>
 
                         </a>
 
