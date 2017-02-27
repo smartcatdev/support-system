@@ -36,20 +36,46 @@ use SmartcatSupport\descriptor\Option;
 
                     <div class="media">
 
+                        <div class="media-left">
+
+                            <div class="status-wrapper">
+
+                                <span class="ticket-status <?php echo get_post_meta( $post->ID, 'status', true ); ?>"></span>
+
+                            </div>
+
+                        </div>
+
                         <div class="media-body">
 
-                            <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>"><h4 class="ticket-title"><?php echo $post->post_title; ?></h4></a>
-                            <p class="text-muted">#<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?></p>
+                            <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
+
+                                <h4 class="ticket-title"><?php echo $post->post_title; ?></h4>
+
+                            </a>
+
+                            <p class="text-muted">
+
+                                #<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
+
+                                <a class="ticket-email" href="#"><?php echo \SmartcatSupport\util\ticket\author_email( $post ); ?></a>
+
+                            </p>
 
                         </div>
 
                         <div class="media-right">
+
+                            <span class="glyphicon glyphicon-comment comment-icon"></span>
+
+                            <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
 
                             <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
 
                                 <span class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
 
                             <?php endif; ?>
+
 
                         </div>
 

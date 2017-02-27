@@ -349,6 +349,7 @@ button > * {
 
 #tickets-container .ticket .flagged {
     cursor: pointer;
+    margin: 10px 0;
 }
 
 #tickets-container .ticket .flagged.active {
@@ -357,6 +358,37 @@ button > * {
 
 #tickets-container .ticket-title {
     pointer-events: none;
+    display: inline-block;
+}
+
+#tickets-container .comment-icon {
+    margin: 5px 8px;
+    font-size: 20px;
+    color: #575757;
+    transform: scaleX(0.8);
+}
+
+#tickets-container .comment-count-badge {
+    position: relative;
+
+}
+
+#tickets-container .comment-count-badge:after {
+    content: attr(data-count);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 10px;
+    background: #337ab7;
+    color: white;
+    min-width: 15px;
+    height: 15px;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 1px #333;
+    font-weight: 700;
+    padding: 0 2px;
 }
 
 #tickets-container .ticket-status {
@@ -364,24 +396,66 @@ button > * {
     font-size: 14px;
 }
 
+#tickets-container .ticket .media-left {
+    padding-right: 20px;
+    padding-left: 10px;
+    min-width: 45px;
+    vertical-align: middle;
+}
+
+#tickets-container .ticket .media-right {
+    padding-right: 10px;
+    min-width: 90px;
+}
+
+.ticket-status.opened:before {
+    content: "\e167";
+    font-family: "Glyphicons Halflings";
+}
+
+.ticket-status.opened {
+    color: #a9a9a9;
+}
+
+.ticket-status.resolved:before {
+    content: "\e084";
+    font-family: "Glyphicons Halflings";
+}
+
 .ticket-status.resolved {
     color: #1abc9c;
 }
 
-.ticket-status.viewed {
-    color: #9B59B6;
-}
-
-.ticket-status.in_progress {
-    color: #f1c40f;
-}
-
-.ticket-status.follow_up {
-    color: #e74c3c;
+.ticket-status.new:before {
+    content: "\e124";
+    font-family: "Glyphicons Halflings";
 }
 
 .ticket-status.new {
     color: #3498db;
+}
+
+.ticket-status.waiting:before {
+    content: "\e178";
+    font-family: "Glyphicons Halflings";
+}
+
+.ticket-status.waiting {
+    color: #ffd400;
+}
+
+.ticket-status.needs_attention:before {
+    content: "\e101";
+    font-family: "Glyphicons Halflings";
+}
+
+.ticket-status.needs_attention {
+    color: #ff0000;
+}
+
+.ticket-status.responded:before {
+    content: "\e095";
+    font-family: "Glyphicons Halflings";
 }
 
 #filter-actions {

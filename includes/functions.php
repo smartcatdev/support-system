@@ -29,7 +29,7 @@ namespace SmartcatSupport\util\ticket {
         return array(
             'new'               => __( 'New', \SmartcatSupport\PLUGIN_ID ),
             'waiting'           => __( 'Waiting', \SmartcatSupport\PLUGIN_ID ),
-            'open'              => __( 'Opened', \SmartcatSupport\PLUGIN_ID ),
+            'opened'            => __( 'Opened', \SmartcatSupport\PLUGIN_ID ),
             'responded'         => __( 'Responded', \SmartcatSupport\PLUGIN_ID ),
             'needs_attention'   => __( 'Needs Attention', \SmartcatSupport\PLUGIN_ID ),
             'resolved'          => __( 'Resolved', \SmartcatSupport\PLUGIN_ID ),
