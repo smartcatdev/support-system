@@ -48,19 +48,32 @@ use SmartcatSupport\descriptor\Option;
 
                         <div class="media-body">
 
-                            <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
+                            <div>
 
-                                <h4 class="ticket-title"><?php echo $post->post_title; ?></h4>
+                                <?php $products = \SmartcatSupport\util\ticket\products(); ?>
+                                <?php $product = get_post_meta( $post->ID, 'product', true ); ?>
 
-                            </a>
+                                <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
 
-                            <p class="text-muted">
+                                    <h4 class="ticket-title"><?php echo $post->post_title; ?></h4>
 
-                                #<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
+                                </a>
 
-                                <a class="ticket-email" href="#"><?php echo \SmartcatSupport\util\ticket\author_email( $post ); ?></a>
+                                <?php if( array_key_exists( $product, $products ) ) : ?>
 
-                            </p>
+                                    <a href="#"><span class="product pull-right"><?php echo $products[ $product ]; ?></span></a>
+
+                                <?php endif; ?>
+
+                                <div class="text-muted">
+
+                                    #<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
+
+                                    <a class="ticket-email" href="#"><?php echo \SmartcatSupport\util\ticket\author_email( $post ); ?></a>
+
+                                </div>
+
+                            </div>
 
                         </div>
 

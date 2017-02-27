@@ -252,7 +252,7 @@ class TicketCPT extends AbstractComponent {
         if( get_current_screen()->post_type == 'support_ticket' ) {
 
             $agents = \SmartcatSupport\util\user\list_agents();
-            $agents = array_merge( array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ), $agents );
+            $agents = array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) + $agents;
 
             $agent_filter = new SelectBoxField(
                 array(

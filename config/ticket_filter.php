@@ -22,7 +22,7 @@ if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
                 'data-default' => array( 0 )
             ),
             'class'   => array( 'filter-field', 'form-control' ),
-            'options' => array_merge( array( 0 => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ), $products )
+            'options' => array( 0 => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ) + $products
         )
 
     ) );
@@ -40,7 +40,7 @@ if( current_user_can( 'manage_support_tickets' ) ) {
                 'data-default' => array( 0 )
             ),
             'class'   => array( 'filter-field', 'form-control' ),
-            'options' => array_merge( array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ), $agents )
+            'options' => array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) + $agents
         )
 
     ) );
@@ -56,7 +56,7 @@ $form->add_field( new SelectBoxField(
             'data-default' => array( '' )
         ),
         'class'   => array( 'filter-field', 'form-control' ),
-        'options' => array_merge( array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ), $statuses )
+        'options' => array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ) + $statuses
     )
 
 ) );

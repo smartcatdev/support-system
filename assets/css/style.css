@@ -349,6 +349,15 @@ button > * {
     display: inline-block;
 }
 
+#tickets-container .ticket .product {
+    vertical-align: text-bottom;
+    margin: 10px 5px;
+    padding: 4px 6px;
+    border-radius: 3px;
+    background: lightblue;
+    display: inline-block;
+}
+
 #tickets-container .comment-icon {
     margin: 5px 8px;
     font-size: 20px;

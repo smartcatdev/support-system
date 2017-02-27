@@ -59,10 +59,8 @@ namespace SmartcatSupport\util\ticket {
                 )
             );
 
-            while( $query->have_posts() ) {
-                $products[ $query->post->ID ] = $query->post->post_title;
-
-                $query->next_post();
+            foreach( $query->posts as $post ) {
+                $products[ $post->ID ] = $post->post_title;
             }
         }
 

@@ -8,7 +8,7 @@ $agents = \SmartcatSupport\util\user\list_agents();
 $statuses = \SmartcatSupport\util\ticket\statuses();
 $priorities = \SmartcatSupport\util\ticket\priorities();
 
-$agents = array_merge( array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ), $agents );
+$agents = array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) + $agents;
 
 $form = new Form( 'ticket_quick_edit' );
 

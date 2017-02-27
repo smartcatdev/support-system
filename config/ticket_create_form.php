@@ -9,7 +9,7 @@ use smartcat\form\TextBoxField;
 
 $products = \SmartcatSupport\util\ticket\products();
 
-$products = array_merge( array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ), $products );
+$products = array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) + $products;
 
 $form = new Form( 'create_ticket' );
 
