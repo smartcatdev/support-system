@@ -156,7 +156,6 @@ var App = (function ($) {
 
     var _toggle_filter_display = function (e) {
         $("#filters").slideToggle();
-        $(e.target).find(".indicator").toggleClass("down");
     };
 
     var _toggle_registration = function () {

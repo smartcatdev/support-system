@@ -14,7 +14,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
             <button type="button" id="show-filters" class="btn btn-default">
 
-                <span class="animation-rotate-flip-180 indicator glyphicon glyphicon-chevron-up"></span>
+                <span class="glyphicon glyphicon-filter"></span>
 
                 <span class="toggle-label"><?php _e( 'Filter By', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
@@ -42,12 +42,9 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
             <div id="filter-actions" class="btn-group input-group">
 
-                <button type="button" class="btn btn-default" id="filter-toggle">
-
-                    <span style="line-height: 20px" class="filter glyphicon glyphicon-filter"></span>
+                <button style="line-height: 22px" type="button" class="btn btn-default" id="filter-toggle">
 
                     <span class="toggle-label"></span>
-
 
                 </button>
 

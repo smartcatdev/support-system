@@ -95,18 +95,6 @@ button > * {
     animation: spin 2s linear infinite;
 }
 
-.animation-rotate-flip-180 {
-    transition: all 300ms linear;
-}
-
-.animation-rotate-flip-180.down {
-    transform:rotate(180deg);
-}
-
-.animation-grow-width {
-    transition: width 2s linear 1s;
-}
-
 /* ## Widgets **************************************************************************/
 .ajax-loader {
     width: 100%;
