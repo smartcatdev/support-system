@@ -63,7 +63,7 @@ var Comment = (function ($) {
         e.preventDefault();
 
         var form = $(e.target);
-        var comment = form.parents(".comment");
+        var comment = form.parents(".wrapper");
         var submit_button = form.find(".button-submit");
         var data = form.serializeArray();
 
