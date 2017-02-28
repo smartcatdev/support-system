@@ -30,7 +30,7 @@ use SmartcatSupport\Plugin;
 
             <?php if ( $signups ) : ?>
 
-                <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '\config\registration_form.php'; ?>
+                <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/registration_form.php'; ?>
 
                 <div id="register" style="display: none">
 
