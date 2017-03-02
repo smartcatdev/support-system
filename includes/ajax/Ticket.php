@@ -212,7 +212,7 @@ class Ticket extends AjaxComponent {
                         );
                     } );
 
-                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), get_post_meta( $ticket->ID, 'email', true ) );
+                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), \SmartcatSupport\util\ticket\author_email( $ticket ) );
                 } elseif ( $status != 'new' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
