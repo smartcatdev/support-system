@@ -41,27 +41,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function activate() {
-
-        $roles = array( 'administrator' => get_role( 'administrator' ) );
-
-        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
-            $roles[ $role ] = add_role( $role, $name );
-        }
-
-        if( !empty( $roles['support_user'] ) ) {
-            \SmartcatSupport\util\user\append_role_caps( $roles['support_user'] );
-        }
-
-        if( !empty( $roles['support_agent'] ) ) {
-            \SmartcatSupport\util\user\append_priv_role_caps( $roles['support_agent'] );
-        }
-
-        if( !empty( $roles['support_admin'] ) ) {
-            \SmartcatSupport\util\user\append_priv_role_caps( $roles['support_admin'] );
-        }
-
-        \SmartcatSupport\util\user\append_priv_role_caps( $roles['administrator'] );
-
+        $this->setup_roles();
         $this->create_email_templates();
         $this->setup_template_page();
     }
@@ -70,18 +50,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        \SmartcatSupport\util\user\remove_role_caps( get_role( 'subscriber') );
-        \SmartcatSupport\util\user\remove_priv_role_caps( get_role( 'administrator') );
-
-        $customer = get_role( 'customer' );
-
-        if( $customer instanceof \WP_Role ) {
-            \SmartcatSupport\util\user\remove_role_caps( $customer );
-        }
-
-        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
-             remove_role( $role );
-        }
+        $this->cleanup_roles();
 
         Mailer::cleanup();
 
@@ -297,6 +266,41 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         if( !empty( $post_id ) ) {
             update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        }
+    }
+
+    private function setup_roles() {
+        $roles = \SmartcatSupport\util\user\roles();
+        $priv = \SmartcatSupport\util\user\priv_roles();
+
+        // Make sure the roles are added
+        foreach( $roles as $role => $name ) {
+            add_role( $role, $name );
+        }
+
+        // Setup the roles
+        foreach( $roles as $role => $name ) {
+            \SmartcatSupport\util\user\append_role_caps( get_role( $role ) );
+        }
+
+        // Setup privileged roles
+        foreach( $priv as $role => $name ) {
+            \SmartcatSupport\util\user\append_priv_role_caps( get_role( $role ) );
+        }
+    }
+
+    private function cleanup_roles() {
+        $customer = get_role( 'customer' );
+
+        if( $customer instanceof \WP_Role ) {
+            \SmartcatSupport\util\user\remove_role_caps( $customer );
+        }
+
+        \SmartcatSupport\util\user\remove_role_caps( get_role( 'subscriber') );
+        \SmartcatSupport\util\user\remove_priv_role_caps( get_role( 'administrator' ) );
+
+        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
+            remove_role( $role );
         }
     }
 }

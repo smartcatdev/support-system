@@ -4,6 +4,7 @@ namespace SmartcatSupport\ajax;
 
 
 use smartcat\core\AbstractComponent;
+use smartcat\debug\Log;
 
 abstract class AjaxComponent extends AbstractComponent {
 
@@ -18,7 +19,7 @@ abstract class AjaxComponent extends AbstractComponent {
             array_filter( $this->hooks, function ( $hook ) {
 
                 if( strpos( $hook, $_REQUEST['action'] ) !== false ) {
-                    if( strpos( 'nopriv', $hook ) === false && !current_user_can( 'use_support' ) ) {
+                    if( strpos( $hook, 'nopriv' ) === false && !current_user_can( 'use_support' ) ) {
                         wp_die( -1, 403 );
                     }
 

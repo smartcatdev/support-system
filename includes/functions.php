@@ -2,10 +2,6 @@
 
 namespace  SmartcatSupport\util {
 
-    function get( $return, $default ) {
-        return empty( $return ) ? $default : $return;
-    }
-
 }
 
 namespace SmartcatSupport\util\ticket {
@@ -102,6 +98,13 @@ namespace SmartcatSupport\util\user {
             'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
             'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
             'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID )
+        );
+    }
+
+    function priv_roles() {
+        return array(
+            'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
+            'administrator' => __( 'Administrator', \SmartcatSupport\PLUGIN_ID )
         );
     }
 
