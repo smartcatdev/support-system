@@ -1,6 +1,7 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
 
 ?>
         <?php if( get_option( Option::SHOW_FOOTER, Option\Defaults::SHOW_FOOTER ) == 'on' ) : ?>
@@ -82,6 +83,9 @@ use SmartcatSupport\descriptor\Option;
         <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
 
+
+
+<script src="<?php echo Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID ) . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
     </body>
 
 </html>

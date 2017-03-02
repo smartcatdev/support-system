@@ -310,6 +310,11 @@ button > * {
     margin-left: 10px;
 }
 
+.scrtabs-tab-scroll-arrow {
+    border: none !important;
+    text-align: center !important;
+}
+
 /* ### Ticket List *********************************************************************/
 #tickets-container {
     padding-top: 10px;

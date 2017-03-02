@@ -41,6 +41,8 @@ var App = (function ($) {
         if (next.length === 0) {
             prev.tab("show");
         }
+
+        $(".nav-tabs").scrollingTabs('refresh');
     };
 
     var new_tab = function (data) {
@@ -54,6 +56,8 @@ var App = (function ($) {
 
         _tabs.find(".nav").append(li);
         _tabs.find(".tab-content").append(panel);
+
+        $(".nav-tabs").scrollingTabs('refresh');
 
         li.find("a").tab("show");
     };
@@ -186,12 +190,14 @@ var App = (function ($) {
         ajax_loader = _.template($("script.ajax-loader-mask").html());
         _tickets_container.html(ajax_loader(Globals.strings.loading_tickets));
 
+        $(".nav-tabs").scrollingTabs();
+
         $(".login-submit").prepend($("#show-registration")).addClass("text-center");
 
         _time();
         _bind_events();
         load_tickets();
-        setInterval(load_tickets, 1000 * 60);
+        setInterval(load_tickets, 1000 * 30);
     };
 
     return {
