@@ -7,7 +7,6 @@ use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\TicketList;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\Products;

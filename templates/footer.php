@@ -60,18 +60,6 @@ use SmartcatSupport\descriptor\Option;
 
         </script>
 
-        <script type="text/template" class="notice-comment-deleted">
-
-            <div class="alert alert-warning fade in">
-
-                <?php _e( 'Comment has been deleted, ', SmartcatSupport\PLUGIN_ID ); ?><a class="undo-delete-comment" href="#"><?php _e( 'undo', SmartcatSupport\PLUGIN_ID ); ?></a>
-
-                <a class="close" data-dismiss="alert">×</a>
-
-            </div>
-
-        </script>
-
         <script type="text/template" class="notice-inline">
 
             <div style="border-radius: 0; margin: 0" class="alert alert-success fade in">
