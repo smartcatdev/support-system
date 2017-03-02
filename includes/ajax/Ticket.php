@@ -344,7 +344,7 @@ class Ticket extends AjaxComponent {
             'paged'          => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
         );
 
-        if ( ! current_user_can( 'edit_others_tickets' ) ) {
+        if ( ! current_user_can( 'manage_support_tickets' ) ) {
             $args['author'] = wp_get_current_user()->ID;
         }
 
