@@ -96,7 +96,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         wp_enqueue_script( 'support-admin-js' );
 
         wp_enqueue_style( 'support-admin-icons',
-            $this->url . '/assets/icons.css', null, $this->version );
+            $this->url . '/assets/icons/style.css', null, $this->version );
 
         wp_enqueue_style( 'support-admin-css',
             $this->url . '/assets/admin/admin.css', null, $this->version );

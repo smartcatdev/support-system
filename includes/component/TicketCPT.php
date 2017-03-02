@@ -180,7 +180,7 @@ class TicketCPT extends AbstractComponent {
                 'agent'    => __( 'Assigned', \SmartcatSupport\PLUGIN_ID ),
                 'status'   => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
                 'priority' => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
-                'flagged'  => '<span class="support_icon icon-flag2"></span>'
+                'flagged'  => '<span class="support_icon icon-flag"></span>'
             ),
             $columns
         );
@@ -241,7 +241,7 @@ class TicketCPT extends AbstractComponent {
                 $flagged = get_post_meta( $post_id, 'flagged', true ) == 'on';
 
                 echo '<p style="display: none;">' . ( $flagged ? 1 : 0 ) . '</p>' .
-                     '<span class="toggle flag-ticket support-icon icon-flag2 ' . ( $flagged ? 'active' : '' ) . '" ' .
+                     '<span class="toggle flag-ticket support-icon icon-flag ' . ( $flagged ? 'active' : '' ) . '" ' .
                         'name="flagged"' .
                         'data-id="' . $post_id .'"></i>';
                 break;
