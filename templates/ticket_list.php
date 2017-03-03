@@ -85,7 +85,7 @@ use SmartcatSupport\descriptor\Option;
 
                             <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
 
-                                <span class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
+                                <span data-id="<?php echo $post->ID; ?>" class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
 
                             <?php endif; ?>
 

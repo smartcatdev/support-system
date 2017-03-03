@@ -6,6 +6,29 @@ var Ticket = (function ($) {
         $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
+        $(document).on("click", ".flagged", _toggle_flag);
+    };
+
+    var _toggle_flag = function (e) {
+        var flag = $(e.target);
+
+        $.ajax({
+            url: Globals.ajax_url,
+            method: "post",
+            dataType: "json",
+            data: {
+                action: "support_toggle_flag",
+                id: flag.data("id"),
+                _ajax_nonce: Globals.ajax_nonce
+            },
+            success: function (response) {
+                if (response.data === "on") {
+                    flag.addClass("active");
+                } else {
+                    flag.removeClass("active");
+                }
+            }
+        });
     };
 
     var _create_ticket = function (e) {
