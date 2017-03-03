@@ -39,7 +39,7 @@ use SmartcatSupport\descriptor\Option;
 
                         <div class="media-left">
 
-                            <?php echo get_avatar( $ticket, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+                            <?php echo get_avatar( wp_get_current_user()->ID, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
 
                         </div>
 
