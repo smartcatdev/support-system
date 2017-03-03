@@ -97,7 +97,6 @@ class Ticket extends AjaxComponent {
                 if ( $form->is_valid() ) {
                     $post_id = wp_update_post( array(
                         'ID'          => $_REQUEST['id'],
-                        'post_author' => $ticket->post_author,
                         'post_date'   => current_time( 'mysql' )
                     ) );
 
