@@ -18,8 +18,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
             <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
 
             <p>
-                <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?>
-                <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID ); ?>
+                <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?>
             </p>
 
             <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>

@@ -25,7 +25,7 @@ use SmartcatSupport\Plugin;
 
                     <p class="media-heading"><?php echo $comment->comment_author; ?></p>
 
-                    <p class="text-muted"><?php _e( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID ); ?></p>
+                    <p class="text-muted"><?php echo \SmartcatSupport\util\just_now( $comment->comment_date ); ?></p>
 
                 </div>
 

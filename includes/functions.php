@@ -1,7 +1,18 @@
 <?php
 
 namespace  SmartcatSupport\util {
+    function just_now( $stamp ) {
+        $now = date_create();
+        $date = date_create( $stamp );
 
+        if( $now->diff( $date )->format( '%i' ) == 0 ) {
+            $out = __( 'Just Now', \SmartcatSupport\PLUGIN_ID );
+        } else {
+            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID );
+        }
+
+        return $out;
+    }
 }
 
 namespace SmartcatSupport\util\ticket {

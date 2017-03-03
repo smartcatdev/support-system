@@ -460,6 +460,15 @@ button > * {
     font-family: "Glyphicons Halflings";
 }
 
+.ticket-status.closed {
+    color: #ff0000;
+}
+
+.ticket-status.closed:before {
+    content: "\e090";
+    font-family: "Glyphicons Halflings";
+}
+
 #filter-actions {
     margin: 0;
     padding: 0;
