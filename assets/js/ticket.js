@@ -176,7 +176,7 @@ var Ticket = (function ($) {
         var pane = $("#" + id);
         var comments = pane.find(".comments");
 
-        if (comments.find(".editor.active").length === 0 && comments.find(".alert").length === 0) {
+        if (comments.find(".locked").length === 0) {
             $.ajax({
                 url: Globals.ajax_url,
                 dataType: "json",

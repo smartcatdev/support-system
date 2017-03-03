@@ -24,7 +24,7 @@
                 comment_id: id,
                 _ajax_nonce: Globals.ajax_nonce
             },
-            success: function (response) {
+            success: function () {
                 comment.parents(".wrapper").fadeToggle("slow", function () {
                     $(this).remove();
                 });
@@ -71,17 +71,15 @@
         var editor = comment.find(".editor");
         var content = comment.find(".comment-content");
 
-        if (editor.hasClass("active")) {
-            editor.removeClass("active");
-            comment.find(".comment-content").show();
-            editor.find(".button-submit").prop("disabled", false);
-            comment.find(".comment-controls").show();
-        } else {
-            comment.find(".comment-controls").hide();
-            content.hide();
-            editor.addClass("active");
-            editor.find(".editor-content").val(content.html());
-        }
+        comment.toggleClass("locked")
+            .find(".comment-controls")
+            .fadeToggle();
+
+        editor.toggle()
+            .find(".editor-content")
+            .val(content.html());
+
+        content.toggle();
     };
 
     var initialize = function () {

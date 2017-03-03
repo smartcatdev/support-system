@@ -558,8 +558,9 @@ button > * {
     display: none;
 }
 
-.comment .editor.active {
-    display: block;
+.comment .comment-controls button {
+    height: 30px;
+    font-size: 12px;
 }
 
 .editor textarea {
