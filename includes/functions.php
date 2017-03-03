@@ -29,7 +29,7 @@ namespace  SmartcatSupport\util {
         foreach( $blocks as $block ) {
             $str = str_replace( $block, htmlentities( $block ), $str );
         }
-
+error_log( $str );
         return $str;
     }
 }

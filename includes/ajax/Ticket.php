@@ -192,7 +192,7 @@ class Ticket extends AjaxComponent {
                 'author'                      => $user->display_name,
                 'email'                       => $user->user_email,
                 'url'                         => $user->user_url,
-                'comment'                     => $_POST['content'],
+                'comment'                     => \SmartcatSupport\util\encode_code_blocks( $_POST['content'] ),
                 'comment_parent'              => 0,
                 'user_id'                     => $user->ID
             ) );
