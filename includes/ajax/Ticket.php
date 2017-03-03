@@ -21,7 +21,7 @@ class Ticket extends AjaxComponent {
             if ( $form->is_valid() ) {
                 $post_id = wp_insert_post( array(
                     'post_title'     => $form->data['subject'],
-                    'post_content'   => $form->data['description'],
+                    'post_content'   => \SmartcatSupport\util\encode_code_blocks( $form->data['description'] ),
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open'
