@@ -38,9 +38,18 @@ use SmartcatSupport\descriptor\Option;
 
                         <div class="media-left">
 
+                            <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
+                            <?php $statuses = \SmartcatSupport\util\ticket\statuses(); ?>
+
                             <div class="status-wrapper">
 
-                                <span class="ticket-status <?php echo get_post_meta( $post->ID, 'status', true ); ?>"></span>
+                                <span class="ticket-status <?php echo $status; ?>"></span>
+
+                                <?php if( array_key_exists( $status, $statuses ) ) : ?>
+
+                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                                <?php endif; ?>
 
                             </div>
 

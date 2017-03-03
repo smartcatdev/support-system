@@ -395,15 +395,36 @@ button > * {
     padding: 0 2px;
 }
 
+#tickets-container .status-wrapper {
+    text-align: center;
+}
+
 #tickets-container .ticket-status {
     display: inline-block;
     font-size: 14px;
 }
 
+#tickets-container .status-tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 4px 8px;
+    left: 5px;
+    top: 5px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 3px;
+    display: none;
+}
+
+#tickets-container .status-wrapper:hover .status-tooltip {
+    display: inline-block;
+}
+
 #tickets-container .ticket .media-left {
     padding-right: 20px;
     padding-left: 10px;
-    min-width: 45px;
+    width: 45px;
     vertical-align: middle;
 }
 
