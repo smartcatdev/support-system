@@ -194,8 +194,7 @@ class Ticket extends AjaxComponent {
                 'url'                         => $user->user_url,
                 'comment'                     => $_POST['content'],
                 'comment_parent'              => 0,
-                'user_id'                     => $user->ID,
-                '_wp_unfiltered_html_comment' => '_wp_unfiltered_html_comment'
+                'user_id'                     => $user->ID
             ) );
 
             if ( !is_wp_error( $comment ) ) {

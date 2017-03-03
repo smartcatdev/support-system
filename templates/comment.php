@@ -64,8 +64,6 @@ use SmartcatSupport\Plugin;
 
                     <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
-                    <?php wp_comment_form_unfiltered_html_nonce(); ?>
-
                     <div class="bottom text-right">
 
                         <button type="button" class="button cancel-edit-comment">
@@ -85,7 +83,6 @@ use SmartcatSupport\Plugin;
                 </form>
 
             </div>
-
 
         </div>
 

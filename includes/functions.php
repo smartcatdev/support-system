@@ -121,13 +121,11 @@ namespace SmartcatSupport\util\user {
 
     function append_role_caps( \WP_Role $role ) {
         $role->add_cap( 'create_support_tickets' );
-        $role->add_cap( 'unfiltered_html' );
         $role->add_cap( 'use_support' );
     }
 
     function remove_role_caps( \WP_Role $role ) {
         $role->remove_cap( 'create_support_tickets' );
-        $role->remove_cap( 'unfiltered_html' );
         $role->remove_cap( 'use_support' );
     }
 

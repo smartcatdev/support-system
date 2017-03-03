@@ -57,9 +57,6 @@ use SmartcatSupport\descriptor\Option;
 
                             <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
 
-                            <?php wp_comment_form_unfiltered_html_nonce(); ?>
-
-
                             <div class="bottom text-right">
 
                                 <button type="submit" class="button button-submit" disabled="true">
@@ -80,12 +77,6 @@ use SmartcatSupport\descriptor\Option;
 
         </div>
 
-
-
-
-
     </div>
-
-
 
 </div>
