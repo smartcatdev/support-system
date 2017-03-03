@@ -13,6 +13,25 @@ namespace  SmartcatSupport\util {
 
         return $out;
     }
+
+    function extract_tags( $str ) {
+        $regex = '#<code\>(.+?)\<\/code\>#';
+        $matches = array();
+
+        preg_match_all( $regex, $str, $matches );
+
+        return empty( $matches ) ? false : $matches[1];
+    }
+
+    function encode_code_blocks( $str ) {
+        $blocks = extract_tags( $str );
+
+        foreach( $blocks as $block ) {
+            $str = str_replace( $block, htmlentities( $block ), $str );
+        }
+
+        return $str;
+    }
 }
 
 namespace SmartcatSupport\util\ticket {

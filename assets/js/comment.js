@@ -77,7 +77,7 @@
 
         editor.toggle()
             .find(".editor-content")
-            .val(content.html());
+            .val(_.unescape(content.html()).trim());
 
         content.toggle();
     };

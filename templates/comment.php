@@ -54,7 +54,11 @@ use SmartcatSupport\Plugin;
 
         <div class="panel-body">
 
-            <div class="comment-content"><?php echo $comment->comment_content; ?></div>
+            <div class="comment-content">
+
+                <?php echo stripcslashes( $comment->comment_content ); ?>
+
+            </div>
 
             <div class="editor">
 
