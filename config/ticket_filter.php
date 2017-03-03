@@ -2,6 +2,7 @@
 
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
+use smartcat\form\TextBoxField;
 use SmartcatSupport\form\SearchBox;
 use SmartcatSupport\Plugin;
 
@@ -61,17 +62,21 @@ $form->add_field( new SelectBoxField(
 
 ) );
 
-//$form->add_field( new SearchBox(
-//    array(
-//        'id'      => 'search',
-//        'name'    => 'search',
-//        'props'   => array(
-//            'data-default' => array( '' ),
-//            'placeholder' => array( 'Search' )
-//        ),
-//        'class'   => array( 'filter-field', 'form-control' )
-//    )
-//
-//) );
+if( current_user_can( 'manage_support_tickets' ) ) {
+
+    $form->add_field(new TextBoxField(
+        array(
+            'id'    => 'email',
+            'name'  => 'email',
+            'label' => __( 'Email', \SmartcatSupport\PLUGIN_ID ),
+            'type'  => 'email',
+            'props' => array(
+                'data-default' => array('')
+            ),
+            'class' => array('filter-field', 'form-control')
+        )
+
+    ));
+}
 
 return $form;

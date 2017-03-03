@@ -278,7 +278,14 @@ class Ticket extends AjaxComponent {
         $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
 
         if( $form->is_valid() ) {
-            unset( $form->data['search'] );
+
+            $author = get_user_by( 'email', $form->data['email'] );
+
+            unset( $form->data['email'] );
+
+            if( $author ) {
+                $args['author'] = $author->ID;
+            }
 
             foreach( $form->data as $name => $value ) {
                 if( !empty( $value ) ) {
@@ -310,7 +317,7 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
 
-            'support_ticket_table_query_vars' => array( 'filter_tickets' ),
+            'support_ticket_list_query_vars' => array( 'filter_tickets' ),
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
         ) );
     }
@@ -347,6 +354,6 @@ class Ticket extends AjaxComponent {
             $args['author'] = wp_get_current_user()->ID;
         }
 
-        return new \WP_Query( apply_filters( 'support_ticket_table_query_vars', $args ) );
+        return new \WP_Query( apply_filters( 'support_ticket_list_query_vars', $args ) );
     }
 }
