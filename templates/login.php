@@ -20,11 +20,15 @@ use SmartcatSupport\Plugin;
 
                 <?php wp_login_form(); ?>
 
-                <button id="show-registration" type="button" class="button button-primary registration-toggle">
+                <?php if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>
 
-                    <?php echo get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ); ?>
+                    <button style="display: none" id="show-registration" type="button" class="button button-primary registration-toggle">
 
-                </button>
+                        <?php echo get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ); ?>
+
+                    </button>
+
+                <?php endif; ?>
 
             </div>
 

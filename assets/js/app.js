@@ -192,7 +192,11 @@ var App = (function ($) {
 
         $(".nav-tabs").scrollingTabs();
 
-        $(".login-submit").prepend($("#show-registration")).addClass("text-center");
+        var register_button = $("#show-registration");
+
+        if(register_button.length > 0) {
+            $(".login-submit").append(register_button.show()).addClass("text-center");
+        }
 
         _time();
         _bind_events();
