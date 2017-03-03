@@ -84,7 +84,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const NOTIFY_RESOLVED = 'on';
+    const EMAIL_NOTIFICATIONS = 'on';
 
     /**
      * @since 1.0.0

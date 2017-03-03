@@ -202,16 +202,19 @@ class Ticket extends AjaxComponent {
                 if ( current_user_can( 'manage_support_tickets' ) ) {
                     update_post_meta( $ticket->ID, 'status', 'waiting' );
 
-                    // Grab email template vars
-                    add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
-                        return str_replace(
-                            array( '{%agent%}', '{%reply%}', '{%subject%}' ),
-                            array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
-                            $content
-                        );
-                    } );
+                    if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
-                    Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), \SmartcatSupport\util\ticket\author_email( $ticket ) );
+                        // Grab email template vars
+                        add_filter('parse_email_template', function ($content) use ($comment, $ticket) {
+                            return str_replace(
+                                array('{%agent%}', '{%reply%}', '{%subject%}'),
+                                array($comment->comment_author, $comment->comment_content, $ticket->post_title),
+                                $content
+                            );
+                        });
+
+                        Mailer::send_template(get_option(Option::REPLY_EMAIL_TEMPLATE), \SmartcatSupport\util\ticket\author_email( $ticket ) );
+                    }
                 } elseif ( $status != 'new' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
@@ -244,7 +247,7 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function notify_ticket_resolved( $null, $post_id, $key, $new ) {
-        if( get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ) == 'on' ) {
+        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
             if( $key == 'status' && $new == 'resolved' ) {
 

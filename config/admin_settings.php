@@ -23,7 +23,7 @@ $admin = new TabbedSettingsPage(
             'general'       => __( 'General', \SmartcatSupport\PLUGIN_ID ),
             'display'       => __( 'Display', \SmartcatSupport\PLUGIN_ID ),
             'appearance'    => __( 'Appearance', \SmartcatSupport\PLUGIN_ID ),
-            'notifications' => __( 'Notifications', \SmartcatSupport\PLUGIN_ID ),
+            'notifications' => __( 'E-Mail', \SmartcatSupport\PLUGIN_ID ),
             'advanced'      => __( 'Advanced', \SmartcatSupport\PLUGIN_ID )
         )
     )
@@ -254,15 +254,15 @@ $emails->add_field( new SelectBoxField(
 
 ) );
 
-$email_notifications = new SettingsSection( 'email_notifications', __( 'Notifications', \SmartcatSupport\PLUGIN_ID ) );
+$email_notifications = new SettingsSection( 'email_notifications', __( 'E-Mail Notifications', \SmartcatSupport\PLUGIN_ID ) );
 
 $email_notifications->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_notify_ticket_resolved',
-        'option'        => Option::NOTIFY_RESOLVED,
-        'value'         => get_option( Option::NOTIFY_RESOLVED, Option\Defaults::NOTIFY_RESOLVED ),
-        'label'         => __( 'Ticket Resolved Notification', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Notify the user when their ticket is resolved', \SmartcatSupport\PLUGIN_ID ),
+        'id'            => 'support_email_notifications',
+        'option'        => Option::EMAIL_NOTIFICATIONS,
+        'value'         => get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ),
+        'label'         => __( 'Email Notifications', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Send out automated email notifications in response to ticket events', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 

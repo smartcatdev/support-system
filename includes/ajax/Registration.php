@@ -31,16 +31,20 @@ class Registration extends AjaxComponent {
                 )
             );
 
-            // Capture user's password as a email template variable
-            add_filter( 'parse_email_template', function( $content, $recipient ) use ( $data ) {
-                if( $recipient == $data['email'] ) {
-                    $content = str_replace( '{%password%}', $data['password'], $content );
-                }
+            if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
-                return $content;
-            }, 10, 3 );
+                // Capture user's password as a email template variable
+                add_filter('parse_email_template', function ($content, $recipient) use ($data) {
+                    if ($recipient == $data['email']) {
+                        $content = str_replace('{%password%}', $data['password'], $content);
+                    }
 
-            Mailer::send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'] );
+                    return $content;
+                }, 10, 3);
+
+                Mailer::send_template(get_option(Option::WELCOME_EMAIL_TEMPLATE), $data['email'] );
+
+            }
 
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();

@@ -29,7 +29,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const NOTIFY_RESOLVED = 'smartcat_support_notify-closed';
+    const EMAIL_NOTIFICATIONS = 'smartcat_support_email-notifications';
 
     /**
      * @since 1.0.0
