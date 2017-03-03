@@ -14,9 +14,9 @@ namespace  SmartcatSupport\util {
         return $out;
     }
 
-    function extract_tags( $str ) {
-        $regex = '#<code\>(.+?)\<\/code\>#';
+    function extract_tags( $str, $open, $close ) {
         $matches = array();
+        $regex = $pattern =  '~' . preg_quote( $open ) . '(.+)' . preg_quote( $close) . '~misU';
 
         preg_match_all( $regex, $str, $matches );
 
@@ -24,12 +24,12 @@ namespace  SmartcatSupport\util {
     }
 
     function encode_code_blocks( $str ) {
-        $blocks = extract_tags( $str );
+        $blocks = extract_tags( $str, '<code>', '</code>' );
 
         foreach( $blocks as $block ) {
             $str = str_replace( $block, htmlentities( $block ), $str );
         }
-error_log( $str );
+
         return $str;
     }
 }
