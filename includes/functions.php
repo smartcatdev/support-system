@@ -93,12 +93,14 @@ namespace SmartcatSupport\util\ticket {
         return $products;
     }
 
-    function ecommerce_enabled() {
+    function ecommerce_enabled( $strict = true ) {
         $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
         $enabled = false;
 
         if( get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ) ) {
-            if( $plugin->woo_active || $plugin->edd_active ) {
+            if( $strict && ( $plugin->woo_active || $plugin->edd_active ) ) {
+                $enabled = true;
+            } else {
                 $enabled = true;
             }
         }
@@ -127,18 +129,26 @@ namespace SmartcatSupport\util\user {
         return array(
             'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
             'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
-            'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID )
+            'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID ),
         );
     }
 
     function priv_roles() {
+        return array(
+            'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
+            'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
+            'administrator' => __( 'Administrator', \SmartcatSupport\PLUGIN_ID )
+        );
+    }
+
+    function super_roles() {
         return array(
             'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
             'administrator' => __( 'Administrator', \SmartcatSupport\PLUGIN_ID )
         );
     }
 
-    function append_role_caps( \WP_Role $role ) {
+    function add_role_caps(\WP_Role $role ) {
         $role->add_cap( 'create_support_tickets' );
         $role->add_cap( 'use_support' );
     }
@@ -148,8 +158,8 @@ namespace SmartcatSupport\util\user {
         $role->remove_cap( 'use_support' );
     }
 
-    function append_priv_role_caps( \WP_Role $role ) {
-        append_role_caps( $role );
+    function add_priv_role_caps(\WP_Role $role ) {
+        add_role_caps( $role );
 
         $role->add_cap( 'manage_support_tickets' );
         $role->add_cap( 'edit_support_ticket_comments' );
@@ -160,6 +170,18 @@ namespace SmartcatSupport\util\user {
 
         $role->remove_cap( 'manage_support_tickets' );
         $role->remove_cap( 'edit_support_ticket_comments' );
+    }
+
+    function add_super_role_caps( \WP_Role $role ) {
+        add_priv_role_caps( $role );
+
+        $role->add_cap( 'manage_support' );
+    }
+
+    function remove_super_role_caps( \WP_Role $role ) {
+        remove_priv_role_caps( $role );
+
+        $role->remove_cap( 'manage_support' );
     }
 
 }

@@ -79,7 +79,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const ECOMMERCE_INTEGRATION = '';
+    const ECOMMERCE_INTEGRATION = 'on';
 
     /**
      * @since 1.0.0

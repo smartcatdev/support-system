@@ -9,7 +9,7 @@ use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
-use SmartcatSupport\component\Products;
+use SmartcatSupport\component\ECommerce;
 use SmartcatSupport\component\TicketCPT;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
@@ -170,7 +170,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         );
 
         if( $this->edd_active || $this->woo_active ) {
-            $components[] = Products::class;
+            $components[] = ECommerce::class;
         }
 
         if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
@@ -269,44 +269,67 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     private function setup_roles() {
-        $roles = \SmartcatSupport\util\user\roles();
-        $priv = \SmartcatSupport\util\user\priv_roles();
 
-        // Make sure the roles are added
-        foreach( $roles as $role => $name ) {
-            add_role( $role, $name );
-        }
+        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
+            $role = add_role( $role, $name );
 
-        // Setup the roles
-        foreach( $roles as $role => $name ) {
-            \SmartcatSupport\util\user\append_role_caps( get_role( $role ) );
-        }
-
-        // Setup privileged roles
-        foreach( $priv as $role => $name ) {
-            \SmartcatSupport\util\user\append_priv_role_caps( get_role( $role ) );
-        }
-
-        if( get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ) == 'on' ) {
-            if( $this->woo_active ) {
-                \SmartcatSupport\util\user\append_role_caps( get_role( 'customer' ) );
+            if( !empty( $role ) ) {
+                \SmartcatSupport\util\user\add_role_caps( $role );
             }
+        }
 
-            if( $this->edd_active ) {
-                \SmartcatSupport\util\user\append_role_caps( get_role( 'subscriber' ) );
+        foreach( \SmartcatSupport\util\user\priv_roles() as $role => $name ) {
+            $role = get_role( $role );
+
+            if( !empty( $role ) ) {
+                \SmartcatSupport\util\user\add_priv_role_caps( $role );
+            }
+        }
+
+        foreach( \SmartcatSupport\util\user\super_roles() as $role => $name ) {
+            $role = get_role( $role );
+
+            if( !empty( $role ) ) {
+                \SmartcatSupport\util\user\add_super_role_caps( $role );
+            }
+        }
+
+        if( \SmartcatSupport\util\ticket\ecommerce_enabled( false ) ) {
+            \SmartcatSupport\util\user\add_role_caps( get_role( 'subscriber' ) );
+
+            $customer = get_role( 'customer' );
+
+            if( !empty( $customer ) ) {
+                \SmartcatSupport\util\user\add_role_caps( $customer );
             }
         }
     }
 
     private function cleanup_roles() {
+
+        \SmartcatSupport\util\user\remove_role_caps( get_role( 'subscriber' ) );
+
         $customer = get_role( 'customer' );
 
-        if( $customer instanceof \WP_Role ) {
+        if( !empty( $customer ) ) {
             \SmartcatSupport\util\user\remove_role_caps( $customer );
         }
 
-        \SmartcatSupport\util\user\remove_role_caps( get_role( 'subscriber') );
-        \SmartcatSupport\util\user\remove_priv_role_caps( get_role( 'administrator' ) );
+        foreach( \SmartcatSupport\util\user\priv_roles() as $role => $name ) {
+            $role = get_role( $role );
+
+            if( !empty( $role ) ) {
+                \SmartcatSupport\util\user\remove_priv_role_caps( $role );
+            }
+        }
+
+        foreach( \SmartcatSupport\util\user\super_roles() as $role => $name ) {
+            $role = get_role( $role );
+
+            if( !empty( $role ) ) {
+                \SmartcatSupport\util\user\remove_super_role_caps( $role );
+            }
+        }
 
         foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
             remove_role( $role );
