@@ -286,6 +286,16 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         foreach( $priv as $role => $name ) {
             \SmartcatSupport\util\user\append_priv_role_caps( get_role( $role ) );
         }
+
+        if( get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ) == 'on' ) {
+            if( $this->woo_active ) {
+                \SmartcatSupport\util\user\append_role_caps( get_role( 'customer' ) );
+            }
+
+            if( $this->edd_active ) {
+                \SmartcatSupport\util\user\append_role_caps( get_role( 'subscriber' ) );
+            }
+        }
     }
 
     private function cleanup_roles() {
