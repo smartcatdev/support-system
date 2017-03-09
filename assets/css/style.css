@@ -497,6 +497,10 @@ button > * {
     padding: 0;
     width: auto;
 }
+#show-filters {
+    margin-right: -2px;
+}
+
 #show-filters .indicator {
     line-height: 20px;
     padding: 0 2px;
@@ -517,6 +521,10 @@ button > * {
 
 #search-wrapper {
     max-width: 400px;
+}
+
+#search {
+    height: 35px;
 }
 
 .additional-filters {

@@ -10,24 +10,25 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
     <div class="row-table">
 
-    <div class="row-table-cell additional-filters">
-
-            <button type="button" id="show-filters" class="btn btn-default">
-
-                <span class="glyphicon glyphicon-filter"></span>
-
-                <span class="toggle-label"><?php _e( 'Filter By', \SmartcatSupport\PLUGIN_ID ); ?></span>
-
-            </button>
-
-        </div>
-
         <div class="row-table-cell search">
 
             <div id="search-wrapper" class="input-group">
 
+                <span class="input-group-btn">
+
+                    <button type="button" id="show-filters" class="btn btn-default">
+
+                        <span class="glyphicon glyphicon-filter"></span>
+
+                        <span class="toggle-label"><?php _e( 'Filter By', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                    </button>
+
+                </span>
+
                 <input id="search"
                        name="search"
+                       type="text"
                        data-default=""
                        placeholder="<?php _e('Search', \SmartcatSupport\PLUGIN_ID); ?>"
                        class="form-control filter-field"/>
