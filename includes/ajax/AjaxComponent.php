@@ -20,7 +20,7 @@ abstract class AjaxComponent extends AbstractComponent {
 
                 if( strpos( $hook, $_REQUEST['action'] ) !== false ) {
                     if( strpos( $hook, 'nopriv' ) === false && !current_user_can( 'use_support' ) ) {
-                        wp_die( -1, 403 );
+                        wp_die( -1, 401 );
                     }
 
                     $this->validate_request();
