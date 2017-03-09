@@ -199,7 +199,11 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     private function create_email_templates() {
-        if( empty( get_post( get_option( Option::WELCOME_EMAIL_TEMPLATE ) ) ) ) {
+        $welcome = get_option( Option::WELCOME_EMAIL_TEMPLATE );
+        $resolved = get_option( Option::RESOLVED_EMAIL_TEMPLATE );
+        $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
+
+        if( is_null( get_post( $welcome ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
@@ -212,9 +216,11 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             if( !empty( $id ) ) {
                 update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
             }
+        } else {
+            wp_untrash_post( $welcome );
         }
 
-        if( empty( get_post( get_option( Option::RESOLVED_EMAIL_TEMPLATE ) ) ) ) {
+        if( is_null( get_post( $resolved ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
@@ -227,9 +233,11 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             if( !empty( $id ) ) {
                 update_option( Option::RESOLVED_EMAIL_TEMPLATE, $id );
             }
+        } else {
+            wp_untrash_post( $resolved );
         }
 
-        if( empty( get_post( get_option( Option::REPLY_EMAIL_TEMPLATE ) ) ) ) {
+        if( is_null( get_post( $reply ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
@@ -242,6 +250,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             if( !empty( $id ) ) {
                 update_option( Option::REPLY_EMAIL_TEMPLATE, $id );
             }
+        } else {
+            wp_untrash_post( $reply );
         }
     }
 
