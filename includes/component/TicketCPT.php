@@ -71,8 +71,6 @@ class TicketCPT extends AbstractComponent {
             'filter_items_list'     => __( 'Filter tickets list', \SmartcatSupport\PLUGIN_ID )
         );
 
-        $capabilities = array();
-
         $args = array(
             'label'               => __( 'Support Ticket', \SmartcatSupport\PLUGIN_ID ),
             'description'         => __( 'Tickets for support requests', \SmartcatSupport\PLUGIN_ID ),
@@ -90,8 +88,9 @@ class TicketCPT extends AbstractComponent {
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
-            'capabilities'        => $capabilities,
-            'feeds'               => null
+            'capability_type'     => 'support_ticket',
+            'feeds'               => null,
+            'map_meta_cap'        => true
         );
         //</editor-fold>
 

@@ -2,35 +2,18 @@
 
 namespace SmartcatSupport\component;
 
-
 use smartcat\core\AbstractComponent;
 
 class Hacks extends AbstractComponent {
 
-    /**
-     * Hack to remove all comments on support tickets from feeds.
-     *
-     * @param $for_comments
-     * @since 1.0.0
-     */
-    public function remove_feed_comments( $for_comments ) {
-        global $wp_query;
+    private $wpdb;
 
+    public function start() {
+        $this->wpdb = $GLOBALS['wpdb'];
+    }
 
-        if( $for_comments ) {
-            $comments = $wp_query->comments;
-            $num_comments = $wp_query->comment_count;
-
-            for( $ctr = 0; $ctr < $num_comments; $ctr++ ) {
-
-                $post = get_post( $comments[ $ctr ]->comment_post_ID );
-
-                if ( $post && $post->post_type == 'support_ticket' ) {
-                    unset( $wp_query->comments[ $ctr ] );
-                    $wp_query->comment_count--;
-                }
-            }
-        }
+    public function remove_feed_comments( $where ) {
+        return $where . " AND {$this->wpdb->prefix}posts.post_type NOT IN ( 'support_ticket' )";
     }
 
     /**
@@ -41,21 +24,26 @@ class Hacks extends AbstractComponent {
      * @since 1.0.0
      */
     public function remove_widget_comments( $args ) {
-        global $wpdb;
-
-        $args['post__not_in'] = $wpdb->get_col( "SELECT ID FROM {$wpdb->prefix}posts WHERE post_type='support_ticket'" );
+        $args['post_type'] = array( 'post', 'page' );
 
         return $args;
+    }
+
+    public function remove_admin_comments( $query ) {
+        if( !current_user_can( 'create_support_tickets' ) ) {
+            $query['join'] .= "INNER JOIN {$this->wpdb->prefix}posts ON {$this->wpdb->prefix}comments.comment_post_ID={$this->wpdb->prefix}posts.ID";
+
+            $query['where'] .=  " AND post_type NOT IN ( 'support_ticket' )";
+        }
+
+        return $query;
     }
 
     public function subscribed_hooks() {
         return array(
             'widget_comments_args' => array( 'remove_widget_comments' ),
-            'do_feed_rss2' => array( 'remove_feed_comments', 1 ),
-            'do_feed_rss' => array( 'remove_feed_comments', 1 ),
-            'do_feed_rdf' => array( 'remove_feed_comments', 1 ),
-            'do_feed_atom' => array( 'remove_feed_comments', 1 ),
-            'do_feed' => array( 'remove_feed_comments', 1 )
+            'comment_feed_where' => array( 'remove_feed_comments' ),
+            'comments_clauses' => array( 'remove_admin_comments' )
         );
     }
 }

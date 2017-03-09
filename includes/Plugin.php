@@ -36,6 +36,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         Mailer::init( $this );
 
+        $this->configure_roles();
+
         include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
@@ -334,5 +336,20 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         foreach( \SmartcatSupport\util\roles() as $role => $name ) {
             remove_role( $role );
         }
+    }
+
+    private function configure_roles() {
+        $administrator = get_role( 'administrator' );
+
+        $administrator->add_cap( 'read_support_ticket' );
+        $administrator->add_cap( 'read_support_tickets' );
+        $administrator->add_cap( 'edit_support_ticket' );
+        $administrator->add_cap( 'edit_support_tickets' );
+        $administrator->add_cap( 'edit_others_support_tickets' );
+        $administrator->add_cap( 'edit_published_support_tickets' );
+        $administrator->add_cap( 'publish_support_tickets' );
+        $administrator->add_cap( 'delete_others_support_tickets' );
+        $administrator->add_cap( 'delete_private_support_tickets' );
+        $administrator->add_cap( 'delete_published_support_tickets' );
     }
 }

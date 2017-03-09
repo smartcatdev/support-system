@@ -7,7 +7,7 @@ use SmartcatSupport\descriptor\Option;
 
 class ECommerce extends AbstractComponent {
 
-    public function start() {
+    public function start()  {error_log("asdf");
         if( $this->plugin->woo_active && get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ) == 'on' ) {
             $customer = get_role( 'customer' );
 

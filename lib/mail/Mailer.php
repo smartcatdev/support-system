@@ -67,8 +67,6 @@ class Mailer implements HookSubscriber  {
             'filter_items_list'     => __( 'Filter templates list', $text_domain )
         );
 
-        $capabilities = array();
-
         $args = array(
             'label'               => __( 'Email Template', $text_domain ),
             'description'         => __( 'Templates for automated emails', $text_domain ),
@@ -86,7 +84,8 @@ class Mailer implements HookSubscriber  {
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
-            'capabilities'        => $capabilities
+            'capability_type'     => 'email_template',
+            'map_meta_cap'        => true
         );
         //</editor-fold>
 
