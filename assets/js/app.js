@@ -187,7 +187,7 @@ var App = (function ($) {
         var register_button = $("#show-registration");
 
         if(register_button.length > 0) {
-            $(".login-submit").append(register_button.show()).addClass("text-center");
+            $(".login-submit").prepend(register_button.show()).addClass("text-center");
         }
 
         _time();
