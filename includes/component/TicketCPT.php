@@ -25,7 +25,7 @@ class TicketCPT extends AbstractComponent {
             )
         ) );
 
-        if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
+        if( \SmartcatSupport\util\ecommerce_enabled() ) {
 
             $this->plugin->add_api_subscriber( new FormMetaBox(
                 array(
@@ -168,7 +168,7 @@ class TicketCPT extends AbstractComponent {
 
         $left_cols = array_merge( array( 'id' => __( 'Case', \SmartcatSupport\PLUGIN_ID ) ), $left_cols );
 
-        if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
+        if( \SmartcatSupport\util\ecommerce_enabled() ) {
             $left_cols['product'] = __( 'Product', \SmartcatSupport\PLUGIN_ID );
         }
 
@@ -204,25 +204,25 @@ class TicketCPT extends AbstractComponent {
                 break;
 
             case 'email':
-                echo \SmartcatSupport\util\ticket\author_email( $ticket );
+                echo \SmartcatSupport\util\author_email( $ticket );
                 break;
 
             case 'product':
-                $products = \SmartcatSupport\util\ticket\products();
+                $products = \SmartcatSupport\util\products();
 
                 echo array_key_exists( $value, $products ) ? $products[ $value ] : '—';
 
                 break;
 
             case 'agent':
-                $agents = \SmartcatSupport\util\user\list_agents();
+                $agents = \SmartcatSupport\util\list_agents();
 
                 echo array_key_exists( $value, $agents ) ? $agents[ $value ] : __( 'Unassigned', \SmartcatSupport\PLUGIN_ID );
 
                 break;
 
             case 'status':
-                $statuses = \SmartcatSupport\util\ticket\statuses();
+                $statuses = \SmartcatSupport\util\statuses();
 
                 if( array_key_exists( $value, $statuses ) ) {
                     echo $statuses[ $value ];
@@ -231,7 +231,7 @@ class TicketCPT extends AbstractComponent {
                 break;
 
             case 'priority':
-                $priorities = \SmartcatSupport\util\ticket\priorities();
+                $priorities = \SmartcatSupport\util\priorities();
 
                 echo array_key_exists( $value, $priorities ) ? $priorities[ $value ] : '—';
 
@@ -251,7 +251,7 @@ class TicketCPT extends AbstractComponent {
     public function post_table_filters() {
         if( get_current_screen()->post_type == 'support_ticket' ) {
 
-            $agents = \SmartcatSupport\util\user\list_agents();
+            $agents = \SmartcatSupport\util\list_agents();
             $agents = array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) + $agents;
 
             $agent_filter = new SelectBoxField(

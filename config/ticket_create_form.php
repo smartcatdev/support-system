@@ -7,13 +7,13 @@ use smartcat\form\SelectBoxField;
 use smartcat\form\TextAreaField;
 use smartcat\form\TextBoxField;
 
-$products = \SmartcatSupport\util\ticket\products();
+$products = \SmartcatSupport\util\products();
 
 $products = array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) + $products;
 
 $form = new Form( 'create_ticket' );
 
-if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
+if( \SmartcatSupport\util\ecommerce_enabled() ) {
 
     $form->add_field( new SelectBoxField(
         array(

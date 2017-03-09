@@ -8,10 +8,10 @@ use SmartcatSupport\Plugin;
 
 $form = new Form( 'ticket_filter' );
 $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
-$agents = \SmartcatSupport\util\user\list_agents();
-$products = \SmartcatSupport\util\ticket\products();
+$agents = \SmartcatSupport\util\list_agents();
+$products = \SmartcatSupport\util\products();
 
-if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
+if( \SmartcatSupport\util\ecommerce_enabled() ) {
 
     $form->add_field( new SelectBoxField(
         array(
@@ -71,7 +71,7 @@ $form->add_field( new CheckBoxGroup(
             'data-default'  => array( 'true' )
         ),
         'class'   => array( 'filter-field' ),
-        'options' => \SmartcatSupport\util\ticket\statuses()
+        'options' => \SmartcatSupport\util\statuses()
     )
 
 ) );

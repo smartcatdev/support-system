@@ -270,68 +270,68 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     private function setup_roles() {
 
-        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
             $role = add_role( $role, $name );
 
             if( !empty( $role ) ) {
-                \SmartcatSupport\util\user\add_role_caps( $role );
+                \SmartcatSupport\util\add_role_caps( $role );
             }
         }
 
-        foreach( \SmartcatSupport\util\user\priv_roles() as $role => $name ) {
+        foreach( \SmartcatSupport\util\priv_roles() as $role => $name ) {
             $role = get_role( $role );
 
             if( !empty( $role ) ) {
-                \SmartcatSupport\util\user\add_priv_role_caps( $role );
+                \SmartcatSupport\util\add_priv_role_caps( $role );
             }
         }
 
-        foreach( \SmartcatSupport\util\user\super_roles() as $role => $name ) {
+        foreach( \SmartcatSupport\util\super_roles() as $role => $name ) {
             $role = get_role( $role );
 
             if( !empty( $role ) ) {
-                \SmartcatSupport\util\user\add_super_role_caps( $role );
+                \SmartcatSupport\util\add_super_role_caps( $role );
             }
         }
 
-        if( \SmartcatSupport\util\ticket\ecommerce_enabled( false ) ) {
-            \SmartcatSupport\util\user\add_role_caps( get_role( 'subscriber' ) );
+        if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {
+            \SmartcatSupport\util\add_role_caps( get_role( 'subscriber' ) );
 
             $customer = get_role( 'customer' );
 
             if( !empty( $customer ) ) {
-                \SmartcatSupport\util\user\add_role_caps( $customer );
+                \SmartcatSupport\util\add_role_caps( $customer );
             }
         }
     }
 
     private function cleanup_roles() {
 
-        \SmartcatSupport\util\user\remove_role_caps( get_role( 'subscriber' ) );
+        \SmartcatSupport\util\remove_role_caps( get_role( 'subscriber' ) );
 
         $customer = get_role( 'customer' );
 
         if( !empty( $customer ) ) {
-            \SmartcatSupport\util\user\remove_role_caps( $customer );
+            \SmartcatSupport\util\remove_role_caps( $customer );
         }
 
-        foreach( \SmartcatSupport\util\user\priv_roles() as $role => $name ) {
+        foreach( \SmartcatSupport\util\priv_roles() as $role => $name ) {
             $role = get_role( $role );
 
             if( !empty( $role ) ) {
-                \SmartcatSupport\util\user\remove_priv_role_caps( $role );
+                \SmartcatSupport\util\remove_priv_role_caps( $role );
             }
         }
 
-        foreach( \SmartcatSupport\util\user\super_roles() as $role => $name ) {
+        foreach( \SmartcatSupport\util\super_roles() as $role => $name ) {
             $role = get_role( $role );
 
             if( !empty( $role ) ) {
-                \SmartcatSupport\util\user\remove_super_role_caps( $role );
+                \SmartcatSupport\util\remove_super_role_caps( $role );
             }
         }
 
-        foreach( \SmartcatSupport\util\user\roles() as $role => $name ) {
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
             remove_role( $role );
         }
     }

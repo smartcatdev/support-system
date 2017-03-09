@@ -212,7 +212,7 @@ class Ticket extends AjaxComponent {
                             );
                         });
 
-                        Mailer::send_template(get_option(Option::REPLY_EMAIL_TEMPLATE), \SmartcatSupport\util\ticket\author_email( $ticket ) );
+                        Mailer::send_template(get_option(Option::REPLY_EMAIL_TEMPLATE), \SmartcatSupport\util\author_email( $ticket ) );
                     }
                 } elseif ( $status != 'new' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
@@ -258,7 +258,7 @@ class Ticket extends AjaxComponent {
 
                 Mailer::send_template(
                     get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
-                    \SmartcatSupport\util\ticket\author_email( $ticket )
+                    \SmartcatSupport\util\author_email( $ticket )
                 );
             }
         }

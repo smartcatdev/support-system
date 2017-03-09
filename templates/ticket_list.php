@@ -39,7 +39,7 @@ use SmartcatSupport\descriptor\Option;
                         <div class="media-left">
 
                             <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
-                            <?php $statuses = \SmartcatSupport\util\ticket\statuses(); ?>
+                            <?php $statuses = \SmartcatSupport\util\statuses(); ?>
 
                             <div class="status-wrapper">
 
@@ -59,7 +59,7 @@ use SmartcatSupport\descriptor\Option;
 
                             <div>
 
-                                <?php $products = \SmartcatSupport\util\ticket\products(); ?>
+                                <?php $products = \SmartcatSupport\util\products(); ?>
                                 <?php $product = get_post_meta( $post->ID, 'product', true ); ?>
 
                                 <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
@@ -78,7 +78,7 @@ use SmartcatSupport\descriptor\Option;
 
                                     #<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
 
-                                    <a class="ticket-email" href="#"><?php echo \SmartcatSupport\util\ticket\author_email( $post ); ?></a>
+                                    <a class="ticket-email" href="#"><?php echo \SmartcatSupport\util\author_email( $post ); ?></a>
 
                                 </div>
 

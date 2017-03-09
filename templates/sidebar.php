@@ -2,9 +2,9 @@
 
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
-use SmartcatSupport\util\TicketUtils;
+use SmartcatSupport\utilUtils;
 
-$statuses = \SmartcatSupport\util\ticket\statuses();
+$statuses = \SmartcatSupport\util\statuses();
 $status = get_post_meta( $ticket->ID, 'status', true );
 
 ?>
@@ -59,7 +59,7 @@ $status = get_post_meta( $ticket->ID, 'status', true );
                             </p>
 
                             <p><?php _e( 'Email: ', \SmartcatSupport\PLUGIN_ID );
-                                echo \SmartcatSupport\util\ticket\author_email( $ticket ); ?></p>
+                                echo \SmartcatSupport\util\author_email( $ticket ); ?></p>
 
                         </div>
 

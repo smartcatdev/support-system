@@ -5,7 +5,7 @@ use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
 
-$products = \SmartcatSupport\util\ticket\products();
+$products = \SmartcatSupport\util\products();
 $products = array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) + $products;
 
 $form = new Form( 'product_metabox' );

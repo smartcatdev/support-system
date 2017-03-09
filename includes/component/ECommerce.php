@@ -21,17 +21,17 @@ class ECommerce extends AbstractComponent {
         if ( $val == 'on' ) {
 
             if( !empty( $customer ) ) {
-                \SmartcatSupport\util\user\add_role_caps( $customer );
+                \SmartcatSupport\util\add_role_caps( $customer );
             }
 
-            \SmartcatSupport\util\user\add_role_caps( $subscriber );
+            \SmartcatSupport\util\add_role_caps( $subscriber );
         } else {
 
             if( !empty( $customer ) ) {
-                \SmartcatSupport\util\user\remove_role_caps( $customer );
+                \SmartcatSupport\util\remove_role_caps( $customer );
             }
 
-            \SmartcatSupport\util\user\remove_role_caps( $subscriber );
+            \SmartcatSupport\util\remove_role_caps( $subscriber );
         }
 
         return $val;

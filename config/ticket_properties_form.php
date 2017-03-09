@@ -4,9 +4,9 @@ use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 
-$agents = \SmartcatSupport\util\user\list_agents();
-$statuses = \SmartcatSupport\util\ticket\statuses();
-$priorities = \SmartcatSupport\util\ticket\priorities();
+$agents = \SmartcatSupport\util\list_agents();
+$statuses = \SmartcatSupport\util\statuses();
+$priorities = \SmartcatSupport\util\priorities();
 
 $agents = array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) + $agents;
 

@@ -1,6 +1,10 @@
 <?php
 
 namespace  SmartcatSupport\util {
+
+    use SmartcatSupport\descriptor\Option;
+    use SmartcatSupport\Plugin;
+
     function just_now( $stamp ) {
         $now = date_create();
         $date = date_create( $stamp );
@@ -32,12 +36,6 @@ namespace  SmartcatSupport\util {
 
         return $str;
     }
-}
-
-namespace SmartcatSupport\util\ticket {
-
-    use SmartcatSupport\descriptor\Option;
-    use SmartcatSupport\Plugin;
 
     function author_email( $ticket ) {
         return get_user_by( 'ID', $ticket->post_author )->user_email;
@@ -107,10 +105,6 @@ namespace SmartcatSupport\util\ticket {
 
         return $enabled;
     }
-
-}
-
-namespace SmartcatSupport\util\user {
 
     function list_agents() {
         $users = get_users();
