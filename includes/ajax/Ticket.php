@@ -294,6 +294,12 @@ class Ticket extends AjaxComponent {
                     $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
                 }
             }
+        } else {
+            $args['meta_query'][] = array(
+                'key'       => 'status',
+                'value'     => 'closed',
+                'compare'   => '!='
+            );
         }
 
         return $args;

@@ -61,6 +61,20 @@ namespace  SmartcatSupport\util {
         );
     }
 
+    function filter_defaults() {
+        return array(
+            'status' => array(
+                'new'               => true,
+                'waiting'           => true,
+                'opened'            => true,
+                'responded'         => true,
+                'needs_attention'   => true,
+                'resolved'          => true,
+                'closed'            => false
+            )
+        );
+    }
+
     function products () {
         $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
         $products = array();

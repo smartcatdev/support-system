@@ -147,18 +147,6 @@ var App = (function ($) {
     var _toggle_filter = function () {
         _filter_toggle.toggleClass("active");
 
-        if (!_filter_toggle.hasClass("active")) {
-            _filter_fields.each(function (index, element) {
-                var field = $(element);
-
-                if (field.attr("type") === "checkbox") {
-                    field.attr("checked", field.data("default"));
-                } else {
-                    field.val(field.data("default"));
-                }
-            });
-        }
-
         load_tickets();
     };
 

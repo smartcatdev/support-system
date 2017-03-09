@@ -28,7 +28,9 @@ class CheckBoxGroup extends AbstractField {
                            value="<?php echo $option; ?>"
 
                            <?php $this->classes(); ?>
-                           <?php $this->props(); ?> />
+                           <?php $this->props(); ?>
+
+                           <?php checked( $this->value[ $option ] ); ?> />
 
                     <?php echo $label; ?>
 

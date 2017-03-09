@@ -18,9 +18,6 @@ if( \SmartcatSupport\util\ecommerce_enabled() ) {
             'id'      => 'product',
             'name'    => 'product',
             'label'   => __( 'Product', \SmartcatSupport\PLUGIN_ID ),
-            'props'   => array(
-                'data-default' => array( 0 )
-            ),
             'class'   => array( 'filter-field', 'form-control' ),
             'options' => array( 0 => __( 'All Products', \SmartcatSupport\PLUGIN_ID ) ) + $products
         )
@@ -36,9 +33,6 @@ if( current_user_can( 'manage_support_tickets' ) ) {
             'id'      => 'agent',
             'name'    => 'agent',
             'label'   => __( 'Agent', \SmartcatSupport\PLUGIN_ID ),
-            'props'   => array(
-                'data-default' => array( 0 )
-            ),
             'class'   => array( 'filter-field', 'form-control' ),
             'options' => array( 0 => __( 'All Agents', \SmartcatSupport\PLUGIN_ID ) ) + $agents
         )
@@ -66,10 +60,7 @@ $form->add_field( new CheckBoxGroup(
         'id'      => 'status',
         'name'    => 'status',
         'label'   => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
-        'props'    => array(
-            'checked'       => array( 'checked' ),
-            'data-default'  => array( 'true' )
-        ),
+        'value'   => \SmartcatSupport\util\filter_defaults()['status'],
         'class'   => array( 'filter-field' ),
         'options' => \SmartcatSupport\util\statuses()
     )
