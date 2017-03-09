@@ -111,7 +111,7 @@ var App = (function ($) {
         if (_filter_toggle.hasClass("active")) {
             request.data = $.merge(request.data, _filter.serializeArray());
         }
-
+console.log(request);
         refresh.addClass("rotate");
         $.ajax(request);
     };

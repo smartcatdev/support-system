@@ -90,15 +90,17 @@ namespace  SmartcatSupport\util {
                 $post_type[] = 'download';
             }
 
-            $query = new \WP_Query(
-                array(
-                    'post_type'   => $post_type,
-                    'post_status' => 'publish'
-                )
-            );
+            if( !empty( $post_type ) ) {
+                $query = new \WP_Query(
+                    array(
+                        'post_type' => $post_type,
+                        'post_status' => 'publish'
+                    )
+                );
 
-            foreach( $query->posts as $post ) {
-                $products[ $post->ID ] = $post->post_title;
+                foreach ($query->posts as $post) {
+                    $products[$post->ID] = $post->post_title;
+                }
             }
         }
 
@@ -139,6 +141,14 @@ namespace  SmartcatSupport\util {
             'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
             'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID ),
         );
+    }
+
+    function add_caps( $role, $privilege ) {
+        $role = get_role( $role );
+
+        if( !empty( $role ) ) {
+
+        }
     }
 
     function priv_roles() {
