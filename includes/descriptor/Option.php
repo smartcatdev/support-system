@@ -99,7 +99,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const ECOMMERCE_INTEGRATION = 'smartcat_support_ecommerce-integration';
+    const ECOMMERCE = 'smartcat_support_ecommerce-integration';
 
     /**
      * @since 1.0.0

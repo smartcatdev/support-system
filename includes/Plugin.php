@@ -42,7 +42,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function activate() {
-        $this->setup_roles();
+        $this->configure_roles();
         $this->create_email_templates();
         $this->setup_template_page();
     }
@@ -171,7 +171,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             Hacks::class
         );
 
-        if( $this->edd_active || $this->woo_active ) {
+        if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {
             $components[] = ECommerce::class;
         }
 
@@ -270,74 +270,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
-    private function setup_roles() {
-
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
-            $role = add_role( $role, $name );
-
-            if( !empty( $role ) ) {
-                \SmartcatSupport\util\add_role_caps( $role );
-            }
-        }
-
-        foreach( \SmartcatSupport\util\priv_roles() as $role => $name ) {
-            $role = get_role( $role );
-
-            if( !empty( $role ) ) {
-                \SmartcatSupport\util\add_priv_role_caps( $role );
-            }
-        }
-
-        foreach( \SmartcatSupport\util\super_roles() as $role => $name ) {
-            $role = get_role( $role );
-
-            if( !empty( $role ) ) {
-                \SmartcatSupport\util\add_super_role_caps( $role );
-            }
-        }
-
-        if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {
-            \SmartcatSupport\util\add_role_caps( get_role( 'subscriber' ) );
-
-            $customer = get_role( 'customer' );
-
-            if( !empty( $customer ) ) {
-                \SmartcatSupport\util\add_role_caps( $customer );
-            }
-        }
-    }
-
-    private function cleanup_roles() {
-
-        \SmartcatSupport\util\remove_role_caps( get_role( 'subscriber' ) );
-
-        $customer = get_role( 'customer' );
-
-        if( !empty( $customer ) ) {
-            \SmartcatSupport\util\remove_role_caps( $customer );
-        }
-
-        foreach( \SmartcatSupport\util\priv_roles() as $role => $name ) {
-            $role = get_role( $role );
-
-            if( !empty( $role ) ) {
-                \SmartcatSupport\util\remove_priv_role_caps( $role );
-            }
-        }
-
-        foreach( \SmartcatSupport\util\super_roles() as $role => $name ) {
-            $role = get_role( $role );
-
-            if( !empty( $role ) ) {
-                \SmartcatSupport\util\remove_super_role_caps( $role );
-            }
-        }
-
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
-            remove_role( $role );
-        }
-    }
-
     private function configure_roles() {
         $administrator = get_role( 'administrator' );
 
@@ -351,5 +283,28 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $administrator->add_cap( 'delete_others_support_tickets' );
         $administrator->add_cap( 'delete_private_support_tickets' );
         $administrator->add_cap( 'delete_published_support_tickets' );
+
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+            add_role( $role, $name );
+        }
+
+        \SmartcatSupport\util\add_caps( 'customer' );
+        \SmartcatSupport\util\add_caps( 'subscriber' );
+        \SmartcatSupport\util\add_caps( 'support_user' );
+
+        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
+
+        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
+        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
+    }
+
+    private function cleanup_roles() {
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+            remove_role( $role );
+        }
+
+        \SmartcatSupport\util\remove_caps( 'customer' );
+        \SmartcatSupport\util\remove_caps( 'subscriber' );
+        \SmartcatSupport\util\remove_caps( 'administrator' );
     }
 }

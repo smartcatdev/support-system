@@ -197,8 +197,8 @@ $general->add_field( new TextField(
 ) )->add_field( new CheckBoxField(
     array(
         'id'            => 'support_ecommerce_integration',
-        'option'        => Option::ECOMMERCE_INTEGRATION,
-        'value'         => get_option( Option::ECOMMERCE_INTEGRATION, Option\Defaults::ECOMMERCE_INTEGRATION ),
+        'option'        => Option::ECOMMERCE,
+        'value'         => get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE ),
         'label'         => __( 'E-Commerce Integration', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Enable integration with Easy Digital Downloads or WooCommerce', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
