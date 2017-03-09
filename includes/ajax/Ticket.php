@@ -280,9 +280,9 @@ class Ticket extends AjaxComponent {
         $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
 
         if( $form->is_valid() ) {
-error_log(serialize($form->data));
+
             $author = get_user_by( 'email', $form->data['email'] );
-            $args['author'] = $author ? $author->ID : PHP_INT_MAX;
+            $args['author'] = $author ? $author->ID : 0;
 
             unset( $form->data['email'] );
 
