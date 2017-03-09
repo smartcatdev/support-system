@@ -282,12 +282,9 @@ class Ticket extends AjaxComponent {
         if( $form->is_valid() ) {
 
             $author = get_user_by( 'email', $form->data['email'] );
+            $args['author'] = $author ? $author->ID : PHP_INT_MAX;
 
             unset( $form->data['email'] );
-
-            if( $author ) {
-                $args['author'] = $author->ID;
-            }
 
             foreach( $form->data as $name => $value ) {
                 if( !empty( $value ) ) {
