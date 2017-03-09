@@ -12,11 +12,11 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
 <style type="text/css">
 
     /* Primary color */
-    .button-primary,
-    .trigger,
+    .button, .button-primary,
     input[type="submit"],
-    .button {
-        background: <?php echo $primary_color; ?>;
+    .pagination .active a {
+        background-color: <?php echo $primary_color; ?>;
+        border-color: <?php echo $primary_color; ?>;
     }
 
     #filter-toggle.active {
@@ -58,8 +58,9 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
         background: <?php echo $hover_color; ?>;
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    .pagination .active a:hover {
         background: <?php echo $hover_color; ?> !important;
+        border-color: <?php echo $hover_color; ?> !important;
     }
 
     /* Tertiary color */
