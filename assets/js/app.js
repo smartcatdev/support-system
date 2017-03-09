@@ -111,7 +111,7 @@ var App = (function ($) {
         if (_filter_toggle.hasClass("active")) {
             request.data = $.merge(request.data, _filter.serializeArray());
         }
-console.log(request);
+
         refresh.addClass("rotate");
         $.ajax(request);
     };
@@ -142,6 +142,7 @@ console.log(request);
 
     var _filter_off = function () {
         _filter_toggle.removeClass("active");
+        sessionStorage.removeItem("page");
     };
 
     var _toggle_filter = function () {
