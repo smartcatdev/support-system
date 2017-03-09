@@ -151,7 +151,11 @@ var App = (function ($) {
             _filter_fields.each(function (index, element) {
                 var field = $(element);
 
-                field.val(field.data("default"));
+                if (field.attr("type") === "checkbox") {
+                    field.attr("checked", field.data("default"));
+                } else {
+                    field.val(field.data("default"));
+                }
             });
         }
 

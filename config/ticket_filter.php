@@ -3,13 +3,12 @@
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
-use SmartcatSupport\form\SearchBox;
+use SmartcatSupport\form\CheckBoxGroup;
 use SmartcatSupport\Plugin;
 
 $form = new Form( 'ticket_filter' );
 $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
 $agents = \SmartcatSupport\util\user\list_agents();
-$statuses = \SmartcatSupport\util\ticket\statuses();
 $products = \SmartcatSupport\util\ticket\products();
 
 if( \SmartcatSupport\util\ticket\ecommerce_enabled() ) {
@@ -48,20 +47,6 @@ if( current_user_can( 'manage_support_tickets' ) ) {
 
 }
 
-$form->add_field( new SelectBoxField(
-    array(
-        'id'      => 'status',
-        'name'    => 'status',
-        'label'   => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
-        'props'    => array(
-            'data-default' => array( '' )
-        ),
-        'class'   => array( 'filter-field', 'form-control' ),
-        'options' => array( '' => __( 'Any Status', \SmartcatSupport\PLUGIN_ID ) ) + $statuses
-    )
-
-) );
-
 if( current_user_can( 'manage_support_tickets' ) ) {
 
     $form->add_field(new TextBoxField(
@@ -70,13 +55,25 @@ if( current_user_can( 'manage_support_tickets' ) ) {
             'name'  => 'email',
             'label' => __( 'Email', \SmartcatSupport\PLUGIN_ID ),
             'type'  => 'email',
-            'props' => array(
-                'data-default' => array('')
-            ),
             'class' => array('filter-field', 'form-control')
         )
 
     ));
 }
+
+$form->add_field( new CheckBoxGroup(
+    array(
+        'id'      => 'status',
+        'name'    => 'status',
+        'label'   => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
+        'props'    => array(
+            'checked'       => array( 'checked' ),
+            'data-default'  => array( 'true' )
+        ),
+        'class'   => array( 'filter-field' ),
+        'options' => \SmartcatSupport\util\ticket\statuses()
+    )
+
+) );
 
 return $form;
