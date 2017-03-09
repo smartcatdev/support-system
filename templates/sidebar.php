@@ -4,8 +4,20 @@ use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 use SmartcatSupport\utilUtils;
 
+$products = \SmartcatSupport\util\products();
 $statuses = \SmartcatSupport\util\statuses();
 $status = get_post_meta( $ticket->ID, 'status', true );
+
+$product = get_post_meta( $ticket->ID, 'product', true );
+$receipt_id = get_post_meta( $ticket->ID, 'receipt_id', true );
+
+if( array_key_exists( $product, $products ) ) {
+    $product = $products[$product];
+}
+
+if( empty( $receipt_id ) ) {
+    $receipt_id = '—';
+}
 
 ?>
 
@@ -26,6 +38,41 @@ $status = get_post_meta( $ticket->ID, 'status', true );
         </div>
 
     </div>
+
+    <?php if( \SmartcatSupport\util\ecommerce_enabled() ) : ?>
+
+        <div class="panel panel-default purchase-details" data-id="purchase-details">
+
+            <div class="panel-heading">
+
+                <a href="#collapse-purchase-<?php echo $ticket->ID; ?>" data-toggle="collapse"
+                   class="panel-title"><?php _e( 'Purchase Details', \SmartcatSupport\PLUGIN_ID ); ?></a>
+
+            </div>
+
+            <div id="collapse-purchase-<?php echo $ticket->ID; ?>" class="panel-collapse in">
+
+                <div class="panel-body">
+
+                    <div class="product-info">
+
+                        <span class="lead"><?php _e( $product, \SmartcatSupport\PLUGIN_ID ); ?>
+
+                    </div>
+
+                    <div class="purchase-info">
+
+                        <span><?php _e( "Receipt # {$receipt_id}", \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    <?php endif; ?>
 
     <?php if ( current_user_can( 'manage_support_tickets' ) ) : ?>
 
