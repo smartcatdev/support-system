@@ -29,7 +29,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const NOTIFY_RESOLVED = 'smartcat_support_notify-closed';
+    const EMAIL_NOTIFICATIONS = 'smartcat_support_email-notifications';
 
     /**
      * @since 1.0.0
@@ -99,12 +99,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = 'smartcat_support_edd-integration';
-
-    /**
-     * @since 1.0.0
-     */
-    const WOO_INTEGRATION = 'smartcat_support_woo-integration';
+    const ECOMMERCE = 'smartcat_support_ecommerce-integration';
 
     /**
      * @since 1.0.0
@@ -157,7 +152,22 @@ final class Option {
     const TERTIARY_COLOR = 'smartcat_support_tertiary-color';
 
     /**
+ * @since 1.0.0
+ */
+    const HOVER_COLOR = 'smartcat_support_hover-color';
+
+    /**
      * @since 1.0.0
      */
-    const HOVER_COLOR = 'smartcat_support_hover-color';
+    const MAX_TICKETS = 'smartcat_support_max-tickets-per-page';
+
+    /**
+     * @since 1.0.0
+     */
+    const SHOW_FOOTER = 'smartcat_support_display-footer';
+
+    /**
+     * @since 1.0.0
+     */
+    const FOOTER_TEXT = 'smartcat_support_footer-text';
 }

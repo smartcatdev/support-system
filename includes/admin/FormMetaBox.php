@@ -49,11 +49,7 @@ class FormMetaBox extends AbstractMetaBox {
 
                 <?php endforeach; ?>
 
-                <tr>
-                    <td style="display: none">
-                        <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>"/>
-                    </td>
-                </tr>
+                <input type="hidden" name="<?php echo $form->id; ?>"/>
 
             </table>
 

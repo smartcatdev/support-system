@@ -18,10 +18,14 @@ if( !defined( 'ABSPATH' ) ) {
     die();
 }
 
+const PLUGIN_ID = "smartcat_support";
+const PLUGIN_VERSION = '1.0.0';
+
 
 // Manual includes
 include_once 'vendor/autoload.php';
+include_once 'includes/functions.php';
 
 
 // Boot up the container
-Plugin::boot( Plugin::ID, Plugin::VERSION, __FILE__ );
+Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );

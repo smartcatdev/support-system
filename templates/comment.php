@@ -5,68 +5,78 @@ use SmartcatSupport\Plugin;
 
 ?>
 
-<div class="comment support_card" data-id="<?php esc_attr_e( $comment->comment_ID ); ?>">
+<div class="wrapper">
 
-    <div class="status_bar">
+    <div id="comment-<?php echo $comment->comment_ID; ?>"
+         data-id="<?php esc_attr_e( $comment->comment_ID ); ?>"
+         class="comment panel panel-default">
 
-        <div class="image_wrapper">
+        <div class="panel-heading">
 
-            <?php echo get_avatar( $comment, 36 ); ?>
+            <div class="media pull-left meta">
+
+                <div class="media-left">
+
+                    <?php echo get_avatar( $comment, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+
+                </div>
+
+                <div class="media-body" style="width: auto">
+
+                    <p class="media-heading"><?php echo $comment->comment_author; ?></p>
+
+                    <p class="text-muted"><?php echo \SmartcatSupport\util\just_now( $comment->comment_date ); ?></p>
+
+                </div>
+
+            </div>
+
+            <div class="pull-right">
+
+                <div class="btn-group comment-controls">
+
+                    <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
+
+                        <button class="btn btn-default glyphicon glyphicon-trash delete-comment"
+                                data-id="<?php echo $comment->comment_ID; ?>"></button>
+
+                        <button class="btn btn-default glyphicon glyphicon-pencil edit-comment"></button>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
 
         </div>
 
-        <div class="meta_wrapper">
+        <div class="panel-body">
 
-            <p class="author_name"><?php esc_html_e( $comment->comment_author ); ?></p>
+            <div class="comment-content">
 
-            <p class="date_posted">
+                <?php echo stripcslashes( $comment->comment_content ); ?>
 
-                <?php _e( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago', Plugin::ID ); ?>
+            </div>
 
-            </p>
+            <div class="editor">
 
-        </div>
+                <form class="edit-comment-form">
 
-        <div class="actions">
+                    <textarea class="editor-content" name="content" rows="5"></textarea>
 
-            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_comments' ) && $comments_enabled ) : ?>
+                    <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 
-                <i class="trigger icon-bin" data-action="delete_comment"></i>
-                <i class="trigger icon-pencil" data-action="edit_comment"></i>
+                    <div class="bottom text-right">
 
-            <?php endif; ?>
-
-        </div>
-
-    </div>
-
-    <div class="inner">
-
-        <div class="content"><?php echo $comment->comment_content; ?></div>
-
-        <?php if( $comments_enabled ) : ?>
-
-            <div class="editor hidden">
-
-                <form class="support_form"
-                      data-action="support_update_comment"
-                      data-after="post_comment_update">
-
-                    <textarea name="content"><?php echo $comment->comment_content; ?></textarea>
-
-                    <input type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
-
-                    <?php wp_comment_form_unfiltered_html_nonce(); ?>
-
-                    <div class="button_wrapper">
-
-                        <button class="trigger button cancel" data-action="cancel_comment_edit">
+                        <button type="button" class="button cancel-edit-comment">
 
                             <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
 
                         </button>
 
-                        <button type="input" class="button submit">
+                        <button type="submit" class="button save-comment button-submit">
 
                             <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
 
@@ -78,10 +88,8 @@ use SmartcatSupport\Plugin;
 
             </div>
 
-        <?php endif; ?>
+        </div>
 
     </div>
 
 </div>
-
-

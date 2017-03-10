@@ -6,59 +6,39 @@ use smartcat\form\RequiredConstraint;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextAreaField;
 use smartcat\form\TextBoxField;
-use SmartcatSupport\Plugin;
 
-$user     = wp_get_current_user();
-$products = apply_filters( 'support_list_products', array( '' => __( 'Select a Product', Plugin::ID ) ) );
-$form     = new Form( 'create_ticket' );
+$products = \SmartcatSupport\util\products();
 
-$form->add_field( new TextBoxField(
-    array(
-        'id'            => 'first_name',
-        'value'         => $user->first_name,
-        'label'         => __( 'First Name', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
-        'constraints'   => array(
-            new RequiredConstraint()
-        )
-    )
+$products = array( 0 => __( 'Select a Product', \SmartcatSupport\PLUGIN_ID ) ) + $products;
 
-) )->add_field( new TextBoxField(
-    array(
-        'id'            => 'last_name',
-        'value'         => $user->last_name,
-        'label'         => __( 'Last Name', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
-        'constraints'   =>  array(
-            new RequiredConstraint()
-        )
-    )
+$form = new Form( 'create_ticket' );
 
-) )->add_field( new TextBoxField(
-    array(
-        'id'            => 'email',
-        'type'              => 'email',
-        'value'             => $user->user_email,
-        'label'             => __( 'Contact Email', Plugin::ID ),
-        'error_msg'         => __( 'Cannot be blank', Plugin::ID ),
-        'sanitize_callback' => 'sanitize_email',
-        'constraints'       => array(
-            new RequiredConstraint()
-        )
-    )
+if( \SmartcatSupport\util\ecommerce_enabled() ) {
 
-) );
-
-if( $products ) {
     $form->add_field( new SelectBoxField(
         array(
-            'id'            => 'product',
-            'label'         => __( 'Product', Plugin::ID ),
-            'error_msg'     => __( 'Please Select a product', Plugin::ID ),
+            'name'          => 'product',
+            'class'         => array( 'form-control' ),
+            'label'         => __( 'Product', \SmartcatSupport\PLUGIN_ID ),
+            'error_msg'     => __( 'Please Select a product', \SmartcatSupport\PLUGIN_ID ),
             'options'       => $products,
+            'props'         => array(
+                'data-default' => array( 0 )
+            ),
             'constraints'   => array(
                 new ChoiceConstraint( array_keys( $products ) )
             )
+        )
+
+    ) )->add_field( new TextBoxField(
+        array(
+            'name'              => 'receipt_id',
+            'class'             => array( 'form-control' ),
+            'label'             => __( 'Receipt #', \SmartcatSupport\PLUGIN_ID ),
+            'sanitize_callback' => 'sanitize_text_field',
+            'props'             => array(
+                'data-default' => array( '' )
+            ),
         )
 
     ) );
@@ -66,9 +46,13 @@ if( $products ) {
 
 $form->add_field( new TextBoxField(
     array(
-        'id'            => 'subject',
-        'label'         => __( 'Subject', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
+        'name'          => 'subject',
+        'class'         => array( 'form-control' ),
+        'label'         => __( 'Subject', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'props'         => array(
+            'data-default' => array( '' )
+        ),
         'constraints'   => array(
             new RequiredConstraint()
         )
@@ -76,9 +60,13 @@ $form->add_field( new TextBoxField(
 
 ) )->add_field( new TextBoxField(
     array(
-        'id'            => 'subject',
-        'label'         => __( 'Subject', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
+        'name'          => 'subject',
+        'class'         => array( 'form-control' ),
+        'label'         => __( 'Subject', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Subject cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'props'         => array(
+            'data-default' => array( '' )
+        ),
         'constraints'   => array(
             new RequiredConstraint()
         )
@@ -86,9 +74,11 @@ $form->add_field( new TextBoxField(
 
 ) )->add_field( new TextAreaField(
     array(
-        'id'            => 'content',
-        'label'         => __( 'Description', Plugin::ID ),
-        'error_msg'     => __( 'Cannot be blank', Plugin::ID ),
+        'name'          => 'description',
+        'props'         => array( 'rows' => array( 8 ), 'data-default' => array( '' ) ),
+        'class'         => array( 'form-control' ),
+        'label'         => __( 'Description', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg'     => __( 'Description cannot be blank', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
             new RequiredConstraint()
         )

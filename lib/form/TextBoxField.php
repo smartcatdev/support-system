@@ -5,22 +5,23 @@ namespace smartcat\form;
 if( !class_exists( '\smartcat\form\TextBoxField' ) ) :
 
 class TextBoxField extends AbstractField {
-    private $type = 'text';
-    
+    protected $type = 'text';
+
     public function __construct( array $args ) {
         parent::__construct( $args );
-        
-        if( !empty( $args['type'] ) ) {
-            $this->type = $args['type'];
-        }
+
+        $this->type = isset( $args['type'] ) ? $args['type'] : "text";
     }
 
     public function render() { ?>
 
-        <input type="<?php esc_attr_e( $this->type ); ?>"
-            name="<?php esc_attr_e( $this->id ); ?>"
-            value="<?php esc_attr_e( $this->value ); ?>"
-            class="form_field" />
+        <input id="<?php echo $this->id; ?>"
+               name="<?php echo $this->name; ?>"
+               type="<?php echo $this->type; ?>"
+               value="<?php echo $this->value; ?>"
+
+            <?php $this->props(); ?>
+            <?php $this->classes(); ?> />
 
     <?php }
 }

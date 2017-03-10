@@ -1,30 +1,22 @@
 <?php
 
-use smartcat\form\CheckBoxField;
 use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\util\UserUtils;
 
-$agents     = UserUtils::list_agents(array( '' => __( 'Unassigned', Plugin::ID ) ) );
-$statuses   = get_option( Option::STATUSES, Option\Defaults::$STATUSES );
-$priorities = get_option( Option::PRIORITIES, Option\Defaults::$PRIORITIES );
+$agents = \SmartcatSupport\util\list_agents();
+$statuses = \SmartcatSupport\util\statuses();
+$priorities = \SmartcatSupport\util\priorities();
+
+$agents = array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) + $agents;
 
 $form = new Form( 'ticket_quick_edit' );
 
-$form->add_field( new CheckBoxField(
+$form->add_field( new SelectBoxField(
     array(
-        'id'        => 'flagged',
-        'cb_title'  => __( 'Flagged', Plugin::ID ),
-        'value'     => false
-    )
-
-) )->add_field( new SelectBoxField(
-    array(
-        'id'            => 'agent',
-        'label'         => __( 'Assigned', Plugin::ID ),
+        'name'          => 'agent',
+        'class'         => array( 'quick-edit-field', 'agent' ),
+        'label'         => __( 'Assigned', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $agents,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $agents ) )
@@ -33,8 +25,9 @@ $form->add_field( new CheckBoxField(
 
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'status',
-        'label'         => __( 'Status', Plugin::ID ),
+        'name'          => 'status',
+        'class'         => array( 'quick-edit-field', 'status' ),
+        'label'         => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $statuses,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $statuses ) )
@@ -43,8 +36,9 @@ $form->add_field( new CheckBoxField(
 
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'priority',
-        'label'         => __( 'Priority', Plugin::ID ),
+        'name'          => 'priority',
+        'class'         => array( 'quick-edit-field', 'priority' ),
+        'label'         => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
         'options'       => $priorities,
         'constraints'   => array(
             new ChoiceConstraint( array_keys( $priorities ) )

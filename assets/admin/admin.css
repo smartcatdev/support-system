@@ -1,20 +1,20 @@
-.support_icon.flag.active {
+.flag-ticket.active {
     color: red;
 }
 
-.support_icon.flag {
+.flag-ticket {
     color: #b4b9be;
 }
 
-.support_icon {
+.support-icon {
     font-size: 1.3em;
 }
 
-.support_admin_toggle {
+.toggle {
     cursor: pointer;
 }
 
-.support_ticket_metabox .form_field {
+.support_ticket_metabox .metabox-field {
     width: 100%;
     padding: 5px;
     height: auto;
@@ -22,19 +22,6 @@
 
 .support_ticket_metabox .form-table th {
     width: auto;
-}
-
-table.wp-list-table td.column-thumb img {
-    margin: 0;
-    width: auto;
-    height: auto;
-    max-width: 40px;
-    max-height: 40px;
-    vertical-align: middle;
-}
-
-table.wp-list-table img {
-    margin: 1px 2px;
 }
 
 table.wp-list-table th i {
@@ -46,10 +33,10 @@ table.wp-list-table td.thumb {
     text-align: center;
 }
 
-.inline-edit-col .form_field {
-   min-width: 150px;
+.inline-edit-col .quick-edit-field {
+   width: 100%;
 }
 
-.inline-edit-col .form_field[type=checkbox] {
-    min-width: auto;
+td.column-id.id:before {
+    content: '' !important;
 }

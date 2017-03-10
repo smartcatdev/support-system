@@ -1,79 +1,82 @@
 <?php
 
-use smartcat\form\Form;
-use SmartcatSupport\Plugin;
+use SmartcatSupport\descriptor\Option;
 
 ?>
+<div class="loader-mask"></div>
 
-<div class="support_ticket row">
+<div class="row ticket-detail" style="display: none">
 
-    <div class="ticket support_card col-sm-8" data-id="<?php esc_attr_e( $ticket->ID ); ?>">
+    <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
 
-        <div class="status_bar">
+    <div class="discussion-area col-sm-8 col-sm-pull-4">
 
-            <div class="image_wrapper">
-                
-                <?php echo get_avatar( $ticket->post_author, 48 ); ?>
+        <div class="ticket panel panel-default ">
+
+            <div class="panel-heading">
+
+                <p class="panel-title"><?php esc_html_e( $ticket->post_title ); ?></p>
 
             </div>
 
-            <div class="meta_wrapper">
+            <div class="panel-body">
 
-                <p class="author_name"><?php esc_html_e( get_the_author_meta( 'display_name', $ticket->post_author ) ); ?></p>
-
-                <p class="date_posted">
-
-                    <?php _e( 'Updated ', Plugin::ID ); ?>
-                    <?php _e( human_time_diff( strtotime( $ticket->post_date ), current_time( 'timestamp' ) ) . ' ago', Plugin::ID ); ?>
-
-                    <?php if ( current_user_can( 'edit_others_tickets' ) ) : ?>
-
-                        by
-
-                        <span class="author_name">
-
-                        <?php esc_html_e( get_the_author_meta( 'display_name', get_post_meta( $ticket->ID, '_edit_last', true ) ) ); ?>
-
-                    </span>
-
-                    <?php endif; ?>
-
-                </p>
+                <p><?php echo $ticket->post_content; ?></p>
 
             </div>
 
         </div>
 
-        <div class="inner">
+        <div class="comments"></div>
 
-            <h2 class="subject"><?php esc_html_e( $ticket->post_title ); ?></h2>
+        <div class="comment-reply-wrapper">
 
-            <div class="content"><?php echo $ticket->post_content; ?></div>
+            <div class="comment-reply panel panel-default ">
+
+                <div class="panel-heading">
+
+                    <div class="media meta">
+
+                        <div class="media-left">
+
+                            <?php echo get_avatar( wp_get_current_user()->ID, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="editor">
+
+                        <form class="comment-form">
+
+                            <textarea class="editor-content" name="content" rows="5"></textarea>
+
+                            <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
+
+                            <div class="bottom text-right">
+
+                                <button type="submit" class="button button-submit" disabled="true">
+
+                                    <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
-
-        <div class="date_opened">
-
-            <?php _e( 'Opened ', Plugin::ID ); echo get_the_date( 'l F n, Y', $ticket ); ?>
-
-        </div>
-
 
     </div>
-    
 
-    <?php if( current_user_can( 'edit_others_tickets' ) ) : ?>
-
-        <div id="ticket-sidebar" class="col-sm-4">
-
-            <form class="meta_form" data-action="support_update_ticket" data-after="refresh_tickets">
-
-                <?php Form::render_fields( include Plugin::plugin_dir( Plugin::ID ) . 'config/ticket_meta_form.php' ); ?>
-
-            </form>
-
-        </div>
-
-    <?php endif; ?>
-    
-    </div>
+</div>

@@ -6,38 +6,21 @@ if( !class_exists('\smartcat\form\AbstractField') ) :
 
 abstract class AbstractField {
     public $id;
+    public $name;
     public $value = '';
     public $label;
     public $desc;
-    public $error_message;
+    public $class = array();
+    public $props = array();
+    public $error_msg;
     protected $constraints = array();
     protected $sanitize_callback;
  
     public function __construct( array $args ) {
-        $this->id = $args['id'];
-
-        if( !empty( $args['error_msg'] ) ) {
-            $this->error_message = $args['error_msg'];
-        }
-        
-        if( !empty( $args['label'] ) ) {
-            $this->label = $args['label'];
-        }
-
-        if( !empty( $args['constraints'] ) ) {
-            $this->constraints = $args['constraints'];
-        }
-        
-        if( !empty( $args['desc'] ) ) {
-            $this->desc = $args['desc'];
-        }
-        
-        if( !empty( $args['value'] ) ) {
-            $this->value = $args['value'];
-        }
-
-        if( !empty( $args['sanitize_callback'] ) ) {
-            $this->sanitize_callback = $args['sanitize_callback'];
+        foreach( $args as $arg => $value ) {
+            if( property_exists( __CLASS__, $arg ) ) {
+                $this->{ $arg } = $value;
+            }
         }
     }
 
@@ -64,7 +47,21 @@ abstract class AbstractField {
         return $valid;
     }
 
-    public abstract function render();
+    public function render() {}
+
+    protected function classes() {
+        if( !empty( $this->class ) ) {
+            echo ' class="' . implode( ' ', $this->class ) . '" ';
+        }
+    }
+
+    protected function props() {
+        if( !empty( $this->props ) ) {
+            foreach( $this->props as $prop => $values ) {
+                echo $prop . '="' . implode( ' ', $values ) . '"';
+            }
+        }
+    }
 }
 
 endif;

@@ -1,26 +1,60 @@
 <?php
+
+use SmartcatSupport\descriptor\Option;
+
 $user = wp_get_current_user();
+
 ?>
 <div id="navbar" class="background-secondary">
-    <div class="container">
+
+    <div class="container-fluid">
+
         <div class="row">
-            <?php if ( !empty( $user ) ) : ?>
-                <div class="col-sm-6 alignleft row-table left-header">
+
+                <div class="row-table pull-left">
+
                     <div class="row-table-cell">
 
                         <a href="#date" class="background-secondary hover menu-item">
+
                             <span class="glyphicon-calendar glyphicon"></span>
-                            <?php echo current_time( 'M d' ); ?>
+
+                            <span id="sys-date"></span>
+
                         </a>
-                        <a>|</a>
+
+                        <span class="text-muted">|</span>
+
                         <a href="#time" class="background-secondary hover menu-item">
+
                             <span class="glyphicon-time glyphicon"></span>
-                            <span class="current-time"><?php echo current_time( 'H:i a' ); ?></span>
+
+                            <span id="sys-time"></span>
+
                         </a>
 
                     </div>
+
                 </div>
-                <div class="col-sm-6 alignright row-table right-header">
+
+                <div class="row-table pull-right">
+
+                    <?php if ( current_user_can('create_support_tickets') ) : ?>
+
+                        <div class="row-table-cell">
+
+                            <button class="button button-primary" data-toggle="modal" data-target="#create-modal">
+
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+
+                                <?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID ); ?>
+
+                            </button>
+
+                        </div>
+
+                    <?php endif; ?>
+
                     <div class="row-table-cell">
                         
                         <div class="dropdown-wrapper">
@@ -31,34 +65,51 @@ $user = wp_get_current_user();
                                role="button" 
                                aria-haspopup="true" 
                                aria-expanded="false">
+
                                 <?php echo get_avatar( $user->ID, 46 ); ?>
-                                <?php echo $user->user_firstname; ?> <span class="caret"></span>
+
+                                <?php echo $user->user_firstname ?> <span class="caret"></span>
+
                             </a>
                             
                             <ul class="dropdown-menu">
 
                                 <li>
-                                    <a href="<?php echo admin_url( 'admin-ajax.php' ); ?>?action=support_settings" rel="modal:open" class="alignright background-secondary hover menu-item">
+
+                                    <a href="#" data-toggle="modal" data-target="#settings-modal">
+
                                         <span class="glyphicon glyphicon-cog"></span>
-                                        <?php _e( 'Settings', SmartcatSupport\Plugin::ID ); ?>
-                                    </a>    
+
+                                        <?php _e( 'Settings', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                    </a>
+
                                 </li>
 
                                 <li role="separator" class="divider"></li>
 
                                 <li>
                                     <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">
+
                                         <span class="glyphicon-log-out glyphicon"></span>
-                                        <?php _e( 'Logout', SmartcatSupport\Plugin::ID ); ?>
-                                    </a>    
+
+                                        <?php _e( 'Logout', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                    </a>
+
                                 </li>
+
                             </ul>
 
                         </div>
 
                     </div>
+
                 </div>
-            <?php endif; ?>
+
+
         </div>
+
     </div>
+
 </div>

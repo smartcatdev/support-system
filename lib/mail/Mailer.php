@@ -14,6 +14,7 @@ class Mailer implements HookSubscriber  {
     public static function init( HookRegisterer $plugin ) {
         if( empty( self::$instance ) ) {
             self::$instance = new self();
+            self::configure_caps();
             $plugin->add_api_subscriber( self::$instance );
         }
 
@@ -67,8 +68,6 @@ class Mailer implements HookSubscriber  {
             'filter_items_list'     => __( 'Filter templates list', $text_domain )
         );
 
-        $capabilities = array();
-
         $args = array(
             'label'               => __( 'Email Template', $text_domain ),
             'description'         => __( 'Templates for automated emails', $text_domain ),
@@ -86,7 +85,8 @@ class Mailer implements HookSubscriber  {
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
-            'capabilities'        => $capabilities
+            'capability_type'     => 'email_template',
+            'map_meta_cap'        => true
         );
         //</editor-fold>
 
@@ -110,6 +110,8 @@ class Mailer implements HookSubscriber  {
     }
 
     public static function cleanup( $nuke = false ) {
+        self::cleanup_caps();
+
         if( empty( apply_filters( 'mailer_consumers', array() ) ) ) {
             unregister_post_type( 'email_template' );
 
@@ -128,6 +130,36 @@ class Mailer implements HookSubscriber  {
             'init' => array( 'register_template_cpt' ),
             'parse_email_template' => array( 'replace_default_vars', 10, 3 )
         );
+    }
+
+    private static function configure_caps() {
+        $administrator = get_role( 'administrator' );
+
+        $administrator->add_cap( 'read_email_template' );
+        $administrator->add_cap( 'read_email_templates' );
+        $administrator->add_cap( 'edit_email_template' );
+        $administrator->add_cap( 'edit_email_templates' );
+        $administrator->add_cap( 'edit_others_email_templates' );
+        $administrator->add_cap( 'edit_published_email_templates' );
+        $administrator->add_cap( 'publish_email_templates' );
+        $administrator->add_cap( 'delete_others_email_templates' );
+        $administrator->add_cap( 'delete_private_email_templates' );
+        $administrator->add_cap( 'delete_published_email_templates' );
+    }
+
+    private static function cleanup_caps() {
+        $administrator = get_role( 'administrator' );
+
+        $administrator->remove_cap( 'read_email_template' );
+        $administrator->remove_cap( 'read_email_templates' );
+        $administrator->remove_cap( 'edit_email_template' );
+        $administrator->remove_cap( 'edit_email_templates' );
+        $administrator->remove_cap( 'edit_others_email_templates' );
+        $administrator->remove_cap( 'edit_published_email_templates' );
+        $administrator->remove_cap( 'publish_email_templates' );
+        $administrator->remove_cap( 'delete_others_email_templates' );
+        $administrator->remove_cap( 'delete_private_email_templates' );
+        $administrator->remove_cap( 'delete_published_email_templates' );
     }
 
     public static function list_templates() {

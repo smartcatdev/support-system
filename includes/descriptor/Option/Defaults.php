@@ -24,28 +24,6 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    static $STATUSES = array(
-        'new'           => 'New',
-        'viewed'        => 'Viewed',
-        'in_progress'   => 'In Progress',
-        'resolved'      => 'Resolved',
-        'waiting'       => 'Waiting',
-        'follow_up'     => 'Follow Up',
-        'closed'        => 'Closed'
-    );
-
-    /**
-     * @since 1.0.0
-     */
-    static $PRIORITIES = array(
-        'low'   => 'Low',
-        'med'   => 'Medium',
-        'high'  => 'High'
-    );
-
-    /**
-     * @since 1.0.0
-     */
     const TICKET_CREATED_MSG = "We've received your request for support and an agent will get back to you soon";
 
     /**
@@ -101,17 +79,12 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const EDD_INTEGRATION = '';
+    const ECOMMERCE = 'on';
 
     /**
      * @since 1.0.0
      */
-    const WOO_INTEGRATION = '';
-
-    /**
-     * @since 1.0.0
-     */
-    const NOTIFY_RESOLVED = 'on';
+    const EMAIL_NOTIFICATIONS = 'on';
 
     /**
      * @since 1.0.0
@@ -147,4 +120,19 @@ final class Defaults {
      * @since 1.0.0
      */
     const HOVER_COLOR = '#48c9b0';
+
+    /**
+     * @since 1.0.0
+     */
+    const MAX_TICKETS = 20;
+
+    /**
+     * @since 1.0.0
+     */
+    const SHOW_FOOTER = 'on';
+
+    /**
+     * @since 1.0.0
+     */
+    const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
 }

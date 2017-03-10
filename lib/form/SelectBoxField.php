@@ -15,17 +15,16 @@ class SelectBoxField extends AbstractField {
     
     public function render() { ?>
 
-        <select name="<?php esc_attr_e( $this->id ); ?>"
-            class="form_field">
+        <select id="<?php echo $this->id; ?>"
+                name="<?php echo $this->name; ?>"
+
+            <?php $this->props(); ?>
+            <?php $this->classes(); ?>>
 
             <?php foreach( $this->options as $value => $label ) : ?>
                 
-                <option value="<?php esc_attr_e( $value ); ?>"
-                    <?php selected( $value, $this->value, true ); ?>>
-                
-                    <?php echo $label; ?>
-                        
-                </option>
+                <option value="<?php echo $value; ?>"
+                    <?php selected( $value, $this->value, true ); ?>><?php echo $label; ?></option>
                          
             <?php endforeach; ?>
                 
