@@ -3,7 +3,7 @@ Contributors: smartcat
 Donate link: https://smartcatdesign.net
 Tags: support,ticket,system,customer,service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.7.1
+Tested up to: 4.7.3
 Stable tag: 1.0
 License: GPLv2 or later
 
@@ -22,14 +22,10 @@ This plugin uses a tabbed-system for viewing tickets. Meaning, you can open mult
 The front-end is fully using ajax, no loading, everything updates while you're on the page.
 
 
-== Screenshots ==
-1. Template 1
-
-
 == Installation ==
 1. Download the plugin, then upload the zipped file to your site from the WordPress dashboard plugin uploader menu
 2. OR - Upload the unpacked folder folder via FTP into /wp-content/plugins
 
 == Changelog == 
 
-= 1.0 = initial release
+= 1.0.0 = initial release
