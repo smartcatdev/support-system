@@ -552,6 +552,25 @@ button > * {
     z-index: 999;
 }
 
+/* #### Dropzone ************************************************************************/
+.dropzone {
+    min-height: auto !important;
+    border-radius: 4px;
+    border-style: dashed;
+}
+
+.dz-message {
+    margin: auto !important;
+}
+
+.dz-image {
+    border-radius: 0 !important;
+}
+
+.dz-preview {
+    margin: 10px !important;
+}
+
 /* #### Sidebar ************************************************************************/
 .panel-group .panel+.panel {
     margin-top: 15px !important;

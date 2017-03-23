@@ -28,4 +28,10 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
     </form>
 
+    <form id="media-uploader"
+          class="dropzone"
+          action="<?php echo admin_url( 'admin-ajax.php?action=support_upload_media&_ajax_nonce='. wp_create_nonce( 'support_ajax' ) . '&support_upload' ); ?>">
+
+    </form>
+
 </div>

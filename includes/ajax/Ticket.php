@@ -2,6 +2,7 @@
 
 namespace SmartcatSupport\ajax;
 
+use smartcat\debug\Log;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
@@ -302,6 +303,15 @@ class Ticket extends AjaxComponent {
         return $args;
     }
 
+    public function upload_media() {
+        Log::dump($_FILES);
+        Log::dump( media_handle_upload( 'file', 0 ) );
+    }
+
+    public function media_delete() {
+
+    }
+
     /**
      * Hooks that the Component is subscribed to.
      *
@@ -321,6 +331,8 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_list_comments' => array( 'list_comments' ),
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
+            'wp_ajax_support_upload_media' => array( 'upload_media' ),
+            'wp_ajax_support_delete_media' => array( 'delete_media' ),
 
             'support_ticket_list_query_vars' => array( 'filter_tickets' ),
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )

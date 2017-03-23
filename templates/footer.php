@@ -75,6 +75,7 @@ use SmartcatSupport\Plugin;
         <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ); ?>"></script>
         <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
