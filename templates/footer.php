@@ -71,11 +71,10 @@ use SmartcatSupport\Plugin;
 
         </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-        <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
         <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ); ?>"></script>
+        <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ); ?>"></script>
+        <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js'; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
@@ -83,9 +82,6 @@ use SmartcatSupport\Plugin;
         <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
 
-
-
-<script src="<?php echo Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID ) . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
     </body>
 
 </html>
