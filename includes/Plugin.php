@@ -155,7 +155,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 'baseurl' => $url,
                 'error'   => false,
             );
-        }else{
+        } else {
             return $uploads;
         }
     }

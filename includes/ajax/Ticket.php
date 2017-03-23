@@ -304,12 +304,21 @@ class Ticket extends AjaxComponent {
     }
 
     public function upload_media() {
-        Log::dump($_FILES);
-        Log::dump( media_handle_upload( 'file', 0 ) );
+        $result = media_handle_upload( 'file', 0 );
+
+        if( !is_wp_error( $result ) ) {
+            wp_send_json_success( array( 'id' => $result ), 200 );
+        } else {
+            wp_send_json_error( array( 'message' => $result->get_error_message() ), 400 );
+        }
     }
 
-    public function media_delete() {
+    public function delete_media() {
+        $post = get_post( $_REQUEST['media_id'] );
 
+        if( $post->post_author == wp_get_current_user()->ID ) {
+            wp_delete_attachment( $post->ID, true );
+        }
     }
 
     /**

@@ -1,7 +1,5 @@
 <?php
 
-use smartcat\form\Form;
-use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 
 $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_create_form.php';
@@ -24,11 +22,12 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
         <?php endforeach; ?>
 
+        <input type="hidden" id="linked-media" name="linked_media" value="[]" data-default="[]" />
         <input type="hidden" name="<?php echo $form->id; ?>" />
 
     </form>
 
-    <form id="media-uploader"
+    <form id="ticket-media-upload"
           class="dropzone"
           action="<?php echo admin_url( 'admin-ajax.php?action=support_upload_media&_ajax_nonce='. wp_create_nonce( 'support_ajax' ) . '&support_upload' ); ?>">
 
