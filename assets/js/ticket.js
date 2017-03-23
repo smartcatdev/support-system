@@ -228,6 +228,34 @@ var Ticket = (function ($) {
     var initialize = function () {
         _bind_events();
 
+        Dropzone.options.ticketMediaUpload = {
+            addRemoveLinks: true,
+
+            init: function() {
+                this.on("success", function(file, res) {
+                    var media = $(this.element).parent().find(".attachments");
+                    var uploads = JSON.parse(media.val());
+
+                    file.id = res.data.id;
+
+                    uploads.push(res.data.id);
+                    media.val(JSON.stringify(uploads));
+                });
+
+                this.on("removedfile", function(file) {
+                    $.ajax({
+                        url: Globals.ajax_url + "?use_support_media",
+                        dataType: "json",
+                        data: {
+                            action: "support_delete_media",
+                            _ajax_nonce: Globals.ajax_nonce,
+                            media_id: file.id
+                        }
+                    });
+                });
+            }
+        };
+
         var looper = function(callback) {
             return function () {
                 $("div.tab-pane").each(function (index, element) {

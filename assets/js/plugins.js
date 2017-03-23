@@ -5,7 +5,7 @@
         var _form = $(this);
 
         var _defaults = {
-            method: "get",
+            method: "post",
             success: function (response) {},
             error: function (xhr, status, error) {},
             complete: function (xhr, status) {},
