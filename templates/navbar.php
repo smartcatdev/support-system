@@ -88,6 +88,23 @@ $user = wp_get_current_user();
 
                                 <li role="separator" class="divider"></li>
 
+                                <?php if( current_user_can( 'manage_options') ) : ?>
+
+                                    <li>
+                                        <a href="<?php echo admin_url(); ?>" class="alignright background-secondary hover menu-item">
+
+                                            <span class="glyphicon glyphicon-user"></span>
+
+                                            <?php _e( 'WordPress', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li role="separator" class="divider"></li>
+
+                                <?php endif; ?>
+
                                 <li>
                                     <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">
 
