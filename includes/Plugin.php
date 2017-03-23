@@ -142,7 +142,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function media_dir( $uploads ) {
-        if( isset( $_REQUEST['support_upload'] ) ) {
+        if( isset( $_REQUEST['use_support_media'] ) ) {
 
             $dir = $this->dir . '/media';
             $url = $this->url . '/media';

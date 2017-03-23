@@ -196,7 +196,7 @@ var App = (function ($) {
 
             init: function() {
                 this.on("success", function(file, res) {
-                    var media = $("#linked-media");
+                    var media = $(this.element).parent().find(".attachments");
                     var uploads = JSON.parse(media.val());
 
                     file.id = res.data.id;
@@ -207,7 +207,7 @@ var App = (function ($) {
 
                 this.on("removedfile", function(file) {
                     $.ajax({
-                        url: Globals.ajax_url + "?support_upload",
+                        url: Globals.ajax_url + "?use_support_media",
                         dataType: "json",
                         data: {
                             action: "support_delete_media",
