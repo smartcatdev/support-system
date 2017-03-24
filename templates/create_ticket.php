@@ -6,7 +6,7 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
 ?>
 
-<div id="create_ticket">
+<div id="create_ticket" class="form-wrapper">
 
     <form id="create-ticket-form">
 

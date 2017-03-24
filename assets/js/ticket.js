@@ -233,10 +233,9 @@ var Ticket = (function ($) {
         Dropzone.options.ticketMediaUpload = {
             addRemoveLinks: true,
 
-
             init: function() {
                 this.on("success", function(file, res) {
-                    var media = $(this.element).parent().find(".attachments");
+                    var media = $(this.element).parents(".form-wrapper").find("input.attachments");
                     var uploads = JSON.parse(media.val());
 
                     file.id = res.data.id;
