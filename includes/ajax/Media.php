@@ -31,12 +31,12 @@ class Media extends AjaxComponent {
         if( isset( $_REQUEST['use_support_media'] ) ) {
 
             $user = wp_get_current_user();
-            $dir = $uploads['basedir'] . '/support_uploads';
-            $url = $uploads['baseurl'] . '/support_uploads';
+            $dir = $uploads['basedir'];
+            $url = $uploads['baseurl'];
 
             return array(
-                'path'    => $dir . '/' . $user->ID,
-                'url'     => $url . '/' . $user->ID,
+                'path'    => $dir . '/support_uploads/' . $user->ID,
+                'url'     => $url . '/support_uploads/' . $user->ID,
                 'subdir'  => '',
                 'basedir' => $dir,
                 'baseurl' => $url,

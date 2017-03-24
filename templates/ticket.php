@@ -5,6 +5,8 @@ use SmartcatSupport\descriptor\Option;
 $attachments = get_attached_media( 'image', $ticket->ID );
 $attachment_count = count( $attachments );
 
+$user = wp_get_current_user();
+
 ?>
 <div class="loader-mask"></div>
 
@@ -60,19 +62,37 @@ $attachment_count = count( $attachments );
 
         <div class="comment-reply-wrapper">
 
-            <div class="comment-reply panel panel-default ">
+            <div class="comment comment-reply panel panel-default">
 
                 <div class="panel-heading">
 
-                    <div class="media meta">
+                    <div class="media pull-left meta">
 
                         <div class="media-left">
 
-                            <?php echo get_avatar( wp_get_current_user()->ID, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+                            <?php echo get_avatar( $user->ID, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+
+                        </div>
+
+                        <div class="media-body" style="width: auto">
+
+                            <p class="media-heading"><?php echo $user->first_name . ' ' . $user->last_name; ?></p>
 
                         </div>
 
                     </div>
+
+                    <div class="pull-right">
+
+                        <div class="btn-group comment-controls">
+
+                            <button class="btn btn-default glyphicon glyphicon-paperclip"></button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
 
                 </div>
 
@@ -86,13 +106,17 @@ $attachment_count = count( $attachments );
 
                             <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
 
-                            <div class="bottom text-right">
+                            <div class="bottom">
 
-                                <button type="submit" class="button button-submit" disabled="true">
+                                <span class="text-right">
 
-                                    <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+                                    <button type="submit" class="button button-submit" disabled="true">
 
-                                </button>
+                                        <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+
+                                    </button>
+
+                                </span>
 
                             </div>
 

@@ -31,22 +31,28 @@ use SmartcatSupport\Plugin;
 
             </div>
 
-            <div class="pull-right">
+            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
 
-                <div class="btn-group comment-controls">
+                <div class="pull-right">
 
-                    <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
+                    <div class="btn-group comment-controls">
 
                         <button class="btn btn-default glyphicon glyphicon-trash delete-comment"
                                 data-id="<?php echo $comment->comment_ID; ?>"></button>
 
                         <button class="btn btn-default glyphicon glyphicon-pencil edit-comment"></button>
 
-                    <?php endif; ?>
+                    </div>
+
+                    <div class="btn-group editor-controls" style="display: none">
+
+                        <button class="btn btn-default glyphicon glyphicon-paperclip"></button>
+
+                    </div>
 
                 </div>
 
-            </div>
+            <?php endif; ?>
 
             <div class="clearfix"></div>
 

@@ -608,21 +608,29 @@ button > * {
 }
 
 /* #### Comments ***********************************************************************/
-.comment .meta p {
+.comments .comment .meta p {
     font-size: 8pt;
 }
 
-.comment .editor {
+.comments .comment .editor {
     display: none;
 }
 
-.comment .comment-controls button {
+.comment .btn {
     height: 30px;
     font-size: 12px;
 }
 
 .editor textarea {
     width: 100%;
+}
+
+.comment .media-body {
+    vertical-align: middle;
+}
+
+.comment-reply .media-heading {
+    font-size: 12px;
 }
 
 /* ## Footer ***************************************************************************/
