@@ -64,17 +64,13 @@ use SmartcatSupport\descriptor\Option;
 
                                 <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
 
-                                    <h4 class="ticket-title">
-
-                                        <?php echo $post->post_title; ?>
-
-                                    </h4>
+                                    <h4 class="ticket-title"><?php echo $post->post_title; ?></h4>
 
                                 </a>
 
                                 <?php if( array_key_exists( $product, $products ) ) : ?>
 
-                                    <a href="#"><span class="product pull-right"><?php echo $products[ $product ]; ?></span></a>
+                                    <span class="product"><?php echo $products[ $product ]; ?></span>
 
                                 <?php endif; ?>
 
@@ -92,23 +88,39 @@ use SmartcatSupport\descriptor\Option;
 
                         <div class="media-right">
 
-                            <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
+                            <div class="indicators pull-right">
 
-                            <?php if( $attachments > 0 ) : ?>
+                                <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
 
-                                <span class="glyphicon glyphicon-paperclip"></span>
+                                <?php if( $attachments > 0 ) : ?>
 
-                            <?php endif; ?>
+                                    <div class="indicator">
 
-                            <span class="glyphicon glyphicon-comment comment-icon"></span>
+                                        <span class="glyphicon glyphicon-paperclip"></span>
 
-                            <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+                                    </div>
 
-                            <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
+                                <?php endif; ?>
 
-                                <span data-id="<?php echo $post->ID; ?>" class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
+                                <div class="indicator">
 
-                            <?php endif; ?>
+                                    <span class="glyphicon glyphicon-comment comment-icon"></span>
+
+                                    <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+
+                                </div>
+
+                                <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
+
+                                    <div class="indicator">
+
+                                        <span data-id="<?php echo $post->ID; ?>" class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag flagged"></span>
+
+                                    </div>
+
+                                <?php endif; ?>
+
+                            </div>
 
                         </div>
 

@@ -342,9 +342,19 @@ button > * {
     cursor: pointer;
 }
 
+#tickets-container .ticket .indicators {
+    display: table;
+}
+
+#tickets-container .ticket .indicator {
+    display: table-cell;
+    vertical-align: middle;
+    min-width: 40px;
+    text-align: center;
+}
+
 #tickets-container .ticket .flagged {
     cursor: pointer;
-    margin: 10px 0;
 }
 
 #tickets-container .ticket .flagged.active {
@@ -357,11 +367,13 @@ button > * {
 }
 
 #tickets-container .ticket .product {
+    border: 1px solid #ccc;
     vertical-align: text-bottom;
-    margin: 10px 5px;
-    padding: 4px 6px;
+    font-size: 14px;
+    margin: 0px 5px;
+    padding: 0px 6px;
     border-radius: 3px;
-    background: lightblue;
+    background: white;
     display: inline-block;
 }
 
@@ -429,8 +441,8 @@ button > * {
 }
 
 #tickets-container .ticket .media-right {
-    padding-right: 10px;
-    min-width: 90px;
+    min-width: 150px;
+    text-align: right;
 }
 
 .ticket-status.opened:before {
