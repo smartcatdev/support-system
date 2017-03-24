@@ -149,12 +149,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             $dir = "{$this->dir}media";
             $url = "{$this->url}media";
 
-            $subdir = md5( time() );
-
             return array(
-                'path'    => "{$dir}/{$user->id}/{$subdir}",
-                'url'     => "{$url}/{$user->id}/{$subdir}",
-                'subdir'  => $subdir,
+                'path'    => "{$dir}/{$user->id}",
+                'url'     => "{$url}/{$user->id}",
+                'subdir'  => '',
                 'basedir' => $dir,
                 'baseurl' => $url,
                 'error'   => false,

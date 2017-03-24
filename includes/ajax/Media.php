@@ -19,7 +19,11 @@ class Media extends AjaxComponent {
         $post = get_post( $_REQUEST['attachment_id'] );
 
         if( $post->post_author == wp_get_current_user()->ID ) {
-            wp_delete_attachment( $post->ID, true );
+            if( wp_delete_attachment( $post->ID, true ) ) {
+                wp_send_json_success( array( 'message' => __( 'Attachment successfully removed', \SmartcatSupport\PLUGIN_ID ) ) );
+            } else {
+                wp_send_json_success( array( 'message' => __( 'Error occurred when removing attachment', \SmartcatSupport\PLUGIN_ID ) ), 500 );
+            }
         }
     }
 

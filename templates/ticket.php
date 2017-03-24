@@ -27,6 +27,12 @@ use SmartcatSupport\descriptor\Option;
 
         </div>
 
+        <?php foreach( get_attached_media( 'image', $ticket->ID ) as $media ) : ?>
+
+            <?php echo wp_get_attachment_image( $media->ID ); ?>
+
+        <?php endforeach; ?>
+
         <div class="comments"></div>
 
         <div class="comment-reply-wrapper">

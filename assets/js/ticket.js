@@ -45,7 +45,8 @@ var Ticket = (function ($) {
             },
             success: function (response) {
                 $("#create-modal").modal("toggle");
-                Dropzone.forElement("#ticket-media-upload").destroy();
+
+                Dropzone.forElement("#ticket-media-upload").reset();
 
                 form.find(".form-control").each(function (index, element) {
                     var field = $(element);
@@ -69,7 +70,7 @@ var Ticket = (function ($) {
             target.prop("disabled", true);
 
             $.ajax({
-                url: Globals.ajax_url,
+                url: Globals.ajax_url + "?use_support_media",
                 dataType: "json",
                 data: {
                     id: id,
@@ -232,6 +233,7 @@ var Ticket = (function ($) {
         Dropzone.options.ticketMediaUpload = {
             addRemoveLinks: true,
 
+
             init: function() {
                 this.on("success", function(file, res) {
                     var media = $(this.element).parent().find(".attachments");
@@ -243,17 +245,27 @@ var Ticket = (function ($) {
                     media.val(JSON.stringify(uploads));
                 });
 
+                this.doingReset = false;
+
                 this.on("removedfile", function(file) {
-                    $.ajax({
-                        url: Globals.ajax_url + "?use_support_media",
-                        dataType: "json",
-                        data: {
-                            action: "support_delete_media",
-                            _ajax_nonce: Globals.ajax_nonce,
-                            attachment_id: file.id
-                        }
-                    });
+                    if(!this.doingReset) {
+                        $.ajax({
+                            url: Globals.ajax_url + "?use_support_media",
+                            dataType: "json",
+                            data: {
+                                action: "support_delete_media",
+                                _ajax_nonce: Globals.ajax_nonce,
+                                attachment_id: file.id
+                            }
+                        });
+                    }
                 });
+
+                this.reset = function() {
+                    this.doingReset = true;
+                    this.removeAllFiles();
+                    this.doingReset = false;
+                };
             }
         };
 
