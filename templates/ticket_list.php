@@ -64,7 +64,11 @@ use SmartcatSupport\descriptor\Option;
 
                                 <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
 
-                                    <h4 class="ticket-title"><?php echo $post->post_title; ?></h4>
+                                    <h4 class="ticket-title">
+
+                                        <?php echo $post->post_title; ?>
+
+                                    </h4>
 
                                 </a>
 
@@ -88,6 +92,14 @@ use SmartcatSupport\descriptor\Option;
 
                         <div class="media-right">
 
+                            <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
+
+                            <?php if( $attachments > 0 ) : ?>
+
+                                <span class="glyphicon glyphicon-paperclip"></span>
+
+                            <?php endif; ?>
+
                             <span class="glyphicon glyphicon-comment comment-icon"></span>
 
                             <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
@@ -97,7 +109,6 @@ use SmartcatSupport\descriptor\Option;
                                 <span data-id="<?php echo $post->ID; ?>" class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
 
                             <?php endif; ?>
-
 
                         </div>
 
