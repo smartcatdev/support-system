@@ -45,6 +45,7 @@ var Ticket = (function ($) {
             },
             success: function (response) {
                 $("#create-modal").modal("toggle");
+                Dropzone.forElement("#ticket-media-upload").destroy();
 
                 form.find(".form-control").each(function (index, element) {
                     var field = $(element);
@@ -249,7 +250,7 @@ var Ticket = (function ($) {
                         data: {
                             action: "support_delete_media",
                             _ajax_nonce: Globals.ajax_nonce,
-                            media_id: file.id
+                            attachment_id: file.id
                         }
                     });
                 });

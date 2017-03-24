@@ -311,24 +311,6 @@ class Ticket extends AjaxComponent {
         return $args;
     }
 
-    public function upload_media() {
-        $result = media_handle_upload( 'file', 0 );
-
-        if( !is_wp_error( $result ) ) {
-            wp_send_json_success( array( 'id' => $result ), 200 );
-        } else {
-            wp_send_json_error( array( 'message' => $result->get_error_message() ), 400 );
-        }
-    }
-
-    public function delete_media() {
-        $post = get_post( $_REQUEST['media_id'] );
-
-        if( $post->post_author == wp_get_current_user()->ID ) {
-            wp_delete_attachment( $post->ID, true );
-        }
-    }
-
     /**
      * Hooks that the Component is subscribed to.
      *
@@ -348,8 +330,6 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_list_comments' => array( 'list_comments' ),
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
-            'wp_ajax_support_upload_media' => array( 'upload_media' ),
-            'wp_ajax_support_delete_media' => array( 'delete_media' ),
 
             'support_ticket_list_query_vars' => array( 'filter_tickets' ),
             'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )

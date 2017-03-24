@@ -5,6 +5,7 @@ namespace SmartcatSupport;
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
+use SmartcatSupport\ajax\Media;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Settings;
@@ -144,17 +145,21 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function media_dir( $uploads ) {
         if( isset( $_REQUEST['use_support_media'] ) ) {
 
-            $dir = $this->dir . '/media';
-            $url = $this->url . '/media';
+            $user = wp_get_current_user();
+            $dir = "{$this->dir}media";
+            $url = "{$this->url}media";
+
+            $subdir = md5( time() );
 
             return array(
-                'path'    => $dir,
-                'url'     => $url,
-                'subdir'  => '',
+                'path'    => "{$dir}/{$user->id}/{$subdir}",
+                'url'     => "{$url}/{$user->id}/{$subdir}",
+                'subdir'  => $subdir,
                 'basedir' => $dir,
                 'baseurl' => $url,
                 'error'   => false,
             );
+
         } else {
             return $uploads;
         }
@@ -188,7 +193,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             Ticket::class,
             Comment::class,
             Settings::class,
-            Hacks::class
+            Hacks::class,
+            Media::class
         );
 
         if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {
