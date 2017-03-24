@@ -27,10 +27,16 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
     </form>
 
-    <form id="ticket-media-upload"
-          class="dropzone"
-          action="<?php echo admin_url( 'admin-ajax.php?action=support_upload_media&_ajax_nonce='. wp_create_nonce( 'support_ajax' ) . '&use_support_media' ); ?>">
+    <div class="form-group">
 
-    </form>
+        <label><?php _e( 'Attach Screenshots', \SmartcatSupport\PLUGIN_ID ); ?></label>
+
+        <form id="ticket-media-upload"
+              class="dropzone"
+              action="<?php echo admin_url( 'admin-ajax.php?action=support_upload_media&_ajax_nonce='. wp_create_nonce( 'support_ajax' ) . '&use_support_media' ); ?>">
+
+        </form>
+
+    </div>
 
 </div>
