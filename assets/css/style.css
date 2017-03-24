@@ -468,6 +468,10 @@ button > * {
     font-family: "Glyphicons Halflings";
 }
 
+.ticket.new .ticket-title {
+    font-weight: bold;
+}
+
 .ticket-status.new {
     color: #3498db;
 }

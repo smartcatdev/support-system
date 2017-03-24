@@ -32,14 +32,14 @@ use SmartcatSupport\descriptor\Option;
 
             <?php foreach( $query->posts as $post ) : ?>
 
-                <div class="list-group-item ticket">
+                <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
+                <?php $statuses = \SmartcatSupport\util\statuses(); ?>
+
+                <div class="list-group-item ticket <?php echo $status; ?>">
 
                     <div class="media">
 
                         <div class="media-left">
-
-                            <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
-                            <?php $statuses = \SmartcatSupport\util\statuses(); ?>
 
                             <div class="status-wrapper">
 
