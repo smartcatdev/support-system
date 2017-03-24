@@ -8,9 +8,10 @@ $url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
 
 <html>
     <head>
-        <link href="<?php echo $url . '/assets/lib/bootstrap/css/bootstrap.min.css'; ?>" rel="stylesheet">
+        <link href="<?php echo $url . 'assets/lib/bootstrap/css/bootstrap.min.css'; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.css'; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/dropzone/css/dropzone.min.css'; ?>" rel="stylesheet">
+        <link href="<?php echo $url . 'assets/lib/lightbox2/css/lightbox.min.css'; ?>" rel="stylesheet">
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
         <link href="<?php echo $url . 'assets/css/style.css' ?>" rel="stylesheet">

@@ -40,7 +40,11 @@ $attachment_count = count( $attachments );
 
                         <?php foreach( $attachments as $attachment ) : ?>
 
-                            <?php echo wp_get_attachment_image( $attachment->ID ); ?>
+                            <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>" data-lightbox="<?php echo $ticket->ID; ?>">
+
+                                <?php echo wp_get_attachment_image( $attachment->ID ); ?>
+
+                            </a>
 
                         <?php endforeach; ?>
 
