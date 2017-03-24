@@ -27,8 +27,30 @@ class Media extends AjaxComponent {
         }
     }
 
+    public function media_dir( $uploads ) {
+        if( isset( $_REQUEST['use_support_media'] ) ) {
+
+            $user = wp_get_current_user();
+            $dir = "{$this->plugin->dir()}media";
+            $url = "{$this->plugin->url()}media";
+
+            return array(
+                'path'    => "{$dir}/{$user->id}",
+                'url'     => "{$url}/{$user->id}",
+                'subdir'  => '',
+                'basedir' => $dir,
+                'baseurl' => $url,
+                'error'   => false,
+            );
+
+        } else {
+            return $uploads;
+        }
+    }
+
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
+            'upload_dir' => array( 'media_dir' ),
             'wp_ajax_support_upload_media' => array( 'upload_media' ),
             'wp_ajax_support_delete_media' => array( 'delete_media' )
         ) );

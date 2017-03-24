@@ -142,27 +142,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         tgmpa( $plugins, $config );
     }
 
-    public function media_dir( $uploads ) {
-        if( isset( $_REQUEST['use_support_media'] ) ) {
-
-            $user = wp_get_current_user();
-            $dir = "{$this->dir}media";
-            $url = "{$this->url}media";
-
-            return array(
-                'path'    => "{$dir}/{$user->id}",
-                'url'     => "{$url}/{$user->id}",
-                'subdir'  => '',
-                'basedir' => $dir,
-                'baseurl' => $url,
-                'error'   => false,
-            );
-
-        } else {
-            return $uploads;
-        }
-    }
-
     public function subscribed_hooks() {
         return array(
             'admin_menu' => array( 'add_settings_shortcut'),
@@ -172,7 +151,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             'mailer_consumers' => array( 'mailer_checkin' ),
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
-            'upload_dir' => array( 'media_dir' ),
             'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
         );
     }
