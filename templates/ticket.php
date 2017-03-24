@@ -2,6 +2,9 @@
 
 use SmartcatSupport\descriptor\Option;
 
+$attachments = get_attached_media( 'image', $ticket->ID );
+$attachment_count = count( $attachments );
+
 ?>
 <div class="loader-mask"></div>
 
@@ -23,15 +26,31 @@ use SmartcatSupport\descriptor\Option;
 
                 <p><?php echo $ticket->post_content; ?></p>
 
+                <?php if( $attachment_count > 0 ) : ?>
+
+                    <hr class="attachment-divider">
+
+                    <p class="text-muted attachment-count">
+
+                        <?php echo $attachment_count . _n( ' Attachment', ' Attachments', $attachment_count, \SmartcatSupport\PLUGIN_ID ); ?>
+
+                    </p>
+
+                    <div class="attachments">
+
+                        <?php foreach( $attachments as $attachment ) : ?>
+
+                            <?php echo wp_get_attachment_image( $attachment->ID ); ?>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php endif; ?>
+
             </div>
 
         </div>
-
-        <?php foreach( get_attached_media( 'image', $ticket->ID ) as $media ) : ?>
-
-            <?php echo wp_get_attachment_image( $media->ID ); ?>
-
-        <?php endforeach; ?>
 
         <div class="comments"></div>
 
