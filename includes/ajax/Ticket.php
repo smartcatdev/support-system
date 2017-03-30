@@ -178,7 +178,7 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function submit_comment() {
-        $ticket = $this->get_ticket( $_POST['id'] );
+        $ticket = $this->get_ticket( $_POST['id'], true );
 
         if ( !empty( $ticket ) && !empty( $_POST['content'] ) ) {
             $user   = wp_get_current_user();
@@ -233,6 +233,8 @@ class Ticket extends AjaxComponent {
             } else {
                 wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
             }
+        } else {
+            wp_send_json_error( null, 400 );
         }
     }
 
@@ -279,14 +281,31 @@ class Ticket extends AjaxComponent {
 
         $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
 
-        if( $form->is_valid() ) {
+        if( $form->is_submitted() ) {
 
-            $author = get_user_by( 'email', $form->data['email'] );
-            $args['author'] = $author ? $author->ID : 0;
+            $data = array();
 
-            unset( $form->data['email'] );
+            foreach( $form->fields as $name => $field ) {
+                if( !empty( $_REQUEST[ $name ] ) ) {
+                    $data[ $name ] = $_REQUEST[ $name ];
+                }
+            }
 
-            foreach( $form->data as $name => $value ) {
+            if( current_user_can( 'manage_support_tickets' ) ) {
+                if( !empty( $data['email'] ) ) {
+                    $author = get_user_by('email', $data['email']);
+
+                    if ($author) {
+                        $args['author'] = $author->ID;
+                    }
+
+                    unset($data['email']);
+                }
+            } else {
+                $args['author'] = wp_get_current_user()->ID;
+            }
+
+            foreach( $data as $name => $value ) {
                 if( !empty( $value ) ) {
                     $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
                 }
@@ -339,7 +358,7 @@ class Ticket extends AjaxComponent {
         $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
         if( $strict || !current_user_can( 'manage_support_tickets' ) ) {
-            $args['post_author'] = wp_get_current_user()->ID;
+            $args['author'] = wp_get_current_user()->ID;
         }
 
         $query = new \WP_Query( $args );
