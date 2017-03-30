@@ -72,13 +72,17 @@ use SmartcatSupport\Plugin;
 
                         <button type="button" class="button cancel-edit-comment">
 
-                            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+                            <span class="glyphicon glyphicon-remove-sign button-icon"></span>
+
+                            <span><?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?></span>
 
                         </button>
 
                         <button type="submit" class="button save-comment button-submit">
 
-                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                            <span class="glyphicon glyphicon-floppy-save button-icon"></span>
+
+                            <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                         </button>
 

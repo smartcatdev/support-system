@@ -270,7 +270,7 @@ if( empty( $receipt_id ) ) {
 
                             <button type="submit" class="button button-submit">
 
-                                <span class="glyphicon glyphicon-floppy-disk button-icon"></span>
+                                <span class="glyphicon glyphicon-floppy-save button-icon"></span>
 
                                 <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
