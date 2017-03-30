@@ -5,7 +5,7 @@ namespace SmartcatSupport\ajax;
 
 class Media extends AjaxComponent {
 
-    public function upload_media() {error_log("sdfd");
+    public function upload_media() {
         $result = media_handle_upload( 'file', isset( $_REQUEST['ticket_id'] ) ? $_REQUEST['ticket_id'] : 0 );
 
         if( !is_wp_error( $result ) ) {
@@ -16,13 +16,15 @@ class Media extends AjaxComponent {
     }
 
     public function delete_media() {
-        $post = get_post( $_REQUEST['attachment_id'] );
+        if( isset( $_REQUEST['attachment_id'] ) ) {
+            $post = get_post( $_REQUEST['attachment_id'] );
 
-        if( $post->post_author == wp_get_current_user()->ID ) {
-            if( wp_delete_attachment( $post->ID, true ) ) {
-                wp_send_json_success( array( 'message' => __( 'Attachment successfully removed', \SmartcatSupport\PLUGIN_ID ) ) );
-            } else {
-                wp_send_json_success( array( 'message' => __( 'Error occurred when removing attachment', \SmartcatSupport\PLUGIN_ID ) ), 500 );
+            if( $post->post_author == wp_get_current_user()->ID ) {
+                if( wp_delete_attachment( $post->ID, true ) ) {
+                    wp_send_json_success( array( 'message' => __( 'Attachment successfully removed', \SmartcatSupport\PLUGIN_ID ) ) );
+                } else {
+                    wp_send_json_success( array( 'message' => __( 'Error occurred when removing attachment', \SmartcatSupport\PLUGIN_ID ) ), 500 );
+                }
             }
         }
     }
