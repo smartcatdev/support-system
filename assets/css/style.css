@@ -69,6 +69,10 @@ button > * {
     pointer-events: none;
 }
 
+span.button-icon {
+    padding-right: 5px;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -569,7 +573,7 @@ button > * {
 }
 
 .ticket-detail .attachment-divider {
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .ticket-detail .attachment-count {

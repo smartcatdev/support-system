@@ -7,6 +7,25 @@ var Ticket = (function ($) {
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
         $(document).on("click", ".flagged", _toggle_flag);
+        $(document).on("click", ".launch-attachment-modal", _init_attachment_dropzone);
+    };
+
+    var _init_attachment_dropzone = function (e) {
+        var ticket = $(e.target).data('id');
+
+        $('#dropzone-' + ticket).dropzone({
+
+            autoProcessQueue: false,
+            url: Globals.ajax_url, // temp url
+
+            init: function () {
+                var dropzone = this;
+
+                $(document).on("click", "#upload-media-" + ticket, function () {
+                   dropzone.processQueue();
+                });
+            }
+        });
     };
 
     var _toggle_flag = function (e) {
@@ -281,7 +300,7 @@ var Ticket = (function ($) {
         };
 
         setInterval(looper(load_comments), 1000 * 15);
-        setInterval(looper(load_sidebar), 1000 * 30);
+        //setInterval(looper(load_sidebar), 1000 * 30);
     };
 
     return {

@@ -29,9 +29,7 @@ if( empty( $receipt_id ) ) {
 
             <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
 
-            <p>
-                <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?>
-            </p>
+            <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>
 
             <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
@@ -117,6 +115,113 @@ if( empty( $receipt_id ) ) {
             </div>
 
         </div>
+
+    <?php endif; ?>
+
+    <div class="panel panel-default attachments" data-id="attachments">
+
+        <div class="panel-heading">
+
+            <a href="#collapse-attachments-<?php echo $ticket->ID; ?>" data-toggle="collapse"
+               class="panel-title"><?php _e( 'Attachments', \SmartcatSupport\PLUGIN_ID ); ?></a>
+
+        </div>
+
+        <div id="collapse-attachments-<?php echo $ticket->ID; ?>" class="panel-collapse in">
+
+            <div class="panel-body">
+
+                <?php $attachments = get_attached_media( 'image', $ticket ); ?>
+                <?php $attachment_count = count( $attachments ); ?>
+
+                <?php if( $attachment_count === 0 ) : ?>
+
+                    <p class="text-center text-muted"><?php _e( 'There are currently no attachments', \SmartcatSupport\PLUGIN_ID ); ?></p>
+
+                    <hr class="attachment-divider">
+
+                <?php else : ?>
+
+                    <div class="row">
+
+                        <?php foreach ( $attachments as $attachment ) : ?>
+
+                            <div class="col-xs-3 col-sm-4">
+
+                                <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>" data-lightbox="<?php echo $ticket->ID; ?>">
+
+                                    <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
+
+                                </a>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <div class="bottom text-right">
+
+                    <button type="submit" class="button button-submit launch-attachment-modal"
+                            data-id="<?php echo $ticket->ID; ?>"
+                            data-toggle="modal"
+                            data-target="#attachment-modal-<?php echo $ticket->ID; ?>">
+
+                        <span class="glyphicon glyphicon-paperclip button-icon"></span>
+
+                        <span><?php _e( 'Attach', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                    </button>
+
+                </div>
+
+                <div id="attachment-modal-<?php echo $ticket->ID; ?>" class="modal attachment-modal fade">
+
+                    <div class="modal-dialog">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                <h4 class="modal-title"><?php _e( 'Attach Images', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+
+                            </div>
+
+                            <div class="modal-body">
+
+                                <form id="dropzone-<?php echo $ticket->ID; ?>" class="dropzone"></form>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button id="upload-media-<?php echo $ticket->ID; ?>" type="button" class="button button-submit">
+
+                                    <?php _e( 'Upload', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <?php if ( current_user_can( 'manage_support_tickets' ) ) : ?>
 
         <div class="panel panel-default ticket-properties" data-id="ticket-properties">
 

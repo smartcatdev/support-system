@@ -44,12 +44,6 @@ use SmartcatSupport\Plugin;
 
                     </div>
 
-                    <div class="btn-group editor-controls" style="display: none">
-
-                        <button class="btn btn-default glyphicon glyphicon-paperclip"></button>
-
-                    </div>
-
                 </div>
 
             <?php endif; ?>

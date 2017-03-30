@@ -76,26 +76,18 @@
         var content = comment.find(".comment-content");
 
         var comment_controls = comment.find(".comment-controls");
-        var editor_controls = comment.find(".editor-controls");
 
         comment.toggleClass("locked");
+        comment_controls.fadeToggle();
 
         // if editor is showing
-        if(comment_controls.css("display") === "none") {
-            editor_controls.fadeToggle("slow", function () {
-                comment_controls.fadeToggle();
-            });
-
-            editor.fadeToggle("slow", function () {
-                content.fadeToggle();
+        if(editor.css("display") === "none") {
+            content.fadeToggle("slow", function () {
+                editor.fadeToggle();
             });
         } else {
-            comment_controls.fadeToggle("slow", function () {
-               editor_controls.fadeToggle();
-            });
-
-            content.fadeToggle("slow", function () {
-               editor.fadeToggle();
+            editor.fadeToggle("slow", function () {
+                content.fadeToggle();
             });
         }
 

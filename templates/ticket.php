@@ -28,32 +28,6 @@ $user = wp_get_current_user();
 
                 <p><?php echo $ticket->post_content; ?></p>
 
-                <?php if( $attachment_count > 0 ) : ?>
-
-                    <hr class="attachment-divider">
-
-                    <p class="text-muted attachment-count">
-
-                        <?php echo $attachment_count . _n( ' Attachment', ' Attachments', $attachment_count, \SmartcatSupport\PLUGIN_ID ); ?>
-
-                    </p>
-
-                    <div class="attachments">
-
-                        <?php foreach( $attachments as $attachment ) : ?>
-
-                            <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>" data-lightbox="<?php echo $ticket->ID; ?>">
-
-                                <?php echo wp_get_attachment_image( $attachment->ID ); ?>
-
-                            </a>
-
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
-
             </div>
 
         </div>
@@ -77,16 +51,6 @@ $user = wp_get_current_user();
                         <div class="media-body" style="width: auto">
 
                             <p class="media-heading"><?php echo $user->first_name . ' ' . $user->last_name; ?></p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="pull-right">
-
-                        <div class="btn-group comment-controls">
-
-                            <button class="btn btn-default glyphicon glyphicon-paperclip"></button>
 
                         </div>
 
