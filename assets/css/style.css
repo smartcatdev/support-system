@@ -572,21 +572,6 @@ span.button-icon {
     z-index: 999;
 }
 
-.ticket-detail .attachment-divider {
-    margin-top: 10px;
-}
-
-.ticket-detail .attachment-count {
-    margin: 5px !important;
-    font-size: 12px;
-}
-
-.ticket-detail .attachment-thumbnail {
-    padding: 5px;
-    width: auto;
-    height: 100px;
-}
-
 /* #### Dropzone ************************************************************************/
 .dropzone {
     min-height: auto !important;
@@ -609,6 +594,25 @@ span.button-icon {
 /* #### Sidebar ************************************************************************/
 .panel-group .panel+.panel {
     margin-top: 15px !important;
+}
+
+.sidebar .sidebar-divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar .attachments .row {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.sidebar .attachments .images-wrapper {
+    padding: 0;
+}
+
+.sidebar .attachments .images-wrapper img {
+    padding: 0 5px;
+    margin: 5px 0;
 }
 
 /* #### Comments ***********************************************************************/

@@ -136,9 +136,7 @@ if( empty( $receipt_id ) ) {
 
                 <?php if( $attachment_count === 0 ) : ?>
 
-                    <p class="text-center text-muted"><?php _e( 'There are currently no attachments', \SmartcatSupport\PLUGIN_ID ); ?></p>
-
-                    <hr class="attachment-divider">
+                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', \SmartcatSupport\PLUGIN_ID ); ?></p>
 
                 <?php else : ?>
 
@@ -146,7 +144,7 @@ if( empty( $receipt_id ) ) {
 
                         <?php foreach ( $attachments as $attachment ) : ?>
 
-                            <div class="col-xs-3 col-sm-4">
+                            <div class="images-wrapper col-xs-3 col-sm-12 col-md-4">
 
                                 <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>" data-lightbox="<?php echo $ticket->ID; ?>">
 
@@ -161,6 +159,8 @@ if( empty( $receipt_id ) ) {
                     </div>
 
                 <?php endif; ?>
+
+                <hr class="sidebar-divider">
 
                 <div class="bottom text-right">
 
@@ -263,6 +263,8 @@ if( empty( $receipt_id ) ) {
 
                         <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>"/>
                         <input type="hidden" name="<?php echo $form->id; ?>"/>
+
+                        <hr class="sidebar-divider">
 
                         <div class="bottom text-right">
 

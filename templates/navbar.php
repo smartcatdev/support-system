@@ -45,9 +45,9 @@ $user = wp_get_current_user();
 
                             <button class="button button-primary" data-toggle="modal" data-target="#create-modal">
 
-                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                <span class="glyphicon glyphicon-plus-sign button-icon"></span>
 
-                                <?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID ); ?>
+                                <span><?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID ); ?></span>
 
                             </button>
 
