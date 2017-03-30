@@ -5,8 +5,8 @@ namespace SmartcatSupport\ajax;
 
 class Media extends AjaxComponent {
 
-    public function upload_media() {
-        $result = media_handle_upload( 'file', 0 );
+    public function upload_media() {error_log("sdfd");
+        $result = media_handle_upload( 'file', isset( $_REQUEST['ticket_id'] ) ? $_REQUEST['ticket_id'] : 0 );
 
         if( !is_wp_error( $result ) ) {
             wp_send_json_success( array( 'id' => $result ), 200 );

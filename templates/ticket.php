@@ -76,7 +76,9 @@ $user = wp_get_current_user();
 
                                     <button type="submit" class="button button-submit" disabled="true">
 
-                                        <?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?>
+                                        <span class="glyphicon glyphicon-send button-icon"></span>
+
+                                        <span><?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?></span>
 
                                     </button>
 

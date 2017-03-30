@@ -165,19 +165,20 @@ if( empty( $receipt_id ) ) {
                 <div class="bottom text-right">
 
                     <button type="submit" class="button button-submit launch-attachment-modal"
-                            data-id="<?php echo $ticket->ID; ?>"
-                            data-toggle="modal"
-                            data-target="#attachment-modal-<?php echo $ticket->ID; ?>">
+                            data-target="#attachment-modal-<?php echo $ticket->ID; ?>"
+                            data-toggle="modal">
 
                         <span class="glyphicon glyphicon-paperclip button-icon"></span>
 
-                        <span><?php _e( 'Attach', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <span><?php _e( 'Upload', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
                     </button>
 
                 </div>
 
-                <div id="attachment-modal-<?php echo $ticket->ID; ?>" class="modal attachment-modal fade">
+                <div id="attachment-modal-<?php echo $ticket->ID; ?>"
+                     data-ticket_id="<?php echo $ticket->ID; ?>"
+                     class="modal attachment-modal fade">
 
                     <div class="modal-dialog">
 
@@ -193,15 +194,23 @@ if( empty( $receipt_id ) ) {
 
                             <div class="modal-body">
 
-                                <form id="dropzone-<?php echo $ticket->ID; ?>" class="dropzone"></form>
+                                <form id="attachment-dropzone-<?php echo $ticket->ID; ?>" class="dropzone">
+
+                                    <?php wp_nonce_field( 'support_ajax', '_ajax_nonce' ); ?>
+
+                                    <input type="hidden" name="ticket_id" value="<?php echo $ticket->ID; ?>" />
+
+                                </form>
 
                             </div>
 
                             <div class="modal-footer">
 
-                                <button id="upload-media-<?php echo $ticket->ID; ?>" type="button" class="button button-submit">
+                                <button type="button" class="button button-submit close-modal"
+                                        data-target="#attachment-modal-<?php echo $ticket->ID; ?>"
+                                        data-toggle="modal">
 
-                                    <?php _e( 'Upload', \SmartcatSupport\PLUGIN_ID ); ?>
+                                    <?php _e( 'Done', \SmartcatSupport\PLUGIN_ID ); ?>
 
                                 </button>
 
@@ -210,8 +219,6 @@ if( empty( $receipt_id ) ) {
                         </div>
 
                     </div>
-
-
 
                 </div>
 
@@ -261,7 +268,9 @@ if( empty( $receipt_id ) ) {
 
                             <button type="submit" class="button button-submit">
 
-                                <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                                <span class="glyphicon glyphicon-floppy-disk button-icon"></span>
+
+                                <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                             </button>
 
