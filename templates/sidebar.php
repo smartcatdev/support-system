@@ -146,7 +146,17 @@ if( array_key_exists( $product, $products ) ) {
 
                         <?php foreach ( $attachments as $attachment ) : ?>
 
-                            <div class="images-wrapper col-xs-3 col-sm-12 col-md-4">
+                            <div class="image-wrapper col-xs-3 col-sm-12 col-md-4">
+
+                                <?php if( $attachment->post_author == wp_get_current_user()->ID ) : ?>
+
+                                    <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
+                                          data-attachment_id="<?php echo $attachment->ID; ?>"
+                                          data-ticket_id="<?php echo $ticket->ID; ?>">
+
+                                    </span>
+
+                                <?php endif; ?>
 
                                 <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>" data-lightbox="<?php echo $ticket->ID; ?>">
 

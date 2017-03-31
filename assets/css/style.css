@@ -55,6 +55,7 @@ input[type="submit"] {
     color: #fff;
     border: none;
     border-radius: 3px;
+    min-width: 120px;
 }
 
 .button-primary:hover,
@@ -619,13 +620,25 @@ body.waiting {
     padding-bottom: 0;
 }
 
-.sidebar .attachments .images-wrapper {
+.sidebar .attachments .image-wrapper {
     padding: 0;
 }
 
-.sidebar .attachments .images-wrapper img {
+.sidebar .attachments .image-wrapper img {
     padding: 0 5px;
     margin: 5px 0;
+}
+
+.sidebar .attachments .delete-attachment {
+    position: absolute;
+    display: none;
+    color: #b90000;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.sidebar .attachments .image-wrapper:hover > .delete-attachment {
+    display: inline-block;
 }
 
 /* #### Comments ***********************************************************************/

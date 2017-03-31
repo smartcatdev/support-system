@@ -9,6 +9,23 @@ var Ticket = (function ($) {
         $(document).on("click", ".flagged", _toggle_flag);
         $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
+        $(document).on("click", ".delete-attachment", _delete_attachment);
+    };
+
+    var _delete_attachment = function (e) {
+        var target = $(e.target);
+
+        $.ajax({
+            url: Globals.ajax_url,
+            data: {
+                action: "support_delete_media",
+                _ajax_nonce: Globals.ajax_nonce,
+                attachment_id: target.data("attachment_id")
+            },
+            success: function () {
+                Ticket.load_sidebar(target.data("ticket_id"));
+            }
+        })
     };
 
     var _reset_media_dropzone = function(e) {
@@ -36,7 +53,7 @@ var Ticket = (function ($) {
                 this.on("removedfile", function (file) {
                     if (!this.doingReset) {
                         $.ajax({
-                            url: Globals.ajax_url + "?use_support_media",
+                            url: Globals.ajax_url,
                             dataType: "json",
                             data: {
                                 action: "support_delete_media",
