@@ -6,21 +6,9 @@ use SmartcatSupport\descriptor\Option;
 
 <?php if ( empty( $query->posts ) ) : ?>
 
-    <div class="row-table first-create-ticket">
+    <div class="row">
 
-        <div class="row-table-cell">
-
-            <div class="text-center">
-
-                <div class="row">
-
-                    <p><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \SmartcatSupport\PLUGIN_ID ); ?></p>
-
-                </div>
-
-            </div>
-
-        </div>
+        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
     </div>
 

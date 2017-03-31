@@ -33,7 +33,7 @@ var App = (function ($) {
     var _init_media_dropzone = function (e) {
         $(e.target).find('#ticket-media-upload').dropzone({
             addRemoveLinks: true,
-            url: Globals.ajax_url + "?action=support_upload_media&use_support_media",
+            url: Globals.ajax_url + "?action=support_upload_media",
 
             init: function() {
 
@@ -52,7 +52,7 @@ var App = (function ($) {
                 this.on("removedfile", function(file) {
                     if(!this.doingReset) {
                         $.ajax({
-                            url: Globals.ajax_url + "?use_support_media",
+                            url: Globals.ajax_url,
                             dataType: "json",
                             data: {
                                 action: "support_delete_media",

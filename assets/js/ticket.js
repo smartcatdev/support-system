@@ -24,7 +24,7 @@ var Ticket = (function ($) {
     var _init_media_dropzone = function (e) {
          $(e.target).find('.dropzone').dropzone({
             addRemoveLinks: true,
-            url: Globals.ajax_url + "?action=support_upload_media&use_support_media",
+            url: Globals.ajax_url + "?action=support_upload_media",
 
             init: function () {
                 this.doingReset = false;

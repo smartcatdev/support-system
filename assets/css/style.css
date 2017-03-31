@@ -82,6 +82,10 @@ span.button-icon {
     background: #337ac6 !important;
 }
 
+body.waiting {
+    cursor: wait !important;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
