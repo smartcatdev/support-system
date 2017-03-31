@@ -86,7 +86,7 @@ use SmartcatSupport\Plugin;
         <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js'; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/ekko-lightbox/ekko-lightbox.min.js'; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightGallery.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>

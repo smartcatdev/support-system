@@ -142,11 +142,9 @@ if( array_key_exists( $product, $products ) ) {
 
                 <?php else : ?>
 
-                    <div class="row">
+                    <div class="row gallery">
 
                         <?php foreach ( $attachments as $attachment ) : ?>
-
-                            <?php $attachment_author = get_user_by( 'id', $attachment->post_author ); ?>
 
                             <div class="image-wrapper col-xs-3 col-sm-12 col-md-4">
 
@@ -160,16 +158,11 @@ if( array_key_exists( $product, $products ) ) {
 
                                 <?php endif; ?>
 
-                                <?php $image = wp_get_attachment_image_src( $attachment->ID, 'large' ); ?>
+                                <a class="attachment" href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>">
 
-                                    <a href="<?php echo $image[0]; ?>"
-                                       data-footer="<?php echo '<strong>' . $attachment_author->first_name . ' ' . $attachment_author->last_name . '</strong>' . __( ' on ' . get_the_date( 'l F j', $attachment ), \SmartcatSupport\PLUGIN_ID ); ?>"
-                                       data-gallery="<?php echo 'ticket-' . $ticket->ID; ?>"
-                                       data-toggle="lightbox">
+                                    <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
 
-                                       <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
-
-                                    </a>
+                                </a>
 
                             </div>
 
