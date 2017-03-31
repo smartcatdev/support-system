@@ -99,3 +99,49 @@ $user = wp_get_current_user();
     </div>
 
 </div>
+
+<div id="attachment-modal-<?php echo $ticket->ID; ?>"
+     data-ticket_id="<?php echo $ticket->ID; ?>"
+     class="modal attachment-modal fade">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <h4 class="modal-title"><?php _e( 'Attach Images', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="attachment-dropzone-<?php echo $ticket->ID; ?>" class="dropzone">
+
+                    <?php wp_nonce_field( 'support_ajax', '_ajax_nonce' ); ?>
+
+                    <input type="hidden" name="ticket_id" value="<?php echo $ticket->ID; ?>" />
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="button button-submit close-modal"
+                        data-target="#attachment-modal-<?php echo $ticket->ID; ?>"
+                        data-toggle="modal">
+
+                    <?php _e( 'Done', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
