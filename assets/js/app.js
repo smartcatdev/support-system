@@ -244,6 +244,11 @@ var App = (function ($) {
 
         Dropzone.autoDiscover = false;
 
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
         _time();
         _bind_events();
         load_tickets();

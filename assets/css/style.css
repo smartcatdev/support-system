@@ -637,6 +637,15 @@ body.waiting {
     display: inline-block;
 }
 
+.ekko-lightbox .modal-footer {
+    font-size: 12px;
+    padding: 10px 15px;
+}
+
+.ekko-lightbox .modal-body {
+    padding: 10px;
+}
+
 /* #### Comments ***********************************************************************/
 .comments .comment .meta p {
     font-size: 8pt;
