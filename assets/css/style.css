@@ -621,10 +621,6 @@ body.waiting {
 }
 
 .sidebar .attachments .image-wrapper {
-    padding: 0;
-}
-
-.sidebar .attachments .image-wrapper img {
     padding: 0 5px;
     margin: 5px 0;
 }

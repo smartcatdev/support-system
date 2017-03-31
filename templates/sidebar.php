@@ -160,13 +160,13 @@ if( array_key_exists( $product, $products ) ) {
 
                                 <?php endif; ?>
 
-                                <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
-                                   data-title="<?php echo $attachment_author->first_name . ' ' . $attachment_author->last_name . __( ' on ' . get_the_date( 'l F j', $attachment ), \SmartcatSupport\PLUGIN_ID ); ?>"
-                                   data-lightbox="<?php echo $ticket->ID; ?>">
+                                    <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
+                                       data-title="<?php echo $attachment_author->first_name . ' ' . $attachment_author->last_name . __( ' on ' . get_the_date( 'l F j', $attachment ), \SmartcatSupport\PLUGIN_ID ); ?>"
+                                       data-lightbox="<?php echo $ticket->ID; ?>">
 
-                                   <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
+                                       <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
 
-                                </a>
+                                    </a>
 
                             </div>
 
