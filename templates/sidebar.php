@@ -13,10 +13,8 @@ $receipt_id = get_post_meta( $ticket->ID, 'receipt_id', true );
 
 if( array_key_exists( $product, $products ) ) {
     $product = $products[$product];
-}
-
-if( empty( $receipt_id ) ) {
-    $receipt_id = '—';
+} else {
+    $product = 'Not Available';
 }
 
 ?>
@@ -58,11 +56,15 @@ if( empty( $receipt_id ) ) {
 
                     </div>
 
-                    <div class="purchase-info">
+                    <?php if( !empty( $receipt_id ) ) : ?>
 
-                        <span><?php _e( "Receipt # {$receipt_id}", \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <div class="purchase-info">
 
-                    </div>
+                            <span><?php _e( "Receipt # {$receipt_id}", \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                        </div>
+
+                    <?php endif; ?>
 
                 </div>
 
