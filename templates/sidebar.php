@@ -146,6 +146,8 @@ if( array_key_exists( $product, $products ) ) {
 
                         <?php foreach ( $attachments as $attachment ) : ?>
 
+                            <?php $attachment_author = get_user_by( 'id', $attachment->post_author ); ?>
+
                             <div class="image-wrapper col-xs-3 col-sm-12 col-md-4">
 
                                 <?php if( $attachment->post_author == wp_get_current_user()->ID ) : ?>
@@ -158,9 +160,11 @@ if( array_key_exists( $product, $products ) ) {
 
                                 <?php endif; ?>
 
-                                <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>" data-lightbox="<?php echo $ticket->ID; ?>">
+                                <a href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
+                                   data-title="<?php echo $attachment_author->first_name . ' ' . $attachment_author->last_name . __( ' on ' . get_the_date( 'l F j @ g:i A', $attachment ), \SmartcatSupport\PLUGIN_ID ); ?>"
+                                   data-lightbox="<?php echo $ticket->ID; ?>">
 
-                                    <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
+                                   <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
 
                                 </a>
 
