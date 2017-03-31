@@ -158,11 +158,21 @@ if( array_key_exists( $product, $products ) ) {
 
                                 <?php endif; ?>
 
-                                <a class="attachment" href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>">
+                                <a class="attachment" href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
+                                   data-sub-html="#caption-<?php echo $attachment->ID; ?>">
 
                                     <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
 
                                 </a>
+
+                                <div id="caption-<?php echo $attachment->ID; ?>" style="display: none">
+
+                                    <?php $author = get_user_by( 'id', $attachment->post_author ); ?>
+
+                                    <h4><?php echo $author->first_name . ' ' . $author->last_name; ?></h4>
+                                    <p><?php echo \SmartcatSupport\util\just_now( $attachment->post_date ); ?></p>
+
+                                </div>
 
                             </div>
 
