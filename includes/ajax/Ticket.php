@@ -357,7 +357,7 @@ class Ticket extends AjaxComponent {
     private function get_ticket( $id, $strict = false ) {
         $args = array( 'p' => $id, 'post_type' => 'support_ticket' );
 
-        if( $strict || !current_user_can( 'manage_support_tickets' ) ) {
+        if( $strict && !current_user_can( 'manage_support_tickets' ) ) {
             $args['author'] = wp_get_current_user()->ID;
         }
 
