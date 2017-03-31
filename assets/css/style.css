@@ -73,6 +73,15 @@ span.button-icon {
     padding-right: 5px;
 }
 
+.dz-progress {
+    border-radius: 0 !important;
+    height: 4px !important;
+}
+
+.dz-upload {
+    background: #337ac6 !important;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
