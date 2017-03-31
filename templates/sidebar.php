@@ -158,12 +158,12 @@ if( array_key_exists( $product, $products ) ) {
 
                                 <?php endif; ?>
 
-                                <a class="attachment" href="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
-                                   data-sub-html="#caption-<?php echo $attachment->ID; ?>">
+                                <div class="image" data-src="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
+                                     data-sub-html="#caption-<?php echo $attachment->ID; ?>">
 
-                                    <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive' ); ?>
+                                     <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
 
-                                </a>
+                                </div>
 
                                 <div id="caption-<?php echo $attachment->ID; ?>" style="display: none">
 

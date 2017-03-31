@@ -1,7 +1,6 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
 
 ?>
         <?php if( get_option( Option::SHOW_FOOTER, Option\Defaults::SHOW_FOOTER ) == 'on' ) : ?>

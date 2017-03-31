@@ -228,7 +228,7 @@ var Ticket = (function ($) {
                     sidebar.find(".message").html(message);
 
                     sidebar.find(".gallery").lightGallery({
-                        selector: '.attachment'
+                        selector: '.image'
                     });
 
                     sidebar.find(".panel").each(function (index, element) {
