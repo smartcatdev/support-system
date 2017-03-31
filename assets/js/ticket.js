@@ -8,7 +8,7 @@ var Ticket = (function ($) {
         $(document).on("submit", ".ticket-status-form", _save_properties);
         $(document).on("click", ".flagged", _toggle_flag);
         $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
-        $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone)
+        $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
     };
 
     var _reset_media_dropzone = function(e) {
@@ -90,7 +90,7 @@ var Ticket = (function ($) {
             extras: {
                 _ajax_nonce: Globals.ajax_nonce
             },
-            success: function (response) {
+            success: function () {
                 $("#create-modal").modal("toggle");
 
                 Dropzone.forElement("#ticket-media-upload").reset();
@@ -98,7 +98,11 @@ var Ticket = (function ($) {
                 form.find(".form-control").each(function (index, element) {
                     var field = $(element);
 
-                    field.val(field.data("default"));
+                    if(typeof(field.data("default")) === "string") {
+                        field.val(field.data("default"));
+                    } else {
+                        field.val(JSON.stringify(field.data("default")));
+                    }
                 });
 
                 App.load_tickets();
@@ -277,44 +281,6 @@ var Ticket = (function ($) {
     var initialize = function () {
         _bind_events();
 
-        Dropzone.options.ticketMediaUpload = {
-            addRemoveLinks: true,
-
-            init: function() {
-                this.on("success", function(file, res) {
-                    var media = $(this.element).parents(".form-wrapper").find("input.attachments");
-                    var uploads = JSON.parse(media.val());
-
-                    file.id = res.data.id;
-
-                    uploads.push(res.data.id);
-                    media.val(JSON.stringify(uploads));
-                });
-
-                this.doingReset = false;
-
-                this.on("removedfile", function(file) {
-                    if(!this.doingReset) {
-                        $.ajax({
-                            url: Globals.ajax_url + "?use_support_media",
-                            dataType: "json",
-                            data: {
-                                action: "support_delete_media",
-                                _ajax_nonce: Globals.ajax_nonce,
-                                attachment_id: file.id
-                            }
-                        });
-                    }
-                });
-
-                this.reset = function() {
-                    this.doingReset = true;
-                    this.removeAllFiles();
-                    this.doingReset = false;
-                };
-            }
-        };
-
         var looper = function(callback) {
             return function () {
                 $("div.tab-pane").each(function (index, element) {
@@ -328,7 +294,7 @@ var Ticket = (function ($) {
         };
 
         setInterval(looper(load_comments), 1000 * 15);
-        //setInterval(looper(load_sidebar), 1000 * 30);
+        setInterval(looper(load_sidebar), 1000 * 30);
     };
 
     return {
