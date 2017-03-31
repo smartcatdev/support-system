@@ -55,7 +55,7 @@ class Media extends AjaxComponent {
         }
     }
 
-    public function hash_filename( $file ) {
+    public function generate_filename( $file ) {
         if( defined( 'USE_SUPPORT_UPLOADS' ) ) {
             $ext = substr($file['name'], strrpos($file['name'], '.'));
             $file['name'] = wp_generate_uuid4() . $ext;
@@ -67,7 +67,7 @@ class Media extends AjaxComponent {
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
             'upload_dir' => array( 'media_dir' ),
-            'wp_handle_upload_prefilter' => array( 'hash_filename' ),
+            'wp_handle_upload_prefilter' => array( 'generate_filename' ),
             'wp_ajax_support_upload_media' => array( 'upload_media' ),
             'wp_ajax_support_delete_media' => array( 'delete_media' )
         ) );

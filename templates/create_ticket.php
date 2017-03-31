@@ -29,7 +29,7 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
     <div class="form-group">
 
-        <label><?php _e( 'Attach Screenshots', \SmartcatSupport\PLUGIN_ID ); ?></label>
+        <label><?php _e( 'Attach Images', \SmartcatSupport\PLUGIN_ID ); ?></label>
 
         <form id="ticket-media-upload" class="dropzone">
 
