@@ -22,7 +22,7 @@ class CheckBoxGroup extends AbstractField {
             <div class="form-check">
 
                 <label class="form-check-label">
-
+                    
                     <input type="checkbox"
                            name="<?php echo $this->name; ?>[]"
                            value="<?php echo $option; ?>"
