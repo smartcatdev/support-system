@@ -10,7 +10,6 @@ use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
 
 $admin = new TabbedSettingsPage(
     array(

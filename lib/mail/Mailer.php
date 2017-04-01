@@ -4,6 +4,7 @@ namespace smartcat\mail;
 
 use smartcat\core\HookRegisterer;
 use smartcat\core\HookSubscriber;
+use smartcat\debug\Log;
 
 if( !class_exists( '\smartcat\mail\Mailer' ) ) :
 
@@ -15,6 +16,7 @@ class Mailer implements HookSubscriber  {
         if( empty( self::$instance ) ) {
             self::$instance = new self();
             self::configure_caps();
+
             $plugin->add_api_subscriber( self::$instance );
         }
 
@@ -163,22 +165,16 @@ class Mailer implements HookSubscriber  {
     }
 
     public static function list_templates() {
-        $templates = array();
+        global $wpdb;
 
-        $query = new \WP_Query(
-            array(
-                'post_type'   => 'email_template',
-                'post_status' => 'publish'
-            )
-        );
+        $results = array();
+        $templates = $wpdb->get_results( "SELECT ID, post_title FROM {$wpdb->prefix}posts WHERE post_type='email_template' AND post_status='publish'" );
 
-        if( $query->have_posts() ) {
-            foreach( $query->posts as $template ) {
-                $templates [ $template->ID ] = $template->post_title;
-            }
+        foreach( $templates as $template ) {
+            $results[ $template->ID ] = $template ->post_title;
         }
 
-        return $templates;
+        return $results;
     }
 
 }
