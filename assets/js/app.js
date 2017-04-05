@@ -19,6 +19,57 @@ var App = (function ($) {
         $(document).on("keyup", "#search", _search);
         $(document).on("submit", "#registration-form", _register_user);
         $(document).on("change", ".filter-field", _filter_off);
+        $(document).on("show.bs.modal", "#create-modal", _init_media_dropzone);
+        $(document).on("hidden.bs.modal", "#create-modal", _reset_media_dropzone);
+    };
+
+    var _reset_media_dropzone = function(e) {
+        var attachments = $(e.target).find("input.attachments");
+
+        Dropzone.forElement("#ticket-media-upload").destroy();
+        attachments.val(JSON.stringify(attachments.data("default")));
+    };
+
+    var _init_media_dropzone = function (e) {
+        $(e.target).find('#ticket-media-upload').dropzone({
+            addRemoveLinks: true,
+            url: Globals.ajax_url + "?action=support_upload_media",
+
+            init: function() {
+
+                this.on("success", function(file, res) {
+                    var media = $(e.target).find("input.attachments");
+                    var uploads = JSON.parse(media.val());
+
+                    file.id = res.data.id;
+
+                    uploads.push(res.data.id);
+                    media.val(JSON.stringify(uploads));
+                });
+
+                this.doingReset = false;
+
+                this.on("removedfile", function(file) {
+                    if(!this.doingReset) {
+                        $.ajax({
+                            url: Globals.ajax_url,
+                            dataType: "json",
+                            data: {
+                                action: "support_delete_media",
+                                _ajax_nonce: Globals.ajax_nonce,
+                                attachment_id: file.id
+                            }
+                        });
+                    }
+                });
+
+                this.reset = function() {
+                    this.doingReset = true;
+                    this.removeAllFiles();
+                    this.doingReset = false;
+                };
+            }
+        });
     };
 
     var _search = _.debounce(function () {
@@ -190,6 +241,8 @@ var App = (function ($) {
         if(register_button.length > 0) {
             $(".login-submit").prepend(register_button.show()).addClass("text-center");
         }
+
+        Dropzone.autoDiscover = false;
 
         _time();
         _bind_events();

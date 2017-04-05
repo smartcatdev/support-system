@@ -7,6 +7,70 @@ var Ticket = (function ($) {
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
         $(document).on("click", ".flagged", _toggle_flag);
+        $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
+        $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
+        $(document).on("click", ".delete-attachment", _delete_attachment);
+    };
+
+    var _delete_attachment = function (e) {
+        var target = $(e.target);
+
+        $.ajax({
+            url: Globals.ajax_url,
+            data: {
+                action: "support_delete_media",
+                _ajax_nonce: Globals.ajax_nonce,
+                attachment_id: target.data("attachment_id")
+            },
+            success: function () {
+                Ticket.load_sidebar(target.data("ticket_id"));
+            }
+        })
+    };
+
+    var _reset_media_dropzone = function(e) {
+        var ticket = $(e.target).data("ticket_id");
+        var dropzone = Dropzone.forElement("#attachment-dropzone-" + ticket);
+
+        dropzone.reset();
+        dropzone.destroy();
+
+        load_sidebar(ticket);
+    };
+
+    var _init_media_dropzone = function (e) {
+         $(e.target).find('.dropzone').dropzone({
+            addRemoveLinks: true,
+            url: Globals.ajax_url + "?action=support_upload_media",
+
+            init: function () {
+                this.doingReset = false;
+
+                this.on("success", function(file, res) {
+                    file.id = res.data.id;
+                });
+
+                this.on("removedfile", function (file) {
+                    if (!this.doingReset) {
+                        $.ajax({
+                            url: Globals.ajax_url,
+                            dataType: "json",
+                            data: {
+                                action: "support_delete_media",
+                                _ajax_nonce: Globals.ajax_nonce,
+                                attachment_id: file.id
+                            }
+                        });
+                    }
+                });
+
+                this.reset = function () {
+                    this.doingReset = true;
+                    this.removeAllFiles();
+                    this.doingReset = false;
+                };
+            }
+        });
     };
 
     var _toggle_flag = function (e) {
@@ -43,13 +107,19 @@ var Ticket = (function ($) {
             extras: {
                 _ajax_nonce: Globals.ajax_nonce
             },
-            success: function (response) {
+            success: function () {
                 $("#create-modal").modal("toggle");
+
+                Dropzone.forElement("#ticket-media-upload").reset();
 
                 form.find(".form-control").each(function (index, element) {
                     var field = $(element);
 
-                    field.val(field.data("default"));
+                    if(typeof(field.data("default")) === "string") {
+                        field.val(field.data("default"));
+                    } else {
+                        field.val(JSON.stringify(field.data("default")));
+                    }
                 });
 
                 App.load_tickets();
@@ -68,7 +138,7 @@ var Ticket = (function ($) {
             target.prop("disabled", true);
 
             $.ajax({
-                url: Globals.ajax_url,
+                url: Globals.ajax_url + "?use_support_media",
                 dataType: "json",
                 data: {
                     id: id,
@@ -156,6 +226,10 @@ var Ticket = (function ($) {
 
                     sidebar.html(response.data);
                     sidebar.find(".message").html(message);
+
+                    sidebar.find(".gallery").lightGallery({
+                        selector: '.image'
+                    });
 
                     sidebar.find(".panel").each(function (index, element) {
                         var panel = $(element);

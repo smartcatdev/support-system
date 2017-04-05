@@ -32,7 +32,9 @@ use SmartcatSupport\descriptor\Option;
 
                     <button id="save-settings" type="button" class="button button-submit">
 
-                        <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                        <span class="glyphicon glyphicon-floppy-save button-icon"></span>
+
+                        <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                     </button>
 

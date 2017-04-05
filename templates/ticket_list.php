@@ -6,21 +6,9 @@ use SmartcatSupport\descriptor\Option;
 
 <?php if ( empty( $query->posts ) ) : ?>
 
-    <div class="row-table first-create-ticket">
+    <div class="row">
 
-        <div class="row-table-cell">
-
-            <div class="text-center">
-
-                <div class="row">
-
-                    <p><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \SmartcatSupport\PLUGIN_ID ); ?></p>
-
-                </div>
-
-            </div>
-
-        </div>
+        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
     </div>
 
@@ -32,14 +20,14 @@ use SmartcatSupport\descriptor\Option;
 
             <?php foreach( $query->posts as $post ) : ?>
 
-                <div class="list-group-item ticket">
+                <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
+                <?php $statuses = \SmartcatSupport\util\statuses(); ?>
+
+                <div class="list-group-item ticket <?php echo $status; ?>">
 
                     <div class="media">
 
                         <div class="media-left">
-
-                            <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
-                            <?php $statuses = \SmartcatSupport\util\statuses(); ?>
 
                             <div class="status-wrapper">
 
@@ -70,7 +58,7 @@ use SmartcatSupport\descriptor\Option;
 
                                 <?php if( array_key_exists( $product, $products ) ) : ?>
 
-                                    <a href="#"><span class="product pull-right"><?php echo $products[ $product ]; ?></span></a>
+                                    <span class="product"><?php echo $products[ $product ]; ?></span>
 
                                 <?php endif; ?>
 
@@ -88,16 +76,39 @@ use SmartcatSupport\descriptor\Option;
 
                         <div class="media-right">
 
-                            <span class="glyphicon glyphicon-comment comment-icon"></span>
+                            <div class="indicators pull-right">
 
-                            <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+                                <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
 
-                            <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
+                                <?php if( $attachments > 0 ) : ?>
 
-                                <span data-id="<?php echo $post->ID; ?>" class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag pull-right flagged"></span>
+                                    <div class="indicator">
 
-                            <?php endif; ?>
+                                        <span class="glyphicon glyphicon-paperclip"></span>
 
+                                    </div>
+
+                                <?php endif; ?>
+
+                                <div class="indicator">
+
+                                    <span class="glyphicon glyphicon-comment comment-icon"></span>
+
+                                    <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+
+                                </div>
+
+                                <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
+
+                                    <div class="indicator">
+
+                                        <span data-id="<?php echo $post->ID; ?>" class="<?php echo get_post_meta( $post->ID, 'flagged', true ) === 'on' ? 'active' : ''; ?> text-muted glyphicon glyphicon-flag flagged"></span>
+
+                                    </div>
+
+                                <?php endif; ?>
+
+                            </div>
 
                         </div>
 

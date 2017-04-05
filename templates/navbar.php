@@ -45,9 +45,9 @@ $user = wp_get_current_user();
 
                             <button class="button button-primary" data-toggle="modal" data-target="#create-modal">
 
-                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                <span class="glyphicon glyphicon-plus-sign button-icon"></span>
 
-                                <?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID ); ?>
+                                <span><?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \SmartcatSupport\PLUGIN_ID ); ?></span>
 
                             </button>
 
@@ -87,6 +87,23 @@ $user = wp_get_current_user();
                                 </li>
 
                                 <li role="separator" class="divider"></li>
+
+                                <?php if( current_user_can( 'manage_options') ) : ?>
+
+                                    <li>
+                                        <a href="<?php echo admin_url(); ?>" class="alignright background-secondary hover menu-item">
+
+                                            <span class="glyphicon glyphicon-user"></span>
+
+                                            <?php _e( 'WordPress', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li role="separator" class="divider"></li>
+
+                                <?php endif; ?>
 
                                 <li>
                                     <a href="<?php echo wp_logout_url(); ?>" class="alignright background-secondary hover menu-item">

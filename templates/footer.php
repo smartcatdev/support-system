@@ -1,7 +1,6 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
 
 ?>
         <?php if( get_option( Option::SHOW_FOOTER, Option\Defaults::SHOW_FOOTER ) == 'on' ) : ?>
@@ -12,7 +11,17 @@ use SmartcatSupport\Plugin;
 
                     <hr>
 
-                    <p class="footer-text text-center"><?php echo get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?></p>
+                    <p class="footer-text text-center">
+
+                        <?php echo get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?> |
+
+                        <a href="http://ucaresupport.com" target="_blank">
+
+                            <?php _e( ' Powered by uCare Support', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                        </a>
+
+                    </p>
 
                 </div>
 
@@ -75,12 +84,21 @@ use SmartcatSupport\Plugin;
         <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ); ?>"></script>
         <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js'; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js'; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js'; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
         <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
+
+        <script>
+
+            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Option::MAX_ATTACHMENT_SIZE, Option\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
+
+        </script>
 
     </body>
 

@@ -185,4 +185,17 @@ namespace  SmartcatSupport\util {
             $role->remove_cap( 'manage_support' );
         }
     }
+
+    function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
+        $query = new \WP_Query(
+            array(
+                'post_parent' => $ticket->ID,
+                'post_type' => 'attachment',
+                'post_mime_type' => 'image',
+                'orderby' => $order,
+                'order' => $order
+            ) );
+
+        return $query->posts;
+    }
 }

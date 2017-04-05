@@ -25,8 +25,10 @@
                 _ajax_nonce: Globals.ajax_nonce
             },
             success: function () {
-                comment.parents(".wrapper").fadeToggle("slow", function () {
-                    $(this).remove();
+                var wrapper = comment.parents(".wrapper");
+
+                wrapper.fadeToggle("slow", function () {
+                    wrapper.remove();
                 });
             }
         });
@@ -50,7 +52,9 @@
             method: "post",
             data: data,
             success: function (response) {
-                comment.replaceWith(response.data);
+                comment.fadeToggle("slow", function () {
+                    comment.replaceWith($(response.data).fadeToggle());
+                });
             },
             complete: function () {
                 submit_button.prop("disabled", false);
@@ -71,15 +75,24 @@
         var editor = comment.find(".editor");
         var content = comment.find(".comment-content");
 
-        comment.toggleClass("locked")
-            .find(".comment-controls")
-            .fadeToggle();
+        var comment_controls = comment.find(".comment-controls");
 
-        editor.toggle()
-            .find(".editor-content")
-            .val(_.unescape(content.html()).trim());
+        comment.toggleClass("locked");
+        comment_controls.fadeToggle();
 
-        content.toggle();
+        // if editor is showing
+        if(editor.css("display") === "none") {
+            content.fadeToggle("slow", function () {
+                editor.fadeToggle();
+            });
+        } else {
+            editor.fadeToggle("slow", function () {
+                content.fadeToggle();
+            });
+        }
+
+        editor.find(".editor-content")
+            .val(_.unescape(content.html()).trim())
     };
 
     var initialize = function () {
