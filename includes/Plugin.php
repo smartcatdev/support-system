@@ -141,8 +141,15 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         tgmpa( $plugins, $config );
     }
 
+    public function email_template_vars( $content, $template, $recipient, $id ) {
+        $content = str_replace( '{%support_url%}', get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ), $content);
+
+        return $content;
+    }
+
     public function subscribed_hooks() {
         return array(
+            'parse_email_template' => array( 'email_template_vars' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
@@ -209,7 +216,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.md' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.html' )
                 )
             );
 
@@ -226,7 +233,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Your request for support has been marked as resolved', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_resolved.md' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_resolved.html' )
                 )
             );
 
@@ -243,7 +250,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_reply.md' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_reply.html' )
                 )
             );
 

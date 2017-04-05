@@ -23,7 +23,7 @@ class Mailer implements HookSubscriber  {
         return self::$instance;
     }
 
-    public function replace_default_vars( $content, $recipient ) {
+    public function replace_default_vars( $content, $recipient, $template ) {
         $user = get_user_by( 'email', $recipient );
 
         if( !empty( $user ) ) {
@@ -33,6 +33,7 @@ class Mailer implements HookSubscriber  {
             $content = str_replace( '{%full_name%}', $user->first_name . ' ' . $user->last_name, $content );
         }
 
+        $content = str_replace( '{%template_title%}', $template->post_title, $content );
         $content = str_replace( '{%email%}', !empty( $user ) ? $user->user_email : $recipient, $content );
         $content = str_replace( '{%home_url%}', home_url(), $content );
 
@@ -104,7 +105,7 @@ class Mailer implements HookSubscriber  {
             $sent = wp_mail(
                 $recipient,
                 $template->post_title,
-                apply_filters( 'parse_email_template', $template->post_content, $recipient, $template->ID ),
+                apply_filters( 'parse_email_template', $template->post_content, $recipient, $template ),
                 array( 'Content-Type: text/html; charset=UTF-8' )
             );
         }
@@ -128,9 +129,27 @@ class Mailer implements HookSubscriber  {
         }
     }
 
+    public function allowed_html( $tags, $context = null ) {
+        if( get_post_type() == 'email_template' ) {
+            $tags['style'] = array();
+        }
+
+        return $tags;
+    }
+
+    public function disable_wysiwyg( $enabled ) {
+        if( get_post_type() == 'email_template' ) {
+            $enabled = false;
+        }
+
+        return $enabled;
+    }
+
     public function subscribed_hooks() {
         return array(
             'init' => array( 'register_template_cpt' ),
+            'user_can_richedit' => array( 'disable_wysiwyg' ),
+            'wp_kses_allowed_html' => array( 'allowed_html' ),
             'parse_email_template' => array( 'replace_default_vars', 10, 3 )
         );
     }

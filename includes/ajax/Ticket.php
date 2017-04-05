@@ -209,7 +209,7 @@ class Ticket extends AjaxComponent {
                         // Grab email template vars
                         add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
                             return str_replace(
-                                array( '{%agent%}', '{%reply%}', '{%subject%} '),
+                                array( '{%agent%}', '{%reply%}', '{%subject%}'),
                                 array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
                                 $content
                             );
