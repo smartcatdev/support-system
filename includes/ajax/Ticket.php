@@ -2,6 +2,7 @@
 
 namespace SmartcatSupport\ajax;
 
+use smartcat\debug\Log;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
@@ -27,7 +28,7 @@ class Ticket extends AjaxComponent {
                     'comment_status' => 'open'
                 ) );
 
-                if( !empty( $post_id ) ) {
+                if( is_numeric( $post_id ) ) {
 
                     // Remove them so that they are not saved as meta
                     unset( $form->data['subject'] );
@@ -39,6 +40,14 @@ class Ticket extends AjaxComponent {
 
                     update_post_meta( $post_id, 'status', 'new' );
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
+
+                    // link attachments with post
+                    foreach( json_decode( $_REQUEST['attachments'] ) as $attachment ) {
+                        wp_update_post( array(
+                            'ID' => $attachment,
+                            'post_parent' => $post_id
+                        ) );
+                    }
 
                     wp_send_json_success( $post_id );
                 }

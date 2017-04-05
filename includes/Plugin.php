@@ -5,6 +5,7 @@ namespace SmartcatSupport;
 use smartcat\core\AbstractPlugin;
 use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
+use SmartcatSupport\ajax\Media;
 use SmartcatSupport\ajax\Ticket;
 use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Settings;
@@ -168,7 +169,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             Ticket::class,
             Comment::class,
             Settings::class,
-            Hacks::class
+            Hacks::class,
+            Media::class
         );
 
         if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {

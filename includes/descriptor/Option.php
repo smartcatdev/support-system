@@ -170,4 +170,9 @@ final class Option {
      * @since 1.0.0
      */
     const FOOTER_TEXT = 'smartcat_support_footer-text';
+
+    /**
+     * @since 1.0.0
+     */
+    const MAX_ATTACHMENT_SIZE = 'smartcat_support_footer-max-attachment-size';
 }

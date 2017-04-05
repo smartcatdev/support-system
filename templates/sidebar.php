@@ -13,10 +13,8 @@ $receipt_id = get_post_meta( $ticket->ID, 'receipt_id', true );
 
 if( array_key_exists( $product, $products ) ) {
     $product = $products[$product];
-}
-
-if( empty( $receipt_id ) ) {
-    $receipt_id = '—';
+} else {
+    $product = 'Not Available';
 }
 
 ?>
@@ -29,9 +27,7 @@ if( empty( $receipt_id ) ) {
 
             <div class="lead"><?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \SmartcatSupport\PLUGIN_ID ); ?></div>
 
-            <p>
-                <?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?>
-            </p>
+            <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>
 
             <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
@@ -60,11 +56,15 @@ if( empty( $receipt_id ) ) {
 
                     </div>
 
-                    <div class="purchase-info">
+                    <?php if( !empty( $receipt_id ) ) : ?>
 
-                        <span><?php _e( "Receipt # {$receipt_id}", \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <div class="purchase-info">
 
-                    </div>
+                            <span><?php _e( "Receipt # {$receipt_id}", \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                        </div>
+
+                    <?php endif; ?>
 
                 </div>
 
@@ -118,6 +118,94 @@ if( empty( $receipt_id ) ) {
 
         </div>
 
+    <?php endif; ?>
+
+    <div class="panel panel-default attachments" data-id="attachments">
+
+        <div class="panel-heading">
+
+            <a href="#collapse-attachments-<?php echo $ticket->ID; ?>" data-toggle="collapse"
+               class="panel-title"><?php _e( 'Attachments', \SmartcatSupport\PLUGIN_ID ); ?></a>
+
+        </div>
+
+        <div id="collapse-attachments-<?php echo $ticket->ID; ?>" class="panel-collapse in">
+
+            <div class="panel-body">
+
+                <?php $attachments = \SmartcatSupport\util\get_attachments( $ticket ); ?>
+                <?php $attachment_count = count( $attachments ); ?>
+
+                <?php if( $attachment_count === 0 ) : ?>
+
+                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', \SmartcatSupport\PLUGIN_ID ); ?></p>
+
+                <?php else : ?>
+
+                    <div class="row gallery">
+
+                        <?php foreach ( $attachments as $attachment ) : ?>
+
+                            <div class="image-wrapper col-xs-3 col-sm-12 col-md-4">
+
+                                <?php if( $attachment->post_author == wp_get_current_user()->ID ) : ?>
+
+                                    <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
+                                          data-attachment_id="<?php echo $attachment->ID; ?>"
+                                          data-ticket_id="<?php echo $ticket->ID; ?>">
+
+                                    </span>
+
+                                <?php endif; ?>
+
+                                <div class="image" data-src="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
+                                     data-sub-html="#caption-<?php echo $attachment->ID; ?>">
+
+                                     <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
+
+                                </div>
+
+                                <div id="caption-<?php echo $attachment->ID; ?>" style="display: none">
+
+                                    <?php $author = get_user_by( 'id', $attachment->post_author ); ?>
+
+                                    <h4><?php echo $author->first_name . ' ' . $author->last_name; ?></h4>
+                                    <p><?php echo \SmartcatSupport\util\just_now( $attachment->post_date ); ?></p>
+
+                                </div>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <hr class="sidebar-divider">
+
+                <div class="bottom text-right">
+
+                    <button type="submit" class="button button-submit launch-attachment-modal"
+                            data-target="#attachment-modal-<?php echo $ticket->ID; ?>"
+                            data-toggle="modal">
+
+                        <span class="glyphicon glyphicon-paperclip button-icon"></span>
+
+                        <span><?php _e( 'Upload', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <?php if ( current_user_can( 'manage_support_tickets' ) ) : ?>
+
         <div class="panel panel-default ticket-properties" data-id="ticket-properties">
 
             <div class="panel-heading">
@@ -152,11 +240,15 @@ if( empty( $receipt_id ) ) {
                         <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>"/>
                         <input type="hidden" name="<?php echo $form->id; ?>"/>
 
+                        <hr class="sidebar-divider">
+
                         <div class="bottom text-right">
 
                             <button type="submit" class="button button-submit">
 
-                                <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                                <span class="glyphicon glyphicon-floppy-save button-icon"></span>
+
+                                <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                             </button>
 

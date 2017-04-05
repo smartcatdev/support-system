@@ -135,4 +135,9 @@ final class Defaults {
      * @since 1.0.0
      */
     const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
+
+    /**
+     * @since 1.0.0
+     */
+    const MAX_ATTACHMENT_SIZE = 2;
 }

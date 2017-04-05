@@ -205,7 +205,7 @@ $general->add_field( new TextField(
 
 ) )->add_field( new TextField(
     array(
-        'id'            => 'support_empty_table_msg',
+        'id'            => 'support_tickets_per_page',
         'type'          => 'number',
         'option'        => Option::MAX_TICKETS,
         'value'         => get_option( Option::MAX_TICKETS, Option\Defaults::MAX_TICKETS ),
@@ -213,6 +213,17 @@ $general->add_field( new TextField(
         'desc'          => __( 'The maximum number of tickets to be loaded per page', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new IntegerValidator() )
     )
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_max_attachment_size',
+        'type'          => 'number',
+        'option'        => Option::MAX_ATTACHMENT_SIZE,
+        'value'         => get_option( Option::MAX_ATTACHMENT_SIZE, Option\Defaults::MAX_ATTACHMENT_SIZE ),
+        'label'         => __( 'Maximum attachment size', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'The maximum file size for attachments in MB', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new IntegerValidator() )
+    )
+
 ) );
 
 $emails = new SettingsSection( 'email_templates', __( 'Email Templates', \SmartcatSupport\PLUGIN_ID ) );

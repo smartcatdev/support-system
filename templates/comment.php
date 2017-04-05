@@ -31,22 +31,22 @@ use SmartcatSupport\Plugin;
 
             </div>
 
-            <div class="pull-right">
+            <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
 
-                <div class="btn-group comment-controls">
+                <div class="pull-right">
 
-                    <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
+                    <div class="btn-group comment-controls">
 
                         <button class="btn btn-default glyphicon glyphicon-trash delete-comment"
                                 data-id="<?php echo $comment->comment_ID; ?>"></button>
 
                         <button class="btn btn-default glyphicon glyphicon-pencil edit-comment"></button>
 
-                    <?php endif; ?>
+                    </div>
 
                 </div>
 
-            </div>
+            <?php endif; ?>
 
             <div class="clearfix"></div>
 
@@ -72,13 +72,17 @@ use SmartcatSupport\Plugin;
 
                         <button type="button" class="button cancel-edit-comment">
 
-                            <?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?>
+                            <span class="glyphicon glyphicon-remove-sign button-icon"></span>
+
+                            <span><?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?></span>
 
                         </button>
 
                         <button type="submit" class="button save-comment button-submit">
 
-                            <?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?>
+                            <span class="glyphicon glyphicon-floppy-save button-icon"></span>
+
+                            <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                         </button>
 
