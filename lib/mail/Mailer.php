@@ -34,6 +34,7 @@ class Mailer implements HookSubscriber  {
         }
 
         $content = str_replace( '{%email%}', !empty( $user ) ? $user->user_email : $recipient, $content );
+        $content = str_replace( '{%home_url%}', home_url(), $content );
 
         return $content;
     }
