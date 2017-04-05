@@ -199,22 +199,25 @@ class Ticket extends AjaxComponent {
 
             if ( !is_wp_error( $comment ) ) {
                 if ( current_user_can( 'manage_support_tickets' ) ) {
-                    update_post_meta( $ticket->ID, 'status', 'waiting' );
+
+                    if( $status != 'closed' ) {
+                        update_post_meta($ticket->ID, 'status', 'waiting');
+                    }
 
                     if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
                         // Grab email template vars
-                        add_filter('parse_email_template', function ($content) use ($comment, $ticket) {
+                        add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
                             return str_replace(
-                                array('{%agent%}', '{%reply%}', '{%subject%}'),
-                                array($comment->comment_author, $comment->comment_content, $ticket->post_title),
+                                array( '{%agent%}', '{%reply%}', '{%subject%} '),
+                                array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
                                 $content
                             );
                         });
 
-                        Mailer::send_template(get_option(Option::REPLY_EMAIL_TEMPLATE), \SmartcatSupport\util\author_email( $ticket ) );
+                        Mailer::send_template( get_option(Option::REPLY_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ) );
                     }
-                } elseif ( $status != 'new' ) {
+                } elseif ( $status != 'new' && $status != 'closed' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
 
@@ -230,6 +233,7 @@ class Ticket extends AjaxComponent {
                         'data'    => $html,
                         'ticket'  => $ticket->ID
                     ), 201 );
+
             } else {
                 wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
             }
