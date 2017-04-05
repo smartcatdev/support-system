@@ -4,7 +4,6 @@ namespace smartcat\mail;
 
 use smartcat\core\HookRegisterer;
 use smartcat\core\HookSubscriber;
-use smartcat\debug\Log;
 
 if( !class_exists( '\smartcat\mail\Mailer' ) ) :
 
@@ -12,15 +11,31 @@ class Mailer implements HookSubscriber  {
 
     private static $instance;
 
+    private $metabox;
+    private $text_domain;
+
     public static function init( HookRegisterer $plugin ) {
         if( empty( self::$instance ) ) {
             self::$instance = new self();
             self::configure_caps();
 
             $plugin->add_api_subscriber( self::$instance );
+            $plugin->add_api_subscriber( self::$instance->metabox );
         }
 
         return self::$instance;
+    }
+
+    private function __construct() {
+        $this->text_domain = apply_filters( 'mailer_text_domain', '' );
+
+        $this->metabox = new StyleMetabox( array(
+            'id'        => 'mailer_meta',
+            'title'     => __( 'Template Style Sheet', $this->text_domain ),
+            'post_type' => 'email_template',
+            'context'   => 'advanced',
+            'priority'  => 'high'
+        ) );
     }
 
     public function replace_default_vars( $content, $recipient, $template ) {
@@ -41,40 +56,38 @@ class Mailer implements HookSubscriber  {
     }
 
     public function register_template_cpt() {
-        $text_domain = apply_filters( 'mailer_text_domain', '' );
-
         //<editor-fold desc="$args array">
         $labels = array(
-            'name'                  => _x( 'Email Templates', 'Post Type General Name', $text_domain ),
-            'singular_name'         => _x( 'Email Template', 'Post Type Singular Name', $text_domain ),
-            'menu_name'             => __( 'Email Templates', $text_domain ),
-            'name_admin_bar'        => __( 'Email Templates', $text_domain ),
-            'archives'              => __( 'Template Archives', $text_domain ),
-            'parent_item_colon'     => __( 'Parent Item:', $text_domain ),
-            'all_items'             => __( 'All Templates', $text_domain ),
-            'add_new_item'          => __( 'New Template', $text_domain ),
-            'add_new'               => __( 'New Template', $text_domain ),
-            'new_item'              => __( 'New Template', $text_domain ),
-            'edit_item'             => __( 'Edit Template', $text_domain ),
-            'update_item'           => __( 'Update Template', $text_domain ),
-            'view_item'             => __( 'View Template', $text_domain ),
-            'search_items'          => __( 'Search Templates', $text_domain ),
-            'not_found'             => __( 'No templates found', $text_domain ),
-            'not_found_in_trash'    => __( 'No templates found in Trash', $text_domain ),
-            'featured_image'        => __( 'Featured Image', $text_domain ),
-            'set_featured_image'    => __( 'Set featured image', $text_domain ),
-            'remove_featured_image' => __( 'Remove featured image', $text_domain ),
-            'use_featured_image'    => __( 'Use as featured image', $text_domain ),
-            'insert_into_item'      => __( 'Insert into template', $text_domain ),
-            'uploaded_to_this_item' => __( 'Uploaded to this template', $text_domain ),
-            'items_list'            => __( 'Templates list', $text_domain ),
-            'items_list_navigation' => __( 'Templates list navigation', $text_domain ),
-            'filter_items_list'     => __( 'Filter templates list', $text_domain )
+            'name'                  => _x( 'Email Templates', 'Post Type General Name', $this->text_domain ),
+            'singular_name'         => _x( 'Email Template', 'Post Type Singular Name', $this->text_domain ),
+            'menu_name'             => __( 'Email Templates', $this->text_domain ),
+            'name_admin_bar'        => __( 'Email Templates', $this->text_domain ),
+            'archives'              => __( 'Template Archives', $this->text_domain ),
+            'parent_item_colon'     => __( 'Parent Item:', $this->text_domain ),
+            'all_items'             => __( 'All Templates', $this->text_domain ),
+            'add_new_item'          => __( 'New Template', $this->text_domain ),
+            'add_new'               => __( 'New Template', $this->text_domain ),
+            'new_item'              => __( 'New Template', $this->text_domain ),
+            'edit_item'             => __( 'Edit Template', $this->text_domain ),
+            'update_item'           => __( 'Update Template', $this->text_domain ),
+            'view_item'             => __( 'View Template', $this->text_domain ),
+            'search_items'          => __( 'Search Templates', $this->text_domain ),
+            'not_found'             => __( 'No templates found', $this->text_domain ),
+            'not_found_in_trash'    => __( 'No templates found in Trash', $this->text_domain ),
+            'featured_image'        => __( 'Featured Image', $this->text_domain ),
+            'set_featured_image'    => __( 'Set featured image', $this->text_domain ),
+            'remove_featured_image' => __( 'Remove featured image', $this->text_domain ),
+            'use_featured_image'    => __( 'Use as featured image', $this->text_domain ),
+            'insert_into_item'      => __( 'Insert into template', $this->text_domain ),
+            'uploaded_to_this_item' => __( 'Uploaded to this template', $this->text_domain ),
+            'items_list'            => __( 'Templates list', $this->text_domain ),
+            'items_list_navigation' => __( 'Templates list navigation', $this->text_domain ),
+            'filter_items_list'     => __( 'Filter templates list', $this->text_domain )
         );
 
         $args = array(
-            'label'               => __( 'Email Template', $text_domain ),
-            'description'         => __( 'Templates for automated emails', $text_domain ),
+            'label'               => __( 'Email Template', $this->text_domain ),
+            'description'         => __( 'Templates for automated emails', $this->text_domain ),
             'labels'              => $labels,
             'supports'            => array( 'editor', 'title' ),
             'hierarchical'        => false,
@@ -99,13 +112,14 @@ class Mailer implements HookSubscriber  {
 
     public static function send_template( $template_id, $recipient ) {
         $template = get_post( $template_id );
+        $content = apply_filters( 'parse_email_template', $template->post_content, $recipient, $template );
         $sent = false;
 
         if( !empty( $template ) ) {
             $sent = wp_mail(
                 $recipient,
                 $template->post_title,
-                apply_filters( 'parse_email_template', $template->post_content, $recipient, $template ),
+                self::$instance->wrap_template( $template, $content ),
                 array( 'Content-Type: text/html; charset=UTF-8' )
             );
         }
@@ -129,14 +143,6 @@ class Mailer implements HookSubscriber  {
         }
     }
 
-    public function allowed_html( $tags, $context = null ) {
-        if( get_post_type() == 'email_template' ) {
-            $tags['style'] = array();
-        }
-
-        return $tags;
-    }
-
     public function disable_wysiwyg( $enabled ) {
         if( get_post_type() == 'email_template' ) {
             $enabled = false;
@@ -149,9 +155,35 @@ class Mailer implements HookSubscriber  {
         return array(
             'init' => array( 'register_template_cpt' ),
             'user_can_richedit' => array( 'disable_wysiwyg' ),
-            'wp_kses_allowed_html' => array( 'allowed_html' ),
             'parse_email_template' => array( 'replace_default_vars', 10, 3 )
         );
+    }
+
+    private function wrap_template( $template, $content ) {
+        ob_start(); ?>
+
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style type="text/css"><?php echo wp_strip_all_tags( get_post_meta( $template->ID, 'styles', true ) ); ?></style>
+                    <style>
+                        .footer {
+                            margin-top: 20px;
+                            text-align: center;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <?php echo $content; ?>
+                    <div class="footer">
+                        <p><?php echo do_action( 'email_template_footer', $template ); ?></p>
+                    </div>
+                </body>
+            </html>
+
+        <?php return ob_get_clean();
     }
 
     private static function configure_caps() {

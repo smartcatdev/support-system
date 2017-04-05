@@ -4,8 +4,7 @@ namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
-use SmartcatSupport\admin\FormMetaBox;
-use SmartcatSupport\descriptor\Option;
+use smartcat\post\FormMetaBox;
 
 class TicketCPT extends AbstractComponent {
 

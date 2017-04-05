@@ -148,8 +148,13 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return $content;
     }
 
+    public function email_template_branding( $template ) {
+        echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
+    }
+
     public function subscribed_hooks() {
         return array(
+            'email_template_footer' => array( 'email_template_branding' ),
             'parse_email_template' => array( 'email_template_vars' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
