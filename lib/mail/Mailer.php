@@ -29,7 +29,7 @@ class Mailer implements HookSubscriber  {
     private function __construct() {
         $this->text_domain = apply_filters( 'mailer_text_domain', '' );
 
-        $this->metabox = new StyleMetabox( array(
+        $this->metabox = new StyleMetaBox( array(
             'id'        => 'mailer_meta',
             'title'     => __( 'Template Style Sheet', $this->text_domain ),
             'post_type' => 'email_template',

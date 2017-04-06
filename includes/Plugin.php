@@ -217,6 +217,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $resolved = get_option( Option::RESOLVED_EMAIL_TEMPLATE );
         $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
 
+        $default_style = file_get_contents( $this->dir . '/emails/default-style.css' );
+
         if( is_null( get_post( $welcome ) ) ) {
             $id = wp_insert_post(
                 array(
@@ -228,6 +230,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             );
 
             if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
                 update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
             }
         } else {
@@ -240,11 +243,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Your request for support has been marked as resolved', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_resolved.html' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-resolved.html' )
                 )
             );
 
             if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
                 update_option( Option::RESOLVED_EMAIL_TEMPLATE, $id );
             }
         } else {
@@ -257,11 +261,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_reply.html' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-reply.html' )
                 )
             );
 
             if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
                 update_option( Option::REPLY_EMAIL_TEMPLATE, $id );
             }
         } else {

@@ -4,11 +4,13 @@ namespace smartcat\mail;
 
 use smartcat\post\AbstractMetaBox;
 
-class StyleMetabox extends AbstractMetaBox {
+class StyleMetaBox extends AbstractMetaBox {
 
     public function render( \WP_Post $post ) { ?>
+
         <textarea rows="25" style="width: 100%" name="template_styles"><?php echo get_post_meta( $post->ID, 'styles', true ); ?></textarea>
-    <? }
+
+    <?php }
 
     public function save( $post_id, \WP_Post $post ) {
         if( isset( $_POST['template_styles'] ) ) {
