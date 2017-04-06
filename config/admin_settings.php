@@ -70,16 +70,6 @@ $appearance->add_field( new TextField(
         'validators'    => array( new TextFilter() )
     )
 
-) )->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_show_footer',
-        'option'        => Option::SHOW_FOOTER,
-        'value'         => get_option( Option::SHOW_FOOTER, Option\Defaults::SHOW_FOOTER ),
-        'label'         => __( 'Display Footer', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Display the footer on template pages', \SmartcatSupport\PLUGIN_ID ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
 ) );
 
 $text = new SettingsSection( 'text', __( 'Text & Labels', \SmartcatSupport\PLUGIN_ID ) );

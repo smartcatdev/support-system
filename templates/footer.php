@@ -13,7 +13,9 @@ use SmartcatSupport\descriptor\Option;
 
                     <p class="footer-text text-center">
 
-                        <?php echo get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?> |
+                        <?php $footer_text = get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?>
+
+                        <?php echo !empty( $footer_text ) ? $footer_text . ' |' : ''; ?>
 
                         <a href="http://ucaresupport.com" target="_blank">
 
