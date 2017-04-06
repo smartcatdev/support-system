@@ -472,12 +472,12 @@ body.waiting {
     color: #a9a9a9;
 }
 
-.ticket-status.resolved:before {
+.ticket-status.closed:before {
     content: "\e084";
     font-family: "Glyphicons Halflings";
 }
 
-.ticket-status.resolved {
+.ticket-status.closed {
     color: #1abc9c;
 }
 
@@ -514,15 +514,6 @@ body.waiting {
 
 .ticket-status.responded:before {
     content: "\e095";
-    font-family: "Glyphicons Halflings";
-}
-
-.ticket-status.closed {
-    color: #ff0000;
-}
-
-.ticket-status.closed:before {
-    content: "\e090";
     font-family: "Glyphicons Halflings";
 }
 

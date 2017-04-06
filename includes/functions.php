@@ -56,7 +56,6 @@ namespace  SmartcatSupport\util {
             'opened'            => __( 'Opened', \SmartcatSupport\PLUGIN_ID ),
             'responded'         => __( 'Responded', \SmartcatSupport\PLUGIN_ID ),
             'needs_attention'   => __( 'Needs Attention', \SmartcatSupport\PLUGIN_ID ),
-            'resolved'          => __( 'Resolved', \SmartcatSupport\PLUGIN_ID ),
             'closed'            => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
         );
     }
@@ -69,7 +68,6 @@ namespace  SmartcatSupport\util {
                 'opened'            => true,
                 'responded'         => true,
                 'needs_attention'   => true,
-                'resolved'          => true,
                 'closed'            => true
             )
         );
