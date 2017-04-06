@@ -300,10 +300,9 @@ $email_notifications->add_field( new CheckBoxField(
     array(
         'id'            => 'support_forward_notification_email',
         'option'        => Option::FORWARD_EMAIL,
-        'type'          => 'email',
         'value'         => get_option( Option::FORWARD_EMAIL, get_option( 'admin_email' ) ),
-        'label'         => __( 'Forward Address', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Address that all notifications should be forwarded to', \SmartcatSupport\PLUGIN_ID )
+        'label'         => __( 'Forward Email Address', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Comma separated list of email addresses that all notifications will be forwarded to', \SmartcatSupport\PLUGIN_ID )
     )
 
 ) );

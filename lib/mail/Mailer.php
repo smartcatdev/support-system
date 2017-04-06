@@ -110,7 +110,7 @@ class Mailer implements HookSubscriber  {
                 $recipient,
                 $template->post_title,
                 self::wrap_template( $template, $content ),
-                apply_filters( 'mailer_headers', $headers, $template_id, $recipient )
+                apply_filters( 'mailer_email_headers', $headers, $template_id, $recipient )
             );
         }
 

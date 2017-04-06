@@ -75,6 +75,18 @@ class Notifications extends AbstractComponent {
         return $emails;
     }
 
+    public function email_headers( $headers ) {
+        if( defined( 'SUPPORT_EMAIL_SENDING' ) ) {
+            $forward_address = get_option( Option::FORWARD_EMAIL, Option\Defaults::FORWARD_EMAIL );
+
+            if ( !empty( $forward_address ) ) {
+                $headers[] = 'CC:' . $forward_address;
+            }
+        }
+
+        return $headers;
+    }
+
     private function send_template( $template, $recipient, $template_vars ) {
         define( 'SUPPORT_EMAIL_SENDING', true );
 
@@ -87,6 +99,8 @@ class Notifications extends AbstractComponent {
             'support_ticket_created' => array( 'ticket_created' ),
             'comment_post' => array( 'ticket_reply' ),
             'update_post_metadata' => array( 'ticket_updated', 10, 4 ),
+
+            'mailer_email_headers' => array( 'email_headers' ),
 
             'comment_notification_recipients' => array( 'disable_wp_notifications', 10, 2 ),
             'comment_moderation_recipients' => array( 'disable_wp_notifications', 10, 2 )
