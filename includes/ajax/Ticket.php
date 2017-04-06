@@ -249,11 +249,10 @@ class Ticket extends AjaxComponent {
 
     public function filter_tickets( $args ) {
         $form = include $this->plugin->config_dir . '/ticket_filter.php';
-
+        $can_manage_tickets = current_user_can( 'manage_support_tickets' );
         $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
 
         if( $form->is_submitted() ) {
-
             $data = array();
 
             foreach( $form->fields as $name => $field ) {
@@ -262,7 +261,7 @@ class Ticket extends AjaxComponent {
                 }
             }
 
-            if( current_user_can( 'manage_support_tickets' ) ) {
+            if( $can_manage_tickets ) {
                 if( !empty( $data['email'] ) ) {
                     $author = get_user_by('email', $data['email']);
 
@@ -281,7 +280,7 @@ class Ticket extends AjaxComponent {
                     $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
                 }
             }
-        } else {
+        } elseif( $can_manage_tickets ) {
             $args['meta_query'][] = array(
                 'key'       => 'status',
                 'value'     => 'closed',

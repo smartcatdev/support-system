@@ -62,7 +62,7 @@ namespace  SmartcatSupport\util {
     }
 
     function filter_defaults() {
-        return array(
+        $defaults = array(
             'status' => array(
                 'new'               => true,
                 'waiting'           => true,
@@ -70,9 +70,15 @@ namespace  SmartcatSupport\util {
                 'responded'         => true,
                 'needs_attention'   => true,
                 'resolved'          => true,
-                'closed'            => false
+                'closed'            => true
             )
         );
+
+        if( current_user_can( 'manage_support_tickets' ) ) {
+            $defaults['status']['closed'] = false;
+        }
+
+        return $defaults;
     }
 
     function products () {
