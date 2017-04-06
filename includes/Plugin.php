@@ -224,10 +224,29 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     private function create_email_templates() {
         $welcome = get_option( Option::WELCOME_EMAIL_TEMPLATE );
-        $resolved = get_option( Option::UPDATED_EMAIL_TEMPLATE );
+        $closed = get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE );
         $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
+        $created = get_option( Option::CREATED_EMAIL_TEMPLATE );
 
         $default_style = file_get_contents( $this->dir . '/emails/default-style.css' );
+
+        if( is_null( get_post( $created ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID ),
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-created.html' )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
+                update_option( Option::CREATED_EMAIL_TEMPLATE, $id );
+            }
+        } else {
+            wp_untrash_post( $welcome );
+        }
 
         if( is_null( get_post( $welcome ) ) ) {
             $id = wp_insert_post(
@@ -247,22 +266,22 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             wp_untrash_post( $welcome );
         }
 
-        if( is_null( get_post( $resolved ) ) ) {
+        if( is_null( get_post( $closed ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Your request for support has been marked as resolved', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-resolved.html' )
+                    'post_title'    => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID ),
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-closed.html' )
                 )
             );
 
             if( !empty( $id ) ) {
                 update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::UPDATED_EMAIL_TEMPLATE, $id );
+                update_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE, $id );
             }
         } else {
-            wp_untrash_post( $resolved );
+            wp_untrash_post( $closed );
         }
 
         if( is_null( get_post( $reply ) ) ) {

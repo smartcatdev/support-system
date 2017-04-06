@@ -129,7 +129,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const UPDATED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
+    const TICKET_CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
 
     /**
      * @since 1.0.0

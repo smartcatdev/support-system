@@ -251,12 +251,12 @@ $emails->add_field( new SelectBoxField(
 
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'support_ticket_updated_email_template',
-        'option'        => Option::UPDATED_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::UPDATED_EMAIL_TEMPLATE ),
+        'id'            => 'support_ticket_closed_email_template',
+        'option'        => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Updated', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Sent when the ticket is updated', \SmartcatSupport\PLUGIN_ID ),
+        'label'         => __( 'Ticket Closed', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Sent when the ticket is marked as closed', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 

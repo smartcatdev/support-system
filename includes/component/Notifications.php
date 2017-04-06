@@ -29,7 +29,7 @@ class Notifications extends AbstractComponent {
                 'ticket_status' => $value
             );
 
-            Mailer::send_template(get_option(Option::UPDATED_EMAIL_TEMPLATE), $recipient->user_email, $template_vars);
+            Mailer::send_template(get_option(Option::TICKET_CLOSED_EMAIL_TEMPLATE), $recipient->user_email, $template_vars);
         }
 
         return $null;
@@ -40,7 +40,8 @@ class Notifications extends AbstractComponent {
 
         $template_vars = array(
             'ticket_subject' => $ticket->post_title,
-            'ticket_number' => $ticket->ID
+            'ticket_number' => $ticket->ID,
+            'ticket_content' => $ticket->post_content
         );
 
         Mailer::send_template( get_option( Option::CREATED_EMAIL_TEMPLATE ), $recipient, $template_vars );
