@@ -2,9 +2,6 @@
 
 namespace SmartcatSupport\ajax;
 
-use smartcat\mail\Mailer;
-use SmartcatSupport\descriptor\Option;
-
 class Registration extends AjaxComponent {
 
     /**
@@ -17,27 +14,22 @@ class Registration extends AjaxComponent {
         $form = include $this->plugin->config_dir . '/registration_form.php';
 
         if( $form->is_valid() ) {
-            $data = $form->data;
-            $password = wp_generate_password();
+            $user_data = $form->data;
+            $user_data['password'] = wp_generate_password();
+            $user_data['role'] = 'support_user';
 
             $user_id = wp_insert_user(
                 array(
-                    'user_login'    => $data['email'],
-                    'user_email'    => $data['email'],
-                    'first_name'    => $data['first_name'],
-                    'last_name'     => $data['last_name'],
-                    'role'          => 'support_user',
-                    'user_pass'     => $password
+                    'user_login'    => $user_data['email'],
+                    'user_email'    => $user_data['email'],
+                    'first_name'    => $user_data['first_name'],
+                    'last_name'     => $user_data['last_name'],
+                    'role'          => $user_data['role'],
+                    'user_pass'     => $user_data['password']
                 )
             );
 
-            if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
-
-                $template_vars = array( 'password' => $password );
-
-                Mailer::send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'], $template_vars );
-
-            }
+            do_action( 'post_support_user_register', $user_data );
 
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();

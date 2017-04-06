@@ -2,7 +2,6 @@
 
 namespace SmartcatSupport\ajax;
 
-use smartcat\debug\Log;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 

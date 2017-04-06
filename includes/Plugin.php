@@ -11,6 +11,7 @@ use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\ECommerce;
+use SmartcatSupport\component\Notifications;
 use SmartcatSupport\component\TicketCPT;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
@@ -196,6 +197,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
             $components[] = Registration::class;
+        }
+
+        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
+            $components[] = Notifications::class;
         }
 
         return $components;

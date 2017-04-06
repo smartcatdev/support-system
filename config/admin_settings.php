@@ -236,7 +236,7 @@ $general->add_field( new TextField(
 
 $emails = new SettingsSection( 'email_templates', __( 'Email Templates', \SmartcatSupport\PLUGIN_ID ) );
 
-$email_templates = array( '' => __( 'No Notification', \SmartcatSupport\PLUGIN_ID ) ) + Mailer::list_templates();
+$email_templates = array( '' => __( 'Notifications Disabled', \SmartcatSupport\PLUGIN_ID ) ) + Mailer::list_templates();
 
 $emails->add_field( new SelectBoxField(
     array(
