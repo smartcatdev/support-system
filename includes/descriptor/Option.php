@@ -190,4 +190,9 @@ final class Option {
      * @since 1.0.2
      */
     const FORWARD_EMAIL = 'smartcat_support_ticket-forward-address';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_BACKGROUND = 'smartcat_support_login-background';
 }

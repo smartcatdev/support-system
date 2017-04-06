@@ -25,8 +25,9 @@
         }, options );
 
 
+
+        $( settings.target ).parent().append('<div><br><img src="' + $(settings.target).val() + '" style="width: ' + settings.previewSize + '"/></div>');
         $( settings.target ).parent().append( '<a href="#" class="button ' + settings.buttonClass.replace('.','') + '">' + settings.buttonText + '</a>' );
-        $( settings.target ).parent().append('<div><br><img src="' + $(settings.target).val() + '" style="width: ' + settings.previewSize + '"/></div>')
 
         $( settings.buttonClass ).css( settings.buttonStyle );
 

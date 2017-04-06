@@ -167,10 +167,20 @@ $general = new SettingsSection( 'general', __( 'General Settings', \SmartcatSupp
 
 $general->add_field( new TextField(
     array(
-        'id'            => 'support_logo',
+        'id'            => 'support_logo_image',
+        'class'         => array( 'image-upload' ),
         'option'        => Option::LOGO,
         'value'         => get_option( Option::LOGO, Option\Defaults::LOGO ),
-        'label'         => __( 'Login Logo Image', \SmartcatSupport\PLUGIN_ID )
+        'label'         => __( 'Logo Image', \SmartcatSupport\PLUGIN_ID )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_login_background_image',
+        'class'         => array( 'image-upload' ),
+        'option'        => Option::LOGIN_BACKGROUND,
+        'value'         => get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ),
+        'label'         => __( 'Login Background Image', \SmartcatSupport\PLUGIN_ID )
     )
 
 ) )->add_field( new TextField(

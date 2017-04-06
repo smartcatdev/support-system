@@ -150,4 +150,9 @@ final class Defaults {
      * @since 1.0.2
      */
     const FORWARD_EMAIL = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_BACKGROUND = 'https://cloud.githubusercontent.com/assets/3696057/24772412/3b2e2412-1adf-11e7-85fa-c0acc52c59a0.jpg';
 }
