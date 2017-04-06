@@ -61,12 +61,26 @@ class Notifications extends AbstractComponent {
         }
     }
 
+    public function disable_wp_notifications( $emails, $comment_id ) {
+        $comment = get_comment( $comment_id );
+        $ticket = get_post( $comment->comment_post_ID );
+
+        if( $ticket->post_type == 'support_ticket' ) {
+            $emails = array();
+        }
+
+        return $emails;
+    }
+
     public function subscribed_hooks() {
         return array(
             'support_user_registered' => array( 'user_register' ),
             'support_ticket_created' => array( 'ticket_created' ),
             'support_ticket_reply' => array( 'ticket_reply', 10, 2 ),
-            'support_ticket_updated' => array( 'ticket_updated' )
+            'support_ticket_updated' => array( 'ticket_updated' ),
+
+            'comment_notification_recipients' => array( 'disable_wp_notifications', 10, 2 ),
+            'comment_moderation_recipients' => array( 'disable_wp_notifications', 10, 2 )
         );
     }
 }
