@@ -8,6 +8,9 @@ $url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
 
 <html>
     <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="<?php _e( 'uCare Support System', \SmartcatSupport\PLUGIN_ID ) ?>"/>
         <link href="<?php echo $url . 'assets/lib/bootstrap/css/bootstrap.min.css'; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.css'; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/dropzone/css/dropzone.min.css'; ?>" rel="stylesheet">

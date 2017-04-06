@@ -201,8 +201,9 @@ body.waiting {
 
 @media( max-width: 500px ) {
     #support-login-wrapper {
+        margin: 15px;
         width: 90%;
-        height: 90%;
+        /*height: 80%;*/
     }
 }
 
