@@ -18,7 +18,7 @@ class Registration extends AjaxComponent {
 
         if( $form->is_valid() ) {
             $data = $form->data;
-            $data['password'] = wp_generate_password();
+            $password = wp_generate_password();
 
             $user_id = wp_insert_user(
                 array(
@@ -27,22 +27,15 @@ class Registration extends AjaxComponent {
                     'first_name'    => $data['first_name'],
                     'last_name'     => $data['last_name'],
                     'role'          => 'support_user',
-                    'user_pass'     => $data['password']
+                    'user_pass'     => $password
                 )
             );
 
             if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
-                // Capture user's password as a email template variable
-                add_filter('parse_email_template', function ($content, $recipient) use ($data) {
-                    if ($recipient == $data['email']) {
-                        $content = str_replace('{%password%}', $data['password'], $content);
-                    }
+                $template_vars = array( 'password' => $password );
 
-                    return $content;
-                }, 10, 3);
-
-                Mailer::send_template(get_option(Option::WELCOME_EMAIL_TEMPLATE), $data['email'] );
+                Mailer::send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $data['email'], $template_vars );
 
             }
 

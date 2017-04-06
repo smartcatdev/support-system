@@ -142,10 +142,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         tgmpa( $plugins, $config );
     }
 
-    public function email_template_vars( $content, $template, $recipient, $id ) {
-        $content = str_replace( '{%support_url%}', get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ), $content);
+    public function email_template_vars( $vars ) {
+        $vars['support_url'] = get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        return $content;
+        return $vars;
     }
 
     public function email_template_branding( $template ) {
@@ -155,7 +155,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function subscribed_hooks() {
         return array(
             'email_template_footer' => array( 'email_template_branding' ),
-            'parse_email_template' => array( 'email_template_vars' ),
+            'mailer_template_vars' => array( 'email_template_vars' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),

@@ -38,23 +38,6 @@ class Mailer implements HookSubscriber  {
         ) );
     }
 
-    public function replace_default_vars( $content, $recipient, $template ) {
-        $user = get_user_by( 'email', $recipient );
-
-        if( !empty( $user ) ) {
-            $content = str_replace( '{%username%}', $user->user_login, $content );
-            $content = str_replace( '{%first_name%}', $user->first_name, $content );
-            $content = str_replace( '{%last_name%}', $user->last_name, $content );
-            $content = str_replace( '{%full_name%}', $user->first_name . ' ' . $user->last_name, $content );
-        }
-
-        $content = str_replace( '{%template_title%}', $template->post_title, $content );
-        $content = str_replace( '{%email%}', !empty( $user ) ? $user->user_email : $recipient, $content );
-        $content = str_replace( '{%home_url%}', home_url(), $content );
-
-        return $content;
-    }
-
     public function register_template_cpt() {
         //<editor-fold desc="$args array">
         $labels = array(
@@ -110,16 +93,22 @@ class Mailer implements HookSubscriber  {
         register_post_type( 'email_template', $args );
     }
 
-    public static function send_template( $template_id, $recipient ) {
+    public static function send_template( $template_id, $recipient, $replace = array() ) {
         $template = get_post( $template_id );
-        $content = apply_filters( 'parse_email_template', $template->post_content, $recipient, $template );
         $sent = false;
 
         if( !empty( $template ) ) {
+
+            add_filter( 'mailer_template_vars', function ( $vars ) use ( $replace ) {
+                return array_merge( $vars, $replace );
+            } );
+
+            $content = self::parse_template( $template->post_content, $template, $recipient );
+
             $sent = wp_mail(
                 $recipient,
                 $template->post_title,
-                self::$instance->wrap_template( $template, $content ),
+                self::wrap_template( $template, $content ),
                 array( 'Content-Type: text/html; charset=UTF-8' )
             );
         }
@@ -154,12 +143,33 @@ class Mailer implements HookSubscriber  {
     public function subscribed_hooks() {
         return array(
             'init' => array( 'register_template_cpt' ),
-            'user_can_richedit' => array( 'disable_wysiwyg' ),
-            'parse_email_template' => array( 'replace_default_vars', 10, 3 )
+            'user_can_richedit' => array( 'disable_wysiwyg' )
         );
     }
 
-    private function wrap_template( $template, $content ) {
+    private static function parse_template( $content, $template, $recipient ) {
+        $user = get_user_by( 'email', $recipient );
+
+        $defaults = array(
+            'username'       => $user->user_login,
+            'first_name'     => $user->first_name,
+            'last_name'      => $user->last_name,
+            'full_name'      => $user->first_name . ' ' . $user->last_name,
+            'template_title' => $template->post_title,
+            'email'          => !empty( $user ) ? $user->user_email : $recipient,
+            'home_url'       => home_url()
+        );
+
+        $vars = apply_filters( 'mailer_template_vars', $defaults, $recipient, $template );
+
+        foreach( $vars as $shortcode => $value ) {
+            $content = str_replace( '{%' . $shortcode . '%}', $value, $content );
+        }
+
+        return $content;
+    }
+
+    private static function wrap_template( $template, $content ) {
         ob_start(); ?>
 
             <html>

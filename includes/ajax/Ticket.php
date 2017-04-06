@@ -215,16 +215,13 @@ class Ticket extends AjaxComponent {
 
                     if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
-                        // Grab email template vars
-                        add_filter( 'parse_email_template', function ( $content ) use ( $comment, $ticket ) {
-                            return str_replace(
-                                array( '{%agent%}', '{%reply%}', '{%subject%}'),
-                                array( $comment->comment_author, $comment->comment_content, $ticket->post_title ),
-                                $content
-                            );
-                        });
+                        $template_vars = array(
+                            'agent' => $comment->comment_author,
+                            'reply' => $comment->comment_content,
+                            'ticket_subject' => $ticket->post_title
+                        );
 
-                        Mailer::send_template( get_option(Option::REPLY_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ) );
+                        Mailer::send_template( get_option(Option::REPLY_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ), $template_vars );
                     }
                 } elseif ( $status != 'new' && $status != 'closed' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
@@ -266,15 +263,9 @@ class Ticket extends AjaxComponent {
             if( $key == 'status' && $new == 'resolved' ) {
 
                 $ticket = get_post( $post_id );
+                $template_vars = array( 'ticket_subject', $ticket->post_title );
 
-                add_filter( 'parse_email_template', function( $content ) use ( $new, $ticket ) {
-                    return str_replace( '{%subject%}', $ticket->post_title, $content );
-                } );
-
-                Mailer::send_template(
-                    get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
-                    \SmartcatSupport\util\author_email( $ticket )
-                );
+                Mailer::send_template( get_option( Option::RESOLVED_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ), $template_vars );
             }
         }
     }
