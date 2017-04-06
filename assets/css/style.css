@@ -203,7 +203,21 @@ body.waiting {
     #support-login-wrapper {
         margin: 15px;
         width: 90%;
-        /*height: 80%;*/
+    }
+    
+    #support-login-wrapper #support-login-form img.logo {
+        max-height: 80px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+    
+    #support-login-wrapper #support-login-form .button, #support-login-wrapper #support-login-form .button-primary {
+        padding: 5px 12px;
+        min-width: 60px;
+    }
+    
+    #support-login-wrapper #support-login-form #login p {
+        margin-bottom: 7px !important;
     }
 }
 
