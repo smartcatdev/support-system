@@ -2,7 +2,6 @@
 
 namespace SmartcatSupport\ajax;
 
-use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
 
 class Ticket extends AjaxComponent {
@@ -47,6 +46,8 @@ class Ticket extends AjaxComponent {
                             'post_parent' => $post_id
                         ) );
                     }
+
+                    do_action( 'support_ticket_created', get_post( $post_id ) );
 
                     wp_send_json_success( $post_id );
                 }
@@ -114,11 +115,12 @@ class Ticket extends AjaxComponent {
                         }
 
                         update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-                        wp_send_json(
-                            array(
-                                'ticket_id' => $post_id,
-                                'data' => __( 'Ticket Successfully Updated', \SmartcatSupport\PLUGIN_ID )
-                            )
+
+                        do_action( 'support_ticket_updated', get_post( $post_id ) );
+
+                        wp_send_json( array(
+                            'ticket_id' => $post_id,
+                            'data' => __( 'Ticket Successfully Updated', \SmartcatSupport\PLUGIN_ID ) )
                         );
                     }
                 }
@@ -212,60 +214,26 @@ class Ticket extends AjaxComponent {
                         update_post_meta($ticket->ID, 'status', 'waiting');
                     }
 
-                    if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
-
-                        $template_vars = array(
-                            'agent' => $comment->comment_author,
-                            'reply' => $comment->comment_content,
-                            'ticket_subject' => $ticket->post_title
-                        );
-
-                        Mailer::send_template( get_option(Option::REPLY_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ), $template_vars );
-                    }
                 } elseif ( $status != 'new' && $status != 'closed' ) {
                     update_post_meta( $ticket->ID, 'status', 'responded' );
                 }
 
-                $html = $this->render( $this->plugin->template_dir . '/comment.php',
-                    array(
-                        'comment' => $comment
-                    )
-                );
+                do_action( 'support_ticket_reply', $comment, $ticket );
 
-                wp_send_json(
-                    array(
-                        'success' => true,
-                        'data'    => $html,
-                        'ticket'  => $ticket->ID
-                    ), 201 );
+                $html = $this->render( $this->plugin->template_dir . '/comment.php', array( 'comment' => $comment ) );
+
+                wp_send_json( array(
+                    'success' => true,
+                    'data'    => $html,
+                    'ticket'  => $ticket->ID ),
+                    201
+                );
 
             } else {
                 wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
             }
         } else {
             wp_send_json_error( null, 400 );
-        }
-    }
-
-    /**
-     * Sends an email to the user to notify them that their ticket has been marked as resolved.
-     *
-     * @param $null
-     * @param $post_id
-     * @param $key
-     * @param $new
-     * @since 1.0.0
-     */
-    public function notify_ticket_resolved( $null, $post_id, $key, $new ) {
-        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
-
-            if( $key == 'status' && $new == 'resolved' ) {
-
-                $ticket = get_post( $post_id );
-                $template_vars = array( 'ticket_subject', $ticket->post_title );
-
-                Mailer::send_template( get_option( Option::UPDATED_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ), $template_vars );
-            }
         }
     }
 
@@ -344,8 +312,7 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
 
-            'support_ticket_list_query_vars' => array( 'filter_tickets' ),
-            'update_post_metadata' => array( 'notify_ticket_resolved', 10, 4 )
+            'support_ticket_list_query_vars' => array( 'filter_tickets' )
         ) );
     }
 

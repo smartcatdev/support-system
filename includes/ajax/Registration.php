@@ -29,7 +29,7 @@ class Registration extends AjaxComponent {
                 )
             );
 
-            do_action( 'post_support_user_register', $user_data );
+            do_action( 'support_user_registered', $user_data );
 
             wp_set_auth_cookie( $user_id );
             wp_send_json_success();
