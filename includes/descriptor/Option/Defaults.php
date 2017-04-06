@@ -145,4 +145,9 @@ final class Defaults {
      * @since 1.0.2
      */
     const COMPANY_NAME = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const FORWARD_EMAIL = '';
 }

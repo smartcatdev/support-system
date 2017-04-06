@@ -296,6 +296,16 @@ $email_notifications->add_field( new CheckBoxField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_forward_notification_email',
+        'option'        => Option::FORWARD_EMAIL,
+        'type'          => 'email',
+        'value'         => get_option( Option::FORWARD_EMAIL, get_option( 'admin_email' ) ),
+        'label'         => __( 'Forward Address', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Address that all notifications should be forwarded to', \SmartcatSupport\PLUGIN_ID )
+    )
+
 ) );
 
 $advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', \SmartcatSupport\PLUGIN_ID ) );

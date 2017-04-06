@@ -104,12 +104,13 @@ class Mailer implements HookSubscriber  {
             } );
 
             $content = self::parse_template( $template->post_content, $template, $recipient );
+            $headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
             $sent = wp_mail(
                 $recipient,
                 $template->post_title,
                 self::wrap_template( $template, $content ),
-                array( 'Content-Type: text/html; charset=UTF-8' )
+                apply_filters( 'mailer_headers', $headers, $template_id, $recipient )
             );
         }
 

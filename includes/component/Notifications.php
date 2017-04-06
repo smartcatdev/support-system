@@ -15,7 +15,7 @@ class Notifications extends AbstractComponent {
     }
 
     public function user_register( $user_data ) {
-        Mailer::send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
+        $this->send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
     }
 
     public function ticket_updated( $null, $ticket_id, $key, $value ) {
@@ -29,7 +29,7 @@ class Notifications extends AbstractComponent {
                 'ticket_status' => $value
             );
 
-            Mailer::send_template(get_option(Option::TICKET_CLOSED_EMAIL_TEMPLATE), $recipient->user_email, $template_vars);
+            $this->send_template(get_option(Option::TICKET_CLOSED_EMAIL_TEMPLATE), $recipient->user_email, $template_vars);
         }
 
         return $null;
@@ -44,7 +44,7 @@ class Notifications extends AbstractComponent {
             'ticket_content' => $ticket->post_content
         );
 
-        Mailer::send_template( get_option( Option::CREATED_EMAIL_TEMPLATE ), $recipient, $template_vars );
+        $this->send_template( get_option( Option::CREATED_EMAIL_TEMPLATE ), $recipient, $template_vars );
     }
 
     public function ticket_reply( $comment_id ) {
@@ -60,7 +60,7 @@ class Notifications extends AbstractComponent {
                 'reply'          => $comment->comment_content
             );
 
-            Mailer::send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars );
+            $this->send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars );
         }
     }
 
@@ -73,6 +73,12 @@ class Notifications extends AbstractComponent {
         }
 
         return $emails;
+    }
+
+    private function send_template( $template, $recipient, $template_vars ) {
+        define( 'SUPPORT_EMAIL_SENDING', true );
+
+        Mailer::send_template( $template, $recipient, $template_vars );
     }
 
     public function subscribed_hooks() {

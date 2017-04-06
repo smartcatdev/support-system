@@ -185,4 +185,9 @@ final class Option {
      * @since 1.0.2
      */
     const CREATED_EMAIL_TEMPLATE = 'smartcat_support_ticket-created-email';
+
+    /**
+     * @since 1.0.2
+     */
+    const FORWARD_EMAIL = 'smartcat_support_ticket-forward-address';
 }
