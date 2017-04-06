@@ -577,6 +577,16 @@ body.waiting {
     z-index: 999;
 }
 
+button.close-ticket {
+    color: #333;
+    background-color: #e6e6e6;
+    border: none;
+}
+
+button.close-ticket:hover {
+    background-color: #cdcdcd;
+}
+
 /* #### Dropzone ************************************************************************/
 .dropzone {
     min-height: auto !important;

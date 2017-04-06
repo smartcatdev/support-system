@@ -219,7 +219,7 @@ var App = (function ($) {
             var time = moment();
 
             clock.text(time.format("hh:mm:ss a"));
-            date.text(time.format("MMMM, DD, YYYY"));
+            date.text(time.format("MMMM, Do YYYY"));
 
         }, 1000);
     };

@@ -3,6 +3,7 @@ var Ticket = (function ($) {
 
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
+        $(document).on("click", ".confirm-close-ticket", _close_ticket);
         $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
@@ -126,6 +127,25 @@ var Ticket = (function ($) {
             },
             complete: function () {
                 submit.prop("disabled", false);
+            }
+        });
+    };
+
+    var _close_ticket = function (e) {
+        var modal = $(e.target).parents('.modal');
+        var id = modal.data('ticket_id');
+
+        $.post({
+            url: Globals.ajax_url,
+            dataType: 'json',
+            data: {
+                _ajax_nonce: Globals.ajax_nonce,
+                action: 'support_close_ticket',
+                id: id
+            },
+            success: function (reponse) {
+                load_sidebar(id);
+                modal.modal('toggle');
             }
         });
     };

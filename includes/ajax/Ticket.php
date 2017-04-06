@@ -128,6 +128,14 @@ class Ticket extends AjaxComponent {
         }
     }
 
+    public function close_ticket() {
+        if( update_post_meta( $_POST['id'], 'status', 'closed' ) ) {
+            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', \SmartcatSupport\PLUGIN_ID ) ) );
+        } else {
+            wp_send_json_error( array( 'message' => __( 'Error closing ticket', \SmartcatSupport\PLUGIN_ID ) ) );
+        }
+    }
+
     public function toggle_flag() {
         if( current_user_can( 'manage_support_tickets' ) ) {
             $flag = get_post_meta( $_POST['id'], 'flagged', true ) === 'on' ? '' : 'on';
@@ -306,6 +314,7 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_toggle_flag' => array( 'toggle_flag' ),
             'wp_ajax_support_ticket_sidebar' => array( 'sidebar' ),
+            'wp_ajax_support_close_ticket' => array( 'close_ticket' ),
 
             'wp_ajax_support_list_comments' => array( 'list_comments' ),
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
