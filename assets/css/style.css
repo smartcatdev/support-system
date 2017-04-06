@@ -199,6 +199,13 @@ body.waiting {
     position: relative;
 }
 
+@media( max-width: 500px ) {
+    #support-login-wrapper {
+        width: 90%;
+        height: 90%;
+    }
+}
+
 #support-login-form {
     padding: 20px;
     background: #fff;
