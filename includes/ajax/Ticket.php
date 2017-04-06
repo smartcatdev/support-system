@@ -265,7 +265,7 @@ class Ticket extends AjaxComponent {
                 $ticket = get_post( $post_id );
                 $template_vars = array( 'ticket_subject', $ticket->post_title );
 
-                Mailer::send_template( get_option( Option::RESOLVED_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ), $template_vars );
+                Mailer::send_template( get_option( Option::UPDATED_EMAIL_TEMPLATE ), \SmartcatSupport\util\author_email( $ticket ), $template_vars );
             }
         }
     }

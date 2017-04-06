@@ -129,7 +129,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const RESOLVED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
+    const UPDATED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
 
     /**
      * @since 1.0.0
@@ -180,4 +180,9 @@ final class Option {
      * @since 1.0.2
      */
     const COMPANY_NAME = 'smartcat_support_footer-company-name';
+
+    /**
+     * @since 1.0.2
+     */
+    const CREATED_EMAIL_TEMPLATE = 'smartcat_support_ticket-created-email';
 }

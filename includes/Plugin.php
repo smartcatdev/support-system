@@ -219,7 +219,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     private function create_email_templates() {
         $welcome = get_option( Option::WELCOME_EMAIL_TEMPLATE );
-        $resolved = get_option( Option::RESOLVED_EMAIL_TEMPLATE );
+        $resolved = get_option( Option::UPDATED_EMAIL_TEMPLATE );
         $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
 
         $default_style = file_get_contents( $this->dir . '/emails/default-style.css' );
@@ -254,7 +254,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
             if( !empty( $id ) ) {
                 update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::RESOLVED_EMAIL_TEMPLATE, $id );
+                update_option( Option::UPDATED_EMAIL_TEMPLATE, $id );
             }
         } else {
             wp_untrash_post( $resolved );

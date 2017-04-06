@@ -22,7 +22,7 @@ $admin = new TabbedSettingsPage(
             'general'       => __( 'General', \SmartcatSupport\PLUGIN_ID ),
             'display'       => __( 'Display', \SmartcatSupport\PLUGIN_ID ),
             'appearance'    => __( 'Appearance', \SmartcatSupport\PLUGIN_ID ),
-            'notifications' => __( 'E-Mail', \SmartcatSupport\PLUGIN_ID ),
+            'notifications' => __( 'Email', \SmartcatSupport\PLUGIN_ID ),
             'advanced'      => __( 'Advanced', \SmartcatSupport\PLUGIN_ID )
         )
     )
@@ -236,7 +236,7 @@ $general->add_field( new TextField(
 
 $emails = new SettingsSection( 'email_templates', __( 'Email Templates', \SmartcatSupport\PLUGIN_ID ) );
 
-$email_templates = array( '' => __( 'Select an email template', \SmartcatSupport\PLUGIN_ID ) ) + Mailer::list_templates();
+$email_templates = array( '' => __( 'No Notification', \SmartcatSupport\PLUGIN_ID ) ) + Mailer::list_templates();
 
 $emails->add_field( new SelectBoxField(
     array(
@@ -245,17 +245,29 @@ $emails->add_field( new SelectBoxField(
         'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Welcome', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Template Variables: username, password, first_name, last_name, full_name, email', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Sent when a user registers for the first time', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
+
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'support_resolved_email_template',
-        'option'        => Option::RESOLVED_EMAIL_TEMPLATE,
-        'value'         => get_option( Option::RESOLVED_EMAIL_TEMPLATE ),
+        'id'            => 'support_ticket_updated_email_template',
+        'option'        => Option::UPDATED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::UPDATED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Resolved', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Template Variables: subject, username, first_name, last_name, full_name, email', \SmartcatSupport\PLUGIN_ID ),
+        'label'         => __( 'Ticket Updated', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Sent when the ticket is updated', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_ticket_created_email_template',
+        'option'        => Option::CREATED_EMAIL_TEMPLATE,
+        'value'         => get_option( Option::CREATED_EMAIL_TEMPLATE ),
+        'options'       => $email_templates,
+        'label'         => __( 'Ticket Created', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Sent when a user creates a new ticket', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
@@ -265,14 +277,14 @@ $emails->add_field( new SelectBoxField(
         'option'        => Option::REPLY_EMAIL_TEMPLATE,
         'value'         => get_option( Option::REPLY_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
-        'label'         => __( 'Reply To Ticket', \SmartcatSupport\PLUGIN_ID ),
-        'desc'          => __( 'Template Variables: subject, agent, username, first_name, last_name, full_name, email, reply', \SmartcatSupport\PLUGIN_ID ),
+        'label'         => __( 'Ticket Reply', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Sent when an agent replies to a ticket', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
 ) );
 
-$email_notifications = new SettingsSection( 'email_notifications', __( 'E-Mail Notifications', \SmartcatSupport\PLUGIN_ID ) );
+$email_notifications = new SettingsSection( 'email_notifications', __( 'Email Notifications', \SmartcatSupport\PLUGIN_ID ) );
 
 $email_notifications->add_field( new CheckBoxField(
     array(
