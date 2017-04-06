@@ -70,6 +70,15 @@ $appearance->add_field( new TextField(
         'validators'    => array( new TextFilter() )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_login_background_image',
+        'class'         => array( 'image-upload' ),
+        'option'        => Option::LOGIN_BACKGROUND,
+        'value'         => get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ),
+        'label'         => __( 'Login Background Image', \SmartcatSupport\PLUGIN_ID )
+    )
+
 ) );
 
 $text = new SettingsSection( 'text', __( 'Text & Labels', \SmartcatSupport\PLUGIN_ID ) );
@@ -172,15 +181,6 @@ $general->add_field( new TextField(
         'option'        => Option::LOGO,
         'value'         => get_option( Option::LOGO, Option\Defaults::LOGO ),
         'label'         => __( 'Logo Image', \SmartcatSupport\PLUGIN_ID )
-    )
-
-) )->add_field( new TextField(
-    array(
-        'id'            => 'support_login_background_image',
-        'class'         => array( 'image-upload' ),
-        'option'        => Option::LOGIN_BACKGROUND,
-        'value'         => get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ),
-        'label'         => __( 'Login Background Image', \SmartcatSupport\PLUGIN_ID )
     )
 
 ) )->add_field( new TextField(
