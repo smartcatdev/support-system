@@ -99,7 +99,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const LOGIN_LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
+    const LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
 
     /**
      * @since 1.0.0
@@ -137,7 +137,12 @@ final class Defaults {
     const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
 
     /**
-     * @since 1.0.0
+     * @since 1.0.2
      */
     const MAX_ATTACHMENT_SIZE = 2;
+
+    /**
+     * @since 1.0.2
+     */
+    const COMPANY_NAME = '';
 }

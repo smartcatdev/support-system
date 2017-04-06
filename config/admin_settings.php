@@ -177,10 +177,18 @@ $general = new SettingsSection( 'general', __( 'General Settings', \SmartcatSupp
 
 $general->add_field( new TextField(
     array(
-        'id'            => 'support_login_logo',
-        'option'        => Option::LOGIN_LOGO,
-        'value'         => get_option( Option::LOGIN_LOGO, Option\Defaults::LOGIN_LOGO ),
+        'id'            => 'support_logo',
+        'option'        => Option::LOGO,
+        'value'         => get_option( Option::LOGO, Option\Defaults::LOGO ),
         'label'         => __( 'Login Logo Image', \SmartcatSupport\PLUGIN_ID )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_company_name',
+        'option'        => Option::COMPANY_NAME,
+        'value'         => get_option( Option::COMPANY_NAME, Option\Defaults::COMPANY_NAME ),
+        'label'         => __( 'Company Name', \SmartcatSupport\PLUGIN_ID )
     )
 
 ) )->add_field( new CheckBoxField(

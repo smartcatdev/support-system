@@ -69,7 +69,7 @@ var SupportAdmin = (function (module, $, window) {
         $("#id.manage-column").addClass("column-primary");
 
         $.wpMediaUploader({
-            target: "#support_login_logo",
+            target: "#support_logo",
             buttonText: "Select image"
         });
 

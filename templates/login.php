@@ -14,7 +14,7 @@ use SmartcatSupport\Plugin;
         
         <div id="support-login-form">
             
-            <img class="logo" src="<?php echo get_option( Option::LOGIN_LOGO, Option\Defaults::LOGIN_LOGO ) ?>"/>
+            <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
             
             <div id="login">
 

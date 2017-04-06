@@ -143,9 +143,14 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function email_template_vars( $vars ) {
-        $vars['support_url'] = get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        return $vars;
+        $support_defaults = array(
+            'support_url' => get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ),
+            'company_name' => get_option( Option::COMPANY_NAME, Option\Defaults::COMPANY_NAME ),
+            'company_logo' => get_option( Option::LOGO, Option\Defaults::LOGO )
+        );
+
+        return array_merge( $vars, $support_defaults );
     }
 
     public function email_template_branding( $template ) {
