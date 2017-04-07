@@ -50,6 +50,14 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function deactivate() {
+
+        if( isset( $_POST['product_feedback'] ) ) {
+            $message = include $this->dir . '/emails/product-feedback.php';
+            $headers = array( 'Content-Type: text/html; charset=UTF-8' );
+
+            wp_mail( 'support@smartcat.ca', 'uCare Deactivation Feedback', $message, $headers );
+        }
+
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
@@ -81,7 +89,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_action_links( $links ) {
-        return array( 'settings' => '<a href="' . menu_page_url( 'support_options', false ) . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ) + $links;
+        $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
+        $menu_page = menu_page_url( 'support_options', false );
+
+        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
     }
 
     public function admin_enqueue() {
@@ -149,6 +160,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function subscribed_hooks() {
         return array(
+            'admin_footer' => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
@@ -208,6 +220,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
 
         return '';
+    }
+
+    public function feedback_form() {
+        require_once $this->dir . '/templates/feedback.php';
     }
 
     private function create_email_templates() {

@@ -48,3 +48,59 @@ td.column-id.id:before {
 .support-upload {
     margin: 10px auto !important;
 }
+
+.support-admin-modal {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+}
+
+.support-admin-modal.active {
+    display: block;
+}
+
+.support-admin-modal .modal-wrap {
+    width: 475px;
+    position: relative;
+    margin: 10% auto;
+    background: #fff;
+}
+
+.support-admin-modal .modal-header {
+    border-bottom: 1px solid #eee;
+    padding: 8px 20px;
+}
+
+.support-admin-modal .modal-header h3 {
+    line-height: 150%;
+    margin: 0;
+}
+
+.support-admin-modal .modal-content {
+    padding: 5px 20px 20px 20px;
+}
+
+.support-admin-modal .modal-content textarea,
+.support-admin-modal .modal-content input[type=text] {
+    width: 100%;
+}
+
+.support-admin-modal .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 12px 20px;
+    text-align: right;
+}
+
+.support-admin-modal .modal-footer a {
+    float: left;
+}
+
+.support-admin-modal .reason-input {
+    margin-top: 5px;
+    margin-left: 20px;
+}
