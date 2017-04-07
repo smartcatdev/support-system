@@ -205,4 +205,14 @@ final class Option {
      * @since 1.0.2
      */
     const AGENT_WIDGET_AREA = 'smartcat_support_agent-widget-area';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_NAME = 'smartcat_support_sender-name';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_EMAIL = 'smartcat_support_sender-email';
 }

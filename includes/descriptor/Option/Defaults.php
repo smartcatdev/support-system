@@ -165,4 +165,14 @@ final class Defaults {
      * @since 1.0.2
      */
     const AGENT_WIDGET_AREA = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_NAME = 'uCare Support';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_EMAIL = '';
 }

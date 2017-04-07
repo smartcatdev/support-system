@@ -78,10 +78,14 @@ class Notifications extends AbstractComponent {
     public function email_headers( $headers ) {
         if( defined( 'SUPPORT_EMAIL_SENDING' ) ) {
             $forward_address = get_option( Option::FORWARD_EMAIL, Option\Defaults::FORWARD_EMAIL );
+            $sender_email = get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) );
+            $sender_name = get_option( Option::SENDER_NAME, Option\Defaults::SENDER_NAME );
 
             if ( !empty( $forward_address ) ) {
                 $headers[] = 'CC:' . $forward_address;
             }
+
+            $headers[] = "From: {$sender_name} <{$sender_email}>";
         }
 
         return $headers;

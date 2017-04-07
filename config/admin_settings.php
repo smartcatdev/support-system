@@ -360,6 +360,26 @@ $email_notifications->add_field( new CheckBoxField(
         'desc'          => __( 'Comma separated list of email addresses that all notifications will be forwarded to', \SmartcatSupport\PLUGIN_ID )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_email_sender_email',
+        'option'        => Option::SENDER_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) ),
+        'label'         => __( 'Sender Email', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Email address used for support emails', \SmartcatSupport\PLUGIN_ID )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_email_sender_name',
+        'option'        => Option::SENDER_NAME,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::SENDER_NAME, __( 'uCare Support', \SmartcatSupport\PLUGIN_ID ) ),
+        'label'         => __( 'Sender Name', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Name used for support emails', \SmartcatSupport\PLUGIN_ID )
+    )
+
 ) );
 
 $advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', \SmartcatSupport\PLUGIN_ID ) );
