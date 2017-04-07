@@ -164,7 +164,7 @@ class Mailer implements HookSubscriber  {
         $vars = apply_filters( 'mailer_template_vars', $defaults, $recipient, $template );
 
         foreach( $vars as $shortcode => $value ) {
-            $content = str_replace( '{%' . $shortcode . '%}', $value, $content );
+            $content = stripcslashes( str_replace( '{%' . $shortcode . '%}', $value, $content ) );
         }
 
         return $content;
