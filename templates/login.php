@@ -13,10 +13,10 @@ use SmartcatSupport\Plugin;
     <div id="support-login-wrapper">
         
         <div id="support-login-form">
-            
-            <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
 
             <div id="login">
+
+                <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
 
                 <?php if( !empty( $_REQUEST['login'] ) ) : ?>
 
@@ -50,6 +50,12 @@ use SmartcatSupport\Plugin;
 
                 <div id="register" style="display: none">
 
+                    <button id="login-back" class="btn btn-default registration-toggle">
+
+                        <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                    </button>
+
                     <form id="registration-form">
 
                         <?php foreach( $form->fields as $field ) : ?>
@@ -66,13 +72,7 @@ use SmartcatSupport\Plugin;
 
                         <input type="hidden" name="<?php echo $form->id; ?>" />
 
-                        <div class="text-center registration-submit">
-
-                            <button type="button" class="button button-primary registration-toggle">
-
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
-
-                            </button>
+                        <div class="text-right registration-submit">
 
                             <button id="registration-submit" type="submit" class="button button-primary">
 
