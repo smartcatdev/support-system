@@ -49,7 +49,7 @@ class TicketPostType extends AbstractComponent {
             'name_admin_bar'        => __( 'uCare Support', \SmartcatSupport\PLUGIN_ID ),
             'archives'              => __( 'Item Archives', \SmartcatSupport\PLUGIN_ID ),
             'parent_item_colon'     => __( 'Parent Item:', \SmartcatSupport\PLUGIN_ID ),
-            'all_items'             => __( 'Tickets List', \SmartcatSupport\PLUGIN_ID ),
+            'all_items'             => __( 'Ticket List', \SmartcatSupport\PLUGIN_ID ),
             'add_new_item'          => __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
             'add_new'               => __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
             'new_item'              => __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
