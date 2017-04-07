@@ -215,4 +215,9 @@ final class Option {
      * @since 1.0.2
      */
     const SENDER_EMAIL = 'smartcat_support_sender-email';
+
+    /**
+     * @since 1.0.2
+     */
+    const TERMS_URL = 'smartcat_support_terms-url';
 }

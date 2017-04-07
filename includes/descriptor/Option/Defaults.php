@@ -175,4 +175,9 @@ final class Defaults {
      * @since 1.0.2
      */
     const SENDER_EMAIL = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const TERMS_URL = '#';
 }

@@ -241,6 +241,17 @@ $general->add_field( new TextField(
         'label'         => __( 'Company Name', \SmartcatSupport\PLUGIN_ID )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_terms_url',
+        'type'          => 'url',
+        'option'        => Option::TERMS_URL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::TERMS_URL, home_url() ),
+        'label'         => __( 'Terms & Conditions URL', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'URL of page containing your terms and conditions', \SmartcatSupport\PLUGIN_ID )
+    )
+
 ) )->add_field( new CheckBoxField(
     array(
         'id'            => 'support_allow_signups',

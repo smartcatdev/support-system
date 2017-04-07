@@ -270,8 +270,8 @@ body.waiting {
     margin: 0 auto 20px auto;
 }
 
-#support-login-disclaimer {
-    color: #7b858d;
+#support-login-wrapper .terms {
+    padding: 10px;
     text-align: center;
 }
 

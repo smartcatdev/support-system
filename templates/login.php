@@ -72,6 +72,16 @@ use SmartcatSupport\Plugin;
 
                         <input type="hidden" name="<?php echo $form->id; ?>" />
 
+                        <div class="terms">
+
+                            <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
+
+                                <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), SmartcatSupport\PLUGIN_ID ); ?>
+
+                            </a>
+
+                        </div>
+
                         <div class="text-right registration-submit">
 
                             <button id="registration-submit" type="submit" class="button button-primary">
