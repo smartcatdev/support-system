@@ -195,4 +195,14 @@ final class Option {
      * @since 1.0.2
      */
     const LOGIN_WIDGET_AREA = 'smartcat_support_login-widget-area';
+
+    /**
+     * @since 1.0.2
+     */
+    const USER_WIDGET_AREA = 'smartcat_support_user-widget-area';
+
+    /**
+     * @since 1.0.2
+     */
+    const AGENT_WIDGET_AREA = 'smartcat_support_agent-widget-area';
 }

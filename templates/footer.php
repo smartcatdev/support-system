@@ -3,33 +3,29 @@
 use SmartcatSupport\descriptor\Option;
 
 ?>
-        <?php if( get_option( Option::SHOW_FOOTER, Option\Defaults::SHOW_FOOTER ) == 'on' ) : ?>
+        <footer id="footer">
 
-            <footer id="footer">
+            <div class="container">
 
-                <div class="container">
+                <hr>
 
-                    <hr>
+                <p class="footer-text text-center">
 
-                    <p class="footer-text text-center">
+                    <?php $footer_text = get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?>
 
-                        <?php $footer_text = get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?>
+                    <?php echo !empty( $footer_text ) ? $footer_text . ' |' : ''; ?>
 
-                        <?php echo !empty( $footer_text ) ? $footer_text . ' |' : ''; ?>
+                    <a href="http://ucaresupport.com" target="_blank">
 
-                        <a href="http://ucaresupport.com" target="_blank">
+                        <?php _e( ' Powered by uCare Support', \SmartcatSupport\PLUGIN_ID ); ?>
 
-                            <?php _e( ' Powered by uCare Support', \SmartcatSupport\PLUGIN_ID ); ?>
+                    </a>
 
-                        </a>
+                </p>
 
-                    </p>
+            </div>
 
-                </div>
-
-            </footer>
-
-        <?php endif; ?>
+        </footer>
 
         <script>
 

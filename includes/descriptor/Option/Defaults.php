@@ -155,4 +155,14 @@ final class Defaults {
      * @since 1.0.2
      */
     const LOGIN_WIDGET_AREA = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const USER_WIDGET_AREA = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const AGENT_WIDGET_AREA = '';
 }
