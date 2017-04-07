@@ -203,3 +203,18 @@ namespace  SmartcatSupport\util {
         return $query->posts;
     }
 }
+
+namespace proc {
+
+    function create_email_templates() {
+        //TODO find a better way to setup templates
+    }
+
+    function configure_roles() {
+        //TODO move this here from Plugin.php
+    }
+
+    function cleanup_roles() {
+        //TODO move this here from Plugin.php
+    }
+}
