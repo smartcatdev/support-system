@@ -50,7 +50,7 @@ td.column-id.id:before {
 }
 
 .support-admin-modal {
-    position: fixed;
+    position: absolute;
     z-index: 99999;
     top: 0;
     right: 0;
