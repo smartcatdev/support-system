@@ -1,5 +1,14 @@
 <?php
 
+namespace SmartcatSupport {
+
+    use SmartcatSupport\descriptor\Option;
+
+    function url() {
+        return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
+    }
+}
+
 namespace  SmartcatSupport\util {
 
     use SmartcatSupport\descriptor\Option;
@@ -204,7 +213,7 @@ namespace  SmartcatSupport\util {
     }
 }
 
-namespace proc {
+namespace SmartcatSupport\proc {
 
     function create_email_templates() {
         //TODO find a better way to setup templates
