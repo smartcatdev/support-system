@@ -100,7 +100,7 @@ use SmartcatSupport\Plugin;
 
         </div>
 
-        <div id="login-widget-area" class="row"><?php echo get_option( Option::LOGIN_WIDGET_AREA, Option::LOGIN_WIDGET_AREA ); ?></div>
+        <div id="login-widget-area" class="row"><?php echo get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ); ?></div>
         
     </div>
 
