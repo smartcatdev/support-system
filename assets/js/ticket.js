@@ -146,6 +146,7 @@ var Ticket = (function ($) {
             success: function (reponse) {
                 load_sidebar(id);
                 modal.modal('toggle');
+                $('#close-ticket-' + id).remove();
             }
         });
     };

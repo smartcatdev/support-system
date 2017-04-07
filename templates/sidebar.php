@@ -29,18 +29,6 @@ if( array_key_exists( $product, $products ) ) {
 
                 <?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \SmartcatSupport\PLUGIN_ID ); ?>
 
-                <?php if( $status != 'closed' && !current_user_can( 'manage_support_tickets' ) ) : ?>
-
-                    <button class="close-ticket btn btn-default pull-right" data-toggle="modal" data-target="#close-ticket-modal-<?php echo $ticket->ID; ?>">
-
-                        <span class="glyphicon glyphicon-ok-sign button-icon"></span>
-
-                        <span><?php _e( 'Close Ticket', \SmartcatSupport\PLUGIN_ID ); ?></span>
-
-                    </button>
-
-                <?php endif; ?>
-
             </div>
 
             <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>

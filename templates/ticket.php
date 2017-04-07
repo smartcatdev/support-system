@@ -5,6 +5,8 @@ use SmartcatSupport\descriptor\Option;
 $attachments = get_attached_media( 'image', $ticket->ID );
 $attachment_count = count( $attachments );
 
+$status = get_post_meta( $ticket->ID, 'status', true );
+
 $user = wp_get_current_user();
 
 ?>
@@ -74,7 +76,23 @@ $user = wp_get_current_user();
 
                                 <span class="text-right">
 
-                                    <button type="submit" class="button button-submit" disabled="true">
+                                    <?php if( $status != 'closed' && !current_user_can( 'manage_support_tickets' ) ) : ?>
+
+                                        <button id="close-ticket-<?php echo $ticket->ID; ?>"
+                                                type="button"
+                                                class="close-ticket button"
+                                                data-toggle="modal"
+                                                data-target="#close-ticket-modal-<?php echo $ticket->ID; ?>">
+
+                                            <span class="glyphicon glyphicon-ok-sign button-icon"></span>
+
+                                            <span><?php _e( 'Close Ticket', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                                        </button>
+
+                                    <?php endif; ?>
+
+                                     <button type="submit" class="button button-submit" disabled="true">
 
                                         <span class="glyphicon glyphicon-send button-icon"></span>
 
