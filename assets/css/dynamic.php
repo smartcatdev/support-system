@@ -64,5 +64,7 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
     }
 
     /* Tertiary color */
-
+    .carousel-caption {
+        color: <?php echo $tertiary_color; ?>
+    }
 </style>
