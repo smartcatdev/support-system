@@ -36,9 +36,9 @@ $appearance->add_field( new TextField(
     array(
         'id'            => 'support_primary_color',
         'option'        => Option::PRIMARY_COLOR,
+        'class'         => array( 'regular-text', 'color_picker' ),
         'value'         => get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ),
         'label'         => __( 'Primary color', \SmartcatSupport\PLUGIN_ID ),
-        'class'         => array( 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -46,9 +46,9 @@ $appearance->add_field( new TextField(
     array(
         'id'            => 'support_hover_color',
         'option'        => Option::HOVER_COLOR,
+        'class'         => array( 'regular-text', 'color_picker' ),
         'value'         => get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ),
         'label'         => __( 'Hover color', \SmartcatSupport\PLUGIN_ID ),
-        'class'         => array( 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -58,7 +58,7 @@ $appearance->add_field( new TextField(
         'option'        => Option::SECONDARY_COLOR,
         'value'         => get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ),
         'label'         => __( 'Secondary color', \SmartcatSupport\PLUGIN_ID ),
-        'class'         => array( 'color_picker' ),
+        'class'         => array( 'regular-text', 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -68,7 +68,7 @@ $appearance->add_field( new TextField(
         'option'        => Option::TERTIARY_COLOR,
         'value'         => get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ),
         'label'         => __( 'Tertiary color', \SmartcatSupport\PLUGIN_ID ),
-        'class'         => array( 'color_picker' ),
+        'class'         => array( 'regular-text', 'color_picker' ),
         'validators'    => array( new TextFilter() )
     )
 
@@ -89,6 +89,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_login_disclaimer',
         'option'        => Option::LOGIN_DISCLAIMER,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ),
         'label'         => __( 'Login Disclaimer', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -98,6 +99,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_register_btn_text',
         'option'        => Option::REGISTER_BTN_TEXT,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ),
         'label'         => __( 'Register Button Label', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -107,6 +109,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_login_btn_text',
         'option'        => Option::LOGIN_BTN_TEXT,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ),
         'label'         => __( 'Login Button Label', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -116,6 +119,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_create_btn_text',
         'option'        => Option::CREATE_BTN_TEXT,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ),
         'label'         => __( 'Create Ticket Button Label', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -125,6 +129,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_cancel_btn_text',
         'option'        => Option::CANCEL_BTN_TEXT,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ),
         'label'         => __( 'Cancel Operation Button Label', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -134,6 +139,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_ticket_created_msg',
         'option'        => Option::TICKET_CREATED_MSG,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::TICKET_CREATED_MSG, Option\Defaults::TICKET_CREATED_MSG ),
         'label'         => __( 'Ticket Created Message', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -143,6 +149,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_ticket_updated_msg',
         'option'        => Option::TICKET_UPDATED_MSG,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::TICKET_UPDATED_MSG, Option\Defaults::TICKET_UPDATED_MSG ),
         'label'         => __( 'Ticket Updated Message', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -152,6 +159,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_empty_table_msg',
         'option'        => Option::EMPTY_TABLE_MSG,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ),
         'label'         => __( 'No Tickets Message', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -160,6 +168,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_comments_closed_msg',
         'option'        => Option::COMMENTS_CLOSED_MSG,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::COMMENTS_CLOSED_MSG, Option\Defaults::COMMENTS_CLOSED_MSG ),
         'label'         => __( 'Comments Closed Message', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -168,6 +177,7 @@ $text->add_field( new TextField(
     array(
         'id'            => 'support_footer_text',
         'option'        => Option::FOOTER_TEXT,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ),
         'label'         => __( 'Footer Text', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
@@ -179,8 +189,9 @@ $widgets = new SettingsSection( 'widgets', __( 'Widgets', \SmartcatSupport\PLUGI
 $widgets->add_field( new TextAreaField(
     array(
         'id'            => 'support_login_widget_area',
-        'class'         => array( '' ),
         'option'        => Option::LOGIN_WIDGET_AREA,
+        'class'         => array( 'regular-text' ),
+        'props'         => array( 'rows' => array( 5 ) ),
         'value'         => get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ),
         'label'         => __( 'Login Widget Area', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Contents to display on the login widget area', \SmartcatSupport\PLUGIN_ID ),
@@ -203,6 +214,7 @@ $general->add_field( new TextField(
     array(
         'id'            => 'support_company_name',
         'option'        => Option::COMPANY_NAME,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::COMPANY_NAME, Option\Defaults::COMPANY_NAME ),
         'label'         => __( 'Company Name', \SmartcatSupport\PLUGIN_ID )
     )
@@ -258,6 +270,7 @@ $emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_welcome_email_template',
         'option'        => Option::WELCOME_EMAIL_TEMPLATE,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Welcome', \SmartcatSupport\PLUGIN_ID ),
@@ -269,6 +282,7 @@ $emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_closed_email_template',
         'option'        => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Closed', \SmartcatSupport\PLUGIN_ID ),
@@ -280,6 +294,7 @@ $emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_created_email_template',
         'option'        => Option::CREATED_EMAIL_TEMPLATE,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::CREATED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Created', \SmartcatSupport\PLUGIN_ID ),
@@ -291,6 +306,7 @@ $emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_reply_email_template',
         'option'        => Option::REPLY_EMAIL_TEMPLATE,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::REPLY_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Reply', \SmartcatSupport\PLUGIN_ID ),
@@ -316,6 +332,7 @@ $email_notifications->add_field( new CheckBoxField(
     array(
         'id'            => 'support_forward_notification_email',
         'option'        => Option::FORWARD_EMAIL,
+        'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::FORWARD_EMAIL, get_option( 'admin_email' ) ),
         'label'         => __( 'Forward Email Address', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Comma separated list of email addresses that all notifications will be forwarded to', \SmartcatSupport\PLUGIN_ID )

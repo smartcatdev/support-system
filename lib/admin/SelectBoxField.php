@@ -18,7 +18,9 @@ if( !class_exists( '\smartcat\admin\CSelectBoxField' ) ) :
 
             <select id="<?php esc_attr_e( $this->id ); ?>"
                 name="<?php esc_attr_e( $this->option ); ?>"
-                class="regular-text">
+
+                <?php $this->props(); ?>
+                <?php $this->classes(); ?> >
 
                 <?php foreach( $this->options as $option => $title ) : ?>
 
