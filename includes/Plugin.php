@@ -12,7 +12,7 @@ use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\ECommerce;
 use SmartcatSupport\component\Notifications;
-use SmartcatSupport\component\TicketCPT;
+use SmartcatSupport\component\TicketPostType;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
 
@@ -71,7 +71,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Open Application',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Go to Help Desk',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
     }
 
     public function settings_shortcut_redirect() {
@@ -143,31 +143,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         tgmpa( $plugins, $config );
     }
 
-    public function email_template_vars( $vars ) {
-
-        $support_defaults = array(
-            'support_url' => get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ),
-            'company_name' => get_option( Option::COMPANY_NAME, Option\Defaults::COMPANY_NAME ),
-            'company_logo' => get_option( Option::LOGO, Option\Defaults::LOGO )
-        );
-
-        return array_merge( $vars, $support_defaults );
-    }
-
-    public function email_template_branding( $template ) {
-        if( defined( 'SUPPORT_EMAIL_SENDING' ) ) {
-            echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
-        }
-    }
-
     public function subscribed_hooks() {
         return array(
-            'email_template_footer' => array( 'email_template_branding' ),
-            'mailer_template_vars' => array( 'email_template_vars' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
-            'tgmpa_register' => array( 'register_dependencies' ),
+//            'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
@@ -185,7 +166,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function components() {
         $components = array(
-            TicketCPT::class,
+            TicketPostType::class,
             Ticket::class,
             Comment::class,
             Settings::class,

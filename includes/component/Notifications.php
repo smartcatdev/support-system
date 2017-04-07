@@ -93,6 +93,22 @@ class Notifications extends AbstractComponent {
         Mailer::send_template( $template, $recipient, $template_vars );
     }
 
+    public function email_template_branding( $template ) {
+        if( defined('SUPPORT_EMAIL_SENDING' ) ) {
+            echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
+        }
+    }
+
+    public function email_template_vars( $vars ) {
+        $support_defaults = array(
+            'support_url' => get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ),
+            'company_name' => get_option( Option::COMPANY_NAME, Option\Defaults::COMPANY_NAME ),
+            'company_logo' => get_option( Option::LOGO, Option\Defaults::LOGO )
+        );
+
+        return array_merge( $vars, $support_defaults );
+    }
+
     public function subscribed_hooks() {
         return array(
             'support_user_registered' => array( 'user_register' ),
@@ -101,6 +117,8 @@ class Notifications extends AbstractComponent {
             'update_post_metadata' => array( 'ticket_updated', 10, 4 ),
 
             'mailer_email_headers' => array( 'email_headers' ),
+            'email_template_footer' => array( 'email_template_branding' ),
+            'mailer_template_vars' => array( 'email_template_vars' ),
 
             'comment_notification_recipients' => array( 'disable_wp_notifications', 10, 2 ),
             'comment_moderation_recipients' => array( 'disable_wp_notifications', 10, 2 )

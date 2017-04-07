@@ -6,7 +6,7 @@ use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use smartcat\post\FormMetaBox;
 
-class TicketCPT extends AbstractComponent {
+class TicketPostType extends AbstractComponent {
 
     private $quick_edit_form;
 
@@ -49,7 +49,7 @@ class TicketCPT extends AbstractComponent {
             'name_admin_bar'        => __( 'uCare Support', \SmartcatSupport\PLUGIN_ID ),
             'archives'              => __( 'Item Archives', \SmartcatSupport\PLUGIN_ID ),
             'parent_item_colon'     => __( 'Parent Item:', \SmartcatSupport\PLUGIN_ID ),
-            'all_items'             => __( 'Support Tickets', \SmartcatSupport\PLUGIN_ID ),
+            'all_items'             => __( 'Tickets List', \SmartcatSupport\PLUGIN_ID ),
             'add_new_item'          => __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
             'add_new'               => __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
             'new_item'              => __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
