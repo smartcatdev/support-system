@@ -71,13 +71,17 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help Desk',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
     }
 
     public function settings_shortcut_redirect() {
         if( isset( $_GET['page'] ) && $_GET['page'] == 'open_app' ) {
             wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
         }
+    }
+
+    public function add_action_links( $links ) {
+        return array( 'settings' => '<a href="' . menu_page_url( 'support_options', false ) . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ) + $links;
     }
 
     public function admin_enqueue() {
@@ -145,6 +149,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function subscribed_hooks() {
         return array(
+            'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
