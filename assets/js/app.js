@@ -31,11 +31,22 @@ var App = (function ($) {
     };
 
     var _init_media_dropzone = function (e) {
+
+        var submit_button = $('#create-ticket');
+
         $(e.target).find('#ticket-media-upload').dropzone({
             addRemoveLinks: true,
             url: Globals.ajax_url + "?action=support_upload_media",
 
             init: function() {
+
+                this.on('processing', function() {
+                    submit_button.prop('disabled', true);
+                });
+
+                this.on('complete', function() {
+                    submit_button.prop('disabled', false);
+                });
 
                 this.on("success", function(file, res) {
                     var media = $(e.target).find("input.attachments");
