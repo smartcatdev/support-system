@@ -29,7 +29,7 @@ class Notifications extends AbstractComponent {
                 'ticket_status' => $value
             );
 
-            $this->send_template(get_option(Option::TICKET_CLOSED_EMAIL_TEMPLATE), $recipient->user_email, $template_vars);
+            $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars );
         }
 
         return $null;

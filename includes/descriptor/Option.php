@@ -164,11 +164,6 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const SHOW_FOOTER = 'smartcat_support_display-footer';
-
-    /**
-     * @since 1.0.0
-     */
     const FOOTER_TEXT = 'smartcat_support_footer-text';
 
     /**
@@ -195,4 +190,9 @@ final class Option {
      * @since 1.0.2
      */
     const LOGIN_BACKGROUND = 'smartcat_support_login-background';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_WIDGET_AREA = 'smartcat_support_login-widget-area';
 }

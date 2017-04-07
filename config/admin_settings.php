@@ -1,11 +1,13 @@
 <?php
 
 use smartcat\admin\CheckBoxField;
+use smartcat\admin\HTMLFilter;
 use smartcat\admin\IntegerValidator;
 use smartcat\admin\MatchFilter;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\TabbedSettingsPage;
+use smartcat\admin\TextAreaField;
 use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
 use smartcat\mail\Mailer;
@@ -169,6 +171,20 @@ $text->add_field( new TextField(
         'value'         => get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ),
         'label'         => __( 'Footer Text', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new TextFilter() )
+    )
+) );
+
+$widgets = new SettingsSection( 'widgets', __( 'Widgets', \SmartcatSupport\PLUGIN_ID ) );
+
+$widgets->add_field( new TextAreaField(
+    array(
+        'id'            => 'support_login_widget_area',
+        'class'         => array( '' ),
+        'option'        => Option::LOGIN_WIDGET_AREA,
+        'value'         => get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ),
+        'label'         => __( 'Login Widget Area', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Contents to display on the login widget area', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new HTMLFilter() )
     )
 ) );
 
@@ -346,6 +362,7 @@ $admin->add_section( $email_notifications, 'notifications' );
 $admin->add_section( $emails, 'notifications' );
 $admin->add_section( $advanced, 'advanced' );
 $admin->add_section( $text, 'display' );
+$admin->add_section( $widgets, 'display' );
 $admin->add_section( $appearance, 'appearance' );
 
 return $admin;

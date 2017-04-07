@@ -129,11 +129,6 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const SHOW_FOOTER = 'on';
-
-    /**
-     * @since 1.0.0
-     */
     const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
 
     /**
@@ -155,4 +150,9 @@ final class Defaults {
      * @since 1.0.2
      */
     const LOGIN_BACKGROUND = 'https://cloud.githubusercontent.com/assets/3696057/24772412/3b2e2412-1adf-11e7-85fa-c0acc52c59a0.jpg';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_WIDGET_AREA = '';
 }
