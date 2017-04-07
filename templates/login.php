@@ -15,10 +15,22 @@ use SmartcatSupport\Plugin;
         <div id="support-login-form">
             
             <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
-            
+
             <div id="login">
 
-                <?php wp_login_form(); ?>
+                <?php if( !empty( $_REQUEST['login'] ) ) : ?>
+
+                    <div class="alert alert-danger fade in login-error-msg">
+
+                        <?php _e( 'Invalid username or password', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <?php wp_login_form( array( 'redirect' => \SmartcatSupport\url() ) ); ?>
 
                 <?php if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>
 

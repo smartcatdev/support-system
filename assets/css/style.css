@@ -294,6 +294,12 @@ body.waiting {
     display: none;
 }
 
+.login-error-msg {
+    background: #fff;
+    border-radius: 0;
+    border-left: 4px solid #dc3232;
+}
+
 /* ## Nav ******************************************************************************/
 #navbar {
     margin-bottom: 0;

@@ -162,8 +162,26 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         tgmpa( $plugins, $config );
     }
 
+    public function login_failed() {
+        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+            wp_redirect( \SmartcatSupport\url() . '?login=failed' );
+            exit;
+        }
+    }
+
+    public function authenticate( $user, $username, $password ) {
+        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+            if ( $username == "" || $password == "" ) {
+                wp_redirect( \SmartcatSupport\url() . "?login=empty" );
+                exit;
+            }
+        }
+    }
+
     public function subscribed_hooks() {
         return array(
+            'wp_login_failed' => array( 'login_failed' ),
+            'authenticate' => array( 'authenticate', 1, 3 ),
             'admin_footer' => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'admin_menu' => array( 'add_settings_shortcut'),
