@@ -89,7 +89,11 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_action_links( $links ) {
-        $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
+
+        if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+            $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
+        }
+
         $menu_page = menu_page_url( 'support_options', false );
 
         return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
@@ -223,7 +227,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function feedback_form() {
-        require_once $this->dir . '/templates/feedback.php';
+        if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+            require_once $this->dir . '/templates/feedback.php';
+        }
     }
 
     private function create_email_templates() {
