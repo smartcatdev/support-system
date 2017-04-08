@@ -11,6 +11,13 @@ var Ticket = (function ($) {
         $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
         $(document).on("click", ".delete-attachment", _delete_attachment);
+        $(document).on("click", ".delete-attachment", _delete_attachment);
+        $(document).on("focus", ".property-control", _lock_properties);
+        $(document).on("focusout", ".property-control", _lock_properties);
+    };
+
+    var _lock_properties = function(e) {
+        $(e.target).parents('.sidebar').toggleClass('locked');
     };
 
     var _delete_attachment = function (e) {
@@ -224,7 +231,7 @@ var Ticket = (function ($) {
     var load_sidebar = function (id) {
         var sidebar = $("#" + id).find(".sidebar");
 
-        if (!sidebar.hasClass("saving")) {
+        if (!sidebar.hasClass('saving') && !sidebar.hasClass('locked')) {
             $.ajax({
                 url: Globals.ajax_url,
                 dataType: "json",
