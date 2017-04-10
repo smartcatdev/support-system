@@ -1,7 +1,7 @@
 === uCare - Support Ticket System ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,system,customer,service,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,system,customer,service,agent,tech,technical,desk,help,support ticket,zendesk,help desk
 Requires at least: 4.6
 Tested up to: 4.7.3
 Stable tag: 1.0.1
@@ -15,15 +15,18 @@ A support desk for your customers featuring multiple usergroups,ticket status,fi
 Demo username: demoagent
 Demo password: demoagent
 
-uCare is the ultimate WordPress plugin to create a fully-featured support ticket system for your business. With unique user roles
+uCare is the ultimate WordPress plugin to create a fully-featured support ticket help desk system for your business. With unique user roles
 for your support admins, agents and customers, you can provide your customers with a unique and impressive support experience
 which is aimed at increasing customser satisfaction. 
 
-uCare allows you to work on customer support tickets directly from the backend and the frontendYou can view, manage and comment on tickets, as well as update ticket status directly from the WordPress
+uCare allows you to work on customer support tickets directly from the backend or the frontend. You can view, manage and comment on tickets, as well as update ticket status directly from the WordPress
 dashboard. Additionally, you and the support agents will be able to use the beautifully designed page to work on tickets.
 
-This plugin uses a tabbed-system for viewing tickets. Meaning, you can open multiple tickets and work on them at the same time.
-The front-end is fully using ajax, no loading, everything updates while you're on the page.
+This plugin creates it's own page that runs completely seperate from your theme, meaning this is the only plugin that has zero impact on your
+site speed, as none of the assets get loaded to your site, unless the user is on the help desk page. It also uses a tabbed-system for viewing tickets. Meaning, you can open multiple tickets and work on them at the same time.
+The front-end is fully using Ajax, no loading, everything updates while you're on the page.
+
+The frontend app is fully responsive, and is coded in a way to use as little resource as possible, ensuring it always runs super fast.
 
 =Features=
 * Multiple user groups: Support Admin, Support Agent & Support User ( customer )
@@ -49,6 +52,15 @@ The front-end is fully using ajax, no loading, everything updates while you're o
 2. OR - Upload the unpacked folder folder via FTP into /wp-content/plugins
 
 == Changelog == 
+
+= 1.1.0 =
+- Added ability to upload images to a ticket
+- Updated notifications
+- Responsive fixes to the app layout
+- Bug fixes
+- Ability for Customer to close their own tickets
+- Ability to upload custom image for the login page
+
 
 = 1.0.1 = Bug fixes
 - Fixed scope issue which was causing conflicts with some plugins

@@ -318,6 +318,10 @@ body.waiting {
     margin-bottom: 0;
 }
 
+#navbar .row {
+    padding: 8px 20px;
+}
+
 #navbar .row-table-cell {
     height: 50px; 
 }

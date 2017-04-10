@@ -85,8 +85,8 @@ use SmartcatSupport\descriptor\Option;
     <div class="container">
 
         <?php $widget = current_user_can( 'manage_support_tickets' )
-                ? get_option( Option::AGENT_WIDGET_AREA, Option\Defaults::AGENT_WIDGET_AREA )
-                : get_option( Option::USER_WIDGET_AREA, Option\Defaults::USER_WIDGET_AREA ); ?>
+                ? stripslashes( get_option( Option::AGENT_WIDGET_AREA, Option\Defaults::AGENT_WIDGET_AREA ) )
+                : stripslashes( get_option( Option::USER_WIDGET_AREA, Option\Defaults::USER_WIDGET_AREA ) ); ?>
 
         <?php if( !empty( $widget ) ) : ?>
 
