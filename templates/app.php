@@ -8,7 +8,7 @@
 
         <?php do_action( 'support_first_login' ); ?>
 
-        <?php // update_user_meta( wp_get_current_user()->ID, 'first_login', true ); ?>
+        <?php update_user_meta( wp_get_current_user()->ID, 'first_login', true ); ?>
 
     <?php endif; ?>
 

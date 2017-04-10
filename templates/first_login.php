@@ -11,7 +11,7 @@
             <div class="modal-body">
                 
 
-                <?php if ( is_array( $user->roles ) && in_array( 'support_user', $user->roles ) ) : ?>
+                <?php if ( is_array( $user->roles ) && ( in_array( 'support_user', $user->roles ) || user_can( $user, 'manage_support_tickets' ) ) ) : ?>
                 
                     <p><?php _e( 'Since this is your first login to the system, we will take a view seconds to quickly show you around.', \SmartcatSupport\PLUGIN_ID ); ?></p>
                     <br>
