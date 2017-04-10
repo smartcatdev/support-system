@@ -91,17 +91,16 @@ use SmartcatSupport\Plugin;
                             </button>
 
                         </div>
+                        
 
                     </form>
 
                 </div>
 
             <?php endif; ?>
-
+            <div id="login-widget-area" class="row"><?php echo stripslashes( get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ) ); ?></div>
         </div>
 
-        <div id="login-widget-area" class="row"><?php echo get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ); ?></div>
-        
     </div>
 
 </div>

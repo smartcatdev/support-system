@@ -102,18 +102,24 @@ namespace  SmartcatSupport\util {
             if ( $plugin->edd_active ) {
                 $post_type[] = 'download';
             }
-
+            
+            $post_type = implode('","', $post_type );
+            
+            error_log( $post_type );
+            
             if( !empty( $post_type ) ) {
-                $query = new \WP_Query(
-                    array(
-                        'post_type' => $post_type,
-                        'post_status' => 'publish'
-                    )
-                );
 
-                foreach ($query->posts as $post) {
-                    $products[$post->ID] = $post->post_title;
+                global $wpdb;
+                
+                $query = 'select ID from ' . $wpdb->prefix . 'posts where post_type in ("' . $post_type . '") and post_status = "publish"';
+                
+                $posts = $wpdb->get_results( $query );
+                
+                foreach( $posts as $post ) {
+                    
+                    $products[ $post->ID ] = get_the_title( $post->ID );
                 }
+                
             }
         }
 
