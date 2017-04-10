@@ -1,5 +1,14 @@
 <?php
 
+namespace SmartcatSupport {
+
+    use SmartcatSupport\descriptor\Option;
+
+    function url() {
+        return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
+    }
+}
+
 namespace  SmartcatSupport\util {
 
     use SmartcatSupport\descriptor\Option;
@@ -56,23 +65,27 @@ namespace  SmartcatSupport\util {
             'opened'            => __( 'Opened', \SmartcatSupport\PLUGIN_ID ),
             'responded'         => __( 'Responded', \SmartcatSupport\PLUGIN_ID ),
             'needs_attention'   => __( 'Needs Attention', \SmartcatSupport\PLUGIN_ID ),
-            'resolved'          => __( 'Resolved', \SmartcatSupport\PLUGIN_ID ),
             'closed'            => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
         );
     }
 
     function filter_defaults() {
-        return array(
+        $defaults = array(
             'status' => array(
                 'new'               => true,
                 'waiting'           => true,
                 'opened'            => true,
                 'responded'         => true,
                 'needs_attention'   => true,
-                'resolved'          => true,
-                'closed'            => false
+                'closed'            => true
             )
         );
+
+        if( current_user_can( 'manage_support_tickets' ) ) {
+            $defaults['status']['closed'] = false;
+        }
+
+        return $defaults;
     }
 
     function products () {
@@ -197,5 +210,20 @@ namespace  SmartcatSupport\util {
             ) );
 
         return $query->posts;
+    }
+}
+
+namespace SmartcatSupport\proc {
+
+    function create_email_templates() {
+        //TODO find a better way to setup templates
+    }
+
+    function configure_roles() {
+        //TODO move this here from Plugin.php
+    }
+
+    function cleanup_roles() {
+        //TODO move this here from Plugin.php
     }
 }

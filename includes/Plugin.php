@@ -11,7 +11,8 @@ use SmartcatSupport\ajax\Comment;
 use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\ECommerce;
-use SmartcatSupport\component\TicketCPT;
+use SmartcatSupport\component\Notifications;
+use SmartcatSupport\component\TicketPostType;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
 
@@ -49,6 +50,14 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function deactivate() {
+
+        if( isset( $_POST['product_feedback'] ) ) {
+            $message = include $this->dir . '/emails/product-feedback.php';
+            $headers = array( 'Content-Type: text/html; charset=UTF-8' );
+
+            wp_mail( 'support@smartcat.ca', 'uCare Deactivation Feedback', $message, $headers );
+        }
+
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
@@ -70,13 +79,24 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Open Application',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
     }
 
     public function settings_shortcut_redirect() {
         if( isset( $_GET['page'] ) && $_GET['page'] == 'open_app' ) {
             wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
         }
+    }
+
+    public function add_action_links( $links ) {
+
+        if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+            $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
+        }
+
+        $menu_page = menu_page_url( 'support_options', false );
+
+        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
     }
 
     public function admin_enqueue() {
@@ -142,12 +162,32 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         tgmpa( $plugins, $config );
     }
 
+    public function login_failed() {
+        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+            wp_redirect( \SmartcatSupport\url() . '?login=failed' );
+            exit;
+        }
+    }
+
+    public function authenticate( $user, $username, $password ) {
+        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+            if ( $username == "" || $password == "" ) {
+                wp_redirect( \SmartcatSupport\url() . "?login=empty" );
+                exit;
+            }
+        }
+    }
+
     public function subscribed_hooks() {
         return array(
+            'wp_login_failed' => array( 'login_failed' ),
+            'authenticate' => array( 'authenticate', 1, 3 ),
+            'admin_footer' => array( 'feedback_form' ),
+            'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'admin_menu' => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
-            'tgmpa_register' => array( 'register_dependencies' ),
+//            'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
@@ -165,7 +205,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function components() {
         $components = array(
-            TicketCPT::class,
+            TicketPostType::class,
             Ticket::class,
             Comment::class,
             Settings::class,
@@ -179,6 +219,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
             $components[] = Registration::class;
+        }
+
+        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
+            $components[] = Notifications::class;
         }
 
         return $components;
@@ -200,10 +244,37 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return '';
     }
 
+    public function feedback_form() {
+        if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+            require_once $this->dir . '/templates/feedback.php';
+        }
+    }
+
     private function create_email_templates() {
         $welcome = get_option( Option::WELCOME_EMAIL_TEMPLATE );
-        $resolved = get_option( Option::RESOLVED_EMAIL_TEMPLATE );
+        $closed = get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE );
         $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
+        $created = get_option( Option::CREATED_EMAIL_TEMPLATE );
+
+        $default_style = file_get_contents( $this->dir . '/emails/default-style.css' );
+
+        if( is_null( get_post( $created ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID ),
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-created.html' )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
+                update_option( Option::CREATED_EMAIL_TEMPLATE, $id );
+            }
+        } else {
+            wp_untrash_post( $welcome );
+        }
 
         if( is_null( get_post( $welcome ) ) ) {
             $id = wp_insert_post(
@@ -211,32 +282,34 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.md' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.html' )
                 )
             );
 
             if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
                 update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
             }
         } else {
             wp_untrash_post( $welcome );
         }
 
-        if( is_null( get_post( $resolved ) ) ) {
+        if( is_null( get_post( $closed ) ) ) {
             $id = wp_insert_post(
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Your request for support has been marked as resolved', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_resolved.md' )
+                    'post_title'    => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID ),
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-closed.html' )
                 )
             );
 
             if( !empty( $id ) ) {
-                update_option( Option::RESOLVED_EMAIL_TEMPLATE, $id );
+                update_post_meta( $id, 'styles', $default_style );
+                update_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE, $id );
             }
         } else {
-            wp_untrash_post( $resolved );
+            wp_untrash_post( $closed );
         }
 
         if( is_null( get_post( $reply ) ) ) {
@@ -245,11 +318,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket_reply.md' )
+                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-reply.html' )
                 )
             );
 
             if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
                 update_option( Option::REPLY_EMAIL_TEMPLATE, $id );
             }
         } else {

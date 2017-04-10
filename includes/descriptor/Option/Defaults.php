@@ -99,7 +99,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const LOGIN_LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
+    const LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
 
     /**
      * @since 1.0.0
@@ -129,15 +129,55 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const SHOW_FOOTER = 'on';
-
-    /**
-     * @since 1.0.0
-     */
     const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
 
     /**
-     * @since 1.0.0
+     * @since 1.0.2
      */
     const MAX_ATTACHMENT_SIZE = 2;
+
+    /**
+     * @since 1.0.2
+     */
+    const COMPANY_NAME = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const FORWARD_EMAIL = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_BACKGROUND = 'https://cloud.githubusercontent.com/assets/3696057/24772412/3b2e2412-1adf-11e7-85fa-c0acc52c59a0.jpg';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_WIDGET_AREA = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const USER_WIDGET_AREA = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const AGENT_WIDGET_AREA = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_NAME = 'uCare Support';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_EMAIL = '';
+
+    /**
+     * @since 1.0.2
+     */
+    const TERMS_URL = '#';
 }

@@ -205,7 +205,6 @@ body.waiting {
 
 /* ## Login ****************************************************************************/
 #support-login-page {
-    background-image: url('https://cdn.desk.com/assets/login-bkg-a3243b2940db100097dcfff095bc9675.jpg');
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -276,8 +275,7 @@ body.waiting {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-#support-login-form .login-submit .button,
-#support-login-form .registration-submit .button {
+#support-login-form .button {
     margin-top: 5px;
 }
 
@@ -288,8 +286,8 @@ body.waiting {
     margin: 0 auto 20px auto;
 }
 
-#support-login-disclaimer {
-    color: #7b858d;
+#support-login-wrapper .terms {
+    padding: 10px;
     text-align: center;
 }
 
@@ -297,18 +295,22 @@ body.waiting {
     color: #7b858d;
 }
 
-#support-login-wrapper .button-primary {
-    text-transform: uppercase;
-    width: 100%;
-    display: block;
-}
-
-#registration-form .registration-submit {
-    margin-top: 30px;
+#support-login-form .login-submit {
+    text-align: right;
 }
 
 #register_form {
     display: none;
+}
+
+.login-error-msg {
+    background: #fff;
+    border-radius: 0;
+    border-left: 4px solid #dc3232;
+}
+
+#login-back {
+    margin: 0px 0 20px 0;
 }
 
 /* ## Nav ******************************************************************************/
@@ -517,12 +519,12 @@ body.waiting {
     color: #a9a9a9;
 }
 
-.ticket-status.resolved:before {
+.ticket-status.closed:before {
     content: "\e084";
     font-family: "Glyphicons Halflings";
 }
 
-.ticket-status.resolved {
+.ticket-status.closed {
     color: #1abc9c;
 }
 
@@ -559,15 +561,6 @@ body.waiting {
 
 .ticket-status.responded:before {
     content: "\e095";
-    font-family: "Glyphicons Halflings";
-}
-
-.ticket-status.closed {
-    color: #ff0000;
-}
-
-.ticket-status.closed:before {
-    content: "\e090";
     font-family: "Glyphicons Halflings";
 }
 
@@ -629,6 +622,16 @@ body.waiting {
     top: 0;
     background: #fff;
     z-index: 999;
+}
+
+button.close-ticket {
+    color: #333;
+    background-color: #e6e6e6;
+    border: none;
+}
+
+button.close-ticket:hover {
+    background-color: #cdcdcd;
 }
 
 /* #### Dropzone ************************************************************************/
@@ -744,5 +747,5 @@ body.waiting {
 .footer-text {
     padding-bottom: 20px;
     font-size: 12px;
-    color: #c9c9c9;
+    color: #9d9d9d;
 }

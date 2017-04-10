@@ -10,29 +10,16 @@ abstract class SettingsField {
     protected $label;
     protected $desc = '';
     protected $value = '';
+    protected $props = array();
     protected $class = array();
     protected $args = array();
     protected $validators = array();
 
     public function __construct( array $args ) {
-        $this->id = $args['id'];
-        $this->option = $args['option'];
-        $this->label = $args['label'];
-
-        if( !empty( $args['value'] ) ) {
-            $this->value = $args['value'];
-        }
-
-        if( !empty( $args['validators' ] ) ) {
-            $this->validators = $args['validators'];
-        }
-
-        if( !empty( $args['desc' ] ) ) {
-            $this->desc = $args['desc'];
-        }
-
-        if( !empty( $args['class'] ) && is_array( $args['class'] ) ) {
-            $this->class = $args['class'];
+        foreach( $args as $arg => $value ) {
+            if( property_exists( __CLASS__, $arg ) ) {
+                $this->{ $arg } = $value;
+            }
         }
 
         $this->args['label_for'] = $this->id;
@@ -53,6 +40,20 @@ abstract class SettingsField {
         }
 
         return $value;
+    }
+
+    protected function classes() {
+        if( !empty( $this->class ) ) {
+            echo ' class="' . implode( ' ', $this->class ) . '" ';
+        }
+    }
+
+    protected function props() {
+        if( !empty( $this->props ) ) {
+            foreach( $this->props as $prop => $values ) {
+                echo $prop . '="' . implode( ' ', $values ) . '"';
+            }
+        }
     }
 
     public abstract function render( array $args );

@@ -16,7 +16,7 @@ $form->add_field( new SelectBoxField(
     array(
         'name'        => 'agent',
         'label'       => __( 'Assigned to', \SmartcatSupport\PLUGIN_ID ),
-        'class'       => array( 'form-control' ),
+        'class'       => array( 'form-control', 'property-control' ),
         'options'     => $agents,
         'value'       => get_post_meta( $ticket->ID, 'agent', true ),
         'constraints' => array(
@@ -28,7 +28,7 @@ $form->add_field( new SelectBoxField(
     array(
         'name'        => 'status',
         'label'       => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
-        'class'       => array( 'form-control' ),
+        'class'       => array( 'form-control', 'property-control' ),
         'options'     => $statuses,
         'value'       => get_post_meta( $ticket->ID, 'status', true ),
         'constraints' => array(
@@ -40,7 +40,7 @@ $form->add_field( new SelectBoxField(
     array(
         'name'        => 'priority',
         'label'       => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
-        'class'       => array( 'form-control' ),
+        'class'       => array( 'form-control', 'property-control' ),
         'options'     => $priorities,
         'value'       => get_post_meta( $ticket->ID, 'priority', true ),
         'constraints' => array(

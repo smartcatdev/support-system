@@ -114,7 +114,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const LOGIN_LOGO = 'smartcat_support_login-logo';
+    const LOGO = 'smartcat_support_login-logo';
 
     /**
      * @since 1.0.0
@@ -129,7 +129,7 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const RESOLVED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
+    const TICKET_CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
 
     /**
      * @since 1.0.0
@@ -152,8 +152,8 @@ final class Option {
     const TERTIARY_COLOR = 'smartcat_support_tertiary-color';
 
     /**
- * @since 1.0.0
- */
+     * @since 1.0.0
+     */
     const HOVER_COLOR = 'smartcat_support_hover-color';
 
     /**
@@ -164,15 +164,60 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const SHOW_FOOTER = 'smartcat_support_display-footer';
-
-    /**
-     * @since 1.0.0
-     */
     const FOOTER_TEXT = 'smartcat_support_footer-text';
 
     /**
-     * @since 1.0.0
+     * @since 1.0.2
      */
     const MAX_ATTACHMENT_SIZE = 'smartcat_support_footer-max-attachment-size';
+
+    /**
+     * @since 1.0.2
+     */
+    const COMPANY_NAME = 'smartcat_support_footer-company-name';
+
+    /**
+     * @since 1.0.2
+     */
+    const CREATED_EMAIL_TEMPLATE = 'smartcat_support_ticket-created-email';
+
+    /**
+     * @since 1.0.2
+     */
+    const FORWARD_EMAIL = 'smartcat_support_ticket-forward-address';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_BACKGROUND = 'smartcat_support_login-background';
+
+    /**
+     * @since 1.0.2
+     */
+    const LOGIN_WIDGET_AREA = 'smartcat_support_login-widget-area';
+
+    /**
+     * @since 1.0.2
+     */
+    const USER_WIDGET_AREA = 'smartcat_support_user-widget-area';
+
+    /**
+     * @since 1.0.2
+     */
+    const AGENT_WIDGET_AREA = 'smartcat_support_agent-widget-area';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_NAME = 'smartcat_support_sender-name';
+
+    /**
+     * @since 1.0.2
+     */
+    const SENDER_EMAIL = 'smartcat_support_sender-email';
+
+    /**
+     * @since 1.0.2
+     */
+    const TERMS_URL = 'smartcat_support_terms-url';
 }

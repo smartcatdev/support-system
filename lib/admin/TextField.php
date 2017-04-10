@@ -21,11 +21,9 @@ class TextField extends SettingsField {
             name="<?php esc_attr_e( $this->option ); ?>"
             type="<?php esc_attr_e( $this->type ); ?>"
             value="<?php esc_attr_e( $this->value ); ?>"
-            class="regular-text
 
-                <?php foreach( $this->class as $class ) : ?>
-                   <?php esc_attr_e( $class ); ?>
-                <?php endforeach; ?>" />
+            <?php $this->props(); ?>
+            <?php $this->classes(); ?> />
 
         <?php if( !empty( $this->desc ) ) : ?>
 

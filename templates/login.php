@@ -13,12 +13,24 @@ use SmartcatSupport\Plugin;
     <div id="support-login-wrapper">
         
         <div id="support-login-form">
-            
-            <img class="logo" src="<?php echo get_option( Option::LOGIN_LOGO, Option\Defaults::LOGIN_LOGO ) ?>"/>
-            
+
             <div id="login">
 
-                <?php wp_login_form(); ?>
+                <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
+
+                <?php if( !empty( $_REQUEST['login'] ) ) : ?>
+
+                    <div class="alert alert-danger fade in login-error-msg">
+
+                        <?php _e( 'Invalid username or password', \SmartcatSupport\PLUGIN_ID ); ?>
+
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <?php wp_login_form( array( 'redirect' => \SmartcatSupport\url() ) ); ?>
 
                 <?php if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>
 
@@ -38,6 +50,12 @@ use SmartcatSupport\Plugin;
 
                 <div id="register" style="display: none">
 
+                    <button id="login-back" class="btn btn-default registration-toggle">
+
+                        <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                    </button>
+
                     <form id="registration-form">
 
                         <?php foreach( $form->fields as $field ) : ?>
@@ -54,13 +72,17 @@ use SmartcatSupport\Plugin;
 
                         <input type="hidden" name="<?php echo $form->id; ?>" />
 
-                        <div class="text-center registration-submit">
+                        <div class="terms">
 
-                            <button type="button" class="button button-primary registration-toggle">
+                            <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
 
-                                <?php _e( get_option( Option::LOGIN_BTN_TEXT, Option\Defaults::LOGIN_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
+                                <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), SmartcatSupport\PLUGIN_ID ); ?>
 
-                            </button>
+                            </a>
+
+                        </div>
+
+                        <div class="text-right registration-submit">
 
                             <button id="registration-submit" type="submit" class="button button-primary">
 
@@ -77,6 +99,8 @@ use SmartcatSupport\Plugin;
             <?php endif; ?>
 
         </div>
+
+        <div id="login-widget-area" class="row"><?php echo get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ); ?></div>
         
     </div>
 

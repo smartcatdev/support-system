@@ -13,6 +13,7 @@ if( !class_exists( '\smartcat\core\AbstractPlugin' ) ) :
 abstract class AbstractPlugin implements HookRegisterer, Plugin {
     protected $url;
     protected $dir;
+    protected $file;
     protected $id;
     protected $version;
     protected $cache = array();
@@ -23,6 +24,7 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
         $this->dir = plugin_dir_path( $fs_context );
         $this->url = plugin_dir_url( $fs_context );
         $this->id = $id;
+        $this->file = $fs_context;
         $this->version = $version;
     }
 
@@ -154,6 +156,11 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
     public function id() {
         return $this->id;
     }
+
+    public function file() {
+        return $this->file;
+    }
+
     public function version() {
         return $this->version;
     }

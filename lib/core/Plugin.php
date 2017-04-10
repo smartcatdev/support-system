@@ -47,6 +47,11 @@ interface Plugin {
     public function id();
 
     /**
+     * @return string The name of file of the plugin.
+     */
+    public function file();
+
+    /**
      * @return string The version of the plugin.
      */
     public function version();
