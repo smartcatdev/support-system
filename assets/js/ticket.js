@@ -3,6 +3,7 @@ var Ticket = (function ($) {
 
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
+        $(document).on("click", ".confirm-close-ticket", _close_ticket);
         $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
@@ -10,6 +11,13 @@ var Ticket = (function ($) {
         $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
         $(document).on("click", ".delete-attachment", _delete_attachment);
+        $(document).on("click", ".delete-attachment", _delete_attachment);
+        $(document).on("focus", ".property-control", _lock_properties);
+        $(document).on("focusout", ".property-control", _lock_properties);
+    };
+
+    var _lock_properties = function(e) {
+        $(e.target).parents('.sidebar').toggleClass('locked');
     };
 
     var _delete_attachment = function (e) {
@@ -130,6 +138,26 @@ var Ticket = (function ($) {
         });
     };
 
+    var _close_ticket = function (e) {
+        var modal = $(e.target).parents('.modal');
+        var id = modal.data('ticket_id');
+
+        $.post({
+            url: Globals.ajax_url,
+            dataType: 'json',
+            data: {
+                _ajax_nonce: Globals.ajax_nonce,
+                action: 'support_close_ticket',
+                id: id
+            },
+            success: function (reponse) {
+                load_sidebar(id);
+                modal.modal('toggle');
+                $('#close-ticket-' + id).remove();
+            }
+        });
+    };
+
     var _open_ticket = function (e) {
         var target = $(e.target);
         var id = target.data("id");
@@ -203,7 +231,7 @@ var Ticket = (function ($) {
     var load_sidebar = function (id) {
         var sidebar = $("#" + id).find(".sidebar");
 
-        if (!sidebar.hasClass("saving")) {
+        if (!sidebar.hasClass('saving') && !sidebar.hasClass('locked')) {
             $.ajax({
                 url: Globals.ajax_url,
                 dataType: "json",

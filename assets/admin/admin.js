@@ -1,6 +1,43 @@
 var SupportAdmin = (function (module, $, window) {
     "use strict";
 
+    var _init_deactivate_prompt = function (e) {
+        e.preventDefault();
+
+        var link = $(e.target).prop('href');
+        var modal = $('#deactivate-feedback');
+
+        modal.toggleClass('active');
+        modal.find('.deactivate-url').prop('href', link);
+        modal.find('form').prop('action', link);
+    };
+
+    var _close_feedback = function (e) {
+        e.preventDefault();
+        $(e.target).parents('.support-admin-modal').toggleClass('active');
+    };
+
+    var _toggle_feedback_reason = function (e) {
+        var li = $(e.target).parents('li');
+        var modal = $(e.target).parents('.support-admin-modal');
+        var placeholder = li.data('placeholder');
+        var type = li.data('type');
+
+        modal.find('.reason-input').remove();
+
+        var field = '<div class="reason-input">';
+
+        if (type === 'text') {
+            field += '<input type="text" name="details" placeholder="' + placeholder + '"/>';
+        } else if (type === 'textarea') {
+            field += '<textarea rows="5" maxlength="250" name="details" placeholder="' + placeholder + '"></textarea>';
+        }
+
+        field += '</div>';
+
+        li.append(field);
+    };
+
     var $wp_inline_edit;
 
     var _toggle_flag = function (e) {
@@ -31,6 +68,10 @@ var SupportAdmin = (function (module, $, window) {
 
     var _bind_events = function () {
         $(window.document).on("click", ".flag-ticket", _toggle_flag);
+        $("#feedback-prompt a").click(_init_deactivate_prompt);
+        $("#close-feedback").click(_close_feedback);
+        $(".feedback-reason").click(_close_feedback);
+        $('input[name=reason]').change(_toggle_feedback_reason);
     };
 
     var _initialize_quick_editor = function () {
@@ -69,7 +110,12 @@ var SupportAdmin = (function (module, $, window) {
         $("#id.manage-column").addClass("column-primary");
 
         $.wpMediaUploader({
-            target: "#support_login_logo",
+            target: "#support_logo_image",
+            buttonText: "Select image"
+        });
+
+        $.wpMediaUploader({
+            target: "#support_login_background_image",
             buttonText: "Select image"
         });
 

@@ -1,8 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
-
-use smartcat\post\AbstractMetaBox;
+namespace smartcat\post;
 
 class FormMetaBox extends AbstractMetaBox {
     private $config;
