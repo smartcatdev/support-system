@@ -94,7 +94,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const LOGIN_DISCLAIMER = 'I agree to the terms and conditions';
+    const LOGIN_DISCLAIMER = 'By registering, you agree to the terms and conditions';
 
     /**
      * @since 1.0.0
@@ -104,22 +104,22 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const PRIMARY_COLOR = '#1abc9c';
+    const PRIMARY_COLOR = '#188976';
 
     /**
      * @since 1.0.0
      */
-    const SECONDARY_COLOR = '#34495e';
+    const SECONDARY_COLOR = '#273140';
 
     /**
      * @since 1.0.0
      */
-    const TERTIARY_COLOR = '#e74c3c';
+    const TERTIARY_COLOR = '#30aabc';
 
     /**
      * @since 1.0.0
      */
-    const HOVER_COLOR = '#48c9b0';
+    const HOVER_COLOR = '#1aaa9b';
 
     /**
      * @since 1.0.0
@@ -129,7 +129,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const FOOTER_TEXT = 'Copyright © 2017 Smartcat Solutions Incorporated';
+    const FOOTER_TEXT = 'Copyright © 2017';
 
     /**
      * @since 1.0.2
