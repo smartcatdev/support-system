@@ -65,8 +65,13 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
 
     /* Tertiary color */
 
+    .carousel-caption {
+        color: <?php echo $tertiary_color; ?>
+    }
+
     #support-login-page {
         background-image: url(<?php echo get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ); ?> )
     }
+
 
 </style>

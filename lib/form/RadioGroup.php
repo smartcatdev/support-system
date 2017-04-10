@@ -35,5 +35,5 @@ class RadioGroup extends AbstractField {
 
         </ul>
 
-    <? }
+    <?php }
 }
