@@ -317,6 +317,10 @@ body.waiting {
     margin: 0px 0 20px 0;
 }
 
+#support-login-form .logo {
+    padding: 15px;
+}
+
 /* ## Nav ******************************************************************************/
 #navbar {
     margin-bottom: 0;
