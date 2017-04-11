@@ -282,7 +282,10 @@ var App = (function ($) {
         _bind_events();
         load_tickets();
         load_statistics();
-        setInterval(load_tickets, 1000 * 30);
+        
+        setInterval( load_tickets, 1000 * 30);
+        setInterval( load_statistics, 1000 * 30);
+        
     };
 
     return {
