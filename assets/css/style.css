@@ -9,6 +9,7 @@
     ## Login
     ## Nav
     ## Body
+        ### Statistics
         ### Tabs
         ### Ticket List
         ### Ticket
@@ -366,6 +367,23 @@ body.waiting {
 /* ## Body *****************************************************************************/
 #support-dashboard-page {
     padding: 20px 0;
+}
+
+/* ### Statistics ****************************************************************************/
+#statistics-container {
+    overflow: hidden;
+    border: 1px solid #e1e1e1;
+    padding: 10px 0;
+    background: #f7f7f7;
+    color: #333;
+}
+
+#statistics-container .stat-tab h4{
+    font-size: 26px;
+}
+
+#statistics-container .stat-tab div {
+    font-size: 12px;
 }
 
 /* ### Tabs ****************************************************************************/

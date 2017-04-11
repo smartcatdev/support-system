@@ -11,7 +11,7 @@ A support desk for your customers featuring multiple usergroups,ticket status,fi
 
 == Description ==
 
-[Live demo](https://ucaresupport.com/support/ "Demo")
+[Live demo](https://ucaresupport.com/demo/ "Demo")
 Demo username: demoagent
 Demo password: demoagent
 
@@ -57,6 +57,7 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - Added ability to upload images to a ticket
 - Updated notifications
 - Responsive fixes to the app layout
+- Added statistics bar
 - Bug fixes
 - Ability for Customer to close their own tickets
 - Ability to upload custom image for the login page
