@@ -210,7 +210,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             Comment::class,
             Settings::class,
             Hacks::class,
-            Media::class
+            Media::class,
+            ajax\Statistics::class
         );
 
         if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {

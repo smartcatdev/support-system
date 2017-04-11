@@ -6,6 +6,7 @@ var App = (function ($) {
     var _filter_toggle;
     var _filter_fields;
     var _tickets_container;
+    var _statistics_container;
 
     var ajax_loader = _.template($("script.ajax-loader-mask").html());
 
@@ -139,7 +140,27 @@ var App = (function ($) {
             return $(this).data("id") === id;
         });
     };
-
+    
+    var load_statistics = function () {
+        
+        var request = {
+            url : Globals.ajax_url + "?action=support_display_statistics",
+            dataType : "json",
+            data: [{
+                name : "_ajax_nonce",
+                value : Globals.ajax_nonce
+            }],
+            success: function( response ) {
+                _statistics_container.html( response.content )
+            },
+            complete: function( response ) {},
+            error: function( response ) {}
+            
+        }
+                
+        $.ajax(request);
+    }
+    
     var load_tickets = function () {
         var refresh = $("#refresh-tickets").find(".refresh");
         var filter_controls = $("#filter-controls");
@@ -241,6 +262,8 @@ var App = (function ($) {
         _filter_toggle = $("#filter-toggle");
         _filter_fields = _filter.find(".filter-field");
         _tickets_container = $("#tickets-container");
+        _statistics_container = $("#statistics-container");
+        
 
         ajax_loader = _.template($("script.ajax-loader-mask").html());
         _tickets_container.html(ajax_loader(Globals.strings.loading_tickets));
@@ -258,6 +281,7 @@ var App = (function ($) {
         _time();
         _bind_events();
         load_tickets();
+        load_statistics();
         setInterval(load_tickets, 1000 * 30);
     };
 
@@ -266,6 +290,7 @@ var App = (function ($) {
         initialize: initialize,
         new_tab: new_tab,
         open_tab: open_tab,
+        load_statistics: load_statistics,
         ajax_loader: ajax_loader
     };
 

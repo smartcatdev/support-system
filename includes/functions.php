@@ -105,7 +105,6 @@ namespace  SmartcatSupport\util {
             
             $post_type = implode('","', $post_type );
             
-            error_log( $post_type );
             
             if( !empty( $post_type ) ) {
 
@@ -232,4 +231,52 @@ namespace SmartcatSupport\proc {
     function cleanup_roles() {
         //TODO move this here from Plugin.php
     }
+}
+
+namespace SmartcatSupport\statprocs{
+    
+    function get_unclosed_tickets() {
+        
+        global $wpdb;
+        
+        $q = 'select ifnull( count(*), 0 ) from ' . $wpdb->prefix . 'posts as a '
+                . 'left join ' . $wpdb->prefix . 'postmeta as b '
+                . 'on a.ID = b.post_id '
+                . 'where a.post_type = "support_ticket" and a.post_status = "publish" '
+                . 'and b.meta_key = "status" and b.meta_value != "closed"';
+        
+        return $wpdb->get_var( $q );
+        
+    }
+    
+    function get_ticket_count( $args ) {
+        
+        global $wpdb;
+        
+        $args['status'] = isset( $args['status'] ) ? $args['status'] : null; 
+        $args['priority'] = isset( $args['priority'] ) ? $args['priority'] : null; 
+        $args['agent'] = isset( $args['agent'] ) ? $args['agent'] : null; 
+        
+        
+        $q = 'select ifnull( count(*), 0 ) from ' . $wpdb->prefix . 'posts as a '
+                . 'left join ' . $wpdb->prefix . 'postmeta as b '
+                . 'on a.ID = b.post_id '
+                . 'where a.post_type = "support_ticket" and a.post_status = "publish"';
+        
+        if( $args['status'] ) {
+            $q .= ' and b.meta_key = "status" and b.meta_value in ("'. $args['status'] . '")';
+        }
+        
+        if( $args['priority'] ) {
+            $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. $args['priority'] . '")';;
+        }
+        
+        if( $args['agent'] ) {
+            $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. $args['agent'] . '")';;
+        }
+        
+        return $wpdb->get_var( $q );
+        
+    }
+    
 }

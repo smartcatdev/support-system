@@ -90,12 +90,21 @@ use SmartcatSupport\descriptor\Option;
 
         <?php if( !empty( $widget ) ) : ?>
 
-            <div class="row"><?php echo $widget; ?></div>
-
+            <div class="row">
+                <div class="col-sm-12">
+                    <?php echo $widget; ?>
+                </div>
+            </div>
         <?php endif; ?>
-
+        
+        <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
         <div class="row">
-
+            <div id="statistics-container"></div>            
+        </div>
+        <?php endif; ?>
+        
+        <div class="row">
+            
             <div class="text-right">
 
                 <div class="clear"></div>
