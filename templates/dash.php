@@ -103,7 +103,7 @@ use SmartcatSupport\descriptor\Option;
         </div>
         <?php endif; ?>
         
-        <div class="row">
+        <div class="row ticket-area-wrapper">
             
             <div class="text-right">
 

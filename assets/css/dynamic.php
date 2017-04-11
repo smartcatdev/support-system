@@ -20,7 +20,7 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
     }
 
     #filter-toggle.active {
-        background: <?php echo $primary_color; ?>;
+        background: <?php echo $tertiary_color; ?>;
     }
 
     #filter-toggle .toggle-label:after {

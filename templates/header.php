@@ -16,7 +16,7 @@ $url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
         <link href="<?php echo $url . 'assets/lib/dropzone/css/dropzone.min.css'; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/lightGallery/css/lightgallery.min.css'; ?>" rel="stylesheet">
 
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+        <!--<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">-->
         <link href="<?php echo $url . 'assets/css/style.css' ?>" rel="stylesheet">
         <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ); ?>"></script>
         <?php include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/assets/css/dynamic.php'; ?>

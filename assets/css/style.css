@@ -194,6 +194,54 @@ body.waiting {
     }
 }
 
+@media( max-width: 768px ) {
+    
+    #search-wrapper {
+        width: 100%;
+    }
+    
+    #filter-controls .row-table-cell{
+        display: block;
+    }
+    
+}
+
+@media( min-width: 769px ) {
+    #filter-controls {
+        float: left;
+        width: 30%;
+        margin: 0;
+        border-left: 1px solid #ddd;
+    }
+    
+    #tickets-container {
+        width: 70%;
+        float: right;
+        margin: 0;
+        padding-right: 0;
+    }
+    
+    #filter-controls .row-table-cell{
+        display: block;
+    }
+    
+    #filter-controls #filters{
+        display: block !important;
+    }
+    
+    #filter-controls #filters .col-sm-4{
+        width: 100%;
+    }
+    
+    #show-filters {
+        display: none;
+    }
+    
+    #filters #filter-actions {
+        margin-top: -20px;
+    }
+}
+
 .row {
     padding: 20px;
 }
@@ -380,10 +428,10 @@ body.waiting {
 /* ### Statistics ****************************************************************************/
 #statistics-container {
     overflow: hidden;
-    border: 1px solid #e1e1e1;
+    border: 1px solid #ddd;
     padding: 10px 0;
-    background: #f7f7f7;
     color: #333;
+    border-radius: 4px;
 }
 
 #statistics-container .stat-tab h4{
