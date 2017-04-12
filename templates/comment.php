@@ -35,7 +35,7 @@ use SmartcatSupport\descriptor\Option;
                 <ul class="nav nav-tabs" style="display: none">
 
                     <li class="tab editor-tab active">
-                        <a class="nav-link" data-toggle="tab" href="#<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                        <a class="nav-link edit" data-toggle="tab" href="#<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
                     </li>
 
                     <li class="tab editor-tab preview">

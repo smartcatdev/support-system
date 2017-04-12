@@ -44,7 +44,7 @@ $user = wp_get_current_user();
 
                   <ul class="nav nav-tabs">
 
-                      <li class="tab editor-tab active">
+                      <li class="tab editor-tab active edit">
                           <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
                       </li>
 

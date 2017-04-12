@@ -39,6 +39,7 @@
         e.preventDefault();
 
         var form = $(e.target);
+        var tabs = form.parents('.panel').find('.nav-tabs');
         var comment = form.parents(".wrapper");
         var submit_button = form.find(".button-submit");
         var data = form.serializeArray();
@@ -55,6 +56,8 @@
                 comment.fadeToggle("slow", function () {
                     comment.replaceWith($(response.data).fadeToggle());
                 });
+
+                App.close_preview(tabs);
             },
             complete: function () {
                 submit_button.prop("disabled", false);

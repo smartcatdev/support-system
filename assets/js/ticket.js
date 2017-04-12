@@ -298,6 +298,7 @@ var Ticket = (function ($) {
         e.preventDefault();
 
         var form = $(e.target);
+        var tabs = form.parents('.panel').find('.nav-tabs');
         var comments = form.parents(".discussion-area").find(".comments");
         var content = form.find(".editor-content");
         var submit_button = form.find(".button-submit");
@@ -318,6 +319,8 @@ var Ticket = (function ($) {
                 comments.append(comment);
                 comment.fadeToggle();
                 content.val("");
+
+                App.close_preview(tabs);
 
                 load_sidebar(response.ticket);
             },

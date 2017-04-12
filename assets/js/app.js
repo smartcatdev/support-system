@@ -24,6 +24,10 @@ var App = (function ($) {
         $(document).on('shown.bs.tab', '.editor-tab', _preview_comment);
     };
 
+    var close_preview = function (tabs) {
+        $(tabs).find('li.edit a').tab('show');
+    };
+
     var _preview_comment = function (e) {
         var tab = $(e.target);
         var pane = $(tab.attr("href"));
@@ -277,6 +281,7 @@ var App = (function ($) {
         initialize: initialize,
         new_tab: new_tab,
         open_tab: open_tab,
+        close_preview: close_preview,
         ajax_loader: ajax_loader
     };
 
