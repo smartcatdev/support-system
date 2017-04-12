@@ -1,7 +1,6 @@
 <?php
 
 use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
 
 ?>
 
@@ -30,8 +29,6 @@ use SmartcatSupport\Plugin;
                 </div>
 
             </div>
-
-
 
             <?php if ( $comment->user_id == wp_get_current_user()->ID && current_user_can( 'edit_support_ticket_comments' ) ) : ?>
 
@@ -78,7 +75,17 @@ use SmartcatSupport\Plugin;
 
                 <form class="edit-comment-form">
 
-                    <textarea class="editor-content form-control" name="content" rows="5"></textarea>
+                    <div class="tab-content">
+
+                        <div id="<?php echo $comment->comment_ID; ?>-editor" class="editor-pane tab-pane active">
+
+                            <textarea class="editor-content form-control" name="content" rows="5"></textarea>
+
+                        </div>
+
+                        <div id="<?php echo $comment->comment_ID; ?>-preview" class="preview tab-pane"></div>
+
+                    </div>
 
                     <input class="comment-id" type="hidden" name="comment_id" value="<?php echo $comment->comment_ID; ?>">
 

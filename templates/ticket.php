@@ -62,7 +62,7 @@ $user = wp_get_current_user();
 
                         <div class="tab-content">
 
-                            <div id="<?php echo $ticket->ID; ?>-editor" class="editor tab-pane active">
+                            <div id="<?php echo $ticket->ID; ?>-editor" class="editor-pane tab-pane active">
 
                                 <textarea class="editor-content form-control" name="content" rows="5"></textarea>
 
