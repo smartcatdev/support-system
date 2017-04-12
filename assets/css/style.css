@@ -432,6 +432,7 @@ body.waiting {
     padding: 10px 0;
     color: #333;
     border-radius: 4px;
+    background: #f6f8fa;
 }
 
 #statistics-container .stat-tab h4{
@@ -443,6 +444,13 @@ body.waiting {
 }
 
 /* ### Tabs ****************************************************************************/
+
+.panel-default>.panel-heading,
+.input-group-addon,
+.btn.btn-default{
+    background: #f6f8fa;
+}
+
 .nav-tabs .tab .title {
     display: inline-block;
     width: 90px;
@@ -820,6 +828,7 @@ button.close-ticket:hover {
 .comment-reply .media-heading {
     font-size: 12px;
 }
+
 
 /* ## Footer ***************************************************************************/
 .footer-text {

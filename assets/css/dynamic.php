@@ -7,6 +7,9 @@ $hover_color     = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::H
 $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
 $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ) );
 
+$primary_color_rgb = \SmartcatSupport\proc\hex2rgb( $primary_color );
+$secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
+
 ?>
 
 <style type="text/css">
@@ -22,6 +25,16 @@ $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults
     #filter-toggle.active {
         background: <?php echo $tertiary_color; ?>;
     }
+    
+    /*
+    .panel-default > .panel-heading {
+        background: rgba( <?php echo $secondary_color_rgb[0]; ?>,<?php echo $secondary_color_rgb[1]; ?>,<?php echo $secondary_color_rgb[2]; ?>, 0.3 );
+    }
+    
+    .discussion-area .wrapper .current-user .panel-heading{
+        background: rgba( <?php echo $primary_color_rgb[0]; ?>,<?php echo $primary_color_rgb[1]; ?>,<?php echo $primary_color_rgb[2]; ?>, 0.3 );
+    }
+    */  
 
     #filter-toggle .toggle-label:after {
         content: "<?php _e( 'Apply Filters', \SmartcatSupport\PLUGIN_ID ); ?>";
