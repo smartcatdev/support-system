@@ -82,7 +82,7 @@ use SmartcatSupport\descriptor\Option;
 
     </div>
     
-    <div class="container">
+    <div class="container-fluid">
 
         <?php $widget = current_user_can( 'manage_support_tickets' )
                 ? stripslashes( get_option( Option::AGENT_WIDGET_AREA, Option\Defaults::AGENT_WIDGET_AREA ) )
@@ -90,7 +90,7 @@ use SmartcatSupport\descriptor\Option;
 
         <?php if( !empty( $widget ) ) : ?>
 
-            <div class="row">
+            <div class="row widget-wrapper">
                 <div class="col-sm-12">
                     <?php echo $widget; ?>
                 </div>
