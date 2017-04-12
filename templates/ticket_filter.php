@@ -39,25 +39,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
         </div>
 
-        <div class="row-table-cell pull-right">
 
-            <div id="filter-actions" class="btn-group input-group">
-
-                <button style="line-height: 22px" type="button" class="btn btn-default" id="filter-toggle">
-
-                    <span class="toggle-label"></span>
-
-                </button>
-
-                <button type="button" class="btn btn-default" id="refresh-tickets">
-
-                    <span style="line-height: 22px" class="refresh glyphicon glyphicon-refresh"></span>
-
-                </button>
-
-            </div>
-
-        </div>
 
     </div>
 
@@ -92,6 +74,26 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
                 <input type="hidden" name="<?php echo $form->id; ?>"/>
 
             </form>
+
+        </div>
+        
+        <div class="row-table-cell">
+
+            <div id="filter-actions" class="btn-group input-group">
+
+                <button style="line-height: 22px" type="button" class="btn btn-default" id="filter-toggle">
+
+                    <span class="toggle-label"></span>
+
+                </button>
+
+                <button type="button" class="btn btn-default" id="refresh-tickets">
+
+                    <span style="line-height: 22px" class="refresh glyphicon glyphicon-refresh"></span>
+
+                </button>
+
+            </div>
 
         </div>
 

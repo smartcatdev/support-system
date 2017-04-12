@@ -194,6 +194,54 @@ body.waiting {
     }
 }
 
+@media( max-width: 767px ) {
+    
+    #search-wrapper {
+        width: 100%;
+    }
+    
+    #filter-controls .row-table-cell{
+        display: block;
+    }
+    
+}
+
+@media( min-width: 768px ) {
+    #filter-controls {
+        float: left;
+        width: 30%;
+        margin: 0;
+        border-left: 1px solid #ddd;
+    }
+    
+    #tickets-container {
+        width: 70%;
+        float: right;
+        margin: 0;
+        padding-right: 0;
+    }
+    
+    #filter-controls .row-table-cell{
+        display: block;
+    }
+    
+    #filter-controls #filters{
+        display: block !important;
+    }
+    
+    #filter-controls #filters .col-sm-4{
+        width: 100%;
+    }
+    
+    #show-filters {
+        display: none;
+    }
+    
+    #filters #filter-actions {
+        margin-top: -20px;
+    }
+}
+
 .row {
     padding: 20px;
 }
@@ -373,17 +421,29 @@ body.waiting {
 }
 
 /* ## Body *****************************************************************************/
+
+.widget-wrapper > div{
+    padding: 15px;
+    border-radius: 4px;
+}
+
 #support-dashboard-page {
     padding: 20px 0;
+    background: #eff0f2;
+}
+
+.ticket-area-wrapper {
+    background: #f9f9f9;
 }
 
 /* ### Statistics ****************************************************************************/
 #statistics-container {
     overflow: hidden;
-    border: 1px solid #e1e1e1;
-    padding: 10px 0;
-    background: #f7f7f7;
+    /*border: 1px solid #ddd;*/
+    /*padding: 10px 0;*/
     color: #333;
+    border-radius: 4px;
+    /*background: #f6f8fa;*/
 }
 
 #statistics-container .stat-tab h4{
@@ -395,6 +455,13 @@ body.waiting {
 }
 
 /* ### Tabs ****************************************************************************/
+
+.panel-default>.panel-heading,
+.input-group-addon,
+.btn.btn-default{
+    background: #f6f8fa;
+}
+
 .nav-tabs .tab .title {
     display: inline-block;
     width: 90px;
@@ -410,6 +477,12 @@ body.waiting {
 .scrtabs-tab-scroll-arrow {
     border: none !important;
     text-align: center !important;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    background: #f9f9f9;
 }
 
 /* ### Ticket List *********************************************************************/
@@ -772,6 +845,7 @@ button.close-ticket:hover {
 .comment-reply .media-heading {
     font-size: 12px;
 }
+
 
 /* ## Footer ***************************************************************************/
 .footer-text {

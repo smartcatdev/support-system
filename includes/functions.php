@@ -231,6 +231,24 @@ namespace SmartcatSupport\proc {
     function cleanup_roles() {
         //TODO move this here from Plugin.php
     }
+    
+    function hex2rgb( $hex ) {
+        $hex = str_replace( "#", "", $hex );
+
+        if ( strlen( $hex ) == 3 ) {
+            $r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
+            $g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
+            $b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
+        } else {
+            $r = hexdec( substr( $hex, 0, 2 ) );
+            $g = hexdec( substr( $hex, 2, 2 ) );
+            $b = hexdec( substr( $hex, 4, 2 ) );
+        }
+        $rgb = array ( $r, $g, $b );
+        //return implode(",", $rgb); // returns the rgb values separated by commas
+        return $rgb; // returns an array with the rgb values
+    }
+    
 }
 
 namespace SmartcatSupport\statprocs{
@@ -268,14 +286,40 @@ namespace SmartcatSupport\statprocs{
         }
         
         if( $args['priority'] ) {
-            $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. $args['priority'] . '")';;
+            $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. $args['priority'] . '")';
         }
         
         if( $args['agent'] ) {
-            $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. $args['agent'] . '")';;
+            $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. $args['agent'] . '")';
         }
         
         return $wpdb->get_var( $q );
+        
+    }
+    
+    function get_user_assigned( $agents ) {
+        
+        $args = array(
+            'post_type'     => 'support_ticket',
+            'post_status'   => 'publish',
+            'meta_query'    => array(
+                'relation'  => 'AND',
+                array(
+                    'key'       => 'agent',
+                    'value'     => $agents,
+                    'compare'   => 'IN'
+                ),
+                array(
+                    'key'       => 'status',
+                    'value'     => 'closed',
+                    'compare'   => '!='                    
+                )
+            )
+        );
+        
+        $results = new \WP_Query( $args );
+        
+        return $results->found_posts;
         
     }
     
