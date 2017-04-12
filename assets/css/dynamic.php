@@ -85,6 +85,36 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     #support-login-page {
         background-image: url(<?php echo get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ); ?> )
     }
+    
+    /* - Statistics - */
+    #statistics-container {
+        width: 100%;
+        display: table;
+    }
+
+    #statistics-container .stat-tab {
+        width: 20%;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        padding: 10px 5px;
+    }
+    
+    #statistics-container .stat-tab .grad-bubble {
+        margin-top: 15px;
+        border: 1px solid #ddd;
+        display: inline-block;
+        height: 80px;
+        width: 80px;
+        line-height: 50px;
+        border-radius: 50%;
+    }
+    
+    #statistics-container .stat-tab h4 {
+        font-size: 26px;
+        line-height: 80px;
+        margin: 0;
+    }
 
 
 </style>
