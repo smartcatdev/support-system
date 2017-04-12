@@ -14,7 +14,7 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
-    function is_support_user( $id = false ) {
+    function can_use_support( $id = false ) {
         if( $id ) {
             $result = user_can( $id, 'use_support' );
         } else {
@@ -24,7 +24,7 @@ namespace  SmartcatSupport\util {
         return $result;
     }
 
-    function is_support_agent( $id = false ) {
+    function can_manage_tickets( $id = false ) {
         if( $id ) {
             $result = user_can( $id, 'manage_support_tickets' );
         } else {
@@ -34,7 +34,7 @@ namespace  SmartcatSupport\util {
         return $result;
     }
 
-    function is_support_admin( $id = false ) {
+    function can_manage_support( $id = false ) {
         if( $id ) {
             $result = user_can( $id, 'manage_support' );
         } else {
