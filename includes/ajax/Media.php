@@ -70,9 +70,7 @@ class Media extends AjaxComponent {
             $parent = get_post( $post->post_parent );
 
             if( $parent->post_type == 'support_ticket' ) {
-                if( !\SmartcatSupport\util\is_support_user() ) {
-                    wp_safe_redirect( home_url() );
-                }
+                wp_safe_redirect( home_url(), 301 );
             } else {
                 return;
             }

@@ -14,16 +14,34 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
-    function is_support_user() {
-        return current_user_can( 'use_support' );
+    function is_support_user( $id = false ) {
+        if( $id ) {
+            $result = user_can( $id, 'use_support' );
+        } else {
+            $result = current_user_can( 'use_support' );
+        }
+
+        return $result;
     }
 
-    function is_support_agent() {
-        return current_user_can( 'manage_support_tickets' );
+    function is_support_agent( $id = false ) {
+        if( $id ) {
+            $result = user_can( $id, 'manage_support_tickets' );
+        } else {
+            $result = current_user_can( 'manage_support_tickets' );
+        }
+
+        return $result;
     }
 
-    function is_support_admin() {
-        return current_user_can( 'manage_support' );
+    function is_support_admin( $id = false ) {
+        if( $id ) {
+            $result = user_can( $id, 'manage_support' );
+        } else {
+            $result = current_user_can( 'manage_support' );
+        }
+
+        return $result;
     }
 
     function just_now( $stamp ) {
@@ -116,8 +134,6 @@ namespace  SmartcatSupport\util {
             }
             
             $post_type = implode('","', $post_type );
-            
-            error_log( $post_type );
             
             if( !empty( $post_type ) ) {
 
@@ -220,11 +236,12 @@ namespace  SmartcatSupport\util {
     function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
         $query = new \WP_Query(
             array(
-                'post_parent' => $ticket->ID,
-                'post_type' => 'attachment',
-                'post_mime_type' => 'image',
-                'orderby' => $order,
-                'order' => $order
+                'post_parent'       => $ticket->ID,
+                'post_type'         => 'attachment',
+                'post_mime_type'    => 'image',
+                'post_status'       => 'inherit',
+                'orderby'           => $order,
+                'order'             => $order
             ) );
 
         return $query->posts;
