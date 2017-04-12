@@ -220,4 +220,9 @@ final class Option {
      * @since 1.0.2
      */
     const TERMS_URL = 'smartcat_support_terms-url';
+
+    /**
+     * @since 1.0.2
+     */
+    const REFRESH_INTERVAL = 'smartcat_support_refresh-interval';
 }

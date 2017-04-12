@@ -258,7 +258,7 @@ var App = (function ($) {
         _time();
         _bind_events();
         load_tickets();
-        setInterval(load_tickets, 1000 * 30);
+        setInterval(load_tickets, 1000 * Globals.refresh_interval);
     };
 
     return {

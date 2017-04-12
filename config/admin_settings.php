@@ -293,6 +293,17 @@ $general->add_field( new TextField(
         'validators'    => array( new IntegerValidator() )
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_refresh_time',
+        'type'          => 'number',
+        'option'        => Option::REFRESH_INTERVAL,
+        'value'         => get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ),
+        'label'         => __( 'Refresh Interval', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Automatic refresh interval in seconds', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new IntegerValidator() )
+    )
+
 ) );
 
 $emails = new SettingsSection( 'email_templates', __( 'Email Templates', \SmartcatSupport\PLUGIN_ID ) );
