@@ -390,6 +390,17 @@ textarea {
     text-align: center !important;
 }
 
+/* ### Panel Navbars *******************************************************************/
+.nav-header {
+    padding: 10px 15px 0 15px;
+}
+
+.nav-header .nav {
+    width: 100%;
+    background: none;
+    border-bottom: none;
+}
+
 /* ### Ticket List *********************************************************************/
 #tickets-container {
     padding-top: 10px;

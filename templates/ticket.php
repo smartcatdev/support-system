@@ -40,59 +40,61 @@ $user = wp_get_current_user();
 
             <div class="comment comment-reply panel panel-default">
 
-                <div class="panel-heading">
+                <div class="panel-heading nav-header">
 
-                    <div class="media pull-left meta">
+                  <ul class="nav nav-tabs">
 
-                        <div class="media-left">
+                      <li class="tab active">
+                          <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                      </li>
 
-                            <?php echo get_avatar( $user->ID, 28, '', '', array( 'class' => 'img-circle media-object' ) ); ?>
+                      <li class="tab">
+                          <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                      </li>
 
-                        </div>
-
-                        <div class="media-body" style="width: auto">
-
-                            <p class="media-heading"><?php echo $user->first_name . ' ' . $user->last_name; ?></p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="clearfix"></div>
+                  </ul>
 
                 </div>
 
                 <div class="panel-body">
 
-                    <div class="editor">
+                    <form class="comment-form">
 
-                        <form class="comment-form">
+                        <div class="tab-content">
 
-                            <textarea class="editor-content" name="content" rows="5"></textarea>
+                            <div id="<?php echo $ticket->ID; ?>-editor" class="editor tab-pane active">
 
-                            <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
+                                <textarea class="editor-content form-control" name="content" rows="5"></textarea>
 
-                            <div class="bottom">
+                            </div>
 
-                                <span class="text-right">
+                            <div id="<?php echo $ticket->ID; ?>-preview" class="preview tab-pane"></div>
 
-                                    <?php if( $status != 'closed' && !current_user_can( 'manage_support_tickets' ) ) : ?>
+                        </div>
 
-                                        <button id="close-ticket-<?php echo $ticket->ID; ?>"
-                                                type="button"
-                                                class="close-ticket button"
-                                                data-toggle="modal"
-                                                data-target="#close-ticket-modal-<?php echo $ticket->ID; ?>">
+                        <input type="hidden" name="id" value="<?php echo $ticket->ID; ?>">
 
-                                            <span class="glyphicon glyphicon-ok-sign button-icon"></span>
+                        <div class="bottom">
 
-                                            <span><?php _e( 'Close Ticket', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                            <span class="text-right">
 
-                                        </button>
+                                <?php if( $status != 'closed' && !current_user_can( 'manage_support_tickets' ) ) : ?>
 
-                                    <?php endif; ?>
+                                    <button id="close-ticket-<?php echo $ticket->ID; ?>"
+                                            type="button"
+                                            class="close-ticket button"
+                                            data-toggle="modal"
+                                            data-target="#close-ticket-modal-<?php echo $ticket->ID; ?>">
 
-                                     <button type="submit" class="button button-submit" disabled="true">
+                                        <span class="glyphicon glyphicon-ok-sign button-icon"></span>
+
+                                        <span><?php _e( 'Close Ticket', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                                    </button>
+
+                                <?php endif; ?>
+
+                                    <button type="submit" class="button button-submit" disabled="true">
 
                                         <span class="glyphicon glyphicon-send button-icon"></span>
 
@@ -102,11 +104,9 @@ $user = wp_get_current_user();
 
                                 </span>
 
-                            </div>
+                        </div>
 
-                        </form>
-
-                    </div>
+                    </form>
 
                 </div>
 
