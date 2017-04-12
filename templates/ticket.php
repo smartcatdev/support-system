@@ -56,7 +56,7 @@ $user = wp_get_current_user();
 
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body editor-area">
 
                     <form class="comment-form">
 

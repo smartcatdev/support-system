@@ -391,8 +391,13 @@ textarea {
 }
 
 /* ### Panel Navbars *******************************************************************/
+
+.editor-area {
+    padding: 10px;
+}
+
 .nav-header {
-    padding: 10px 15px 0 15px;
+    padding: 10px 10px 0 10px;
 }
 
 .nav-header .nav {
