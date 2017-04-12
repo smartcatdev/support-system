@@ -172,6 +172,7 @@ namespace  SmartcatSupport\util {
                     $role->add_cap( 'use_support' );
                     $role->add_cap( 'manage_support_tickets' );
                     $role->add_cap( 'edit_support_ticket_comments' );
+                    $role->add_cap( 'read_private_posts' );
 
                     break;
 
@@ -181,6 +182,7 @@ namespace  SmartcatSupport\util {
                     $role->add_cap( 'manage_support_tickets' );
                     $role->add_cap( 'edit_support_ticket_comments' );
                     $role->add_cap( 'manage_support' );
+                    $role->add_cap( 'read_private_posts' );
 
                     break;
 
@@ -202,6 +204,8 @@ namespace  SmartcatSupport\util {
             $role->remove_cap( 'manage_support_tickets' );
             $role->remove_cap( 'edit_support_ticket_comments' );
             $role->remove_cap( 'manage_support' );
+            $role->remove_cap( 'read_private_posts' );
+
         }
     }
 
