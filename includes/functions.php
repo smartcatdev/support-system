@@ -14,6 +14,18 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
+    function is_support_user() {
+        return current_user_can( 'use_support' );
+    }
+
+    function is_support_agent() {
+        return current_user_can( 'manage_support_tickets' );
+    }
+
+    function is_support_admin() {
+        return current_user_can( 'manage_support' );
+    }
+
     function just_now( $stamp ) {
         $now = date_create();
         $date = date_create( $stamp );
@@ -172,7 +184,6 @@ namespace  SmartcatSupport\util {
                     $role->add_cap( 'use_support' );
                     $role->add_cap( 'manage_support_tickets' );
                     $role->add_cap( 'edit_support_ticket_comments' );
-                    $role->add_cap( 'read_private_posts' );
 
                     break;
 
@@ -182,7 +193,6 @@ namespace  SmartcatSupport\util {
                     $role->add_cap( 'manage_support_tickets' );
                     $role->add_cap( 'edit_support_ticket_comments' );
                     $role->add_cap( 'manage_support' );
-                    $role->add_cap( 'read_private_posts' );
 
                     break;
 
@@ -204,8 +214,6 @@ namespace  SmartcatSupport\util {
             $role->remove_cap( 'manage_support_tickets' );
             $role->remove_cap( 'edit_support_ticket_comments' );
             $role->remove_cap( 'manage_support' );
-            $role->remove_cap( 'read_private_posts' );
-
         }
     }
 
