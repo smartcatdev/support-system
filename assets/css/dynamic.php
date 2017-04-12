@@ -80,7 +80,7 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     /* Tertiary color */
 
     .carousel-caption {
-        color: <?php echo $tertiary_color; ?>
+        color: <?php echo $tertiary_color; ?>;
     }
 
     #support-login-page {
@@ -98,24 +98,103 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
         display: table-cell;
         vertical-align: middle;
         text-align: center;
-        padding: 10px 5px;
+        padding: 5px;
     }
     
     #statistics-container .stat-tab .grad-bubble {
         margin-top: 15px;
-        border: 1px solid #ddd;
         display: inline-block;
         height: 80px;
         width: 80px;
         line-height: 50px;
-        border-radius: 50%;
+    }
+    
+    #statistics-container .stat-tab .stat-label {
+        text-transform: uppercase;
+        letter-spacing: .125em;
+        min-height: 35px;
+        z-index: 99;
+        position: relative;
     }
     
     #statistics-container .stat-tab h4 {
         font-size: 26px;
-        line-height: 80px;
-        margin: 0;
+        color: #fff;
+        display: inline-block;
+        height: 50px;
+        border-radius: 3px;
+        line-height: 50px;
+        text-align: center;
+        z-index: 99;
+        position: relative;
+    }
+ 
+    #statistics-container .stat-tab .inner {
+        padding: 10px 30px;
+        min-height: 105px;
+        background: <?php echo $primary_color; ?>;
+/*        background: -webkit-linear-gradient( top, <?php echo $primary_color; ?>, <?php echo $secondary_color; ?> );
+        background: linear-gradient(to bottom, <?php echo $primary_color; ?>, <?php echo $secondary_color; ?> );*/
+        text-align: left;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        border-radius: 3px;
+    }
+    
+    #statistics-container .stat-tab span.glyphicon {
+        position: absolute;
+        right: -15px;
+        top: 40px;
+        font-size: 95px;
+        opacity: .25;
+        color: white;
     }
 
+    @media (max-width: 767px) {
+        
+        #statistics-container {
+            width: 100%;
+            display: block;
+        }
+        
+        #statistics-container .stat-tab {
+            width: 100%;
+            display: block;
+        }
+        
+        #statistics-container .stat-tab .inner {
+            display: table;
+            vertical-align: middle;
+            width: 100%;
+            min-height: 0;
+            padding: 0 30px 0 15px;
+        }
+        
+        #statistics-container .stat-tab .inner h4 {
+            margin: 0 30px 0 0;
+            display: table-cell;
+            vertical-align: middle;
+            width: 85px;
+            text-align: left;
+            font-size: 20px;
+        }
+        
+        #statistics-container .stat-tab .inner .stat-label {
+            font-size: 10px;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+            padding-right: 10px;
+        }
+        
+        #statistics-container .stat-tab span.glyphicon {
+            font-size: 20px;
+            top: 15px;
+            right: 10px;
+        }
+        
+    }
+    
 
 </style>

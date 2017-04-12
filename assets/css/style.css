@@ -194,7 +194,7 @@ body.waiting {
     }
 }
 
-@media( max-width: 768px ) {
+@media( max-width: 767px ) {
     
     #search-wrapper {
         width: 100%;
@@ -206,7 +206,7 @@ body.waiting {
     
 }
 
-@media( min-width: 769px ) {
+@media( min-width: 768px ) {
     #filter-controls {
         float: left;
         width: 30%;
