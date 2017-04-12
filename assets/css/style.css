@@ -88,6 +88,10 @@ body.waiting {
     cursor: wait !important;
 }
 
+textarea {
+    resize: vertical;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
