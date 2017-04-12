@@ -24,35 +24,37 @@
 
         }, options );
 
+        $( settings.target ).each( function ( index, element ) {
 
+            $( element ).parent().append('<div><br><img src="' + $( element ).val() + '" style="width: ' + settings.previewSize + '"/></div>');
+            $( element ).parent().append('<a href="#" class="button ' + settings.buttonClass.replace('.', '') + '">' + settings.buttonText + '</a>');
 
-        $( settings.target ).parent().append('<div><br><img src="' + $(settings.target).val() + '" style="width: ' + settings.previewSize + '"/></div>');
-        $( settings.target ).parent().append( '<a href="#" class="button ' + settings.buttonClass.replace('.','') + '">' + settings.buttonText + '</a>' );
+            $(settings.buttonClass).css(settings.buttonStyle);
 
-        $( settings.buttonClass ).css( settings.buttonStyle );
+            $('body').on('click', settings.buttonClass, function (e) {
 
-        $('body').on('click', settings.buttonClass, function(e) {
+                e.preventDefault();
 
-            e.preventDefault();
-
-            var custom_uploader = wp.media({
-                title: settings.uploaderTitle,
-                button: {
-                    text: settings.uploaderButton
-                },
-                multiple: settings.multiple
-            })
-                .on('select', function() {
-                    var attachment = custom_uploader.state().get('selection').first().toJSON();
-                    $( settings.target ).parent().find('img').attr( 'src', attachment.url).show();
-                    $( settings.target ).parent().val(attachment.url);
-                    $( settings.target ).val(attachment.url);
-                    if( settings.modal ) {
-                        $('.modal').css( 'overflowY', 'auto');
-                    }
+                var custom_uploader = wp.media({
+                    title: settings.uploaderTitle,
+                    button: {
+                        text: settings.uploaderButton
+                    },
+                    multiple: settings.multiple
                 })
-                .open();
-        });
+                    .on('select', function () {
+                        var attachment = custom_uploader.state().get('selection').first().toJSON();
+                        $( element ).parent().find('img').attr('src', attachment.url).show();
+                        $( element ).parent().val(attachment.url);
+                        $( element ).val(attachment.url);
+                        if (settings.modal) {
+                            $('.modal').css('overflowY', 'auto');
+                        }
+                    })
+                    .open();
+            });
+
+        } );
 
     }
 })(jQuery);

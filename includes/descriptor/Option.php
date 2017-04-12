@@ -222,7 +222,12 @@ final class Option {
     const TERMS_URL = 'smartcat_support_terms-url';
 
     /**
-     * @since 1.0.2
+     * @since 1.1
      */
     const REFRESH_INTERVAL = 'smartcat_support_refresh-interval';
+
+    /**
+     * @since 1.1
+     */
+    const FAVICON = 'smartcat_support_favicon';
 }

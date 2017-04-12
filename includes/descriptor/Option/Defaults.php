@@ -182,7 +182,12 @@ final class Defaults {
     const TERMS_URL = '#';
 
     /**
-     * @since 1.0.2
+     * @since 1.1
      */
     const REFRESH_INTERVAL = '60';
+
+    /**
+     * @since 1.1
+     */
+    const FAVICON = '';
 }

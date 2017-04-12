@@ -12,6 +12,9 @@ use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
+
+$plugin_url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
 
 $admin = new TabbedSettingsPage(
     array(
@@ -228,8 +231,17 @@ $general->add_field( new TextField(
         'id'            => 'support_logo_image',
         'class'         => array( 'image-upload' ),
         'option'        => Option::LOGO,
-        'value'         => get_option( Option::LOGO, Option\Defaults::LOGO ),
+        'value'         => get_option( Option::LOGO, $plugin_url . 'assets/images/logo.png' ),
         'label'         => __( 'Logo Image', \SmartcatSupport\PLUGIN_ID )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_favicon',
+        'class'         => array( 'image-upload' ),
+        'option'        => Option::FAVICON,
+        'value'         => get_option( Option::FAVICON, $plugin_url . 'assets/images/favicon.png' ),
+        'label'         => __( 'Favicon', \SmartcatSupport\PLUGIN_ID )
     )
 
 ) )->add_field( new TextField(
