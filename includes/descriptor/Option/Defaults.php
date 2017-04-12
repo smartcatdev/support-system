@@ -185,9 +185,4 @@ final class Defaults {
      * @since 1.1
      */
     const REFRESH_INTERVAL = '60';
-
-    /**
-     * @since 1.1
-     */
-    const FAVICON = '';
 }

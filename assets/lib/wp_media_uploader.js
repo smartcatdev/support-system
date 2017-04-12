@@ -26,7 +26,7 @@
 
         $( settings.target ).each( function ( index, element ) {
 
-            $( element ).parent().append('<div><br><img src="' + $( element ).val() + '" style="width: ' + settings.previewSize + '"/></div>');
+            $( element ).parent().append('<div><br><img src="' + $( element ).val() + '" style="max-width: ' + settings.previewSize + '"/></div>');
             $( element ).parent().append('<a href="#" class="button ' + settings.buttonClass.replace('.', '') + '">' + settings.buttonText + '</a>');
 
             $(settings.buttonClass).css(settings.buttonStyle);
