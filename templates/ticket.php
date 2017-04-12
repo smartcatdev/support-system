@@ -44,11 +44,11 @@ $user = wp_get_current_user();
 
                   <ul class="nav nav-tabs">
 
-                      <li class="tab active">
+                      <li class="tab editor-tab active">
                           <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
                       </li>
 
-                      <li class="tab">
+                      <li class="tab editor-tab preview">
                           <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
                       </li>
 
@@ -68,7 +68,11 @@ $user = wp_get_current_user();
 
                             </div>
 
-                            <div id="<?php echo $ticket->ID; ?>-preview" class="preview tab-pane"></div>
+                            <div id="<?php echo $ticket->ID; ?>-preview" class="tab-pane preview">
+
+                                <div class="rendered"></div>
+
+                            </div>
 
                         </div>
 

@@ -756,10 +756,6 @@ button.close-ticket:hover {
     font-size: 12px;
 }
 
-.editor textarea {
-    width: 100%;
-}
-
 .comment .media {
     padding-bottom: 10px;
 }
@@ -770,6 +766,14 @@ button.close-ticket:hover {
 
 .comment-reply .media-heading {
     font-size: 12px;
+}
+
+.editor textarea {
+    width: 100%;
+}
+
+.preview .rendered {
+    padding: 10px;
 }
 
 /* ## Footer ***************************************************************************/

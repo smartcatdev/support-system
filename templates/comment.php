@@ -34,11 +34,11 @@ use SmartcatSupport\descriptor\Option;
 
                 <ul class="nav nav-tabs" style="display: none">
 
-                    <li class="tab active">
+                    <li class="tab editor-tab active">
                         <a class="nav-link" data-toggle="tab" href="#<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
                     </li>
 
-                    <li class="tab">
+                    <li class="tab editor-tab preview">
                         <a class="nav-link" data-toggle="tab" href="#<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
                     </li>
 
@@ -83,7 +83,11 @@ use SmartcatSupport\descriptor\Option;
 
                         </div>
 
-                        <div id="<?php echo $comment->comment_ID; ?>-preview" class="preview tab-pane"></div>
+                        <div id="<?php echo $comment->comment_ID; ?>-preview" class="tab-pane preview">
+
+                            <div class="rendered"></div>
+
+                        </div>
 
                     </div>
 

@@ -21,6 +21,17 @@ var App = (function ($) {
         $(document).on("change", ".filter-field", _filter_off);
         $(document).on("show.bs.modal", "#create-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", "#create-modal", _reset_media_dropzone);
+        $(document).on('shown.bs.tab', '.editor-tab', _preview_comment);
+    };
+
+    var _preview_comment = function (e) {
+        var tab = $(e.target);
+        var pane = $(tab.attr("href"));
+
+        if(pane.hasClass('preview')) {
+            var content = $(pane.prev()).find('.editor-content').val();
+            pane.find('.rendered').html(_.unescape(content));
+        }
     };
 
     var _reset_media_dropzone = function(e) {
