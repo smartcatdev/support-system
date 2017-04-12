@@ -77,8 +77,12 @@
 
         var comment_controls = comment.find(".comment-controls");
 
+        comment.find('.media').toggle();
+        comment.find('.nav').toggle();
+        comment.find('.clearfix').toggle();
+
         comment.toggleClass("locked");
-        comment_controls.fadeToggle();
+        comment_controls.toggle();
 
         // if editor is showing
         if(editor.css("display") === "none") {

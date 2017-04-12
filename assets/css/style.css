@@ -760,6 +760,10 @@ button.close-ticket:hover {
     width: 100%;
 }
 
+.comment .media {
+    padding-bottom: 10px;
+}
+
 .comment .media-body {
     vertical-align: middle;
 }
