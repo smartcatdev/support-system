@@ -286,14 +286,40 @@ namespace SmartcatSupport\statprocs{
         }
         
         if( $args['priority'] ) {
-            $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. $args['priority'] . '")';;
+            $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. $args['priority'] . '")';
         }
         
         if( $args['agent'] ) {
-            $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. $args['agent'] . '")';;
+            $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. $args['agent'] . '")';
         }
         
         return $wpdb->get_var( $q );
+        
+    }
+    
+    function get_user_assigned( $agents ) {
+        
+        $args = array(
+            'post_type'     => 'support_ticket',
+            'post_status'   => 'publish',
+            'meta_query'    => array(
+                'relation'  => 'AND',
+                array(
+                    'key'       => 'agent',
+                    'value'     => $agents,
+                    'compare'   => 'IN'
+                ),
+                array(
+                    'key'       => 'status',
+                    'value'     => 'closed',
+                    'compare'   => '!='                    
+                )
+            )
+        );
+        
+        $results = new \WP_Query( $args );
+        
+        return $results->found_posts;
         
     }
     

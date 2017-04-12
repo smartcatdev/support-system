@@ -36,7 +36,7 @@
 <div class="col-sm-2 stat-tab">
     <div><?php _e( 'Assigned to me', \SmartcatSupport\PLUGIN_ID ); ?></div>
     <h4>
-    <?php echo \SmartcatSupport\statprocs\get_ticket_count( array(
+    <?php echo \SmartcatSupport\statprocs\get_user_assigned( array(
         'agent'    => get_current_user_id()
     ) ) ?>
     </h4>
