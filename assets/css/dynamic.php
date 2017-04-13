@@ -31,20 +31,6 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
         color: <?php echo $secondary_color; ?>;
     }
     
-    #tickets-container .ticket-title:hover {
-        color: <?php echo $hover_color; ?>;
-    }
-    
-    /*
-    .panel-default > .panel-heading {
-        background: rgba( <?php echo $secondary_color_rgb[0]; ?>,<?php echo $secondary_color_rgb[1]; ?>,<?php echo $secondary_color_rgb[2]; ?>, 0.3 );
-    }
-    
-    .discussion-area .wrapper .current-user .panel-heading{
-        background: rgba( <?php echo $primary_color_rgb[0]; ?>,<?php echo $primary_color_rgb[1]; ?>,<?php echo $primary_color_rgb[2]; ?>, 0.3 );
-    }
-    */  
-
     #filter-toggle .toggle-label:after {
         content: "<?php _e( 'Apply Filters', \SmartcatSupport\PLUGIN_ID ); ?>";
     }
