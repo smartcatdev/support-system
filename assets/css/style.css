@@ -9,6 +9,7 @@
     ## Login
     ## Nav
     ## Body
+        ### Statistics
         ### Tabs
         ### Ticket List
         ### Ticket
@@ -82,6 +83,10 @@ span.button-icon {
 
 .dz-upload {
     background: #337ac6 !important;
+}
+
+.formatted {
+    white-space: pre-wrap;
 }
 
 body.waiting {
@@ -190,6 +195,54 @@ textarea {
 @media( max-width: 500px ) {
     #footer {
         display: none;
+    }
+}
+
+@media( max-width: 767px ) {
+    
+    #search-wrapper {
+        width: 100%;
+    }
+    
+    #filter-controls .row-table-cell{
+        display: block;
+    }
+    
+}
+
+@media( min-width: 768px ) {
+    #filter-controls {
+        float: left;
+        width: 30%;
+        margin: 0;
+        border-left: 1px solid #ddd;
+    }
+    
+    #tickets-container {
+        width: 70%;
+        float: right;
+        margin: 0;
+        padding-right: 0;
+    }
+    
+    #filter-controls .row-table-cell{
+        display: block;
+    }
+    
+    #filter-controls #filters{
+        display: block !important;
+    }
+    
+    #filter-controls #filters .col-sm-4{
+        width: 100%;
+    }
+    
+    #show-filters {
+        display: none;
+    }
+    
+    #filters #filter-actions {
+        margin-top: -20px;
     }
 }
 
@@ -317,6 +370,10 @@ textarea {
     margin: 0px 0 20px 0;
 }
 
+#support-login-form .logo {
+    padding: 15px;
+}
+
 /* ## Nav ******************************************************************************/
 #navbar {
     margin-bottom: 0;
@@ -368,11 +425,47 @@ textarea {
 }
 
 /* ## Body *****************************************************************************/
+
+.widget-wrapper > div{
+    padding: 15px;
+    border-radius: 4px;
+}
+
 #support-dashboard-page {
     padding: 20px 0;
+    background: #eff0f2;
+}
+
+.ticket-area-wrapper {
+    background: #f9f9f9;
+}
+
+/* ### Statistics ****************************************************************************/
+#statistics-container {
+    overflow: hidden;
+    /*border: 1px solid #ddd;*/
+    /*padding: 10px 0;*/
+    color: #333;
+    border-radius: 4px;
+    /*background: #f6f8fa;*/
+}
+
+#statistics-container .stat-tab h4{
+    font-size: 26px;
+}
+
+#statistics-container .stat-tab div {
+    font-size: 12px;
 }
 
 /* ### Tabs ****************************************************************************/
+
+.panel-default>.panel-heading,
+.input-group-addon,
+.btn.btn-default{
+    background: #f6f8fa;
+}
+
 .nav-tabs .tab .title {
     display: inline-block;
     width: 90px;
@@ -404,6 +497,12 @@ textarea {
     width: 100%;
     background: none;
     border-bottom: none;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+    background: #f9f9f9;
 }
 
 /* ### Ticket List *********************************************************************/

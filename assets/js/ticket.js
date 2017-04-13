@@ -220,6 +220,7 @@ var Ticket = (function ($) {
 
                 load_sidebar(response.ticket_id);
                 App.load_tickets();
+                App.load_statistics();
             },
             complete: function (xhr) {
                 sidebar.removeClass("saving");
@@ -323,6 +324,7 @@ var Ticket = (function ($) {
                 App.close_preview(tabs);
 
                 load_sidebar(response.ticket);
+                App.load_statistics();
             },
             complete: function () {
                 submit_button.prop("disabled", false);
