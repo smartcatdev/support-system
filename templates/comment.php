@@ -85,7 +85,7 @@ use SmartcatSupport\descriptor\Option;
 
                         <div id="comment-<?php echo $comment->comment_ID; ?>-preview" class="tab-pane preview">
 
-                            <div class="rendered"></div>
+                            <div class="rendered formatted"></div>
 
                         </div>
 
