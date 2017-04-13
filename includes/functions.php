@@ -15,6 +15,10 @@ namespace SmartcatSupport {
     function plugin_url() {
         return Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
     }
+
+    function in_dev_mode() {
+        return get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on';
+    }
 }
 
 namespace  SmartcatSupport\util {
