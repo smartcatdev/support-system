@@ -20,6 +20,8 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
                 <?php $field->render(); ?>
 
+                <p class="description"><?php echo $field->desc; ?></p>
+
             </div>
 
         <?php endforeach; ?>

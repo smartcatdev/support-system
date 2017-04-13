@@ -93,6 +93,10 @@ body.waiting {
     cursor: wait !important;
 }
 
+textarea {
+    resize: vertical;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -237,6 +241,15 @@ body.waiting {
     
     #filters #filter-actions {
         margin-top: -20px;
+    }
+    
+    #statistics-container .stat-tab h4 {
+        height: 15px !important;
+        line-height: 25px !important;
+    }
+    
+    #statistics-container .stat-tab span.glyphicon {
+        top: 15px !important;
     }
 }
 
@@ -477,9 +490,25 @@ body.waiting {
     text-align: center !important;
 }
 
-.nav-tabs>li.active>a,
-.nav-tabs>li.active>a:focus,
-.nav-tabs>li.active>a:hover {
+/* ### Panel Navbars *******************************************************************/
+
+.editor-area {
+    padding: 10px;
+}
+
+.nav-header {
+    padding: 10px 10px 0 10px;
+}
+
+.nav-header .nav {
+    width: 100%;
+    background: none;
+    border-bottom: none;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
     background: #f9f9f9;
 }
 
@@ -638,7 +667,8 @@ body.waiting {
     font-family: "Glyphicons Halflings";
 }
 
-.ticket.new .ticket-title {
+.ticket.new .ticket-title,
+.ticket.responded .ticket-title {
     font-weight: bold;
 }
 
@@ -836,8 +866,8 @@ button.close-ticket:hover {
     font-size: 12px;
 }
 
-.editor textarea {
-    width: 100%;
+.comment .media {
+    padding-bottom: 10px;
 }
 
 .comment .media-body {
@@ -848,6 +878,13 @@ button.close-ticket:hover {
     font-size: 12px;
 }
 
+.editor textarea {
+    width: 100%;
+}
+
+.preview .rendered {
+    padding: 10px;
+}
 
 /* ## Footer ***************************************************************************/
 .footer-text {

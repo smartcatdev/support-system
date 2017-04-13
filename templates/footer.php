@@ -32,6 +32,7 @@ use SmartcatSupport\descriptor\Option;
             var Globals = {
                 ajax_url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
+                refresh_interval: <?php echo get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ); ?>,
                 strings: {
                     loading_tickets: "Loading Tickets...",
                     loading_generic: "Loading..."
