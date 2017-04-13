@@ -141,8 +141,8 @@ var App = (function ($) {
                     "</li>");
         var panel = $("<div id=\"" + data.id + "\" class=\"tab-pane fade\">" + data.content + "</div>");
 
-        _tabs.find(".nav").append(li);
-        _tabs.find(".tab-content").append(panel);
+        _tabs.find(".ticket-nav-tabs").append(li);
+        _tabs.find(".ticket-tab-panels").append(panel);
 
         $(".nav-tabs").scrollingTabs('refresh');
 

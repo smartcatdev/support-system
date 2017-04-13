@@ -113,7 +113,7 @@ use SmartcatSupport\descriptor\Option;
 
             <div id="tabs">
 
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs ticket-nav-tabs">
 
                     <li class="tab active">
                         <a data-toggle="tab" href="#tickets"><?php _e( 'Tickets', \SmartcatSupport\PLUGIN_ID ); ?></a>
@@ -121,7 +121,7 @@ use SmartcatSupport\descriptor\Option;
 
                 </ul>
 
-                <div class="tab-content">
+                <div class="tab-content ticket-tab-panels">
 
                     <div id="tickets" class="tab-pane fade in active">
 
