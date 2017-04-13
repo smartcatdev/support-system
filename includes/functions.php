@@ -354,6 +354,19 @@ namespace SmartcatSupport\proc {
         \SmartcatSupport\util\remove_caps( 'customer' );
         \SmartcatSupport\util\remove_caps( 'subscriber' );
         \SmartcatSupport\util\remove_caps( 'administrator' );
+
+        $administrator = get_role( 'administrator' );
+
+        $administrator->remove_cap( 'read_support_ticket' );
+        $administrator->remove_cap( 'read_support_tickets' );
+        $administrator->remove_cap( 'edit_support_ticket' );
+        $administrator->remove_cap( 'edit_support_tickets' );
+        $administrator->remove_cap( 'edit_others_support_tickets' );
+        $administrator->remove_cap( 'edit_published_support_tickets' );
+        $administrator->remove_cap( 'publish_support_tickets' );
+        $administrator->remove_cap( 'delete_others_support_tickets' );
+        $administrator->remove_cap( 'delete_private_support_tickets' );
+        $administrator->remove_cap( 'delete_published_support_tickets' );
     }
     
     function hex2rgb( $hex ) {
