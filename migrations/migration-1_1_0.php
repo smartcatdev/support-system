@@ -7,7 +7,7 @@ class migration_1_1_0 implements \SmartcatSupport\util\Migration {
     }
 
     /**
-     * Update any attachments with post_status = 'private'
+     * 1. Update any attachments with post_status = 'private'
      *
      * @return bool|WP_Error
      */

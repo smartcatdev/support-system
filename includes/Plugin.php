@@ -258,9 +258,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
             if( $migration->version() > $current ) {
                 if( is_wp_error( $migration->migrate() ) ) {
+                    \SmartcatSupport\util\admin_notice( __( 'uCare failed to update', $this->id ), array( 'notice', 'notice-error' ) );
                     break;
                 }
             }
+
+
         }
     }
 
