@@ -31,6 +31,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Notify subscribers if there is a version upgrade
         $version = get_option( Option::PLUGIN_VERSION, 0 );
 
+        // Perform migrations with the current version
+        $this->perform_migrations( $version );
+
         if( $this->version > $version ) {
             do_action( $this->id . '_upgrade', $version, $this->version );
             update_option( Option::PLUGIN_VERSION, $this->version );
@@ -38,9 +41,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         Mailer::init( $this );
 
-        $this->configure_roles();
-
-        include_once $this->dir . '/lib/tgm/tgmpa.php';
+        //include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
     public function activate() {
@@ -248,6 +249,18 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function feedback_form() {
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
             require_once $this->dir . '/templates/feedback.php';
+        }
+    }
+
+    private function perform_migrations( $current ) {
+        foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $filename ) {
+            $migration = include $filename;
+
+            if( $migration->version() > $current ) {
+                if( is_wp_error( $migration->migrate() ) ) {
+                    break;
+                }
+            }
         }
     }
 

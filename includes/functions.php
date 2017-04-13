@@ -16,6 +16,7 @@ namespace  SmartcatSupport\util {
 
     function can_use_support( $id = false ) {
         if( $id ) {
+
             $result = user_can( $id, 'use_support' );
         } else {
             $result = current_user_can( 'use_support' );
