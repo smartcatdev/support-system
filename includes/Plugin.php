@@ -29,14 +29,17 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
         // Notify subscribers if there is a version upgrade
-        $version = get_option( Option::PLUGIN_VERSION, 0 );
+        $current = get_option( Option::PLUGIN_VERSION, 0 );
 
-        // Perform migrations with the current version
-        $upgrade = $this->perform_migrations( $version );
+        if( $this->version > $current ) {
 
-        if( !is_wp_error( $upgrade ) && $this->version > $version ) {
-            do_action( $this->id . '_upgrade', $version, $this->version );
-            update_option( Option::PLUGIN_VERSION, $this->version );
+            // Perform migrations with the current version
+            $upgrade = $this->perform_migrations( $current );
+
+            if( !is_wp_error( $upgrade ) ) {
+                do_action( $this->id . '_upgrade', $current, $this->version );
+                update_option( Option::PLUGIN_VERSION, $this->version );
+            }
         }
 
         Mailer::init( $this );
