@@ -502,6 +502,10 @@ body.waiting {
     margin: 5px 0;
 }
 
+.ticket-list a.open-ticket {
+    display: inline-block;
+}
+
 #tickets-container .pagination {
     margin: 0;
 }
