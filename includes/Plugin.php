@@ -46,7 +46,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function activate() {
         $this->configure_roles();
-        $this->create_email_templates();
+        \SmartcatSupport\proc\create_email_templates();
         $this->setup_template_page();
     }
 

@@ -7,6 +7,14 @@ namespace SmartcatSupport {
     function url() {
         return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
     }
+
+    function plugin_dir() {
+        return Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID );
+    }
+
+    function plugin_url() {
+        return Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
+    }
 }
 
 namespace  SmartcatSupport\util {
@@ -258,8 +266,56 @@ namespace  SmartcatSupport\util {
 
 namespace SmartcatSupport\proc {
 
+    use SmartcatSupport\descriptor\Option;
+
     function create_email_templates() {
-        //TODO find a better way to setup templates
+
+        $default_templates = array(
+            array(
+                'template' => '/emails/ticket-created.html',
+                'option' => Option::CREATED_EMAIL_TEMPLATE,
+                'subject' => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/welcome.html',
+                'option' => Option::WELCOME_EMAIL_TEMPLATE,
+                'subject' => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/ticket-closed.html',
+                'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+                'subject' => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/ticket-reply.html',
+                'option' => Option::REPLY_EMAIL_TEMPLATE,
+                'subject' => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID )
+            )
+        );
+
+        $default_style = file_get_contents( \SmartcatSupport\plugin_dir() . '/emails/default-style.css' );
+
+        foreach( $default_templates as $config ) {
+            $template = get_post( get_option( $config['option'] ) );
+
+            if( is_null( get_post( $template ) ) ) {
+                $id = wp_insert_post(
+                    array(
+                        'post_type'     => 'email_template',
+                        'post_status'   => 'publish',
+                        'post_title'    => $config['subject'],
+                        'post_content'  => file_get_contents( \SmartcatSupport\plugin_dir() . $config['template'] )
+                    )
+                );
+
+                if( !empty( $id ) ) {
+                    update_post_meta( $id, 'styles', $default_style );
+                    update_option( $config['option'], $id );
+                }
+            } else {
+                wp_untrash_post( $template );
+            }
+        }
     }
 
     function configure_roles() {
