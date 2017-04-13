@@ -106,9 +106,7 @@ class Mailer implements HookSubscriber  {
             $content = self::parse_template( $template->post_content, $template, $recipient );
             $headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-            if( \SmartcatSupport\in_dev_mode() ) {
-                error_log("sent {$template->post_title} to {$recipient}");
-            }
+            error_log("sent {$template->post_title} to {$recipient}");
 
             $sent = wp_mail(
                 $recipient,
