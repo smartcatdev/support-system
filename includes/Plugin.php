@@ -258,7 +258,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     private function perform_migrations( $current ) {
         foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
             $migration = include_once( $file );
-            $result = true;
+            $result = null;
 
             if( $migration->version() > $current ) {
                 $result = $migration->migrate();
@@ -267,6 +267,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                     util\admin_notice( __( 'uCare failed to update', $this->id ), array( 'notice', 'notice-error' ) );
                     break;
                 }
+            }
+
+            if( $result == true ) {
+                util\admin_notice( __( 'uCare Support has been updated', $this->id ), array( 'notice', 'notice-success' ) );
             }
         }
 
