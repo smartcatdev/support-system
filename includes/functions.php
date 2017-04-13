@@ -319,11 +319,41 @@ namespace SmartcatSupport\proc {
     }
 
     function configure_roles() {
-        //TODO move this here from Plugin.php
+        $administrator = get_role( 'administrator' );
+
+        $administrator->add_cap( 'read_support_ticket' );
+        $administrator->add_cap( 'read_support_tickets' );
+        $administrator->add_cap( 'edit_support_ticket' );
+        $administrator->add_cap( 'edit_support_tickets' );
+        $administrator->add_cap( 'edit_others_support_tickets' );
+        $administrator->add_cap( 'edit_published_support_tickets' );
+        $administrator->add_cap( 'publish_support_tickets' );
+        $administrator->add_cap( 'delete_others_support_tickets' );
+        $administrator->add_cap( 'delete_private_support_tickets' );
+        $administrator->add_cap( 'delete_published_support_tickets' );
+
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+            add_role( $role, $name );
+        }
+
+        \SmartcatSupport\util\add_caps( 'customer' );
+        \SmartcatSupport\util\add_caps( 'subscriber' );
+        \SmartcatSupport\util\add_caps( 'support_user' );
+
+        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
+
+        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
+        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
     }
 
     function cleanup_roles() {
-        //TODO move this here from Plugin.php
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+            remove_role( $role );
+        }
+
+        \SmartcatSupport\util\remove_caps( 'customer' );
+        \SmartcatSupport\util\remove_caps( 'subscriber' );
+        \SmartcatSupport\util\remove_caps( 'administrator' );
     }
     
     function hex2rgb( $hex ) {

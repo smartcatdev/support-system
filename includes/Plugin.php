@@ -41,12 +41,15 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         Mailer::init( $this );
 
+        \SmartcatSupport\proc\configure_roles();
+
         //include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
     public function activate() {
-        $this->configure_roles();
+        \SmartcatSupport\proc\configure_roles();
         \SmartcatSupport\proc\create_email_templates();
+
         $this->setup_template_page();
     }
 
@@ -62,13 +65,13 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        $this->cleanup_roles();
+        \SmartcatSupport\proc\cleanup_roles();
 
         Mailer::cleanup();
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' && get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
             $options = new \ReflectionClass( Option::class );
 
             foreach( $options->getConstants() as $option ) {
@@ -270,87 +273,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return $result;
     }
 
-    private function create_email_templates() {
-        $welcome = get_option( Option::WELCOME_EMAIL_TEMPLATE );
-        $closed = get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE );
-        $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
-        $created = get_option( Option::CREATED_EMAIL_TEMPLATE );
-
-        $default_style = file_get_contents( $this->dir . '/emails/default-style.css' );
-
-        if( is_null( get_post( $created ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-created.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::CREATED_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $welcome );
-        }
-
-        if( is_null( get_post( $welcome ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $welcome );
-        }
-
-        if( is_null( get_post( $closed ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-closed.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $closed );
-        }
-
-        if( is_null( get_post( $reply ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-reply.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::REPLY_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $reply );
-        }
-    }
-
     private function setup_template_page() {
         $post_id = null;
         $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
@@ -374,43 +296,5 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         if( !empty( $post_id ) ) {
             update_option( Option::TEMPLATE_PAGE_ID, $post_id );
         }
-    }
-
-    private function configure_roles() {
-        $administrator = get_role( 'administrator' );
-
-        $administrator->add_cap( 'read_support_ticket' );
-        $administrator->add_cap( 'read_support_tickets' );
-        $administrator->add_cap( 'edit_support_ticket' );
-        $administrator->add_cap( 'edit_support_tickets' );
-        $administrator->add_cap( 'edit_others_support_tickets' );
-        $administrator->add_cap( 'edit_published_support_tickets' );
-        $administrator->add_cap( 'publish_support_tickets' );
-        $administrator->add_cap( 'delete_others_support_tickets' );
-        $administrator->add_cap( 'delete_private_support_tickets' );
-        $administrator->add_cap( 'delete_published_support_tickets' );
-
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
-            add_role( $role, $name );
-        }
-
-        \SmartcatSupport\util\add_caps( 'customer' );
-        \SmartcatSupport\util\add_caps( 'subscriber' );
-        \SmartcatSupport\util\add_caps( 'support_user' );
-
-        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
-
-        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
-        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
-    }
-
-    private function cleanup_roles() {
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
-            remove_role( $role );
-        }
-
-        \SmartcatSupport\util\remove_caps( 'customer' );
-        \SmartcatSupport\util\remove_caps( 'subscriber' );
-        \SmartcatSupport\util\remove_caps( 'administrator' );
     }
 }
