@@ -32,9 +32,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $version = get_option( Option::PLUGIN_VERSION, 0 );
 
         // Perform migrations with the current version
-        $this->perform_migrations( $version );
+        $upgrade = $this->perform_migrations( $version );
 
-        if( $this->version > $version ) {
+        if( !is_wp_error( $upgrade ) && $this->version > $version ) {
             do_action( $this->id . '_upgrade', $version, $this->version );
             update_option( Option::PLUGIN_VERSION, $this->version );
         }
@@ -253,18 +253,21 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     private function perform_migrations( $current ) {
-        foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $filename ) {
-            $migration = include $filename;
+        foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
+            $migration = include_once( $file );
+            $result = true;
 
             if( $migration->version() > $current ) {
-                if( is_wp_error( $migration->migrate() ) ) {
+                $result = $migration->migrate();
+
+                if( is_wp_error( $result ) ) {
                     \SmartcatSupport\util\admin_notice( __( 'uCare failed to update', $this->id ), array( 'notice', 'notice-error' ) );
                     break;
                 }
             }
-
-
         }
+
+        return $result;
     }
 
     private function create_email_templates() {

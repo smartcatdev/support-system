@@ -1,9 +1,9 @@
 <?php
 
-class migration_1_1_1 implements \SmartcatSupport\util\Migration {
+class migration_1_1_0 implements \SmartcatSupport\util\Migration {
 
     function version () {
-        return '1.1.1';
+        return '1.1.0';
     }
 
     /**
