@@ -41,15 +41,8 @@ var Settings = (function ($) {
             extras: {
                 _ajax_nonce: Globals.ajax_nonce
             },
-            success: function (response) {
-                var message = _.template($("script.notice-inline").html());
-
-                $("#new-password").val("");
-                $("#confirm-password").val("");
-
-                settings.find(".form-control-feedback").remove();
-                settings.find(".has-success").remove();
-                modal.find(".message").html(message(response.data));
+            success: function () {
+                window.location.reload();
             },
             complete: function () {
                 submit.prop("disabled", false);

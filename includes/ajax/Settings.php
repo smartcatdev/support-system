@@ -18,6 +18,7 @@ class Settings extends AjaxComponent {
             if( !empty( $form->data['new_password'] ) ) {
                 if( $form->data['new_password'] == $form->data['confirm_password'] ) {
                     wp_set_password( $form->data['new_password'], wp_get_current_user()->ID );
+                    wp_set_auth_cookie( wp_get_current_user()->ID );
                 }
             }
 

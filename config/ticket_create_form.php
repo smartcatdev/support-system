@@ -50,6 +50,7 @@ $form->add_field( new TextBoxField(
         'class'         => array( 'form-control' ),
         'label'         => __( 'Subject', \SmartcatSupport\PLUGIN_ID ),
         'error_msg'     => __( 'Cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'sanitize_callback' => 'sanitize_text_field',
         'props'         => array(
             'data-default' => array( '' )
         ),
@@ -64,6 +65,7 @@ $form->add_field( new TextBoxField(
         'class'         => array( 'form-control' ),
         'label'         => __( 'Subject', \SmartcatSupport\PLUGIN_ID ),
         'error_msg'     => __( 'Subject cannot be blank', \SmartcatSupport\PLUGIN_ID ),
+        'sanitize_callback' => 'sanitize_text_field',
         'props'         => array(
             'data-default' => array( '' )
         ),

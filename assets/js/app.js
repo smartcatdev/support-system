@@ -22,6 +22,30 @@ var App = (function ($) {
         $(document).on("change", ".filter-field", _filter_off);
         $(document).on("show.bs.modal", "#create-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", "#create-modal", _reset_media_dropzone);
+        $(document).on('shown.bs.tab', '.editor-tab', _preview_comment);
+    };
+
+    var close_preview = function (tabs) {
+        $(tabs).find('li.edit a').tab('show');
+    };
+
+    var _preview_comment = function (e) {
+        var tab = $(e.target);
+        var pane = $(tab.attr("href"));
+
+        if(pane.hasClass('preview')) {
+            var content = $(pane.prev()).find('.editor-content').val();
+            var html = content.match(/<code>(.*?)<\/code>/g);
+
+            if(html != null) {
+                html.forEach(function (block) {
+                    block = block.replace(/<code[^>]*>/gi, '').replace(/<\/code>/gi, '');
+                    content = content.replace(block, _.escape(block));
+                });
+            }
+
+            pane.find('.rendered').html(content);
+        }
     };
 
     var _reset_media_dropzone = function(e) {
@@ -117,8 +141,8 @@ var App = (function ($) {
                     "</li>");
         var panel = $("<div id=\"" + data.id + "\" class=\"tab-pane fade\">" + data.content + "</div>");
 
-        _tabs.find(".nav").append(li);
-        _tabs.find(".tab-content").append(panel);
+        _tabs.find(".ticket-nav-tabs").append(li);
+        _tabs.find(".ticket-tab-panels").append(panel);
 
         $(".nav-tabs").scrollingTabs('refresh');
 
@@ -282,10 +306,10 @@ var App = (function ($) {
         _bind_events();
         load_tickets();
         load_statistics();
-        
-        setInterval( load_tickets, 1000 * 30);
-        setInterval( load_statistics, 1000 * 30);
-        
+
+        setInterval(load_tickets, 1000 * Globals.refresh_interval);
+        setInterval( load_statistics, 1000 * Globals.refresh_interval);
+
     };
 
     return {
@@ -293,6 +317,7 @@ var App = (function ($) {
         initialize: initialize,
         new_tab: new_tab,
         open_tab: open_tab,
+        close_preview: close_preview,
         load_statistics: load_statistics,
         ajax_loader: ajax_loader
     };
