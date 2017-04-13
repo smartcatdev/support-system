@@ -2,6 +2,8 @@
 
 use SmartcatSupport\descriptor\Option;
 
+$ver = get_option( Option::PLUGIN_VERSION );
+
 ?>
         <footer id="footer">
 
@@ -78,18 +80,18 @@ use SmartcatSupport\descriptor\Option;
 
         </script>
 
-        <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ); ?>"></script>
-        <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js'; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js'; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js'; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js'; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js'; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/plugins.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/app.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/settings.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/ticket.js' ?>" ></script>
-        <script src="<?php echo $url . 'assets/js/comment.js' ?>" ></script>
+        <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/plugins.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/app.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/settings.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/ticket.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/comment.js' . '?ver=' . $ver ?>" ></script>
 
         <script>
 
