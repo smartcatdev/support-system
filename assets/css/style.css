@@ -244,6 +244,15 @@ textarea {
     #filters #filter-actions {
         margin-top: -20px;
     }
+    
+    #statistics-container .stat-tab h4 {
+        height: 15px !important;
+        line-height: 25px !important;
+    }
+    
+    #statistics-container .stat-tab span.glyphicon {
+        top: 15px !important;
+    }
 }
 
 .row {
