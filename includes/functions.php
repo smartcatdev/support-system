@@ -14,6 +14,36 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
+    function can_use_support( $id = false ) {
+        if( $id ) {
+            $result = user_can( $id, 'use_support' );
+        } else {
+            $result = current_user_can( 'use_support' );
+        }
+
+        return $result;
+    }
+
+    function can_manage_tickets( $id = false ) {
+        if( $id ) {
+            $result = user_can( $id, 'manage_support_tickets' );
+        } else {
+            $result = current_user_can( 'manage_support_tickets' );
+        }
+
+        return $result;
+    }
+
+    function can_manage_support( $id = false ) {
+        if( $id ) {
+            $result = user_can( $id, 'manage_support' );
+        } else {
+            $result = current_user_can( 'manage_support' );
+        }
+
+        return $result;
+    }
+
     function just_now( $stamp ) {
         $now = date_create();
         $date = date_create( $stamp );
@@ -104,7 +134,6 @@ namespace  SmartcatSupport\util {
             }
             
             $post_type = implode('","', $post_type );
-            
             
             if( !empty( $post_type ) ) {
 
@@ -207,11 +236,12 @@ namespace  SmartcatSupport\util {
     function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
         $query = new \WP_Query(
             array(
-                'post_parent' => $ticket->ID,
-                'post_type' => 'attachment',
-                'post_mime_type' => 'image',
-                'orderby' => $order,
-                'order' => $order
+                'post_parent'       => $ticket->ID,
+                'post_type'         => 'attachment',
+                'post_mime_type'    => 'image',
+                'post_status'       => 'inherit',
+                'orderby'           => $order,
+                'order'             => $order
             ) );
 
         return $query->posts;

@@ -11,7 +11,7 @@ class Media extends AjaxComponent {
         $result = media_handle_upload( 'file', isset( $_REQUEST['ticket_id'] ) ? $_REQUEST['ticket_id'] : 0 );
 
         if( !is_wp_error( $result ) ) {
-            wp_update_post( array( 'ID' => $result, 'post_status' => 'private' ) );
+            wp_update_post( array( 'ID' => $result ) );
             wp_send_json_success( array( 'id' => $result ), 200 );
         } else {
             wp_send_json_error( array( 'message' => $result->get_error_message() ), 400 );
@@ -64,9 +64,23 @@ class Media extends AjaxComponent {
         return $file;
     }
 
+    public function restrict_uploads() {
+        if( get_post_type() == 'attachment' ) {
+            $post = get_post();
+            $parent = get_post( $post->post_parent );
+
+            if( $parent->post_type == 'support_ticket' ) {
+                wp_safe_redirect( home_url(), 301 );
+            } else {
+                return;
+            }
+        }
+    }
+
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
             'upload_dir' => array( 'media_dir' ),
+            'template_redirect' => array( 'restrict_uploads' ),
             'wp_handle_upload_prefilter' => array( 'generate_filename' ),
             'wp_ajax_support_upload_media' => array( 'upload_media' ),
             'wp_ajax_support_delete_media' => array( 'delete_media' )
