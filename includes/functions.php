@@ -289,7 +289,7 @@ namespace SmartcatSupport\proc {
     
 }
 
-namespace SmartcatSupport\statprocs{
+namespace SmartcatSupport\statprocs {
     
     function get_unclosed_tickets() {
         
