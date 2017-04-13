@@ -36,10 +36,12 @@ var App = (function ($) {
             var content = $(pane.prev()).find('.editor-content').val();
             var html = content.match(/<code>(.*?)<\/code>/g);
 
-            html.forEach(function (block) {
-                block = block.replace(/<code[^>]*>/gi, '').replace(/<\/code>/gi, '');
-                content = content.replace(block, _.escape(block));
-            });
+            if(html != null) {
+                html.forEach(function (block) {
+                    block = block.replace(/<code[^>]*>/gi, '').replace(/<\/code>/gi, '');
+                    content = content.replace(block, _.escape(block));
+                });
+            }
 
             pane.find('.rendered').html(content);
         }

@@ -45,11 +45,11 @@ $user = wp_get_current_user();
                   <ul class="nav nav-tabs">
 
                       <li class="tab editor-tab active edit">
-                          <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                          <a class="nav-link" data-toggle="tab" href="#ticket-<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
                       </li>
 
                       <li class="tab editor-tab preview">
-                          <a class="nav-link" data-toggle="tab" href="#<?php echo $ticket->ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                          <a class="nav-link" data-toggle="tab" href="#ticket-<?php echo $ticket->ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
                       </li>
 
                   </ul>
@@ -62,13 +62,13 @@ $user = wp_get_current_user();
 
                         <div class="tab-content">
 
-                            <div id="<?php echo $ticket->ID; ?>-editor" class="editor-pane tab-pane active">
+                            <div id="ticket-<?php echo $ticket->ID; ?>-editor" class="editor-pane tab-pane active">
 
                                 <textarea class="editor-content form-control" name="content" rows="5"></textarea>
 
                             </div>
 
-                            <div id="<?php echo $ticket->ID; ?>-preview" class="tab-pane preview">
+                            <div id="ticket-<?php echo $ticket->ID; ?>-preview" class="tab-pane preview">
 
                                 <div class="rendered"></div>
 
