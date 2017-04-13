@@ -28,7 +28,7 @@ $user = wp_get_current_user();
 
             <div class="panel-body">
 
-                <p><?php echo $ticket->post_content; ?></p>
+                <p class="formatted"><?php echo $ticket->post_content; ?></p>
 
             </div>
 

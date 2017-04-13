@@ -9,7 +9,7 @@ use SmartcatSupport\Plugin;
 
     <div id="comment-<?php echo $comment->comment_ID; ?>"
          data-id="<?php esc_attr_e( $comment->comment_ID ); ?>"
-         class="comment panel panel-default">
+         class="comment panel panel-default <?php echo $comment->user_id == wp_get_current_user()->ID ? 'current-user' : null;?>">
 
         <div class="panel-heading">
 
@@ -54,11 +54,7 @@ use SmartcatSupport\Plugin;
 
         <div class="panel-body">
 
-            <div class="comment-content">
-
-                <?php echo stripcslashes( $comment->comment_content ); ?>
-
-            </div>
+            <div class="comment-content formatted"><?php echo stripcslashes( $comment->comment_content ); ?></div>
 
             <div class="editor">
 
