@@ -48,7 +48,7 @@ $form->add_field( new TextBoxField(
         'id'        => 'confirm-password',
         'class'     => array( 'form-control', 'settings-control' ),
         'type'      => 'password',
-        'error_msg'     => __( 'Passwords don\'t match', \SmartcatSupport\PLUGIN_ID ),
+        'error_msg' => __( 'Passwords don\'t match', \SmartcatSupport\PLUGIN_ID ),
         'label'     => __( 'Confirm Password', \SmartcatSupport\PLUGIN_ID ),
         'constraints'   => array(
             new MatchConstraint( isset( $_REQUEST['new_password'] ) ? $_REQUEST['new_password'] : '' )

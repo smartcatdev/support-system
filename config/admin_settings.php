@@ -12,6 +12,9 @@ use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
 use smartcat\mail\Mailer;
 use SmartcatSupport\descriptor\Option;
+use SmartcatSupport\Plugin;
+
+$plugin_url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
 
 $admin = new TabbedSettingsPage(
     array(
@@ -228,8 +231,17 @@ $general->add_field( new TextField(
         'id'            => 'support_logo_image',
         'class'         => array( 'image-upload' ),
         'option'        => Option::LOGO,
-        'value'         => get_option( Option::LOGO, Option\Defaults::LOGO ),
+        'value'         => get_option( Option::LOGO, $plugin_url . 'assets/images/logo.png' ),
         'label'         => __( 'Logo Image', \SmartcatSupport\PLUGIN_ID )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_favicon',
+        'class'         => array( 'image-upload' ),
+        'option'        => Option::FAVICON,
+        'value'         => get_option( Option::FAVICON, $plugin_url . 'assets/images/favicon.png' ),
+        'label'         => __( 'Favicon', \SmartcatSupport\PLUGIN_ID )
     )
 
 ) )->add_field( new TextField(
@@ -290,6 +302,17 @@ $general->add_field( new TextField(
         'value'         => get_option( Option::MAX_ATTACHMENT_SIZE, Option\Defaults::MAX_ATTACHMENT_SIZE ),
         'label'         => __( 'Maximum attachment size', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'The maximum file size for attachments in MB', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new IntegerValidator() )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_refresh_time',
+        'type'          => 'number',
+        'option'        => Option::REFRESH_INTERVAL,
+        'value'         => get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ),
+        'label'         => __( 'Refresh Interval', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Automatic refresh interval in seconds', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new IntegerValidator() )
     )
 

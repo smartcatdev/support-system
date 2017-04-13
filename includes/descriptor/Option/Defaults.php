@@ -180,4 +180,9 @@ final class Defaults {
      * @since 1.0.2
      */
     const TERMS_URL = '#';
+
+    /**
+     * @since 1.1
+     */
+    const REFRESH_INTERVAL = '60';
 }
