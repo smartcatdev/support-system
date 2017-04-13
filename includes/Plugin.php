@@ -41,14 +41,14 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
         Mailer::init( $this );
 
-        \SmartcatSupport\proc\configure_roles();
+        proc\configure_roles();
 
         //include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
     public function activate() {
-        \SmartcatSupport\proc\configure_roles();
-        \SmartcatSupport\proc\create_email_templates();
+        proc\configure_roles();
+        proc\create_email_templates();
 
         $this->setup_template_page();
     }
@@ -65,7 +65,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        \SmartcatSupport\proc\cleanup_roles();
+        proc\cleanup_roles();
 
         Mailer::cleanup();
 
@@ -83,7 +83,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
     }
 
     public function settings_shortcut_redirect() {
@@ -153,12 +153,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 'notice_can_install_required' => _n_noop(
                     'Smartcat Support requires the following plugin: %1$s.',
                     'Smartcat Support requires the following plugins: %1$s.',
-                    \SmartcatSupport\PLUGIN_ID
+                    PLUGIN_ID
                 ),
                 'notice_can_install_recommended' => _n_noop(
                     'Smartcat Support recommends the following plugin: %1$s.',
                     'Smartcat Support recommends the following plugins: %1$s.',
-                    \SmartcatSupport\PLUGIN_ID
+                    PLUGIN_ID
                 ),
             )
         );
@@ -168,7 +168,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function login_failed() {
         if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
-            wp_redirect( \SmartcatSupport\url() . '?login=failed' );
+            wp_redirect( url() . '?login=failed' );
             exit;
         }
     }
@@ -176,7 +176,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function authenticate( $user, $username, $password ) {
         if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
             if ( $username == "" || $password == "" ) {
-                wp_redirect( \SmartcatSupport\url() . "?login=empty" );
+                wp_redirect( url() . "?login=empty" );
                 exit;
             }
         }
@@ -204,7 +204,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function mailer_text_domain( $text_domain ) {
-        return \SmartcatSupport\PLUGIN_ID;
+        return PLUGIN_ID;
     }
 
     public function components() {
@@ -218,7 +218,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             ajax\Statistics::class
         );
 
-        if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {
+        if( util\ecommerce_enabled( false ) ) {
             $components[] = ECommerce::class;
         }
 
@@ -264,7 +264,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 $result = $migration->migrate();
 
                 if( is_wp_error( $result ) ) {
-                    \SmartcatSupport\util\admin_notice( __( 'uCare failed to update', $this->id ), array( 'notice', 'notice-error' ) );
+                    util\admin_notice( __( 'uCare failed to update', $this->id ), array( 'notice', 'notice-error' ) );
                     break;
                 }
             }
@@ -282,7 +282,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', \SmartcatSupport\PLUGIN_ID )
+                    'post_title' => __( 'Support', PLUGIN_ID )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
