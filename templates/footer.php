@@ -81,6 +81,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
         </script>
 
+            <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ) . '?ver=' . $ver; ?>"></script>
             <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
             <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js' . '?ver=' . $ver; ?>"></script>
             <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js' . '?ver=' . $ver; ?>"></script>

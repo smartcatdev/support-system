@@ -20,7 +20,6 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link href="<?php echo $url . 'assets/css/style.css' . '?ver=' . $ver; ?>" rel="stylesheet">
-    <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ) . '?ver=' . $ver; ?>"></script>
     <link href="<?php echo get_option( Option::FAVICON ); ?>" rel="icon">
 
     <?php include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/assets/css/dynamic.php'; ?>
