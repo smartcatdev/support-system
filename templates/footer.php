@@ -7,8 +7,6 @@ use SmartcatSupport\descriptor\Option;
 
             <div class="container">
 
-                <hr>
-
                 <p class="footer-text text-center">
 
                     <?php $footer_text = get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?>

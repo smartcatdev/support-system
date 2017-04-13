@@ -27,7 +27,8 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
         background: <?php echo $tertiary_color; ?>;
     }
     
-    #tickets-container .ticket-title {
+    #tickets-container .ticket-title,
+    .nav-tabs .tab .title{
         color: <?php echo $secondary_color; ?>;
     }
     
@@ -50,11 +51,15 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     }
 
     /* Secondary color */
-    #navbar {
+    #navbar,
+    #footer{
         background: <?php echo $secondary_color; ?>;
     }
 
     /* Hover color */
+    a {
+        color: <?php echo $primary_color; ?>;
+    }
     a:focus, a:hover{
         color: <?php echo $hover_color; ?>;
     }
