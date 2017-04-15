@@ -183,14 +183,18 @@ var Ticket = (function ($) {
                 },
                 complete: function () {
                     target.prop("disabled", false);
-
+                    
                     setTimeout(function () {
                         var ticket = $("#" + id);
-
+                        
                         ticket.find(".ticket-detail").fadeToggle();
                         ticket.find(".loader-mask").hide();
-
-                    }, 1000);
+                        
+                        $('html, body').animate({
+                            scrollTop: $("#tabs").offset().top
+                        }, 200 );
+                        
+                    }, 750 );
                 }
             });
         }

@@ -50,7 +50,7 @@ use SmartcatSupport\descriptor\Option;
                                 <?php $products = \SmartcatSupport\util\products(); ?>
                                 <?php $product = get_post_meta( $post->ID, 'product', true ); ?>
 
-                                <a class="open-ticket" href="#" data-id="<?php echo $post->ID; ?>">
+                                <a class="open-ticket" data-id="<?php echo $post->ID; ?>">
 
                                     <h4 class="ticket-title"><?php echo $post->post_title; ?></h4>
 

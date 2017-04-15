@@ -222,7 +222,17 @@ var App = (function ($) {
         refresh.addClass("rotate");
         $.ajax(request);
     };
-
+    
+    var adjust_login = function( e ) {
+        
+        return;
+        
+        $('#support-login-page').css({
+            width: $('body').width(),
+            height: $('body').height(),
+        });
+    }
+    
     var _register_user = function (e) {
         e.preventDefault();
 
@@ -306,6 +316,7 @@ var App = (function ($) {
         _bind_events();
         load_tickets();
         load_statistics();
+        adjust_login();
 
         setInterval(load_tickets, 1000 * Globals.refresh_interval);
         setInterval( load_statistics, 1000 * Globals.refresh_interval);
