@@ -98,7 +98,7 @@ use SmartcatSupport\descriptor\Option;
         <?php endif; ?>
         
         <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
-        <div class="row">
+        <div class="row statistics-wrapper">
             <div id="statistics-container"></div>            
         </div>
         <?php endif; ?>

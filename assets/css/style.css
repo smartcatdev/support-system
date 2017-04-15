@@ -164,10 +164,16 @@ textarea {
                 animation-bounce 1.4s ease 600ms infinite;
 }
 
+.widget-wrapper.row {
+    padding: 5px 20px;
+}
+
 /* # Carousel *************************************************************************/
 .carousel-caption {
     color: #333;
-    font-size: 18px;
+    font-size: 22px;
+    text-shadow: none;
+    font-weight: 600;
 }
 
 .carousel-control.left,
@@ -186,15 +192,14 @@ textarea {
 }
 
 #footer {
-    position: absolute;
     bottom: 0;
     width: 100%;
-    height: 80px;
+    background: #fff;
 }
 
 @media( max-width: 500px ) {
     #footer {
-        display: none;
+        
     }
 }
 
@@ -206,6 +211,13 @@ textarea {
     
     #filter-controls .row-table-cell{
         display: block;
+    }
+    
+    #statistics-container .stat-tab {
+        width: 100%;
+        display: block;
+        padding-left: 0;
+        padding-right: 0;
     }
     
 }
@@ -245,6 +257,10 @@ textarea {
         margin-top: -20px;
     }
     
+    .statistics-wrapper {
+        min-height: 160px;
+    }
+    
     #statistics-container .stat-tab h4 {
         height: 15px !important;
         line-height: 25px !important;
@@ -253,6 +269,14 @@ textarea {
     #statistics-container .stat-tab span.glyphicon {
         top: 15px !important;
     }
+    
+    #statistics-container .stat-tab:first-of-type {
+        padding-left: 0;
+    }
+    #statistics-container .stat-tab:last-of-type {
+        padding-right: 0;
+    }
+    
 }
 
 .row {
@@ -275,20 +299,18 @@ textarea {
     height: 100%;
     background-size: cover;
     background-attachment: fixed;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 #support-login-wrapper {
-    margin: 70px auto;
+    margin: 0 auto;
     width: 400px;
     position: relative;
+    padding-top: 50px;
 }
 
 @media( max-width: 500px ) {
     #support-login-wrapper {
-        margin: 15px;
+        padding: 15px;
         width: 90%;
         height: 90%;
     }
@@ -306,6 +328,27 @@ textarea {
     
     #support-login-wrapper #support-login-form #login p {
         margin-bottom: 7px !important;
+    }
+    
+    .button,
+    .button-primary, input[type="submit"] {
+        padding: 8px 12px;
+    }
+    
+    .ticket-list a.open-ticket {
+        display: block;
+    }
+    
+    #tickets-container .ticket .product {
+        margin: 0 !important;
+    }
+    
+    #tickets-container .ticket .media-right {
+        display: none;
+    }
+    
+    #tickets-container .ticket-title {
+        font-size: 16px;
     }
 }
 
@@ -467,6 +510,7 @@ textarea {
     font-size: 12px;
 }
 
+
 /* ### Tabs ****************************************************************************/
 
 .panel-default>.panel-heading,
@@ -533,6 +577,7 @@ textarea {
 
 .ticket-list a.open-ticket {
     display: inline-block;
+    cursor: pointer;
 }
 
 #tickets-container .pagination {
@@ -855,6 +900,14 @@ button.close-ticket:hover {
 }
 
 /* #### Comments ***********************************************************************/
+
+.discussion-area {
+}
+
+.ticket-area-wrapper {
+    min-height: 600px;
+}
+
 .comments .comment .meta p {
     font-size: 8pt;
 }
@@ -890,7 +943,7 @@ button.close-ticket:hover {
 
 /* ## Footer ***************************************************************************/
 .footer-text {
-    padding-bottom: 20px;
+    padding: 15px;
     font-size: 12px;
     color: #9d9d9d;
 }
