@@ -171,7 +171,9 @@ textarea {
 /* # Carousel *************************************************************************/
 .carousel-caption {
     color: #333;
-    font-size: 18px;
+    font-size: 22px;
+    text-shadow: none;
+    font-weight: 600;
 }
 
 .carousel-control.left,
@@ -267,6 +269,14 @@ textarea {
     #statistics-container .stat-tab span.glyphicon {
         top: 15px !important;
     }
+    
+    #statistics-container .stat-tab:first-of-type {
+        padding-left: 0;
+    }
+    #statistics-container .stat-tab:last-of-type {
+        padding-right: 0;
+    }
+    
 }
 
 .row {
@@ -500,12 +510,6 @@ textarea {
     font-size: 12px;
 }
 
-#statistics-container .stat-tab:first-of-type {
-    padding-left: 0;
-}
-#statistics-container .stat-tab:last-of-type {
-    padding-right: 0;
-}
 
 /* ### Tabs ****************************************************************************/
 
@@ -899,7 +903,7 @@ button.close-ticket:hover {
 .discussion-area {
 }
 
-.tab-content>.tab-pane {
+.ticket-area-wrapper {
     min-height: 600px;
 }
 
