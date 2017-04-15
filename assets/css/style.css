@@ -577,6 +577,7 @@ textarea {
 
 .ticket-list a.open-ticket {
     display: inline-block;
+    cursor: pointer;
 }
 
 #tickets-container .pagination {
