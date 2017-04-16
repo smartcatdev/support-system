@@ -513,6 +513,10 @@ textarea {
 
 /* ### Tabs ****************************************************************************/
 
+.scrtabs-tabs-fixed-container ul.nav-tabs>li {
+    white-space: initial !important;
+}
+
 .panel-default>.panel-heading,
 .input-group-addon,
 .btn.btn-default{
