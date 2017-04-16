@@ -7,7 +7,7 @@ Tested up to: 4.7.3
 Stable tag: 1.0.1
 License: GPLv2 or later
 
-A support desk for your customers featuring multiple usergroups,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
+If you have customers, then yoy need uCare. A support ticket help desk for your customers featuring multiple usergroups,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
 
 == Description ==
 
@@ -43,9 +43,10 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 
 == Screenshots ==
 
-1. Create ticket modal
-2. Ticket list view
+1. Help desk dashboard ( Ticket list )
+2. Create ticket view
 3. Single ticket view
+4. Automated email notifications
 
 == Installation ==
 1. Download the plugin, then upload the zipped file to your site from the WordPress dashboard plugin uploader menu
