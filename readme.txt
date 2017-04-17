@@ -62,9 +62,13 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - Bug fixes
 - Ability for Customer to close their own tickets
 - Ability to upload custom image for the login page
-
+- Statistics widget
+- Customizable widget areas on the login screen & tickets list view
 
 = 1.0.1 = Bug fixes
 - Fixed scope issue which was causing conflicts with some plugins
 
 = 1.0.0 = initial release
+
+== Requirements == 
+- PHP 5.6 or higher
