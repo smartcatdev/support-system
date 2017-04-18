@@ -35,12 +35,12 @@ var App = (function ($) {
 
         if(pane.hasClass('preview')) {
             var content = $(pane.prev()).find('.editor-content').val();
-            var html = content.match(/<code>(.*?)<\/code>/g);
+            var html = content.match(/<code>([\s\S]*?)<\/code>/g);
 
             if(html != null) {
                 html.forEach(function (block) {
                     block = block.replace(/<code[^>]*>/gi, '').replace(/<\/code>/gi, '');
-                    content = content.replace(block, _.escape(block));
+                    content = content.replace(block, _.escape(block).trim());
                 });
             }
 
