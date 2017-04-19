@@ -4,6 +4,8 @@
 
         var _target = $(this);
 
+        var ignore = false;
+
         var _defaults = {
             title: "Are you sure?",
             content: "Are you sure?",
@@ -27,13 +29,11 @@
 
         modal.modal('show');
 
-        var ignore = false;
-
         modal.find('button.confirm').on('click', function () {
             callback(true);
             ignore = true;
             modal.modal('hide')
-        })
+        });
 
         modal.on('hidden.bs.modal', function () {
             if(!ignore) {
@@ -41,7 +41,7 @@
             }
 
             modal.remove()
-        })
+        });
 
     };
 

@@ -11,7 +11,14 @@
 
     var _delete_comment = function (e) {
 
-        $('body').confirm({ id: 'delete_comment' }, function (val) {
+        $('body').confirm( {
+            id: 'delete_comment',
+            okay_text: Globals.strings.yes,
+            cancel_text: Globals.strings.cancel,
+            title: Globals.strings.delete_comment,
+            content: Globals.strings.warning_permanent
+
+        }, function (val) {
 
             if (val) {
                 var target = $(e.target).prop("disabled", true);
@@ -37,7 +44,6 @@
                     }
                 });
             }
-
         })
     };
 

@@ -34,8 +34,12 @@ $ver = get_option( Option::PLUGIN_VERSION );
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
                 refresh_interval: <?php echo get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ); ?>,
                 strings: {
-                    loading_tickets: "Loading Tickets...",
-                    loading_generic: "Loading..."
+                    loading_tickets: "<?php _e( "Loading Tickets...", \SmartcatSupport\PLUGIN_ID ); ?>",
+                    loading_generic: "<?php _e( "Loading...", \SmartcatSupport\PLUGIN_ID ); ?>",
+                    delete_comment: "<?php _e( "Delete Comment", \SmartcatSupport\PLUGIN_ID ); ?>",
+                    warning_permanent: "<?php _e( "Are you sure you want to do this? This operation cannot be undone!", \SmartcatSupport\PLUGIN_ID ); ?>",
+                    yes: "<?php _e( "Yes", \SmartcatSupport\PLUGIN_ID ); ?>",
+                    cancel: "<?php _e( "Cancel", \SmartcatSupport\PLUGIN_ID ); ?>"
                 }
             };
 
