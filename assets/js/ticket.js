@@ -3,7 +3,7 @@ var Ticket = (function ($) {
 
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
-        $(document).on("click", ".confirm-close-ticket", _close_ticket);
+        $(document).on("click", ".close-ticket", _close_ticket);
         $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
@@ -152,22 +152,34 @@ var Ticket = (function ($) {
     };
 
     var _close_ticket = function (e) {
-        var modal = $(e.target).parents('.modal');
-        var id = modal.data('ticket_id');
+        var close_button = $(e.target);
+        var id = close_button.data('ticket_id');
 
-        $.post({
-            url: Globals.ajax_url,
-            dataType: 'json',
-            data: {
-                _ajax_nonce: Globals.ajax_nonce,
-                action: 'support_close_ticket',
-                id: id
-            },
-            success: function (reponse) {
-                load_sidebar(id);
-                modal.modal('toggle');
-                $('#close-ticket-' + id).remove();
+        $('body').confirm({
+            id: 'delete_attachment',
+            okay_text: Globals.strings.yes,
+            cancel_text: Globals.strings.cancel,
+            title: Globals.strings.close_ticket,
+            content: Globals.strings.warning_permanent
+
+        }, function (val) {
+
+            if (val) {
+                $.post({
+                    url: Globals.ajax_url,
+                    dataType: 'json',
+                    data: {
+                        _ajax_nonce: Globals.ajax_nonce,
+                        action: 'support_close_ticket',
+                        id: id
+                    },
+                    success: function () {
+                        load_sidebar(id);
+                        close_button.remove();
+                    }
+                });
             }
+
         });
     };
 
