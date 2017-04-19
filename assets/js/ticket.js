@@ -161,10 +161,13 @@ var Ticket = (function ($) {
     var _open_ticket = function (e) {
         var target = $(e.target);
         var id = target.data("id");
-        
-        $('html, body').animate({
-            scrollTop: $("#statistics-container").offset().top
-        }, 200 );
+        var statistics = $("#statistics-container");
+
+        if(statistics.length > 0) {
+            $('html, body').animate({
+                scrollTop: statistics.offset().top
+            }, 200 );
+        }
 
         if (!App.open_tab(id)) {
             target.prop("disabled", true);
