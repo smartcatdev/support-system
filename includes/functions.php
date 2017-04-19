@@ -14,6 +14,10 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
+    function user_full_name( $user ) {
+        return $user->first_name . ' ' . $user->last_name;
+    }
+
     function can_use_support( $id = false ) {
         if( $id ) {
             $result = user_can( $id, 'use_support' );
