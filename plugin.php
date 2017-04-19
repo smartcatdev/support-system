@@ -19,7 +19,7 @@ if( !defined( 'ABSPATH' ) ) {
 }
 
 const PLUGIN_ID = "smartcat_support";
-const PLUGIN_VERSION = '1.1.2';
+const PLUGIN_VERSION = '1.1.1';
 
 
 // Manual includes
