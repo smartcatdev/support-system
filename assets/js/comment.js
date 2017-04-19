@@ -10,29 +10,35 @@
     };
 
     var _delete_comment = function (e) {
-        var target = $(e.target).prop("disabled", true);
-        var id = target.data("id");
-        var comment = $("#comment-" + id);
 
-        comment.fadeToggle();
+        $('body').confirm({ id: 'delete_comment' }, function (val) {
 
-        $.ajax({
-            url: Globals.ajax_url,
-            dataType: "json",
-            data: {
-                action: "support_delete_comment",
-                comment_id: id,
-                _ajax_nonce: Globals.ajax_nonce
-            },
-            success: function () {
-                var wrapper = comment.parents(".wrapper");
+            if (val) {
+                var target = $(e.target).prop("disabled", true);
+                var id = target.data("id");
+                var comment = $("#comment-" + id);
 
-                wrapper.fadeToggle("slow", function () {
-                    wrapper.remove();
+                comment.fadeToggle();
+
+                $.ajax({
+                    url: Globals.ajax_url,
+                    dataType: "json",
+                    data: {
+                        action: "support_delete_comment",
+                        comment_id: id,
+                        _ajax_nonce: Globals.ajax_nonce
+                    },
+                    success: function () {
+                        var wrapper = comment.parents(".wrapper");
+
+                        wrapper.fadeToggle("slow", function () {
+                            wrapper.remove();
+                        });
+                    }
                 });
             }
-        });
 
+        })
     };
 
     var _save_comment = function (e) {

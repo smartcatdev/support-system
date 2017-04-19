@@ -41,7 +41,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <p>
 
-                    <?php _e( 'By ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\user_full_name( get_user_by( 'id', $closed['user_id'] ) ); ?>
+                    <?php _e( 'Closed by ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\user_full_name( get_user_by( 'id', $closed['user_id'] ) ); ?>
 
                     (<?php echo \SmartcatSupport\util\just_now( $closed['date'] ); ?>)
 
