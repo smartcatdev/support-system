@@ -11,7 +11,7 @@ class migration_1_1_1 implements \SmartcatSupport\util\Migration {
      * @return bool|WP_Error
      */
     function migrate () {
-        return new true;
+        return true;
     }
 
 }
