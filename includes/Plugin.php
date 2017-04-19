@@ -31,10 +31,10 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Notify subscribers if there is a version upgrade
         $current = get_option( Option::PLUGIN_VERSION, 0 );
 
-        if( $this->version > $current ) {
+        if( PLUGIN_VERSION > $current ) {
 
             // Perform migrations with the current version
-            $upgrade = $this->perform_migrations( $current, $this->version );
+            $upgrade = $this->perform_migrations( $current );
 
             if( !is_wp_error( $upgrade ) ) {
 
@@ -262,14 +262,14 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
-    private function perform_migrations( $current, $new ) {
+    private function perform_migrations( $current ) {
         $result = null;
 
         foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
             $migration = include_once( $file );
             $version = $migration->version();
 
-            if ( $version <= $new && $version > $current ) {
+            if ( $version <= PLUGIN_VERSION && $version > $current ) {
                 $result = $migration->migrate();
 
                 if ( !$result || is_wp_error( $result ) ) {
