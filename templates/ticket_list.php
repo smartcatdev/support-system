@@ -96,8 +96,6 @@ use SmartcatSupport\descriptor\Option;
 
                                         <span class="glyphicon glyphicon-comment comment-icon"></span>
 
-                                        <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
-
                                     </div>
 
                                 <?php endif; ?>
