@@ -11,7 +11,6 @@ var Ticket = (function ($) {
         $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
         $(document).on("click", ".delete-attachment", _delete_attachment);
-        $(document).on("click", ".delete-attachment", _delete_attachment);
         $(document).on("focus", ".property-control", _lock_properties);
         $(document).on("focusout", ".property-control", _lock_properties);
     };
@@ -21,19 +20,33 @@ var Ticket = (function ($) {
     };
 
     var _delete_attachment = function (e) {
-        var target = $(e.target);
 
-        $.ajax({
-            url: Globals.ajax_url,
-            data: {
-                action: "support_delete_media",
-                _ajax_nonce: Globals.ajax_nonce,
-                attachment_id: target.data("attachment_id")
-            },
-            success: function () {
-                Ticket.load_sidebar(target.data("ticket_id"));
+        $('body').confirm({
+            id: 'delete_attachment',
+            okay_text: Globals.strings.yes,
+            cancel_text: Globals.strings.cancel,
+            title: Globals.strings.delete_attachment,
+            content: Globals.strings.warning_permanent
+
+        }, function (val) {
+
+            if(val) {
+                var target = $(e.target);
+
+                $.ajax({
+                    url: Globals.ajax_url,
+                    data: {
+                        action: "support_delete_media",
+                        _ajax_nonce: Globals.ajax_nonce,
+                        attachment_id: target.data("attachment_id")
+                    },
+                    success: function () {
+                        Ticket.load_sidebar(target.data("ticket_id"));
+                    }
+                });
             }
-        })
+
+        });
     };
 
     var _reset_media_dropzone = function(e) {
