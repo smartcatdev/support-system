@@ -8,7 +8,6 @@
  * Author URI: https://smartcatdesign.net
  * License: GPL V2
  * 
- * 
  */
 
 namespace SmartcatSupport;

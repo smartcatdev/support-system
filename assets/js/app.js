@@ -319,7 +319,7 @@ var App = (function ($) {
         adjust_login();
 
         setInterval(load_tickets, 1000 * Globals.refresh_interval);
-        setInterval( load_statistics, 1000 * Globals.refresh_interval);
+        setInterval(load_statistics, 1000 * Globals.refresh_interval);
 
     };
 

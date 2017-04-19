@@ -624,7 +624,6 @@ textarea {
 }
 
 #tickets-container .comment-icon {
-    margin: 5px 8px;
     font-size: 20px;
     color: #575757;
     transform: scaleX(0.8);
@@ -638,8 +637,8 @@ textarea {
 #tickets-container .comment-count-badge:after {
     content: attr(data-count);
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: -10px;
+    right: -5px;
     font-size: 10px;
     background: #337ab7;
     color: white;
