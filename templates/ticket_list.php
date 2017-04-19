@@ -90,13 +90,17 @@ use SmartcatSupport\descriptor\Option;
 
                                 <?php endif; ?>
 
-                                <div class="indicator">
+                                <?php if( $post->comment_count > 0 ) : ?>
 
-                                    <span class="glyphicon glyphicon-comment comment-icon"></span>
+                                    <div class="indicator">
 
-                                    <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+                                        <span class="glyphicon glyphicon-comment comment-icon"></span>
 
-                                </div>
+                                        <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+
+                                    </div>
+
+                                <?php endif; ?>
 
                                 <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
 
