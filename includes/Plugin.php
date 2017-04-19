@@ -37,7 +37,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             $upgrade = $this->perform_migrations( $current, $this->version );
 
             if( !is_wp_error( $upgrade ) ) {
-                do_action( $this->id . '_upgrade', $current, $this->version );
+
+                util\admin_notice(
+                    __( "<strong>uCare Support</strong> has been updated to version {$this->version}", PLUGIN_ID ),
+                    array( 'notice', 'notice-success', 'is-dismissible' )
+                );
+
                 update_option( Option::PLUGIN_VERSION, $this->version );
             }
         }
@@ -258,24 +263,19 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     private function perform_migrations( $current, $new ) {
+        $result = null;
+
         foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
             $migration = include_once( $file );
-            $result = null;
+            $version = $migration->version();
 
-            if ( $migration->version() > $current ) {
+            if ( $version <= $new && $version > $current ) {
                 $result = $migration->migrate();
 
                 if ( !$result || is_wp_error( $result ) ) {
                     util\admin_notice( __( 'uCare failed to update', PLUGIN_ID ), array( 'notice', 'notice-error', 'dismissible' ) );
                     break;
                 }
-            }
-
-            if ( $result == true ) {
-                util\admin_notice(
-                    __( '<strong>uCare Support</strong>'. __( ' has been updated to version ' . $new, PLUGIN_ID ), $this->id ),
-                        array( 'notice', 'notice-success', 'is-dismissible' )
-                );
             }
         }
 
