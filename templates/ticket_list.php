@@ -78,6 +78,18 @@ use SmartcatSupport\descriptor\Option;
 
                             <div class="indicators pull-right">
 
+                                <?php $assigned_to = get_post_meta( $post->ID, 'agent', true ); ?>
+
+                                <?php if( !empty( $assigned_to ) ) : ?>
+
+                                    <div class="indicator">
+
+                                        <?php echo get_avatar( get_user_by( 'id', $assigned_to ), 28, '', '', array( 'class' => 'img-circle' ) ); ?>
+
+                                    </div>
+
+                                <?php endif; ?>
+
                                 <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
 
                                 <?php if( $attachments > 0 ) : ?>
