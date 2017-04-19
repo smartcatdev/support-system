@@ -143,23 +143,19 @@ textarea {
     height: 60px;
     margin: 50px auto;
     width: 60px;
-    opacity: 1;
 }
 
 .dot-1 {
-    background: #60D4C8;
     animation: animation-pulse 1.4s linear 200ms infinite,
                 animation-bounce 1.4s ease 200ms infinite;
 }
 
 .dot-2 {
-    background: #46BAAF;
     animation: animation-pulse 1.4s linear 400ms infinite,
                 animation-bounce 1.4s ease 400ms infinite;
 }
 
 .dot-3 {
-    background: #3EA69B;
     animation: animation-pulse 1.4s linear 600ms infinite,
                 animation-bounce 1.4s ease 600ms infinite;
 }

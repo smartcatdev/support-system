@@ -22,6 +22,10 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
         border-color: <?php echo $primary_color; ?>;
     }
 
+    .ajax-loader .dot {
+        background-color: <?php echo $primary_color; ?>;
+    }
+
     #filter-toggle.active,
     .widget-wrapper > div{
         background: <?php echo $tertiary_color; ?>;
