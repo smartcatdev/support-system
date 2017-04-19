@@ -9,6 +9,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
 ?>
 
 <html>
+
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,8 @@ $ver = get_option( Option::PLUGIN_VERSION );
         <link href="<?php echo get_option( Option::FAVICON ); ?>" rel="icon">
 
         <?php include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/assets/css/dynamic.php'; ?>
-
+    
+        <!-- Please keep jQuery in the header -->
+        <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ) . '?ver=' . $ver; ?>"></script>
     </head>
     <body>

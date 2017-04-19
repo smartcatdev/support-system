@@ -161,6 +161,10 @@ var Ticket = (function ($) {
     var _open_ticket = function (e) {
         var target = $(e.target);
         var id = target.data("id");
+        
+        $('html, body').animate({
+            scrollTop: $("#statistics-container").offset().top
+        }, 200 );
 
         if (!App.open_tab(id)) {
             target.prop("disabled", true);
@@ -183,14 +187,14 @@ var Ticket = (function ($) {
                 },
                 complete: function () {
                     target.prop("disabled", false);
-
+                    
                     setTimeout(function () {
                         var ticket = $("#" + id);
-
+                        
                         ticket.find(".ticket-detail").fadeToggle();
                         ticket.find(".loader-mask").hide();
-
-                    }, 1000);
+                        
+                    }, 500 );
                 }
             });
         }

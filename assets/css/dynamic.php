@@ -27,7 +27,8 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
         background: <?php echo $tertiary_color; ?>;
     }
     
-    #tickets-container .ticket-title {
+    #tickets-container .ticket-title,
+    .nav-tabs .tab .title{
         color: <?php echo $secondary_color; ?>;
     }
     
@@ -50,11 +51,17 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     }
 
     /* Secondary color */
-    #navbar {
+    #navbar,
+    #footer{
         background: <?php echo $secondary_color; ?>;
     }
 
     /* Hover color */
+    a,.carousel-caption,
+    .carousel-control.left .glyphicon,
+    .carousel-control.right .glyphicon {
+        color: <?php echo $primary_color; ?>;
+    }
     a:focus, a:hover{
         color: <?php echo $hover_color; ?>;
     }
@@ -72,10 +79,6 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     }
 
     /* Tertiary color */
-
-    .carousel-caption {
-        color: <?php echo $tertiary_color; ?>;
-    }
 
     #support-login-page {
         background-image: url(<?php echo get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ); ?> )
