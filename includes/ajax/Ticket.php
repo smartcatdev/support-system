@@ -299,6 +299,17 @@ class Ticket extends AjaxComponent {
         return $args;
     }
 
+    public function ticket_closed( $null, $ticket_id, $key, $value ) {
+        if( $key == 'status' && $value =='closed' ) {
+            update_post_meta( $ticket_id, 'closed', array(
+                'user_id'   => wp_get_current_user()->ID,
+                'date'      => current_time( 'mysql' )
+            ) );
+        }
+
+        return $null;
+    }
+
     /**
      * Hooks that the Component is subscribed to.
      *
@@ -320,7 +331,9 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_submit_comment' => array( 'submit_comment' ),
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
 
-            'support_ticket_list_query_vars' => array( 'filter_tickets' )
+            'support_ticket_list_query_vars' => array( 'filter_tickets' ),
+
+            'update_post_metadata' => array( 'ticket_closed', 10, 4 ),
         ) );
     }
 
