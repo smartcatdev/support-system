@@ -52,8 +52,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function activate() {
         proc\configure_roles();
         proc\create_email_templates();
-
-        $this->setup_template_page();
+        proc\setup_template_page();
     }
 
     public function deactivate() {
@@ -246,7 +245,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function restore_template( $val ) {
         if( $val == 'on' ) {
-            $this->setup_template_page();
+            proc\setup_template_page();
         }
 
         return '';
@@ -258,50 +257,26 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
-    private function perform_migrations( $current ) {
-        foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
-            $migration = include_once( $file );
+    private function perform_migrations( $current )
+    {
+        foreach (glob($this->dir . 'migrations/migration-*.php') as $file) {
+            $migration = include_once($file);
             $result = null;
 
-            if( $migration->version() > $current ) {
+            if ($migration->version() > $current) {
                 $result = $migration->migrate();
 
-                if( is_wp_error( $result ) ) {
-                    util\admin_notice( __( 'uCare failed to update', $this->id ), array( 'notice', 'notice-error' ) );
+                if (is_wp_error($result)) {
+                    util\admin_notice(__('uCare failed to update', $this->id), array('notice', 'notice-error'));
                     break;
                 }
             }
 
-            if( $result == true ) {
-                util\admin_notice( __( 'uCare Support has been updated', $this->id ), array( 'notice', 'notice-success' ) );
+            if ($result == true) {
+                util\admin_notice(__('uCare Support has been updated', $this->id), array('notice', 'notice-success'));
             }
         }
 
         return $result;
-    }
-
-    private function setup_template_page() {
-        $post_id = null;
-        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
-
-        if( empty( $post ) ) {
-            $post_id = wp_insert_post(
-                array(
-                    'post_type' =>  'page',
-                    'post_status' => 'publish',
-                    'post_title' => __( 'Support', PLUGIN_ID )
-                )
-            );
-        } else if( $post->post_status == 'trash' ) {
-            wp_untrash_post( $post->ID );
-
-            $post_id = $post->ID;
-        } else {
-            $post_id = $post->ID;
-        }
-
-        if( !empty( $post_id ) ) {
-            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
-        }
     }
 }

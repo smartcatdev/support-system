@@ -272,6 +272,31 @@ namespace SmartcatSupport\proc {
 
     use SmartcatSupport\descriptor\Option;
 
+    function setup_template_page() {
+        $post_id = null;
+        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
+
+        if( empty( $post ) ) {
+            $post_id = wp_insert_post(
+                array(
+                    'post_type' =>  'page',
+                    'post_status' => 'publish',
+                    'post_title' => __( 'Support', PLUGIN_ID )
+                )
+            );
+        } else if( $post->post_status == 'trash' ) {
+            wp_untrash_post( $post->ID );
+
+            $post_id = $post->ID;
+        } else {
+            $post_id = $post->ID;
+        }
+
+        if( !empty( $post_id ) ) {
+            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        }
+    }
+
     function create_email_templates() {
 
         $default_templates = array(
