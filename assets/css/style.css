@@ -964,8 +964,21 @@ button.close-ticket:hover {
     padding-bottom: 10px;
 }
 
+.comment .nav-tabs li {
+    margin: 0 !important;
+}
+
+.comment .nav-tabs .tab.active a {
+    background: #fff !important;
+}
+
 .comment .media-body {
     vertical-align: middle;
+}
+
+.comment .editor .tab-content {
+    min-height: 110px;
+    position: relative;
 }
 
 .comment-reply .media-heading {

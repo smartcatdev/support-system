@@ -380,7 +380,7 @@ var Ticket = (function ($) {
         };
 
         setInterval(looper(load_comments), 1000 * Globals.refresh_interval);
-        setInterval(looper(load_sidebar), 1000 * Globals.refresh_interval);
+        //setInterval(looper(load_sidebar), 1000 * Globals.refresh_interval);
     };
 
     return {

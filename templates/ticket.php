@@ -58,7 +58,9 @@ $user = wp_get_current_user();
 
                 <div class="panel-body editor-area">
 
-                    <form class="comment-form">
+                    <div class="editor">
+
+                        <form class="comment-form">
 
                         <div class="tab-content">
 
@@ -109,6 +111,8 @@ $user = wp_get_current_user();
                         </div>
 
                     </form>
+
+                    </div>
 
                 </div>
 
