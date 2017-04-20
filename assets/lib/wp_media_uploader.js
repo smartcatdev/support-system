@@ -26,12 +26,14 @@
 
         $( settings.target ).each( function ( index, element ) {
 
+            var button = $($.parseHTML('<a href="#" class="button ' + settings.buttonClass.replace('.', '') + '">' + settings.buttonText + '</a>') );
+
             $( element ).parent().append('<div><br><img src="' + $( element ).val() + '" style="max-width: ' + settings.previewSize + '"/></div>');
-            $( element ).parent().append('<a href="#" class="button ' + settings.buttonClass.replace('.', '') + '">' + settings.buttonText + '</a>');
+            $( element ).parent().append( button );
 
-            $(settings.buttonClass).css(settings.buttonStyle);
+            $( settings.buttonClass ).css(settings.buttonStyle);
 
-            $('body').on('click', settings.buttonClass, function (e) {
+           button.click( function (e) {
 
                 e.preventDefault();
 
