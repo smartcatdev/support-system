@@ -323,6 +323,11 @@ namespace SmartcatSupport\proc {
                 'template' => '/emails/ticket-reply.html',
                 'option' => Option::REPLY_EMAIL_TEMPLATE,
                 'subject' => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/password-reset.html',
+                'option' => Option::PASSWORD_RESET_EMAIL,
+                'subject' => __( 'Your password has been reset', \SmartcatSupport\PLUGIN_ID )
             )
         );
 
