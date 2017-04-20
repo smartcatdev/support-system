@@ -2,8 +2,6 @@
 
 namespace SmartcatSupport\ajax;
 
-use smartcat\mail\Mailer;
-
 class Registration extends AjaxComponent {
 
     /**
