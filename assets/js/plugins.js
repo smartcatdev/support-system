@@ -2,22 +2,20 @@
 
     $.fn.confirm = function (options, callback) {
 
-        var _target = $(this);
+        var target = $(this);
 
-        var ignore = false;
-
-        var _defaults = {
+        var defaults = {
             title: "Are you sure?",
             content: "Are you sure?",
             okay_text: "Yes",
             cancel_text: "No"
         };
 
-        var _settings = $.extend(_defaults, options);
+        var _settings = $.extend(defaults, options);
 
-        var _modal = _.template($("script.confirm-modal").html());
+        var create_modal = _.template($("script.confirm-modal").html());
 
-        var modal = $(_modal({
+        var modal = $(create_modal({
             id: _settings.id,
             title: _settings.title,
             content: _settings.content,
@@ -25,11 +23,14 @@
             cancel_text: _settings.cancel_text
         }));
 
-        _target.append(modal);
+        var ignore = false;
 
+        var confirm =  modal.find('button.confirm');
+
+        target.append(modal);
         modal.modal('show');
 
-        modal.find('button.confirm').on('click', function () {
+       confirm.on('click', function () {
             callback(true);
             ignore = true;
             modal.modal('hide')
@@ -40,9 +41,10 @@
                 callback(false);
             }
 
+            confirm.unbind('click')
+            modal.unbind('hidden.bs.modal')
             modal.remove()
         });
-
     };
 
     $.fn.submit = function (options) {
