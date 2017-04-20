@@ -29,9 +29,10 @@ var App = (function ($) {
     var _reset_password = function (e) {
         e.preventDefault();
 
+        var form = $(e.target).parents('form');
         var alert = _.template('<div class="alert alert-dismissible alert-<%=status %>"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span><%= message %></span></div>');
 
-        $(e.target).parents('form').submit({
+        form.submit({
             url: Globals.ajax_url,
             action: "support_reset_password",
             method: "post",
@@ -39,10 +40,17 @@ var App = (function ($) {
                 _ajax_nonce: Globals.ajax_nonce
             },
             success: function (response) {
-               $('#reset-pw-alert').html(alert({ message: response.data.message, status: 'success' } ));
+                if(response.data.message != undefined) {
+                    $('#reset-pw-alert').html(alert({message: response.data.message, status: 'success'}));
+                }
             },
             error: function(xhr) {
-                $('#reset-pw-alert').html(alert({ message: xhr.responseJSON.data.message, status: 'error' } ));
+                if(xhr.responseJSON.data.message != undefined) {
+                    $('#reset-pw-alert').html(alert({message: xhr.responseJSON.data.message, status: 'error'}));
+                }
+            },
+            complete: function () {
+                form.find('input[name="username"]').val('');
             }
         });
     }
