@@ -33,7 +33,7 @@ namespace  SmartcatSupport\util {
 
     function admin_notice( $message, $class ) {
         add_action( 'admin_notices', function () use ( $message, $class ) {
-            printf( '< div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
+            printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
         } );
     }
 

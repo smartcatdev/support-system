@@ -28,30 +28,9 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
-        // Notify subscribers if there is a version upgrade
-        $current = get_option( Option::PLUGIN_VERSION, 0 );
-
-        if( PLUGIN_VERSION > $current ) {
-
-            // Perform migrations with the current version
-            $upgrade = $this->perform_migrations( $current );
-
-            if( !is_wp_error( $upgrade ) ) {
-
-                util\admin_notice(
-                    __( "<strong>uCare Support</strong> has been updated to version {$this->version}", PLUGIN_ID ),
-                    array( 'notice', 'notice-success', 'is-dismissible' )
-                );
-
-                update_option( Option::PLUGIN_VERSION, $this->version );
-            }
-        }
-
         Mailer::init( $this );
 
         proc\configure_roles();
-
-        //include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
     public function activate() {
@@ -191,6 +170,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function subscribed_hooks() {
         return array(
+            'init' => array( 'perform_migrations' ),
             'wp_login_failed' => array( 'login_failed' ),
             'authenticate' => array( 'authenticate', 1, 3 ),
             'admin_footer' => array( 'feedback_form' ),
@@ -262,23 +242,36 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
-    private function perform_migrations( $current ) {
+    public function perform_migrations() {
+        $current = get_option( Option::PLUGIN_VERSION, 0 );
         $result = null;
 
-        foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
-            $migration = include_once( $file );
-            $version = $migration->version();
+        if( PLUGIN_VERSION > $current ) {
 
-            if ( $version <= PLUGIN_VERSION && $version > $current ) {
-                $result = $migration->migrate();
+            // Perform migrations with the current version
+            foreach( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
+                $migration = include_once( $file );
+                $version = $migration->version();
 
-                if ( !$result || is_wp_error( $result ) ) {
-                    util\admin_notice( __( 'uCare failed to update', PLUGIN_ID ), array( 'notice', 'notice-error', 'dismissible' ) );
-                    break;
+                if ( $version <= PLUGIN_VERSION && $version > $current ) {
+                    $result = $migration->migrate();
+
+                    if ( !$result || is_wp_error( $result ) ) {
+                        util\admin_notice( __( 'uCare failed to update', PLUGIN_ID ), array( 'notice', 'notice-error', 'dismissible' ) );
+                        break;
+                    }
                 }
             }
-        }
 
-        return $result;
+            if( !is_wp_error( $result ) ) {
+
+                util\admin_notice(
+                    __( "<strong>uCare Support</strong> has been updated to version {$this->version}", PLUGIN_ID ),
+                    array( 'notice', 'notice-success', 'is-dismissible' )
+                );
+
+                update_option( Option::PLUGIN_VERSION, $this->version );
+            }
+        }
     }
 }

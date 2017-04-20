@@ -22,7 +22,7 @@ class migration_1_1_1 implements \SmartcatSupport\util\Migration {
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
                     'post_title'    => __( 'Your password has been changed', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $dir . 'emails/password-reset.html' )
+                    'post_content'  => file_get_contents( $dir . '/emails/password-reset.html' )
                 )
             );
 
@@ -31,7 +31,7 @@ class migration_1_1_1 implements \SmartcatSupport\util\Migration {
                 update_option( Option::PASSWORD_RESET_EMAIL, $id );
             }
 
-        } catch(Exception $ex) { }
+        } catch( Exception $ex ) { }
 
         return true;
     }
