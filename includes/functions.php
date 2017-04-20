@@ -285,7 +285,7 @@ namespace SmartcatSupport\proc {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', PLUGIN_ID )
+                    'post_title' => __( 'Support', \SmartcatSupport\PLUGIN_ID )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
