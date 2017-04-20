@@ -7,6 +7,18 @@ namespace SmartcatSupport {
     function url() {
         return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
     }
+
+    function plugin_dir() {
+        return Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID );
+    }
+
+    function plugin_url() {
+        return Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
+    }
+
+    function in_dev_mode() {
+        return get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on';
+    }
 }
 
 namespace  SmartcatSupport\util {
@@ -14,12 +26,20 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
+
     function user_full_name( $user ) {
         return $user->first_name . ' ' . $user->last_name;
     }
 
+    function admin_notice( $message, $class ) {
+        add_action( 'admin_notices', function () use ( $message, $class ) {
+            printf( '< div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
+        } );
+    }
+
     function can_use_support( $id = false ) {
         if( $id ) {
+
             $result = user_can( $id, 'use_support' );
         } else {
             $result = current_user_can( 'use_support' );
@@ -254,16 +274,132 @@ namespace  SmartcatSupport\util {
 
 namespace SmartcatSupport\proc {
 
+    use SmartcatSupport\descriptor\Option;
+
+    function setup_template_page() {
+        $post_id = null;
+        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
+
+        if( empty( $post ) ) {
+            $post_id = wp_insert_post(
+                array(
+                    'post_type' =>  'page',
+                    'post_status' => 'publish',
+                    'post_title' => __( 'Support', PLUGIN_ID )
+                )
+            );
+        } else if( $post->post_status == 'trash' ) {
+            wp_untrash_post( $post->ID );
+
+            $post_id = $post->ID;
+        } else {
+            $post_id = $post->ID;
+        }
+
+        if( !empty( $post_id ) ) {
+            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        }
+    }
+
     function create_email_templates() {
-        //TODO find a better way to setup templates
+
+        $default_templates = array(
+            array(
+                'template' => '/emails/ticket-created.html',
+                'option' => Option::CREATED_EMAIL_TEMPLATE,
+                'subject' => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/welcome.html',
+                'option' => Option::WELCOME_EMAIL_TEMPLATE,
+                'subject' => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/ticket-closed.html',
+                'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+                'subject' => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/ticket-reply.html',
+                'option' => Option::REPLY_EMAIL_TEMPLATE,
+                'subject' => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID )
+            )
+        );
+
+        $default_style = file_get_contents( \SmartcatSupport\plugin_dir() . '/emails/default-style.css' );
+
+        foreach( $default_templates as $config ) {
+            $template = get_post( get_option( $config['option'] ) );
+
+            if( is_null( get_post( $template ) ) ) {
+                $id = wp_insert_post(
+                    array(
+                        'post_type'     => 'email_template',
+                        'post_status'   => 'publish',
+                        'post_title'    => $config['subject'],
+                        'post_content'  => file_get_contents( \SmartcatSupport\plugin_dir() . $config['template'] )
+                    )
+                );
+
+                if( !empty( $id ) ) {
+                    update_post_meta( $id, 'styles', $default_style );
+                    update_option( $config['option'], $id );
+                }
+            } else {
+                wp_untrash_post( $template );
+            }
+        }
     }
 
     function configure_roles() {
-        //TODO move this here from Plugin.php
+        $administrator = get_role( 'administrator' );
+
+        $administrator->add_cap( 'read_support_ticket' );
+        $administrator->add_cap( 'read_support_tickets' );
+        $administrator->add_cap( 'edit_support_ticket' );
+        $administrator->add_cap( 'edit_support_tickets' );
+        $administrator->add_cap( 'edit_others_support_tickets' );
+        $administrator->add_cap( 'edit_published_support_tickets' );
+        $administrator->add_cap( 'publish_support_tickets' );
+        $administrator->add_cap( 'delete_others_support_tickets' );
+        $administrator->add_cap( 'delete_private_support_tickets' );
+        $administrator->add_cap( 'delete_published_support_tickets' );
+
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+            add_role( $role, $name );
+        }
+
+        \SmartcatSupport\util\add_caps( 'customer' );
+        \SmartcatSupport\util\add_caps( 'subscriber' );
+        \SmartcatSupport\util\add_caps( 'support_user' );
+
+        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
+
+        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
+        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
     }
 
     function cleanup_roles() {
-        //TODO move this here from Plugin.php
+        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+            remove_role( $role );
+        }
+
+        \SmartcatSupport\util\remove_caps( 'customer' );
+        \SmartcatSupport\util\remove_caps( 'subscriber' );
+        \SmartcatSupport\util\remove_caps( 'administrator' );
+
+        $administrator = get_role( 'administrator' );
+
+        $administrator->remove_cap( 'read_support_ticket' );
+        $administrator->remove_cap( 'read_support_tickets' );
+        $administrator->remove_cap( 'edit_support_ticket' );
+        $administrator->remove_cap( 'edit_support_tickets' );
+        $administrator->remove_cap( 'edit_others_support_tickets' );
+        $administrator->remove_cap( 'edit_published_support_tickets' );
+        $administrator->remove_cap( 'publish_support_tickets' );
+        $administrator->remove_cap( 'delete_others_support_tickets' );
+        $administrator->remove_cap( 'delete_private_support_tickets' );
+        $administrator->remove_cap( 'delete_published_support_tickets' );
     }
     
     function hex2rgb( $hex ) {
@@ -285,7 +421,7 @@ namespace SmartcatSupport\proc {
     
 }
 
-namespace SmartcatSupport\statprocs{
+namespace SmartcatSupport\statprocs {
     
     function get_unclosed_tickets() {
         

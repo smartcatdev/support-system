@@ -137,18 +137,18 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
         </script>
 
-            <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
-            <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js' . '?ver=' . $ver; ?>"></script>
-            <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js' . '?ver=' . $ver; ?>"></script>
-            <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js' . '?ver=' . $ver; ?>"></script>
-            <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js' . '?ver=' . $ver; ?>"></script>
-            <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js' . '?ver=' . $ver; ?>"></script>
-            <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' . '?ver=' . $ver ?>" ></script>
-            <script src="<?php echo $url . 'assets/js/plugins.js' . '?ver=' . $ver ?>" ></script>
-            <script src="<?php echo $url . 'assets/js/app.js' . '?ver=' . $ver ?>" ></script>
-            <script src="<?php echo $url . 'assets/js/settings.js' . '?ver=' . $ver ?>" ></script>
-            <script src="<?php echo $url . 'assets/js/ticket.js' . '?ver=' . $ver ?>" ></script>
-            <script src="<?php echo $url . 'assets/js/comment.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js' . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/plugins.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/app.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/settings.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/ticket.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/js/comment.js' . '?ver=' . $ver ?>" ></script>
 
         <script>
 

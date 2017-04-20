@@ -29,24 +29,35 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
         // Notify subscribers if there is a version upgrade
-        $version = get_option( Option::PLUGIN_VERSION, 0 );
+        $current = get_option( Option::PLUGIN_VERSION, 0 );
 
-        if( $this->version > $version ) {
-            do_action( $this->id . '_upgrade', $version, $this->version );
-            update_option( Option::PLUGIN_VERSION, $this->version );
+        if( PLUGIN_VERSION > $current ) {
+
+            // Perform migrations with the current version
+            $upgrade = $this->perform_migrations( $current );
+
+            if( !is_wp_error( $upgrade ) ) {
+
+                util\admin_notice(
+                    __( "<strong>uCare Support</strong> has been updated to version {$this->version}", PLUGIN_ID ),
+                    array( 'notice', 'notice-success', 'is-dismissible' )
+                );
+
+                update_option( Option::PLUGIN_VERSION, $this->version );
+            }
         }
 
         Mailer::init( $this );
 
-        $this->configure_roles();
+        proc\configure_roles();
 
-        include_once $this->dir . '/lib/tgm/tgmpa.php';
+        //include_once $this->dir . '/lib/tgm/tgmpa.php';
     }
 
     public function activate() {
-        $this->configure_roles();
-        $this->create_email_templates();
-        $this->setup_template_page();
+        proc\configure_roles();
+        proc\create_email_templates();
+        proc\setup_template_page();
     }
 
     public function deactivate() {
@@ -61,13 +72,13 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        $this->cleanup_roles();
+        proc\cleanup_roles();
 
         Mailer::cleanup();
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' && get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
             $options = new \ReflectionClass( Option::class );
 
             foreach( $options->getConstants() as $option ) {
@@ -79,7 +90,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  \SmartcatSupport\PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
+        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
     }
 
     public function settings_shortcut_redirect() {
@@ -149,12 +160,12 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
                 'notice_can_install_required' => _n_noop(
                     'Smartcat Support requires the following plugin: %1$s.',
                     'Smartcat Support requires the following plugins: %1$s.',
-                    \SmartcatSupport\PLUGIN_ID
+                    PLUGIN_ID
                 ),
                 'notice_can_install_recommended' => _n_noop(
                     'Smartcat Support recommends the following plugin: %1$s.',
                     'Smartcat Support recommends the following plugins: %1$s.',
-                    \SmartcatSupport\PLUGIN_ID
+                    PLUGIN_ID
                 ),
             )
         );
@@ -164,7 +175,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function login_failed() {
         if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
-            wp_redirect( \SmartcatSupport\url() . '?login=failed' );
+            wp_redirect( url() . '?login=failed' );
             exit;
         }
     }
@@ -172,7 +183,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function authenticate( $user, $username, $password ) {
         if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
             if ( $username == "" || $password == "" ) {
-                wp_redirect( \SmartcatSupport\url() . "?login=empty" );
+                wp_redirect( url() . "?login=empty" );
                 exit;
             }
         }
@@ -200,7 +211,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function mailer_text_domain( $text_domain ) {
-        return \SmartcatSupport\PLUGIN_ID;
+        return PLUGIN_ID;
     }
 
     public function components() {
@@ -214,7 +225,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             ajax\Statistics::class
         );
 
-        if( \SmartcatSupport\util\ecommerce_enabled( false ) ) {
+        if( util\ecommerce_enabled( false ) ) {
             $components[] = ECommerce::class;
         }
 
@@ -239,7 +250,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function restore_template( $val ) {
         if( $val == 'on' ) {
-            $this->setup_template_page();
+            proc\setup_template_page();
         }
 
         return '';
@@ -251,147 +262,23 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
-    private function create_email_templates() {
-        $welcome = get_option( Option::WELCOME_EMAIL_TEMPLATE );
-        $closed = get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE );
-        $reply = get_option( Option::REPLY_EMAIL_TEMPLATE );
-        $created = get_option( Option::CREATED_EMAIL_TEMPLATE );
+    private function perform_migrations( $current ) {
+        $result = null;
 
-        $default_style = file_get_contents( $this->dir . '/emails/default-style.css' );
+        foreach ( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
+            $migration = include_once( $file );
+            $version = $migration->version();
 
-        if( is_null( get_post( $created ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-created.html' )
-                )
-            );
+            if ( $version <= PLUGIN_VERSION && $version > $current ) {
+                $result = $migration->migrate();
 
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::CREATED_EMAIL_TEMPLATE, $id );
+                if ( !$result || is_wp_error( $result ) ) {
+                    util\admin_notice( __( 'uCare failed to update', PLUGIN_ID ), array( 'notice', 'notice-error', 'dismissible' ) );
+                    break;
+                }
             }
-        } else {
-            wp_untrash_post( $welcome );
         }
 
-        if( is_null( get_post( $welcome ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/welcome.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::WELCOME_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $welcome );
-        }
-
-        if( is_null( get_post( $closed ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-closed.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $closed );
-        }
-
-        if( is_null( get_post( $reply ) ) ) {
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID ),
-                    'post_content'  => file_get_contents( $this->dir . '/emails/ticket-reply.html' )
-                )
-            );
-
-            if( !empty( $id ) ) {
-                update_post_meta( $id, 'styles', $default_style );
-                update_option( Option::REPLY_EMAIL_TEMPLATE, $id );
-            }
-        } else {
-            wp_untrash_post( $reply );
-        }
-    }
-
-    private function setup_template_page() {
-        $post_id = null;
-        $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
-
-        if( empty( $post ) ) {
-            $post_id = wp_insert_post(
-                array(
-                    'post_type' =>  'page',
-                    'post_status' => 'publish',
-                    'post_title' => __( 'Support', \SmartcatSupport\PLUGIN_ID )
-                )
-            );
-        } else if( $post->post_status == 'trash' ) {
-            wp_untrash_post( $post->ID );
-
-            $post_id = $post->ID;
-        } else {
-            $post_id = $post->ID;
-        }
-
-        if( !empty( $post_id ) ) {
-            update_option( Option::TEMPLATE_PAGE_ID, $post_id );
-        }
-    }
-
-    private function configure_roles() {
-        $administrator = get_role( 'administrator' );
-
-        $administrator->add_cap( 'read_support_ticket' );
-        $administrator->add_cap( 'read_support_tickets' );
-        $administrator->add_cap( 'edit_support_ticket' );
-        $administrator->add_cap( 'edit_support_tickets' );
-        $administrator->add_cap( 'edit_others_support_tickets' );
-        $administrator->add_cap( 'edit_published_support_tickets' );
-        $administrator->add_cap( 'publish_support_tickets' );
-        $administrator->add_cap( 'delete_others_support_tickets' );
-        $administrator->add_cap( 'delete_private_support_tickets' );
-        $administrator->add_cap( 'delete_published_support_tickets' );
-
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
-            add_role( $role, $name );
-        }
-
-        \SmartcatSupport\util\add_caps( 'customer' );
-        \SmartcatSupport\util\add_caps( 'subscriber' );
-        \SmartcatSupport\util\add_caps( 'support_user' );
-
-        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
-
-        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
-        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
-    }
-
-    private function cleanup_roles() {
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
-            remove_role( $role );
-        }
-
-        \SmartcatSupport\util\remove_caps( 'customer' );
-        \SmartcatSupport\util\remove_caps( 'subscriber' );
-        \SmartcatSupport\util\remove_caps( 'administrator' );
+        return $result;
     }
 }
