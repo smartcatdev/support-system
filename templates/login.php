@@ -1,6 +1,5 @@
 <?php
 
-use smartcat\form\Form;
 use SmartcatSupport\descriptor\Option;
 use SmartcatSupport\Plugin;
 
@@ -71,6 +70,8 @@ use SmartcatSupport\Plugin;
                     <?php endif; ?>
 
                     <?php wp_login_form( array( 'redirect' => \SmartcatSupport\url() ) ); ?>
+
+                    <div class="clearfix"></div>
 
                     <div class="text-center">
 

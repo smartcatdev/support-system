@@ -337,7 +337,7 @@ var App = (function ($) {
         var register_button = $("#show-registration");
 
         if(register_button.length > 0) {
-            $(".login-submit").prepend(register_button.show());
+            register_button.show().insertAfter('#wp-submit')
         }
 
         Dropzone.autoDiscover = false;
