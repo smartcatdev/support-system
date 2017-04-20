@@ -527,6 +527,13 @@ textarea {
 
 .ticket-area-wrapper {
     background: #f9f9f9;
+    min-height: 600px;
+}
+
+@media(min-width: 1201px) {
+    .ticket-area-wrapper {
+        min-height: 720px;
+    }
 }
 
 /* ### Statistics ****************************************************************************/
@@ -939,13 +946,6 @@ button.close-ticket:hover {
 }
 
 /* #### Comments ***********************************************************************/
-
-.discussion-area {
-}
-
-.ticket-area-wrapper {
-    min-height: 600px;
-}
 
 .comments .comment .meta p {
     font-size: 8pt;
