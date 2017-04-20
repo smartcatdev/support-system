@@ -981,6 +981,16 @@ button.close-ticket:hover {
 }
 
 /* ## Footer ***************************************************************************/
+#footer {
+    height: 150px;
+    display: table;
+}
+
+#footer .container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .footer-text {
     padding: 15px;
     font-size: 12px;
