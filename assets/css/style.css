@@ -408,10 +408,18 @@ textarea {
     display: none;
 }
 
-.login-error-msg {
+#support-login-form .alert-error {
     background: #fff;
     border-radius: 0;
+    border: 1px solid #dc3232;
     border-left: 4px solid #dc3232;
+}
+
+#support-login-form .alert-success {
+    background: #fff;
+    border-radius: 0;
+    border: 1px solid #52e964;
+    border-left: 4px solid #52e964;
 }
 
 .button-back {

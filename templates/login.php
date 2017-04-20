@@ -18,13 +18,15 @@ use SmartcatSupport\Plugin;
 
                 <?php if( isset( $_REQUEST['reset_password'] ) ) : ?>
 
-                        <a class="btn btn-default button-back" href="<?php echo \SmartcatSupport\url(); ?>">
+                    <a class="btn btn-default button-back" href="<?php echo \SmartcatSupport\url(); ?>">
 
-                            <span class="glyphicon glyphicon-chevron-left button-icon"></span>
+                        <span class="glyphicon glyphicon-chevron-left button-icon"></span>
 
-                            <span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
-                        </a>
+                    </a>
+
+                    <div id="reset-pw-alert"></div>
 
                     <form>
 
@@ -58,11 +60,11 @@ use SmartcatSupport\Plugin;
 
                     <?php if( isset( $_REQUEST['login'] ) ) : ?>
 
-                        <div class="alert alert-danger fade in login-error-msg">
-
-                            <?php _e( 'Invalid username or password', \SmartcatSupport\PLUGIN_ID ); ?>
+                        <div class="alert alert-error alert-dismissible fade in">
 
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+                            <?php _e( 'Invalid username or password', \SmartcatSupport\PLUGIN_ID ); ?>
 
                         </div>
 
@@ -70,8 +72,10 @@ use SmartcatSupport\Plugin;
 
                     <?php wp_login_form( array( 'redirect' => \SmartcatSupport\url() ) ); ?>
 
-                    <div>
+                    <div class="text-center">
+
                         <a href="<?php echo \SmartcatSupport\url() . '?reset_password'; ?>"><?php _e( 'Lost password?', \SmartcatSupport\PLUGIN_ID ); ?></a>
+
                     </div>
 
                     <?php if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>

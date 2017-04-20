@@ -29,6 +29,8 @@ var App = (function ($) {
     var _reset_password = function (e) {
         e.preventDefault();
 
+        var alert = _.template('<div class="alert alert-dismissible alert-<%=status %>"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span><%= message %></span></div>');
+
         $(e.target).parents('form').submit({
             url: Globals.ajax_url,
             action: "support_reset_password",
@@ -37,7 +39,10 @@ var App = (function ($) {
                 _ajax_nonce: Globals.ajax_nonce
             },
             success: function (response) {
-                // window.location.reload();
+               $('#reset-pw-alert').html(alert({ message: response.data.message, status: 'success' } ));
+            },
+            error: function(xhr) {
+                $('#reset-pw-alert').html(alert({ message: xhr.responseJSON.data.message, status: 'error' } ));
             }
         });
     }

@@ -55,7 +55,7 @@ class Registration extends AjaxComponent {
             if( !$user ) {
                 wp_send_json_error( array( 'username' => __( 'That email address could not be found', \SmartcatSupport\PLUGIN_ID ) ), 400 );
             } else {
-                $password =  wp_generate_password();
+                $password = wp_generate_password();
 
                 wp_update_user( array(
                     'ID' => $user->ID,
@@ -63,7 +63,9 @@ class Registration extends AjaxComponent {
                 ) );
 
                 if( apply_filters( 'support_password_reset_notification', true, $user->user_email, $password, $user ) ) {
-                    wp_send_json_success( array( 'message' => __( 'A temporary password has been sent to your email', \SmartcatSupport\PLUGIN_ID ) ) );
+                    wp_send_json_success( array( 'message' => __( 'Password reset, a temporary password has been sent to your email', \SmartcatSupport\PLUGIN_ID ) ) );
+                } else {
+                    wp_send_json_error( array( 'message' => __( 'An error has occurred, Please try again later', \SmartcatSupport\PLUGIN_ID ) ), 500 );
                 }
             }
         }
