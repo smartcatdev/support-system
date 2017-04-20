@@ -205,13 +205,14 @@ class Ticket extends AjaxComponent {
             //TODO add error for flooding
             add_filter( 'comment_flood_filter', '__return_false' );
 
-            $comment = wp_handle_comment_submission( array(
+            $comment = wp_insert_comment( array(
                 'comment_post_ID'             => $ticket->ID,
-                'author'                      => $user->display_name,
-                'email'                       => $user->user_email,
-                'url'                         => $user->user_url,
-                'comment'                     => \SmartcatSupport\util\encode_code_blocks( $_POST['content'] ),
+                'comment_author'              => $user->display_name,
+                'comment_author_email'        => $user->user_email,
+                'comment_author_url'          => $user->user_url,
+                'comment_content'             => \SmartcatSupport\util\encode_code_blocks( $_POST['content'] ),
                 'comment_parent'              => 0,
+                'comment_approved'            => 1,
                 'user_id'                     => $user->ID
             ) );
 
@@ -228,12 +229,14 @@ class Ticket extends AjaxComponent {
 
                 do_action( 'support_ticket_reply', $comment, $ticket );
 
-                $html = $this->render( $this->plugin->template_dir . '/comment.php', array( 'comment' => $comment ) );
+                $html = $this->render( $this->plugin->template_dir . '/comment.php', array( 'comment' => get_comment( $comment ) ) );
 
-                wp_send_json( array(
-                    'success' => true,
-                    'data'    => $html,
-                    'ticket'  => $ticket->ID ),
+                wp_send_json(
+                    array(
+                        'success' => true,
+                        'data'    => $html,
+                        'ticket'  => $ticket->ID
+                    ),
                     201
                 );
 
