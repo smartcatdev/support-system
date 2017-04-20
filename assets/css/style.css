@@ -414,8 +414,13 @@ textarea {
     border-left: 4px solid #dc3232;
 }
 
-#login-back {
+.button-back {
     margin: 0px 0 20px 0;
+    border: none;
+}
+
+.button-back:hover {
+    border: none;
 }
 
 #support-login-form .logo {

@@ -113,8 +113,20 @@ class Notifications extends AbstractComponent {
         return array_merge( $vars, $support_defaults );
     }
 
+    public function password_reset( $true, $email, $password, $user ) {
+        return Mailer::send_template( get_option( Option::PASSWORD_RESET_EMAIL ), $email, array(
+            'password'       => $password,
+            'username'       => $user->user_login,
+            'first_name'     => $user->first_name,
+            'last_name'      => $user->last_name,
+            'full_name'      => $user->first_name . ' ' . $user->last_name,
+            'email'          => $email
+        ) );
+    }
+
     public function subscribed_hooks() {
         return array(
+            'support_password_reset_notification' => array( 'password_reset', 1, 4 ),
             'support_user_registered' => array( 'user_register' ),
             'support_ticket_created' => array( 'ticket_created' ),
             'comment_post' => array( 'ticket_reply' ),

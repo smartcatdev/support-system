@@ -23,7 +23,24 @@ var App = (function ($) {
         $(document).on("show.bs.modal", "#create-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", "#create-modal", _reset_media_dropzone);
         $(document).on('shown.bs.tab', '.editor-tab', _preview_comment);
+        $(document).on('click', '#reset-password', _reset_password);
     };
+
+    var _reset_password = function (e) {
+        e.preventDefault();
+
+        $(e.target).parents('form').submit({
+            url: Globals.ajax_url,
+            action: "support_reset_password",
+            method: "post",
+            extras: {
+                _ajax_nonce: Globals.ajax_nonce
+            },
+            success: function (response) {
+                // window.location.reload();
+            }
+        });
+    }
 
     var close_preview = function (tabs) {
         $(tabs).find('li.edit a').tab('show');

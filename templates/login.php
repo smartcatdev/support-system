@@ -8,7 +8,7 @@ use SmartcatSupport\Plugin;
 
 <?php $signups = get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ); ?>
 
-<div id="support-login-bg">
+<div id="support-login-bg" xmlns="http://www.w3.org/1999/html">
 
     <div id="support-login-page">
 
@@ -16,11 +16,47 @@ use SmartcatSupport\Plugin;
 
             <div id="support-login-form">
 
+                <?php if( isset( $_REQUEST['reset_password'] ) ) : ?>
+
+                        <a class="btn btn-default button-back" href="<?php echo \SmartcatSupport\url(); ?>">
+
+                            <span class="glyphicon glyphicon-chevron-left button-icon"></span>
+
+                            <span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                        </a>
+
+                    <form>
+
+                        <div class="form-group">
+
+                            <h4><?php _e( 'Reset Password', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <input class="form-control" type="text" name="username" placeholder="<?php _e( 'Username or Email Address', \SmartcatSupport\PLUGIN_ID ); ?>" />
+
+                        </div>
+
+                        <div class="bottom">
+
+                            <input id="reset-password" type="submit" class="button button-primary" value="<?php _e( 'Reset', \SmartcatSupport\PLUGIN_ID ); ?>" />
+
+                        </div>
+
+                        <?php wp_nonce_field( '_ajax_nonce' ); ?>
+
+                    </form>
+
+                <?php else : ?>
+
                 <div id="login">
 
                     <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
 
-                    <?php if( !empty( $_REQUEST['login'] ) ) : ?>
+                    <?php if( isset( $_REQUEST['login'] ) ) : ?>
 
                         <div class="alert alert-danger fade in login-error-msg">
 
@@ -34,6 +70,10 @@ use SmartcatSupport\Plugin;
 
                     <?php wp_login_form( array( 'redirect' => \SmartcatSupport\url() ) ); ?>
 
+                    <div>
+                        <a href="<?php echo \SmartcatSupport\url() . '?reset_password'; ?>"><?php _e( 'Lost password?', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                    </div>
+
                     <?php if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>
 
                         <button style="display: none" id="show-registration" type="button" class="button button-primary registration-toggle">
@@ -46,61 +86,71 @@ use SmartcatSupport\Plugin;
 
                 </div>
 
-                <?php if ( $signups ) : ?>
+                    <?php if ( $signups ) : ?>
 
-                    <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/registration_form.php'; ?>
+                        <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/registration_form.php'; ?>
 
-                    <div id="register" style="display: none">
+                        <div id="register" style="display: none">
 
-                        <button id="login-back" class="btn btn-default registration-toggle">
+                            <button id="login-back" class="btn btn-default registration-toggle button-back">
 
-                            <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                                <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
-                        </button>
+                            </button>
 
-                        <form id="registration-form">
+                            <form id="registration-form">
 
-                            <?php foreach( $form->fields as $field ) : ?>
+                                <?php foreach( $form->fields as $field ) : ?>
 
-                                <div class="form-group">
+                                    <div class="form-group">
 
-                                    <label><?php echo $field->label; ?></label>
+                                        <label><?php echo $field->label; ?></label>
 
-                                    <?php $field->render(); ?>
+                                        <?php $field->render(); ?>
+
+                                    </div>
+
+                                <?php endforeach; ?>
+
+                                <input type="hidden" name="<?php echo $form->id; ?>" />
+
+                                <div class="terms">
+
+                                    <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
+
+                                        <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), SmartcatSupport\PLUGIN_ID ); ?>
+
+                                    </a>
 
                                 </div>
 
-                            <?php endforeach; ?>
+                                <div class="text-right registration-submit">
 
-                            <input type="hidden" name="<?php echo $form->id; ?>" />
+                                    <button id="registration-submit" type="submit" class="button button-primary">
 
-                            <div class="terms">
+                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
 
-                                <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
+                                    </button>
 
-                                    <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), SmartcatSupport\PLUGIN_ID ); ?>
-
-                                </a>
-
-                            </div>
-
-                            <div class="text-right registration-submit">
-
-                                <button id="registration-submit" type="submit" class="button button-primary">
-
-                                    <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
-
-                                </button>
-
-                            </div>
+                                </div>
 
 
-                        </form>
+                            </form>
 
-                    </div>
+                        </div>
+
+                    <?php endif; ?>
+
+                    <?php $login_widget = get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ); ?>
+
+                    <?php if( !empty( $login_widget ) ) : ?>
+
+                        <div id="login-widget-area" class="row"><?php echo stripslashes( $login_widget ); ?></div>
+
+                    <?php endif; ?>
 
                 <?php endif; ?>
-                <div id="login-widget-area" class="row"><?php echo stripslashes( get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ) ); ?></div>
+
             </div>
 
         </div>

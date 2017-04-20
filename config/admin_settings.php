@@ -370,6 +370,18 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_pw_reset_email_template',
+        'option'        => Option::PASSWORD_RESET_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::PASSWORD_RESET_EMAIL ),
+        'options'       => $email_templates,
+        'label'         => __( 'Forgot Password Reset', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Sent when a user forgets their password', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
 ) );
 
 $email_notifications = new SettingsSection( 'email_notifications', __( 'Email Notifications', \SmartcatSupport\PLUGIN_ID ) );
