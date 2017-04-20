@@ -76,12 +76,14 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
             </form>
 
         </div>
+
+        <hr>
         
-        <div class="row-table-cell">
+        <div class="row text-center">
 
-            <div id="filter-actions" class="btn-group input-group">
+            <div id="filter-actions" class="btn-group">
 
-                <button style="line-height: 22px" type="button" class="btn btn-default" id="filter-toggle">
+                <button type="button" class="btn btn-default" id="filter-toggle">
 
                     <span class="toggle-label"></span>
 
@@ -89,7 +91,9 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
                 <button type="button" class="btn btn-default" id="refresh-tickets">
 
-                    <span style="line-height: 22px" class="refresh glyphicon glyphicon-refresh"></span>
+                    <span class="refresh glyphicon glyphicon-refresh"></span>
+
+                    <span class="refresh-label"><?php _e( 'Refresh', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
                 </button>
 

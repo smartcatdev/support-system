@@ -97,6 +97,10 @@ textarea {
     resize: vertical;
 }
 
+hr {
+    margin-top: 10px;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -193,20 +197,19 @@ textarea {
     background: #fff;
 }
 
-@media( max-width: 500px ) {
-    #footer {
-        
-    }
-}
-
-@media( max-width: 767px ) {
+@media(max-width: 769px) {
     
     #search-wrapper {
         width: 100%;
     }
     
-    #filter-controls .row-table-cell{
+    #filter-actions .row-table-cell {
         display: block;
+        width: 100%;
+    }
+
+    #filter-controls .btn-group {
+
     }
     
     #statistics-container .stat-tab {

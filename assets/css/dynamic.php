@@ -41,7 +41,7 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     }
 
     #filter-toggle.active .toggle-label:after {
-        content: "<?php _e( 'Applied', \SmartcatSupport\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Filters Applied', \SmartcatSupport\PLUGIN_ID ); ?>";
     }
 
     #support-login-wrapper input[type="text"]:focus,
