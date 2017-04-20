@@ -435,16 +435,17 @@ textarea {
     display: none;
 }
 
-#support-login-form .alert-error {
+#support-login-form .alert {
+    border-radius: 4px;
     background: #fff;
-    border-radius: 0;
+}
+
+#support-login-form .alert-error {
     border: 1px solid #dc3232;
     border-left: 4px solid #dc3232;
 }
 
 #support-login-form .alert-success {
-    background: #fff;
-    border-radius: 0;
     border: 1px solid #52e964;
     border-left: 4px solid #52e964;
 }
