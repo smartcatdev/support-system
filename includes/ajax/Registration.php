@@ -54,10 +54,7 @@ class Registration extends AjaxComponent {
             } else {
                 $password = wp_generate_password();
 
-                wp_update_user( array(
-                    'ID' => $user->ID,
-                    'user_pass' => $password
-                ) );
+                wp_set_password( $password, $user->ID );
 
                 if( apply_filters( 'support_password_reset_notification', true, $user->user_email, $password, $user ) ) {
                     wp_send_json_success( array( 'message' => __( 'Password reset, a temporary password has been sent to your email', \SmartcatSupport\PLUGIN_ID ) ) );
