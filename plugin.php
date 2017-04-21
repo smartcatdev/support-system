@@ -2,7 +2,7 @@
 /*
  * Plugin Name: uCare - Support Ticket System
  * Author: Smartcat
- * Description: If you have customers, then yoy need uCare. A support ticket help desk for your customers featuring multiple usergroups,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress. 
+ * Description: If you have customers, then you need uCare. A support ticket help desk for your customers featuring multiple usergroups,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
  * Version: 1.1.0
  * Author: Smartcat
  * Author URI: https://smartcatdesign.net
@@ -23,7 +23,8 @@ const PLUGIN_VERSION = '1.1.0';
 
 
 // Manual includes
-include_once 'vendor/autoload.php';
+do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
+
 include_once 'includes/functions.php';
 
 

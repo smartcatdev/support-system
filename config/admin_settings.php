@@ -458,4 +458,4 @@ $admin->add_section( $text, 'display' );
 $admin->add_section( $widgets, 'display' );
 $admin->add_section( $appearance, 'appearance' );
 
-return $admin;
+return apply_filters( 'support_admin_settings', $admin );

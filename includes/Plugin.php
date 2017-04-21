@@ -16,10 +16,9 @@ use SmartcatSupport\component\TicketPostType;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
 
-class Plugin extends AbstractPlugin implements HookSubscriber {
+class Plugin extends AbstractPlugin {
 
     public function start() {
-        $this->add_api_subscriber( $this );
         $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
 
         $this->config_dir = $this->dir . '/config/';

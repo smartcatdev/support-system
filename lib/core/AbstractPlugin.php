@@ -10,7 +10,7 @@ if( !class_exists( '\smartcat\core\AbstractPlugin' ) ) :
  * @package \smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class AbstractPlugin implements HookRegisterer, Plugin {
+abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin {
     protected $url;
     protected $dir;
     protected $file;
@@ -26,6 +26,8 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
         $this->id = $id;
         $this->file = $fs_context;
         $this->version = $version;
+
+        $this->add_api_subscriber( $this );
     }
 
     /**
@@ -163,6 +165,10 @@ abstract class AbstractPlugin implements HookRegisterer, Plugin {
 
     public function version() {
         return $this->version;
+    }
+
+    public function subscribed_hooks() {
+        return array();
     }
 
     /**
