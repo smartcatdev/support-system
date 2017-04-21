@@ -3,7 +3,6 @@
 namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
-use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
 use SmartcatSupport\ajax\Media;
 use SmartcatSupport\ajax\Ticket;

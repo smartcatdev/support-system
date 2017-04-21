@@ -14,6 +14,15 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
+    function render( $template, array $data = array() ) {
+        extract( $data );
+        ob_start();
+
+        include( $template );
+
+        return ob_get_clean();
+    }
+
     function can_use_support( $id = false ) {
         if( $id ) {
             $result = user_can( $id, 'use_support' );

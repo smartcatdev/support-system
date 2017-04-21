@@ -4,7 +4,6 @@ namespace SmartcatSupport\ajax;
 
 
 use smartcat\core\AbstractComponent;
-use smartcat\debug\Log;
 
 abstract class AjaxComponent extends AbstractComponent {
 
