@@ -4,7 +4,6 @@ namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
-use SmartcatSupport\descriptor\Defines;
 use SmartcatSupport\descriptor\Option;
 
 class Notifications extends AbstractComponent {
@@ -70,7 +69,7 @@ class Notifications extends AbstractComponent {
         $comment = get_comment( $comment_id );
         $ticket = get_post( $comment->comment_post_ID );
 
-        if( $ticket->post_type == 'support_ticket' || $this->sending ) {
+        if( $ticket->post_type == 'support_ticket' ) {
             $emails = array();
         }
 
@@ -96,7 +95,7 @@ class Notifications extends AbstractComponent {
     private function send_template( $template, $recipient, $template_vars ) {
         $this->sending = true;
 
-        Mailer::send_template( $template, $recipient, $template_vars );
+        return Mailer::send_template( $template, $recipient, $template_vars );
     }
 
     public function email_template_branding( $template ) {

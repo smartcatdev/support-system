@@ -205,7 +205,7 @@ class Ticket extends AjaxComponent {
             //TODO add error for flooding
             add_filter( 'comment_flood_filter', '__return_false' );
 
-            $comment = wp_insert_comment( array(
+            $comment = wp_new_comment( array(
                 'comment_post_ID'             => $ticket->ID,
                 'comment_author'              => $user->display_name,
                 'comment_author_email'        => $user->user_email,
