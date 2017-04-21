@@ -31,12 +31,6 @@ namespace  SmartcatSupport\util {
         return $user->first_name . ' ' . $user->last_name;
     }
 
-    function admin_notice( $message, $class ) {
-        add_action( 'admin_notices', function () use ( $message, $class ) {
-            printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
-        } );
-    }
-
     function can_use_support( $id = false ) {
         if( $id ) {
 

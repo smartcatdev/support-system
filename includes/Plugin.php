@@ -19,7 +19,6 @@ use SmartcatSupport\descriptor\Option;
 class Plugin extends AbstractPlugin implements HookSubscriber {
 
     public function start() {
-        $this->add_api_subscriber( $this );
         $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
 
         $this->config_dir = $this->dir . '/config/';
@@ -169,8 +168,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     }
 
     public function subscribed_hooks() {
-        return array(
-            'init' => array( 'perform_migrations' ),
+        return parent::subscribed_hooks( array(
             'wp_login_failed' => array( 'login_failed' ),
             'authenticate' => array( 'authenticate', 1, 3 ),
             'admin_footer' => array( 'feedback_form' ),
@@ -183,7 +181,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
             'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
-        );
+        ) );
     }
 
     public function mailer_checkin( $consumers ) {
@@ -239,39 +237,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
     public function feedback_form() {
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
             require_once $this->dir . '/templates/feedback.php';
-        }
-    }
-
-    public function perform_migrations() {
-        $current = get_option( Option::PLUGIN_VERSION, 0 );
-        $result = null;
-
-        if( PLUGIN_VERSION > $current ) {
-
-            // Perform migrations with the current version
-            foreach( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
-                $migration = include_once( $file );
-                $version = $migration->version();
-
-                if ( $version <= PLUGIN_VERSION && $version > $current ) {
-                    $result = $migration->migrate();
-
-                    if ( !$result || is_wp_error( $result ) ) {
-                        util\admin_notice( __( 'uCare failed to update', PLUGIN_ID ), array( 'notice', 'notice-error', 'dismissible' ) );
-                        break;
-                    }
-                }
-            }
-
-            if( !is_wp_error( $result ) ) {
-
-                util\admin_notice(
-                    __( "<strong>uCare Support</strong> has been updated to version {$this->version}", PLUGIN_ID ),
-                    array( 'notice', 'notice-success', 'is-dismissible' )
-                );
-
-                update_option( Option::PLUGIN_VERSION, $this->version );
-            }
         }
     }
 }

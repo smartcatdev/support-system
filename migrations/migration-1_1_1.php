@@ -2,7 +2,7 @@
 
 use SmartcatSupport\descriptor\Option;
 
-class migration_1_1_1 implements \SmartcatSupport\util\Migration {
+class migration_1_1_1 implements \smartcat\core\Migration {
 
     function version () {
         return '1.1.1';
@@ -11,7 +11,7 @@ class migration_1_1_1 implements \SmartcatSupport\util\Migration {
     /**
      * 1. Insert the default password reset template
      *
-     * @return bool|WP_Error
+     * @return mixed
      */
     function migrate () {
         try {
@@ -33,7 +33,7 @@ class migration_1_1_1 implements \SmartcatSupport\util\Migration {
 
         } catch( Exception $ex ) { }
 
-        return true;
+        return array( 'success' => true, 'message' => 'uCare has been successfully upgraded to version 1.1.1' );
     }
 
 }

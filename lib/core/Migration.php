@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\util;
+namespace smartcat\core;
 
 interface Migration {
     public function version();
