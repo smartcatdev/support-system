@@ -195,7 +195,7 @@ $widgets->add_field( new TextAreaField(
         'option'        => Option::LOGIN_WIDGET_AREA,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 5 ) ),
-        'value'         => get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ),
+        'value'         => stripcslashes( get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ) ),
         'label'         => __( 'Login Widget Area', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Displayed on the login page', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new HTMLFilter() )
@@ -206,7 +206,7 @@ $widgets->add_field( new TextAreaField(
         'option'        => Option::USER_WIDGET_AREA,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 5 ) ),
-        'value'         => get_option( Option::USER_WIDGET_AREA, Option\Defaults::USER_WIDGET_AREA ),
+        'value'         => stripcslashes( get_option( Option::USER_WIDGET_AREA, Option\Defaults::USER_WIDGET_AREA ) ),
         'label'         => __( 'User Widget Area', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Only visible to support users', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new HTMLFilter() )
@@ -217,7 +217,7 @@ $widgets->add_field( new TextAreaField(
         'option'        => Option::AGENT_WIDGET_AREA,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 5 ) ),
-        'value'         => get_option( Option::AGENT_WIDGET_AREA, Option\Defaults::AGENT_WIDGET_AREA ),
+        'value'         => stripcslashes( get_option( Option::AGENT_WIDGET_AREA, Option\Defaults::AGENT_WIDGET_AREA ) ),
         'label'         => __( 'Agent Widget Area', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Only visible to support agents and admins', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new HTMLFilter() )
