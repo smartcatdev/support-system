@@ -907,7 +907,7 @@ button.close-ticket:hover {
 .sidebar .attachments .image {
     position: relative;
     cursor: pointer;
-    width: 150px;
+    max-width: 150px;
 }
 
 .sidebar .attachments .image:after {
