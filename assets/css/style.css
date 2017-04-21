@@ -97,6 +97,10 @@ textarea {
     resize: vertical;
 }
 
+hr {
+    margin-top: 10px;
+}
+
 /* ## Animations ***********************************************************************/
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -143,23 +147,19 @@ textarea {
     height: 60px;
     margin: 50px auto;
     width: 60px;
-    opacity: 1;
 }
 
 .dot-1 {
-    background: #60D4C8;
     animation: animation-pulse 1.4s linear 200ms infinite,
                 animation-bounce 1.4s ease 200ms infinite;
 }
 
 .dot-2 {
-    background: #46BAAF;
     animation: animation-pulse 1.4s linear 400ms infinite,
                 animation-bounce 1.4s ease 400ms infinite;
 }
 
 .dot-3 {
-    background: #3EA69B;
     animation: animation-pulse 1.4s linear 600ms infinite,
                 animation-bounce 1.4s ease 600ms infinite;
 }
@@ -197,20 +197,19 @@ textarea {
     background: #fff;
 }
 
-@media( max-width: 500px ) {
-    #footer {
-        
-    }
-}
-
-@media( max-width: 767px ) {
+@media(max-width: 769px) {
     
     #search-wrapper {
         width: 100%;
     }
     
-    #filter-controls .row-table-cell{
+    #filter-actions .row-table-cell {
         display: block;
+        width: 100%;
+    }
+
+    #filter-controls .btn-group {
+
     }
     
     #statistics-container .stat-tab {
@@ -308,7 +307,7 @@ textarea {
     padding-top: 50px;
 }
 
-@media( max-width: 500px ) {
+@media(max-width: 500px) {
     #support-login-wrapper {
         padding: 15px;
         width: 90%;
@@ -385,7 +384,7 @@ textarea {
 }
 
 #support-login-form .button {
-    margin-top: 5px;
+    /*margin-top: 5px;*/
 }
 
 #support-login-form img.logo {
@@ -405,21 +404,62 @@ textarea {
 }
 
 #support-login-form .login-submit {
-    text-align: right;
+    text-align: center;
+    min-height: 40px;
+}
+
+#support-login-form .login-submit .button {
+    display: inline-block;
+    float: right;
+    margin-bottom: 15px;
+}
+
+#support-login-form .button {
+    width: 100%;
+}
+
+@media(min-width: 767px) {
+    #support-login-form .button {
+        width: 48% !important;
+    }
+
+    #support-login-form .login-submit :nth-child(1) {
+        width: 48% !important;
+        margin-right: 1%;
+        margin-left: 1%;
+    }
+
+    #support-login-form .login-submit :nth-child(2) {
+        width: 49% !important;
+    }
 }
 
 #register_form {
     display: none;
 }
 
-.login-error-msg {
+#support-login-form .alert {
+    border-radius: 4px;
     background: #fff;
-    border-radius: 0;
+}
+
+#support-login-form .alert-error {
+    border: 1px solid #dc3232;
     border-left: 4px solid #dc3232;
 }
 
-#login-back {
+#support-login-form .alert-success {
+    border: 1px solid #52e964;
+    border-left: 4px solid #52e964;
+}
+
+.button-back {
     margin: 0px 0 20px 0;
+    border: none;
+}
+
+.button-back:hover {
+    border: none;
 }
 
 #support-login-form .logo {
@@ -490,6 +530,13 @@ textarea {
 
 .ticket-area-wrapper {
     background: #f9f9f9;
+    min-height: 600px;
+}
+
+@media(min-width: 1201px) {
+    .ticket-area-wrapper {
+        min-height: 720px;
+    }
 }
 
 /* ### Statistics ****************************************************************************/
@@ -628,7 +675,6 @@ textarea {
 }
 
 #tickets-container .comment-icon {
-    margin: 5px 8px;
     font-size: 20px;
     color: #575757;
     transform: scaleX(0.8);
@@ -642,8 +688,8 @@ textarea {
 #tickets-container .comment-count-badge:after {
     content: attr(data-count);
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: -10px;
+    right: -5px;
     font-size: 10px;
     background: #337ab7;
     color: white;
@@ -861,6 +907,7 @@ button.close-ticket:hover {
 .sidebar .attachments .image {
     position: relative;
     cursor: pointer;
+    max-width: 150px;
 }
 
 .sidebar .attachments .image:after {
@@ -904,13 +951,6 @@ button.close-ticket:hover {
 
 /* #### Comments ***********************************************************************/
 
-.discussion-area {
-}
-
-.ticket-area-wrapper {
-    min-height: 600px;
-}
-
 .comments .comment .meta p {
     font-size: 8pt;
 }
@@ -928,8 +968,21 @@ button.close-ticket:hover {
     padding-bottom: 10px;
 }
 
+.comment .nav-tabs li {
+    margin: 0 !important;
+}
+
+.comment .nav-tabs .tab.active a {
+    background: #fff !important;
+}
+
 .comment .media-body {
     vertical-align: middle;
+}
+
+.comment .editor .tab-content {
+    min-height: 110px;
+    position: relative;
 }
 
 .comment-reply .media-heading {
@@ -945,6 +998,16 @@ button.close-ticket:hover {
 }
 
 /* ## Footer ***************************************************************************/
+#footer {
+    height: 150px;
+    display: table;
+}
+
+#footer .container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .footer-text {
     padding: 15px;
     font-size: 12px;

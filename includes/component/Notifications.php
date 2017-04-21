@@ -9,6 +9,7 @@ use SmartcatSupport\descriptor\Option;
 class Notifications extends AbstractComponent {
 
     private $user;
+    private $sending = false;
 
     public function start() {
         $this->user = wp_get_current_user();
@@ -65,7 +66,7 @@ class Notifications extends AbstractComponent {
         }
     }
 
-    public function disable_wp_notifications( $emails, $comment_id ) {
+    public function disable_wp_comment_notifications( $emails, $comment_id ) {
         $comment = get_comment( $comment_id );
         $ticket = get_post( $comment->comment_post_ID );
 
@@ -77,7 +78,7 @@ class Notifications extends AbstractComponent {
     }
 
     public function email_headers( $headers ) {
-        if( defined( 'SUPPORT_EMAIL_SENDING' ) ) {
+        if( $this->sending ) {
             $forward_address = get_option( Option::FORWARD_EMAIL, Option\Defaults::FORWARD_EMAIL );
             $sender_email = get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) );
             $sender_name = get_option( Option::SENDER_NAME, Option\Defaults::SENDER_NAME );
@@ -92,14 +93,14 @@ class Notifications extends AbstractComponent {
         return $headers;
     }
 
-    private function send_template( $template, $recipient, $template_vars, $args = array() ) {
-        define( 'SUPPORT_EMAIL_SENDING', true );
+    private function send_template( $template, $recipient, $template_vars ) {
+        $this->sending = true;
 
-        Mailer::send_template( $template, $recipient, $template_vars, $args );
+        return Mailer::send_template( $template, $recipient, $template_vars );
     }
 
     public function email_template_branding( $template ) {
-        if( defined('SUPPORT_EMAIL_SENDING' ) ) {
+        if( $this->sending ) {
             echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
         }
     }
@@ -114,8 +115,20 @@ class Notifications extends AbstractComponent {
         return array_merge( $vars, $support_defaults );
     }
 
+    public function password_reset( $true, $email, $password, $user ) {
+        return $this->send_template( get_option( Option::PASSWORD_RESET_EMAIL ), $email, array(
+            'password'       => $password,
+            'username'       => $user->user_login,
+            'first_name'     => $user->first_name,
+            'last_name'      => $user->last_name,
+            'full_name'      => $user->first_name . ' ' . $user->last_name,
+            'email'          => $email
+        ) );
+    }
+
     public function subscribed_hooks() {
         return array(
+            'support_password_reset_notification' => array( 'password_reset', 1, 4 ),
             'support_user_registered' => array( 'user_register' ),
             'support_ticket_created' => array( 'ticket_created' ),
             'comment_post' => array( 'ticket_reply' ),
@@ -125,8 +138,8 @@ class Notifications extends AbstractComponent {
             'email_template_footer' => array( 'email_template_branding' ),
             'mailer_template_vars' => array( 'email_template_vars' ),
 
-            'comment_notification_recipients' => array( 'disable_wp_notifications', 10, 2 ),
-            'comment_moderation_recipients' => array( 'disable_wp_notifications', 10, 2 )
+            'comment_notification_recipients' => array( 'disable_wp_comment_notifications', 10, 2 ),
+            'comment_moderation_recipients' => array( 'disable_wp_comment_notifications', 10, 2 )
         );
     }
 }

@@ -3,14 +3,13 @@ var Ticket = (function ($) {
 
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
-        $(document).on("click", ".confirm-close-ticket", _close_ticket);
+        $(document).on("click", ".close-ticket", _close_ticket);
         $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
         $(document).on("click", ".flagged", _toggle_flag);
         $(document).on("show.bs.modal", ".attachment-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", ".attachment-modal", _reset_media_dropzone);
-        $(document).on("click", ".delete-attachment", _delete_attachment);
         $(document).on("click", ".delete-attachment", _delete_attachment);
         $(document).on("focus", ".property-control", _lock_properties);
         $(document).on("focusout", ".property-control", _lock_properties);
@@ -21,19 +20,33 @@ var Ticket = (function ($) {
     };
 
     var _delete_attachment = function (e) {
-        var target = $(e.target);
 
-        $.ajax({
-            url: Globals.ajax_url,
-            data: {
-                action: "support_delete_media",
-                _ajax_nonce: Globals.ajax_nonce,
-                attachment_id: target.data("attachment_id")
-            },
-            success: function () {
-                Ticket.load_sidebar(target.data("ticket_id"));
+        $('body').confirm({
+            id: 'delete_attachment',
+            okay_text: Globals.strings.yes,
+            cancel_text: Globals.strings.cancel,
+            title: Globals.strings.delete_attachment,
+            content: Globals.strings.warning_permanent
+
+        }, function (val) {
+
+            if(val) {
+                var target = $(e.target);
+
+                $.ajax({
+                    url: Globals.ajax_url,
+                    data: {
+                        action: "support_delete_media",
+                        _ajax_nonce: Globals.ajax_nonce,
+                        attachment_id: target.data("attachment_id")
+                    },
+                    success: function () {
+                        Ticket.load_sidebar(target.data("ticket_id"));
+                    }
+                });
             }
-        })
+
+        });
     };
 
     var _reset_media_dropzone = function(e) {
@@ -139,32 +152,47 @@ var Ticket = (function ($) {
     };
 
     var _close_ticket = function (e) {
-        var modal = $(e.target).parents('.modal');
-        var id = modal.data('ticket_id');
+        var close_button = $(e.target);
+        var id = close_button.data('ticket_id');
 
-        $.post({
-            url: Globals.ajax_url,
-            dataType: 'json',
-            data: {
-                _ajax_nonce: Globals.ajax_nonce,
-                action: 'support_close_ticket',
-                id: id
-            },
-            success: function (reponse) {
-                load_sidebar(id);
-                modal.modal('toggle');
-                $('#close-ticket-' + id).remove();
+        $('body').confirm({
+            id: 'delete_attachment',
+            okay_text: Globals.strings.yes,
+            cancel_text: Globals.strings.cancel,
+            title: Globals.strings.close_ticket,
+            content: Globals.strings.warning_permanent
+
+        }, function (val) {
+
+            if (val) {
+                $.post({
+                    url: Globals.ajax_url,
+                    dataType: 'json',
+                    data: {
+                        _ajax_nonce: Globals.ajax_nonce,
+                        action: 'support_close_ticket',
+                        id: id
+                    },
+                    success: function () {
+                        load_sidebar(id);
+                        close_button.remove();
+                    }
+                });
             }
+
         });
     };
 
     var _open_ticket = function (e) {
         var target = $(e.target);
         var id = target.data("id");
-        
-        $('html, body').animate({
-            scrollTop: $("#statistics-container").offset().top
-        }, 200 );
+        var statistics = $("#statistics-container");
+
+        if(statistics.length > 0) {
+            $('html, body').animate({
+                scrollTop: statistics.offset().top
+            }, 200 );
+        }
 
         if (!App.open_tab(id)) {
             target.prop("disabled", true);
@@ -352,7 +380,7 @@ var Ticket = (function ($) {
         };
 
         setInterval(looper(load_comments), 1000 * Globals.refresh_interval);
-        setInterval(looper(load_sidebar), 1000 * Globals.refresh_interval);
+        //setInterval(looper(load_sidebar), 1000 * Globals.refresh_interval);
     };
 
     return {

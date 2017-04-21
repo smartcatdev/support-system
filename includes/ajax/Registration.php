@@ -2,6 +2,8 @@
 
 namespace SmartcatSupport\ajax;
 
+use SmartcatSupport\descriptor\Defines;
+
 class Registration extends AjaxComponent {
 
     /**
@@ -38,6 +40,31 @@ class Registration extends AjaxComponent {
         }
     }
 
+    public function reset_password() {
+        if( isset( $_REQUEST['username'] ) ) {
+
+            $user = get_user_by( 'email', $_REQUEST['username'] );
+
+            if( !$user ) {
+                $user = get_user_by( 'login', $_REQUEST['username'] );
+            }
+
+            if( !$user ) {
+                wp_send_json_error( array( 'username' => __( 'That user could not be found', \SmartcatSupport\PLUGIN_ID ) ), 400 );
+            } else {
+                $password = wp_generate_password();
+
+                wp_set_password( $password, $user->ID );
+
+                if( apply_filters( 'support_password_reset_notification', true, $user->user_email, $password, $user ) ) {
+                    wp_send_json_success( array( 'message' => __( 'Password reset, a temporary password has been sent to your email', \SmartcatSupport\PLUGIN_ID ) ) );
+                } else {
+                    wp_send_json_error( array( 'message' => __( 'An error has occurred, Please try again later', \SmartcatSupport\PLUGIN_ID ) ), 500 );
+                }
+            }
+        }
+    }
+
     /**
      * Hooks that the Component is subscribed to.
      *
@@ -48,6 +75,7 @@ class Registration extends AjaxComponent {
      */
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
+            'wp_ajax_nopriv_support_reset_password' => array( 'reset_password' ),
             'wp_ajax_nopriv_support_register_user' => array( 'register_user' )
         ) );
     }

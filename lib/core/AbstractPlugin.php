@@ -111,6 +111,43 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
         }
     }
 
+    public function perform_migrations() {
+        $current = get_option( $this->id . '_version', 0 );
+        $result = null;
+
+        $admin_notice = function ( $message, $class ) {
+            add_action( 'admin_notices', function () use ( $message, $class ) {
+                printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
+            } );
+        };
+
+        if( $this->version > $current ) {
+
+            // Perform migrations with the current version
+            foreach( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
+                $migration = include_once( $file );
+                $version = $migration->version();
+
+                if ( $version <= $this->version && $version > $current ) {
+                    $result = $migration->migrate();
+
+                    if ( !$result['success'] ) {
+                        $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-error', 'is-dismissible' ) );
+                        break;
+                    }
+                }
+            }
+
+            if( $result['success'] ) {
+                $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-success', 'is-dismissible' ) );
+
+                update_option( $this->id . '_version', $this->version );
+            }
+
+            error_log( $result['message'] );
+        }
+    }
+
     /**
      * The list of Components to instantiate.
      *
@@ -167,8 +204,8 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
         return $this->version;
     }
 
-    public function subscribed_hooks() {
-        return array();
+    public function subscribed_hooks( $hooks = array() )  {
+        return array_merge( array( 'init' => array( 'perform_migrations' ) ), $hooks );
     }
 
     /**

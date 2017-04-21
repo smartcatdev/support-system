@@ -230,4 +230,9 @@ final class Option {
      * @since 1.1
      */
     const FAVICON = 'smartcat_support_favicon';
+
+    /**
+     * @since 1.1.1
+     */
+    const PASSWORD_RESET_EMAIL = 'smartcat_support_password-reset-email';
 }
