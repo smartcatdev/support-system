@@ -241,7 +241,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <div class="panel-body">
 
-                    <form class="ticket-status-form">
+                    <form class="ticket-status-form" method="post">
 
                         <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
 

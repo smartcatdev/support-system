@@ -97,8 +97,8 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function update_ticket_properties() {
-        if( current_user_can( 'manage_support_tickets' ) ) {
-            $ticket = $this->get_ticket( $_POST['id'] );
+        if( current_user_can( 'manage_support_tickets' ) && isset( $_REQUEST['id'] ) ) {
+            $ticket = $this->get_ticket( $_REQUEST['id'] );
 
             if ( !empty( $ticket ) ) {
                 $form = include $this->plugin->config_dir . '/ticket_properties_form.php';
@@ -152,16 +152,18 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function sidebar() {
-        $ticket = $this->get_ticket( $_GET['id'] );
+        if( isset( $_GET['id'] ) ) {
+            $ticket = $this->get_ticket( $_GET['id'] );
 
-        if( !empty( $ticket ) ) {
-            $html = $this->render(  $this->plugin->template_dir . '/sidebar.php',
-                array(
-                    'ticket' => $ticket
-                )
-            );
+            if( !empty( $ticket ) ) {
+                $html = $this->render($this->plugin->template_dir . '/sidebar.php',
+                    array(
+                        'ticket' => $ticket
+                    )
+                );
 
-            wp_send_json_success( $html );
+                wp_send_json_success( $html );
+            }
         }
     }
 
