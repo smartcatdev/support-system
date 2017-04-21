@@ -40,18 +40,15 @@ class Registration extends AjaxComponent {
 
     public function reset_password() {
         if( isset( $_REQUEST['username'] ) ) {
-            $user = false;
 
-            if( is_email( $_REQUEST['username'] ) ) {
-                $user = get_user_by( 'email', $_REQUEST['username'] );
+            $user = get_user_by( 'email', $_REQUEST['username'] );
 
-                if( !$user ) {
-                    $user = get_user_by( 'login', $_REQUEST['username'] );
-                }
+            if( !$user ) {
+                $user = get_user_by( 'login', $_REQUEST['username'] );
             }
 
             if( !$user ) {
-                wp_send_json_error( array( 'username' => __( 'That email address could not be found', \SmartcatSupport\PLUGIN_ID ) ), 400 );
+                wp_send_json_error( array( 'username' => __( 'That user could not be found', \SmartcatSupport\PLUGIN_ID ) ), 400 );
             } else {
                 $password = wp_generate_password();
 
