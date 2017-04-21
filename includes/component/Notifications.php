@@ -65,7 +65,7 @@ class Notifications extends AbstractComponent {
         }
     }
 
-    public function disable_wp_notifications( $emails, $comment_id ) {
+    public function disable_wp_comment_notifications( $emails, $comment_id ) {
         $comment = get_comment( $comment_id );
         $ticket = get_post( $comment->comment_post_ID );
 
@@ -137,8 +137,8 @@ class Notifications extends AbstractComponent {
             'email_template_footer' => array( 'email_template_branding' ),
             'mailer_template_vars' => array( 'email_template_vars' ),
 
-            'comment_notification_recipients' => array( 'disable_wp_notifications', 10, 2 ),
-            'comment_moderation_recipients' => array( 'disable_wp_notifications', 10, 2 )
+            'comment_notification_recipients' => array( 'disable_wp_comment_notifications', 10, 2 ),
+            'comment_moderation_recipients' => array( 'disable_wp_comment_notifications', 10, 2 )
         );
     }
 }
