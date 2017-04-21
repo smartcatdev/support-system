@@ -4,11 +4,13 @@ namespace SmartcatSupport\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
+use SmartcatSupport\descriptor\Defines;
 use SmartcatSupport\descriptor\Option;
 
 class Notifications extends AbstractComponent {
 
     private $user;
+    private $sending = false;
 
     public function start() {
         $this->user = wp_get_current_user();
@@ -68,7 +70,7 @@ class Notifications extends AbstractComponent {
         $comment = get_comment( $comment_id );
         $ticket = get_post( $comment->comment_post_ID );
 
-        if( $ticket->post_type == 'support_ticket' ) {
+        if( $ticket->post_type == 'support_ticket' || $this->sending ) {
             $emails = array();
         }
 
@@ -76,7 +78,7 @@ class Notifications extends AbstractComponent {
     }
 
     public function email_headers( $headers ) {
-        if( defined( 'SUPPORT_EMAIL_SENDING' ) ) {
+        if( $this->sending ) {
             $forward_address = get_option( Option::FORWARD_EMAIL, Option\Defaults::FORWARD_EMAIL );
             $sender_email = get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) );
             $sender_name = get_option( Option::SENDER_NAME, Option\Defaults::SENDER_NAME );
@@ -92,13 +94,13 @@ class Notifications extends AbstractComponent {
     }
 
     private function send_template( $template, $recipient, $template_vars ) {
-        define( 'SUPPORT_EMAIL_SENDING', true );
+        $this->sending = true;
 
         Mailer::send_template( $template, $recipient, $template_vars );
     }
 
     public function email_template_branding( $template ) {
-        if( defined('SUPPORT_EMAIL_SENDING' ) ) {
+        if( $this->sending ) {
             echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
         }
     }
@@ -114,7 +116,7 @@ class Notifications extends AbstractComponent {
     }
 
     public function password_reset( $true, $email, $password, $user ) {
-        return Mailer::send_template( get_option( Option::PASSWORD_RESET_EMAIL ), $email, array(
+        return $this->send_template( get_option( Option::PASSWORD_RESET_EMAIL ), $email, array(
             'password'       => $password,
             'username'       => $user->user_login,
             'first_name'     => $user->first_name,

@@ -2,6 +2,8 @@
 
 namespace SmartcatSupport\ajax;
 
+use SmartcatSupport\descriptor\Defines;
+
 class Registration extends AjaxComponent {
 
     /**
