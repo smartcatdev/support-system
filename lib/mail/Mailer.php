@@ -93,7 +93,7 @@ class Mailer implements HookSubscriber  {
         register_post_type( 'email_template', $args );
     }
 
-    public static function send_template( $template_id, $recipient, $replace = array() ) {
+    public static function send_template( $template_id, $recipient, $replace = array(), $args = array() ) {
         $template = get_post( $template_id );
         $sent = false;
 
@@ -109,7 +109,7 @@ class Mailer implements HookSubscriber  {
             $sent = wp_mail(
                 $recipient,
                 $template->post_title,
-                self::wrap_template( $template, $content ),
+                self::wrap_template( $template, $content, $args ),
                 apply_filters( 'mailer_email_headers', $headers, $template_id, $recipient )
             );
         }
@@ -170,7 +170,7 @@ class Mailer implements HookSubscriber  {
         return $content;
     }
 
-    private static function wrap_template( $template, $content ) {
+    private static function wrap_template( $template, $content, $args ) {
         ob_start(); ?>
 
             <html>
@@ -185,11 +185,12 @@ class Mailer implements HookSubscriber  {
                             text-align: center;
                         }
                     </style>
+                    <?php echo do_action( 'email_template_header', $template, $args ); ?>
                 </head>
                 <body>
                     <?php echo $content; ?>
                     <div class="footer">
-                        <p><?php echo do_action( 'email_template_footer', $template ); ?></p>
+                        <p><?php echo do_action( 'email_template_footer', $template, $args ); ?></p>
                     </div>
                 </body>
             </html>
