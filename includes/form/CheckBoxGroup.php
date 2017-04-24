@@ -21,20 +21,14 @@ class CheckBoxGroup extends AbstractField {
 
             <div class="form-check">
 
-                <label class="form-check-label">
-                    
-                    <input type="checkbox"
-                           name="<?php echo $this->name; ?>[]"
-                           value="<?php echo $option; ?>"
+                <label class="form-check-label"><input type="checkbox"
+                    name="<?php echo $this->name; ?>[]"
+                    value="<?php echo $option; ?>"
 
-                           <?php $this->classes(); ?>
-                           <?php $this->props(); ?>
+                    <?php $this->classes(); ?>
+                    <?php $this->props(); ?>
 
-                           <?php checked( $this->value[ $option ] ); ?> />
-
-                    <?php echo $label; ?>
-
-                </label>
+                    <?php checked( $this->value[ $option ] ); ?> /> <?php echo $label; ?></label>
 
             </div>
 

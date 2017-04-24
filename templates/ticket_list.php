@@ -78,6 +78,18 @@ use SmartcatSupport\descriptor\Option;
 
                             <div class="indicators pull-right">
 
+                                <?php $assigned_to = get_post_meta( $post->ID, 'agent', true ); ?>
+
+                                <?php if( !empty( $assigned_to ) ) : ?>
+
+                                    <div class="indicator">
+
+                                        <?php echo get_avatar( get_user_by( 'id', $assigned_to ), 28, '', '', array( 'class' => 'img-circle' ) ); ?>
+
+                                    </div>
+
+                                <?php endif; ?>
+
                                 <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
 
                                 <?php if( $attachments > 0 ) : ?>
@@ -90,13 +102,15 @@ use SmartcatSupport\descriptor\Option;
 
                                 <?php endif; ?>
 
-                                <div class="indicator">
+                                <?php if( $post->comment_count > 0 ) : ?>
 
-                                    <span class="glyphicon glyphicon-comment comment-icon"></span>
+                                    <div class="indicator">
 
-                                    <span class="comment-count-badge" data-count="<?php echo $post->comment_count;?>"></span>
+                                        <span class="glyphicon glyphicon-comment comment-icon"></span>
 
-                                </div>
+                                    </div>
+
+                                <?php endif; ?>
 
                                 <?php if( current_user_can( 'manage_support_tickets' ) ) : ?>
 

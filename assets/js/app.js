@@ -23,7 +23,37 @@ var App = (function ($) {
         $(document).on("show.bs.modal", "#create-modal", _init_media_dropzone);
         $(document).on("hidden.bs.modal", "#create-modal", _reset_media_dropzone);
         $(document).on('shown.bs.tab', '.editor-tab', _preview_comment);
+        $(document).on('click', '#reset-password', _reset_password);
     };
+
+    var _reset_password = function (e) {
+        e.preventDefault();
+
+        var form = $(e.target).parents('form');
+        var alert = _.template('<div class="alert alert-dismissible alert-<%=status %>"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span><%= message %></span></div>');
+
+        form.submit({
+            url: Globals.ajax_url,
+            action: "support_reset_password",
+            method: "post",
+            extras: {
+                _ajax_nonce: Globals.ajax_nonce
+            },
+            success: function (response) {
+                if(response.data.message != undefined) {
+                    $('#reset-pw-alert').html(alert({message: response.data.message, status: 'success'}));
+                }
+            },
+            error: function(xhr) {
+                if(xhr.responseJSON.data.message != undefined) {
+                    $('#reset-pw-alert').html(alert({message: xhr.responseJSON.data.message, status: 'error'}));
+                }
+            },
+            complete: function () {
+                form.find('input[name="username"]').val('');
+            }
+        });
+    }
 
     var close_preview = function (tabs) {
         $(tabs).find('li.edit a').tab('show');
@@ -307,7 +337,7 @@ var App = (function ($) {
         var register_button = $("#show-registration");
 
         if(register_button.length > 0) {
-            $(".login-submit").prepend(register_button.show());
+            register_button.show().insertAfter('#wp-submit')
         }
 
         Dropzone.autoDiscover = false;
@@ -319,7 +349,7 @@ var App = (function ($) {
         adjust_login();
 
         setInterval(load_tickets, 1000 * Globals.refresh_interval);
-        setInterval( load_statistics, 1000 * Globals.refresh_interval);
+        setInterval(load_statistics, 1000 * Globals.refresh_interval);
 
     };
 

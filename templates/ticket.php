@@ -58,7 +58,9 @@ $user = wp_get_current_user();
 
                 <div class="panel-body editor-area">
 
-                    <form class="comment-form">
+                    <div class="editor">
+
+                        <form class="comment-form">
 
                         <div class="tab-content">
 
@@ -71,7 +73,7 @@ $user = wp_get_current_user();
                             <div id="ticket-<?php echo $ticket->ID; ?>-preview" class="tab-pane preview">
 
                                 <div class="rendered formatted"></div>
-
+.
                             </div>
 
                         </div>
@@ -84,11 +86,9 @@ $user = wp_get_current_user();
 
                                 <?php if( $status != 'closed' && !current_user_can( 'manage_support_tickets' ) ) : ?>
 
-                                    <button id="close-ticket-<?php echo $ticket->ID; ?>"
+                                    <button class="close-ticket button"
                                             type="button"
-                                            class="close-ticket button"
-                                            data-toggle="modal"
-                                            data-target="#close-ticket-modal-<?php echo $ticket->ID; ?>">
+                                            data-ticket_id="<?php echo $ticket->ID; ?>">
 
                                         <span class="glyphicon glyphicon-ok-sign button-icon"></span>
 
@@ -112,6 +112,8 @@ $user = wp_get_current_user();
 
                     </form>
 
+                    </div>
+
                 </div>
 
             </div>
@@ -121,61 +123,6 @@ $user = wp_get_current_user();
     </div>
 
 </div>
-
-<?php if( $status != 'closed' && !current_user_can( 'manage_support_tickets' ) ) : ?>
-
-    <div id="close-ticket-modal-<?php echo $ticket->ID; ?>"
-         data-ticket_id="<?php echo $ticket->ID; ?>"
-         class="modal close-ticket-modal fade">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                    <h4 class="modal-title"><?php _e( 'Close Ticket', \SmartcatSupport\PLUGIN_ID ); ?></h4>
-
-                </div>
-
-                <div class="modal-body">
-
-                    <p><?php _e( 'This operation cannot be undone! Are you sure you want to do this?', \SmartcatSupport\PLUGIN_ID ); ?></p>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button" class="button confirm-close-ticket" data-ticket_id="<?php echo $ticket->ID; ?>">
-
-                        <span class="glyphicon glyphicon-ok button-icon"></span>
-
-                        <span><?php _e( 'Yes', \SmartcatSupport\PLUGIN_ID ); ?></span>
-
-                    </button>
-
-
-                    <button type="button" class="button button-submit close-modal"
-                            data-target="#close-ticket-modal-<?php echo $ticket->ID; ?>"
-                            data-toggle="modal">
-
-                        <span class="glyphicon glyphicon-ban-circle button-icon"></span>
-
-                        <span><?php _e( 'Cancel', \SmartcatSupport\PLUGIN_ID ); ?></span>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-<?php endif; ?>
 
 <div id="attachment-modal-<?php echo $ticket->ID; ?>"
      data-ticket_id="<?php echo $ticket->ID; ?>"

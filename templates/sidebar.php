@@ -11,6 +11,8 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 $product = get_post_meta( $ticket->ID, 'product', true );
 $receipt_id = get_post_meta( $ticket->ID, 'receipt_id', true );
 
+$closed = get_post_meta( $ticket->ID, 'closed', true );
+
 if( array_key_exists( $product, $products ) ) {
     $product = $products[$product];
 } else {
@@ -31,7 +33,21 @@ if( array_key_exists( $product, $products ) ) {
 
             </div>
 
-            <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>
+            <?php if( empty( $closed ) ) : ?>
+
+                <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>
+
+            <?php else : ?>
+
+                <p>
+
+                    <?php _e( 'Closed by ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\user_full_name( get_user_by( 'id', $closed['user_id'] ) ); ?>
+
+                    (<?php echo \SmartcatSupport\util\just_now( $closed['date'] ); ?>)
+
+                </p>
+
+            <?php endif; ?>
 
             <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
 
@@ -225,7 +241,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <div class="panel-body">
 
-                    <form class="ticket-status-form">
+                    <form class="ticket-status-form" method="post">
 
                         <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
 

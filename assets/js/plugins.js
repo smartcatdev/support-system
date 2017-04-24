@@ -1,5 +1,52 @@
 (function ($) {
 
+    $.fn.confirm = function (options, callback) {
+
+        var target = $(this);
+
+        var defaults = {
+            title: "Are you sure?",
+            content: "Are you sure?",
+            okay_text: "Yes",
+            cancel_text: "No"
+        };
+
+        var _settings = $.extend(defaults, options);
+
+        var create_modal = _.template($("script.confirm-modal").html());
+
+        var modal = $(create_modal({
+            id: _settings.id,
+            title: _settings.title,
+            content: _settings.content,
+            okay_text: _settings.okay_text,
+            cancel_text: _settings.cancel_text
+        }));
+
+        var ignore = false;
+
+        var confirm =  modal.find('button.confirm');
+
+        target.append(modal);
+        modal.modal('show');
+
+       confirm.on('click', function () {
+            callback(true);
+            ignore = true;
+            modal.modal('hide')
+        });
+
+        modal.on('hidden.bs.modal', function () {
+            if(!ignore) {
+                callback(false);
+            }
+
+            confirm.unbind('click')
+            modal.unbind('hidden.bs.modal')
+            modal.remove()
+        });
+    };
+
     $.fn.submit = function (options) {
 
         var _form = $(this);

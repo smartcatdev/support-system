@@ -22,6 +22,10 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
         border-color: <?php echo $primary_color; ?>;
     }
 
+    .ajax-loader .dot {
+        background-color: <?php echo $primary_color; ?>;
+    }
+
     #filter-toggle.active,
     .widget-wrapper > div{
         background: <?php echo $tertiary_color; ?>;
@@ -37,7 +41,7 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     }
 
     #filter-toggle.active .toggle-label:after {
-        content: "<?php _e( 'Applied', \SmartcatSupport\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Filters Applied', \SmartcatSupport\PLUGIN_ID ); ?>";
     }
 
     #support-login-wrapper input[type="text"]:focus,
