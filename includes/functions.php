@@ -70,7 +70,7 @@ namespace  SmartcatSupport\util {
         $blocks = extract_tags( $str, '<code>', '</code>' );
 
         foreach( $blocks as $block ) {
-            $str = str_replace( $block, htmlentities( $block ), $str );
+            $str = str_replace( $block, trim(  htmlentities( $block ) ), $str );
         }
 
         return $str;
