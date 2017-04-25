@@ -23,7 +23,7 @@ class Notifications extends AbstractComponent {
         if( $key == 'status' && $value == 'closed' ) {
             $ticket = get_post( $ticket_id );
             $recipient = get_user_by('id', $ticket->post_author );
-            $args = array( 'ticket', $ticket );
+            $args = array( 'ticket' => $ticket );
 
             $template_vars = array(
                 'ticket_subject' => $ticket->post_title,
