@@ -13,7 +13,7 @@ class migration_1_1_1 implements \smartcat\core\Migration {
      *
      * @return mixed
      */
-    function migrate () {
+    function migrate ( $plugin ) {
         try {
             $dir = \SmartcatSupport\plugin_dir();
 

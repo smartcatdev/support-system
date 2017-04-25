@@ -131,7 +131,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
                 $version = $migration->version();
 
                 if( $version <= $this->version && $version > $current ) {
-                    $result = $migration->migrate();
+                    $result = $migration->migrate( $this );
 
                     if( is_wp_error( $result ) || !$result['success'] ) {
                         $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-error', 'is-dismissible' ) );

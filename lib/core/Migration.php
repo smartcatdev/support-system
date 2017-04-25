@@ -4,5 +4,5 @@ namespace smartcat\core;
 
 interface Migration {
     public function version();
-    public function migrate();
+    public function migrate( $plugin );
 }
