@@ -192,7 +192,7 @@ class Mailer implements HookSubscriber  {
                 <body>
                     <?php echo $content; ?>
                     <div class="footer">
-                        <p><?php echo do_action( 'email_template_footer', $template, $args ); ?></p>
+                        <?php echo do_action( 'email_template_footer', $template, $args ); ?>
                     </div>
                 </body>
             </html>
