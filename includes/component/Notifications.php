@@ -93,13 +93,13 @@ class Notifications extends AbstractComponent {
         return $headers;
     }
 
-    private function send_template( $template, $recipient, $template_vars ) {
+    private function send_template( $template, $recipient, $template_vars, $args = array() ) {
         $this->sending = true;
 
-        return Mailer::send_template( $template, $recipient, $template_vars );
+        return Mailer::send_template( $template, $recipient, $template_vars, $args );
     }
 
-    public function email_template_branding( $template ) {
+    public function email_template_branding() {
         if( $this->sending ) {
             echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
         }
