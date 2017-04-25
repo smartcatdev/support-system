@@ -55,6 +55,8 @@ interface Plugin {
      * @return string The version of the plugin.
      */
     public function version();
+
+    public function db();
 }
 
 endif;

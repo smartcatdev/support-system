@@ -17,6 +17,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     protected $id;
     protected $version;
     protected $cache = array();
+    protected $db;
 
     private static $plugins_loaded = array();
 
@@ -40,6 +41,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     public static final function boot( $name, $version, $fs_context ) {
         if( !array_key_exists( $name, self::$plugins_loaded ) ) {
             $instance = new static( $name, $version, $fs_context );
+            $instance->db = $GLOBALS['wpdb'];
 
             self::$plugins_loaded[ $name ] = $instance;
 
@@ -202,6 +204,10 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
 
     public function version() {
         return $this->version;
+    }
+
+    public function db() {
+        return $this->db;
     }
 
     public function subscribed_hooks( $hooks = array() )  {
