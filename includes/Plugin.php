@@ -156,7 +156,7 @@ class Plugin extends AbstractPlugin {
         }
     }
 
-    public function register_menu_page() {
+    public function register_menu_items() {
         add_menu_page(
             __( 'uCare Support', PLUGIN_ID ),
             __( 'uCare Support', PLUGIN_ID ),
@@ -182,7 +182,7 @@ class Plugin extends AbstractPlugin {
 
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'admin_menu'        => array( 'register_menu_page', 1, 0 ),
+            'admin_menu'        => array( 'register_menu_items', 1, 0 ),
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),

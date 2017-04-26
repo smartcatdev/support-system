@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace smartcat\admin;
 
 
 abstract class MenuPageTab {

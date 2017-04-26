@@ -14,74 +14,9 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
      * @author Eric Green <eric@smartcat.ca>
      * @since 1.0.0
      */
-    class SettingsPage implements HookSubscriber {
-        protected $type;
-        protected $page_title;
-        protected $menu_title;
-        protected $capability;
-        protected $menu_slug;
-        protected $parent_menu = '';
-        protected $icon;
-        protected $position;
+    class SettingsPage extends AbstractMenuPage {
+
         protected $sections = [];
-
-        /**
-         * SettingsPage constructor.
-         *
-         * @param array $config
-         *  $args = [
-         *      'page_title'    => (string) Title to display on the page. Required.
-         *      'menu_title'    => (string) Title to display in admin menu. Required.
-         *      'menu_slug'     => (string) Slug name of settings page. Required.
-         *      'type'          => (string) The type of settings page. Default: options.
-         *      'capability'    => (string) Minimum capability required. Default: manage_options.
-         *      'icon'          => (string) Icon to display in admin menu. Default: dashicons-admin-generic.
-         *      'parent_menu'   => (string) Where the page should appear if it is a child of another.
-         *      'position'      => (int) Position page should appear in menu. Default: 100.
-         *    ]
-         * @author Eric Green <eric@smartcat.ca>
-         * @since 1.0.0
-         */
-        public function __construct( array $config ) {
-
-            $this->page_title = $config['page_title'];
-            $this->menu_title = $config['menu_title'];
-            $this->menu_slug = $config['menu_slug'];
-
-            $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
-
-            if( $this->type == 'submenu' ) {
-                $this->parent_menu = $config['parent_menu'];
-            }
-
-            $this->capability = isset( $config['capability'] ) ? $config['capability'] : 'manage_options';
-            $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';
-            $this->position = isset( $config['position'] ) ? $config['position'] : 100;
-        }
-
-        /**
-         * Add the page to the admin menu.
-         *
-         * @author Eric Green <eric@smartcat.ca>
-         * @since 1.0.0
-         */
-        public function register_page() {
-            $config = array();
-
-            if( $this->type == 'submenu' && $this->parent_menu != '' ) {
-                $config[] = $this->parent_menu;
-            }
-
-            $config[] = $this->page_title;
-            $config[] = $this->menu_title;
-            $config[] = $this->capability;
-            $config[] = $this->menu_slug;
-            $config[] = array( $this, 'render' );
-            $config[] = $this->icon;
-            $config[] = $this->position;
-
-            call_user_func_array( "add_{$this->type}_page", $config );
-        }
 
         /**
          * Adds a section to the page.
