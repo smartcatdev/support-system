@@ -6,6 +6,20 @@ use smartcat\admin\MenuPageTab;
 
 class ReportsOverviewTab extends MenuPageTab {
 
+    private $start;
+    private $end;
+
+    public function __construct( $title ) {
+        parent::__construct( $title );
+
+        $this->start = new \DateTime('7 days ago');
+        $this->end = new \DateTime('today');
+    }
+
+    private function format( $date ) {
+        return $date->format( 'd-m-Y' );
+    }
+
     public function render() { ?>
 
         <div class="stats-overview stat-section">
@@ -27,9 +41,9 @@ class ReportsOverviewTab extends MenuPageTab {
                     </div>
 
                     <div class="date-range control-group hidden">
-                        <input name="start_date" class="date start_date" type="text" />
+                        <input name="start_date" class="date start_date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
                         <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
-                        <input name="end_date" class="date end_date" type="text" />
+                        <input name="end_date" class="date end_date" type="text" value="<?php echo $this->format( $this->end ); ?>"/>
                     </div>
 
                     <div class="control-group">
