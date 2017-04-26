@@ -199,7 +199,8 @@ class Plugin extends AbstractPlugin {
             Settings::class,
             Hacks::class,
             Media::class,
-            ajax\Statistics::class
+            ajax\Statistics::class,
+            admin\Reports::class
         );
 
         if( util\ecommerce_enabled( false ) ) {
