@@ -6,27 +6,36 @@ jQuery(document).ready(function ($) {
     $('.date-range-select').change(function (e) {
 
         var selection = $(e.target).val();
-        var d = new Date();
+        var d = moment();
 
         switch($(e.target).val()) {
             case 'last_week':
                 start_date.datepicker('setDate', '-7d');
+                end_date.datepicker('setDate',  d.format('DD-MM-YYYY'));
                 break;
 
             case 'this_month':
-                start_date.datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), 1));
+                end_date.datepicker('setDate',  d.format('DD-MM-YYYY'));
+                start_date.datepicker('setDate', d.startOf('month').format('DD-MM-YYYY'));
                 break;
 
             case 'last_month':
-                start_date.datepicker('setDate', '-1m');
+                d = d.subtract(1, 'month');
+
+                start_date.datepicker('setDate', d.startOf('month').format('DD-MM-YYYY'));
+                end_date.datepicker('setDate',  d.endOf('month').format('DD-MM-YYYY'));
                 break;
 
             case 'this_year':
-                start_date.datepicker('setDate', new Date(d.getFullYear(), 0, 1));
+                d = d.subtract(1, 'year');
+
+                start_date.datepicker('setDate', d.startOf('year').format('DD-MM-YYYY'));
+                end_date.datepicker('setDate',  d.endOf('year').format('DD-MM-YYYY'));
                 break;
 
             case 'custom':
-                start_date.datepicker('setDate', d);
+                start_date.datepicker('setDate', d.format('DD-MM-YYYY'));
+                end_date.datepicker('setDate', d.format('DD-MM-YYYY'));
         }
 
         $('.date-range').toggleClass('hidden', selection !== 'custom');
