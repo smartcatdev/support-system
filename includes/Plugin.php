@@ -66,16 +66,6 @@ class Plugin extends AbstractPlugin {
         }
     }
 
-    public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
-    }
-
-    public function settings_shortcut_redirect() {
-        if( isset( $_GET['page'] ) && $_GET['page'] == 'open_app' ) {
-            wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
-        }
-    }
-
     public function add_action_links( $links ) {
 
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
@@ -171,8 +161,22 @@ class Plugin extends AbstractPlugin {
             __( 'uCare Support', PLUGIN_ID ),
             __( 'uCare Support', PLUGIN_ID ),
             'manage_support',
-            'ucare_support'
+            'ucare_support',
+            '',
+            $this->url . 'assets/images/ucare-logo.png',
+            71
         );
+
+        add_submenu_page(
+            'ucare_support',
+            '', __( 'Launch Help  Desk',  PLUGIN_ID ),
+            'manage_support',
+            'open_app',
+            function () {
+                wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
+            }
+        );
+
     }
 
     public function subscribed_hooks() {
@@ -182,8 +186,6 @@ class Plugin extends AbstractPlugin {
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
-//            'admin_menu'        => array( 'add_settings_shortcut'),
-            'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
 //            'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
