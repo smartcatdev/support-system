@@ -2,7 +2,7 @@
 
 namespace smartcat\admin;
 
-if( !class_exists( '\smartcat\form\TabbedSettingsPage' ) ) :
+if( !class_exists( '\smartcat\admin\TabbedSettingsPage' ) ) :
 
     /**
      * A Tabbed Settings page.

@@ -2,6 +2,8 @@
 
 namespace smartcat\admin;
 
+if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
+
 class TabbedMenuPage extends AbstractMenuPage {
 
     protected $tabs = array();
@@ -45,3 +47,5 @@ class TabbedMenuPage extends AbstractMenuPage {
     <?php }
 
 }
+
+endif;

@@ -2,8 +2,6 @@
 
 namespace smartcat\admin;
 
-use smartcat\core\HookSubscriber;
-
 if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
 

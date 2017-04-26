@@ -23,4 +23,14 @@ class Reports extends AbstractComponent {
         );
     }
 
+    public function enqueue_scripts() {
+
+    }
+
+    public function subscribed_hooks() {
+        return array(
+            'admin_enqueue_scripts' => array( 'enqueue_scripts' )
+        );
+    }
+
 }

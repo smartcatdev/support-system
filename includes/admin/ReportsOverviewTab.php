@@ -6,7 +6,12 @@ use smartcat\admin\MenuPageTab;
 
 class ReportsOverviewTab extends MenuPageTab {
 
-    public function render() {
-        echo 'works';
-    }
+    public function render() { ?>
+
+        <div>
+
+
+        </div>
+
+    <?php }
 }

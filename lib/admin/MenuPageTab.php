@@ -2,6 +2,7 @@
 
 namespace smartcat\admin;
 
+if( !class_exists( 'smartcat/admin/MenuTabPage' ) ) :
 
 abstract class MenuPageTab {
 
@@ -13,3 +14,5 @@ abstract class MenuPageTab {
 
     public abstract function render();
 }
+
+endif;

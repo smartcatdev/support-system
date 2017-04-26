@@ -5,6 +5,8 @@ namespace smartcat\admin;
 
 use smartcat\core\HookSubscriber;
 
+if( ! class_exists( 'smartcat\core\AbstractMenuPage' ) ) :
+
 abstract class AbstractMenuPage implements HookSubscriber {
 
     protected $type;
@@ -60,3 +62,5 @@ abstract class AbstractMenuPage implements HookSubscriber {
     }
 
 }
+
+endif;
