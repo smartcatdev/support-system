@@ -27,9 +27,9 @@ class ReportsOverviewTab extends MenuPageTab {
                     </div>
 
                     <div class="date-range control-group hidden">
-                        <input class="date" type="text" />
+                        <input name="start_date" class="date start_date" type="text" />
                         <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
-                        <input class="date" type="text" />
+                        <input name="end_date" class="date end_date" type="text" />
                     </div>
 
                     <div class="control-group">
