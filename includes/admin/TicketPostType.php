@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\admin;
 
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;

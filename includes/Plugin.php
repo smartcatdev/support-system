@@ -11,7 +11,7 @@ use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\ECommerce;
 use SmartcatSupport\component\Notifications;
-use SmartcatSupport\component\TicketPostType;
+use SmartcatSupport\admin\TicketPostType;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
 
