@@ -6,4 +6,10 @@ jQuery(document).ready(function ($) {
         $('.date-range').toggleClass('hidden', $(e.target).val() !== 'custom');
 
     });
+
+
+    new Chartist.Line('#stats-chart', {
+        labels: [1, 2, 3, 4],
+        series: [[100, 120, 180, 200]]
+    });
 });
