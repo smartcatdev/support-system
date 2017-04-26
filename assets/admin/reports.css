@@ -1,0 +1,45 @@
+.hidden {
+    display: none !important;
+}
+
+.stats-overview {
+    background: #fff;
+    margin: 20px 0;
+    height: 300px;
+    border: 1px solid #e5e5e5;
+}
+
+.stats-overview .date {
+    width: 45%;
+    text-align: center;
+}
+
+.stats-header {
+    border: 1px solid #e5e5e5;
+    margin: -1px;
+    padding: 10px;
+}
+
+.form-inline .form-control,
+.form-inline .control-group {
+    margin: 2px;
+    text-align: center;
+    width: 100%;
+}
+
+@media(min-width: 767px) {
+    .form-inline {
+        display: table;
+    }
+
+    .form-inline .form-control,
+    .form-inline .control-group {
+        display: table-cell;
+        vertical-align: middle;
+        width: auto;
+    }
+
+    .stats-overview .date {
+        width: 120px;
+    }
+}
