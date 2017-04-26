@@ -10,6 +10,8 @@ class ReportsOverviewTab extends MenuPageTab {
 
         <div>
 
+            <?php echo \SmartcatSupport\statprocs\get_ticket_count(); ?>
+            <?php echo \SmartcatSupport\statprocs\get_unclosed_tickets(); ?>
 
         </div>
 

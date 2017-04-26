@@ -77,30 +77,30 @@ class Plugin extends AbstractPlugin {
         return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
     }
 
-    public function admin_enqueue() {
-        wp_enqueue_media();
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script( 'wp-color-picker' );
+    public function admin_enqueue( $hook ) {
+            wp_enqueue_media();
+            wp_enqueue_style( 'wp-color-picker');
+            wp_enqueue_script( 'wp-color-picker');
 
-        wp_enqueue_script( 'wp_media_uploader',
-            $this->url . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $this->version );
+            wp_enqueue_script( 'wp_media_uploader',
+                $this->url . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $this->version );
 
-        wp_register_script( 'support-admin-js',
-            $this->url . 'assets/admin/admin.js', array( 'jquery' ), $this->version );
+            wp_register_script('support-admin-js',
+                $this->url . 'assets/admin/admin.js', array( 'jquery' ), $this->version );
 
-        wp_localize_script( 'support-admin-js',
-            'SupportSystem', array(
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'ajax_nonce' => wp_create_nonce( 'support_ajax' )
-            )
-        );
-        wp_enqueue_script( 'support-admin-js' );
+            wp_localize_script( 'support-admin-js',
+                'SupportSystem', array(
+                    'ajax_url' => admin_url( 'admin-ajax.php' ),
+                    'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+                )
+            );
+            wp_enqueue_script( 'support-admin-js');
 
-        wp_enqueue_style( 'support-admin-icons',
-            $this->url . '/assets/icons/style.css', null, $this->version );
+            wp_enqueue_style( 'support-admin-icons',
+                $this->url . '/assets/icons/style.css', null, $this->version );
 
-        wp_enqueue_style( 'support-admin-css',
-            $this->url . '/assets/admin/admin.css', null, $this->version );
+            wp_enqueue_style( 'support-admin-css',
+                $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
     public function register_dependencies() {
@@ -247,7 +247,7 @@ class Plugin extends AbstractPlugin {
         return '';
     }
 
-    public function feedback_form() {
+    public function feedback_form( $hook ) {
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
             require_once $this->dir . '/templates/feedback.php';
         }

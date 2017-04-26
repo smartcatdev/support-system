@@ -102,11 +102,9 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
                 <form method="post" action="options.php">
 
-                    <?php
-                        settings_fields( $this->menu_slug );
-                        do_settings_sections( $this->menu_slug );
-                        submit_button();
-                    ?>
+                    <?php settings_fields( $this->menu_slug ); ?>
+                    <?php do_settings_sections( $this->menu_slug ); ?>
+                    <?php submit_button(); ?>
 
                 </form>
 

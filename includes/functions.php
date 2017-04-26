@@ -447,7 +447,7 @@ namespace SmartcatSupport\statprocs {
         
     }
     
-    function get_ticket_count( $args ) {
+    function get_ticket_count( $args = array() ) {
         
         global $wpdb;
         
