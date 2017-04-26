@@ -30,6 +30,12 @@ class Reports extends AbstractComponent {
 
             wp_enqueue_style( 'chartist',
                 $this->plugin->url() . '/assets/lib/chartist/chartist.min.css', null, $this->plugin->version() );
+
+            wp_enqueue_script( 'reports',
+                $this->plugin->url() . '/assets/admin/reports.js', array( 'jquery' ), $this->plugin->version() );
+
+            wp_enqueue_style( 'reports',
+                $this->plugin->url() . '/assets/admin/reports.css', null, $this->plugin->version() );
         }
     }
 
