@@ -166,13 +166,23 @@ class Plugin extends AbstractPlugin {
         }
     }
 
+    public function register_menu_page() {
+        add_menu_page(
+            __( 'uCare Support', PLUGIN_ID ),
+            __( 'uCare Support', PLUGIN_ID ),
+            'manage_support',
+            'ucare_support'
+        );
+    }
+
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'wp_login_failed' => array( 'login_failed' ),
-            'authenticate' => array( 'authenticate', 1, 3 ),
-            'admin_footer' => array( 'feedback_form' ),
+            'admin_menu'        => array( 'register_menu_page' ),
+            'wp_login_failed'   => array( 'login_failed' ),
+            'authenticate'      => array( 'authenticate', 1, 3 ),
+            'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
-            'admin_menu' => array( 'add_settings_shortcut'),
+//            'admin_menu'        => array( 'add_settings_shortcut'),
             'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
 //            'tgmpa_register' => array( 'register_dependencies' ),
