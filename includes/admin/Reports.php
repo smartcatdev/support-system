@@ -11,15 +11,19 @@ class Reports extends AbstractComponent {
             'ucare_support',
             __( 'Reports', \SmartcatSupport\PLUGIN_ID ),
             __( 'Reports', \SmartcatSupport\PLUGIN_ID ),
-            'manage_support',
-            'reports'
-
+            'manage_options',
+            'ucare_support',
+            $this->dir . 'admin/reports.php'
         );
+    }
+
+    public function menu_page() {
+        echo 'sdf';
     }
 
     public function subscribed_hooks() {
         return array(
-            'admin_menu' => array( 'register_menu_page', 1, 0 )
+            'support_menu_register' => array( 'register_menu_page', 1 )
         );
     }
 }

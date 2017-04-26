@@ -321,7 +321,7 @@ class TicketPostType extends AbstractComponent {
     public function subscribed_hooks() {
         return array(
             'init' => array( 'register_cpt' ),
-            'admin_menu' => array( 'register_menu_pages', 2, 0 ),
+            'support_menu_register' => array( 'register_menu_pages' ),
             'save_post' => array( 'quick_edit_save' ),
             'restrict_manage_posts' => array( 'post_table_filters' ),
             'parse_query' => array( 'filter_post_table' ),

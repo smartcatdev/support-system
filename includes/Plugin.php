@@ -167,21 +167,22 @@ class Plugin extends AbstractPlugin {
             71
         );
 
+        do_action( 'support_menu_register' );
+
         add_submenu_page(
             'ucare_support',
-            '', __( 'Launch Help  Desk',  PLUGIN_ID ),
+            '', __( 'Launch Help Desk', PLUGIN_ID ),
             'manage_support',
             'open_app',
             function () {
                 wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
             }
         );
-
     }
 
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'admin_menu'        => array( 'register_menu_page' ),
+            'admin_menu'        => array( 'register_menu_page', 1, 0 ),
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
