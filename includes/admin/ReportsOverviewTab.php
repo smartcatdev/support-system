@@ -29,15 +29,15 @@ class ReportsOverviewTab extends MenuPageTab {
         $start_init = '7 days ago';
         $end_init = 'now';
 
-        if( isset( $_POST['start_date'] ) && isset( $_POST['end_date'] ) ) {
-            $start = strtotime( $_POST['start_date'] );
-            $end = strtotime( $_POST['end_date'] );
+        if( isset( $_GET['start_date'] ) && isset( $_GET['end_date'] ) ) {
+            $start = strtotime( $_GET['start_date'] );
+            $end = strtotime( $_GET['end_date'] );
 
             if( $start <= $end ) {
                 $min = strtotime('-2 years');
                 $max = strtotime('now');
 
-                $start_init = $start >= $min && $start <= $max ? date('y-m-d', $start) : '7 days ago';
+                $start_init = $start >= $min && $start <= $max ? date('y-m-d', $start ) : '7 days ago';
                 $end_init = $end >= $min && $end <= $max ? date('y-m-d', $end) : 'now';
             }
         }
@@ -103,7 +103,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
         <div class="stats-overview stat-section">
 
-            <form method="post">
+            <form method="get">
+
+                <input type="hidden" name="page" value="ucare_support" />
 
                 <div class="stats-header">
 
@@ -116,7 +118,7 @@ class ReportsOverviewTab extends MenuPageTab {
                                 <?php foreach( $this->date_range_options as $option => $label ) : ?>
 
                                     <option value="<?php echo $option; ?>"
-                                        <?php selected( $option, isset( $_POST['date_range'] ) ? $_POST['date_range'] : '' ); ?>><?php echo $label; ?></option>
+                                        <?php selected( $option, isset( $_GET['date_range'] ) ? $_GET['date_range'] : '' ); ?>><?php echo $label; ?></option>
 
                                 <?php endforeach; ?>
 
@@ -124,7 +126,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                         </div>
 
-                        <div class="date-range control-group <?php echo isset( $_POST['date_range'] ) && $_POST['date_range'] == 'custom' ? '' : 'hidden'; ?>">
+                        <div class="date-range control-group <?php echo isset( $_GET['date_range'] ) && $_GET['date_range'] == 'custom' ? '' : 'hidden'; ?>">
 
                             <input name="start_date" class="date start-date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
 
