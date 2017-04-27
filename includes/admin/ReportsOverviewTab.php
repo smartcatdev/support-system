@@ -9,13 +9,24 @@ class ReportsOverviewTab extends MenuPageTab {
     private $start;
     private $end;
 
+    private $date_range_options;
+
     private $opened_tickets;
 
-    public function __construct( $title ) {
-        parent::__construct( $title );
+    public function __construct() {
 
-        $this->start = new \DateTime( '7 days ago' );
-        $this->end = new \DateTime( 'today' );
+        parent::__construct( __( 'Overview', \SmartcatSupport\PLUGIN_ID ) );
+
+        $this->date_range_options = array(
+            'last_week'     => __( 'Last 7 Days', \SmartcatSupport\PLUGIN_ID ),
+            'this_month'    => __( 'This Month', \SmartcatSupport\PLUGIN_ID ),
+            'last_month'    => __( 'Last Month', \SmartcatSupport\PLUGIN_ID ),
+            'this_year'     => __( 'This Year', \SmartcatSupport\PLUGIN_ID ),
+            'custom'        => __( 'Custom Range', \SmartcatSupport\PLUGIN_ID ),
+        );
+
+        $this->start = new \DateTimeImmutable( isset( $_POST['start_date' ] ) ? $_POST['start_date'] : '7 days ago' );
+        $this->end = new \DateTimeImmutable( isset( $_POST['end_date' ] ) ? $_POST['end_date'] : null );
 
         $this->opened_tickets = \SmartcatSupport\statprocs\tickets_opened_by_range( $this->start, $this->end );
     }
@@ -24,59 +35,77 @@ class ReportsOverviewTab extends MenuPageTab {
         return $date->format( 'd-m-Y' );
     }
 
-    private function graph_data( $data ) {
-        $labels = array_keys( $data );
-        $series = array_values( $data );
+    private function graph_data( $labels, $data ) { ?>
 
-        ?><script>
+        <script>
+
             jQuery(document).ready( function () {
-            new Chartist.Line('#stats-chart', {
-                labels: <?php echo wp_json_encode( $labels ); ?>,
-                series: [<?php echo wp_json_encode( $series ); ?>]
-            });});
 
-        </script><?php
-    }
+                new Chartist.Line('#stats-chart', {
+                    labels: <?php echo wp_json_encode( $labels ); ?>,
+                    series: [
+                        <?php foreach( $data as $series ) : ?>
+                            <?php echo wp_json_encode( $series ); ?>
+                        <?php endforeach; ?>
+                    ]
+                });
+
+            });
+
+        </script>
+
+        <div class="stats-chart-wrapper"><div id="stats-chart" class="ct-chart ct-golden-section"></div></div>
+
+    <?php }
 
     public function render() { ?>
 
         <div class="stats-overview stat-section">
 
-            <?php $this->graph_data( $this->opened_tickets ); ?>
+            <form method="post">
 
-            <div class="stats-header">
+                <div class="stats-header">
 
-                <form class="form-inline" method="post">
+                    <div class="form-inline">
 
-                    <div class="control-group">
+                        <div class="control-group">
 
-                        <select class="date-range-select form-control">
-                            <option value="last_week"><?php _e( 'Last 7 Days', \SmartcatSupport\PLUGIN_ID ); ?></option>
-                            <option value="this_month"><?php _e( 'This Month', \SmartcatSupport\PLUGIN_ID ); ?></option>
-                            <option value="last_month"><?php _e( 'Last Month', \SmartcatSupport\PLUGIN_ID ); ?></option>
-                            <option value="this_year"><?php _e( 'This Year', \SmartcatSupport\PLUGIN_ID ); ?></option>
-                            <option value="custom"><?php _e( 'Custom Range', \SmartcatSupport\PLUGIN_ID ); ?></option>
-                        </select>
+                            <select name="date_range" class="date-range-select form-control">
+
+                                <?php foreach( $this->date_range_options as $option => $label ) : ?>
+
+                                    <option value="<?php echo $option; ?>"
+                                        <?php selected( $option, isset( $_POST['date_range'] ) ? $_POST['date_range'] : '' ); ?>><?php echo $label; ?></option>
+
+                                <?php endforeach; ?>
+
+                            </select>
+
+                        </div>
+
+                        <div class="date-range control-group <?php echo isset( $_POST['date_range'] ) && $_POST['date_range'] == 'custom' ? '' : 'hidden'; ?>">
+
+                            <input name="start_date" class="date start_date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
+
+                            <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
+
+                            <input name="end_date" class="date end_date" type="text" value="<?php echo $this->format( $this->end ); ?>"/>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
+
+                        </div>
 
                     </div>
 
-                    <div class="date-range control-group hidden">
-                        <input name="start_date" class="date start_date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
-                        <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
-                        <input name="end_date" class="date end_date" type="text" value="<?php echo $this->format( $this->end ); ?>"/>
-                    </div>
+                </div>
 
-                    <div class="control-group">
-                        <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
-                    </div>
+                <?php $this->graph_data( array_keys( $this->opened_tickets ), array( array_values( $this->opened_tickets ) ) ); ?>
 
-                </form>
-
-            </div>
-
-            <div class="stats-chart-wrapper">
-                <div id="stats-chart" class="ct-chart ct-golden-section"></div>
-            </div>
+            </form>
 
         </div>
 

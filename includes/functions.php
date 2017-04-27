@@ -26,7 +26,6 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
-
     function render( $template, array $data = array() )
     {
         extract($data);
@@ -279,7 +278,7 @@ namespace  SmartcatSupport\util {
     function date_range( $start, $end, $format = 'd-m-Y' ) {
         $range = false;
         $parse_date = function ( $date ) use ( $format ) {
-            if( !is_a( $date, '\DateTime' ) ) {
+            if( !is_a( $date, '\DateTimeInterface' ) ) {
                 $date = date_create_from_format( $format, $date );
             }
 
