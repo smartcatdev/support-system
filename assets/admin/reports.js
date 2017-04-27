@@ -1,12 +1,14 @@
 jQuery(document).ready(function ($) {
 
-    var start_date = $('.start_date').datepicker({
+    var start_date = $('.start-date').datepicker({
         dateFormat : 'dd-mm-yy',
-        minDate: moment().subtract(2, 'years').toDate()
+        minDate: moment().subtract(2, 'years').toDate(),
+        maxDate: moment().toDate()
     });
 
-    var end_date = $('.end_date').datepicker({
+    var end_date = $('.end-date').datepicker({
         dateFormat : 'dd-mm-yy',
+        minDate: moment().subtract(2, 'years').toDate(),
         maxDate: moment().toDate()
     });
 

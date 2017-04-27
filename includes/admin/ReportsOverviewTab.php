@@ -107,11 +107,11 @@ class ReportsOverviewTab extends MenuPageTab {
 
                         <div class="date-range control-group <?php echo isset( $_POST['date_range'] ) && $_POST['date_range'] == 'custom' ? '' : 'hidden'; ?>">
 
-                            <input name="start_date" class="date start_date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
+                            <input name="start_date" class="date start-date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
 
                             <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
-                            <input name="end_date" class="date end_date" type="text" value="<?php echo $this->format( $this->end ); ?>"/>
+                            <input name="end_date" class="date end-date" type="text" value="<?php echo $this->format( $this->end ); ?>"/>
 
                         </div>
 
