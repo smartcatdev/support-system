@@ -66,14 +66,29 @@ class ReportsOverviewTab extends MenuPageTab {
 
                 new Chartist.Line('#stats-chart', {
                     labels: <?php echo wp_json_encode( array_keys( $this->opened_tickets ) ); ?>,
-                    series: [
-                        <?php echo wp_json_encode( array_values( $this->opened_tickets ) ); ?>,
-                        <?php echo wp_json_encode( array_values( $this->closed_tickets ) ); ?>
-                    ]
+                    series: [{
+                        name: 'opened-tickets',
+                        data: <?php echo wp_json_encode( array_values( $this->opened_tickets ) ); ?>
+                    }, {
+                        name: 'closed-tickets',
+                        data: <?php echo wp_json_encode( array_values( $this->closed_tickets ) ); ?>
+                    }]
                 }, {
-                  axisY: {
-                      onlyInteger: true
-                  }
+                    fullWidth: true,
+                    series: {
+                        'opened-tickets': {
+                            lineSmooth: Chartist.Interpolation.simple(),
+                            showArea: true
+                        },
+                        'closed-tickets': {
+                            lineSmooth: Chartist.Interpolation.simple(),
+                            showArea: true
+                        }
+                    },
+
+                    axisY: {
+                        onlyInteger: true
+                    }
                 });
 
             });

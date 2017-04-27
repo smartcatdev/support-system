@@ -34,6 +34,37 @@
     width: 100%;
 }
 
+.ct-line {
+    stroke-width: 5px;
+
+}
+
+.ct-point {
+    stroke-width: 15px;
+}
+
+.ct-series-a .ct-line {
+    stroke: green;
+    stroke-dasharray: 0px;
+}
+
+.ct-series-a .ct-point {
+    stroke: green;
+}
+
+.ct-series-a .ct-area {
+    fill: rgba(48, 150, 16, 1);
+}
+
+.ct-series-b .ct-line {
+    stroke: red;
+    stroke-dasharray: 10px 5px;
+}
+
+.ct-series-b .ct-point {
+    stroke: red;
+}
+
 @media(min-width: 767px) {
 
     .form-inline {
