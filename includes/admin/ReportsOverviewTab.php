@@ -62,7 +62,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
             jQuery(document).ready( function () {
 
-                new Chartist.Line('#stats-chart', {
+                new Chartist.Line('#ticket-overview-chart', {
                     labels: <?php echo wp_json_encode( array_keys( $this->opened_tickets ) ); ?>,
                     series: [{
                         name: 'opened-tickets',
@@ -75,11 +75,11 @@ class ReportsOverviewTab extends MenuPageTab {
                     fullWidth: true,
                     series: {
                         'opened-tickets': {
-                            lineSmooth: Chartist.Interpolation.simple(),
+                            lineSmooth: false,
                             showArea: true
                         },
                         'closed-tickets': {
-                            lineSmooth: Chartist.Interpolation.simple(),
+                            lineSmooth: false,
                             showArea: true
                         }
                     },
@@ -93,7 +93,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </script>
 
-        <div class="stats-chart-wrapper"><div id="stats-chart" class="ct-chart ct-golden-section"></div></div>
+        <div class="stats-chart-wrapper"><div id="ticket-overview-chart" class="ct-chart ct-golden-section"></div></div>
 
     <?php }
 
