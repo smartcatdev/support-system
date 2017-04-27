@@ -32,32 +32,28 @@ class ReportsOverviewTab extends MenuPageTab {
         $end_init = 'now';
 
         if( isset( $_GET['start_date'] ) && isset( $_GET['end_date'] ) ) {
-            $start = strtotime( $_GET['start_date'] );
-            $end = strtotime( $_GET['end_date'] );
+            $start = date( 'Y-m-d', strtotime( $_GET['start_date'] ) );
+            $end = date( 'Y-m-d', strtotime( $_GET['end_date'] ) );
 
-            if( $start <= $end ) {
-                $min = strtotime('-2 years');
-                $max = strtotime('now');
+            if( $start < $end ) {
+                $min = date( 'Y-m-d', strtotime( '-2 years' ) );
+                $max = date( 'Y-m-d', strtotime( 'now' ) );
 
-                $start_init = $start >= $min && $start <= $max ? date('y-m-d', $start ) : '7 days ago';
-                $end_init = $end >= $min && $end <= $max ? date('y-m-d', $end) : 'now';
+                $start_init = $start >= $min && $start <= $max ? $start : $start_init;
+                $end_init = $end >= $min && $end > $start && $end < $max ? $end : $end_init;
             }
         }
 
         $this->start = new \DateTimeImmutable( $start_init );
         $this->end = new \DateTimeImmutable( $end_init );
 
-        $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
+        $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range(  $this->start, $this->end );
 
         foreach( $ticket_stats as $stat ) {
             $this->opened_tickets[ $stat['date_formatted'] ] = $stat['opened'];
             $this->closed_tickets[ $stat['date_formatted'] ] = $stat['closed'];
         }
 
-    }
-
-    private function format( $date ) {
-        return $date->format( 'd-m-Y' );
     }
 
     private function graph_data() { ?>
@@ -131,11 +127,11 @@ class ReportsOverviewTab extends MenuPageTab {
 
                         <div class="date-range control-group <?php echo isset( $_GET['date_range'] ) && $_GET['date_range'] == 'custom' ? '' : 'hidden'; ?>">
 
-                            <input name="start_date" class="date start-date" type="text" value="<?php echo $this->format( $this->start ); ?>" />
+                            <input name="start_date" class="date start-date" type="text" value="<?php echo $this->start->format( 'd-m-Y' ); ?>" />
 
                             <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
 
-                            <input name="end_date" class="date end-date" type="text" value="<?php echo $this->format( $this->end ); ?>"/>
+                            <input name="end_date" class="date end-date" type="text" value="<?php echo $this->end->format( 'd-m-Y' ); ?>"/>
 
                         </div>
 

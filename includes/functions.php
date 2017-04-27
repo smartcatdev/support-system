@@ -279,6 +279,8 @@ namespace  SmartcatSupport\util {
         $parse_date = function ( $date ) use ( $format ) {
             if( !is_a( $date, '\DateTimeInterface' ) ) {
                 $date = date_create_from_format( $format, $date );
+            } else {
+                $date = new \DateTime( $date->format( 'd-m-Y' ) );
             }
 
             return $date;
@@ -288,7 +290,7 @@ namespace  SmartcatSupport\util {
         $end = $parse_date( $end );
 
         if( $start && $end && $start <= $end ) {
-            $range = new \DatePeriod( $start, new \DateInterval('P1D'), $end->modify( '+1 day' ) );
+            $range = new \DatePeriod( $start, new \DateInterval( 'P1D' ), $end->modify( '+1 day' ) );
         }
 
         return $range;
