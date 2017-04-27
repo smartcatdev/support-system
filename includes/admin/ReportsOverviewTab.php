@@ -70,6 +70,10 @@ class ReportsOverviewTab extends MenuPageTab {
                         <?php echo wp_json_encode( array_values( $this->opened_tickets ) ); ?>,
                         <?php echo wp_json_encode( array_values( $this->closed_tickets ) ); ?>
                     ]
+                }, {
+                  axisY: {
+                      onlyInteger: true
+                  }
                 });
 
             });
