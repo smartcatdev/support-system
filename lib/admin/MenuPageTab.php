@@ -7,9 +7,11 @@ if( !class_exists( 'smartcat/admin/MenuTabPage' ) ) :
 abstract class MenuPageTab {
 
     public $title;
+    public $slug;
+    public $page;
 
-    public function __construct( $title ) {
-        $this->title = $title;
+    public function __construct( array $args ) {
+        $this->title = $args['title'];
     }
 
     public abstract function render();

@@ -16,6 +16,11 @@ class TabbedMenuPage extends AbstractMenuPage {
             $this->tabs = apply_filters( $this->menu_slug . '_tabs', $config['tabs'] );
         }
 
+        foreach( $this->tabs as $slug => $tab ) {
+            $tab->slug = $slug;
+            $tab->page = $this->menu_slug;
+        }
+
         $this->active = key( $this->tabs );
 
         if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {

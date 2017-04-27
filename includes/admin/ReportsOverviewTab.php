@@ -16,7 +16,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
     public function __construct() {
 
-        parent::__construct( __( 'Overview', \SmartcatSupport\PLUGIN_ID ) );
+        parent::__construct( array(
+            'title' => __( 'Overview', \SmartcatSupport\PLUGIN_ID )
+        ) );
 
         $this->date_range_options = array(
             'last_week'     => __( 'Last 7 Days', \SmartcatSupport\PLUGIN_ID ),
@@ -105,7 +107,8 @@ class ReportsOverviewTab extends MenuPageTab {
 
             <form method="get">
 
-                <input type="hidden" name="page" value="ucare_support" />
+                <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
+                <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
 
                 <div class="stats-header">
 
