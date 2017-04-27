@@ -1,7 +1,14 @@
 jQuery(document).ready(function ($) {
 
-    var start_date = $('.start_date').datepicker({ dateFormat : 'dd-mm-yy' });
-    var end_date = $('.end_date').datepicker({ dateFormat : 'dd-mm-yy' });
+    var start_date = $('.start_date').datepicker({
+        dateFormat : 'dd-mm-yy',
+        minDate: moment().subtract(2, 'years').toDate()
+    });
+
+    var end_date = $('.end_date').datepicker({
+        dateFormat : 'dd-mm-yy',
+        maxDate: moment().toDate()
+    });
 
     $('.date-range-select').change(function (e) {
 
@@ -30,10 +37,11 @@ jQuery(document).ready(function ($) {
 
             case 'this_year':
                 start = moment().startOf('year');
-                end = moment().endOf('year');
+                end = moment();
                 break;
 
             case 'custom':
+            default:
                 start = moment();
                 end = moment();
         }

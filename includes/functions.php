@@ -466,8 +466,8 @@ namespace SmartcatSupport\statprocs {
                 $days++;
             }
 
-            // If the range is equal or greater than a year, flatten it to monthly totals
-            if( $days >= 365 ) {
+            // If the range is equal or greater than a month, flatten it to monthly totals
+            if( $days > 31 ) {
                 $monthly = true;
                 $month_range = array();
 
