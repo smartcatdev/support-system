@@ -47,8 +47,4 @@ jQuery(document).ready(function ($) {
 
     });
 
-    new Chartist.Line('#stats-chart', {
-        labels: [1, 2, 3, 4],
-        series: [[100, 120, 180, 200]]
-    });
 });

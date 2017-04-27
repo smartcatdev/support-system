@@ -9,20 +9,40 @@ class ReportsOverviewTab extends MenuPageTab {
     private $start;
     private $end;
 
+    private $opened_tickets;
+
     public function __construct( $title ) {
         parent::__construct( $title );
 
-        $this->start = new \DateTime('7 days ago');
-        $this->end = new \DateTime('today');
+        $this->start = new \DateTime( '7 days ago' );
+        $this->end = new \DateTime( 'today' );
+
+        $this->opened_tickets = \SmartcatSupport\statprocs\tickets_opened_by_range( $this->start, $this->end );
     }
 
     private function format( $date ) {
         return $date->format( 'd-m-Y' );
     }
 
+    private function graph_data( $data ) {
+        $labels = array_keys( $data );
+        $series = array_values( $data );
+
+        ?><script>
+            jQuery(document).ready( function () {
+            new Chartist.Line('#stats-chart', {
+                labels: <?php echo wp_json_encode( $labels ); ?>,
+                series: [<?php echo wp_json_encode( $series ); ?>]
+            });});
+
+        </script><?php
+    }
+
     public function render() { ?>
 
         <div class="stats-overview stat-section">
+
+            <?php $this->graph_data( $this->opened_tickets ); ?>
 
             <div class="stats-header">
 

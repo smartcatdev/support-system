@@ -275,6 +275,26 @@ namespace  SmartcatSupport\util {
 
         return $query->posts;
     }
+
+    function date_range( $start, $end, $format = 'd-m-Y' ) {
+        $range = false;
+        $parse_date = function ( $date ) use ( $format ) {
+            if( !is_a( $date, '\DateTime' ) ) {
+                $date = date_create_from_format( $format, $date );
+            }
+
+            return $date;
+        };
+
+        $start = $parse_date( $start );
+        $end = $parse_date( $end );
+
+        if( $start && $end && $start <= $end ) {
+            $range = new \DatePeriod( $start, new \DateInterval('P1D'), $end->modify( '+1 day' ) );
+        }
+
+        return $range;
+    }
 }
 
 namespace SmartcatSupport\proc {
@@ -432,6 +452,35 @@ namespace SmartcatSupport\proc {
 }
 
 namespace SmartcatSupport\statprocs {
+
+    function tickets_opened_by_range( $start, $end, $format = 'd-m-Y' ) {
+        global $wpdb;
+
+        $result = false;
+        $range = \SmartcatSupport\util\date_range( $start, $end, $format );
+
+        if( $range ) {
+            $result = array();
+
+            foreach ( $range as $date ) {
+                $str_date = $date->format( 'Y-m-d' );
+
+                $q = "SELECT IFNULL( COUNT( * ), 0 ) 
+                      FROM {$wpdb->prefix}posts 
+                      WHERE post_date BETWEEN '{$str_date} 00:00:00' AND '{$str_date} 23:59:59' 
+                      AND post_type = 'support_ticket' 
+                      AND post_status = 'publish'";
+
+                $result[ $str_date ] = $wpdb->get_var( $q );
+            }
+        }
+
+        return $result;
+    }
+
+    function tickets_closed_by_range( $start, $end ) {
+
+    }
     
     function get_unclosed_tickets() {
         
