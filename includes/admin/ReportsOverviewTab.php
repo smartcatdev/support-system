@@ -12,6 +12,7 @@ class ReportsOverviewTab extends MenuPageTab {
     private $date_range_options;
 
     private $opened_tickets;
+    private $closed_tickets;
 
     public function __construct() {
 
@@ -29,24 +30,24 @@ class ReportsOverviewTab extends MenuPageTab {
         $this->end = new \DateTimeImmutable( isset( $_POST['end_date' ] ) ? $_POST['end_date'] : null );
 
         $this->opened_tickets = \SmartcatSupport\statprocs\tickets_opened_by_range( $this->start, $this->end );
+        $this->closed_tickets = \SmartcatSupport\statprocs\tickets_closed_by_range( $this->start, $this->end );
     }
 
     private function format( $date ) {
         return $date->format( 'd-m-Y' );
     }
 
-    private function graph_data( $labels, $data ) { ?>
+    private function graph_data() { ?>
 
         <script>
 
             jQuery(document).ready( function () {
 
                 new Chartist.Line('#stats-chart', {
-                    labels: <?php echo wp_json_encode( $labels ); ?>,
+                    labels: <?php echo wp_json_encode( array_keys( $this->opened_tickets ) ); ?>,
                     series: [
-                        <?php foreach( $data as $series ) : ?>
-                            <?php echo wp_json_encode( $series ); ?>
-                        <?php endforeach; ?>
+                        <?php echo wp_json_encode( array_values( $this->opened_tickets ) ); ?>,
+                        <?php echo wp_json_encode( array_values( $this->closed_tickets ) ); ?>
                     ]
                 });
 
@@ -103,7 +104,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                 </div>
 
-                <?php $this->graph_data( array_keys( $this->opened_tickets ), array( array_values( $this->opened_tickets ) ) ); ?>
+                <?php $this->graph_data(); ?>
 
             </form>
 

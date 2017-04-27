@@ -477,8 +477,33 @@ namespace SmartcatSupport\statprocs {
         return $result;
     }
 
-    function tickets_closed_by_range( $start, $end ) {
+    function tickets_closed_by_range( $start, $end, $format = 'd-m-Y' ) {
+        global $wpdb;
 
+        $result = false;
+        $range = \SmartcatSupport\util\date_range( $start, $end, $format );
+
+        if( $range ) {
+            $result = array();
+
+            foreach ( $range as $date ) {
+                $str_date = $date->format( 'Y-m-d' );
+
+                $q = "SELECT IFNULL( COUNT( * ), 0 ) 
+                      FROM {$wpdb->prefix}posts as p
+                      INNER JOIN {$wpdb->prefix}postmeta as m
+                      ON p.ID = m.post_id
+                      WHERE p.post_date BETWEEN '{$str_date} 00:00:00' AND '{$str_date} 23:59:59' 
+                      AND p.post_type = 'support_ticket' 
+                      AND p.post_status = 'publish'
+                      AND m.meta_key = 'closed' 
+                      AND m.meta_value != '' ";
+
+                $result[ $str_date ] = $wpdb->get_var( $q );
+            }
+        }
+
+        return $result;
     }
     
     function get_unclosed_tickets() {
