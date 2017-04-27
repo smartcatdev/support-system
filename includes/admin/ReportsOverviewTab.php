@@ -11,8 +11,8 @@ class ReportsOverviewTab extends MenuPageTab {
 
     private $date_range_options;
 
-    private $opened_tickets;
-    private $closed_tickets;
+    private $opened_tickets = array();
+    private $closed_tickets = array();
 
     public function __construct() {
 
@@ -29,8 +29,13 @@ class ReportsOverviewTab extends MenuPageTab {
         $this->start = new \DateTimeImmutable( isset( $_POST['start_date' ] ) ? $_POST['start_date'] : '7 days ago' );
         $this->end = new \DateTimeImmutable( isset( $_POST['end_date' ] ) ? $_POST['end_date'] : null );
 
-        $this->opened_tickets = \SmartcatSupport\statprocs\tickets_opened_by_range( $this->start, $this->end );
-        $this->closed_tickets = \SmartcatSupport\statprocs\tickets_closed_by_range( $this->start, $this->end );
+        $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
+
+        foreach( $ticket_stats as $stat ) {
+            $this->opened_tickets[ $stat['date_formatted'] ] = $stat['opened'];
+            $this->closed_tickets[ $stat['date_formatted'] ] = $stat['closed'];
+        }
+
     }
 
     private function format( $date ) {

@@ -29,10 +29,8 @@ jQuery(document).ready(function ($) {
                 break;
 
             case 'this_year':
-                var d = moment().subtract(1, 'year');
-
-                start = d.clone().startOf('year');
-                end = d.clone().endOf('year');
+                start = moment().startOf('year');
+                end = moment().endOf('year');
                 break;
 
             case 'custom':

@@ -26,8 +26,7 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
-    function render( $template, array $data = array() )
-    {
+    function render( $template, array $data = array() ) {
         extract($data);
         ob_start();
 
@@ -452,54 +451,62 @@ namespace SmartcatSupport\proc {
 
 namespace SmartcatSupport\statprocs {
 
-    function tickets_opened_by_range( $start, $end, $format = 'd-m-Y' ) {
+    function tickets_overview_by_range( $start, $end, $format = 'd-m-Y' ) {
         global $wpdb;
 
         $result = false;
+        $monthly = false;
         $range = \SmartcatSupport\util\date_range( $start, $end, $format );
 
         if( $range ) {
             $result = array();
+            $days = 0;
 
             foreach ( $range as $date ) {
-                $str_date = $date->format( 'Y-m-d' );
+                $days++;
+            }
 
-                $q = "SELECT IFNULL( COUNT( * ), 0 ) 
+            // If the range is equal or greater than a year, flatten it to monthly totals
+            if( $days >= 365 ) {
+                $monthly = true;
+                $month_range = array();
+
+                foreach ( $range as $date ) {
+                    $ldm = date_create( date('Y-m-t', $date->format( 'U' ) ) );
+
+                    if( !in_array( $ldm, $month_range ) ) {
+                        $month_range[] = $ldm;
+                    }
+                }
+
+                if( !empty( $month_range ) ) {
+                    $range = $month_range;
+                }
+            }
+
+            foreach ( $range as $date ) {
+                $q_open = "SELECT IFNULL( COUNT( * ), 0 ) 
                       FROM {$wpdb->prefix}posts 
-                      WHERE post_date BETWEEN '{$str_date} 00:00:00' AND '{$str_date} 23:59:59' 
+                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $monthly ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
                       AND post_type = 'support_ticket' 
                       AND post_status = 'publish'";
 
-                $result[ $str_date ] = $wpdb->get_var( $q );
-            }
-        }
-
-        return $result;
-    }
-
-    function tickets_closed_by_range( $start, $end, $format = 'd-m-Y' ) {
-        global $wpdb;
-
-        $result = false;
-        $range = \SmartcatSupport\util\date_range( $start, $end, $format );
-
-        if( $range ) {
-            $result = array();
-
-            foreach ( $range as $date ) {
-                $str_date = $date->format( 'Y-m-d' );
-
-                $q = "SELECT IFNULL( COUNT( * ), 0 ) 
+                $q_closed = "SELECT IFNULL( COUNT( * ), 0 ) 
                       FROM {$wpdb->prefix}posts as p
                       INNER JOIN {$wpdb->prefix}postmeta as m
                       ON p.ID = m.post_id
-                      WHERE p.post_date BETWEEN '{$str_date} 00:00:00' AND '{$str_date} 23:59:59' 
+                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $monthly ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
                       AND p.post_type = 'support_ticket' 
                       AND p.post_status = 'publish'
                       AND m.meta_key = 'closed' 
                       AND m.meta_value != '' ";
 
-                $result[ $str_date ] = $wpdb->get_var( $q );
+                $result[] = array(
+                    'date' => $date,
+                    'date_formatted' => $date->format( $monthly ? 'M \'y' : 'd' ),
+                    'opened' => $wpdb->get_var( $q_open ),
+                    'closed' => $wpdb->get_var( $q_closed )
+                );
             }
         }
 
