@@ -26,8 +26,24 @@ class ReportsOverviewTab extends MenuPageTab {
             'custom'        => __( 'Custom Range', \SmartcatSupport\PLUGIN_ID ),
         );
 
-        $this->start = new \DateTimeImmutable( isset( $_POST['start_date' ] ) ? $_POST['start_date'] : '7 days ago' );
-        $this->end = new \DateTimeImmutable( isset( $_POST['end_date' ] ) ? $_POST['end_date'] : null );
+        $start_init = '7 days ago';
+        $end_init = 'now';
+
+        if( isset( $_POST['start_date'] ) && isset( $_POST['end_date'] ) ) {
+            $start = strtotime( $_POST['start_date'] );
+            $end = strtotime( $_POST['end_date'] );
+
+            if( $start <= $end ) {
+                $min = strtotime('-2 years');
+                $max = strtotime('now');
+
+                $start_init = $start >= $min && $start <= $max ? date('y-m-d', $start) : '7 days ago';
+                $end_init = $end >= $min && $end <= $max ? date('y-m-d', $end) : 'now';
+            }
+        }
+
+        $this->start = new \DateTimeImmutable( $start_init );
+        $this->end = new \DateTimeImmutable( $end_init );
 
         $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
 
