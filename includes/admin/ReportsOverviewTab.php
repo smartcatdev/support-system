@@ -48,7 +48,7 @@ class ReportsOverviewTab extends MenuPageTab {
             $this->end = new \DateTime( 'now', $tz );
         }
 
-        $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range(  $this->start, $this->end );
+        $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
 
         foreach( $ticket_stats as $stat ) {
             $this->opened_tickets[ $stat['date_formatted'] ] = $stat['opened'];
@@ -86,7 +86,30 @@ class ReportsOverviewTab extends MenuPageTab {
 
                     axisY: {
                         onlyInteger: true
-                    }
+                    },
+                    plugins: [
+                        Chartist.plugins.ctAxisTitle({
+                            axisX: {
+                                axisTitle: '<?php _e( 'Date', \SmartcatSupport\PLUGIN_ID ); ?>',
+                                axisClass: 'ct-axis-title',
+                                offset: {
+                                    x: 0,
+                                    y: 50
+                                },
+                                textAnchor: 'middle'
+                            },
+                            axisY: {
+                                axisTitle: '<?php _e( '# Tickets', \SmartcatSupport\PLUGIN_ID ); ?>',
+                                axisClass: 'ct-axis-title',
+                                offset: {
+                                    x: 0,
+                                    y: 0
+                                },
+                                textAnchor: 'middle',
+                                flipTitle: false
+                            }
+                        })
+                    ]
                 });
 
             });

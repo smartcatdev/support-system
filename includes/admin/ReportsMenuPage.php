@@ -16,9 +16,7 @@ class ReportsMenuPage extends TabbedMenuPage {
             'page_title'    => __( 'Reports', \SmartcatSupport\PLUGIN_ID ),
             'menu_title'    => __( 'Reports', \SmartcatSupport\PLUGIN_ID ),
             'capability'    => 'manage_support',
-            'tabs' => array(
-                'overview' => new ReportsOverviewTab()
-            )
+            'tabs'          => array( 'overview' => new ReportsOverviewTab() )
 
         ) );
 
