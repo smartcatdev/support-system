@@ -83,11 +83,12 @@
 .ct-series-b .ct-line {
     stroke: #d70206;
     stroke-dasharray: 10px 5px;
-    stroke-width: 5px;
+    stroke-width: 3px;
 }
 
 .ct-series-b .ct-point {
     stroke: #d70206;
+    stroke-width: 10px;
 }
 
 .ct-series-b .ct-area {

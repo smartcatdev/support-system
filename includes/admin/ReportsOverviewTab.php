@@ -74,6 +74,9 @@ class ReportsOverviewTab extends MenuPageTab {
                         data: <?php echo wp_json_encode( array_values( $this->closed_tickets ) ); ?>
                     }]
                 }, {
+                    margin: {
+                        right: '30px'
+                    },
                     fullWidth: true,
                     series: {
                         'opened-tickets': {
