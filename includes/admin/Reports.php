@@ -21,8 +21,11 @@ class Reports extends AbstractComponent {
             wp_enqueue_style( 'chartist',
                 $this->plugin->url() . '/assets/lib/chartist/chartist.min.css', null, $this->plugin->version() );
 
-            wp_enqueue_script( 'chartist-axistitle',
-                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-axistitle.min.js', null, $this->plugin->version() );
+            wp_enqueue_script( 'chartist-tooltip',
+                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-tooltip.min.js', null, $this->plugin->version() );
+
+            wp_enqueue_style( 'chartist-tooltip',
+                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-tooltip.css', null, $this->plugin->version() );
 
             wp_enqueue_script( 'reports',
                 $this->plugin->url() . '/assets/admin/reports.js', array( 'jquery' ), $this->plugin->version() );

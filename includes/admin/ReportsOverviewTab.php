@@ -13,6 +13,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
     private $opened_tickets = array();
     private $closed_tickets = array();
+    private $labels = array();
 
     public function __construct() {
 
@@ -32,7 +33,7 @@ class ReportsOverviewTab extends MenuPageTab {
     }
 
     private function init() {
-        $tz = new \DateTimeZone( get_option( 'timezone_string' ) );
+        $tz = new \DateTimeZone( !empty( $zone = get_option( 'timezone_string' ) ) ? $zone : 'UTC' );
 
         if( isset( $_GET['start_date'] ) && isset( $_GET['end_date'] ) ) {
             $start = new \DateTime( $_GET['start_date'], $tz );
@@ -50,9 +51,10 @@ class ReportsOverviewTab extends MenuPageTab {
 
         $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
 
-        foreach( $ticket_stats as $stat ) {
-            $this->opened_tickets[ $stat['date_formatted'] ] = $stat['opened'];
-            $this->closed_tickets[ $stat['date_formatted'] ] = $stat['closed'];
+        foreach( $ticket_stats['data'] as $stat ) {
+            $this->labels[] = $stat['date']->format( 'd M' );
+            $this->opened_tickets[] = array( 'meta' =>  $stat['date']->format( 'D M Y' ), 'value' => $stat['opened'] );
+            $this->closed_tickets[] = array( 'meta' =>  $stat['date']->format( 'D M Y' ), 'value' => $stat['closed'] );
         }
     }
 
@@ -62,8 +64,8 @@ class ReportsOverviewTab extends MenuPageTab {
 
             jQuery(document).ready( function () {
 
-                new Chartist.Line('#ticket-overview-chart', {
-                    labels: <?php echo wp_json_encode( array_keys( $this->opened_tickets ) ); ?>,
+                var chart = new Chartist.Line('#ticket-overview-chart', {
+                    labels: <?php echo wp_json_encode( $this->labels ); ?>,
                     series: [{
                         name: 'opened-tickets',
                         data: <?php echo wp_json_encode( array_values( $this->opened_tickets ) ); ?>
@@ -79,37 +81,30 @@ class ReportsOverviewTab extends MenuPageTab {
                             showArea: true
                         },
                         'closed-tickets': {
-                            lineSmooth: false,
-                            showArea: true
+                            lineSmooth: false
                         }
                     },
-
                     axisY: {
-                        onlyInteger: true
+                        onlyInteger: true,
                     },
                     plugins: [
-                        Chartist.plugins.ctAxisTitle({
-                            axisX: {
-                                axisTitle: '<?php _e( 'Date', \SmartcatSupport\PLUGIN_ID ); ?>',
-                                axisClass: 'ct-axis-title',
-                                offset: {
-                                    x: 0,
-                                    y: 50
-                                },
-                                textAnchor: 'middle'
-                            },
-                            axisY: {
-                                axisTitle: '<?php _e( '# Tickets', \SmartcatSupport\PLUGIN_ID ); ?>',
-                                axisClass: 'ct-axis-title',
-                                offset: {
-                                    x: 0,
-                                    y: 0
-                                },
-                                textAnchor: 'middle',
-                                flipTitle: false
-                            }
+                        Chartist.plugins.tooltip({
+                            class: 'ct-tooltip',
+                            appendToBody: true
                         })
                     ]
+                });
+
+                chart.on('created', function(context) {
+                    context.svg.elem('rect', {
+                        x: context.chartRect.x1,
+                        y: context.chartRect.y2,
+                        width: context.chartRect.width(),
+                        height: context.chartRect.height(),
+                        fill: 'none',
+                        stroke: '#e5e5e5',
+                        'stroke-width': '1px'
+                    })
                 });
 
             });

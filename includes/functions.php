@@ -280,7 +280,7 @@ namespace  SmartcatSupport\util {
             if( !is_a( $date, '\DateTimeInterface' ) ) {
                 $date = date_create_from_format( $format, $date );
             } else {
-                $tz =  new \DateTimeZone( get_option( 'timezone_string' ) );
+                $tz = new \DateTimeZone( !empty( $zone = get_option( 'timezone_string' ) ) ? $zone : 'UTC' );
                 $date = new \DateTimeImmutable( $date->format( $format ), $tz );
             }
 
@@ -458,15 +458,15 @@ namespace SmartcatSupport\statprocs {
         global $wpdb;
 
         $result = false;
-        $monthly = false;
+        $month_view = false;
         $range = \SmartcatSupport\util\date_range( $start, $end, $format );
 
         if( $range ) {
-            $result = array();
+            $result = array( 'data' => array() );
 
             // If the range is equal or greater than a month, flatten it to monthly totals
-            if( date_diff( $range->getEndDate(), $range->getStartDate() )->format( '%a' ) > 31 ) {
-                $monthly = true;
+            if( date_diff( $range->getEndDate(), $range->getStartDate() )->format( '%a' ) > '31' ) {
+                $month_view = true;
                 $month_range = array();
 
                 foreach ( $range as $date ) {
@@ -485,7 +485,7 @@ namespace SmartcatSupport\statprocs {
             foreach ( $range as $date ) {
                 $q_open = "SELECT IFNULL( COUNT( * ), 0 ) 
                       FROM {$wpdb->prefix}posts 
-                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $monthly ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
+                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $month_view ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
                       AND post_type = 'support_ticket' 
                       AND post_status = 'publish'";
 
@@ -493,15 +493,14 @@ namespace SmartcatSupport\statprocs {
                       FROM {$wpdb->prefix}posts as p
                       INNER JOIN {$wpdb->prefix}postmeta as m
                       ON p.ID = m.post_id
-                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $monthly ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
+                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $month_view ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
                       AND p.post_type = 'support_ticket' 
                       AND p.post_status = 'publish'
                       AND m.meta_key = 'closed' 
                       AND m.meta_value != '' ";
 
-                $result[] = array(
-                    'date' => $date,
-                    'date_formatted' => $date->format( $monthly ? 'M \'y' : 'd' ),
+                $result['data'][] = array(
+                    'date'   => $date,
                     'opened' => $wpdb->get_var( $q_open ),
                     'closed' => $wpdb->get_var( $q_closed )
                 );
