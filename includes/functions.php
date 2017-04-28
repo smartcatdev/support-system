@@ -280,7 +280,8 @@ namespace  SmartcatSupport\util {
             if( !is_a( $date, '\DateTimeInterface' ) ) {
                 $date = date_create_from_format( $format, $date );
             } else {
-                $date = new \DateTime( $date->format( 'd-m-Y' ) );
+                $tz =  new \DateTimeZone( get_option( 'timezone_string' ) );
+                $date = new \DateTimeImmutable( $date->format( $format ), $tz );
             }
 
             return $date;
@@ -462,14 +463,9 @@ namespace SmartcatSupport\statprocs {
 
         if( $range ) {
             $result = array();
-            $days = 0;
-
-            foreach ( $range as $date ) {
-                $days++;
-            }
 
             // If the range is equal or greater than a month, flatten it to monthly totals
-            if( $days > 31 ) {
+            if( date_diff( $range->getEndDate(), $range->getStartDate() )->format( '%a' ) > 31 ) {
                 $monthly = true;
                 $month_range = array();
 

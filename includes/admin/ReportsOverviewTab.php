@@ -28,24 +28,25 @@ class ReportsOverviewTab extends MenuPageTab {
             'custom'        => __( 'Custom Range', \SmartcatSupport\PLUGIN_ID ),
         );
 
-        $start_init = '7 days ago';
-        $end_init = 'now';
+        $this->init();
+    }
+
+    private function init() {
+        $tz = new \DateTimeZone( get_option( 'timezone_string' ) );
 
         if( isset( $_GET['start_date'] ) && isset( $_GET['end_date'] ) ) {
-            $start = date( 'Y-m-d', strtotime( $_GET['start_date'] ) );
-            $end = date( 'Y-m-d', strtotime( $_GET['end_date'] ) );
+            $start = new \DateTime( $_GET['start_date'], $tz );
+            $end = new \DateTime( $_GET['end_date'], $tz );
 
-            if( $start < $end ) {
-                $min = date( 'Y-m-d', strtotime( '-2 years' ) );
-                $max = date( 'Y-m-d', strtotime( 'now' ) );
+            $min = new \DateTime( ( new \DateTime( '-2 years', $tz ) )->format( 'd-m-Y' ), $tz );
+            $max = new \DateTime( ( new \DateTime( 'now', $tz ) )->format( 'd-m-Y' ), $tz );
 
-                $start_init = $start >= $min && $start <= $max ? $start : $start_init;
-                $end_init = $end >= $min && $end > $start && $end < $max ? $end : $end_init;
-            }
+            $this->start = $start < $end && $start >= $min && $start <= $max ? $start : new \DateTime( '7 days ago', $tz );
+            $this->end = $end > $start && $end >= $min && $end < $max ? $end : new \DateTime( 'now', $tz );
+        } else {
+            $this->start = new \DateTime( '7 days ago', $tz );
+            $this->end = new \DateTime( 'now', $tz );
         }
-
-        $this->start = new \DateTimeImmutable( $start_init );
-        $this->end = new \DateTimeImmutable( $end_init );
 
         $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range(  $this->start, $this->end );
 
@@ -53,7 +54,6 @@ class ReportsOverviewTab extends MenuPageTab {
             $this->opened_tickets[ $stat['date_formatted'] ] = $stat['opened'];
             $this->closed_tickets[ $stat['date_formatted'] ] = $stat['closed'];
         }
-
     }
 
     private function graph_data() { ?>
