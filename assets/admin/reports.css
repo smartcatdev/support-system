@@ -42,7 +42,7 @@
 }
 
 .chartist-tooltip:before {
-    border-top-color: rgba(0, 0, 0, 0.8);
+    border-top-color: transparent;
 }
 
 .chartist-tooltip-value {

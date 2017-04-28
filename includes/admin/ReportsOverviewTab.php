@@ -52,7 +52,7 @@ class ReportsOverviewTab extends MenuPageTab {
         $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
 
         foreach( $ticket_stats['data'] as $stat ) {
-            $this->labels[] = $stat['date']->format( 'd M' );
+            $this->labels[] = $stat['date']->format( 'Y-m-d' );
             $this->opened_tickets[] = array( 'meta' =>  $stat['date']->format( 'D M Y' ), 'value' => $stat['opened'] );
             $this->closed_tickets[] = array( 'meta' =>  $stat['date']->format( 'D M Y' ), 'value' => $stat['closed'] );
         }
@@ -85,11 +85,24 @@ class ReportsOverviewTab extends MenuPageTab {
                         }
                     },
                     axisY: {
-                        onlyInteger: true,
+                        onlyInteger: true
+                    },
+                    axisX: {
+                        labelInterpolationFnc: function(value, index, labels) {
+
+                            if(labels.length === 8) {
+                                value = moment(value).format('MMM D');
+                            } else if(labels.length >= 28) {
+                                value = index % 2 === 0 ? moment(value).format('MMM D') : null;
+                            } else {
+                                value = moment(value).format('MMM');
+                            }
+
+                            return value;
+                        }
                     },
                     plugins: [
                         Chartist.plugins.tooltip({
-                            class: 'ct-tooltip',
                             appendToBody: true
                         })
                     ]
