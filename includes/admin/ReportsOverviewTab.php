@@ -93,9 +93,9 @@ class ReportsOverviewTab extends MenuPageTab {
                     axisX: {
                         labelInterpolationFnc: function(value, index, labels) {
 
-                            if(labels.length === 8) {
+                            if(labels.length < 28) {
                                 value = moment(value).format('MMM D');
-                            } else if(labels.length >= 28) {
+                            } else if(labels.length < 32) {
                                 value = index % 2 === 0 ? moment(value).format('MMM D') : null;
                             } else {
                                 value = moment(value).format('MMM');
