@@ -21,6 +21,9 @@ class Reports extends AbstractComponent {
             wp_enqueue_style( 'chartist',
                 $this->plugin->url() . '/assets/lib/chartist/chartist.min.css', null, $this->plugin->version() );
 
+            wp_enqueue_script( 'chartist-legend',
+                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-legend.js', null, $this->plugin->version() );
+
             wp_enqueue_script( 'chartist-tooltip',
                 $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-tooltip.min.js', null, $this->plugin->version() );
 

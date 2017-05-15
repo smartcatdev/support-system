@@ -107,6 +107,9 @@ class ReportsOverviewTab extends MenuPageTab {
                     plugins: [
                         Chartist.plugins.tooltip({
                             appendToBody: true
+                        }),
+                        Chartist.plugins.legend({
+                            legendNames: ['Opened', 'Closed']
                         })
                     ]
                 });

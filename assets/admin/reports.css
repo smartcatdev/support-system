@@ -54,17 +54,21 @@
     stroke-width: 5px;
 }
 
+.ct-point {
+    stroke-width: 10px;
+}
+
 .ct-chart .ct-grid {
     stroke-dasharray: none;
+}
+
+.ct-chart .ct-chart-line {
+    margin-top: 15px;
 }
 
 .ct-chart .ct-grid.ct-vertical,
 .ct-chart .ct-grid.ct-vertical {
     stroke: none;
-}
-
-.ct-point {
-    stroke-width: 10px;
 }
 
 .ct-series-a .ct-line {
@@ -115,4 +119,51 @@
     .ct-chart {
         max-height: 450px;
     }
+}
+
+.ct-legend {
+    position: relative;
+    text-align: right;
+    z-index: 10;
+    list-style: none;
+}
+.ct-legend li {
+    position: relative;
+    padding-left: 23px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.ct-legend li:before {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 0;
+    content: '';
+    border: 3px solid transparent;
+}
+
+.ct-legend li.inactive:before {
+    background: transparent;
+}
+.ct-legend.ct-legend-inside {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.ct-legend.ct-legend-inside li{
+    display: block;
+    margin: 0;
+}
+
+.ct-legend .ct-series-0:before {
+    background-color: #40bac8;
+    border-color: #40bac8;
+}
+
+.ct-legend .ct-series-1:before {
+    background-color: #d70206;
+    border-color: #d70206;
 }
