@@ -23,6 +23,18 @@
     padding: 10px;
 }
 
+.stats-header h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.stats-footer {
+    border: 1px solid #e5e5e5;
+    margin: -1px;
+    padding: 10px;
+}
+
 .stats-chart-wrapper {
     margin: 10px;
 }
