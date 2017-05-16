@@ -38,11 +38,10 @@ class ReportsOverviewTab extends MenuPageTab {
             ( isset( $_GET['end_day'] )   ? $_GET['end_day']   : '' )
         );
 
-        $start = $start ? $start : $this->default_start();
-        $end = $end ? $end : $this->date;
-
-        var_dump( $start ); echo '<br>';
-        var_dump( $end );
+        if( !$start || !$end ) {
+            $start = $this->default_start();
+            $end = $this->date;
+        }
 
         return \SmartcatSupport\statprocs\count_tickets( $start, $end );
     }
@@ -181,9 +180,10 @@ class ReportsOverviewTab extends MenuPageTab {
                     </div>
                 </div>
 
-                <?php $this->graph_data( $this->get_data() ); ?>
-
             </form>
+
+            <?php $this->graph_data( $this->get_data() ); ?>
+
         </div>
 
     <?php }
