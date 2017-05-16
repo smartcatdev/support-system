@@ -8,17 +8,13 @@ class ReportsOverviewTab extends MenuPageTab {
 
     private $date;
 
-    private $date_range_options;
-
-    private $opened_tickets = array();
-    private $closed_tickets = array();
-    private $labels = array();
+    private $predefined_ranges;
 
     public function __construct() {
 
         parent::__construct( array( 'title' => __( 'Overview', \SmartcatSupport\PLUGIN_ID ) ) );
 
-        $this->date_range_options = array(
+        $this->predefined_ranges = array(
             'last_week'     => __( 'Last 7 Days', \SmartcatSupport\PLUGIN_ID ),
             'this_month'    => __( 'This Month', \SmartcatSupport\PLUGIN_ID ),
             'last_month'    => __( 'Last Month', \SmartcatSupport\PLUGIN_ID ),
@@ -42,8 +38,11 @@ class ReportsOverviewTab extends MenuPageTab {
             ( isset( $_GET['end_day'] )   ? $_GET['end_day']   : '' )
         );
 
-        $start = $start ? $start : $this->date->sub( new \DateInterval( 'P7D' ) );
+        $start = $start ? $start : $this->default_start();
         $end = $end ? $end : $this->date;
+
+        var_dump( $start ); echo '<br>';
+        var_dump( $end );
 
         return \SmartcatSupport\statprocs\count_tickets( $start, $end );
     }
@@ -124,7 +123,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
     <?php }
 
-    public function render() { $this->get_data(); ?>
+    public function render() { ?>
 
         <div class="stats-overview stat-section">
             <form method="get">
@@ -135,7 +134,7 @@ class ReportsOverviewTab extends MenuPageTab {
                         <div class="control-group">
                             <select name="range" class="date-range-select form-control">
 
-                                <?php foreach( $this->date_range_options as $option => $label ) : ?>
+                                <?php foreach($this->predefined_ranges as $option => $label ) : ?>
 
                                     <option value="<?php echo $option; ?>"
                                         <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
@@ -149,21 +148,31 @@ class ReportsOverviewTab extends MenuPageTab {
                         </div>
                         <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
                             <span class="start_date">
-                                <?php $this->date_picker(
-                                    'start_',
-                                    isset( $_GET['start_month'] ) ? $_GET['start_month'] : '',
-                                    isset( $_GET['start_day'] ) ? $_GET['start_day'] : '',
-                                    isset( $_GET['start_year'] ) ? $_GET['start_year'] : ''
-                                ); ?>
+                                <?php
+
+                                    $default = $this->default_start();
+
+                                    $this->date_picker(
+                                        'start_',
+                                        $default->format( 'n' ),
+                                        $default->format( 'j' ),
+                                        $default->format( 'Y' )
+                                    );
+
+                                ?>
                             </span>
                             <span>—</span>
                             <span class="end_date">
-                                <?php $this->date_picker(
-                                    'end_',
-                                    isset( $_GET['end_month'] ) ? $_GET['end_month'] : '',
-                                    isset( $_GET['end_day'] ) ? $_GET['end_day'] : '',
-                                    isset( $_GET['end_year'] ) ? $_GET['end_year'] : ''
-                                ); ?>
+                                <?php
+
+                                    $this->date_picker(
+                                        'end_',
+                                        $this->date->format( 'n' ),
+                                        $this->date->format( 'j' ),
+                                        $this->date->format( 'Y' )
+                                    );
+
+                                ?>
                             </span>
                         </div>
                         <div class="control-group">
@@ -179,14 +188,19 @@ class ReportsOverviewTab extends MenuPageTab {
 
     <?php }
 
+    private function default_start() {
+        return $this->date->sub( new \DateInterval( 'P7D' ) );
+    }
+
     private function date_picker( $prefix = '', $month = '', $day = '', $year = '' ) { ?>
 
         <select name="<?php echo $prefix; ?>month">
 
             <?php for( $m = 1; $m <= 12; $m++ ) : ?>
 
-                <option <?php selected( $m, $month ); ?>
-                    value="<?php echo $m; ?>">
+                <option value="<?php echo $m; ?>"
+
+                    <?php selected( isset( $_GET["{$prefix}month"] ) ? $_GET["{$prefix}month"] : $month, $m ); ?>>
 
                     <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), \SmartcatSupport\PLUGIN_ID ); ?>
 
@@ -200,7 +214,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
             <?php for( $d = 1; $d <= 31; $d++ ) : ?>
 
-                <option <?php selected( $d, $day ); ?>value="<?php echo $d; ?>"><?php echo $d; ?></option>
+                <option value="<?php echo $d; ?>"
+
+                    <?php selected( isset( $_GET["{$prefix}day"] ) ? $_GET["{$prefix}day"] : $day, $d ); ?>><?php echo $d; ?></option>
 
             <?php endfor; ?>
 
@@ -212,7 +228,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
             <?php for( $y = $this_year; $y >= $this_year - 10; $y-- ) : ?>
 
-                <option <?php selected( $y, $year ); ?>value="<?php echo $y; ?>"><?php echo $y; ?></option>
+                <option value="<?php echo $y; ?>"
+
+                    <?php selected( isset( $_GET["{$prefix}year"] ) ? $_GET["{$prefix}year"] : $year, $y ); ?>><?php echo $y; ?></option>
 
             <?php endfor; ?>
 
