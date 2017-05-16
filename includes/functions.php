@@ -454,8 +454,77 @@ namespace SmartcatSupport\proc {
 
 namespace SmartcatSupport\statprocs {
 
+    function count_tickets( \DateTime $start, \DateTime $end ) {
+        global $wpdb;
+
+        $period = new \DatePeriod( $start, \DateInterval::createFromDateString( '1 day' ), $end );
+
+        $q = "SELECT (
+                SELECT COUNT(*)
+                FROM $wpdb->posts p
+                WHERE p.post_date
+                    BETWEEN %s
+                    AND %s
+                    AND p.post_type = 'support_ticket'
+                    AND p.post_status = 'publish'
+                ) AS opened, (
+                SELECT COUNT(*)
+                FROM $wpdb->posts p
+                INNER JOIN $wpdb->postmeta m
+                    on p.ID = m.post_id
+                WHERE p.post_date
+                    BETWEEN %s
+                    AND %s
+                    AND p.post_type = 'support_ticket'
+                    AND p.post_status = 'publish'
+                    AND m.meta_key = 'closed'
+                ) AS closed";
+
+        foreach ( $period as $date ) {
+
+            $date = $date->format( 'Y-m-d' );
+
+            $query = $wpdb->prepare( $q, array(
+                $date . ' 00:00:00',
+                $date . ' 23:59:59',
+                $date . ' 00:00:00',
+                $date . ' 23:59:59',
+            ) );
+
+
+
+            var_dump( array( $date => $wpdb->get_row( $query, ARRAY_A ) ) );
+
+        }
+
+
+    }
+
     function tickets_overview_by_range( $start, $end, $format = 'd-m-Y' ) {
         global $wpdb;
+
+        // if greater than
+
+//        SELECT(
+//            SELECT COUNT(*)
+//    FROM wp_posts p
+//    WHERE p.post_date
+//    	BETWEEN '1970-01-01 00:00:00'
+//        AND '2017-05-15 23:59:59'
+//        AND p.post_type = 'support_ticket'
+//        AND p.post_status = 'publish'
+//) AS opened, (
+//        SELECT COUNT(*)
+//    FROM wp_posts p
+//    INNER JOIN wp_postmeta m
+//     	on p.ID = m.post_id
+//    WHERE p.post_date
+//    	BETWEEN '1970-01-01 00:00:00'
+//        AND '2017-05-15 23:59:59'
+//        AND p.post_type = 'support_ticket'
+//        AND p.post_status = 'publish'
+//        AND m.meta_key = 'closed'
+//) AS closed
 
         $result = false;
         $month_view = false;

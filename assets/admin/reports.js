@@ -1,58 +1,62 @@
 jQuery(document).ready(function ($) {
 
-    var start_date = $('.start-date').datepicker({
-        dateFormat : 'dd-mm-yy',
-        minDate: moment().subtract(2, 'years').toDate(),
-        maxDate: moment().toDate()
-    });
+    var start_date = $('.start_date');
+    var end_date = $('.end_date');
+    var range = $('.date-range-select');
 
-    var end_date = $('.end-date').datepicker({
-        dateFormat : 'dd-mm-yy',
-        minDate: moment().subtract(2, 'years').toDate(),
-        maxDate: moment().toDate()
-    });
-
-    $('.date-range-select').change(function (e) {
-
-        var selection = $(e.target).val();
-
-        var start;
-        var end;
-
-        switch($(e.target).val()) {
+    function init_range(value) {
+        switch(value) {
             case 'last_week':
-                end = moment();
-                start = moment().subtract(7, 'days');
+            default:
+                start_date.find('[name="start_month"]').val(moment().month() + 1);
+                start_date.find('[name="start_day"]').val(moment().date() - 7);
+                start_date.find('[name="start_year"]').val(moment().year());
+
+                end_date.find('[name="end_month"]').val(moment().month() + 1);
+                end_date.find('[name="end_day"]').val(moment().endOf('week').date());
+                end_date.find('[name="end_year"]').val(moment().year());
                 break;
 
             case 'this_month':
-                end = moment();
-                start = moment().startOf('month');
+                start_date.find('[name="start_month"]').val(moment().month() + 1);
+                start_date.find('[name="start_day"]').val(moment().startOf('month').date());
+                start_date.find('[name="start_year"]').val(moment().year());
+
+                end_date.find('[name="end_month"]').val(moment().month() + 1);
+                end_date.find('[name="end_day"]').val(moment().endOf('month').date());
+                end_date.find('[name="end_year"]').val(moment().year());
                 break;
 
             case 'last_month':
-                var d = moment().subtract(1, 'month');
+                start_date.find('[name="start_month"]').val(moment().month());
+                start_date.find('[name="start_day"]').val(moment().startOf('month').date());
+                start_date.find('[name="start_year"]').val(moment().year());
 
-                start = d.clone().startOf('month');
-                end = d.clone().endOf('month');
+                end_date.find('[name="end_month"]').val(moment().month());
+                end_date.find('[name="end_day"]').val(moment().endOf('month').date());
+                end_date.find('[name="end_year"]').val(moment().year());
                 break;
 
             case 'this_year':
-                start = moment().startOf('year');
-                end = moment();
+                start_date.find('[name="start_month"]').val(1);
+                start_date.find('[name="start_day"]').val(1);
+                start_date.find('[name="start_year"]').val(moment().year());
+
+                end_date.find('[name="end_month"]').val(moment().month());
+                end_date.find('[name="end_day"]').val(moment().endOf('month').date());
+                end_date.find('[name="end_year"]').val(moment().year());
                 break;
-
-            case 'custom':
-            default:
-                start = moment();
-                end = moment();
         }
+    }
 
-        start_date.datepicker('setDate', start.format('DD-MM-YYYY'));
-        end_date.datepicker('setDate', end.format('DD-MM-YYYY'));
+    init_range();
 
-        $('.date-range').toggleClass('hidden', selection !== 'custom');
+    range.change(function (e) {
+        var range =  $(e.target).val();
 
+        init_range(range);
+
+        $('.date-range').toggleClass('hidden', range !== 'custom');
     });
 
 });
