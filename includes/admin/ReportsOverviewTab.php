@@ -6,7 +6,7 @@ use smartcat\admin\MenuPageTab;
 
 class ReportsOverviewTab extends MenuPageTab {
 
-    private $year;
+    private $date;
 
     private $date_range_options;
 
@@ -26,55 +26,42 @@ class ReportsOverviewTab extends MenuPageTab {
             'custom'        => __( 'Custom', \SmartcatSupport\PLUGIN_ID ),
         );
 
-        $this->year = date( 'Y' );
-
-        $data = \SmartcatSupport\statprocs\count_tickets( new \DateTime( '2017-01-01' ), new \DateTime( '2017-05-30' ));
-
-        var_dump( $data );
+        $this->date = new \DateTimeImmutable();
     }
 
-    private function init() {
-        $tz = new \DateTimeZone( !empty( $zone = get_option( 'timezone_string' ) ) ? $zone : 'UTC' );
+    private function get_data() {
+        $start = date_create(
+            (isset( $_GET['start_year'] )  ? $_GET['start_year']  : '' ) . '-' .
+            ( isset( $_GET['start_month'] ) ? $_GET['start_month'] : '' ) . '-' .
+            ( isset( $_GET['start_day'] )   ? $_GET['start_day']   : '' )
+        );
 
-        if( isset( $_GET['start_date'] ) && isset( $_GET['end_date'] ) ) {
-            $start = new \DateTime( $_GET['start_date'], $tz );
-            $end = new \DateTime( $_GET['end_date'], $tz );
+        $end = date_create(
+        ( isset( $_GET['end_year'] )  ? $_GET['end_year']  : '' ) . '-' .
+            ( isset( $_GET['end_month'] ) ? $_GET['end_month'] : '' ) . '-' .
+            ( isset( $_GET['end_day'] )   ? $_GET['end_day']   : '' )
+        );
 
-            $min = new \DateTime( ( new \DateTime( '-2 years', $tz ) )->format( 'd-m-Y' ), $tz );
-            $max = new \DateTime( ( new \DateTime( 'now', $tz ) )->format( 'd-m-Y' ), $tz );
+        $start = $start ? $start : $this->date->sub( new \DateInterval( 'P7D' ) );
+        $end = $end ? $end : $this->date;
 
-            $this->start = $start < $end && $start >= $min && $start <= $max ? $start : new \DateTime( '7 days ago', $tz );
-            $this->end = $end > $start && $end >= $min && $end < $max ? $end : new \DateTime( 'now', $tz );
-        } else {
-            $this->start = new \DateTime( '7 days ago', $tz );
-            $this->end = new \DateTime( 'now', $tz );
-        }
-
-        $ticket_stats = \SmartcatSupport\statprocs\tickets_overview_by_range( $this->start, $this->end );
-
-        foreach( $ticket_stats['data'] as $stat ) {
-            $this->labels[] = $stat['date']->format( 'Y-m-d' );
-            $this->opened_tickets[] = array( 'meta' =>  $stat['date']->format( 'D M Y' ), 'value' => $stat['opened'] );
-            $this->closed_tickets[] = array( 'meta' =>  $stat['date']->format( 'D M Y' ), 'value' => $stat['closed'] );
-        }
-
-
+        return \SmartcatSupport\statprocs\count_tickets( $start, $end );
     }
 
-    private function graph_data() { ?>
+    private function graph_data( $data ) { ?>
 
         <script>
 
             jQuery(document).ready( function () {
 
                 var chart = new Chartist.Line('#ticket-overview-chart', {
-                    labels: <?php echo wp_json_encode( $this->labels ); ?>,
+                    labels: <?php echo wp_json_encode( array_keys( $data ) ); ?>,
                     series: [{
                         name: 'opened-tickets',
-                        data: <?php echo wp_json_encode( array_values( $this->opened_tickets ) ); ?>
+                        data: <?php echo wp_json_encode( array_column( $data, 'opened' ) ); ?>
                     }, {
                         name: 'closed-tickets',
-                        data: <?php echo wp_json_encode( array_values( $this->closed_tickets ) ); ?>
+                        data: <?php echo wp_json_encode( array_column( $data, 'closed' ) ); ?>
                     }]
                 }, {
                     margin: {
@@ -137,7 +124,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
     <?php }
 
-    public function render() { ?>
+    public function render() { $this->get_data(); ?>
 
         <div class="stats-overview stat-section">
             <form method="get">
@@ -161,7 +148,6 @@ class ReportsOverviewTab extends MenuPageTab {
                             </select>
                         </div>
                         <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
-                            <span><?php _e( 'From', \SmartcatSupport\PLUGIN_ID ); ?></span>
                             <span class="start_date">
                                 <?php $this->date_picker(
                                     'start_',
@@ -170,7 +156,7 @@ class ReportsOverviewTab extends MenuPageTab {
                                     isset( $_GET['start_year'] ) ? $_GET['start_year'] : ''
                                 ); ?>
                             </span>
-                            <span><?php _e( 'to', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                            <span>—</span>
                             <span class="end_date">
                                 <?php $this->date_picker(
                                     'end_',
@@ -186,7 +172,7 @@ class ReportsOverviewTab extends MenuPageTab {
                     </div>
                 </div>
 
-                <?php $this->graph_data(); ?>
+                <?php $this->graph_data( $this->get_data() ); ?>
 
             </form>
         </div>
@@ -220,9 +206,11 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </select>
 
+        <?php $this_year = $this->date->format( 'Y' ); ?>
+
         <select name="<?php echo $prefix; ?>year">
 
-            <?php for( $y = $this->year; $y >= $this->year - 10; $y-- ) : ?>
+            <?php for( $y = $this_year; $y >= $this_year - 10; $y-- ) : ?>
 
                 <option <?php selected( $y, $year ); ?>value="<?php echo $y; ?>"><?php echo $y; ?></option>
 

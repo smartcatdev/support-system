@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
                 start_date.find('[name="start_year"]').val(moment().year());
 
                 end_date.find('[name="end_month"]').val(moment().month() + 1);
-                end_date.find('[name="end_day"]').val(moment().endOf('week').date());
+                end_date.find('[name="end_day"]').val(moment().date());
                 end_date.find('[name="end_year"]').val(moment().year());
                 break;
 

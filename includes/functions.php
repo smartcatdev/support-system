@@ -454,7 +454,7 @@ namespace SmartcatSupport\proc {
 
 namespace SmartcatSupport\statprocs {
 
-    function count_tickets( \DateTime $d1, \DateTime $d2 ) {
+    function count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
         global $wpdb;
 
         $data = array();
@@ -479,7 +479,7 @@ namespace SmartcatSupport\statprocs {
                     AND p.post_status = 'publish'
                 ) AS closed";
 
-        foreach ( $period as $date ) {
+        foreach( $period as $date ) {
             $date = $date->format( 'Y-m-d' );
 
             $query = $wpdb->prepare( $q, array(
