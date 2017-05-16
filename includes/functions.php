@@ -454,10 +454,11 @@ namespace SmartcatSupport\proc {
 
 namespace SmartcatSupport\statprocs {
 
-    function count_tickets( \DateTime $start, \DateTime $end ) {
+    function count_tickets( \DateTime $d1, \DateTime $d2 ) {
         global $wpdb;
 
-        $period = new \DatePeriod( $start, \DateInterval::createFromDateString( '1 day' ), $end );
+        $data = array();
+        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), $d2 );
 
         $q = "SELECT (
                 SELECT COUNT(*)
@@ -479,7 +480,6 @@ namespace SmartcatSupport\statprocs {
                 ) AS closed";
 
         foreach ( $period as $date ) {
-
             $date = $date->format( 'Y-m-d' );
 
             $query = $wpdb->prepare( $q, array(
@@ -489,92 +489,10 @@ namespace SmartcatSupport\statprocs {
                 $date . ' 23:59:59',
             ) );
 
-
-
-            var_dump( array( $date => $wpdb->get_row( $query, ARRAY_A ) ) );
-
+            $data[ $date ] = $wpdb->get_row( $query, ARRAY_A );
         }
 
-
-    }
-
-    function tickets_overview_by_range( $start, $end, $format = 'd-m-Y' ) {
-        global $wpdb;
-
-        // if greater than
-
-//        SELECT(
-//            SELECT COUNT(*)
-//    FROM wp_posts p
-//    WHERE p.post_date
-//    	BETWEEN '1970-01-01 00:00:00'
-//        AND '2017-05-15 23:59:59'
-//        AND p.post_type = 'support_ticket'
-//        AND p.post_status = 'publish'
-//) AS opened, (
-//        SELECT COUNT(*)
-//    FROM wp_posts p
-//    INNER JOIN wp_postmeta m
-//     	on p.ID = m.post_id
-//    WHERE p.post_date
-//    	BETWEEN '1970-01-01 00:00:00'
-//        AND '2017-05-15 23:59:59'
-//        AND p.post_type = 'support_ticket'
-//        AND p.post_status = 'publish'
-//        AND m.meta_key = 'closed'
-//) AS closed
-
-        $result = false;
-        $month_view = false;
-        $range = \SmartcatSupport\util\date_range( $start, $end, $format );
-
-        if( $range ) {
-            $result = array( 'data' => array() );
-
-            // If the range is equal or greater than a month, flatten it to monthly totals
-            if( date_diff( $range->getEndDate(), $range->getStartDate() )->format( '%a' ) > '31' ) {
-                $month_view = true;
-                $month_range = array();
-
-                foreach ( $range as $date ) {
-                    $ldm = date_create( date('Y-m-t', $date->format( 'U' ) ) );
-
-                    if( !in_array( $ldm, $month_range ) ) {
-                        $month_range[] = $ldm;
-                    }
-                }
-
-                if( !empty( $month_range ) ) {
-                    $range = $month_range;
-                }
-            }
-
-            foreach ( $range as $date ) {
-                $q_open = "SELECT IFNULL( COUNT( * ), 0 ) 
-                      FROM {$wpdb->prefix}posts 
-                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $month_view ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
-                      AND post_type = 'support_ticket' 
-                      AND post_status = 'publish'";
-
-                $q_closed = "SELECT IFNULL( COUNT( * ), 0 ) 
-                      FROM {$wpdb->prefix}posts as p
-                      INNER JOIN {$wpdb->prefix}postmeta as m
-                      ON p.ID = m.post_id
-                      WHERE post_date BETWEEN '". $date->format( 'Y-m-' . ( $month_view ? '01' : 'd' ) ) . " 00:00:00' AND '" . $date->format( 'Y-m-d' ) . " 23:59:59' 
-                      AND p.post_type = 'support_ticket' 
-                      AND p.post_status = 'publish'
-                      AND m.meta_key = 'closed' 
-                      AND m.meta_value != '' ";
-
-                $result['data'][] = array(
-                    'date'   => $date,
-                    'opened' => $wpdb->get_var( $q_open ),
-                    'closed' => $wpdb->get_var( $q_closed )
-                );
-            }
-        }
-
-        return $result;
+        return $data;
     }
     
     function get_unclosed_tickets() {

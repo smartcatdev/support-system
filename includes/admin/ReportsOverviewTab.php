@@ -28,7 +28,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
         $this->year = date( 'Y' );
 
-        \SmartcatSupport\statprocs\count_tickets( new \DateTime( '2017-05-01' ), new \DateTime( '2017-05-30' ));
+        $data = \SmartcatSupport\statprocs\count_tickets( new \DateTime( '2017-01-01' ), new \DateTime( '2017-05-30' ));
+
+        var_dump( $data );
     }
 
     private function init() {
