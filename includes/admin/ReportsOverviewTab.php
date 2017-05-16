@@ -55,10 +55,10 @@ class ReportsOverviewTab extends MenuPageTab {
                 var chart = new Chartist.Line('#ticket-overview-chart', {
                     labels: <?php echo wp_json_encode( array_keys( $data ) ); ?>,
                     series: [{
-                        name: 'opened-tickets',
+                        name: 'Opened',
                         data: <?php echo wp_json_encode( array_column( $data, 'opened' ) ); ?>
                     }, {
-                        name: 'closed-tickets',
+                        name: 'Closed',
                         data: <?php echo wp_json_encode( array_column( $data, 'closed' ) ); ?>
                     }]
                 }, {
@@ -67,11 +67,11 @@ class ReportsOverviewTab extends MenuPageTab {
                     },
                     fullWidth: true,
                     series: {
-                        'opened-tickets': {
+                        'Opened': {
                             lineSmooth: false,
                             showArea: true
                         },
-                        'closed-tickets': {
+                        'Closed': {
                             lineSmooth: false
                         }
                     },
