@@ -472,12 +472,10 @@ namespace SmartcatSupport\statprocs {
                 FROM $wpdb->posts p
                 INNER JOIN $wpdb->postmeta m
                     on p.ID = m.post_id
-                WHERE p.post_date
-                    BETWEEN %s
-                    AND %s
+                WHERE m.meta_key = 'closed_date'
+                    AND m.meta_value BETWEEN %s AND %s
                     AND p.post_type = 'support_ticket'
                     AND p.post_status = 'publish'
-                    AND m.meta_key = 'closed'
                 ) AS closed";
 
         foreach ( $period as $date ) {
