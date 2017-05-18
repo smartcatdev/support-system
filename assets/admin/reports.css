@@ -127,8 +127,8 @@
         width: auto;
     }
 
-    .stats-overview .date {
-        width: 120px;
+    .ct-golden-section:before {
+        padding-bottom: 25%;
     }
 
     .ct-chart {

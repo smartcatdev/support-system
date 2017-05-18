@@ -25,25 +25,31 @@ class ReportsOverviewTab extends MenuPageTab {
         $this->date = new \DateTimeImmutable();
     }
 
-    private function get_data() {
-        $start = date_create(
+    private function default_start() {
+        return $this->date->sub( new \DateInterval( 'P7D' ) );
+    }
+
+    private function date_range() {
+        $dates = array();
+
+        $dates['start'] = date_create(
             (isset( $_GET['start_year'] )  ? $_GET['start_year']  : '' ) . '-' .
             ( isset( $_GET['start_month'] ) ? $_GET['start_month'] : '' ) . '-' .
             ( isset( $_GET['start_day'] )   ? $_GET['start_day']   : '' )
         );
 
-        $end = date_create(
-        ( isset( $_GET['end_year'] )  ? $_GET['end_year']  : '' ) . '-' .
+        $dates['end'] = date_create(
+            ( isset( $_GET['end_year'] )  ? $_GET['end_year']  : '' ) . '-' .
             ( isset( $_GET['end_month'] ) ? $_GET['end_month'] : '' ) . '-' .
             ( isset( $_GET['end_day'] )   ? $_GET['end_day']   : '' )
         );
 
-        if( !$start || !$end ) {
-            $start = $this->default_start();
-            $end = $this->date;
+        if( !$dates['start'] || !$dates['end'] ) {
+            $dates['start'] = $this->default_start();
+            $dates['end'] = $this->date;
         }
 
-        return \SmartcatSupport\statprocs\count_tickets( $start, $end );
+        return $dates;
     }
 
     private function graph_data( $data ) { ?>
@@ -178,15 +184,26 @@ class ReportsOverviewTab extends MenuPageTab {
         </div>
         <div class="stats-graph stats-section">
 
-            <?php $this->graph_data( $this->get_data() ); ?>
+            <?php
+
+                $range = $this->date_range();
+
+                $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
+
+            ?>
 
         </div>
 
-    <?php }
+        <?php
 
-    private function default_start() {
-        return $this->date->sub( new \DateInterval( 'P7D' ) );
-    }
+            $totals = new AgentStatsList( $range['start'], $range['end'] );
+
+            $totals->prepare_items();
+            $totals->display();
+
+        ?>
+
+    <?php }
 
     private function date_picker( $prefix = '', $month = '', $day = '', $year = '' ) { ?>
 
