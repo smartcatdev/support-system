@@ -56,19 +56,24 @@ class ReportsOverviewTab extends MenuPageTab {
 
         <script>
 
-            jQuery(document).ready(function () {
+            jQuery(document).ready(function ($) {
+
+                var totals = <?php echo json_encode( $data ); ?>;
 
                 var data = {
-                    labels: <?php echo wp_json_encode(array_keys($data)); ?>,
-                    series: [{
-                        name: 'Opened',
-                        data: <?php echo wp_json_encode(array_column($data, 'opened')); ?>
-                    }, {
-                        name: 'Closed',
-                        data: <?php echo wp_json_encode(array_column($data, 'closed')); ?>
-                    }]
-                };
+                    series: [
+                        $.map(totals, function(el, index) {
+                            var date = moment(index);
 
+                            return { y: el.opened, x: date, meta: el.opened + ' Opened, ' + date.format('MMM D YYYY') }
+                        }),
+                        $.map(totals, function(el, index) {
+                            var date = moment(index);
+
+                            return { y: el.closed, x: date, meta: el.closed + ' Closed, ' + date.format('MMM D YYYY') }
+                        })
+                    ]
+                };
 
                 var chart = new Chartist.Line('#ticket-overview-chart', data, {
                     showArea: true,
@@ -78,15 +83,16 @@ class ReportsOverviewTab extends MenuPageTab {
                         onlyInteger: true
                     },
                     axisX: {
-                        labelInterpolationFnc: function(value, index, labels) {
-
-                            if (labels.length <= 14) {
-                                value = moment(value).format('MMM D');
-                            } else if (labels.length <= 31) {
-                                value = index % 2 === 0 ? moment(value).format('MMM D') : null;
+                        type: Chartist.AutoScaleAxis,
+                        scaleMinSpace: 60,
+                        labelInterpolationFnc: function(value, index) {
+                            if(Object.keys(totals).length > 365) {
+                                value = moment(value).format('MMM YYYY');
+                            } else {
+                                value = moment(value).format('MMM D')
                             }
 
-                            return value;
+                            return value
                         }
                     },
                     plugins: [
@@ -110,14 +116,6 @@ class ReportsOverviewTab extends MenuPageTab {
                                 easing: Chartist.Svg.Easing.easeOutQuint
                             }
                         });
-                    }
-                });
-
-                chart.on('draw', function(context) {
-                    if (context.type === 'label' &&
-                        context.axis.units.pos === 'x' &&
-                        context.index === data.labels.length - 1) {
-                        context.element.remove();
                     }
                 });
 

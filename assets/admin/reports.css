@@ -61,6 +61,10 @@
 }
 
 .chartist-tooltip-value {
+    display: none !important;
+}
+
+.chartist-tooltip-value {
     padding-top: 2px;
     display: inline-block;
 }
@@ -74,20 +78,9 @@
     stroke-dasharray: none;
 }
 
-/*.ct-chart .ct-chart-line {*/
-    /*margin-top: 15px;*/
-    /*margin-left: -10px;*/
-/*}*/
-
-/*.ct-chart .ct-grid.ct-vertical,*/
-/*.ct-chart .ct-grid.ct-vertical {*/
-    /*stroke: none;*/
-/*}*/
-
-/*.ct-series-a .ct-line {*/
-    /*stroke: #40bac8;*/
-    /*stroke-dasharray: 0px;*/
-/*}*/
+.ct-chart .ct-label.ct-horizontal {
+    white-space: nowrap;
+}
 
 .ct-series-a .ct-point {
     stroke: #b0ecf7;
@@ -101,12 +94,6 @@
     fill: #40bac8;
     stroke-width: 10px;
 }
-
-/*.ct-series-b .ct-line {*/
-    /*stroke: #d70206;*/
-    /*stroke-dasharray: 10px 5px;*/
-    /*stroke-width: 3px;*/
-/*}*/
 
 .ct-series-b .ct-area {
     fill: #d70206;
