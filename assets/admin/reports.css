@@ -80,6 +80,7 @@
 }
 
 .ct-chart .ct-label.ct-horizontal {
+    overflow: visible;
     white-space: nowrap;
 }
 

@@ -89,7 +89,7 @@ class ReportsOverviewTab extends MenuPageTab {
                     },
                     axisX: {
                         type: Chartist.AutoScaleAxis,
-                        scaleMinSpace: 60,
+                        scaleMinSpace: 120,
                         labelInterpolationFnc: function(value, index) {
                             if(Object.keys(totals).length > 365) {
                                 value = moment(value).format('MMM YYYY');
@@ -121,6 +121,12 @@ class ReportsOverviewTab extends MenuPageTab {
                                 easing: Chartist.Svg.Easing.easeOutQuint
                             }
                         });
+                    }
+                });
+
+                chart.on('draw', function(data) {
+                    if(data.type === 'grid' && data.index !== 0) {
+                        data.element.remove();
                     }
                 });
 
