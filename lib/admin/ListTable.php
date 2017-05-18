@@ -1167,6 +1167,10 @@ class ListTable {
         return array( 'widefat', 'fixed', 'striped', $this->_args['plural'] );
     }
 
+    protected function verify_nonce() {
+        return isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $this->_args['plural'] );
+    }
+
     /**
      * Generate the table navigation above or below the table
      *
@@ -1176,7 +1180,7 @@ class ListTable {
      */
     protected function display_tablenav( $which ) {
         if ( 'top' === $which ) {
-            wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+            wp_nonce_field( 'bulk-' . $this->_args['plural'], '_wpnonce', false );
         }
         ?>
         <div class="tablenav <?php echo esc_attr( $which ); ?>">
