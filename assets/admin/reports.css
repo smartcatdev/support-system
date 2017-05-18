@@ -6,15 +6,18 @@
     display: none !important;
 }
 
-.stats-overview {
-    background: #fff;
-    margin: 20px 0;
-    border: 1px solid #e5e5e5;
+.date-range-form {
+    margin: 10px auto;
 }
 
-.stats-overview .date {
-    width: 45%;
-    text-align: center;
+.stats-overview {
+    margin: 20px auto;
+}
+
+.stats-section {
+    background: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5e5;
 }
 
 .stats-header {

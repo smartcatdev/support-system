@@ -121,64 +121,62 @@ class ReportsOverviewTab extends MenuPageTab {
     <?php }
 
     public function render() { ?>
-
-        <div class="stats-overview stat-section">
+        <div class="date-range-form">
             <form method="get">
                 <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
                 <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
-                <div class="stats-header">
-                    <div class="form-inline">
-                        <div class="control-group">
-                            <select name="range" class="date-range-select form-control">
+                <div class="form-inline">
+                    <div class="control-group">
+                        <select name="range" class="date-range-select form-control">
 
-                                <?php foreach($this->predefined_ranges as $option => $label ) : ?>
+                            <?php foreach($this->predefined_ranges as $option => $label ) : ?>
 
-                                    <option value="<?php echo $option; ?>"
-                                        <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
+                                <option value="<?php echo $option; ?>"
+                                    <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
 
-                                        <?php echo $label; ?>
-                                    </option>
+                                    <?php echo $label; ?>
+                                </option>
 
-                                <?php endforeach; ?>
+                            <?php endforeach; ?>
 
-                            </select>
-                        </div>
-                        <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
-                            <span class="start_date">
-                                <?php
+                        </select>
+                    </div>
+                    <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
+                        <span class="start_date">
+                            <?php
 
-                                    $default = $this->default_start();
+                                $default = $this->default_start();
 
-                                    $this->date_picker(
-                                        'start_',
-                                        $default->format( 'n' ),
-                                        $default->format( 'j' ),
-                                        $default->format( 'Y' )
-                                    );
+                                $this->date_picker(
+                                    'start_',
+                                    $default->format( 'n' ),
+                                    $default->format( 'j' ),
+                                    $default->format( 'Y' )
+                                );
 
-                                ?>
-                            </span>
-                            <span>—</span>
-                            <span class="end_date">
-                                <?php
+                            ?>
+                        </span>
+                        <span>—</span>
+                        <span class="end_date">
+                            <?php
 
-                                    $this->date_picker(
-                                        'end_',
-                                        $this->date->format( 'n' ),
-                                        $this->date->format( 'j' ),
-                                        $this->date->format( 'Y' )
-                                    );
+                                $this->date_picker(
+                                    'end_',
+                                    $this->date->format( 'n' ),
+                                    $this->date->format( 'j' ),
+                                    $this->date->format( 'Y' )
+                                );
 
-                                ?>
-                            </span>
-                        </div>
-                        <div class="control-group">
-                            <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
-                        </div>
+                            ?>
+                        </span>
+                    </div>
+                    <div class="control-group">
+                        <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
                     </div>
                 </div>
-
             </form>
+        </div>
+        <div class="stats-graph stats-section">
 
             <?php $this->graph_data( $this->get_data() ); ?>
 
