@@ -32,19 +32,24 @@ class ReportsOverviewTab extends MenuPageTab {
     private function date_range() {
         $dates = array();
 
-        $dates['start'] = date_create(
-            (isset( $_GET['start_year'] )  ? $_GET['start_year']  : '' ) . '-' .
-            ( isset( $_GET['start_month'] ) ? $_GET['start_month'] : '' ) . '-' .
-            ( isset( $_GET['start_day'] )   ? $_GET['start_day']   : '' )
-        );
+        if( isset( $_REQUEST['overview_date_nonce'] ) &&
+            wp_verify_nonce( $_REQUEST['overview_date_nonce'],'overview_date_range' ) ) {
 
-        $dates['end'] = date_create(
-            ( isset( $_GET['end_year'] )  ? $_GET['end_year']  : '' ) . '-' .
-            ( isset( $_GET['end_month'] ) ? $_GET['end_month'] : '' ) . '-' .
-            ( isset( $_GET['end_day'] )   ? $_GET['end_day']   : '' )
-        );
+            $dates['start'] = date_create(
+                ( isset($_GET['start_year']) ? $_GET['start_year'] : '' ) . '-' .
+                ( isset($_GET['start_month']) ? $_GET['start_month'] : '' ) . '-' .
+                ( isset($_GET['start_day']) ? $_GET['start_day'] : '' )
+            );
 
-        if( !$dates['start'] || !$dates['end'] ) {
+            $dates['end'] = date_create(
+                ( isset($_GET['end_year'] ) ? $_GET['end_year'] : '' ) . '-' .
+                ( isset($_GET['end_month'] ) ? $_GET['end_month'] : '' ) . '-' .
+                ( isset($_GET['end_day'] ) ? $_GET['end_day'] : '' )
+            );
+
+        }
+
+        if( empty( $dates ) || !$dates['start'] || !$dates['end'] ) {
             $dates['start'] = $this->default_start();
             $dates['end'] = $this->date;
         }
@@ -137,6 +142,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
                         <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
                         <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
+
+                        <?php wp_nonce_field( 'overview_date_range', 'overview_date_nonce', false ); ?>
+
                         <div class="form-inline">
                             <div class="control-group">
                                 <select name="range" class="date-range-select form-control">
