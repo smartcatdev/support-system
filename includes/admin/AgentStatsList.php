@@ -53,8 +53,8 @@ class AgentStatsList extends ListTable {
                 break;
 
             case 'uc_percentage':
-                if( !empty( $item['uc_total_closed'] ) && !empty( $item['uc_total_closed'] ) ) {
-                    $data = number_format($item['uc_total_closed'] / $item['uc_total_assigned'] * 100, 1) . '%';
+                if( !empty( $item['uc_total_closed'] ) && !empty( $item['uc_total_assigned'] ) ) {
+                    $data = number_format($item['uc_total_closed'] / $item['uc_total_assigned'] * 100, 1 ) . '%';
                 }
 
                 break;
@@ -102,11 +102,11 @@ class AgentStatsList extends ListTable {
 
     private function data() {
         $data = array();
-        $start = $this->start_date->format( 'Y-m-d h:i:s' );
-        $end = $this->end_date->format( 'Y-m-d h:i:s' );
 
         foreach( $this->agents as $id => $name ) {
             $totals['uc_agent'] = $name;
+            $start = $this->start_date->format( 'Y-m-d 00:00:00' );
+            $end = $this->end_date->format( 'Y-m-d 23:59:59' );
 
             $totals['uc_total_assigned'] = (
                 new \WP_Query(
@@ -114,10 +114,9 @@ class AgentStatsList extends ListTable {
                         'post_type'   => 'support_ticket',
                         'post_status' => 'publish',
                         'date_query' => array(
-                            array(
-                                'after'       => $start,
-                                'before'      => $end,
-                            )
+                            'after' => $start,
+                            'before' => $end,
+                            'inclusive ' => true
                         ),
                         'meta_query'  => array(
                             array(
