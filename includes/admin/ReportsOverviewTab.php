@@ -127,81 +127,86 @@ class ReportsOverviewTab extends MenuPageTab {
     <?php }
 
     public function render() { ?>
-        <div class="date-range-form">
-            <form method="get">
-                <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
-                <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
-                <div class="form-inline">
-                    <div class="control-group">
-                        <select name="range" class="date-range-select form-control">
 
-                            <?php foreach($this->predefined_ranges as $option => $label ) : ?>
+        <form method="get">
 
-                                <option value="<?php echo $option; ?>"
-                                    <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
+            <div class="date-range-form">
 
-                                    <?php echo $label; ?>
-                                </option>
+                    <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
+                    <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
+                    <div class="form-inline">
+                        <div class="control-group">
+                            <select name="range" class="date-range-select form-control">
 
-                            <?php endforeach; ?>
+                                <?php foreach($this->predefined_ranges as $option => $label ) : ?>
 
-                        </select>
+                                    <option value="<?php echo $option; ?>"
+                                        <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
+
+                                        <?php echo $label; ?>
+                                    </option>
+
+                                <?php endforeach; ?>
+
+                            </select>
+                        </div>
+                        <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
+                            <span class="start_date">
+                                <?php
+
+                                    $default = $this->default_start();
+
+                                    $this->date_picker(
+                                        'start_',
+                                        $default->format( 'n' ),
+                                        $default->format( 'j' ),
+                                        $default->format( 'Y' )
+                                    );
+
+                                ?>
+                            </span>
+                            <span>—</span>
+                            <span class="end_date">
+                                <?php
+
+                                    $this->date_picker(
+                                        'end_',
+                                        $this->date->format( 'n' ),
+                                        $this->date->format( 'j' ),
+                                        $this->date->format( 'Y' )
+                                    );
+
+                                ?>
+                            </span>
+                        </div>
+                        <div class="control-group">
+                            <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
+                        </div>
                     </div>
-                    <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
-                        <span class="start_date">
-                            <?php
 
-                                $default = $this->default_start();
+            </div>
+            <div class="stats-graph stats-section">
 
-                                $this->date_picker(
-                                    'start_',
-                                    $default->format( 'n' ),
-                                    $default->format( 'j' ),
-                                    $default->format( 'Y' )
-                                );
+                <?php
 
-                            ?>
-                        </span>
-                        <span>—</span>
-                        <span class="end_date">
-                            <?php
+                    $range = $this->date_range();
 
-                                $this->date_picker(
-                                    'end_',
-                                    $this->date->format( 'n' ),
-                                    $this->date->format( 'j' ),
-                                    $this->date->format( 'Y' )
-                                );
+                    $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
 
-                            ?>
-                        </span>
-                    </div>
-                    <div class="control-group">
-                        <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="stats-graph stats-section">
+                ?>
+
+            </div>
 
             <?php
 
-                $range = $this->date_range();
+                $totals = new AgentStatsList( $range['start'], $range['end'] );
 
-                $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
+                $totals->prepare_items();
+                $totals->display();
 
             ?>
 
-        </div>
-
-        <?php
-
-            $totals = new AgentStatsList( $range['start'], $range['end'] );
-
-            $totals->prepare_items();
-            $totals->display();
-
-        ?>
+        </form>
 
     <?php }
 

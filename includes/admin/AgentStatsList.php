@@ -86,16 +86,15 @@ class AgentStatsList extends ListTable {
         $offset = $offset = ( $page_number - 1 ) * $per_page;
         $data = array_slice( $data, $offset, $per_page );
 
-//        if( !empty( $_REQUEST['orderby'] ) && $this->verify_nonce() ) {
-//            $sort_col = array();
-//
-//            foreach( $data as $key => $row ) {
-//                $sort_col[ $key ] = $row[ $_REQUEST['orderby'] ];
-//            }
-//
-//            array_multisort( $sort_col, $_REQUEST['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
-//        }
+        if( !empty( $_REQUEST['orderby'] ) && $this->verify_nonce() ) {
+            $sort_col = array();
 
+            foreach( $data as $key => $row ) {
+                $sort_col[ $key ] = $row[ $_REQUEST['orderby'] ];
+            }
+
+            array_multisort( $sort_col, $_REQUEST['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
+        }
 
         return $data;
     }
