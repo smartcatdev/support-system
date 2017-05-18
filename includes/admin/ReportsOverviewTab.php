@@ -56,40 +56,33 @@ class ReportsOverviewTab extends MenuPageTab {
 
         <script>
 
-            jQuery(document).ready( function () {
+            jQuery(document).ready(function () {
 
-                var chart = new Chartist.Line('#ticket-overview-chart', {
-                    labels: <?php echo wp_json_encode( array_keys( $data ) ); ?>,
+                var data = {
+                    labels: <?php echo wp_json_encode(array_keys($data)); ?>,
                     series: [{
                         name: 'Opened',
-                        data: <?php echo wp_json_encode( array_column( $data, 'opened' ) ); ?>
+                        data: <?php echo wp_json_encode(array_column($data, 'opened')); ?>
                     }, {
                         name: 'Closed',
-                        data: <?php echo wp_json_encode( array_column( $data, 'closed' ) ); ?>
+                        data: <?php echo wp_json_encode(array_column($data, 'closed')); ?>
                     }]
-                }, {
-                    margin: {
-                        right: '30px'
-                    },
+                };
+
+
+                var chart = new Chartist.Line('#ticket-overview-chart', data, {
+                    showArea: true,
+                    showLine: false,
                     fullWidth: true,
-                    series: {
-                        'Opened': {
-                            lineSmooth: false,
-                            showArea: true
-                        },
-                        'Closed': {
-                            lineSmooth: false
-                        }
-                    },
                     axisY: {
                         onlyInteger: true
                     },
                     axisX: {
                         labelInterpolationFnc: function(value, index, labels) {
 
-                            if(labels.length <= 14) {
+                            if (labels.length <= 14) {
                                 value = moment(value).format('MMM D');
-                            } else if(labels.length <= 31) {
+                            } else if (labels.length <= 31) {
                                 value = index % 2 === 0 ? moment(value).format('MMM D') : null;
                             }
 
@@ -106,16 +99,26 @@ class ReportsOverviewTab extends MenuPageTab {
                     ]
                 });
 
-                chart.on('created', function(context) {
-                    context.svg.elem('rect', {
-                        x: context.chartRect.x1,
-                        y: context.chartRect.y2,
-                        width: context.chartRect.width(),
-                        height: context.chartRect.height(),
-                        fill: 'none',
-                        stroke: '#e5e5e5',
-                        'stroke-width': '1px'
-                    })
+                chart.on('draw', function(context) {
+                    if(context.type === 'line' || context.type === 'area') {
+                        context.element.animate({
+                            d: {
+                                begin: 2000 * context.index,
+                                dur: 2000,
+                                from: context.path.clone().scale(1, 0).translate(0, context.chartRect.height()).stringify(),
+                                to: context.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+
+                chart.on('draw', function(context) {
+                    if (context.type === 'label' &&
+                        context.axis.units.pos === 'x' &&
+                        context.index === data.labels.length - 1) {
+                        context.element.remove();
+                    }
                 });
 
             });
@@ -128,85 +131,89 @@ class ReportsOverviewTab extends MenuPageTab {
 
     public function render() { ?>
 
-        <form method="get">
+        <div class="stats-page-wrapper">
 
-            <div class="date-range-form">
+            <form method="get">
 
-                    <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
-                    <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
-                    <div class="form-inline">
-                        <div class="control-group">
-                            <select name="range" class="date-range-select form-control">
+                <div class="date-range-form">
 
-                                <?php foreach($this->predefined_ranges as $option => $label ) : ?>
+                        <input type="hidden" name="page" value="<?php echo $this->page; ?>" />
+                        <input type="hidden" name="tab" value="<?php echo $this->slug; ?>" />
+                        <div class="form-inline">
+                            <div class="control-group">
+                                <select name="range" class="date-range-select form-control">
 
-                                    <option value="<?php echo $option; ?>"
-                                        <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
+                                    <?php foreach($this->predefined_ranges as $option => $label ) : ?>
 
-                                        <?php echo $label; ?>
-                                    </option>
+                                        <option value="<?php echo $option; ?>"
+                                            <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
 
-                                <?php endforeach; ?>
+                                            <?php echo $label; ?>
+                                        </option>
 
-                            </select>
+                                    <?php endforeach; ?>
+
+                                </select>
+                            </div>
+                            <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
+                                <span class="start_date">
+                                    <?php
+
+                                        $default = $this->default_start();
+
+                                        $this->date_picker(
+                                            'start_',
+                                            $default->format( 'n' ),
+                                            $default->format( 'j' ),
+                                            $default->format( 'Y' )
+                                        );
+
+                                    ?>
+                                </span>
+                                <span>—</span>
+                                <span class="end_date">
+                                    <?php
+
+                                        $this->date_picker(
+                                            'end_',
+                                            $this->date->format( 'n' ),
+                                            $this->date->format( 'j' ),
+                                            $this->date->format( 'Y' )
+                                        );
+
+                                    ?>
+                                </span>
+                            </div>
+                            <div class="control-group">
+                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
+                            </div>
                         </div>
-                        <div class="date-range control-group <?php echo isset( $_GET['range'] ) && $_GET['range'] == 'custom' ? '' : 'hidden'; ?>">
-                            <span class="start_date">
-                                <?php
 
-                                    $default = $this->default_start();
+                </div>
+                <div class="stats-graph stats-section">
 
-                                    $this->date_picker(
-                                        'start_',
-                                        $default->format( 'n' ),
-                                        $default->format( 'j' ),
-                                        $default->format( 'Y' )
-                                    );
+                    <?php
 
-                                ?>
-                            </span>
-                            <span>—</span>
-                            <span class="end_date">
-                                <?php
+                        $range = $this->date_range();
 
-                                    $this->date_picker(
-                                        'end_',
-                                        $this->date->format( 'n' ),
-                                        $this->date->format( 'j' ),
-                                        $this->date->format( 'Y' )
-                                    );
+                        $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
 
-                                ?>
-                            </span>
-                        </div>
-                        <div class="control-group">
-                            <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
-                        </div>
-                    </div>
+                    ?>
 
-            </div>
-            <div class="stats-graph stats-section">
+                </div>
 
                 <?php
 
-                    $range = $this->date_range();
+                    $totals = new AgentStatsTable( $range['start'], $range['end'] );
 
-                    $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
+                    $totals->prepare_items();
+                    $totals->display();
 
                 ?>
 
-            </div>
+            </form>
 
-            <?php
-
-                $totals = new AgentStatsList( $range['start'], $range['end'] );
-
-                $totals->prepare_items();
-                $totals->display();
-
-            ?>
-
-        </form>
+        </div>
 
     <?php }
 

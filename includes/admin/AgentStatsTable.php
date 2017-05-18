@@ -4,7 +4,7 @@ namespace SmartcatSupport\admin;
 
 use smartcat\admin\ListTable;
 
-class AgentStatsList extends ListTable {
+class AgentStatsTable extends ListTable {
 
     private $agents;
     private $start_date;
@@ -27,7 +27,7 @@ class AgentStatsList extends ListTable {
             'uc_agent'          => __( 'Agent', \SmartcatSupport\PLUGIN_ID ),
             'uc_total_assigned' => __( 'Total Assigned', \SmartcatSupport\PLUGIN_ID ),
             'uc_total_closed'   => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
-            'uc_percentage'        => __( 'Percentage', \SmartcatSupport\PLUGIN_ID )
+            'uc_percentage'     => __( 'Percentage', \SmartcatSupport\PLUGIN_ID )
         );
     }
 
@@ -42,6 +42,33 @@ class AgentStatsList extends ListTable {
 
     public function no_items() {
         _e( 'No totals available.', \ext_satisfaction\PLUGIN_ID );
+    }
+
+    public function extra_tablenav( $which ) {
+
+        if( $which == 'top' ) { ?>
+
+            <div class="alignleft actions filteractions">
+                <select name="agent">
+                    <option value="0"><?php _e( 'All Agents', \ext_satisfaction\PLUGIN_ID ); ?></option>
+
+                    <?php foreach( $this->agents as $id => $name ) : ?>
+
+                        <option value="<?php echo $id; ?>"
+
+                            <?php selected( isset( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : '', $id ); ?>>
+
+                            <?php echo $name; ?>
+
+                        </option>
+
+                    <?php endforeach; ?>
+
+                </select>
+                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ext_satisfaction\PLUGIN_ID ); ?>">
+            </div>
+
+        <?php }
     }
 
     public function column_default( $item, $column_name ) {
@@ -102,56 +129,75 @@ class AgentStatsList extends ListTable {
     private function data() {
         $data = array();
 
-        foreach( $this->agents as $id => $name ) {
-            $totals['uc_agent'] = $name;
-            $start = $this->start_date->format( 'Y-m-d 00:00:00' );
-            $end = $this->end_date->format( 'Y-m-d 23:59:59' );
+        if( !empty( $_REQUEST['agent'] ) && $this->verify_nonce() ) {
+            $user = get_userdata( $_REQUEST['agent'] );
 
-            $totals['uc_total_assigned'] = (
-                new \WP_Query(
-                    array(
-                        'post_type'   => 'support_ticket',
-                        'post_status' => 'publish',
-                        'date_query' => array(
-                            'after' => $start,
-                            'before' => $end,
-                            'inclusive ' => true
-                        ),
-                        'meta_query'  => array(
-                            array(
-                                'key'   => 'agent',
-                                'value' => $id
-                            ),
-                        )
-                    ) )
-                )->post_count;
+            if( $user ) {
+                $totals = $this->get_agent_totals( $_REQUEST['agent'] );
+                $totals['uc_agent'] = $user->display_name;
+                $data[] = $totals;
+            }
 
-            $totals['uc_total_closed'] = (
-                new \WP_Query(
-                    array(
-                        'post_type'   => 'support_ticket',
-                        'post_status' => 'publish',
-                        'meta_query'  => array(
-                            array(
-                                'key'   => 'agent',
-                                'value' => $id
-                            ),
-                            array(
-                                'key'   => 'closed_by',
-                                'value' => $id
-                            ),
-                            array(
-                                'key'     => 'closed_date',
-                                'value'   => array( $start, $end ),
-                                'compare' => 'BETWEEN'
-                            ),
-                        )
-                    ) )
-                )->post_count;
+        } else {
 
-            $data[] = $totals;
+            foreach( $this->agents as $id => $name ) {
+                $totals = $this->get_agent_totals( $id );
+                $totals['uc_agent'] = $name;
+
+                $data[] = $totals;
+            }
+
         }
 
         return $data;
+    }
+
+    private function get_agent_totals( $id ) {
+        $start = $this->start_date->format( 'Y-m-d 00:00:00' );
+        $end = $this->end_date->format( 'Y-m-d 23:59:59' );
+
+        $totals['uc_total_assigned'] = (
+            new \WP_Query(
+                array(
+                    'post_type'   => 'support_ticket',
+                    'post_status' => 'publish',
+                    'date_query' => array(
+                        'after' => $start,
+                        'before' => $end,
+                        'inclusive ' => true
+                    ),
+                    'meta_query'  => array(
+                        array(
+                            'key'   => 'agent',
+                            'value' => $id
+                        ),
+                    )
+                ) )
+            )->post_count;
+
+        $totals['uc_total_closed'] = (
+            new \WP_Query(
+                array(
+                    'post_type'   => 'support_ticket',
+                    'post_status' => 'publish',
+                    'meta_query'  => array(
+                        array(
+                            'key'   => 'agent',
+                            'value' => $id
+                        ),
+                        array(
+                            'key'   => 'closed_by',
+                            'value' => $id
+                        ),
+                        array(
+                            'key'     => 'closed_date',
+                            'value'   => array( $start, $end ),
+                            'compare' => 'BETWEEN'
+                        ),
+                    )
+                ) )
+            )->post_count;
+
+        return $totals;
     }
 }

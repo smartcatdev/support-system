@@ -1,13 +1,13 @@
-#ui-datepicker-div {
-    display: none;
-}
-
 .hidden {
     display: none !important;
 }
 
 .date-range-form {
     margin: 10px auto;
+}
+
+.stats-page-wrapper .bulkactions {
+    display: none;
 }
 
 .stats-overview {
@@ -39,7 +39,7 @@
 }
 
 .stats-chart-wrapper {
-    margin: 10px;
+    padding: 20px;
 }
 
 .form-inline .form-control,
@@ -65,50 +65,48 @@
     display: inline-block;
 }
 
-.ct-line {
-    stroke-width: 5px;
-}
-
-.ct-point {
-    stroke-width: 10px;
+.ct-chart-line {
+    padding: 0;
+    margin-top: 20px;
 }
 
 .ct-chart .ct-grid {
     stroke-dasharray: none;
 }
 
-.ct-chart .ct-chart-line {
-    margin-top: 15px;
-}
+/*.ct-chart .ct-chart-line {*/
+    /*margin-top: 15px;*/
+    /*margin-left: -10px;*/
+/*}*/
 
-.ct-chart .ct-grid.ct-vertical,
-.ct-chart .ct-grid.ct-vertical {
-    stroke: none;
-}
+/*.ct-chart .ct-grid.ct-vertical,*/
+/*.ct-chart .ct-grid.ct-vertical {*/
+    /*stroke: none;*/
+/*}*/
 
-.ct-series-a .ct-line {
-    stroke: #40bac8;
-    stroke-dasharray: 0px;
-}
+/*.ct-series-a .ct-line {*/
+    /*stroke: #40bac8;*/
+    /*stroke-dasharray: 0px;*/
+/*}*/
 
 .ct-series-a .ct-point {
-    stroke: #40bac8;
+    stroke: #b0ecf7;
+}
+
+.ct-series-b .ct-point {
+    stroke: #eaa5b3;
 }
 
 .ct-series-a .ct-area {
     fill: #40bac8;
-}
-
-.ct-series-b .ct-line {
-    stroke: #d70206;
-    stroke-dasharray: 10px 5px;
-    stroke-width: 3px;
-}
-
-.ct-series-b .ct-point {
-    stroke: #d70206;
     stroke-width: 10px;
 }
+
+/*.ct-series-b .ct-line {*/
+    /*stroke: #d70206;*/
+    /*stroke-dasharray: 10px 5px;*/
+    /*stroke-width: 3px;*/
+/*}*/
 
 .ct-series-b .ct-area {
     fill: #d70206;
@@ -138,10 +136,12 @@
 
 .ct-legend {
     position: relative;
+    margin: auto 20px;
     text-align: right;
     z-index: 10;
     list-style: none;
 }
+
 .ct-legend li {
     position: relative;
     padding-left: 23px;
@@ -163,14 +163,9 @@
 .ct-legend li.inactive:before {
     background: transparent;
 }
-.ct-legend.ct-legend-inside {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.ct-legend.ct-legend-inside li{
-    display: block;
-    margin: 0;
+
+.ct-legend li:before {
+    opacity: 0.5;
 }
 
 .ct-legend .ct-series-0:before {
