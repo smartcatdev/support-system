@@ -239,7 +239,7 @@ final class Option {
     /**
      * @since 1.2.0
      */
-    const AUTO_CLOSE_INTERVAL = 'smartcat_support_autoclose-interval';
+    const INACTIVE_MAX_AGE = 'smartcat_support_inactive-max-age';
 
     /**
      * @since 1.2.0
@@ -249,5 +249,5 @@ final class Option {
     /**
      * @since 1.2.0
      */
-    const AUTO_CLOSE_EMAIL = 'smartcat_support_autoclose-email';
+    const INACTIVE_EMAIL = 'smartcat_support_inactive-email';
 }

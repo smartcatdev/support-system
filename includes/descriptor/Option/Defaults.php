@@ -190,10 +190,10 @@ final class Defaults {
     /**
      * @since 1.2.0
      */
-    const AUTO_CLOSE_INTERVAL = 4;
+    const INACTIVE_MAX_AGE = 4;
 
     /**
      * @since 1.2.0
      */
-    const AUTO_CLOSE = true;
+    const AUTO_CLOSE = 'on';
 }

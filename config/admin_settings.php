@@ -319,30 +319,30 @@ $general->add_field( new TextField(
 
 ) );
 
-$auto_close = new SettingsSection( 'auto_close', __( 'Ticket Auto Close', \ucare\PLUGIN_ID ) );
+$auto_close = new SettingsSection( 'auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
-$auto_close_interval = get_option( Option::AUTO_CLOSE_INTERVAL, Option\Defaults::AUTO_CLOSE_INTERVAL );
+$auto_close_interval = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
 
-$auto_close->add_field( new CheckBoxField(
+$auto_close->add_field( new TextField(
+    array(
+        'id'            => 'support_autoclose_max-age',
+        'type'          => 'number',
+        'option'        => Option::INACTIVE_MAX_AGE,
+        'value'         => $auto_close_interval,
+        'label'         => __( 'Max Ticket Age', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'The maximum number of days of inactivity for a ticket', \ucare\PLUGIN_ID ),
+        'props'         => array( 'max' => array( 356 ),'min' => array( 1 ) ),
+        'validators'    => array( new IntegerValidator(), new RangeValidator( 1, 365, $auto_close_interval ) )
+    )
+
+) )->add_field( new CheckBoxField(
     array(
         'id'            => 'support_autoclose_enabled',
         'option'        => Option::AUTO_CLOSE,
         'value'         => get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ),
         'label'         => __( 'Auto Close Tickets', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Automatically close tickets after a specified period of inactivity', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Automatically close tickets after they become inactive', \ucare\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
-) )->add_field( new TextField(
-    array(
-        'id'            => 'support_autoclose_interval',
-        'type'          => 'number',
-        'option'        => Option::AUTO_CLOSE_INTERVAL,
-        'value'         => $auto_close_interval,
-        'label'         => __( 'Max Ticket Age', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'The maximum number of days of inactivity before a ticket is closed', \ucare\PLUGIN_ID ),
-        'props'         => array( 'max' => array( 356 ),'min' => array( 1 ) ),
-        'validators'    => array( new IntegerValidator(), new RangeValidator( 1, 365, $auto_close_interval ) )
     )
 
 ) );
@@ -414,9 +414,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_autoclose_email_template',
-        'option'        => Option::AUTO_CLOSE_EMAIL,
+        'option'        => Option::INACTIVE_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::AUTO_CLOSE_EMAIL ),
+        'value'         => get_option( Option::INACTIVE_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Automatic Close Warning', \ucare\PLUGIN_ID ),
         'desc'          => __( 'Notification sent out to warn users of automatic ticket closure', \ucare\PLUGIN_ID ),
