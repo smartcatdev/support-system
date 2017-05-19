@@ -1,19 +1,28 @@
 <?php
 
+
 class migration_1_2_0 implements smartcat\core\Migration {
 
     function version() {
         return '1.2.0';
     }
 
+    /**
+     * 1. Separate closed meta keys from serialized array to individual keys
+     *
+     * @return mixed
+     */
     function migrate( $plugin ) {
         error_log( '1.2.0' );
 
         try {
 
-            $tickets = get_posts( array( 'post_type' => 'support_ticket' ) );
+            $q = new \WP_Query( array(
+                'post_type'      => 'support_ticket',
+                'posts_per_page' => -1
+            ) );
 
-            foreach( $tickets as $ticket ) {
+            foreach( $q->posts as $ticket ) {
                 $old_meta = get_post_meta( $ticket->ID, 'closed', true );
 
                 if( !empty( $old_meta ) ) {
