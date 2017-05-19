@@ -130,7 +130,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
                 $migration = include_once( $file );
                 $version = $migration->version();
 
-                if( $version <= $this->version && $version > $current ) {
+                if( $version > $current && $version <= $this->version ) {
                     $result = $migration->migrate( $this );
 
                     if( is_wp_error( $result ) || !$result['success'] ) {

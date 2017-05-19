@@ -458,7 +458,7 @@ namespace SmartcatSupport\statprocs {
         global $wpdb;
 
         $data = array();
-        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), ( clone $d2 )->modify( '+1 day' ) );
+        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), clone $d2->modify( '+1 day' ) );
 
         $q = "SELECT (
                 SELECT COUNT(*)

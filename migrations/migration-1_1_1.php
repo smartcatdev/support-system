@@ -14,6 +14,8 @@ class migration_1_1_1 implements \smartcat\core\Migration {
      * @return mixed
      */
     function migrate ( $plugin ) {
+        error_log( '1.1.1' );
+
         try {
             $dir = \SmartcatSupport\plugin_dir();
 

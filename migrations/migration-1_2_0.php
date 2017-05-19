@@ -1,12 +1,14 @@
 <?php
 
-class migration_1_2_0 extends smartcat\core\Migration {
+class migration_1_2_0 implements smartcat\core\Migration {
 
     function version() {
         return '1.2.0';
     }
 
     function migrate( $plugin ) {
+        error_log( '1.2.0' );
+
         try {
 
             $tickets = get_posts( array( 'post_type' => 'support_ticket' ) );

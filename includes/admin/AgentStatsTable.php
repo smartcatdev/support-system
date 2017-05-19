@@ -186,8 +186,8 @@ class AgentStatsTable extends ListTable {
                             'value' => $id
                         ),
                         array(
-                            'key'   => 'closed_by',
-                            'value' => $id
+                            'key'   => 'status',
+                            'value' => 'closed'
                         ),
                         array(
                             'key'     => 'closed_date',
