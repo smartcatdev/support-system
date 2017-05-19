@@ -113,7 +113,7 @@ class AgentStatsTable extends ListTable {
         $offset = $offset = ( $page_number - 1 ) * $per_page;
         $data = array_slice( $data, $offset, $per_page );
 
-        if( !empty( $_REQUEST['orderby'] ) && $this->verify_nonce() ) {
+        if( !empty( $_REQUEST['orderby'] ) ) {
             $sort_col = array();
 
             foreach( $data as $key => $row ) {
