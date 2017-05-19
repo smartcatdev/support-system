@@ -75,7 +75,7 @@ use SmartcatSupport\Plugin;
 
                     <div class="text-center">
 
-                        <a href="<?php echo \SmartcatSupport\url() . '?reset_password'; ?>"><?php _e( 'Lost password?', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \SmartcatSupport\url() ); ?>"><?php _e( 'Lost password?', \SmartcatSupport\PLUGIN_ID ); ?></a>
 
                     </div>
 
