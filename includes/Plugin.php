@@ -166,7 +166,7 @@ class Plugin extends AbstractPlugin {
             'manage_support',
             'ucare_support',
             '',
-            $this->url . 'assets/images/ucare-logo.png',
+            $this->url . 'assets/images/admin-icon.png',
             71
         );
 
