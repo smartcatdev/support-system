@@ -235,4 +235,19 @@ final class Option {
      * @since 1.1.1
      */
     const PASSWORD_RESET_EMAIL = 'smartcat_support_password-reset-email';
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE_INTERVAL = 'smartcat_support_autoclose-interval';
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE = 'smartcat_support_autoclose-enabled';
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE_EMAIL = 'smartcat_support_autoclose-email';
 }

@@ -185,4 +185,15 @@ final class Defaults {
      * @since 1.1
      */
     const REFRESH_INTERVAL = '60';
+
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE_INTERVAL = 4;
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE = true;
 }

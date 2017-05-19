@@ -4,6 +4,7 @@ use smartcat\admin\CheckBoxField;
 use smartcat\admin\HTMLFilter;
 use smartcat\admin\IntegerValidator;
 use smartcat\admin\MatchFilter;
+use smartcat\admin\RangeValidator;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\TabbedSettingsPage;
@@ -311,9 +312,37 @@ $general->add_field( new TextField(
         'type'          => 'number',
         'option'        => Option::REFRESH_INTERVAL,
         'value'         => get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ),
-        'label'         => __( 'Refresh Interval', \SmartcatSupport\PLUGIN_ID ),
+        'label'         => __( 'List Refresh Interval', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Automatic refresh interval in seconds', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new IntegerValidator() )
+    )
+
+) );
+
+$auto_close = new SettingsSection( 'auto_close', __( 'Ticket Auto Close', \SmartcatSupport\PLUGIN_ID ) );
+
+$auto_close_interval = get_option( Option::AUTO_CLOSE_INTERVAL, Option\Defaults::AUTO_CLOSE_INTERVAL );
+
+$auto_close->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_autoclose_enabled',
+        'option'        => Option::AUTO_CLOSE,
+        'value'         => get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ),
+        'label'         => __( 'Auto Close Tickets', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Automatically close tickets after a specified period of inactivity', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_autoclose_interval',
+        'type'          => 'number',
+        'option'        => Option::AUTO_CLOSE_INTERVAL,
+        'value'         => $auto_close_interval,
+        'label'         => __( 'Max Ticket Age', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'The maximum number of days of inactivity before a ticket is closed', \SmartcatSupport\PLUGIN_ID ),
+        'props'         => array( 'max' => array( 356 ),'min' => array( 1 ) ),
+        'validators'    => array( new IntegerValidator(), new RangeValidator( 1, 365, $auto_close_interval ) )
     )
 
 ) );
@@ -379,6 +408,18 @@ $emails->add_field( new SelectBoxField(
         'options'       => $email_templates,
         'label'         => __( 'Forgot Password Reset', \SmartcatSupport\PLUGIN_ID ),
         'desc'          => __( 'Sent when a user forgets their password', \SmartcatSupport\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_autoclose_email_template',
+        'option'        => Option::AUTO_CLOSE_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::AUTO_CLOSE_EMAIL ),
+        'options'       => $email_templates,
+        'label'         => __( 'Automatic Close Warning', \SmartcatSupport\PLUGIN_ID ),
+        'desc'          => __( 'Notification sent out to warn users of automatic ticket closure', \SmartcatSupport\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
@@ -463,6 +504,7 @@ $advanced->add_field( new CheckBoxField(
 ) );
 
 $admin->add_section( $general, 'general' );
+$admin->add_section( $auto_close, 'general' );
 $admin->add_section( $email_notifications, 'notifications' );
 $admin->add_section( $emails, 'notifications' );
 $admin->add_section( $advanced, 'advanced' );
