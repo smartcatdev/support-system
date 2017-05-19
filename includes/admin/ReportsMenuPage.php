@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 
 use smartcat\admin\TabbedMenuPage;
@@ -13,8 +13,8 @@ class ReportsMenuPage extends TabbedMenuPage {
             'type'          => 'submenu',
             'parent_menu'   => 'ucare_support',
             'menu_slug'     => 'ucare_support',
-            'page_title'    => __( 'Reports', \SmartcatSupport\PLUGIN_ID ),
-            'menu_title'    => __( 'Reports', \SmartcatSupport\PLUGIN_ID ),
+            'page_title'    => __( 'Reports', \ucare\PLUGIN_ID ),
+            'menu_title'    => __( 'Reports', \ucare\PLUGIN_ID ),
             'capability'    => 'manage_support',
             'tabs'          => array( 'overview' => new ReportsOverviewTab() )
 

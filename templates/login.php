@@ -1,7 +1,7 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
+use ucare\descriptor\Option;
+use ucare\Plugin;
 
 ?>
 
@@ -17,11 +17,11 @@ use SmartcatSupport\Plugin;
 
                 <?php if( isset( $_REQUEST['reset_password'] ) ) : ?>
 
-                    <a class="btn btn-default button-back" href="<?php echo \SmartcatSupport\url(); ?>">
+                    <a class="btn btn-default button-back" href="<?php echo \ucare\url(); ?>">
 
                         <span class="glyphicon glyphicon-chevron-left button-icon"></span>
 
-                        <span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <span><?php _e( 'Back', \ucare\PLUGIN_ID ); ?></span>
 
                     </a>
 
@@ -31,19 +31,19 @@ use SmartcatSupport\Plugin;
 
                         <div class="form-group">
 
-                            <h4><?php _e( 'Reset Password', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+                            <h4><?php _e( 'Reset Password', \ucare\PLUGIN_ID ); ?></h4>
 
                         </div>
 
                         <div class="form-group">
 
-                            <input class="form-control" type="text" name="username" placeholder="<?php _e( 'Username or Email Address', \SmartcatSupport\PLUGIN_ID ); ?>" />
+                            <input class="form-control" type="text" name="username" placeholder="<?php _e( 'Username or Email Address', \ucare\PLUGIN_ID ); ?>" />
 
                         </div>
 
                         <div class="bottom">
 
-                            <input id="reset-password" type="submit" class="button button-primary" value="<?php _e( 'Reset', \SmartcatSupport\PLUGIN_ID ); ?>" />
+                            <input id="reset-password" type="submit" class="button button-primary" value="<?php _e( 'Reset', \ucare\PLUGIN_ID ); ?>" />
 
                         </div>
 
@@ -63,19 +63,19 @@ use SmartcatSupport\Plugin;
 
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
-                            <?php _e( 'Invalid username or password', \SmartcatSupport\PLUGIN_ID ); ?>
+                            <?php _e( 'Invalid username or password', \ucare\PLUGIN_ID ); ?>
 
                         </div>
 
                     <?php endif; ?>
 
-                    <?php wp_login_form( array( 'redirect' => \SmartcatSupport\url() ) ); ?>
+                    <?php wp_login_form( array( 'redirect' => \ucare\url() ) ); ?>
 
                     <div class="clearfix"></div>
 
                     <div class="text-center">
 
-                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \SmartcatSupport\url() ); ?>"><?php _e( 'Lost password?', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \ucare\url() ); ?>"><?php _e( 'Lost password?', \ucare\PLUGIN_ID ); ?></a>
 
                     </div>
 
@@ -93,13 +93,13 @@ use SmartcatSupport\Plugin;
 
                     <?php if ( $signups ) : ?>
 
-                        <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/registration_form.php'; ?>
+                        <?php $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/registration_form.php'; ?>
 
                         <div id="register" style="display: none">
 
                             <button id="login-back" class="btn btn-default registration-toggle button-back">
 
-                                <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                                <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \ucare\PLUGIN_ID ); ?></span>
 
                             </button>
 
@@ -123,7 +123,7 @@ use SmartcatSupport\Plugin;
 
                                     <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
 
-                                        <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), SmartcatSupport\PLUGIN_ID ); ?>
+                                        <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), ucare\PLUGIN_ID ); ?>
 
                                     </a>
 
@@ -133,7 +133,7 @@ use SmartcatSupport\Plugin;
 
                                     <button id="registration-submit" type="submit" class="button button-primary">
 
-                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \SmartcatSupport\PLUGIN_ID ); ?>
+                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \ucare\PLUGIN_ID ); ?>
 
                                     </button>
 

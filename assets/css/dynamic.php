@@ -1,14 +1,14 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 $primary_color   = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
 $hover_color     = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
 $secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
 $tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ) );
 
-$primary_color_rgb = \SmartcatSupport\proc\hex2rgb( $primary_color );
-$secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
+$primary_color_rgb = \ucare\proc\hex2rgb( $primary_color );
+$secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
 
 ?>
 
@@ -37,11 +37,11 @@ $secondary_color_rgb = \SmartcatSupport\proc\hex2rgb( $secondary_color );
     }
     
     #filter-toggle .toggle-label:after {
-        content: "<?php _e( 'Apply Filters', \SmartcatSupport\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Apply Filters', \ucare\PLUGIN_ID ); ?>";
     }
 
     #filter-toggle.active .toggle-label:after {
-        content: "<?php _e( 'Filters Applied', \SmartcatSupport\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Filters Applied', \ucare\PLUGIN_ID ); ?>";
     }
 
     #support-login-wrapper input[type="text"]:focus,

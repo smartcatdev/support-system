@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 use smartcat\admin\ListTable;
 
@@ -12,22 +12,22 @@ class AgentStatsTable extends ListTable {
 
     public function __construct( $start_date, $end_date ) {
         parent::__construct( array(
-            'singular' => __( 'Agent Total', \SmartcatSupport\PLUGIN_ID ),
-            'plural'   => __( 'Agent Totals', \SmartcatSupport\PLUGIN_ID ),
+            'singular' => __( 'Agent Total', \ucare\PLUGIN_ID ),
+            'plural'   => __( 'Agent Totals', \ucare\PLUGIN_ID ),
             'ajax'     => false
         ) );
 
-        $this->agents = \SmartcatSupport\util\list_agents();
+        $this->agents = \ucare\util\list_agents();
         $this->start_date = $start_date;
         $this->end_date = $end_date;
     }
 
     public function get_columns() {
         return array(
-            'uc_agent'          => __( 'Agent', \SmartcatSupport\PLUGIN_ID ),
-            'uc_total_assigned' => __( 'Total Assigned', \SmartcatSupport\PLUGIN_ID ),
-            'uc_total_closed'   => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
-            'uc_percentage'     => __( 'Percentage', \SmartcatSupport\PLUGIN_ID )
+            'uc_agent'          => __( 'Agent', \ucare\PLUGIN_ID ),
+            'uc_total_assigned' => __( 'Total Assigned', \ucare\PLUGIN_ID ),
+            'uc_total_closed'   => __( 'Closed', \ucare\PLUGIN_ID ),
+            'uc_percentage'     => __( 'Percentage', \ucare\PLUGIN_ID )
         );
     }
 
@@ -50,7 +50,7 @@ class AgentStatsTable extends ListTable {
 
             <div class="alignleft actions filteractions">
                 <select name="agent">
-                    <option value="0"><?php _e( 'All Agents', \SmartcatSupport\PLUGIN_ID ); ?></option>
+                    <option value="0"><?php _e( 'All Agents', \ucare\PLUGIN_ID ); ?></option>
 
                     <?php foreach( $this->agents as $id => $name ) : ?>
 
@@ -65,7 +65,7 @@ class AgentStatsTable extends ListTable {
                     <?php endforeach; ?>
 
                 </select>
-                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \SmartcatSupport\PLUGIN_ID ); ?>">
+                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ucare\PLUGIN_ID ); ?>">
             </div>
 
         <?php }

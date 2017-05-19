@@ -1,8 +1,8 @@
 <?php
 
-use SmartcatSupport\Plugin;
+use ucare\Plugin;
 
-$form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_filter.php';
+$form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_filter.php';
 
 ?>
 
@@ -20,7 +20,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
                         <span class="glyphicon glyphicon-filter"></span>
 
-                        <span class="toggle-label"><?php _e( 'Filter By', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <span class="toggle-label"><?php _e( 'Filter By', \ucare\PLUGIN_ID ); ?></span>
 
                     </button>
 
@@ -30,7 +30,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
                        name="search"
                        type="text"
                        data-default=""
-                       placeholder="<?php _e('Search', \SmartcatSupport\PLUGIN_ID); ?>"
+                       placeholder="<?php _e('Search', \ucare\PLUGIN_ID); ?>"
                        class="form-control filter-field"/>
 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
@@ -93,7 +93,7 @@ $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config
 
                     <span class="refresh glyphicon glyphicon-refresh"></span>
 
-                    <span class="refresh-label"><?php _e( 'Refresh', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                    <span class="refresh-label"><?php _e( 'Refresh', \ucare\PLUGIN_ID ); ?></span>
 
                 </button>
 

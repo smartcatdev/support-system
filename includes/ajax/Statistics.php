@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\ajax;
+namespace ucare\ajax;
 
 class Statistics extends AjaxComponent {
     

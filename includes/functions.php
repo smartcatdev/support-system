@@ -1,19 +1,19 @@
 <?php
 
-namespace SmartcatSupport {
+namespace ucare {
 
-    use SmartcatSupport\descriptor\Option;
+    use ucare\descriptor\Option;
 
     function url() {
         return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
     }
 
     function plugin_dir() {
-        return Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID );
+        return Plugin::plugin_dir( \ucare\PLUGIN_ID );
     }
 
     function plugin_url() {
-        return Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
+        return Plugin::plugin_url( \ucare\PLUGIN_ID );
     }
 
     function in_dev_mode() {
@@ -21,10 +21,10 @@ namespace SmartcatSupport {
     }
 }
 
-namespace  SmartcatSupport\util {
+namespace  ucare\util {
 
-    use SmartcatSupport\descriptor\Option;
-    use SmartcatSupport\Plugin;
+    use ucare\descriptor\Option;
+    use ucare\Plugin;
 
     function render( $template, array $data = array() ) {
         extract($data);
@@ -76,9 +76,9 @@ namespace  SmartcatSupport\util {
         $date = date_create( $stamp );
 
         if( $now->diff( $date )->format( '%i' ) == 0 ) {
-            $out = __( 'Just Now', \SmartcatSupport\PLUGIN_ID );
+            $out = __( 'Just Now', \ucare\PLUGIN_ID );
         } else {
-            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID );
+            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', \ucare\PLUGIN_ID );
         }
 
         return $out;
@@ -109,20 +109,20 @@ namespace  SmartcatSupport\util {
 
     function priorities () {
         return array(
-            __( 'Low', \SmartcatSupport\PLUGIN_ID ),
-            __( 'Medium', \SmartcatSupport\PLUGIN_ID ),
-            __( 'High', \SmartcatSupport\PLUGIN_ID )
+            __( 'Low', \ucare\PLUGIN_ID ),
+            __( 'Medium', \ucare\PLUGIN_ID ),
+            __( 'High', \ucare\PLUGIN_ID )
         );
     }
 
     function statuses () {
         return array(
-            'new'               => __( 'New', \SmartcatSupport\PLUGIN_ID ),
-            'waiting'           => __( 'Waiting', \SmartcatSupport\PLUGIN_ID ),
-            'opened'            => __( 'Opened', \SmartcatSupport\PLUGIN_ID ),
-            'responded'         => __( 'Responded', \SmartcatSupport\PLUGIN_ID ),
-            'needs_attention'   => __( 'Needs Attention', \SmartcatSupport\PLUGIN_ID ),
-            'closed'            => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
+            'new'               => __( 'New', \ucare\PLUGIN_ID ),
+            'waiting'           => __( 'Waiting', \ucare\PLUGIN_ID ),
+            'opened'            => __( 'Opened', \ucare\PLUGIN_ID ),
+            'responded'         => __( 'Responded', \ucare\PLUGIN_ID ),
+            'needs_attention'   => __( 'Needs Attention', \ucare\PLUGIN_ID ),
+            'closed'            => __( 'Closed', \ucare\PLUGIN_ID ),
         );
     }
 
@@ -146,7 +146,7 @@ namespace  SmartcatSupport\util {
     }
 
     function products () {
-        $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
+        $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
         $products = array();
 
         if( get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE ) ) {
@@ -182,7 +182,7 @@ namespace  SmartcatSupport\util {
     }
 
     function ecommerce_enabled( $strict = true ) {
-        $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
+        $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
         $enabled = false;
 
         if( get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE == 'on' ) ) {
@@ -211,9 +211,9 @@ namespace  SmartcatSupport\util {
 
     function roles() {
         return array(
-            'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
-            'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
-            'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID ),
+            'support_admin' => __( 'Support Admin', \ucare\PLUGIN_ID ),
+            'support_agent' => __( 'Support Agent', \ucare\PLUGIN_ID ),
+            'support_user'  => __( 'Support User', \ucare\PLUGIN_ID ),
         );
     }
 
@@ -298,9 +298,9 @@ namespace  SmartcatSupport\util {
     }
 }
 
-namespace SmartcatSupport\proc {
+namespace ucare\proc {
 
-    use SmartcatSupport\descriptor\Option;
+    use ucare\descriptor\Option;
 
     function setup_template_page() {
         $post_id = null;
@@ -311,7 +311,7 @@ namespace SmartcatSupport\proc {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', \SmartcatSupport\PLUGIN_ID )
+                    'post_title' => __( 'Support', \ucare\PLUGIN_ID )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
@@ -333,31 +333,31 @@ namespace SmartcatSupport\proc {
             array(
                 'template' => '/emails/ticket-created.html',
                 'option' => Option::CREATED_EMAIL_TEMPLATE,
-                'subject' => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'You have created a new request for support', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/welcome.html',
                 'option' => Option::WELCOME_EMAIL_TEMPLATE,
-                'subject' => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Welcome to Support', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/ticket-closed.html',
                 'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
-                'subject' => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Your request for support has been closed', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/ticket-reply.html',
                 'option' => Option::REPLY_EMAIL_TEMPLATE,
-                'subject' => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Reply to your request for support', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/password-reset.html',
                 'option' => Option::PASSWORD_RESET_EMAIL,
-                'subject' => __( 'Your password has been reset', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Your password has been reset', \ucare\PLUGIN_ID )
             )
         );
 
-        $default_style = file_get_contents( \SmartcatSupport\plugin_dir() . '/emails/default-style.css' );
+        $default_style = file_get_contents( \ucare\plugin_dir() . '/emails/default-style.css' );
 
         foreach( $default_templates as $config ) {
             $template = get_post( get_option( $config['option'] ) );
@@ -368,7 +368,7 @@ namespace SmartcatSupport\proc {
                         'post_type'     => 'email_template',
                         'post_status'   => 'publish',
                         'post_title'    => $config['subject'],
-                        'post_content'  => file_get_contents( \SmartcatSupport\plugin_dir() . $config['template'] )
+                        'post_content'  => file_get_contents( \ucare\plugin_dir() . $config['template'] )
                     )
                 );
 
@@ -396,28 +396,28 @@ namespace SmartcatSupport\proc {
         $administrator->add_cap( 'delete_private_support_tickets' );
         $administrator->add_cap( 'delete_published_support_tickets' );
 
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+        foreach( \ucare\util\roles() as $role => $name ) {
             add_role( $role, $name );
         }
 
-        \SmartcatSupport\util\add_caps( 'customer' );
-        \SmartcatSupport\util\add_caps( 'subscriber' );
-        \SmartcatSupport\util\add_caps( 'support_user' );
+        \ucare\util\add_caps( 'customer' );
+        \ucare\util\add_caps( 'subscriber' );
+        \ucare\util\add_caps( 'support_user' );
 
-        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
+        \ucare\util\add_caps( 'support_agent' , 'manage' );
 
-        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
-        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
+        \ucare\util\add_caps( 'support_admin' , 'admin' );
+        \ucare\util\add_caps( 'administrator' , 'admin' );
     }
 
     function cleanup_roles() {
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+        foreach( \ucare\util\roles() as $role => $name ) {
             remove_role( $role );
         }
 
-        \SmartcatSupport\util\remove_caps( 'customer' );
-        \SmartcatSupport\util\remove_caps( 'subscriber' );
-        \SmartcatSupport\util\remove_caps( 'administrator' );
+        \ucare\util\remove_caps( 'customer' );
+        \ucare\util\remove_caps( 'subscriber' );
+        \ucare\util\remove_caps( 'administrator' );
 
         $administrator = get_role( 'administrator' );
 
@@ -452,7 +452,7 @@ namespace SmartcatSupport\proc {
     
 }
 
-namespace SmartcatSupport\statprocs {
+namespace ucare\statprocs {
 
     function count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
         global $wpdb;

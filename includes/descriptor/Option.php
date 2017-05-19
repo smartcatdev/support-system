@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\descriptor;
+namespace ucare\descriptor;
 
 /**
  * Constant keys for use with calls to get_option()

@@ -10,7 +10,7 @@
  * 
  */
 
-namespace SmartcatSupport;
+namespace ucare;
 
 // Die if access directly
 if( !defined( 'ABSPATH' ) ) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\form;
+namespace ucare\form;
 
 use smartcat\form\AbstractField;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 use smartcat\admin\MenuPageTab;
 
@@ -12,14 +12,14 @@ class ReportsOverviewTab extends MenuPageTab {
 
     public function __construct() {
 
-        parent::__construct( array( 'title' => __( 'Overview', \SmartcatSupport\PLUGIN_ID ) ) );
+        parent::__construct( array( 'title' => __( 'Overview', \ucare\PLUGIN_ID ) ) );
 
         $this->predefined_ranges = array(
-            'last_week'     => __( 'Last 7 Days', \SmartcatSupport\PLUGIN_ID ),
-            'this_month'    => __( 'This Month', \SmartcatSupport\PLUGIN_ID ),
-            'last_month'    => __( 'Last Month', \SmartcatSupport\PLUGIN_ID ),
-            'this_year'     => __( 'This Year', \SmartcatSupport\PLUGIN_ID ),
-            'custom'        => __( 'Custom', \SmartcatSupport\PLUGIN_ID ),
+            'last_week'     => __( 'Last 7 Days', \ucare\PLUGIN_ID ),
+            'this_month'    => __( 'This Month', \ucare\PLUGIN_ID ),
+            'last_month'    => __( 'Last Month', \ucare\PLUGIN_ID ),
+            'this_year'     => __( 'This Year', \ucare\PLUGIN_ID ),
+            'custom'        => __( 'Custom', \ucare\PLUGIN_ID ),
         );
 
         $this->date = new \DateTimeImmutable();
@@ -197,7 +197,7 @@ class ReportsOverviewTab extends MenuPageTab {
                                 </span>
                             </div>
                             <div class="control-group">
-                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
+                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \ucare\PLUGIN_ID ); ?></button>
                             </div>
                         </div>
 
@@ -208,7 +208,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                         $range = $this->date_range();
 
-                        $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
+                        $this->graph_data( \ucare\statprocs\count_tickets( $range['start'], $range['end'] ) );
 
                     ?>
 
@@ -239,7 +239,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                     <?php selected( isset( $_GET["{$prefix}month"] ) ? $_GET["{$prefix}month"] : $month, $m ); ?>>
 
-                    <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), \SmartcatSupport\PLUGIN_ID ); ?>
+                    <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), \ucare\PLUGIN_ID ); ?>
 
                 </option>
 

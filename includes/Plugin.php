@@ -1,19 +1,19 @@
 <?php
 
-namespace SmartcatSupport;
+namespace ucare;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\mail\Mailer;
-use SmartcatSupport\ajax\Media;
-use SmartcatSupport\ajax\Ticket;
-use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\Settings;
-use SmartcatSupport\ajax\Registration;
-use SmartcatSupport\component\ECommerce;
-use SmartcatSupport\component\Notifications;
-use SmartcatSupport\admin\TicketPostType;
-use SmartcatSupport\component\Hacks;
-use SmartcatSupport\descriptor\Option;
+use ucare\ajax\Media;
+use ucare\ajax\Ticket;
+use ucare\ajax\Comment;
+use ucare\ajax\Settings;
+use ucare\ajax\Registration;
+use ucare\component\ECommerce;
+use ucare\component\Notifications;
+use ucare\admin\TicketPostType;
+use ucare\component\Hacks;
+use ucare\descriptor\Option;
 
 class Plugin extends AbstractPlugin {
 
@@ -144,14 +144,14 @@ class Plugin extends AbstractPlugin {
     }
 
     public function login_failed() {
-        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
             wp_redirect( url() . '?login=failed' );
             exit;
         }
     }
 
     public function authenticate( $user, $username, $password ) {
-        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
             if ( $username == "" || $password == "" ) {
                 wp_redirect( url() . "?login=empty" );
                 exit;

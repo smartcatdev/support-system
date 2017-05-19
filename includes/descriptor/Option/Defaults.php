@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\descriptor\Option;
+namespace ucare\descriptor\Option;
 
 /**
  * Default values for options. Correspond to their keys in desc\Option.

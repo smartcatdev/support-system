@@ -1,6 +1,6 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 ?>
 
@@ -16,7 +16,7 @@ use SmartcatSupport\descriptor\Option;
 
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <h4 class="modal-title"><?php _e( 'Settings', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+                    <h4 class="modal-title"><?php _e( 'Settings', \ucare\PLUGIN_ID ); ?></h4>
 
                 </div>
 
@@ -56,7 +56,7 @@ use SmartcatSupport\descriptor\Option;
 
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <h4 class="modal-title"><?php _e( 'New Support Request', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+                    <h4 class="modal-title"><?php _e( 'New Support Request', \ucare\PLUGIN_ID ); ?></h4>
 
                 </div>
 
@@ -116,7 +116,7 @@ use SmartcatSupport\descriptor\Option;
                 <ul class="nav nav-tabs ticket-nav-tabs">
 
                     <li class="tab active">
-                        <a data-toggle="tab" href="#tickets"><?php _e( 'Tickets', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                        <a data-toggle="tab" href="#tickets"><?php _e( 'Tickets', \ucare\PLUGIN_ID ); ?></a>
                     </li>
 
                 </ul>

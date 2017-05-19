@@ -4,18 +4,18 @@ use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 
-$agents = \SmartcatSupport\util\list_agents();
-$statuses = \SmartcatSupport\util\statuses();
-$priorities = \SmartcatSupport\util\priorities();
+$agents = \ucare\util\list_agents();
+$statuses = \ucare\util\statuses();
+$priorities = \ucare\util\priorities();
 
-$agents = array( 0 => __( 'Unassigned', \SmartcatSupport\PLUGIN_ID ) ) + $agents;
+$agents = array( 0 => __( 'Unassigned', \ucare\PLUGIN_ID ) ) + $agents;
 
 $form = new Form( 'ticket-properties' );
 
 $form->add_field( new SelectBoxField(
     array(
         'name'        => 'agent',
-        'label'       => __( 'Assigned to', \SmartcatSupport\PLUGIN_ID ),
+        'label'       => __( 'Assigned to', \ucare\PLUGIN_ID ),
         'class'       => array( 'form-control', 'property-control' ),
         'options'     => $agents,
         'value'       => get_post_meta( $ticket->ID, 'agent', true ),
@@ -27,7 +27,7 @@ $form->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'name'        => 'status',
-        'label'       => __( 'Status', \SmartcatSupport\PLUGIN_ID ),
+        'label'       => __( 'Status', \ucare\PLUGIN_ID ),
         'class'       => array( 'form-control', 'property-control' ),
         'options'     => $statuses,
         'value'       => get_post_meta( $ticket->ID, 'status', true ),
@@ -39,7 +39,7 @@ $form->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'name'        => 'priority',
-        'label'       => __( 'Priority', \SmartcatSupport\PLUGIN_ID ),
+        'label'       => __( 'Priority', \ucare\PLUGIN_ID ),
         'class'       => array( 'form-control', 'property-control' ),
         'options'     => $priorities,
         'value'       => get_post_meta( $ticket->ID, 'priority', true ),

@@ -1,11 +1,11 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
-use SmartcatSupport\utilUtils;
+use ucare\descriptor\Option;
+use ucare\Plugin;
+use ucare\utilUtils;
 
-$products = \SmartcatSupport\util\products();
-$statuses = \SmartcatSupport\util\statuses();
+$products = \ucare\util\products();
+$statuses = \ucare\util\statuses();
 $status = get_post_meta( $ticket->ID, 'status', true );
 
 $product = get_post_meta( $ticket->ID, 'product', true );
@@ -30,40 +30,40 @@ if( array_key_exists( $product, $products ) ) {
 
             <div class="lead">
 
-                <?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \SmartcatSupport\PLUGIN_ID ); ?>
+                <?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \ucare\PLUGIN_ID ); ?>
 
             </div>
 
             <?php if( empty( $closed_date ) ) : ?>
 
-                <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_modified ); ?></p>
+                <p><?php _e( 'Since ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\just_now( $ticket->post_modified ); ?></p>
 
             <?php else : ?>
 
                 <p>
 
-                    <?php _e( 'Closed by ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
+                    <?php _e( 'Closed by ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
 
-                    (<?php echo \SmartcatSupport\util\just_now( $closed_date ); ?>)
+                    (<?php echo \ucare\util\just_now( $closed_date ); ?>)
 
                 </p>
 
             <?php endif; ?>
 
-            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \SmartcatSupport\PLUGIN_ID ); ?></p>
+            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \ucare\PLUGIN_ID ); ?></p>
 
         </div>
 
     </div>
 
-    <?php if( \SmartcatSupport\util\ecommerce_enabled() ) : ?>
+    <?php if( \ucare\util\ecommerce_enabled() ) : ?>
 
         <div class="panel panel-default purchase-details" data-id="purchase-details">
 
             <div class="panel-heading">
 
                 <a href="#collapse-purchase-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Purchase Details', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                   class="panel-title"><?php _e( 'Purchase Details', \ucare\PLUGIN_ID ); ?></a>
 
             </div>
 
@@ -73,7 +73,7 @@ if( array_key_exists( $product, $products ) ) {
 
                     <div class="product-info">
 
-                        <span class="lead"><?php _e( $product, \SmartcatSupport\PLUGIN_ID ); ?>
+                        <span class="lead"><?php _e( $product, \ucare\PLUGIN_ID ); ?>
 
                     </div>
 
@@ -81,7 +81,7 @@ if( array_key_exists( $product, $products ) ) {
 
                         <div class="purchase-info">
 
-                            <span><?php _e( "Receipt # {$receipt_id}", \SmartcatSupport\PLUGIN_ID ); ?></span>
+                            <span><?php _e( "Receipt # {$receipt_id}", \ucare\PLUGIN_ID ); ?></span>
 
                         </div>
 
@@ -102,7 +102,7 @@ if( array_key_exists( $product, $products ) ) {
             <div class="panel-heading">
 
                 <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Customer Details', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                   class="panel-title"><?php _e( 'Customer Details', \ucare\PLUGIN_ID ); ?></a>
 
             </div>
 
@@ -126,8 +126,8 @@ if( array_key_exists( $product, $products ) ) {
 
                             </p>
 
-                            <p><?php _e( 'Email: ', \SmartcatSupport\PLUGIN_ID );
-                                echo \SmartcatSupport\util\author_email( $ticket ); ?></p>
+                            <p><?php _e( 'Email: ', \ucare\PLUGIN_ID );
+                                echo \ucare\util\author_email( $ticket ); ?></p>
 
                         </div>
 
@@ -146,7 +146,7 @@ if( array_key_exists( $product, $products ) ) {
         <div class="panel-heading">
 
             <a href="#collapse-attachments-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-               class="panel-title"><?php _e( 'Attachments', \SmartcatSupport\PLUGIN_ID ); ?></a>
+               class="panel-title"><?php _e( 'Attachments', \ucare\PLUGIN_ID ); ?></a>
 
         </div>
 
@@ -154,12 +154,12 @@ if( array_key_exists( $product, $products ) ) {
 
             <div class="panel-body">
 
-                <?php $attachments = \SmartcatSupport\util\get_attachments( $ticket ); ?>
+                <?php $attachments = \ucare\util\get_attachments( $ticket ); ?>
                 <?php $attachment_count = count( $attachments ); ?>
 
                 <?php if( $attachment_count === 0 ) : ?>
 
-                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', \SmartcatSupport\PLUGIN_ID ); ?></p>
+                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', \ucare\PLUGIN_ID ); ?></p>
 
                 <?php else : ?>
 
@@ -191,7 +191,7 @@ if( array_key_exists( $product, $products ) ) {
                                     <?php $author = get_user_by( 'id', $attachment->post_author ); ?>
 
                                     <h4><?php echo $author->first_name . ' ' . $author->last_name; ?></h4>
-                                    <p><?php echo \SmartcatSupport\util\just_now( $attachment->post_date ); ?></p>
+                                    <p><?php echo \ucare\util\just_now( $attachment->post_date ); ?></p>
 
                                 </div>
 
@@ -213,7 +213,7 @@ if( array_key_exists( $product, $products ) ) {
 
                         <span class="glyphicon glyphicon-paperclip button-icon"></span>
 
-                        <span><?php _e( 'Upload', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                        <span><?php _e( 'Upload', \ucare\PLUGIN_ID ); ?></span>
 
                     </button>
 
@@ -232,7 +232,7 @@ if( array_key_exists( $product, $products ) ) {
             <div class="panel-heading">
 
                 <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Ticket Properties', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                   class="panel-title"><?php _e( 'Ticket Properties', \ucare\PLUGIN_ID ); ?></a>
 
             </div>
 
@@ -244,7 +244,7 @@ if( array_key_exists( $product, $products ) ) {
 
                     <form class="ticket-status-form" method="post">
 
-                        <?php $form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
+                        <?php $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
 
                         <?php foreach ( $form->fields as $field ) : ?>
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace ucare\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 class Notifications extends AbstractComponent {
 
@@ -101,7 +101,7 @@ class Notifications extends AbstractComponent {
 
     public function email_template_branding() {
         if( $this->sending ) {
-            echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
+            echo __( 'Powered by ', \ucare\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
         }
     }
 

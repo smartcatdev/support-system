@@ -1,6 +1,6 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 ?>
 
@@ -24,7 +24,7 @@ use SmartcatSupport\descriptor\Option;
 
                     <p class="media-heading"><?php echo $comment->comment_author; ?></p>
 
-                    <p class="text-muted"><?php echo \SmartcatSupport\util\just_now( $comment->comment_date ); ?></p>
+                    <p class="text-muted"><?php echo \ucare\util\just_now( $comment->comment_date ); ?></p>
 
                 </div>
 
@@ -35,11 +35,11 @@ use SmartcatSupport\descriptor\Option;
                 <ul class="nav nav-tabs" style="display: none">
 
                     <li class="tab editor-tab active">
-                        <a class="nav-link edit" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                        <a class="nav-link edit" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \ucare\PLUGIN_ID ); ?></a>
                     </li>
 
                     <li class="tab editor-tab preview">
-                        <a class="nav-link" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                        <a class="nav-link" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', \ucare\PLUGIN_ID ); ?></a>
                     </li>
 
                 </ul>

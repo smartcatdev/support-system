@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 use smartcat\core\AbstractComponent;
 
