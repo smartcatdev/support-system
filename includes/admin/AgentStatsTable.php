@@ -50,7 +50,7 @@ class AgentStatsTable extends ListTable {
 
             <div class="alignleft actions filteractions">
                 <select name="agent">
-                    <option value="0"><?php _e( 'All Agents', \ext_satisfaction\PLUGIN_ID ); ?></option>
+                    <option value="0"><?php _e( 'All Agents', \SmartcatSupport\PLUGIN_ID ); ?></option>
 
                     <?php foreach( $this->agents as $id => $name ) : ?>
 
@@ -65,7 +65,7 @@ class AgentStatsTable extends ListTable {
                     <?php endforeach; ?>
 
                 </select>
-                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ext_satisfaction\PLUGIN_ID ); ?>">
+                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \SmartcatSupport\PLUGIN_ID ); ?>">
             </div>
 
         <?php }
