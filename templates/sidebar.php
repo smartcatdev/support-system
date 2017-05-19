@@ -36,7 +36,7 @@ if( array_key_exists( $product, $products ) ) {
 
             <?php if( empty( $closed_date ) ) : ?>
 
-                <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>
+                <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_modified ); ?></p>
 
             <?php else : ?>
 
