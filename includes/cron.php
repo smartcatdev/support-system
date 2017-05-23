@@ -60,6 +60,8 @@ function close_tickets() {
 
                 // Mark the ticket as closed and delete stale status
                 update_post_meta( $ticket->ID, 'status', 'closed' );
+
+                // overwrite the user ID to nobody
                 update_post_meta( $ticket->ID, 'closed_by', -1 );
                 delete_post_meta( $ticket->ID, 'stale' );
 

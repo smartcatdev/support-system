@@ -107,6 +107,8 @@ class Ticket extends AjaxComponent {
                     foreach( $form->data as $field => $value ) {
 
                         if( $field == 'status' ) {
+
+                            // Update post modified to reflect when 'Since' value on front-end app
                             wp_update_post( array(
                                 'ID'                => $ticket->ID,
                                 'post_modified'     => current_time( 'mysql' ),

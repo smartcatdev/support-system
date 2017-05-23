@@ -25,7 +25,7 @@ const PLUGIN_VERSION = '1.2.0';
 do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
 
 include_once 'includes/functions.php';
-include_once 'includes/cron-jobs.php';
+include_once 'includes/cron.php';
 
 
 // Boot up the container
