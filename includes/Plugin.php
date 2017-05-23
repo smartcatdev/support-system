@@ -14,6 +14,7 @@ use ucare\component\Notifications;
 use ucare\admin\TicketPostType;
 use ucare\component\Hacks;
 use ucare\descriptor\Option;
+use function ucare\util\products;
 
 class Plugin extends AbstractPlugin {
 
@@ -29,6 +30,7 @@ class Plugin extends AbstractPlugin {
         Mailer::init( $this );
 
         proc\configure_roles();
+        proc\schedule_cron_jobs();
     }
 
     public function activate() {
@@ -50,6 +52,7 @@ class Plugin extends AbstractPlugin {
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
         proc\cleanup_roles();
+        proc\clear_scheduled_jobs();
 
         Mailer::cleanup();
 

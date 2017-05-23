@@ -4,7 +4,7 @@ namespace ucare\cron;
 
 use ucare\descriptor\Option;
 
-function find_stale_tickets() {
+function stale_tickets() {
 
     // send notification 1 day before expiry
     $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE ) - 1;
@@ -32,7 +32,7 @@ function find_stale_tickets() {
     }
 }
 
-function close_stale_tickets() {
+function close_tickets() {
     if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
 
     }

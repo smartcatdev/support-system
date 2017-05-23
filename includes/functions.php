@@ -302,6 +302,21 @@ namespace ucare\proc {
 
     use ucare\descriptor\Option;
 
+    function schedule_cron_jobs() {
+        if ( !wp_next_scheduled( 'ucare\cron\stale_tickets' ) ) {
+            wp_schedule_event( time(), 'hourly', 'ucare\cron\stale_tickets' );
+        }
+
+        if ( !wp_next_scheduled( 'ucare\cron\close_tickets' ) ) {
+            wp_schedule_event( time(), 'hourly', 'ucare\cron\close_tickets' );
+        }
+    }
+
+    function clear_scheduled_jobs() {
+        wp_clear_scheduled_hook( 'ucare\cron\stale_tickets' );
+        wp_clear_scheduled_hook( 'ucare\cron\close_tickets' );
+    }
+
     function setup_template_page() {
         $post_id = null;
         $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
