@@ -13,7 +13,7 @@ class Hacks extends AbstractComponent {
     }
 
     public function remove_feed_comments( $where ) {
-        return $where . " AND {$this->wpdb->prefix}posts.post_type NOT IN ( 'support_ticket' )";
+        return $where . " AND {$this->wpdb->posts}.post_type NOT IN ( 'support_ticket' )";
     }
 
     /**
@@ -31,9 +31,9 @@ class Hacks extends AbstractComponent {
 
     public function remove_admin_comments( $query ) {
         if( !current_user_can( 'create_support_tickets' ) ) {
-            $query['join'] .= "INNER JOIN {$this->wpdb->prefix}posts ON {$this->wpdb->prefix}comments.comment_post_ID={$this->wpdb->prefix}posts.ID";
+            $query['join'] .= " INNER JOIN {$this->wpdb->posts} ON {$this->wpdb->comments}.comment_post_ID={$this->wpdb->posts}.ID";
 
-            $query['where'] .=  " AND post_type NOT IN ( 'support_ticket' )";
+            $query['where'] .=  " AND {$this->wpdb->posts}.post_type NOT IN ( 'support_ticket' )";
         }
 
         return $query;
