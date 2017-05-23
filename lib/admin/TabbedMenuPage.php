@@ -39,7 +39,7 @@ class TabbedMenuPage extends AbstractMenuPage {
 
     public function render() { ?>
 
-        <div class="wrap">
+        <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
 
             <?php $this->do_header(); ?>
 
@@ -54,7 +54,13 @@ class TabbedMenuPage extends AbstractMenuPage {
 
             </h2>
 
-            <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+            <div class="tabs-content">
+
+                <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+
+            </div>
+
+            <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
         </div>
 

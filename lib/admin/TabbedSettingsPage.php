@@ -54,7 +54,7 @@ if( !class_exists( '\smartcat\admin\TabbedSettingsPage' ) ) :
             ?>
 
 
-            <div class="wrap">
+            <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
 
                 <?php $this->do_header(); ?>
 
@@ -79,15 +79,21 @@ if( !class_exists( '\smartcat\admin\TabbedSettingsPage' ) ) :
 
                 </h2>
 
-                <form method="post" action="options.php">
+                <div class="tabs-content">
 
-                    <?php settings_fields( $this->menu_slug . '_' .$active_tab ); ?>
+                    <form method="post" action="options.php">
 
-                    <?php do_settings_sections( $this->menu_slug . '_' . $active_tab ); ?>
+                        <?php settings_fields( $this->menu_slug . '_' .$active_tab ); ?>
 
-                    <?php submit_button(); ?>
+                        <?php do_settings_sections( $this->menu_slug . '_' . $active_tab ); ?>
 
-                </form>
+                        <?php submit_button(); ?>
+
+                    </form>
+
+                </div>
+
+                <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
             </div>
 

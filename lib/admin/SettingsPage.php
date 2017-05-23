@@ -90,7 +90,7 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
          */
         public function render() { ?>
 
-            <div class="wrap">
+            <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
 
                 <?php $this->do_header(); ?>
 
@@ -107,6 +107,8 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
                     <?php submit_button(); ?>
 
                 </form>
+
+                <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
             </div>
 
