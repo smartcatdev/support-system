@@ -41,7 +41,7 @@ class TabbedMenuPage extends AbstractMenuPage {
 
         <div class="wrap">
 
-            <h2><?php _e( 'Reports', \ucare\PLUGIN_ID ); ?></h2>
+            <?php $this->do_header(); ?>
 
             <h2 class="nav-tab-wrapper">
 

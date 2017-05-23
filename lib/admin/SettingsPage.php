@@ -92,7 +92,7 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
             <div class="wrap">
 
-                <h2><?php echo $this->page_title; ?></h2>
+                <?php $this->do_header(); ?>
 
                 <?php if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
 

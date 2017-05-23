@@ -21,7 +21,6 @@ $admin = new TabbedSettingsPage(
     array(
         'type'          => 'submenu',
         'parent_menu'   => 'ucare_support',
-        'page_title'    => __( 'Support Settings', \ucare\PLUGIN_ID ),
         'menu_title'    => __( 'Settings', \ucare\PLUGIN_ID ),
         'menu_slug'     => 'support_options',
         'tabs'          => array(

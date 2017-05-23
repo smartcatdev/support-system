@@ -19,11 +19,10 @@ abstract class AbstractMenuPage implements HookSubscriber {
     protected $position;
 
     public function __construct( array $config ) {
-
-        $this->page_title = $config['page_title'];
         $this->menu_title = $config['menu_title'];
         $this->menu_slug = $config['menu_slug'];
 
+        $this->page_title = isset( $config['page_title'] ) ? $config['page_title'] : '';
         $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
 
         if( $this->type == 'submenu' ) {
@@ -54,6 +53,14 @@ abstract class AbstractMenuPage implements HookSubscriber {
     }
 
     abstract public function render();
+
+    protected function do_header() {
+        do_action( $this->menu_slug . '_admin_page_header' );
+
+        if( !empty( $this->page_title ) ) {
+            printf( '<h2>%1$s</h2>', $this->page_title );
+        }
+    }
 
     public function subscribed_hooks() {
         return array(
