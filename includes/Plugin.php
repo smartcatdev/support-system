@@ -14,7 +14,6 @@ use ucare\component\Notifications;
 use ucare\admin\TicketPostType;
 use ucare\component\Hacks;
 use ucare\descriptor\Option;
-use function ucare\util\products;
 
 class Plugin extends AbstractPlugin {
 
