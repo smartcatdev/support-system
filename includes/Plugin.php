@@ -185,6 +185,15 @@ class Plugin extends AbstractPlugin {
                 wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
             }
         );
+
+        add_submenu_page(
+            'ucare_support',
+            '', __( 'Extensions', \ucare\PLUGIN_ID ),
+            'manage_support',
+            'extensions',
+            function () { echo 'sdsf'; }
+        );
+
     }
 
     public function subscribed_hooks() {
