@@ -4,7 +4,9 @@ namespace ucare;
 
 use smartcat\core\AbstractPlugin;
 use smartcat\mail\Mailer;
+use ucare\admin\Reports;
 use ucare\ajax\Media;
+use ucare\ajax\Statistics;
 use ucare\ajax\Ticket;
 use ucare\ajax\Comment;
 use ucare\ajax\Settings;
@@ -28,14 +30,14 @@ class Plugin extends AbstractPlugin {
 
         Mailer::init( $this );
 
-        proc\configure_roles();
-        proc\schedule_cron_jobs();
+        \ucare\proc\configure_roles();
+        \ucare\proc\schedule_cron_jobs();
     }
 
     public function activate() {
-        proc\configure_roles();
-        proc\create_email_templates();
-        proc\setup_template_page();
+        \ucare\proc\configure_roles();
+        \ucare\proc\create_email_templates();
+        \ucare\proc\setup_template_page();
     }
 
     public function deactivate() {
@@ -50,8 +52,8 @@ class Plugin extends AbstractPlugin {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        proc\cleanup_roles();
-        proc\clear_scheduled_jobs();
+        \ucare\proc\cleanup_roles();
+        \ucare\proc\clear_scheduled_jobs();
 
         Mailer::cleanup();
 
@@ -76,7 +78,7 @@ class Plugin extends AbstractPlugin {
 
         $menu_page = menu_page_url( 'support_options', false );
 
-        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
+        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', \ucare\PLUGIN_ID ) . '</a>' ), $links );
     }
 
     public function admin_enqueue( $hook ) {
@@ -132,12 +134,12 @@ class Plugin extends AbstractPlugin {
                 'notice_can_install_required' => _n_noop(
                     'Smartcat Support requires the following plugin: %1$s.',
                     'Smartcat Support requires the following plugins: %1$s.',
-                    PLUGIN_ID
+                    \ucare\PLUGIN_ID
                 ),
                 'notice_can_install_recommended' => _n_noop(
                     'Smartcat Support recommends the following plugin: %1$s.',
                     'Smartcat Support recommends the following plugins: %1$s.',
-                    PLUGIN_ID
+                    \ucare\PLUGIN_ID
                 ),
             )
         );
@@ -147,7 +149,7 @@ class Plugin extends AbstractPlugin {
 
     public function login_failed() {
         if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
-            wp_redirect( url() . '?login=failed' );
+            wp_redirect( \ucare\url() . '?login=failed' );
             exit;
         }
     }
@@ -155,7 +157,7 @@ class Plugin extends AbstractPlugin {
     public function authenticate( $user, $username, $password ) {
         if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
             if ( $username == "" || $password == "" ) {
-                wp_redirect( url() . "?login=empty" );
+                wp_redirect( \ucare\url() . "?login=empty" );
                 exit;
             }
         }
@@ -163,8 +165,8 @@ class Plugin extends AbstractPlugin {
 
     public function register_menu_items() {
         add_menu_page(
-            __( 'uCare Support', PLUGIN_ID ),
-            __( 'uCare Support', PLUGIN_ID ),
+            __( 'uCare Support', \ucare\PLUGIN_ID ),
+            __( 'uCare Support', \ucare\PLUGIN_ID ),
             'manage_support',
             'ucare_support',
             '',
@@ -176,7 +178,7 @@ class Plugin extends AbstractPlugin {
 
         add_submenu_page(
             'ucare_support',
-            '', __( 'Launch Help Desk', PLUGIN_ID ),
+            '', __( 'Launch Help Desk', \ucare\PLUGIN_ID ),
             'manage_support',
             'open_app',
             function () {
@@ -206,7 +208,7 @@ class Plugin extends AbstractPlugin {
     }
 
     public function mailer_text_domain( $text_domain ) {
-        return PLUGIN_ID;
+        return \ucare\PLUGIN_ID;
     }
 
     public function components() {
@@ -217,11 +219,11 @@ class Plugin extends AbstractPlugin {
             Settings::class,
             Hacks::class,
             Media::class,
-            ajax\Statistics::class,
-            admin\Reports::class
+            Statistics::class,
+            Reports::class
         );
 
-        if( util\ecommerce_enabled( false ) ) {
+        if( \ucare\util\ecommerce_enabled( false ) ) {
             $components[] = ECommerce::class;
         }
 
@@ -246,7 +248,7 @@ class Plugin extends AbstractPlugin {
 
     public function restore_template( $val ) {
         if( $val == 'on' ) {
-            proc\setup_template_page();
+            \ucare\proc\setup_template_page();
         }
 
         return '';
