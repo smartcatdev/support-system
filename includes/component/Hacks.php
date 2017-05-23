@@ -31,8 +31,6 @@ class Hacks extends AbstractComponent {
 
     public function remove_admin_comments( $query ) {
         if( !current_user_can( 'create_support_tickets' ) ) {
-            $query['join'] .= " INNER JOIN {$this->wpdb->posts} ON {$this->wpdb->comments}.comment_post_ID={$this->wpdb->posts}.ID";
-
             $query['where'] .=  " AND {$this->wpdb->posts}.post_type NOT IN ( 'support_ticket' )";
         }
 
