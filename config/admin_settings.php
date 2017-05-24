@@ -534,4 +534,4 @@ $admin = new TabbedMenuPage(
     )
 );
 
-return apply_filters( 'support_register_settings', $admin );
+return apply_filters( 'support_settings_register', $admin );
