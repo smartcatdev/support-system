@@ -369,6 +369,11 @@ namespace ucare\proc {
                 'template' => '/emails/password-reset.html',
                 'option' => Option::PASSWORD_RESET_EMAIL,
                 'subject' => __( 'Your password has been reset', \ucare\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/ticket-close-warning.html',
+                'option' => Option::INACTIVE_EMAIL,
+                'subject' => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID )
             )
         );
 
