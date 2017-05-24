@@ -1,6 +1,8 @@
 <?php
 
 
+use ucare\descriptor\Option;
+
 class migration_1_2_0 implements smartcat\core\Migration {
 
     function version() {
@@ -9,6 +11,7 @@ class migration_1_2_0 implements smartcat\core\Migration {
 
     /**
      * 1. Separate closed meta keys from serialized array to individual keys
+     * 2. Add email template for ticket closure warnings and update default option
      *
      * @return mixed
      */
@@ -31,6 +34,20 @@ class migration_1_2_0 implements smartcat\core\Migration {
 
                     delete_post_meta( $ticket->ID, 'closed' );
                 }
+            }
+
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID ),
+                    'post_content'  => file_get_contents( $plugin->dir() . 'emails/ticket-close-warning.html' )
+                )
+            );
+
+            if( $id ) {
+                update_post_meta( $id, 'styles', file_get_contents( $plugin->dir() . 'emails/default-style.css' ) );
+                add_option( Option::INACTIVE_EMAIL, $id );
             }
 
         } catch ( Exception $ex ) {}
