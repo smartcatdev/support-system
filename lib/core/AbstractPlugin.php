@@ -67,6 +67,8 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
                 }
 
                 do_action( $instance->id . '_components_loaded' );
+                do_action( $instance->id . '_loaded' );
+
             } );
         }
     }
