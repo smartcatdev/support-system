@@ -180,7 +180,7 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'launch',
                     'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
                     'capability'    => 'manage_support',
-                    'render'        => function () { wp_safe_redirect( url() ); }
+                    'onload'        => function () { wp_safe_redirect( url() ); }
                 )
             ),
             'settings'   => include_once $this->dir . '/config/admin_settings.php',
@@ -272,4 +272,3 @@ class Plugin extends AbstractPlugin {
         }
     }
 }
-

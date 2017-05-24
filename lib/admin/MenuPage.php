@@ -15,6 +15,7 @@ class MenuPage {
     public $icon;
     public $position;
     public $render;
+    public $onload;
 
     public function __construct( array $config ) {
         $this->menu_title = $config['menu_title'];
@@ -23,6 +24,7 @@ class MenuPage {
         $this->render = isset( $config['render'] ) ? $config['render'] : true;
         $this->page_title = isset( $config['page_title'] ) ? $config['page_title'] : '';
         $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
+        $this->onload = isset( $config['onload'] ) ? $config['onload'] : '';
 
         if( $this->type == 'submenu' ) {
             $this->parent_menu = $config['parent_menu'];
@@ -62,9 +64,14 @@ class MenuPage {
         $config[] = $this->icon;
         $config[] = $this->position;
 
-        call_user_func_array( "add_{$this->type}_page", $config );
+        $hook = call_user_func_array( "add_{$this->type}_page", $config );
+
+        if( $hook ) {
+            add_action( 'load-' . $hook, is_callable( $this->onload ) ? $this->onload : array( $this, 'on_load' ) );
+        }
     }
 
+    public function on_load() { }
 
     public function render() {}
 
