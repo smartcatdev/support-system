@@ -6,10 +6,6 @@ use smartcat\core\AbstractComponent;
 
 class Reports extends AbstractComponent {
 
-    public function start() {
-        $this->plugin->add_api_subscriber( apply_filters( 'support_reporting_menupage', new ReportsMenuPage() ) );
-    }
-
     public function enqueue_scripts( $hook ) {
         if( strpos( $hook, 'ucare_support' ) > 0 ) {
             wp_enqueue_script( 'moment',

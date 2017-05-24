@@ -2,9 +2,12 @@
 
 namespace ucare;
 
+use smartcat\admin\MenuPage;
+use smartcat\admin\TabbedMenuPage;
 use smartcat\core\AbstractPlugin;
 use smartcat\mail\Mailer;
 use ucare\admin\Reports;
+use ucare\admin\ReportsOverviewTab;
 use ucare\ajax\Media;
 use ucare\ajax\Statistics;
 use ucare\ajax\Ticket;
@@ -19,8 +22,11 @@ use ucare\descriptor\Option;
 
 class Plugin extends AbstractPlugin {
 
+    private $menu_pages = array();
+
     public function start() {
-        $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
+//        $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
+//        $this->add_api_subscriber( new RootMenuPage() );
 
         $this->config_dir = $this->dir . '/config/';
         $this->template_dir = $this->dir . '/templates/';
@@ -163,42 +169,49 @@ class Plugin extends AbstractPlugin {
         }
     }
 
-    public function register_menu_items() {
-        add_menu_page(
-            __( 'uCare Support', \ucare\PLUGIN_ID ),
-            __( 'uCare Support', \ucare\PLUGIN_ID ),
-            'manage_support',
-            'ucare_support',
-            '',
-            $this->url . 'assets/images/admin-icon.png',
-            71
+    public function register_menu() {
+
+        $this->menu_pages = array(
+            'root' => new MenuPage(
+                array(
+                    'type'          => 'menu',
+                    'menu_slug'     => 'ucare_support',
+                    'menu_title'    => __( 'uCare Support', \ucare\PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'icon'          => \ucare\plugin_url() . '/assets/images/admin-icon.png',
+                    'render'        => false
+                )
+            ),
+            'reports' => new TabbedMenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'ucare_support',
+                    'menu_title'    => __( 'Reports', PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'tabs' => array( new ReportsOverviewTab() )
+                )
+            ),
+            'launcher' => new MenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'launch',
+                    'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'render'        => function () { wp_safe_redirect( url() ); }
+                )
+            ),
+            'settings' => include_once $this->dir . '/config/admin_settings.php'
         );
 
-        do_action( 'support_menu_register' );
-
-        add_submenu_page(
-            'ucare_support',
-            '', __( 'Launch Help Desk', \ucare\PLUGIN_ID ),
-            'manage_support',
-            'open_app',
-            function () {
-                wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
-            }
-        );
-
-        add_submenu_page(
-            'ucare_support',
-            '', __( 'Extensions', \ucare\PLUGIN_ID ),
-            'manage_support',
-            'extensions',
-            function () { echo 'sdsf'; }
-        );
+        do_action( 'support_menu_register', $this->menu_pages );
 
     }
 
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'admin_menu'        => array( 'register_menu_items', 1, 0 ),
+            'wp_loaded'         => 'register_menu',
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
@@ -269,3 +282,4 @@ class Plugin extends AbstractPlugin {
         }
     }
 }
+

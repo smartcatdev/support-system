@@ -7,11 +7,12 @@ if( !class_exists( '\smartcat\admin\SettingsSection') ) :
 class SettingsSection {
     protected $slug;
     protected $title;
-    protected $fields = [];
+    protected $fields;
 
-    public function __construct( $slug, $title ) {
+    public function __construct( $slug, $title, $fields = array() ) {
         $this->slug = $slug;
         $this->title = $title;
+        $this->fields = $fields;
     }
 
     public function get_slug() {

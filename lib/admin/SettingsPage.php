@@ -12,9 +12,20 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
      * @author Eric Green <eric@smartcat.ca>
      * @since 1.0.0
      */
-    class SettingsPage extends AbstractMenuPage {
+    class SettingsPage extends MenuPage {
 
-        protected $sections = [];
+        protected $sections = array();
+
+        public function __construct( array $config )  {
+            parent::__construct( $config );
+
+            $this->init();
+        }
+
+        public function init() {
+            add_action( 'admin_menu', array( $this, 'register_page' ) );
+            add_action( 'admin_init', array( $this, 'register_sections' ) );
+        }
 
         /**
          * Adds a section to the page.
@@ -73,13 +84,6 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
             foreach( $this->sections as $section ) {
                 $section->register( $this->menu_slug );
             }
-        }
-
-        public function subscribed_hooks() {
-            return array(
-                'admin_menu' => array( 'register_page' ),
-                'admin_init' => array( 'register_sections' )
-            );
         }
 
         /**

@@ -2,6 +2,7 @@
 
 namespace ucare\admin;
 
+use smartcat\admin\MenuPage;
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use smartcat\post\FormMetaBox;
@@ -300,22 +301,30 @@ class TicketPostType extends AbstractComponent {
         unregister_post_type( 'support_ticket' );
     }
 
-    public function register_menu_pages() {
-        add_submenu_page(
-            'ucare_support',
-            __( 'Tickets List', \ucare\PLUGIN_ID ),
-            __( 'Tickets List', \ucare\PLUGIN_ID ),
-            'edit_support_tickets',
-            'edit.php?post_type=support_ticket'
+    public function register_menu_pages( $menu ) {
+
+        $menu['ticket_list'] = new MenuPage(
+            array(
+                'type'        => 'submenu',
+                'parent_menu' => 'ucare_support',
+                'menu_title'  => __( 'Tickets List', \ucare\PLUGIN_ID ),
+                'menu_slug'   => 'edit.php?post_type=support_ticket',
+                'capability'  => 'edit_support_tickets',
+                'render'      => false
+            )
         );
 
-        add_submenu_page(
-          'ucare_support',
-            __( 'Create Ticket', \ucare\PLUGIN_ID ),
-            __( 'Create Ticket', \ucare\PLUGIN_ID ),
-            'edit_support_tickets',
-            'post-new.php?post_type=support_ticket'
+        $menu['create_ticket'] = new MenuPage(
+            array(
+                'type'        => 'submenu',
+                'parent_menu' => 'ucare_support',
+                'menu_title'  => __( 'Create Ticket', \ucare\PLUGIN_ID ),
+                'menu_slug'   => 'post-new.php?post_type=support_ticket',
+                'capability'  => 'edit_support_tickets',
+                'render'      => false
+            )
         );
+
     }
 
     public function subscribed_hooks() {

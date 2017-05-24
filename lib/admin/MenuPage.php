@@ -2,26 +2,25 @@
 
 namespace smartcat\admin;
 
+if( ! class_exists( 'smartcat\core\MenuPage' ) ) :
 
-use smartcat\core\HookSubscriber;
+class MenuPage {
 
-if( ! class_exists( 'smartcat\core\AbstractMenuPage' ) ) :
-
-abstract class AbstractMenuPage implements HookSubscriber {
-
-    protected $type;
-    protected $page_title;
-    protected $menu_title;
-    protected $capability;
-    protected $menu_slug;
-    protected $parent_menu = '';
-    protected $icon;
-    protected $position;
+    public $type;
+    public $page_title;
+    public $menu_title;
+    public $capability;
+    public $menu_slug;
+    public $parent_menu = '';
+    public $icon;
+    public $position;
+    public $render;
 
     public function __construct( array $config ) {
         $this->menu_title = $config['menu_title'];
         $this->menu_slug = $config['menu_slug'];
 
+        $this->render = isset( $config['render'] ) ? $config['render'] : true;
         $this->page_title = isset( $config['page_title'] ) ? $config['page_title'] : '';
         $this->type = isset( $config['type'] ) ? $config['type'] : 'options';
 
@@ -32,6 +31,12 @@ abstract class AbstractMenuPage implements HookSubscriber {
         $this->capability = isset( $config['capability'] ) ? $config['capability'] : 'manage_options';
         $this->icon = isset( $config['icon'] ) ? $config['icon'] : 'dashicons-admin-generic';
         $this->position = isset( $config['position'] ) ? $config['position'] : 100;
+
+        $this->init();
+    }
+
+    public function init() {
+        add_action( 'admin_menu', array( $this, 'register_page' ) );
     }
 
     public function register_page() {
@@ -45,14 +50,21 @@ abstract class AbstractMenuPage implements HookSubscriber {
         $config[] = $this->menu_title;
         $config[] = $this->capability;
         $config[] = $this->menu_slug;
-        $config[] = array( $this, 'render' );
+
+        if( is_callable( $this->render ) ) {
+            $config[] = $this->render;
+        } else {
+            $config[] = $this->render ? array( $this, 'render' ) : '';
+        }
+
         $config[] = $this->icon;
         $config[] = $this->position;
 
         call_user_func_array( "add_{$this->type}_page", $config );
     }
 
-    abstract public function render();
+
+    public function render() {}
 
     protected function do_header() {
         do_action( $this->menu_slug . '_admin_page_header' );
@@ -60,12 +72,6 @@ abstract class AbstractMenuPage implements HookSubscriber {
         if( !empty( $this->page_title ) ) {
             printf( '<h2>%1$s</h2>', $this->page_title );
         }
-    }
-
-    public function subscribed_hooks() {
-        return array(
-            'admin_menu' => array( 'register_page' ),
-        );
     }
 
 }

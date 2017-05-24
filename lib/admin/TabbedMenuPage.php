@@ -4,7 +4,7 @@ namespace smartcat\admin;
 
 if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
 
-class TabbedMenuPage extends AbstractMenuPage {
+class TabbedMenuPage extends MenuPage {
 
     protected $tabs = array();
 
@@ -12,18 +12,16 @@ class TabbedMenuPage extends AbstractMenuPage {
         parent::__construct( $config );
 
         if( isset( $config['tabs'] ) ) {
-            $this->tabs = $config['tabs'];
-        }
-
-        foreach( $this->tabs as $slug => $tab ) {
-            $tab->slug = $slug;
-            $tab->page = $this->menu_slug;
+            foreach ( $config['tabs'] as $tab ) {
+                $this->add_tab( $tab );
+            }
         }
     }
 
-    public function add_tab( $tab ) {
+    public function add_tab( MenuPageTab $tab ) {
         if( !isset( $this->tabs[ $tab->slug ] )  ) {
             $this->tabs[ $tab->slug ] = $tab;
+            $tab->page = $this->menu_slug;
         }
     }
 

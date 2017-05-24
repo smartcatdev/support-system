@@ -12,7 +12,10 @@ class ReportsOverviewTab extends MenuPageTab {
 
     public function __construct() {
 
-        parent::__construct( array( 'title' => __( 'Overview', \ucare\PLUGIN_ID ) ) );
+        parent::__construct( array(
+            'slug'  => 'overview',
+            'title' => __( 'Overview', \ucare\PLUGIN_ID )
+        ) );
 
         $this->predefined_ranges = array(
             'last_week'     => __( 'Last 7 Days', \ucare\PLUGIN_ID ),
@@ -155,7 +158,7 @@ class ReportsOverviewTab extends MenuPageTab {
                             <div class="control-group">
                                 <select name="range" class="date-range-select form-control">
 
-                                    <?php foreach($this->predefined_ranges as $option => $label ) : ?>
+                                    <?php foreach ( $this->predefined_ranges as $option => $label ) : ?>
 
                                         <option value="<?php echo $option; ?>"
                                             <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>

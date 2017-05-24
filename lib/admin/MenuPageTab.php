@@ -12,13 +12,11 @@ abstract class MenuPageTab {
 
     public function __construct( array $args ) {
         $this->title = $args['title'];
-
-        if( isset( $args['slug'] ) ) {
-            $this->slug = $args['slug'];
-        }
+        $this->slug = $args['slug'];
     }
 
     public abstract function render();
+
 }
 
 endif;

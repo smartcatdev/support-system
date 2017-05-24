@@ -7,6 +7,8 @@ use smartcat\admin\MatchFilter;
 use smartcat\admin\RangeValidator;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
+use smartcat\admin\SettingsTab;
+use smartcat\admin\TabbedMenuPage;
 use smartcat\admin\TabbedSettingsPage;
 use smartcat\admin\TextAreaField;
 use smartcat\admin\TextField;
@@ -16,22 +18,6 @@ use ucare\descriptor\Option;
 use ucare\Plugin;
 
 $plugin_url = Plugin::plugin_url( \ucare\PLUGIN_ID );
-
-$admin = new TabbedSettingsPage(
-    array(
-        'type'          => 'submenu',
-        'parent_menu'   => 'ucare_support',
-        'menu_title'    => __( 'Settings', \ucare\PLUGIN_ID ),
-        'menu_slug'     => 'support_options',
-        'tabs'          => array(
-            'general'       => __( 'General', \ucare\PLUGIN_ID ),
-            'display'       => __( 'Display', \ucare\PLUGIN_ID ),
-            'appearance'    => __( 'Appearance', \ucare\PLUGIN_ID ),
-            'notifications' => __( 'Email', \ucare\PLUGIN_ID ),
-            'advanced'      => __( 'Advanced', \ucare\PLUGIN_ID )
-        )
-    )
-);
 
 $appearance = new SettingsSection( 'appearance', __( 'Appearance', \ucare\PLUGIN_ID ) );
 
@@ -502,13 +488,50 @@ $advanced->add_field( new CheckBoxField(
 
 ) );
 
-$admin->add_section( $general, 'general' );
-$admin->add_section( $auto_close, 'general' );
-$admin->add_section( $email_notifications, 'notifications' );
-$admin->add_section( $emails, 'notifications' );
-$admin->add_section( $advanced, 'advanced' );
-$admin->add_section( $text, 'display' );
-$admin->add_section( $widgets, 'display' );
-$admin->add_section( $appearance, 'appearance' );
+$admin = new TabbedMenuPage(
+    array(
+        'type'          => 'submenu',
+        'parent_menu'   => 'ucare_support',
+        'menu_title'    => __( 'Settings', \ucare\PLUGIN_ID ),
+        'menu_slug'     => 'support_options',
+        'tabs'          => array(
+            new SettingsTab(
+                array(
+                    'slug'     => 'general',
+                    'title'    => __( 'General', \ucare\PLUGIN_ID ),
+                    'sections' => array( $general, $auto_close )
+                )
+            ),
+            new SettingsTab(
+                array(
+                    'slug'     => 'display',
+                    'title'    => __( 'Display', \ucare\PLUGIN_ID ),
+                    'sections' => array( $text, $widgets )
+                )
+            ),
+            new SettingsTab(
+                array(
+                    'slug'     => 'appearance',
+                    'title'    => __( 'Appearance', \ucare\PLUGIN_ID ),
+                    'sections' => array( $appearance )
+                )
+            ),
+            new SettingsTab(
+                array(
+                    'slug'     => 'email',
+                    'title'    => __( 'Email', \ucare\PLUGIN_ID ),
+                    'sections' => array( $emails, $email_notifications )
+                )
+            ),
+            new SettingsTab(
+                array(
+                    'slug'     => 'advanced',
+                    'title'    => __( 'Advanced', \ucare\PLUGIN_ID ),
+                    'sections' => array( $advanced )
+                )
+            )
+        )
+    )
+);
 
 return apply_filters( 'support_register_settings', $admin );
