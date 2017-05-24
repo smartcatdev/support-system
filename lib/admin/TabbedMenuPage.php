@@ -4,7 +4,6 @@ namespace smartcat\admin;
 
 if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
 
-    //TODO Investigate wrong tab being loaded by default
 class TabbedMenuPage extends MenuPage {
 
     protected $tabs = array();
@@ -27,7 +26,7 @@ class TabbedMenuPage extends MenuPage {
     }
 
     private function active_tab() {
-        $active = key( $this->tabs );
+        $active = array_keys( $this->tabs )[0];
 
         if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {
             $active = $_REQUEST['tab'];
