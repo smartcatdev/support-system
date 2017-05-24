@@ -12,6 +12,7 @@ function stale_tickets() {
     // Get the GMT date for n days ago
     $date = gmdate( 'Y-m-d 23:59:59', time() - ( 60 * 60 * 24 * $max_age ) );
 
+    // TODO check meta_key ! EXISTS stale
     $q = new \WP_Query( array(
         'post_type'    => 'support_ticket',
         'post_status'  => 'publish',

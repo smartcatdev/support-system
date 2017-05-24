@@ -4,6 +4,7 @@ namespace smartcat\admin;
 
 if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
 
+    //TODO Investigate wrong tab being loaded by default
 class TabbedMenuPage extends MenuPage {
 
     protected $tabs = array();

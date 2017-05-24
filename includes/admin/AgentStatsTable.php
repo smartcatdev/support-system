@@ -159,14 +159,14 @@ class AgentStatsTable extends ListTable {
         $totals['uc_total_assigned'] = (
             new \WP_Query(
                 array(
-                    'post_type'   => 'support_ticket',
-                    'post_status' => 'publish',
-                    'date_query' => array(
-                        'after' => $start,
-                        'before' => $end,
-                        'inclusive ' => true
+                    'posts_per_page' => -1,
+                    'post_type'      => 'support_ticket',
+                    'post_status'    => 'publish',
+                    'date_query'     => array(
+                        'after'  => $start,
+                        'before' => $end
                     ),
-                    'meta_query'  => array(
+                    'meta_query'      => array(
                         array(
                             'key'   => 'agent',
                             'value' => $id
@@ -178,9 +178,10 @@ class AgentStatsTable extends ListTable {
         $totals['uc_total_closed'] = (
             new \WP_Query(
                 array(
-                    'post_type'   => 'support_ticket',
-                    'post_status' => 'publish',
-                    'meta_query'  => array(
+                    'posts_per_page' => -1,
+                    'post_type'      => 'support_ticket',
+                    'post_status'    => 'publish',
+                    'meta_query'     => array(
                         array(
                             'key'   => 'agent',
                             'value' => $id
@@ -191,6 +192,7 @@ class AgentStatsTable extends ListTable {
                         ),
                         array(
                             'key'     => 'closed_date',
+                            'type'    => 'DATE',
                             'value'   => array( $start, $end ),
                             'compare' => 'BETWEEN'
                         ),
