@@ -109,3 +109,22 @@ td.column-id.id:before {
     margin-top: 5px;
     margin-left: 20px;
 }
+
+/* Settings Sidebar */
+#support_options_menu_page .sidebar {
+    display: none;
+    width: 25%;
+}
+
+@media(min-width: 769px) {
+    #support_options_menu_page .tabs-content {
+        width: 70%;
+    }
+
+    #support_options_menu_page .tabs-content,
+    #support_options_menu_page .sidebar {
+        float: left;
+        display: inline-block;
+    }
+}
+
