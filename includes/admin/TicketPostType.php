@@ -301,36 +301,9 @@ class TicketPostType extends AbstractComponent {
         unregister_post_type( 'support_ticket' );
     }
 
-    public function register_menu_pages( $menu ) {
-
-        $menu['ticket_list'] = new MenuPage(
-            array(
-                'type'        => 'submenu',
-                'parent_menu' => 'ucare_support',
-                'menu_title'  => __( 'Tickets List', \ucare\PLUGIN_ID ),
-                'menu_slug'   => 'edit.php?post_type=support_ticket',
-                'capability'  => 'edit_support_tickets',
-                'render'      => false
-            )
-        );
-
-        $menu['create_ticket'] = new MenuPage(
-            array(
-                'type'        => 'submenu',
-                'parent_menu' => 'ucare_support',
-                'menu_title'  => __( 'Create Ticket', \ucare\PLUGIN_ID ),
-                'menu_slug'   => 'post-new.php?post_type=support_ticket',
-                'capability'  => 'edit_support_tickets',
-                'render'      => false
-            )
-        );
-
-    }
-
     public function subscribed_hooks() {
         return array(
             'init' => array( 'register_cpt' ),
-            'support_menu_register' => array( 'register_menu_pages' ),
             'save_post' => array( 'quick_edit_save' ),
             'restrict_manage_posts' => array( 'post_table_filters' ),
             'parse_query' => array( 'filter_post_table' ),

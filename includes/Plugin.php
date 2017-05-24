@@ -25,9 +25,6 @@ class Plugin extends AbstractPlugin {
     private $menu_pages = array();
 
     public function start() {
-//        $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
-//        $this->add_api_subscriber( new RootMenuPage() );
-
         $this->config_dir = $this->dir . '/config/';
         $this->template_dir = $this->dir . '/templates/';
 
@@ -116,43 +113,6 @@ class Plugin extends AbstractPlugin {
                 $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
-    public function register_dependencies() {
-        $plugins = array(
-            array(
-                'name'     => 'WP SMTP',
-                'slug'     => 'wp-smtp',
-                'required' => false
-            )
-        );
-
-        $config = array(
-            'id'           => 'smartcat_support_required_plugins',
-            'default_path' => '',
-            'menu'         => 'tgmpa-install-plugins',
-            'parent_slug'  => 'plugins.php',
-            'capability'   => 'manage_options',
-            'has_notices'  => true,
-            'dismissable'  => true,
-            'dismiss_msg'  => '',
-            'is_automatic' => false,
-            'message'      => '',
-            'strings'      => array(
-                'notice_can_install_required' => _n_noop(
-                    'Smartcat Support requires the following plugin: %1$s.',
-                    'Smartcat Support requires the following plugins: %1$s.',
-                    \ucare\PLUGIN_ID
-                ),
-                'notice_can_install_recommended' => _n_noop(
-                    'Smartcat Support recommends the following plugin: %1$s.',
-                    'Smartcat Support recommends the following plugins: %1$s.',
-                    \ucare\PLUGIN_ID
-                ),
-            )
-        );
-
-        tgmpa( $plugins, $config );
-    }
-
     public function login_failed() {
         if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
             wp_redirect( \ucare\url() . '?login=failed' );
@@ -178,6 +138,7 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'ucare_support',
                     'menu_title'    => __( 'uCare Support', \ucare\PLUGIN_ID ),
                     'capability'    => 'manage_support',
+                    'position'      => 71,
                     'icon'          => \ucare\plugin_url() . '/assets/images/admin-icon.png',
                     'render'        => false
                 )
@@ -192,6 +153,26 @@ class Plugin extends AbstractPlugin {
                     'tabs' => array( new ReportsOverviewTab() )
                 )
             ),
+           'tickets' => new MenuPage(
+                array(
+                    'type'        => 'submenu',
+                    'parent_menu' => 'ucare_support',
+                    'menu_title'  => __( 'Tickets List', \ucare\PLUGIN_ID ),
+                    'menu_slug'   => 'edit.php?post_type=support_ticket',
+                    'capability'  => 'edit_support_tickets',
+                    'render'      => false
+                )
+            ),
+            'create_ticket' => new MenuPage(
+                array(
+                    'type'        => 'submenu',
+                    'parent_menu' => 'ucare_support',
+                    'menu_title'  => __( 'Create Ticket', \ucare\PLUGIN_ID ),
+                    'menu_slug'   => 'post-new.php?post_type=support_ticket',
+                    'capability'  => 'edit_support_tickets',
+                    'render'      => false
+                )
+            ),
             'launcher' => new MenuPage(
                 array(
                     'type'          => 'submenu',
@@ -202,7 +183,17 @@ class Plugin extends AbstractPlugin {
                     'render'        => function () { wp_safe_redirect( url() ); }
                 )
             ),
-            'settings' => include_once $this->dir . '/config/admin_settings.php'
+            'settings'   => include_once $this->dir . '/config/admin_settings.php',
+            'extensions' => new MenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'extensions',
+                    'menu_title'    => __( 'Extensions', PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'render'        => $this->template_dir . '/admin-extensions.php'
+                )
+            )
         );
 
         do_action( 'support_menu_register', $this->menu_pages );
@@ -217,7 +208,6 @@ class Plugin extends AbstractPlugin {
             'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
-//            'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),

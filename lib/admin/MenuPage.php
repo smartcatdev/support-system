@@ -53,6 +53,8 @@ class MenuPage {
 
         if( is_callable( $this->render ) ) {
             $config[] = $this->render;
+        } else if( is_file( $this->render ) ) {
+            $config[] = function () { include_once $this->render; };
         } else {
             $config[] = $this->render ? array( $this, 'render' ) : '';
         }
