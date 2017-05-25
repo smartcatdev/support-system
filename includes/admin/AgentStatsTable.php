@@ -34,8 +34,8 @@ class AgentStatsTable extends ListTable {
     public function get_sortable_columns() {
         return array(
             'uc_agent'            => array( 'uc_agent', true ),
-            'uc_number_assigned'  => array( 'uc_total_assigned', true ),
-            'uc_number_closed'    => array( 'uc_total_closed', true ),
+            'uc_number_assigned'  => array( 'uc_number_assigned', true ),
+            'uc_number_closed'    => array( 'uc_number_closed', true ),
             'uc_workload_percent' => array( 'uc_workload_percent', true )
         );
     }
@@ -113,10 +113,10 @@ class AgentStatsTable extends ListTable {
         $sort_col = array();
 
         foreach( $data as $key => $row ) {
-            $sort_col[ $key ] = $row[ isset( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : 'uc_workload_percent' ];
+            $sort_col[ $key ] = $row[ isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'uc_workload_percent' ];
         }
 
-        array_multisort( $sort_col, $_REQUEST['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
+        array_multisort( $sort_col, isset( $_GET['order'] ) && $_GET['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
 
         return $data;
     }
@@ -134,7 +134,7 @@ class AgentStatsTable extends ListTable {
 
         // Closure for calculating the totals
         $calc_workload = function( $id ) use ( $total_assigned, $agents_data ) {
-            return $agents_data[ $id ]['uc_number_assigned'] / $total_assigned * 100;
+            return $total_assigned > 0 ? $agents_data[ $id ]['uc_number_assigned'] / $total_assigned * 100 : 0;
         };
 
         if( !empty( $_GET['agent'] ) && $this->verify_nonce() ) {
