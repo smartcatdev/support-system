@@ -116,7 +116,7 @@ td.column-id.id:before {
     width: 25%;
 }
 
-@media(min-width: 769px) {
+@media(min-width: 783px) {
     #support_options_menu_page .tabs-content {
         width: 70%;
     }
