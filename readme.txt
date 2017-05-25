@@ -55,6 +55,9 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 
 == Changelog == 
 
+= 1.1.2 =
+- Fix issue with DB query showing up in the admin dashboard for some users
+
 = 1.1.1 =
 - Added confirmation for deleting images and comments
 - Gravtar of assigned agent in ticket list
