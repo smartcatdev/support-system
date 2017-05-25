@@ -69,13 +69,13 @@ class ReportsOverviewTab extends MenuPageTab {
                 const totals = <?php echo json_encode($data); ?>;
 
                 var dates = Object.keys(totals);
-                var start = moment(dates[0]);
-                var end = moment(dates[dates.length - 1]);
-                var diff = end.diff(start, 'days');
+                var diff = moment(dates[dates.length - 1]).diff(moment(dates[0]), 'days');
                 var scale = [1, 'day'];
 
-                if(diff > 14 && diff < 1095) {
-                    scale = [diff / 4, 'day']
+                if(diff > 64 && diff <= 365) {
+                    scale = [1, 'month']
+                } else if(diff > 365) {
+                    scale = [1, 'year']
                 }
 
                 var opened = [];
@@ -99,7 +99,15 @@ class ReportsOverviewTab extends MenuPageTab {
                         mode: 'time',
                         minTickSize: scale,
                         tickFormatter: function (val, axis) {
-                            return (axis.delta / 100) > 5184000 ? moment(val).format('YYYY MMM') : moment(val).format('MMM DD')
+                            var days = moment(axis.max).diff(moment(axis.min), 'days');
+
+                            if(days <= 64) {
+                                return moment(val).format('MMM DD')
+                            } else if(days <= 356) {
+                                return moment(val).format('MMM')
+                            } else {
+                                return moment(val).format('YYYY')
+                            }
                         },
                     },
                     yaxis: {
