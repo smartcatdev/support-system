@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace SmartcatSupport\admin;
 
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
@@ -78,8 +78,8 @@ class TicketPostType extends AbstractComponent {
             'hierarchical'        => false,
             'public'              => false,
             'show_ui'             => true,
-            'show_in_menu'        => true,
-            'menu_position'       => 70,
+            'show_in_menu'        => false,
+            'menu_position'       => 10,
             'menu_icon'           => 'dashicons-sos',
             'show_in_admin_bar'   => true,
             'show_in_nav_menus'   => true,
@@ -300,9 +300,28 @@ class TicketPostType extends AbstractComponent {
         unregister_post_type( 'support_ticket' );
     }
 
+    public function register_menu_pages() {
+        add_submenu_page(
+            'ucare_support',
+            __( 'Tickets List', \SmartcatSupport\PLUGIN_ID ),
+            __( 'Tickets List', \SmartcatSupport\PLUGIN_ID ),
+            'edit_support_tickets',
+            'edit.php?post_type=support_ticket'
+        );
+
+        add_submenu_page(
+          'ucare_support',
+            __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
+            __( 'Create Ticket', \SmartcatSupport\PLUGIN_ID ),
+            'edit_support_tickets',
+            'post-new.php?post_type=support_ticket'
+        );
+    }
+
     public function subscribed_hooks() {
         return array(
             'init' => array( 'register_cpt' ),
+            'support_menu_register' => array( 'register_menu_pages' ),
             'save_post' => array( 'quick_edit_save' ),
             'restrict_manage_posts' => array( 'post_table_filters' ),
             'parse_query' => array( 'filter_post_table' ),

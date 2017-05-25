@@ -26,9 +26,18 @@ namespace  SmartcatSupport\util {
     use SmartcatSupport\descriptor\Option;
     use SmartcatSupport\Plugin;
 
+    function render( $template, array $data = array() ) {
+        extract($data);
+        ob_start();
+
+        include($template);
+
+        return ob_get_clean();
+    }
 
     function user_full_name( $user ) {
         return $user->first_name . ' ' . $user->last_name;
+
     }
 
     function can_use_support( $id = false ) {
@@ -264,6 +273,29 @@ namespace  SmartcatSupport\util {
 
         return $query->posts;
     }
+
+    function date_range( $start, $end, $format = 'd-m-Y' ) {
+        $range = false;
+        $parse_date = function ( $date ) use ( $format ) {
+            if( !is_a( $date, '\DateTimeInterface' ) ) {
+                $date = date_create_from_format( $format, $date );
+            } else {
+                $tz = new \DateTimeZone( !empty( $zone = get_option( 'timezone_string' ) ) ? $zone : 'UTC' );
+                $date = new \DateTimeImmutable( $date->format( $format ), $tz );
+            }
+
+            return $date;
+        };
+
+        $start = $parse_date( $start );
+        $end = $parse_date( $end );
+
+        if( $start && $end && $start <= $end ) {
+            $range = new \DatePeriod( $start, new \DateInterval( 'P1D' ), $end->modify( '+1 day' ) );
+        }
+
+        return $range;
+    }
 }
 
 namespace SmartcatSupport\proc {
@@ -421,6 +453,47 @@ namespace SmartcatSupport\proc {
 }
 
 namespace SmartcatSupport\statprocs {
+
+    function count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
+        global $wpdb;
+
+        $data = array();
+        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), clone $d2->modify( '+1 day' ) );
+
+        $q = "SELECT (
+                SELECT COUNT(*)
+                FROM $wpdb->posts p
+                WHERE p.post_date
+                    BETWEEN %s
+                    AND %s
+                    AND p.post_type = 'support_ticket'
+                    AND p.post_status = 'publish'
+                ) AS opened, (
+                SELECT COUNT(*)
+                FROM $wpdb->posts p
+                INNER JOIN $wpdb->postmeta m
+                    on p.ID = m.post_id
+                WHERE m.meta_key = 'closed_date'
+                    AND m.meta_value BETWEEN %s AND %s
+                    AND p.post_type = 'support_ticket'
+                    AND p.post_status = 'publish'
+                ) AS closed";
+
+        foreach( $period as $date ) {
+            $date = $date->format( 'Y-m-d' );
+
+            $query = $wpdb->prepare( $q, array(
+                $date . ' 00:00:00',
+                $date . ' 23:59:59',
+                $date . ' 00:00:00',
+                $date . ' 23:59:59',
+            ) );
+
+            $data[ $date ] = $wpdb->get_row( $query, ARRAY_A );
+        }
+
+        return $data;
+    }
     
     function get_unclosed_tickets() {
         
@@ -436,7 +509,7 @@ namespace SmartcatSupport\statprocs {
         
     }
     
-    function get_ticket_count( $args ) {
+    function get_ticket_count( $args = array() ) {
         
         global $wpdb;
         

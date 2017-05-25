@@ -3,7 +3,6 @@
 namespace SmartcatSupport;
 
 use smartcat\core\AbstractPlugin;
-use smartcat\core\HookSubscriber;
 use smartcat\mail\Mailer;
 use SmartcatSupport\ajax\Media;
 use SmartcatSupport\ajax\Ticket;
@@ -12,11 +11,11 @@ use SmartcatSupport\ajax\Settings;
 use SmartcatSupport\ajax\Registration;
 use SmartcatSupport\component\ECommerce;
 use SmartcatSupport\component\Notifications;
-use SmartcatSupport\component\TicketPostType;
+use SmartcatSupport\admin\TicketPostType;
 use SmartcatSupport\component\Hacks;
 use SmartcatSupport\descriptor\Option;
 
-class Plugin extends AbstractPlugin implements HookSubscriber {
+class Plugin extends AbstractPlugin {
 
     public function start() {
         $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
@@ -67,16 +66,6 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
-    public function add_settings_shortcut() {
-        add_submenu_page( 'edit.php?post_type=support_ticket', '', __( 'Launch Help  Desk',  PLUGIN_ID ), 'manage_options', 'open_app', function () {} );
-    }
-
-    public function settings_shortcut_redirect() {
-        if( isset( $_GET['page'] ) && $_GET['page'] == 'open_app' ) {
-            wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
-        }
-    }
-
     public function add_action_links( $links ) {
 
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
@@ -88,30 +77,33 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
     }
 
-    public function admin_enqueue() {
-        wp_enqueue_media();
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script( 'wp-color-picker' );
+    public function admin_enqueue( $hook ) {
+            wp_enqueue_script( 'jquery-ui-datepicker' );
 
-        wp_enqueue_script( 'wp_media_uploader',
-            $this->url . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $this->version );
+            wp_enqueue_media();
 
-        wp_register_script( 'support-admin-js',
-            $this->url . 'assets/admin/admin.js', array( 'jquery' ), $this->version );
+            wp_enqueue_style( 'wp-color-picker');
+            wp_enqueue_script( 'wp-color-picker');
 
-        wp_localize_script( 'support-admin-js',
-            'SupportSystem', array(
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'ajax_nonce' => wp_create_nonce( 'support_ajax' )
-            )
-        );
-        wp_enqueue_script( 'support-admin-js' );
+            wp_enqueue_script( 'wp_media_uploader',
+                $this->url . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $this->version );
 
-        wp_enqueue_style( 'support-admin-icons',
-            $this->url . '/assets/icons/style.css', null, $this->version );
+            wp_register_script('support-admin-js',
+                $this->url . 'assets/admin/admin.js', array( 'jquery' ), $this->version );
 
-        wp_enqueue_style( 'support-admin-css',
-            $this->url . '/assets/admin/admin.css', null, $this->version );
+            wp_localize_script( 'support-admin-js',
+                'SupportSystem', array(
+                    'ajax_url' => admin_url( 'admin-ajax.php' ),
+                    'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+                )
+            );
+            wp_enqueue_script( 'support-admin-js');
+
+            wp_enqueue_style( 'support-admin-icons',
+                $this->url . '/assets/icons/style.css', null, $this->version );
+
+            wp_enqueue_style( 'support-admin-css',
+                $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
     public function register_dependencies() {
@@ -167,14 +159,37 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         }
     }
 
+    public function register_menu_items() {
+        add_menu_page(
+            __( 'uCare Support', PLUGIN_ID ),
+            __( 'uCare Support', PLUGIN_ID ),
+            'manage_support',
+            'ucare_support',
+            '',
+            $this->url . 'assets/images/admin-icon.png',
+            71
+        );
+
+        do_action( 'support_menu_register' );
+
+        add_submenu_page(
+            'ucare_support',
+            '', __( 'Launch Help Desk', PLUGIN_ID ),
+            'manage_support',
+            'open_app',
+            function () {
+                wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
+            }
+        );
+    }
+
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'wp_login_failed' => array( 'login_failed' ),
-            'authenticate' => array( 'authenticate', 1, 3 ),
-            'admin_footer' => array( 'feedback_form' ),
+            'admin_menu'        => array( 'register_menu_items', 1, 0 ),
+            'wp_login_failed'   => array( 'login_failed' ),
+            'authenticate'      => array( 'authenticate', 1, 3 ),
+            'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
-            'admin_menu' => array( 'add_settings_shortcut'),
-            'admin_init' => array( 'settings_shortcut_redirect' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
 //            'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
@@ -200,7 +215,8 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
             Settings::class,
             Hacks::class,
             Media::class,
-            ajax\Statistics::class
+            ajax\Statistics::class,
+            admin\Reports::class
         );
 
         if( util\ecommerce_enabled( false ) ) {
@@ -234,7 +250,7 @@ class Plugin extends AbstractPlugin implements HookSubscriber {
         return '';
     }
 
-    public function feedback_form() {
+    public function feedback_form( $hook ) {
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
             require_once $this->dir . '/templates/feedback.php';
         }

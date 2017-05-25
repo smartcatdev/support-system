@@ -11,7 +11,8 @@ $status = get_post_meta( $ticket->ID, 'status', true );
 $product = get_post_meta( $ticket->ID, 'product', true );
 $receipt_id = get_post_meta( $ticket->ID, 'receipt_id', true );
 
-$closed = get_post_meta( $ticket->ID, 'closed', true );
+$closed_date = get_post_meta( $ticket->ID, 'closed_date', true );
+$closed_by = get_post_meta( $ticket->ID, 'closed_by', true );
 
 if( array_key_exists( $product, $products ) ) {
     $product = $products[$product];
@@ -33,7 +34,7 @@ if( array_key_exists( $product, $products ) ) {
 
             </div>
 
-            <?php if( empty( $closed ) ) : ?>
+            <?php if( empty( $closed_date ) ) : ?>
 
                 <p><?php _e( 'Since ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\just_now( $ticket->post_date ); ?></p>
 
@@ -41,9 +42,9 @@ if( array_key_exists( $product, $products ) ) {
 
                 <p>
 
-                    <?php _e( 'Closed by ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\user_full_name( get_user_by( 'id', $closed['user_id'] ) ); ?>
+                    <?php _e( 'Closed by ', \SmartcatSupport\PLUGIN_ID ); ?><?php echo \SmartcatSupport\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
 
-                    (<?php echo \SmartcatSupport\util\just_now( $closed['date'] ); ?>)
+                    (<?php echo \SmartcatSupport\util\just_now( $closed_date ); ?>)
 
                 </p>
 

@@ -17,6 +17,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     protected $id;
     protected $version;
     protected $cache = array();
+    protected $db;
 
     private static $plugins_loaded = array();
 
@@ -40,6 +41,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     public static final function boot( $name, $version, $fs_context ) {
         if( !array_key_exists( $name, self::$plugins_loaded ) ) {
             $instance = new static( $name, $version, $fs_context );
+            $instance->db = $GLOBALS['wpdb'];
 
             self::$plugins_loaded[ $name ] = $instance;
 
@@ -113,7 +115,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
 
     public function perform_migrations() {
         $current = get_option( $this->id . '_version', 0 );
-        $result = null;
+        $result = true;
 
         $admin_notice = function ( $message, $class ) {
             add_action( 'admin_notices', function () use ( $message, $class ) {
@@ -128,23 +130,23 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
                 $migration = include_once( $file );
                 $version = $migration->version();
 
-                if ( $version <= $this->version && $version > $current ) {
-                    $result = $migration->migrate();
+                if( $version > $current && $version <= $this->version ) {
+                    $result = $migration->migrate( $this );
 
-                    if ( !$result['success'] ) {
+                    if( is_wp_error( $result ) || !$result['success'] ) {
                         $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-error', 'is-dismissible' ) );
                         break;
                     }
                 }
             }
 
-            if( $result['success'] ) {
-                $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-success', 'is-dismissible' ) );
+            if( !is_wp_error( $result ) || $result['success'] ) {
+                if( isset( $result['message'] ) ) {
+                    $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-success', 'is-dismissible' ) );
+                }
 
                 update_option( $this->id . '_version', $this->version );
             }
-
-            error_log( $result['message'] );
         }
     }
 
@@ -202,6 +204,10 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
 
     public function version() {
         return $this->version;
+    }
+
+    public function db() {
+        return $this->db;
     }
 
     public function subscribed_hooks( $hooks = array() )  {

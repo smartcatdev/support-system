@@ -19,7 +19,7 @@ $plugin_url = Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
 $admin = new TabbedSettingsPage(
     array(
         'type'          => 'submenu',
-        'parent_menu'   => 'edit.php?post_type=support_ticket',
+        'parent_menu'   => 'ucare_support',
         'page_title'    => __( 'Support Settings', \SmartcatSupport\PLUGIN_ID ),
         'menu_title'    => __( 'Settings', \SmartcatSupport\PLUGIN_ID ),
         'menu_slug'     => 'support_options',
@@ -470,4 +470,4 @@ $admin->add_section( $text, 'display' );
 $admin->add_section( $widgets, 'display' );
 $admin->add_section( $appearance, 'appearance' );
 
-return $admin;
+return apply_filters( 'support_register_settings', $admin );
