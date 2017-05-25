@@ -66,70 +66,36 @@ class ReportsOverviewTab extends MenuPageTab {
 
             jQuery(document).ready(function ($) {
 
-                var totals = <?php echo json_encode( $data ); ?>;
+                const totals = <?php echo json_encode($data); ?>;
 
-                var data = {
-                    series: [
-                        $.map(totals, function(el, index) {
-                            var date = moment(index);
+                var opened = [];
+                var closed = [];
 
-                            return { y: el.opened, x: date, meta: el.opened + ' Opened, ' + date.format('MMM D YYYY') }
-                        }),
-                        $.map(totals, function(el, index) {
-                            var date = moment(index);
-
-                            return { y: el.closed, x: date, meta: el.closed + ' Closed, ' + date.format('MMM D YYYY') }
-                        })
-                    ]
-                };
-
-                var chart = new Chartist.Line('#ticket-overview-chart', data, {
-                    showArea: true,
-                    showLine: false,
-                    fullWidth: true,
-                    axisY: {
-                        onlyInteger: true
-                    },
-                    axisX: {
-                        type: Chartist.AutoScaleAxis,
-                        scaleMinSpace: 120,
-                        labelInterpolationFnc: function(value, index) {
-                            if(Object.keys(totals).length > 365) {
-                                value = moment(value).format('MMM YYYY');
-                            } else {
-                                value = moment(value).format('MMM D')
-                            }
-
-                            return value
-                        }
-                    },
-                    plugins: [
-                        Chartist.plugins.tooltip({
-                            appendToBody: true
-                        }),
-                        Chartist.plugins.legend({
-                            legendNames: ['Opened', 'Closed']
-                        })
-                    ]
+                Object.keys(totals).forEach(function(key) {
+                    var time =new Date(key).getTime();
+                    opened.push([ time, totals[key].opened ]);
+                    closed.push([ time, totals[key].closed ]);
                 });
 
-                chart.on('draw', function(context) {
-                    if(context.type === 'line' || context.type === 'area') {
-                        context.element.animate({
-                            d: {
-                                begin: 2000 * context.index,
-                                dur: 2000,
-                                from: context.path.clone().scale(1, 0).translate(0, context.chartRect.height()).stringify(),
-                                to: context.path.clone().stringify(),
-                                easing: Chartist.Svg.Easing.easeOutQuint
-                            }
-                        });
-                    }
-                });
-
-                chart.on('draw', function(data) {
-                    if(data.type === 'grid' && data.index !== 0) {
-                        data.element.remove();
+                $.plot('#ticket-overview-chart', [
+                    { label: 'Opened', data: opened },
+                    { label: 'Closed', data: closed }
+                ],{
+                    series: {
+                        lines: { show: true },
+                        points: { show: true }
+                    },
+                    xaxis: {
+                        mode: 'time',
+                        tickFormatter: function (val, axis) {
+                            return (axis.delta / 100) > 5184000 ? moment(val).format('YYYY MMM') : moment(val).format('MMM DD')
+                        },
+                    },
+                    yaxis: {
+                        min: 0,
+                        minTickSize: 1,
+                        position: 'right',
+                        tickDecimals: 0
                     }
                 });
 
@@ -137,7 +103,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </script>
 
-        <div class="stats-chart-wrapper"><div id="ticket-overview-chart" class="ct-chart ct-golden-section"></div></div>
+        <div class="stats-chart-wrapper"><div id="ticket-overview-chart" style="width:100%;height:300px"></div></div>
 
     <?php }
 
