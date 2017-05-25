@@ -12,14 +12,22 @@ function stale_tickets() {
     // Get the GMT date for n days ago
     $date = gmdate( 'Y-m-d 23:59:59', time() - ( 60 * 60 * 24 * $max_age ) );
 
-    // TODO check meta_key ! EXISTS stale
     $q = new \WP_Query( array(
-        'post_type'    => 'support_ticket',
-        'post_status'  => 'publish',
-        'meta_key'     => 'status',
-        'meta_value'   => 'closed',
-        'meta_compare' => '!=',
-        'date_query'   => array(
+        'posts_per_page' => -1,
+        'post_type'      => 'support_ticket',
+        'post_status'    => 'publish',
+        'meta_query'     => array(
+            array(
+                'key'     => 'stale',
+                'compare' => 'NOT EXISTS'
+            ),
+            array(
+                'key'     => 'status',
+                'value'   => 'closed',
+                'compare' => '!='
+            )
+        ),
+        'date_query'     => array(
             array(
                 'before'    => $date,
                 'column'    => 'post_modified_gmt'
@@ -27,37 +35,44 @@ function stale_tickets() {
         )
     ) );
 
-    foreach( $q->posts as $ticket ) {
+    error_log( $q->post_count . ' tickets have been marked stale' );
 
-        // Defer until everything has loaded
-        add_action( 'wp_loaded', function () use( $ticket ) {
+    // Defer until everything has loaded
+    add_action( 'wp_loaded', function () use ( $q ) {
+
+        foreach( $q->posts as $ticket ) {
 
             // Mark the post as stale
-            update_post_meta( $ticket->ID, 'stale', true );
+            add_post_meta( $ticket->ID, 'stale', true );
 
             // Fire an action to handle ticket going stale
             do_action( 'support_mark_ticket_stale', $ticket );
 
-        } );
+        }
 
-    }
+    } );
+
 }
 
 function close_tickets() {
+
     if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
 
         // Get all stale tickets
         $q = new \WP_Query( array(
-            'post_type'    => 'support_ticket',
-            'post_status'  => 'publish',
-            'meta_key'     => 'stale',
-            'meta_value'   => true
+            'posts_per_page' => -1,
+            'post_type'      => 'support_ticket',
+            'post_status'    => 'publish',
+            'meta_key'       => 'stale',
+            'meta_value'     => true
         ) );
 
-        foreach( $q->posts as $ticket ) {
+        error_log( $q->post_count . ' tickets have been automatically closed' );
 
-            // Defer until everything has loaded
-            add_action( 'wp_loaded', function () use( $ticket ) {
+        // Defer until everything has loaded
+        add_action( 'wp_loaded', function () use( $q ) {
+
+            foreach( $q->posts as $ticket ) {
 
                 // Mark the ticket as closed and delete stale status
                 update_post_meta( $ticket->ID, 'status', 'closed' );
@@ -69,8 +84,8 @@ function close_tickets() {
                 // Fire an action to handle ticket going stale
                 do_action( 'support_autoclose_ticket', $ticket );
 
-            } );
+            }
 
-        }
+        } );
     }
 }
