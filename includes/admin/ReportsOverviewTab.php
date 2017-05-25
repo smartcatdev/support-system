@@ -196,8 +196,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                         $range = $this->date_range();
 
-                        $this->graph_data( \ucare\statprocs\count_tickets( $range['start'], $range['end'] ) );
-
+                        //$this->graph_data( \ucare\statprocs\count_tickets( $range['start'], $range['end'] ) );
                     ?>
 
                 </div>

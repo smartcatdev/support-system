@@ -474,46 +474,89 @@ namespace ucare\proc {
 
 namespace ucare\statprocs {
 
-    function count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
+    function count_tickets( $start, $end, $args = array() ) {
         global $wpdb;
 
-        $data = array();
-        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), clone $d2->modify( '+1 day' ) );
+        $start = strtotime( $start );
+        $end = strtotime( $end );
 
-        $q = "SELECT (
-                SELECT COUNT(*)
-                FROM $wpdb->posts p
-                WHERE p.post_date
-                    BETWEEN %s
-                    AND %s
-                    AND p.post_type = 'support_ticket'
-                    AND p.post_status = 'publish'
-                ) AS opened, (
-                SELECT COUNT(*)
-                FROM $wpdb->posts p
-                INNER JOIN $wpdb->postmeta m
-                    on p.ID = m.post_id
-                WHERE m.meta_key = 'closed_date'
-                    AND m.meta_value BETWEEN %s AND %s
-                    AND p.post_type = 'support_ticket'
-                    AND p.post_status = 'publish'
-                ) AS closed";
-
-        foreach( $period as $date ) {
-            $date = $date->format( 'Y-m-d' );
-
-            $query = $wpdb->prepare( $q, array(
-                $date . ' 00:00:00',
-                $date . ' 23:59:59',
-                $date . ' 00:00:00',
-                $date . ' 23:59:59',
-            ) );
-
-            $data[ $date ] = $wpdb->get_row( $query, ARRAY_A );
+        if ( !$start || !$end || $start > $end ) {
+            return new \WP_Error( 'invalid date supplied' );
         }
 
-        return $data;
+        $values = array(
+            date( 'Y-m-d 00:00:00', $start ),
+            date( 'Y-m-d 23:59:59', $end )
+        );
+
+        $q = "SELECT p.post_date as date, 
+              COUNT( * ) as count
+              FROM $wpdb->posts p " .
+                ( !empty( $args['closed'] )
+                ? " INNER JOIN $wpdb->postmeta m ON p.ID = m.post_id "
+                : "" ) .
+              " WHERE p.post_type = 'support_ticket' 
+                    AND p.post_status = 'publish' ";
+
+        if( !empty($args['closed'] ) ) {
+
+            $q .= "AND m.meta_key = 'closed_date'
+                   AND DATE(m.meta_value)
+                   BETWEEN DATE( %s ) AND DATE( %s ) ";
+
+        } else {
+
+            $q .= " AND DATE(p.post_date) 
+	                BETWEEN DATE( %s ) 
+                    AND DATE( %s )";
+        }
+
+        $q .= " GROUP BY DATE(p.post_date)";
+
+        return $wpdb->get_results( $wpdb->prepare( $q, $values ) );
+
     }
+
+//    function _count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
+//        global $wpdb;
+//
+//        $data = array();
+//        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), clone $d2->modify( '+1 day' ) );
+//
+//        $q = "SELECT (
+//                SELECT COUNT(*)
+//                FROM $wpdb->posts p
+//                WHERE p.post_date
+//                    BETWEEN %s
+//                    AND %s
+//                    AND p.post_type = 'support_ticket'
+//                    AND p.post_status = 'publish'
+//                ) AS opened, (
+//                SELECT COUNT(*)
+//                FROM $wpdb->posts p
+//                INNER JOIN $wpdb->postmeta m
+//                    on p.ID = m.post_id
+//                WHERE m.meta_key = 'closed_date'
+//                    AND m.meta_value BETWEEN %s AND %s
+//                    AND p.post_type = 'support_ticket'
+//                    AND p.post_status = 'publish'
+//                ) AS closed";
+//
+//        foreach( $period as $date ) {
+//            $date = $date->format( 'Y-m-d' );
+//
+//            $query = $wpdb->prepare( $q, array(
+//                $date . ' 00:00:00',
+//                $date . ' 23:59:59',
+//                $date . ' 00:00:00',
+//                $date . ' 23:59:59',
+//            ) );
+//
+//            $data[ $date ] = $wpdb->get_row( $query, ARRAY_A );
+//        }
+//
+//        return $data;
+//    }
     
     function get_unclosed_tickets() {
         
