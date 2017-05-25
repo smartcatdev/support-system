@@ -73,7 +73,7 @@ $user = wp_get_current_user();
                             <div id="ticket-<?php echo $ticket->ID; ?>-preview" class="tab-pane preview">
 
                                 <div class="rendered formatted"></div>
-.
+
                             </div>
 
                         </div>

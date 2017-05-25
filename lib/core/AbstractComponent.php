@@ -12,6 +12,7 @@ if( !class_exists( '\smartcat\core\AbstractComponent' ) ) :
  */
 abstract class AbstractComponent implements Component, HookSubscriber {
     protected $plugin;
+    protected $db;
 
     /**
      * Called after the Component is instantiated
@@ -21,6 +22,7 @@ abstract class AbstractComponent implements Component, HookSubscriber {
     public function init( AbstractPlugin $plugin ) {
         $this->plugin = $plugin;
         $this->plugin->add_api_subscriber( $this );
+        $this->db = $plugin->db();
     }
 
     /**

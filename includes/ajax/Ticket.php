@@ -305,11 +305,9 @@ class Ticket extends AjaxComponent {
     }
 
     public function ticket_closed( $null, $ticket_id, $key, $value ) {
-        if( $key == 'status' && $value =='closed' ) {
-            update_post_meta( $ticket_id, 'closed', array(
-                'user_id'   => wp_get_current_user()->ID,
-                'date'      => current_time( 'mysql' )
-            ) );
+        if( $key == 'status' && $value == 'closed' ) {
+            update_post_meta( $ticket_id, 'closed_date', current_time( 'mysql' ) );
+            update_post_meta( $ticket_id, 'closed_by', wp_get_current_user()->ID );
         }
 
         return $null;

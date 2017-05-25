@@ -1,0 +1,168 @@
+.hidden {
+    display: none !important;
+}
+
+.date-range-form {
+    margin: 10px auto;
+}
+
+.stats-page-wrapper .bulkactions {
+    display: none;
+}
+
+.stats-overview {
+    margin: 20px auto;
+}
+
+.stats-section {
+    background: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5e5;
+}
+
+.stats-header {
+    border: 1px solid #e5e5e5;
+    margin: -1px;
+    padding: 10px;
+}
+
+.stats-header h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.stats-footer {
+    border: 1px solid #e5e5e5;
+    margin: -1px;
+    padding: 10px;
+}
+
+.stats-chart-wrapper {
+    padding: 20px;
+}
+
+.form-inline .form-control,
+.form-inline .control-group {
+    margin: 2px;
+    text-align: center;
+    width: 100%;
+}
+
+.chartist-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    border: 1px solid #000;
+    z-index: 999;
+}
+
+.chartist-tooltip:before {
+    border-top-color: transparent;
+}
+
+.chartist-tooltip-value {
+    display: none !important;
+}
+
+.chartist-tooltip-value {
+    padding-top: 2px;
+    display: inline-block;
+}
+
+.ct-chart-line {
+    padding: 0;
+    margin-top: 20px;
+}
+
+.ct-chart .ct-grid {
+    stroke-dasharray: none;
+}
+
+.ct-chart .ct-label.ct-horizontal {
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.ct-series-a .ct-point {
+    stroke: #b0ecf7;
+}
+
+.ct-series-b .ct-point {
+    stroke: #eaa5b3;
+}
+
+.ct-series-a .ct-area {
+    fill: #40bac8;
+    stroke-width: 10px;
+}
+
+.ct-series-b .ct-area {
+    fill: #d70206;
+}
+
+@media(min-width: 767px) {
+
+    .form-inline {
+        display: table;
+    }
+
+    .form-inline .form-control,
+    .form-inline .control-group {
+        display: table-cell;
+        vertical-align: middle;
+        width: auto;
+    }
+
+    .ct-golden-section:before {
+        padding-bottom: 25%;
+    }
+
+    .ct-chart {
+        max-height: 450px;
+    }
+}
+
+.ct-legend {
+    position: relative;
+    margin: auto 20px;
+    text-align: right;
+    z-index: 10;
+    list-style: none;
+}
+
+.ct-legend li {
+    position: relative;
+    padding-left: 23px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.ct-legend li:before {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 0;
+    content: '';
+    border: 3px solid transparent;
+}
+
+.ct-legend li.inactive:before {
+    background: transparent;
+}
+
+.ct-legend li:before {
+    opacity: 0.5;
+}
+
+.ct-legend .ct-series-0:before {
+    background-color: #40bac8;
+    border-color: #40bac8;
+}
+
+.ct-legend .ct-series-1:before {
+    background-color: #d70206;
+    border-color: #d70206;
+}

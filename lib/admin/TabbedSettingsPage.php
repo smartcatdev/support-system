@@ -2,7 +2,7 @@
 
 namespace smartcat\admin;
 
-if( !class_exists( '\smartcat\form\TabbedSettingsPage' ) ) :
+if( !class_exists( '\smartcat\admin\TabbedSettingsPage' ) ) :
 
     /**
      * A Tabbed Settings page.
@@ -18,8 +18,16 @@ if( !class_exists( '\smartcat\form\TabbedSettingsPage' ) ) :
             parent::__construct( $config );
 
             foreach( $config['tabs'] as $tab => $title ) {
-                $this->tabs[ $tab ] = $title;
+                $this->add_tab( $tab, $title );
             }
+        }
+
+        public function add_tab( $name, $title ) {
+            $this->tabs[ $name ] = $title;
+        }
+
+        public function remove_tab( $name ) {
+            unset( $this->tabs[ $name ] );
         }
 
         /**
