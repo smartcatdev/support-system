@@ -2,6 +2,12 @@
 
 namespace ucare\hooks;
 
-// Register admin actions
-add_action( 'support_options_admin_page_header', 'ucare\hooks\admin_header_cta' );
-add_action( 'support_options_menu_page', 'ucare\hooks\admin_sidebar' );
+// Include admin header
+add_action( 'support_options_admin_page_header', function () {
+    include_once \ucare\plugin_dir() . '/templates/admin-header.php';
+} );
+
+// Include admin sidebar on options page
+add_action( 'support_options_menu_page', function () {
+    include_once \ucare\plugin_dir() . '/templates/admin-sidebar.php';
+} );
