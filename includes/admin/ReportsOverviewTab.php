@@ -68,11 +68,21 @@ class ReportsOverviewTab extends MenuPageTab {
 
                 const totals = <?php echo json_encode($data); ?>;
 
+                var dates = Object.keys(totals);
+                var start = moment(dates[0]);
+                var end = moment(dates[dates.length - 1]);
+                var diff = end.diff(start, 'days');
+                var scale = [1, 'day'];
+
+                if(diff > 14 && diff < 1095) {
+                    scale = [diff / 4, 'day']
+                }
+
                 var opened = [];
                 var closed = [];
 
                 Object.keys(totals).forEach(function(key) {
-                    var time =new Date(key).getTime();
+                    var time = new Date(key).getTime();
                     opened.push([ time, totals[key].opened ]);
                     closed.push([ time, totals[key].closed ]);
                 });
@@ -87,6 +97,7 @@ class ReportsOverviewTab extends MenuPageTab {
                     },
                     xaxis: {
                         mode: 'time',
+                        minTickSize: scale,
                         tickFormatter: function (val, axis) {
                             return (axis.delta / 100) > 5184000 ? moment(val).format('YYYY MMM') : moment(val).format('MMM DD')
                         },
