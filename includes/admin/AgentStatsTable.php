@@ -80,7 +80,7 @@ class AgentStatsTable extends ListTable {
                 break;
 
             case 'uc_workload_percent':
-                $data = number_format($item['uc_workload_percent'], 1 ) . '%';
+                $data = number_format( $item['uc_workload_percent'], 1 ) . '%';
                 break;
 
             default:
@@ -110,15 +110,13 @@ class AgentStatsTable extends ListTable {
         $offset = $offset = ( $page_number - 1 ) * $per_page;
         $data = array_slice( $data, $offset, $per_page );
 
-        if( !empty( $_REQUEST['orderby'] ) ) {
-            $sort_col = array();
+        $sort_col = array();
 
-            foreach( $data as $key => $row ) {
-                $sort_col[ $key ] = $row[ $_REQUEST['orderby'] ];
-            }
-
-            array_multisort( $sort_col, $_REQUEST['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
+        foreach( $data as $key => $row ) {
+            $sort_col[ $key ] = $row[ isset( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : 'uc_workload_percent' ];
         }
+
+        array_multisort( $sort_col, $_REQUEST['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
 
         return $data;
     }
