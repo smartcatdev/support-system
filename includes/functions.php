@@ -477,7 +477,7 @@ namespace ucare\statprocs {
         if( !empty( $args['closed'] ) ) {
 
             $q = "SELECT DATE_FORMAT(DATE(m.meta_value), %s ) as d,
-              COUNT(DISTINCT  m.meta_value) as c
+              COUNT(m.meta_value) as c
               FROM {$wpdb->posts} p
               INNER JOIN {$wpdb->postmeta} m 
                 ON p.ID = m.post_id
@@ -489,7 +489,7 @@ namespace ucare\statprocs {
         } else {
 
             $q = "SELECT DATE_FORMAT(DATE(p.post_date), %s ) as d,
-              COUNT(DISTINCT p.post_date) as c
+              COUNT(p.post_date) as c
               FROM {$wpdb->posts} p
               WHERE p.post_type = 'support_ticket'
                 AND p.post_status = 'publish' 

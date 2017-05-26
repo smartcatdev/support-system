@@ -109,13 +109,25 @@ function close_stale_tickets() {
 
     if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
 
+        // Calculate max age as n
+        $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
+
+        // Get the GMT date for n days ago
+        $date = gmdate( 'Y-m-d 23:59:59', time() - ( 60 * 60 * 24 * $max_age ) );
+
         // Get all stale tickets
         $q = new \WP_Query( array(
             'posts_per_page' => -1,
             'post_type'      => 'support_ticket',
             'post_status'    => 'publish',
             'meta_key'       => 'stale',
-            'meta_value'     => true
+            'meta_value'     => true,
+            'date_query'     => array(
+                array(
+                    'before'    => $date,
+                    'column'    => 'post_modified_gmt'
+                )
+            )
         ) );
 
         error_log( $q->post_count . ' tickets have been automatically closed' );
@@ -134,4 +146,5 @@ function close_stale_tickets() {
 
         }
     }
+
 }
