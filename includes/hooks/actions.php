@@ -66,7 +66,7 @@ function mark_stale_tickets() {
     $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE ) - 1;
 
     // Get the GMT date for n days ago
-    $date = gmdate( 'Y-m-d 23:59:59', time() /* - ( 60 * 60 * 24 * $max_age )*/ );
+    $date = gmdate( 'Y-m-d 23:59:59', time() - ( 60 * 60 * 24 * $max_age ) );
 
     $q = new \WP_Query( array(
         'posts_per_page' => -1,
@@ -93,20 +93,15 @@ function mark_stale_tickets() {
 
     error_log( $q->post_count . ' tickets have been marked stale' );
 
-    // Defer until everything has loaded
-    add_action( 'wp_loaded', function () use ( $q ) {
+    foreach( $q->posts as $ticket ) {
 
-        foreach( $q->posts as $ticket ) {
+        // Mark the post as stale
+        add_post_meta( $ticket->ID, 'stale', true );
 
-            // Mark the post as stale
-            add_post_meta( $ticket->ID, 'stale', true );
+        // Fire an action to handle ticket going stale
+        do_action( 'support_mark_ticket_stale', $ticket );
 
-            // Fire an action to handle ticket going stale
-            do_action( 'support_mark_ticket_stale', $ticket );
-
-        }
-
-    } );
+    }
 
 }
 
@@ -125,23 +120,18 @@ function close_stale_tickets() {
 
         error_log( $q->post_count . ' tickets have been automatically closed' );
 
-        // Defer until everything has loaded
-        add_action( 'wp_loaded', function () use( $q ) {
+        foreach( $q->posts as $ticket ) {
 
-            foreach( $q->posts as $ticket ) {
+            // Mark the ticket as closed and delete stale status
+            update_post_meta( $ticket->ID, 'status', 'closed' );
 
-                // Mark the ticket as closed and delete stale status
-                update_post_meta( $ticket->ID, 'status', 'closed' );
+            // overwrite the user ID to nobody
+            update_post_meta( $ticket->ID, 'closed_by', -1 );
+            delete_post_meta( $ticket->ID, 'stale' );
 
-                // overwrite the user ID to nobody
-                update_post_meta( $ticket->ID, 'closed_by', -1 );
-                delete_post_meta( $ticket->ID, 'stale' );
+            // Fire an action to handle ticket going stale
+            do_action( 'support_autoclose_ticket', $ticket );
 
-                // Fire an action to handle ticket going stale
-                do_action( 'support_autoclose_ticket', $ticket );
-
-            }
-
-        } );
+        }
     }
 }
