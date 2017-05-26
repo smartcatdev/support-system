@@ -48,4 +48,33 @@ jQuery(document).ready(function ($) {
         $('.date-range').toggleClass('hidden', range !== 'custom');
     });
 
+    $("<div id='tooltip'></div>").css({
+        position: 'absolute',
+        display: 'none',
+        border: '1px solid #fdd',
+        padding: '2px',
+        'background-color': '#fee',
+        opacity: 0.80
+    })
+    .appendTo("body");
+
+    $('.reports-graph').bind("plothover", function (event, pos, item) {
+
+        if (item) {
+            var x = item.datapoint[0].toFixed(0),
+                y = item.datapoint[1].toFixed(0);
+
+            $("#tooltip").html(y + " " + item.series.label)
+                .css({
+                    top: item.pageY - 35,
+                    left: item.pageX - 26
+                })
+                .fadeIn(200);
+
+        } else {
+            $("#tooltip").hide();
+        }
+
+    });
+
 });

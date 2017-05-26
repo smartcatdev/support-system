@@ -81,7 +81,8 @@ class ReportsOverviewTab extends MenuPageTab {
                 ],{
                     colors: [ '#EDC240', '#AFD8F8' ],
                     grid: {
-                        margin: { right: 10 }
+                        margin: { right: 10 },
+                        hoverable: true
                     },
                     series: {
                         lines: { show: true },
@@ -104,7 +105,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </script>
 
-        <div class="stats-chart-wrapper"><div id="ticket-overview-chart" style="width:100%;height:300px"></div></div>
+        <div class="stats-chart-wrapper"><div class="reports-graph" id="ticket-overview-chart" style="width:100%;height:300px"></div></div>
 
     <?php }
 
