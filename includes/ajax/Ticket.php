@@ -106,16 +106,6 @@ class Ticket extends AjaxComponent {
 
                     foreach( $form->data as $field => $value ) {
 
-                        if( $field == 'status' ) {
-
-                            // Update post modified to reflect when 'Since' value on front-end app
-                            wp_update_post( array(
-                                'ID'                => $ticket->ID,
-                                'post_modified'     => current_time( 'mysql' ),
-                                'post_modified_gmt' => current_time( 'mysql', 1 )
-                            ) );
-                        }
-
                         update_post_meta( $ticket->ID, $field, $value );
 
                     }
@@ -185,9 +175,7 @@ class Ticket extends AjaxComponent {
         if( !empty( $ticket ) ) {
 
             $html = $this->render( $this->plugin->template_dir . '/comments.php',
-                array(
-                    'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
-                )
+                array( 'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) ) )
             );
 
             wp_send_json_success( $html );
@@ -225,15 +213,6 @@ class Ticket extends AjaxComponent {
             ) );
 
             if ( !is_wp_error( $comment ) ) {
-                if ( current_user_can( 'manage_support_tickets' ) ) {
-
-                    if( $status != 'closed' ) {
-                        update_post_meta($ticket->ID, 'status', 'waiting');
-                    }
-
-                } elseif ( $status != 'new' && $status != 'closed' ) {
-                    update_post_meta( $ticket->ID, 'status', 'responded' );
-                }
 
                 do_action( 'support_ticket_reply', $comment, $ticket );
 
@@ -319,15 +298,6 @@ class Ticket extends AjaxComponent {
         return $args;
     }
 
-    public function ticket_closed( $null, $ticket_id, $key, $value ) {
-        if( $key == 'status' && $value == 'closed' ) {
-            update_post_meta( $ticket_id, 'closed_date', current_time( 'mysql' ) );
-            update_post_meta( $ticket_id, 'closed_by', wp_get_current_user()->ID );
-        }
-
-        return $null;
-    }
-
     /**
      * Hooks that the Component is subscribed to.
      *
@@ -350,8 +320,6 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
 
             'support_ticket_list_query_vars' => array( 'filter_tickets' ),
-
-            'update_post_metadata' => array( 'ticket_closed', 10, 4 ),
         ) );
     }
 

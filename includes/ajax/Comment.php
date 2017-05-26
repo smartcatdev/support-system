@@ -24,9 +24,7 @@ class Comment extends AjaxComponent {
                 ) );
 
                 $html = $this->render( $this->plugin->template_dir . '/comment.php',
-                    array(
-                        'comment' => $this->get_comment( $comment->comment_ID )
-                    )
+                    array( 'comment' => $this->get_comment( $comment->comment_ID ) )
                 );
 
                 if( $result ) {
