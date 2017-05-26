@@ -8,6 +8,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
     private $predefined_ranges;
 
+    private $default_start;
+    private $today;
+
     private $start_date = '';
     private $end_date = '';
 
@@ -26,6 +29,9 @@ class ReportsOverviewTab extends MenuPageTab {
             'custom'        => __( 'Custom', \ucare\PLUGIN_ID ),
         );
 
+        $this->today = date_create();
+        $this->default_start = date_create()->sub( new \DateInterval( 'P7D' ) );
+
         $this->date_range();
     }
 
@@ -38,8 +44,8 @@ class ReportsOverviewTab extends MenuPageTab {
 
         } else {
 
-            $this->start_date = date_create()->sub( new \DateInterval( 'P7D' ) );
-            $this->end_date = date_create();
+            $this->start_date = $this->default_start;
+            $this->end_date = $this->today;
 
         }
     }
@@ -101,6 +107,30 @@ class ReportsOverviewTab extends MenuPageTab {
 
     public function render() { ?>
 
+        <script>
+
+            // Print out the default dates so we can set the picker from the front end
+            var default_dates = {
+              'last_week': {
+                  start: '<?php  echo date( 'Y-m-d', strtotime( '-7 days' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-d', strtotime( 'now' ) ); ?>',
+              },
+              'this_month': {
+                  start: '<?php  echo date( 'Y-m-01', strtotime( 'now' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-t',  strtotime( 'now' ) ); ?>'
+              },
+              'last_month': {
+                  start: '<?php  echo date( 'Y-m-01',  strtotime( '-1 month' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-t',   strtotime( '-1 month' ) ); ?>'
+              },
+              'this_year': {
+                  start: '<?php  echo date( 'Y-01-01', strtotime( 'now' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-12-t',  strtotime( 'now' ) ); ?>',
+              }
+            };
+
+        </script>
+
         <div class="stats-page-wrapper">
 
             <form method="get">
@@ -132,14 +162,11 @@ class ReportsOverviewTab extends MenuPageTab {
                                 <span class="start_date">
                                     <?php
 
-                                        $date = date_create();
-                                        $default = $date->sub( new \DateInterval( 'P7D' ) );
-
                                         $this->date_picker(
                                             'start_',
-                                            $default->format( 'n' ),
-                                            $default->format( 'j' ),
-                                            $default->format( 'Y' )
+                                            $this->default_start->format( 'n' ),
+                                            $this->default_start->format( 'j' ),
+                                            $this->default_start->format( 'Y' )
                                         );
 
                                     ?>
@@ -150,9 +177,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
                                         $this->date_picker(
                                             'end_',
-                                            $date->format( 'n' ),
-                                            $date->format( 'j' ),
-                                            $date->format( 'Y' )
+                                            $this->today->format( 'n' ),
+                                            $this->today->format( 'j' ),
+                                            $this->today->format( 'Y' )
                                         );
 
                                     ?>
