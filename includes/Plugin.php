@@ -188,8 +188,8 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'extensions',
-                    'menu_title'    => __( 'Extensions', PLUGIN_ID ),
+                    'menu_slug'     => 'add-ons',
+                    'menu_title'    => __( 'Add-ons', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'render'        => $this->template_dir . '/admin-extensions.php'
                 )
