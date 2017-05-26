@@ -42,14 +42,14 @@ class ReportsOverviewTab extends MenuPageTab {
 
             wp_verify_nonce( $_REQUEST['overview_date_nonce'],'overview_date_range' ) ) {
 
-            $this->start_date = new \DateTime( $_GET['start_year']  . '-' . $_GET['start_month'] . '-' . $_GET['start_day'] );
-            $this->end_date   = new \DateTime( $_GET['end_year']    . '-' . $_GET['end_month']   . '-' . $_GET['end_day'] );
+            $this->start_date = date_create_from_format( 'Y-m-d', $_GET['start_year']  . '-' . $_GET['start_month'] . '-' . $_GET['start_day'] );
+            $this->end_date =   date_create_from_format( 'Y-m-d',  $_GET['end_year']   . '-' . $_GET['end_month']   . '-' . $_GET['end_day'] );
 
-        } else {
+        }
 
+        if( !$this->start_date || !$this->end_date || $this->start_date > $this->end_date ) {
             $this->start_date = $this->default_start;
             $this->end_date = $this->today;
-
         }
     }
 
