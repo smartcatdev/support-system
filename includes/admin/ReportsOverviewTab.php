@@ -36,7 +36,10 @@ class ReportsOverviewTab extends MenuPageTab {
     }
 
     private function date_range() {
-        if( isset( $_REQUEST['overview_date_nonce'] ) &&
+        if( !empty( $_REQUEST['overview_date_nonce'] ) &&
+            !empty( $_GET['start_year'] ) && !empty( $_GET['start_month'] ) && !empty( $_GET['start_day'] ) &&
+            !empty( $_GET['end_year'] )   && !empty( $_GET['end_month'] )   && !empty( $_GET['end_day'] )   &&
+
             wp_verify_nonce( $_REQUEST['overview_date_nonce'],'overview_date_range' ) ) {
 
             $this->start_date = new \DateTime( $_GET['start_year']  . '-' . $_GET['start_month'] . '-' . $_GET['start_day'] );
