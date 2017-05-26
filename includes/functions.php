@@ -477,86 +477,81 @@ namespace ucare\statprocs {
     function count_tickets( $start, $end, $args = array() ) {
         global $wpdb;
 
-        $start = strtotime( $start );
-        $end = strtotime( $end );
+        $start = is_a( $start, 'DateTimeInterface' ) ? $start : date_create( strtotime( $start ) );
+        $end =   is_a( $end, 'DateTimeInterface' )   ? $end   : date_create( strtotime( $end ) );
 
-        if ( !$start || !$end || $start > $end ) {
+        if( !$start || !$end || $start > $end ) {
             return new \WP_Error( 'invalid date supplied' );
         }
 
-        $values = array(
-            date( 'Y-m-d 00:00:00', $start ),
-            date( 'Y-m-d 23:59:59', $end )
-        );
+        // Default count by day
+        $range = "%Y-%m-%d";
+        $interval = new \DateInterval( 'P1D' );
+        $diff = $end->diff( $start )->format( '%a' );
 
-        $q = "SELECT p.post_date as date, 
-              COUNT( * ) as count
-              FROM $wpdb->posts p " .
-                ( !empty( $args['closed'] )
-                ? " INNER JOIN $wpdb->postmeta m ON p.ID = m.post_id "
-                : "" ) .
-              " WHERE p.post_type = 'support_ticket' 
-                    AND p.post_status = 'publish' ";
+        // Get monthly totals if greater than 2 months
+        if ( $diff > 62 ) {
+            $range = "%Y-%m";
+            $interval = new \DateInterval( 'P1M' );
+        }
 
-        if( !empty($args['closed'] ) ) {
+        $values = array($range, $start->format( 'Y-m-d: 00:00:00' ), $end->format( 'Y-m-d 23:59:59' ) );
 
-            $q .= "AND m.meta_key = 'closed_date'
-                   AND DATE(m.meta_value)
-                   BETWEEN DATE( %s ) AND DATE( %s ) ";
+        if( !empty( $args['closed'] ) ) {
+
+            $q = "SELECT DATE_FORMAT(DATE(m.meta_value), %s ) as d,
+              COUNT(DISTINCT m.meta_value) as c
+              FROM {$wpdb->posts} p
+              INNER JOIN {$wpdb->postmeta} m 
+                ON p.ID = m.post_id
+              WHERE p.post_type = 'support_ticket'
+                AND p.post_status = 'publish' 
+                AND m.meta_key = 'closed_date'
+                AND (DATE(m.meta_value) BETWEEN DATE( %s ) AND DATE( %s )) ";
 
         } else {
 
-            $q .= " AND DATE(p.post_date) 
-	                BETWEEN DATE( %s ) 
-                    AND DATE( %s )";
+            $q = "SELECT DATE_FORMAT(DATE(p.post_date), %s ) as d,
+              COUNT(DISTINCT p.post_date) as c
+              FROM {$wpdb->posts} p
+              WHERE p.post_type = 'support_ticket'
+                AND p.post_status = 'publish' 
+                AND (DATE(p.post_date) BETWEEN DATE( %s ) AND DATE( %s )) ";
+
         }
 
-        $q .= " GROUP BY DATE(p.post_date)";
+        $q .= " GROUP BY d ORDER BY d";
 
-        return $wpdb->get_results( $wpdb->prepare( $q, $values ) );
+        // Get the data from the query
+        $results = $wpdb->get_results( $wpdb->prepare( $q, $values ), ARRAY_A );
+        $data = array();
 
+        // All dates in the period at a set interval
+        $dates = new \DatePeriod( $start, $interval, clone $end->modify( '+1 second' ) );
+
+        foreach( $dates as $date ) {
+
+            $curr = $date->format( 'Y-m-d' );
+
+            // Set it to 0 by default for this date
+            $data[ $curr ] = 0;
+
+            // Loop through each found total
+            foreach( $results as $result ) {
+
+                // If the total's date is like the current date set it
+                if( strpos( $curr, $result['d'] ) !== false ) {
+
+                    $data[ $curr ] = ( int ) $result['c'];
+
+                }
+
+            }
+
+        }
+
+        return $data;
     }
-
-//    function _count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
-//        global $wpdb;
-//
-//        $data = array();
-//        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), clone $d2->modify( '+1 day' ) );
-//
-//        $q = "SELECT (
-//                SELECT COUNT(*)
-//                FROM $wpdb->posts p
-//                WHERE p.post_date
-//                    BETWEEN %s
-//                    AND %s
-//                    AND p.post_type = 'support_ticket'
-//                    AND p.post_status = 'publish'
-//                ) AS opened, (
-//                SELECT COUNT(*)
-//                FROM $wpdb->posts p
-//                INNER JOIN $wpdb->postmeta m
-//                    on p.ID = m.post_id
-//                WHERE m.meta_key = 'closed_date'
-//                    AND m.meta_value BETWEEN %s AND %s
-//                    AND p.post_type = 'support_ticket'
-//                    AND p.post_status = 'publish'
-//                ) AS closed";
-//
-//        foreach( $period as $date ) {
-//            $date = $date->format( 'Y-m-d' );
-//
-//            $query = $wpdb->prepare( $q, array(
-//                $date . ' 00:00:00',
-//                $date . ' 23:59:59',
-//                $date . ' 00:00:00',
-//                $date . ' 23:59:59',
-//            ) );
-//
-//            $data[ $date ] = $wpdb->get_row( $query, ARRAY_A );
-//        }
-//
-//        return $data;
-//    }
     
     function get_unclosed_tickets() {
         

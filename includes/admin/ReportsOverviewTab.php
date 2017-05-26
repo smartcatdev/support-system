@@ -6,9 +6,10 @@ use smartcat\admin\MenuPageTab;
 
 class ReportsOverviewTab extends MenuPageTab {
 
-    private $date;
-
     private $predefined_ranges;
+
+    private $start_date = '';
+    private $end_date = '';
 
     public function __construct() {
 
@@ -25,67 +26,45 @@ class ReportsOverviewTab extends MenuPageTab {
             'custom'        => __( 'Custom', \ucare\PLUGIN_ID ),
         );
 
-        $this->date = new \DateTimeImmutable();
-    }
-
-    private function default_start() {
-        return $this->date->sub( new \DateInterval( 'P7D' ) );
+        $this->date_range();
     }
 
     private function date_range() {
-        $dates = array();
-
         if( isset( $_REQUEST['overview_date_nonce'] ) &&
             wp_verify_nonce( $_REQUEST['overview_date_nonce'],'overview_date_range' ) ) {
 
-            $dates['start'] = date_create(
-                ( isset($_GET['start_year']) ? $_GET['start_year'] : '' ) . '-' .
-                ( isset($_GET['start_month']) ? $_GET['start_month'] : '' ) . '-' .
-                ( isset($_GET['start_day']) ? $_GET['start_day'] : '' )
-            );
+            $this->start_date = new \DateTime( $_GET['start_year']  . '-' . $_GET['start_month'] . '-' . $_GET['start_day'] );
+            $this->end_date   = new \DateTime( $_GET['end_year']    . '-' . $_GET['end_month']   . '-' . $_GET['end_day'] );
 
-            $dates['end'] = date_create(
-                ( isset($_GET['end_year'] ) ? $_GET['end_year'] : '' ) . '-' .
-                ( isset($_GET['end_month'] ) ? $_GET['end_month'] : '' ) . '-' .
-                ( isset($_GET['end_day'] ) ? $_GET['end_day'] : '' )
-            );
+        } else {
+
+            $this->start_date = date_create()->sub( new \DateInterval( 'P7D' ) );
+            $this->end_date = date_create();
 
         }
-
-        if( empty( $dates ) || !$dates['start'] || !$dates['end'] ) {
-            $dates['start'] = $this->default_start();
-            $dates['end'] = $this->date;
-        }
-
-        return $dates;
     }
 
-    private function graph_data( $data ) { ?>
+    private function graph_data() {
 
-        <script>
+        $opened = \ucare\statprocs\count_tickets( $this->start_date, $this->end_date );
+        $closed = \ucare\statprocs\count_tickets( $this->start_date, $this->end_date, array( 'closed' => true ) );
+
+        ?><script>
 
             jQuery(document).ready(function ($) {
 
-                const totals = <?php echo json_encode($data); ?>;
+                var opened = format_data(<?php echo json_encode( $opened ); ?>);
+                var closed = format_data(<?php echo json_encode( $closed ); ?>);
 
-                var dates = Object.keys(totals);
-                var diff = moment(dates[dates.length - 1]).diff(moment(dates[0]), 'days');
-                var scale = [1, 'day'];
+                function format_data(set) {
+                    var totals = [];
 
-                if(diff > 64 && diff <= 365) {
-                    scale = [1, 'month']
-                } else if(diff > 365) {
-                    scale = [1, 'year']
+                    Object.keys(set).forEach(function(date) {
+                        totals.push([ new Date(date).getTime(), set[ date ] ]);
+                    });
+
+                    return totals;
                 }
-
-                var opened = [];
-                var closed = [];
-
-                Object.keys(totals).forEach(function(key) {
-                    var time = new Date(key).getTime();
-                    opened.push([ time, totals[key].opened ]);
-                    closed.push([ time, totals[key].closed ]);
-                });
 
                 $.plot('#ticket-overview-chart', [
                     { label: 'Opened', data: opened },
@@ -97,18 +76,7 @@ class ReportsOverviewTab extends MenuPageTab {
                     },
                     xaxis: {
                         mode: 'time',
-                        minTickSize: scale,
-                        tickFormatter: function (val, axis) {
-                            var days = moment(axis.max).diff(moment(axis.min), 'days');
-
-                            if(days <= 64) {
-                                return moment(val).format('MMM DD')
-                            } else if(days <= 356) {
-                                return moment(val).format('MMM')
-                            } else {
-                                return moment(val).format('YYYY')
-                            }
-                        },
+                        minTickSize: [1, 'day']
                     },
                     yaxis: {
                         min: 0,
@@ -159,7 +127,8 @@ class ReportsOverviewTab extends MenuPageTab {
                                 <span class="start_date">
                                     <?php
 
-                                        $default = $this->default_start();
+                                        $date = date_create();
+                                        $default = $date->sub( new \DateInterval( 'P7D' ) );
 
                                         $this->date_picker(
                                             'start_',
@@ -176,9 +145,9 @@ class ReportsOverviewTab extends MenuPageTab {
 
                                         $this->date_picker(
                                             'end_',
-                                            $this->date->format( 'n' ),
-                                            $this->date->format( 'j' ),
-                                            $this->date->format( 'Y' )
+                                            $date->format( 'n' ),
+                                            $date->format( 'j' ),
+                                            $date->format( 'Y' )
                                         );
 
                                     ?>
@@ -192,18 +161,13 @@ class ReportsOverviewTab extends MenuPageTab {
                 </div>
                 <div class="stats-graph stats-section">
 
-                    <?php
-
-                        $range = $this->date_range();
-
-                        //$this->graph_data( \ucare\statprocs\count_tickets( $range['start'], $range['end'] ) );
-                    ?>
+                    <?php $this->graph_data(); ?>
 
                 </div>
 
                 <?php
 
-                    $totals = new AgentStatsTable( $range['start'], $range['end'] );
+                    $totals = new AgentStatsTable( $this->start_date, $this->end_date );
 
                     $totals->prepare_items();
                     $totals->display();
@@ -246,7 +210,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </select>
 
-        <?php $this_year = $this->date->format( 'Y' ); ?>
+        <?php $this_year = date_create()->format( 'Y' ); ?>
 
         <select name="<?php echo $prefix; ?>year">
 
