@@ -67,9 +67,13 @@ class ReportsOverviewTab extends MenuPageTab {
                 }
 
                 $.plot('#ticket-overview-chart', [
-                    { label: 'Opened', data: opened },
-                    { label: 'Closed', data: closed }
+                    { label: '<?php _e( 'Opened', \ucare\PLUGIN_ID ); ?>', data: opened },
+                    { label: '<?php _e( 'Closed', \ucare\PLUGIN_ID ); ?>', data: closed, yaxis: 2 }
                 ],{
+                    colors: [ '#EDC240', '#AFD8F8' ],
+                    grid: {
+                        margin: { right: 10 }
+                    },
                     series: {
                         lines: { show: true },
                         points: { show: true }
@@ -82,7 +86,8 @@ class ReportsOverviewTab extends MenuPageTab {
                         min: 0,
                         minTickSize: 1,
                         position: 'right',
-                        tickDecimals: 0
+                        tickDecimals: 0,
+                        tickLength: 0
                     }
                 });
 
