@@ -16,7 +16,7 @@ function ticket_updated( $null, $id, $key, $value ) {
 
     global $wpdb;
 
-    if( get_post_type( $id ) == 'support_ticket' ) {
+    if( get_post_type( $id ) == 'support_ticket' && $key == 'status' ) {
 
         $q = "UPDATE {$wpdb->posts}
               SET post_modified = %s, post_modified_gmt = %s
@@ -26,7 +26,7 @@ function ticket_updated( $null, $id, $key, $value ) {
 
         $wpdb->query( $q );
 
-        if( $key == 'status' && $value == 'closed' ) {
+        if( $value == 'closed' ) {
 
             update_post_meta( $id, 'closed_date', current_time( 'mysql' ) );
             update_post_meta( $id, 'closed_by', wp_get_current_user()->ID );
