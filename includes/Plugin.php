@@ -33,14 +33,14 @@ class Plugin extends AbstractPlugin {
 
         Mailer::init( $this );
 
-        \ucare\proc\configure_roles();
-        \ucare\proc\schedule_cron_jobs();
+        proc\configure_roles();
     }
 
     public function activate() {
-        \ucare\proc\configure_roles();
-        \ucare\proc\create_email_templates();
-        \ucare\proc\setup_template_page();
+        proc\configure_roles();
+        proc\create_email_templates();
+        proc\setup_template_page();
+        proc\schedule_cron_jobs();
     }
 
     public function deactivate() {
@@ -55,8 +55,8 @@ class Plugin extends AbstractPlugin {
         // Trash the template page
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
-        \ucare\proc\cleanup_roles();
-        \ucare\proc\clear_scheduled_jobs();
+        proc\cleanup_roles();
+        proc\clear_scheduled_jobs();
 
         Mailer::cleanup();
 

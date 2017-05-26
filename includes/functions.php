@@ -273,29 +273,6 @@ namespace  ucare\util {
 
         return $query->posts;
     }
-
-    function date_range( $start, $end, $format = 'd-m-Y' ) {
-        $range = false;
-        $parse_date = function ( $date ) use ( $format ) {
-            if( !is_a( $date, '\DateTimeInterface' ) ) {
-                $date = date_create_from_format( $format, $date );
-            } else {
-                $tz = new \DateTimeZone( !empty( $zone = get_option( 'timezone_string' ) ) ? $zone : 'UTC' );
-                $date = new \DateTimeImmutable( $date->format( $format ), $tz );
-            }
-
-            return $date;
-        };
-
-        $start = $parse_date( $start );
-        $end = $parse_date( $end );
-
-        if( $start && $end && $start <= $end ) {
-            $range = new \DatePeriod( $start, new \DateInterval( 'P1D' ), $end->modify( '+1 day' ) );
-        }
-
-        return $range;
-    }
 }
 
 namespace ucare\proc {
@@ -303,18 +280,18 @@ namespace ucare\proc {
     use ucare\descriptor\Option;
 
     function schedule_cron_jobs() {
-        if ( !wp_next_scheduled( 'ucare\cron\stale_tickets' ) ) {
-            wp_schedule_event( time(), 'hourly', 'ucare\cron\stale_tickets' );
+        if ( !wp_next_scheduled( 'ucare_cron_stale_tickets' ) ) {
+            wp_schedule_event( time(), 'daily', 'ucare_cron_stale_tickets' );
         }
 
-        if ( !wp_next_scheduled( 'ucare\cron\close_tickets' ) ) {
-            wp_schedule_event( time(), 'hourly', 'ucare\cron\close_tickets' );
+        if ( !wp_next_scheduled( 'ucare_cron_close_tickets' ) ) {
+            wp_schedule_event( time(), 'daily', 'ucare_cron_close_tickets' );
         }
     }
 
     function clear_scheduled_jobs() {
-        wp_clear_scheduled_hook( 'ucare\cron\stale_tickets' );
-        wp_clear_scheduled_hook( 'ucare\cron\close_tickets' );
+        wp_clear_scheduled_hook( 'ucare_cron_stale_tickets' );
+        wp_clear_scheduled_hook( 'ucare_cron_close_tickets' );
     }
 
     function setup_template_page() {
