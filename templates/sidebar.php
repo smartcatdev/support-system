@@ -36,7 +36,16 @@ if( array_key_exists( $product, $products ) ) {
 
             <?php if( empty( $closed_date ) ) : ?>
 
-                <p><?php _e( 'Since ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\just_now( $ticket->post_modified ); ?></p>
+                <p>
+                    <?php _e( 'Since ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\just_now( $ticket->post_modified ); ?>
+
+                    <?php if( get_post_meta( $ticket->ID, 'stale', true ) ) : ?>
+
+                        <span class="glyphicon glyphicon-time ticket-stale"></span>
+
+                    <?php endif; ?>
+
+                </p>
 
             <?php else : ?>
 

@@ -90,6 +90,16 @@ use ucare\descriptor\Option;
 
                                 <?php endif; ?>
 
+                                <?php if( get_post_meta( $post->ID, 'stale', true ) ) : ?>
+
+                                    <div class="indicator">
+
+                                        <span class="glyphicon glyphicon-time"></span>
+
+                                    </div>
+
+                                <?php endif; ?>
+
                                 <?php $attachments = count( get_attached_media( 'image', $post->ID ) ); ?>
 
                                 <?php if( $attachments > 0 ) : ?>
