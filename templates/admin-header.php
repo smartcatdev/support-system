@@ -1,3 +1,4 @@
+<!--
 <div id="ucare-settings-header">
     
     <div class="alignleft header-component">
@@ -16,3 +17,4 @@
     <div class="clear"></div>
     
 </div>
+-->
