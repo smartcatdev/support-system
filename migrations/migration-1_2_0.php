@@ -23,7 +23,6 @@ class migration_1_2_0 implements smartcat\core\Migration {
         $this->plugin = $plugin;
         
         $this->separate_meta_keys();
-        $this->create_email_template();
         $this->setup_cron();
 
         return array( 'success' => true, 'message' => 'uCare has been successfully upgraded to version 1.2.0' );
@@ -44,22 +43,6 @@ class migration_1_2_0 implements smartcat\core\Migration {
 
                 delete_post_meta( $ticket->ID, 'closed' );
             }
-        }
-    }
-
-    function create_email_template() {
-        $id = wp_insert_post(
-            array(
-                'post_type'     => 'email_template',
-                'post_status'   => 'publish',
-                'post_title'    => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID ),
-                'post_content'  => file_get_contents( $this->plugin->dir() . 'emails/ticket-close-warning.html' )
-            )
-        );
-
-        if( $id ) {
-            update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
-            add_option( Option::INACTIVE_EMAIL, $id );
         }
     }
 

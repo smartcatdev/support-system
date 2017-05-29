@@ -303,7 +303,7 @@ $general->add_field( new TextField(
     )
 
 ) );
-
+/*
 $auto_close = new SettingsSection( 'auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
 $auto_close_interval = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
@@ -330,7 +330,7 @@ $auto_close->add_field( new TextField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) );
+) );*/
 
 $emails = new SettingsSection( 'email_templates', __( 'Email Templates', \ucare\PLUGIN_ID ) );
 
@@ -396,7 +396,7 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
-) )->add_field( new SelectBoxField(
+) )/*->add_field( new SelectBoxField(
     array(
         'id'            => 'support_autoclose_email_template',
         'option'        => Option::INACTIVE_EMAIL,
@@ -408,7 +408,7 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
-) );
+) )*/;
 
 $email_notifications = new SettingsSection( 'email_notifications', __( 'Email Notifications', \ucare\PLUGIN_ID ) );
 
@@ -499,7 +499,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
-                    'sections' => array( $general, $auto_close )
+                    'sections' => array( $general, /*$auto_close*/ )
                 )
             ),
             new SettingsTab(

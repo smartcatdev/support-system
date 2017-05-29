@@ -19,5 +19,5 @@ add_action( 'comment_post', 'ucare\hooks\comment_save' );
 add_action( 'edit_comment', 'ucare\hooks\comment_save' );
 
 
-add_action( 'ucare_cron_stale_tickets', 'ucare\hooks\mark_stale_tickets' );
-add_action( 'ucare_cron_close_tickets', 'ucare\hooks\close_stale_tickets' );
+//add_action( 'ucare_cron_stale_tickets', 'ucare\hooks\mark_stale_tickets' );
+//add_action( 'ucare_cron_close_tickets', 'ucare\hooks\close_stale_tickets' );
