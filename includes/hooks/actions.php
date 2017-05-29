@@ -26,6 +26,8 @@ function ticket_updated( $null, $id, $key, $value ) {
 
         $wpdb->query( $q );
 
+        delete_post_meta( $id, 'stale' );
+
         if( $value == 'closed' ) {
 
             update_post_meta( $id, 'closed_date', current_time( 'mysql' ) );
