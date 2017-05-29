@@ -64,11 +64,17 @@ function comment_save( $id ) {
 
 function mark_stale_tickets() {
 
-    // Calculate max age as n days - 1
-    $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE ) - 1;
+    // Calculate max age as n days
+    $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
+
+    // Current server time
+    $time = current_time( 'timestamp', 1 );
 
     // Get the GMT date for n days ago
-    $date = gmdate( 'Y-m-d 23:59:59', time() - ( 60 * 60 * 24 * $max_age ) );
+    $date = $time - ( 60 * 60 * 24 * $max_age );
+
+    // The date when the ticket will be considered expired
+    $expires = $time + ( 60 * 60 * 24 );
 
     $q = new \WP_Query( array(
         'posts_per_page' => -1,
@@ -87,7 +93,7 @@ function mark_stale_tickets() {
         ),
         'date_query'     => array(
             array(
-                'before'    => $date,
+                'before'    => date( 'Y-m-d 23:59:59', $date ),
                 'column'    => 'post_modified_gmt'
             )
         )
@@ -98,7 +104,7 @@ function mark_stale_tickets() {
     foreach( $q->posts as $ticket ) {
 
         // Mark the post as stale
-        add_post_meta( $ticket->ID, 'stale', true );
+        add_post_meta( $ticket->ID, 'stale', date( 'Y-m-d H:i:s', $expires ) );
 
         // Fire an action to handle ticket going stale
         do_action( 'support_mark_ticket_stale', $ticket );
@@ -111,23 +117,17 @@ function close_stale_tickets() {
 
     if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
 
-        // Calculate max age as n
-        $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
-
-        // Get the GMT date for n days ago
-        $date = gmdate( 'Y-m-d 23:59:59', time() - ( 60 * 60 * 24 * $max_age ) );
-
         // Get all stale tickets
         $q = new \WP_Query( array(
             'posts_per_page' => -1,
             'post_type'      => 'support_ticket',
             'post_status'    => 'publish',
-            'meta_key'       => 'stale',
-            'meta_value'     => true,
-            'date_query'     => array(
+            'meta_query'     => array(
                 array(
-                    'before'    => $date,
-                    'column'    => 'post_modified_gmt'
+                    'key'     => 'stale',
+                    'value'   => current_time( 'mysql', 1 ),
+                    'type'    => 'DATETIME',
+                    'compare' => '<='
                 )
             )
         ) );
