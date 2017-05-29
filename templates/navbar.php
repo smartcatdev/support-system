@@ -11,7 +11,7 @@ $user = wp_get_current_user();
 
         <div class="row">
 
-                <div class="row-table pull-left">
+                <div class="row-table pull-left clock">
 
                     <div class="row-table-cell">
 
@@ -37,7 +37,7 @@ $user = wp_get_current_user();
 
                 </div>
 
-                <div class="row-table pull-right">
+                <div class="row-table pull-right actions">
 
                     <?php if ( current_user_can('create_support_tickets') ) : ?>
 

@@ -517,6 +517,24 @@ hr {
     padding-right: 4px;
 }
 
+#navbar .clock {
+    display: none;
+}
+
+#navbar .actions {
+    width: 100%;
+}
+
+@media(min-width:  768px) {
+    #navbar .clock {
+        display: table;
+    }
+
+    #navbar .actions {
+        width: auto;
+    }
+}
+
 /* ## Body *****************************************************************************/
 
 .widget-wrapper > div{
