@@ -525,6 +525,11 @@ hr {
     width: 100%;
 }
 
+#navbar .actions .dropdown-wrapper {
+    text-align: right;
+    margin: 0 20px;
+}
+
 @media(min-width:  768px) {
     #navbar .clock {
         display: table;
@@ -532,6 +537,11 @@ hr {
 
     #navbar .actions {
         width: auto;
+    }
+
+    #navbar .actions .dropdown-wrapper {
+        text-align: center;
+        margin: auto;
     }
 }
 
