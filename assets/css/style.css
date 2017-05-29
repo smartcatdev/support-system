@@ -510,7 +510,7 @@ hr {
 
 #navbar .button {
     line-height: 26px;
-    margin: 0 20px;
+    margin-right: 20px;
 }
 
 #navbar .button span {
@@ -527,10 +527,9 @@ hr {
 
 #navbar .actions .dropdown-wrapper {
     text-align: right;
-    margin: 0 20px;
 }
 
-@media(min-width:  768px) {
+@media(min-width:  767px) {
     #navbar .clock {
         display: table;
     }
@@ -541,7 +540,6 @@ hr {
 
     #navbar .actions .dropdown-wrapper {
         text-align: center;
-        margin: auto;
     }
 }
 
