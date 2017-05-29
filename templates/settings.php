@@ -1,10 +1,10 @@
 <?php
 
 use smartcat\form\Form;
-use SmartcatSupport\descriptor\Option;
-use SmartcatSupport\Plugin;
+use ucare\descriptor\Option;
+use ucare\Plugin;
 
-$form = include_once Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/settings_form.php';
+$form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/settings_form.php';
 
 ?>
 

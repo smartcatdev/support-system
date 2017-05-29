@@ -1,10 +1,10 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace ucare\component;
 
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 class Notifications extends AbstractComponent {
 
@@ -101,7 +101,7 @@ class Notifications extends AbstractComponent {
 
     public function email_template_branding() {
         if( $this->sending ) {
-            echo __( 'Powered by ', \SmartcatSupport\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
+            echo __( 'Powered by ', \ucare\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
         }
     }
 
@@ -126,10 +126,22 @@ class Notifications extends AbstractComponent {
         ) );
     }
 
+    public function stale_ticket( $ticket ) {
+        $user = get_user_by( 'ID', $ticket->post_author );
+
+        $replace = array(
+            'ticket_subject' => $ticket->post_title,
+            'ticket_number'  => $ticket->ID
+        );
+
+        $this->send_template( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
+    }
+
     public function subscribed_hooks() {
         return array(
             'support_password_reset_notification' => array( 'password_reset', 1, 4 ),
             'support_user_registered' => array( 'user_register' ),
+            'support_mark_ticket_stale' => array( 'stale_ticket' ),
             'support_ticket_created' => array( 'ticket_created' ),
             'comment_post' => array( 'ticket_reply' ),
             'update_post_metadata' => array( 'ticket_updated', 10, 4 ),

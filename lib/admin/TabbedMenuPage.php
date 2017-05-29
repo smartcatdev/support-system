@@ -4,7 +4,7 @@ namespace smartcat\admin;
 
 if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
 
-class TabbedMenuPage extends AbstractMenuPage {
+class TabbedMenuPage extends MenuPage {
 
     protected $tabs = array();
 
@@ -12,23 +12,21 @@ class TabbedMenuPage extends AbstractMenuPage {
         parent::__construct( $config );
 
         if( isset( $config['tabs'] ) ) {
-            $this->tabs = $config['tabs'];
+            foreach ( $config['tabs'] as $tab ) {
+                $this->add_tab( $tab );
+            }
         }
+    }
 
-        foreach( $this->tabs as $slug => $tab ) {
-            $tab->slug = $slug;
+    public function add_tab( MenuPageTab $tab ) {
+        if( !isset( $this->tabs[ $tab->slug ] )  ) {
+            $this->tabs[ $tab->slug ] = $tab;
             $tab->page = $this->menu_slug;
         }
     }
 
-    public function add_tab( $tab ) {
-        if( !isset( $this->tabs[ $tab->slug ] )  ) {
-            $this->tabs[ $tab->slug ] = $tab;
-        }
-    }
-
     private function active_tab() {
-        $active = key( $this->tabs );
+        $active = array_keys( $this->tabs )[0];
 
         if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {
             $active = $_REQUEST['tab'];
@@ -39,9 +37,9 @@ class TabbedMenuPage extends AbstractMenuPage {
 
     public function render() { ?>
 
-        <div class="wrap">
+        <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
 
-            <h2><?php _e( 'Reports', \SmartcatSupport\PLUGIN_ID ); ?></h2>
+            <?php $this->do_header(); ?>
 
             <h2 class="nav-tab-wrapper">
 
@@ -54,7 +52,13 @@ class TabbedMenuPage extends AbstractMenuPage {
 
             </h2>
 
-            <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+            <div class="tabs-content">
+
+                <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+
+            </div>
+
+            <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
         </div>
 

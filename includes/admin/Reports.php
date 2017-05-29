@@ -1,39 +1,32 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 use smartcat\core\AbstractComponent;
 
 class Reports extends AbstractComponent {
-
-    public function start() {
-        $this->plugin->add_api_subscriber( apply_filters( 'support_reporting_menupage', new ReportsMenuPage() ) );
-    }
 
     public function enqueue_scripts( $hook ) {
         if( strpos( $hook, 'ucare_support' ) > 0 ) {
             wp_enqueue_script( 'moment',
                 $this->plugin->url() . '/assets/lib/moment/moment.min.js', null, $this->plugin->version() );
 
-            wp_enqueue_script( 'chartist',
-                $this->plugin->url() . '/assets/lib/chartist/chartist.min.js', null, $this->plugin->version() );
+            wp_enqueue_script( 'flot',
+                $this->plugin->url() . '/assets/lib/flot/jquery.flot.min.js', null, $this->plugin->version() );
 
-            wp_enqueue_style( 'chartist',
-                $this->plugin->url() . '/assets/lib/chartist/chartist.min.css', null, $this->plugin->version() );
+            wp_enqueue_script( 'flot-time',
+                $this->plugin->url() . '/assets/lib/flot/jquery.flot.time.min.js', null, $this->plugin->version() );
 
-            wp_enqueue_script( 'chartist-legend',
-                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-legend.js', null, $this->plugin->version() );
+            wp_enqueue_script( 'flot-resize',
+                $this->plugin->url() . '/assets/lib/flot/jquery.flot.resize.min.js', null, $this->plugin->version() );
 
-            wp_enqueue_script( 'chartist-tooltip',
-                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-tooltip.min.js', null, $this->plugin->version() );
+            wp_enqueue_script( 'moment',
+                $this->plugin->url() . '/assets/lib/moment/moment.min.js', null, $this->plugin->version() );
 
-            wp_enqueue_style( 'chartist-tooltip',
-                $this->plugin->url() . '/assets/lib/chartist/plugins/chartist-plugin-tooltip.css', null, $this->plugin->version() );
+            wp_enqueue_script( 'ucare-reports-js',
+                $this->plugin->url() . '/assets/admin/reports.js', null, $this->plugin->version() );
 
-            wp_enqueue_script( 'reports',
-                $this->plugin->url() . '/assets/admin/reports.js', array( 'jquery' ), $this->plugin->version() );
-
-            wp_enqueue_style( 'reports',
+            wp_enqueue_style( 'ucare-reports-css',
                 $this->plugin->url() . '/assets/admin/reports.css', null, $this->plugin->version() );
         }
     }

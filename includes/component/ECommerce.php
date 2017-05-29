@@ -1,15 +1,15 @@
 <?php
 
-namespace SmartcatSupport\component;
+namespace ucare\component;
 
 use smartcat\core\AbstractComponent;
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 class ECommerce extends AbstractComponent {
 
     public function start() {
         if( $this->plugin->woo_active ) {
-            \SmartcatSupport\util\add_caps( 'customer' );
+            \ucare\util\add_caps( 'customer' );
         }
     }
 
@@ -23,13 +23,13 @@ class ECommerce extends AbstractComponent {
     public function configure_user_caps( $val ) {
         if ( $val == 'on' ) {
 
-            \SmartcatSupport\util\add_caps( 'subscriber' );
-            \SmartcatSupport\util\add_caps( 'customer' );
+            \ucare\util\add_caps( 'subscriber' );
+            \ucare\util\add_caps( 'customer' );
 
         } else {
 
-            \SmartcatSupport\util\remove_caps( 'customer' );
-            \SmartcatSupport\util\remove_caps( 'subscriber' );
+            \ucare\util\remove_caps( 'customer' );
+            \ucare\util\remove_caps( 'subscriber' );
 
         }
 

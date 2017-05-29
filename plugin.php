@@ -10,7 +10,7 @@
  * 
  */
 
-namespace SmartcatSupport;
+namespace ucare;
 
 // Die if access directly
 if( !defined( 'ABSPATH' ) ) {
@@ -20,11 +20,8 @@ if( !defined( 'ABSPATH' ) ) {
 const PLUGIN_ID = "smartcat_support";
 const PLUGIN_VERSION = '1.2.0';
 
-
-// Manual includes
-do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
-
-include_once 'includes/functions.php';
+// Pull in manual includes
+include_once 'loader.php';
 
 
 // Boot up the container

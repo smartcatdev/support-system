@@ -109,3 +109,163 @@ td.column-id.id:before {
     margin-top: 5px;
     margin-left: 20px;
 }
+
+/* Settings Sidebar */
+#support_options_menu_page .sidebar {
+    display: none;
+    width: 25%;
+}
+
+.ucare-sidebar-widget {
+    background: #fff;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 3px;
+}
+
+.ucare-sidebar-widget h3 {
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 10px;
+    margin-top: 0;
+    
+}
+
+/* Settings Header */
+#ucare-settings-header {
+    background: #0e7463;
+    padding: 15px;
+    color: #fff;
+    border-radius: 3px;
+    
+}
+
+#ucare-settings-header .header-component:nth-child(3){
+    padding: 30px;
+}
+
+#ucare-settings-header h1 {
+    color: #fff;
+}
+
+.ucare-button {
+    padding: 12px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.ucare-button.secondary {
+    background: #fff;
+    color: #414141;
+}
+
+#ucare-settings-header p {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+
+@media(min-width: 783px) {
+    #support_options_menu_page .tabs-content {
+        width: 70%;
+    }
+
+    #support_options_menu_page .tabs-content,
+    #support_options_menu_page .sidebar {
+        float: left;
+        display: inline-block;
+    }
+}
+
+/* Extensions */
+
+a.ucare-addon-link {
+    display: block;
+    text-decoration: none;
+}
+
+.ucare-addon {
+    background: #fff;
+    border: 1px solid #ccc;
+    float: left;
+    padding: 14px;
+    position: relative;
+    margin: 0 15px 15px 0;
+    width: 320px;
+    height: 315px;
+
+}
+
+.ucare-addon h3 {
+    font-size: 13px;
+    margin: 0 0 8px;
+}
+
+.ucare-addon h2 {
+    font-size: 24px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.ucare-addon p {
+    color: #333;
+}
+
+.ucare-addon .ad {
+    width: 100%;
+    background: #e9e9e9;
+    height: 150px;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.ucare-addon .ad span.dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+
+.ucare-addon .ad.customer-satisfaction {
+    background: #5bb8a7;
+    color: #fff;
+}
+
+.ucare-addon .ad.customer-satisfaction h2 {
+    color: #fff;
+}
+
+.ucare-addon .ad.email-piping {
+    background: #22a3e0;
+    color: #fff;
+}
+
+.ucare-addon .ad.email-piping h2 {
+    color: #fff;
+}
+
+.ucare-addon .ad.live-chat {
+    background: #ff6f6f;
+    color: #fff;
+}
+
+.ucare-addon .ad.live-chat h2 {
+    color: #fff;
+}
+
+.ucare-addon .ad.paid-support {
+    background: #011c25;
+    color: #f9f9f9;
+}
+
+.ucare-addon .ad.paid-support h2 {
+    color: #f9f9f9;
+}
+
+.ucare-addon .ad.auto-ticket-routing {
+    background: #de5d3f;
+    color: #f9f9f9;
+}
+
+.ucare-addon .ad.auto-ticket-routing h2 {
+    color: #f9f9f9;
+}

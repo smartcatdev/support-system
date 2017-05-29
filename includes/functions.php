@@ -1,19 +1,19 @@
 <?php
 
-namespace SmartcatSupport {
+namespace ucare {
 
-    use SmartcatSupport\descriptor\Option;
+    use ucare\descriptor\Option;
 
     function url() {
         return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
     }
 
     function plugin_dir() {
-        return Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID );
+        return Plugin::plugin_dir( \ucare\PLUGIN_ID );
     }
 
     function plugin_url() {
-        return Plugin::plugin_url( \SmartcatSupport\PLUGIN_ID );
+        return Plugin::plugin_url( \ucare\PLUGIN_ID );
     }
 
     function in_dev_mode() {
@@ -21,10 +21,10 @@ namespace SmartcatSupport {
     }
 }
 
-namespace  SmartcatSupport\util {
+namespace  ucare\util {
 
-    use SmartcatSupport\descriptor\Option;
-    use SmartcatSupport\Plugin;
+    use ucare\descriptor\Option;
+    use ucare\Plugin;
 
     function render( $template, array $data = array() ) {
         extract($data);
@@ -76,9 +76,9 @@ namespace  SmartcatSupport\util {
         $date = date_create( $stamp );
 
         if( $now->diff( $date )->format( '%i' ) == 0 ) {
-            $out = __( 'Just Now', \SmartcatSupport\PLUGIN_ID );
+            $out = __( 'Just Now', \ucare\PLUGIN_ID );
         } else {
-            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', \SmartcatSupport\PLUGIN_ID );
+            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', \ucare\PLUGIN_ID );
         }
 
         return $out;
@@ -109,20 +109,20 @@ namespace  SmartcatSupport\util {
 
     function priorities () {
         return array(
-            __( 'Low', \SmartcatSupport\PLUGIN_ID ),
-            __( 'Medium', \SmartcatSupport\PLUGIN_ID ),
-            __( 'High', \SmartcatSupport\PLUGIN_ID )
+            __( 'Low', \ucare\PLUGIN_ID ),
+            __( 'Medium', \ucare\PLUGIN_ID ),
+            __( 'High', \ucare\PLUGIN_ID )
         );
     }
 
     function statuses () {
         return array(
-            'new'               => __( 'New', \SmartcatSupport\PLUGIN_ID ),
-            'waiting'           => __( 'Waiting', \SmartcatSupport\PLUGIN_ID ),
-            'opened'            => __( 'Opened', \SmartcatSupport\PLUGIN_ID ),
-            'responded'         => __( 'Responded', \SmartcatSupport\PLUGIN_ID ),
-            'needs_attention'   => __( 'Needs Attention', \SmartcatSupport\PLUGIN_ID ),
-            'closed'            => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
+            'new'               => __( 'New', \ucare\PLUGIN_ID ),
+            'waiting'           => __( 'Waiting', \ucare\PLUGIN_ID ),
+            'opened'            => __( 'Opened', \ucare\PLUGIN_ID ),
+            'responded'         => __( 'Responded', \ucare\PLUGIN_ID ),
+            'needs_attention'   => __( 'Needs Attention', \ucare\PLUGIN_ID ),
+            'closed'            => __( 'Closed', \ucare\PLUGIN_ID ),
         );
     }
 
@@ -146,7 +146,7 @@ namespace  SmartcatSupport\util {
     }
 
     function products () {
-        $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
+        $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
         $products = array();
 
         if( get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE ) ) {
@@ -182,7 +182,7 @@ namespace  SmartcatSupport\util {
     }
 
     function ecommerce_enabled( $strict = true ) {
-        $plugin = Plugin::get_plugin( \SmartcatSupport\PLUGIN_ID );
+        $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
         $enabled = false;
 
         if( get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE == 'on' ) ) {
@@ -211,9 +211,9 @@ namespace  SmartcatSupport\util {
 
     function roles() {
         return array(
-            'support_admin' => __( 'Support Admin', \SmartcatSupport\PLUGIN_ID ),
-            'support_agent' => __( 'Support Agent', \SmartcatSupport\PLUGIN_ID ),
-            'support_user'  => __( 'Support User', \SmartcatSupport\PLUGIN_ID ),
+            'support_admin' => __( 'Support Admin', \ucare\PLUGIN_ID ),
+            'support_agent' => __( 'Support Agent', \ucare\PLUGIN_ID ),
+            'support_user'  => __( 'Support User', \ucare\PLUGIN_ID ),
         );
     }
 
@@ -273,34 +273,26 @@ namespace  SmartcatSupport\util {
 
         return $query->posts;
     }
-
-    function date_range( $start, $end, $format = 'd-m-Y' ) {
-        $range = false;
-        $parse_date = function ( $date ) use ( $format ) {
-            if( !is_a( $date, '\DateTimeInterface' ) ) {
-                $date = date_create_from_format( $format, $date );
-            } else {
-                $tz = new \DateTimeZone( !empty( $zone = get_option( 'timezone_string' ) ) ? $zone : 'UTC' );
-                $date = new \DateTimeImmutable( $date->format( $format ), $tz );
-            }
-
-            return $date;
-        };
-
-        $start = $parse_date( $start );
-        $end = $parse_date( $end );
-
-        if( $start && $end && $start <= $end ) {
-            $range = new \DatePeriod( $start, new \DateInterval( 'P1D' ), $end->modify( '+1 day' ) );
-        }
-
-        return $range;
-    }
 }
 
-namespace SmartcatSupport\proc {
+namespace ucare\proc {
 
-    use SmartcatSupport\descriptor\Option;
+    use ucare\descriptor\Option;
+
+    function schedule_cron_jobs() {
+        if ( !wp_next_scheduled( 'ucare_cron_stale_tickets' ) ) {
+            wp_schedule_event( time(), 'daily', 'ucare_cron_stale_tickets' );
+        }
+
+        if ( !wp_next_scheduled( 'ucare_cron_close_tickets' ) ) {
+            wp_schedule_event( time(), 'daily', 'ucare_cron_close_tickets' );
+        }
+    }
+
+    function clear_scheduled_jobs() {
+        wp_clear_scheduled_hook( 'ucare_cron_stale_tickets' );
+        wp_clear_scheduled_hook( 'ucare_cron_close_tickets' );
+    }
 
     function setup_template_page() {
         $post_id = null;
@@ -311,7 +303,7 @@ namespace SmartcatSupport\proc {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', \SmartcatSupport\PLUGIN_ID )
+                    'post_title' => __( 'Support', \ucare\PLUGIN_ID )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
@@ -333,31 +325,36 @@ namespace SmartcatSupport\proc {
             array(
                 'template' => '/emails/ticket-created.html',
                 'option' => Option::CREATED_EMAIL_TEMPLATE,
-                'subject' => __( 'You have created a new request for support', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'You have created a new request for support', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/welcome.html',
                 'option' => Option::WELCOME_EMAIL_TEMPLATE,
-                'subject' => __( 'Welcome to Support', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Welcome to Support', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/ticket-closed.html',
                 'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
-                'subject' => __( 'Your request for support has been closed', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Your request for support has been closed', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/ticket-reply.html',
                 'option' => Option::REPLY_EMAIL_TEMPLATE,
-                'subject' => __( 'Reply to your request for support', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Reply to your request for support', \ucare\PLUGIN_ID )
             ),
             array(
                 'template' => '/emails/password-reset.html',
                 'option' => Option::PASSWORD_RESET_EMAIL,
-                'subject' => __( 'Your password has been reset', \SmartcatSupport\PLUGIN_ID )
+                'subject' => __( 'Your password has been reset', \ucare\PLUGIN_ID )
+            ),
+            array(
+                'template' => '/emails/ticket-close-warning.html',
+                'option' => Option::INACTIVE_EMAIL,
+                'subject' => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID )
             )
         );
 
-        $default_style = file_get_contents( \SmartcatSupport\plugin_dir() . '/emails/default-style.css' );
+        $default_style = file_get_contents( \ucare\plugin_dir() . '/emails/default-style.css' );
 
         foreach( $default_templates as $config ) {
             $template = get_post( get_option( $config['option'] ) );
@@ -368,7 +365,7 @@ namespace SmartcatSupport\proc {
                         'post_type'     => 'email_template',
                         'post_status'   => 'publish',
                         'post_title'    => $config['subject'],
-                        'post_content'  => file_get_contents( \SmartcatSupport\plugin_dir() . $config['template'] )
+                        'post_content'  => file_get_contents( \ucare\plugin_dir() . $config['template'] )
                     )
                 );
 
@@ -396,28 +393,28 @@ namespace SmartcatSupport\proc {
         $administrator->add_cap( 'delete_private_support_tickets' );
         $administrator->add_cap( 'delete_published_support_tickets' );
 
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+        foreach( \ucare\util\roles() as $role => $name ) {
             add_role( $role, $name );
         }
 
-        \SmartcatSupport\util\add_caps( 'customer' );
-        \SmartcatSupport\util\add_caps( 'subscriber' );
-        \SmartcatSupport\util\add_caps( 'support_user' );
+        \ucare\util\add_caps( 'customer' );
+        \ucare\util\add_caps( 'subscriber' );
+        \ucare\util\add_caps( 'support_user' );
 
-        \SmartcatSupport\util\add_caps( 'support_agent' , 'manage' );
+        \ucare\util\add_caps( 'support_agent' , 'manage' );
 
-        \SmartcatSupport\util\add_caps( 'support_admin' , 'admin' );
-        \SmartcatSupport\util\add_caps( 'administrator' , 'admin' );
+        \ucare\util\add_caps( 'support_admin' , 'admin' );
+        \ucare\util\add_caps( 'administrator' , 'admin' );
     }
 
     function cleanup_roles() {
-        foreach( \SmartcatSupport\util\roles() as $role => $name ) {
+        foreach( \ucare\util\roles() as $role => $name ) {
             remove_role( $role );
         }
 
-        \SmartcatSupport\util\remove_caps( 'customer' );
-        \SmartcatSupport\util\remove_caps( 'subscriber' );
-        \SmartcatSupport\util\remove_caps( 'administrator' );
+        \ucare\util\remove_caps( 'customer' );
+        \ucare\util\remove_caps( 'subscriber' );
+        \ucare\util\remove_caps( 'administrator' );
 
         $administrator = get_role( 'administrator' );
 
@@ -452,44 +449,82 @@ namespace SmartcatSupport\proc {
     
 }
 
-namespace SmartcatSupport\statprocs {
+namespace ucare\statprocs {
 
-    function count_tickets( \DateTimeInterface $d1, \DateTimeInterface $d2 ) {
+    function count_tickets( $start, $end, $args = array() ) {
         global $wpdb;
 
+        $start = is_a( $start, 'DateTimeInterface' ) ? $start : date_create( strtotime( $start ) );
+        $end =   is_a( $end, 'DateTimeInterface' )   ? $end   : date_create( strtotime( $end ) );
+
+        if( !$start || !$end || $start > $end ) {
+            return new \WP_Error( 'invalid date supplied' );
+        }
+
+        // Default count by day
+        $range = "%Y-%m-%d";
+        $interval = new \DateInterval( 'P1D' );
+        $diff = $end->diff( $start )->format( '%a' );
+
+        // Get monthly totals if greater than 2 months
+        if ( $diff > 62 ) {
+            $range = "%Y-%m";
+            $interval = new \DateInterval( 'P1M' );
+        }
+
+        $values = array($range, $start->format( 'Y-m-d: 00:00:00' ), $end->format( 'Y-m-d 23:59:59' ) );
+
+        if( !empty( $args['closed'] ) ) {
+
+            $q = "SELECT DATE_FORMAT(DATE(m.meta_value), %s ) as d,
+              COUNT(m.meta_value) as c
+              FROM {$wpdb->posts} p
+              INNER JOIN {$wpdb->postmeta} m 
+                ON p.ID = m.post_id
+              WHERE p.post_type = 'support_ticket'
+                AND p.post_status = 'publish' 
+                AND m.meta_key = 'closed_date'
+                AND (DATE(m.meta_value) BETWEEN DATE( %s ) AND DATE( %s )) ";
+
+        } else {
+
+            $q = "SELECT DATE_FORMAT(DATE(p.post_date), %s ) as d,
+              COUNT(p.post_date) as c
+              FROM {$wpdb->posts} p
+              WHERE p.post_type = 'support_ticket'
+                AND p.post_status = 'publish' 
+                AND (DATE(p.post_date) BETWEEN DATE( %s ) AND DATE( %s )) ";
+
+        }
+
+        $q .= " GROUP BY d ORDER BY d";
+
+        // Get the data from the query
+        $results = $wpdb->get_results( $wpdb->prepare( $q, $values ), ARRAY_A );
         $data = array();
-        $period = new \DatePeriod( $d1, \DateInterval::createFromDateString( '1 day' ), clone $d2->modify( '+1 day' ) );
 
-        $q = "SELECT (
-                SELECT COUNT(*)
-                FROM $wpdb->posts p
-                WHERE p.post_date
-                    BETWEEN %s
-                    AND %s
-                    AND p.post_type = 'support_ticket'
-                    AND p.post_status = 'publish'
-                ) AS opened, (
-                SELECT COUNT(*)
-                FROM $wpdb->posts p
-                INNER JOIN $wpdb->postmeta m
-                    on p.ID = m.post_id
-                WHERE m.meta_key = 'closed_date'
-                    AND m.meta_value BETWEEN %s AND %s
-                    AND p.post_type = 'support_ticket'
-                    AND p.post_status = 'publish'
-                ) AS closed";
+        // All dates in the period at a set interval
+        $dates = new \DatePeriod( $start, $interval, clone $end->modify( '+1 second' ) );
 
-        foreach( $period as $date ) {
-            $date = $date->format( 'Y-m-d' );
+        foreach( $dates as $date ) {
 
-            $query = $wpdb->prepare( $q, array(
-                $date . ' 00:00:00',
-                $date . ' 23:59:59',
-                $date . ' 00:00:00',
-                $date . ' 23:59:59',
-            ) );
+            $curr = $date->format( 'Y-m-d' );
 
-            $data[ $date ] = $wpdb->get_row( $query, ARRAY_A );
+            // Set it to 0 by default for this date
+            $data[ $curr ] = 0;
+
+            // Loop through each found total
+            foreach( $results as $result ) {
+
+                // If the total's date is like the current date set it
+                if( strpos( $curr, $result['d'] ) !== false ) {
+
+                    $data[ $curr ] = ( int ) $result['c'];
+
+                }
+
+            }
+
         }
 
         return $data;

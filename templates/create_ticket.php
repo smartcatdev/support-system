@@ -1,8 +1,8 @@
 <?php
 
-use SmartcatSupport\Plugin;
+use ucare\Plugin;
 
-$form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/ticket_create_form.php';
+$form = include Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_create_form.php';
 
 ?>
 
@@ -29,7 +29,7 @@ $form = include Plugin::plugin_dir( \SmartcatSupport\PLUGIN_ID ) . '/config/tick
 
     <div class="form-group">
 
-        <label><?php _e( 'Attach Images', \SmartcatSupport\PLUGIN_ID ); ?></label>
+        <label><?php _e( 'Attach Images', \ucare\PLUGIN_ID ); ?></label>
 
         <form id="ticket-media-upload" class="dropzone">
 

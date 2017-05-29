@@ -1,6 +1,6 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 $attachments = get_attached_media( 'image', $ticket->ID );
 $attachment_count = count( $attachments );
@@ -14,7 +14,7 @@ $user = wp_get_current_user();
 
 <div class="row ticket-detail" style="display: none">
 
-    <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \SmartcatSupport\PLUGIN_ID ); ?></p></div>
+    <div class="sidebar col-sm-4 col-sm-push-8"><p class="text-center"><?php _e( 'Loading...', \ucare\PLUGIN_ID ); ?></p></div>
 
     <div class="discussion-area col-sm-8 col-sm-pull-4">
 
@@ -45,11 +45,11 @@ $user = wp_get_current_user();
                   <ul class="nav nav-tabs">
 
                       <li class="tab editor-tab active edit">
-                          <a class="nav-link" data-toggle="tab" href="#ticket-<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                          <a class="nav-link" data-toggle="tab" href="#ticket-<?php echo $ticket->ID; ?>-editor"><?php _e( 'Write', \ucare\PLUGIN_ID ); ?></a>
                       </li>
 
                       <li class="tab editor-tab preview">
-                          <a class="nav-link" data-toggle="tab" href="#ticket-<?php echo $ticket->ID; ?>-preview"><?php _e( 'Preview', \SmartcatSupport\PLUGIN_ID ); ?></a>
+                          <a class="nav-link" data-toggle="tab" href="#ticket-<?php echo $ticket->ID; ?>-preview"><?php _e( 'Preview', \ucare\PLUGIN_ID ); ?></a>
                       </li>
 
                   </ul>
@@ -92,7 +92,7 @@ $user = wp_get_current_user();
 
                                         <span class="glyphicon glyphicon-ok-sign button-icon"></span>
 
-                                        <span><?php _e( 'Close Ticket', \SmartcatSupport\PLUGIN_ID ); ?></span>
+                                        <span><?php _e( 'Close Ticket', \ucare\PLUGIN_ID ); ?></span>
 
                                     </button>
 
@@ -136,7 +136,7 @@ $user = wp_get_current_user();
 
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                <h4 class="modal-title"><?php _e( 'Attach Images', \SmartcatSupport\PLUGIN_ID ); ?></h4>
+                <h4 class="modal-title"><?php _e( 'Attach Images', \ucare\PLUGIN_ID ); ?></h4>
 
             </div>
 
@@ -158,7 +158,7 @@ $user = wp_get_current_user();
                         data-target="#attachment-modal-<?php echo $ticket->ID; ?>"
                         data-toggle="modal">
 
-                    <?php _e( 'Done', \SmartcatSupport\PLUGIN_ID ); ?>
+                    <?php _e( 'Done', \ucare\PLUGIN_ID ); ?>
 
                 </button>
 

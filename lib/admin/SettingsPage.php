@@ -12,9 +12,20 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
      * @author Eric Green <eric@smartcat.ca>
      * @since 1.0.0
      */
-    class SettingsPage extends AbstractMenuPage {
+    class SettingsPage extends MenuPage {
 
-        protected $sections = [];
+        protected $sections = array();
+
+        public function __construct( array $config )  {
+            parent::__construct( $config );
+
+            $this->init();
+        }
+
+        public function init() {
+            add_action( 'admin_menu', array( $this, 'register_page' ) );
+            add_action( 'admin_init', array( $this, 'register_sections' ) );
+        }
 
         /**
          * Adds a section to the page.
@@ -75,13 +86,6 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
             }
         }
 
-        public function subscribed_hooks() {
-            return array(
-                'admin_menu' => array( 'register_page' ),
-                'admin_init' => array( 'register_sections' )
-            );
-        }
-
         /**
          * Output the settings page.
          *
@@ -90,9 +94,9 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
          */
         public function render() { ?>
 
-            <div class="wrap">
+            <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
 
-                <h2><?php echo $this->page_title; ?></h2>
+                <?php $this->do_header(); ?>
 
                 <?php if( $this->type == 'menu' || $this->type == 'submenu' ) : ?>
 
@@ -107,6 +111,8 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
                     <?php submit_button(); ?>
 
                 </form>
+
+                <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
             </div>
 

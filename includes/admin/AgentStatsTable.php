@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 use smartcat\admin\ListTable;
 
@@ -12,36 +12,36 @@ class AgentStatsTable extends ListTable {
 
     public function __construct( $start_date, $end_date ) {
         parent::__construct( array(
-            'singular' => __( 'Agent Total', \SmartcatSupport\PLUGIN_ID ),
-            'plural'   => __( 'Agent Totals', \SmartcatSupport\PLUGIN_ID ),
+            'singular' => __( 'Agent Total', \ucare\PLUGIN_ID ),
+            'plural'   => __( 'Agent Totals', \ucare\PLUGIN_ID ),
             'ajax'     => false
         ) );
 
-        $this->agents = \SmartcatSupport\util\list_agents();
+        $this->agents = \ucare\util\list_agents();
         $this->start_date = $start_date;
         $this->end_date = $end_date;
     }
 
     public function get_columns() {
         return array(
-            'uc_agent'          => __( 'Agent', \SmartcatSupport\PLUGIN_ID ),
-            'uc_total_assigned' => __( 'Total Assigned', \SmartcatSupport\PLUGIN_ID ),
-            'uc_total_closed'   => __( 'Closed', \SmartcatSupport\PLUGIN_ID ),
-            'uc_percentage'     => __( 'Percentage', \SmartcatSupport\PLUGIN_ID )
+            'uc_agent'            => __( 'Agent', \ucare\PLUGIN_ID ),
+            'uc_number_assigned'  => __( 'Assigned', \ucare\PLUGIN_ID ),
+            'uc_number_closed'    => __( 'Closed', \ucare\PLUGIN_ID ),
+            'uc_workload_percent' => __( '% Workload', \ucare\PLUGIN_ID )
         );
     }
 
     public function get_sortable_columns() {
         return array(
-            'uc_agent'           => array( 'uc_agent', true ),
-            'uc_total_assigned'  => array( 'uc_total_assigned', true ),
-            'uc_total_closed'    => array( 'uc_total_closed', true ),
-            'uc_percentage'      => array( 'uc_percentage', true )
+            'uc_agent'            => array( 'uc_agent', true ),
+            'uc_number_assigned'  => array( 'uc_number_assigned', true ),
+            'uc_number_closed'    => array( 'uc_number_closed', true ),
+            'uc_workload_percent' => array( 'uc_workload_percent', true )
         );
     }
 
     public function no_items() {
-        _e( 'No totals available.', \ext_satisfaction\PLUGIN_ID );
+        _e( 'No totals available.', \ucare\PLUGIN_ID );
     }
 
     public function extra_tablenav( $which ) {
@@ -50,7 +50,7 @@ class AgentStatsTable extends ListTable {
 
             <div class="alignleft actions filteractions">
                 <select name="agent">
-                    <option value="0"><?php _e( 'All Agents', \SmartcatSupport\PLUGIN_ID ); ?></option>
+                    <option value="0"><?php _e( 'All Agents', \ucare\PLUGIN_ID ); ?></option>
 
                     <?php foreach( $this->agents as $id => $name ) : ?>
 
@@ -65,7 +65,7 @@ class AgentStatsTable extends ListTable {
                     <?php endforeach; ?>
 
                 </select>
-                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \SmartcatSupport\PLUGIN_ID ); ?>">
+                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ucare\PLUGIN_ID ); ?>">
             </div>
 
         <?php }
@@ -79,11 +79,8 @@ class AgentStatsTable extends ListTable {
                 $data = $item['uc_agent'];
                 break;
 
-            case 'uc_percentage':
-                if( !empty( $item['uc_total_closed'] ) && !empty( $item['uc_total_assigned'] ) ) {
-                    $data = number_format($item['uc_total_closed'] / $item['uc_total_assigned'] * 100, 1 ) . '%';
-                }
-
+            case 'uc_workload_percent':
+                $data = number_format( $item['uc_workload_percent'], 1 ) . '%';
                 break;
 
             default:
@@ -113,60 +110,68 @@ class AgentStatsTable extends ListTable {
         $offset = $offset = ( $page_number - 1 ) * $per_page;
         $data = array_slice( $data, $offset, $per_page );
 
-        if( !empty( $_REQUEST['orderby'] ) ) {
-            $sort_col = array();
+        $sort_col = array();
 
-            foreach( $data as $key => $row ) {
-                $sort_col[ $key ] = $row[ $_REQUEST['orderby'] ];
-            }
-
-            array_multisort( $sort_col, $_REQUEST['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
+        foreach( $data as $key => $row ) {
+            $sort_col[ $key ] = $row[ isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'uc_workload_percent' ];
         }
+
+        array_multisort( $sort_col, isset( $_GET['order'] ) && $_GET['order'] == 'asc' ? SORT_ASC : SORT_DESC, $data );
 
         return $data;
     }
 
     private function data() {
-        $data = array();
+        $agents_data = array();
+        $total_assigned = 0;
 
-        if( !empty( $_REQUEST['agent'] ) && $this->verify_nonce() ) {
-            $user = get_userdata( $_REQUEST['agent'] );
+        foreach( $this->agents as $id => $name ) {
+            $totals = $this->get_agent_totals( $id );
+            $totals['uc_agent'] = $name;
+            $agents_data[ $id ] = $totals;
+            $total_assigned += $totals['uc_number_assigned'];
+        }
 
-            if( $user ) {
-                $totals = $this->get_agent_totals( $_REQUEST['agent'] );
-                $totals['uc_agent'] = $user->display_name;
-                $data[] = $totals;
+        // Closure for calculating the totals
+        $calc_workload = function( $id ) use ( $total_assigned, $agents_data ) {
+            return $total_assigned > 0 ? $agents_data[ $id ]['uc_number_assigned'] / $total_assigned * 100 : 0;
+        };
+
+        if( !empty( $_GET['agent'] ) && $this->verify_nonce() ) {
+
+            if( isset( $agents_data[ $_GET['agent'] ] ) ) {
+                $agents_data[ $_GET['agent'] ]['uc_workload_percent'] = $calc_workload( $_GET['agent'] );
+
+                // Return array containing only currently selected agent
+                return array( $agents_data[ $_REQUEST['agent'] ] );
             }
 
         } else {
 
             foreach( $this->agents as $id => $name ) {
-                $totals = $this->get_agent_totals( $id );
-                $totals['uc_agent'] = $name;
-
-                $data[] = $totals;
+                $agents_data[ $id ]['uc_workload_percent'] = $calc_workload( $id );
             }
 
-        }
+            return array_values( $agents_data );
 
-        return $data;
+        }
     }
 
     private function get_agent_totals( $id ) {
         $start = $this->start_date->format( 'Y-m-d 00:00:00' );
         $end = $this->end_date->format( 'Y-m-d 23:59:59' );
 
-        $totals['uc_total_assigned'] = (
+        $totals['uc_number_assigned'] = (
             new \WP_Query(
                 array(
-                    'post_type'   => 'support_ticket',
-                    'post_status' => 'publish',
-                    'date_query' => array(
-                        'after' => $start,
-                        'before' => $end,
-                        'inclusive ' => true
+                    'posts_per_page' => -1,
+                    'post_type'      => 'support_ticket',
+                    'post_status'    => 'publish',
+                    'date_query'     => array(
+                        'after'  => $start,
+                        'before' => $end
                     ),
-                    'meta_query'  => array(
+                    'meta_query'      => array(
                         array(
                             'key'   => 'agent',
                             'value' => $id
@@ -175,12 +180,13 @@ class AgentStatsTable extends ListTable {
                 ) )
             )->post_count;
 
-        $totals['uc_total_closed'] = (
+        $totals['uc_number_closed'] = (
             new \WP_Query(
                 array(
-                    'post_type'   => 'support_ticket',
-                    'post_status' => 'publish',
-                    'meta_query'  => array(
+                    'posts_per_page' => -1,
+                    'post_type'      => 'support_ticket',
+                    'post_status'    => 'publish',
+                    'meta_query'     => array(
                         array(
                             'key'   => 'agent',
                             'value' => $id
@@ -191,6 +197,7 @@ class AgentStatsTable extends ListTable {
                         ),
                         array(
                             'key'     => 'closed_date',
+                            'type'    => 'DATE',
                             'value'   => array( $start, $end ),
                             'compare' => 'BETWEEN'
                         ),

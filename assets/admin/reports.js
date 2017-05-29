@@ -22,52 +22,22 @@ jQuery(document).ready(function ($) {
         end_month.attr('selected', '');
         end_year.attr('selected', '');
 
-        var now = moment();
-
-        switch(value) {
-            case 'last_week':
-            default:
-                start_month.val(now.month() + 1);
-                start_day.val(now.date() - 7);
-                start_year.val(now.year());
-
-                end_month.val(now.month() + 1);
-                end_day.val(now.date());
-                end_year.val(now.year());
-                break;
-
-            case 'this_month':
-                start_month.val(now.month() + 1);
-                start_day.val(now.startOf('month').date());
-                start_year.val(now.year());
-
-                end_month.val(now.month() + 1);
-                end_day.val(now.endOf('month').date());
-                end_year.val(now.year());
-                break;
-
-            case 'last_month':
-                now.subtract(1, 'month');
-
-                start_month.val(now.month() + 1);
-                start_day.val(now.startOf('month').date());
-                start_year.val(now.year());
-
-                end_month.val(now.month() + 1);
-                end_day.val(now.endOf('month').date());
-                end_year.val(now.year());
-                break;
-
-            case 'this_year':
-                start_month.val(1);
-                start_day.val(1);
-                start_year.val(now.year());
-
-                end_month.val(now.endOf('year').month());
-                end_day.val(now.endOf('year').date());
-                end_year.val(now.year());
-                break;
+        if(value != 'custom') {
+            var start = moment(default_dates[value].start);
+            var end = moment(default_dates[value].end);
+        } else {
+            var start = moment(default_dates['last_week'].start);
+            var end = moment(default_dates['last_week'].end);
         }
+
+        start_year.val(start.year());
+        start_month.val(start.month() + 1);
+        start_day.val(start.date());
+
+        end_year.val(end.year());
+        end_month.val(end.month() + 1);
+        end_day.val(end.date());
+
     }
 
     range.change(function (e) {
@@ -76,6 +46,35 @@ jQuery(document).ready(function ($) {
         init_range(range);
 
         $('.date-range').toggleClass('hidden', range !== 'custom');
+    });
+
+    $("<div id='tooltip'></div>").css({
+        position: 'absolute',
+        display: 'none',
+        border: '1px solid #fdd',
+        padding: '2px',
+        'background-color': '#fee',
+        opacity: 0.80
+    })
+    .appendTo("body");
+
+    $('.reports-graph').bind("plothover", function (event, pos, item) {
+
+        if (item) {
+            var x = item.datapoint[0].toFixed(0),
+                y = item.datapoint[1].toFixed(0);
+
+            $("#tooltip").html(y + " " + item.series.label)
+                .css({
+                    top: item.pageY - 35,
+                    left: item.pageX - 26
+                })
+                .fadeIn(200);
+
+        } else {
+            $("#tooltip").hide();
+        }
+
     });
 
 });

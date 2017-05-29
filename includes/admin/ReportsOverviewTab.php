@@ -1,132 +1,103 @@
 <?php
 
-namespace SmartcatSupport\admin;
+namespace ucare\admin;
 
 use smartcat\admin\MenuPageTab;
 
 class ReportsOverviewTab extends MenuPageTab {
 
-    private $date;
-
     private $predefined_ranges;
+
+    private $default_start;
+    private $today;
+
+    private $start_date = '';
+    private $end_date = '';
 
     public function __construct() {
 
-        parent::__construct( array( 'title' => __( 'Overview', \SmartcatSupport\PLUGIN_ID ) ) );
+        parent::__construct( array(
+            'slug'  => 'overview',
+            'title' => __( 'Overview', \ucare\PLUGIN_ID )
+        ) );
 
         $this->predefined_ranges = array(
-            'last_week'     => __( 'Last 7 Days', \SmartcatSupport\PLUGIN_ID ),
-            'this_month'    => __( 'This Month', \SmartcatSupport\PLUGIN_ID ),
-            'last_month'    => __( 'Last Month', \SmartcatSupport\PLUGIN_ID ),
-            'this_year'     => __( 'This Year', \SmartcatSupport\PLUGIN_ID ),
-            'custom'        => __( 'Custom', \SmartcatSupport\PLUGIN_ID ),
+            'last_week'     => __( 'Last 7 Days', \ucare\PLUGIN_ID ),
+            'this_month'    => __( 'This Month', \ucare\PLUGIN_ID ),
+            'last_month'    => __( 'Last Month', \ucare\PLUGIN_ID ),
+            'this_year'     => __( 'This Year', \ucare\PLUGIN_ID ),
+            'custom'        => __( 'Custom', \ucare\PLUGIN_ID ),
         );
 
-        $this->date = new \DateTimeImmutable();
-    }
+        $this->today = date_create();
+        $this->default_start = date_create()->sub( new \DateInterval( 'P7D' ) );
 
-    private function default_start() {
-        return $this->date->sub( new \DateInterval( 'P7D' ) );
+        $this->date_range();
     }
 
     private function date_range() {
-        $dates = array();
+        if( !empty( $_REQUEST['overview_date_nonce'] ) &&
+            !empty( $_GET['start_year'] ) && !empty( $_GET['start_month'] ) && !empty( $_GET['start_day'] ) &&
+            !empty( $_GET['end_year'] )   && !empty( $_GET['end_month'] )   && !empty( $_GET['end_day'] )   &&
 
-        if( isset( $_REQUEST['overview_date_nonce'] ) &&
             wp_verify_nonce( $_REQUEST['overview_date_nonce'],'overview_date_range' ) ) {
 
-            $dates['start'] = date_create(
-                ( isset($_GET['start_year']) ? $_GET['start_year'] : '' ) . '-' .
-                ( isset($_GET['start_month']) ? $_GET['start_month'] : '' ) . '-' .
-                ( isset($_GET['start_day']) ? $_GET['start_day'] : '' )
-            );
-
-            $dates['end'] = date_create(
-                ( isset($_GET['end_year'] ) ? $_GET['end_year'] : '' ) . '-' .
-                ( isset($_GET['end_month'] ) ? $_GET['end_month'] : '' ) . '-' .
-                ( isset($_GET['end_day'] ) ? $_GET['end_day'] : '' )
-            );
+            $this->start_date = date_create_from_format( 'Y-m-d', $_GET['start_year']  . '-' . $_GET['start_month'] . '-' . $_GET['start_day'] );
+            $this->end_date =   date_create_from_format( 'Y-m-d',  $_GET['end_year']   . '-' . $_GET['end_month']   . '-' . $_GET['end_day'] );
 
         }
 
-        if( empty( $dates ) || !$dates['start'] || !$dates['end'] ) {
-            $dates['start'] = $this->default_start();
-            $dates['end'] = $this->date;
+        if( !$this->start_date || !$this->end_date || $this->start_date > $this->end_date ) {
+            $this->start_date = $this->default_start;
+            $this->end_date = $this->today;
         }
-
-        return $dates;
     }
 
-    private function graph_data( $data ) { ?>
+    private function graph_data() {
 
-        <script>
+        $opened = \ucare\statprocs\count_tickets( $this->start_date, $this->end_date );
+        $closed = \ucare\statprocs\count_tickets( $this->start_date, $this->end_date, array( 'closed' => true ) );
+
+        ?><script>
 
             jQuery(document).ready(function ($) {
 
-                var totals = <?php echo json_encode( $data ); ?>;
+                var opened = format_data(<?php echo json_encode( $opened ); ?>);
+                var closed = format_data(<?php echo json_encode( $closed ); ?>);
 
-                var data = {
-                    series: [
-                        $.map(totals, function(el, index) {
-                            var date = moment(index);
+                function format_data(set) {
+                    var totals = [];
 
-                            return { y: el.opened, x: date, meta: el.opened + ' Opened, ' + date.format('MMM D YYYY') }
-                        }),
-                        $.map(totals, function(el, index) {
-                            var date = moment(index);
+                    Object.keys(set).forEach(function(date) {
+                        totals.push([ new Date(date).getTime(), set[ date ] ]);
+                    });
 
-                            return { y: el.closed, x: date, meta: el.closed + ' Closed, ' + date.format('MMM D YYYY') }
-                        })
-                    ]
-                };
+                    return totals;
+                }
 
-                var chart = new Chartist.Line('#ticket-overview-chart', data, {
-                    showArea: true,
-                    showLine: false,
-                    fullWidth: true,
-                    axisY: {
-                        onlyInteger: true
+                $.plot('#ticket-overview-chart', [
+                    { label: '<?php _e( 'Opened', \ucare\PLUGIN_ID ); ?>', data: opened },
+                    { label: '<?php _e( 'Closed', \ucare\PLUGIN_ID ); ?>', data: closed, yaxis: 2 }
+                ],{
+                    colors: [ '#EDC240', '#AFD8F8' ],
+                    grid: {
+                        margin: { right: 10 },
+                        hoverable: true
                     },
-                    axisX: {
-                        type: Chartist.AutoScaleAxis,
-                        scaleMinSpace: 120,
-                        labelInterpolationFnc: function(value, index) {
-                            if(Object.keys(totals).length > 365) {
-                                value = moment(value).format('MMM YYYY');
-                            } else {
-                                value = moment(value).format('MMM D')
-                            }
-
-                            return value
-                        }
+                    series: {
+                        lines: { show: true },
+                        points: { show: true }
                     },
-                    plugins: [
-                        Chartist.plugins.tooltip({
-                            appendToBody: true
-                        }),
-                        Chartist.plugins.legend({
-                            legendNames: ['Opened', 'Closed']
-                        })
-                    ]
-                });
-
-                chart.on('draw', function(context) {
-                    if(context.type === 'line' || context.type === 'area') {
-                        context.element.animate({
-                            d: {
-                                begin: 2000 * context.index,
-                                dur: 2000,
-                                from: context.path.clone().scale(1, 0).translate(0, context.chartRect.height()).stringify(),
-                                to: context.path.clone().stringify(),
-                                easing: Chartist.Svg.Easing.easeOutQuint
-                            }
-                        });
-                    }
-                });
-
-                chart.on('draw', function(data) {
-                    if(data.type === 'grid' && data.index !== 0) {
-                        data.element.remove();
+                    xaxis: {
+                        mode: 'time',
+                        minTickSize: [1, 'day']
+                    },
+                    yaxis: {
+                        min: 0,
+                        minTickSize: 1,
+                        position: 'right',
+                        tickDecimals: 0,
+                        tickLength: 0
                     }
                 });
 
@@ -134,11 +105,35 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </script>
 
-        <div class="stats-chart-wrapper"><div id="ticket-overview-chart" class="ct-chart ct-golden-section"></div></div>
+        <div class="stats-chart-wrapper"><div class="reports-graph" id="ticket-overview-chart" style="width:100%;height:300px"></div></div>
 
     <?php }
 
     public function render() { ?>
+
+        <script>
+
+            // Print out the default dates so we can set the picker from the front end
+            var default_dates = {
+              'last_week': {
+                  start: '<?php  echo date( 'Y-m-d', strtotime( '-7 days' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-d', strtotime( 'now' ) ); ?>',
+              },
+              'this_month': {
+                  start: '<?php  echo date( 'Y-m-01', strtotime( 'now' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-t',  strtotime( 'now' ) ); ?>'
+              },
+              'last_month': {
+                  start: '<?php  echo date( 'Y-m-01',  strtotime( '-1 month' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-t',   strtotime( '-1 month' ) ); ?>'
+              },
+              'this_year': {
+                  start: '<?php  echo date( 'Y-01-01', strtotime( 'now' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-12-t',  strtotime( 'now' ) ); ?>',
+              }
+            };
+
+        </script>
 
         <div class="stats-page-wrapper">
 
@@ -155,7 +150,7 @@ class ReportsOverviewTab extends MenuPageTab {
                             <div class="control-group">
                                 <select name="range" class="date-range-select form-control">
 
-                                    <?php foreach($this->predefined_ranges as $option => $label ) : ?>
+                                    <?php foreach ( $this->predefined_ranges as $option => $label ) : ?>
 
                                         <option value="<?php echo $option; ?>"
                                             <?php selected( $option, isset( $_GET['range'] ) ? $_GET['range'] : '' ); ?>>
@@ -171,13 +166,11 @@ class ReportsOverviewTab extends MenuPageTab {
                                 <span class="start_date">
                                     <?php
 
-                                        $default = $this->default_start();
-
                                         $this->date_picker(
                                             'start_',
-                                            $default->format( 'n' ),
-                                            $default->format( 'j' ),
-                                            $default->format( 'Y' )
+                                            $this->default_start->format( 'n' ),
+                                            $this->default_start->format( 'j' ),
+                                            $this->default_start->format( 'Y' )
                                         );
 
                                     ?>
@@ -188,35 +181,29 @@ class ReportsOverviewTab extends MenuPageTab {
 
                                         $this->date_picker(
                                             'end_',
-                                            $this->date->format( 'n' ),
-                                            $this->date->format( 'j' ),
-                                            $this->date->format( 'Y' )
+                                            $this->today->format( 'n' ),
+                                            $this->today->format( 'j' ),
+                                            $this->today->format( 'Y' )
                                         );
 
                                     ?>
                                 </span>
                             </div>
                             <div class="control-group">
-                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \SmartcatSupport\PLUGIN_ID ); ?></button>
+                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \ucare\PLUGIN_ID ); ?></button>
                             </div>
                         </div>
 
                 </div>
                 <div class="stats-graph stats-section">
 
-                    <?php
-
-                        $range = $this->date_range();
-
-                        $this->graph_data( \SmartcatSupport\statprocs\count_tickets( $range['start'], $range['end'] ) );
-
-                    ?>
+                    <?php $this->graph_data(); ?>
 
                 </div>
 
                 <?php
 
-                    $totals = new AgentStatsTable( $range['start'], $range['end'] );
+                    $totals = new AgentStatsTable( $this->start_date, $this->end_date );
 
                     $totals->prepare_items();
                     $totals->display();
@@ -239,7 +226,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                     <?php selected( isset( $_GET["{$prefix}month"] ) ? $_GET["{$prefix}month"] : $month, $m ); ?>>
 
-                    <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), \SmartcatSupport\PLUGIN_ID ); ?>
+                    <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), \ucare\PLUGIN_ID ); ?>
 
                 </option>
 
@@ -259,7 +246,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </select>
 
-        <?php $this_year = $this->date->format( 'Y' ); ?>
+        <?php $this_year = date_create()->format( 'Y' ); ?>
 
         <select name="<?php echo $prefix; ?>year">
 

@@ -1,25 +1,30 @@
 <?php
 
-namespace SmartcatSupport;
+namespace ucare;
 
+use smartcat\admin\MenuPage;
+use smartcat\admin\TabbedMenuPage;
 use smartcat\core\AbstractPlugin;
 use smartcat\mail\Mailer;
-use SmartcatSupport\ajax\Media;
-use SmartcatSupport\ajax\Ticket;
-use SmartcatSupport\ajax\Comment;
-use SmartcatSupport\ajax\Settings;
-use SmartcatSupport\ajax\Registration;
-use SmartcatSupport\component\ECommerce;
-use SmartcatSupport\component\Notifications;
-use SmartcatSupport\admin\TicketPostType;
-use SmartcatSupport\component\Hacks;
-use SmartcatSupport\descriptor\Option;
+use ucare\admin\Reports;
+use ucare\admin\ReportsOverviewTab;
+use ucare\ajax\Media;
+use ucare\ajax\Statistics;
+use ucare\ajax\Ticket;
+use ucare\ajax\Comment;
+use ucare\ajax\Settings;
+use ucare\ajax\Registration;
+use ucare\component\ECommerce;
+use ucare\component\Notifications;
+use ucare\admin\TicketPostType;
+use ucare\component\Hacks;
+use ucare\descriptor\Option;
 
 class Plugin extends AbstractPlugin {
 
-    public function start() {
-        $this->add_api_subscriber( include $this->dir . 'config/admin_settings.php' );
+    private $menu_pages = array();
 
+    public function start() {
         $this->config_dir = $this->dir . '/config/';
         $this->template_dir = $this->dir . '/templates/';
 
@@ -35,6 +40,7 @@ class Plugin extends AbstractPlugin {
         proc\configure_roles();
         proc\create_email_templates();
         proc\setup_template_page();
+        proc\schedule_cron_jobs();
     }
 
     public function deactivate() {
@@ -50,6 +56,7 @@ class Plugin extends AbstractPlugin {
         wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
 
         proc\cleanup_roles();
+        proc\clear_scheduled_jobs();
 
         Mailer::cleanup();
 
@@ -74,7 +81,7 @@ class Plugin extends AbstractPlugin {
 
         $menu_page = menu_page_url( 'support_options', false );
 
-        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', PLUGIN_ID ) . '</a>' ), $links );
+        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', \ucare\PLUGIN_ID ) . '</a>' ), $links );
     }
 
     public function admin_enqueue( $hook ) {
@@ -106,92 +113,101 @@ class Plugin extends AbstractPlugin {
                 $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
-    public function register_dependencies() {
-        $plugins = array(
-            array(
-                'name'     => 'WP SMTP',
-                'slug'     => 'wp-smtp',
-                'required' => false
-            )
-        );
-
-        $config = array(
-            'id'           => 'smartcat_support_required_plugins',
-            'default_path' => '',
-            'menu'         => 'tgmpa-install-plugins',
-            'parent_slug'  => 'plugins.php',
-            'capability'   => 'manage_options',
-            'has_notices'  => true,
-            'dismissable'  => true,
-            'dismiss_msg'  => '',
-            'is_automatic' => false,
-            'message'      => '',
-            'strings'      => array(
-                'notice_can_install_required' => _n_noop(
-                    'Smartcat Support requires the following plugin: %1$s.',
-                    'Smartcat Support requires the following plugins: %1$s.',
-                    PLUGIN_ID
-                ),
-                'notice_can_install_recommended' => _n_noop(
-                    'Smartcat Support recommends the following plugin: %1$s.',
-                    'Smartcat Support recommends the following plugins: %1$s.',
-                    PLUGIN_ID
-                ),
-            )
-        );
-
-        tgmpa( $plugins, $config );
-    }
-
     public function login_failed() {
-        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
-            wp_redirect( url() . '?login=failed' );
+        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
+            wp_redirect( \ucare\url() . '?login=failed' );
             exit;
         }
     }
 
     public function authenticate( $user, $username, $password ) {
-        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \SmartcatSupport\url() ) ) {
+        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
             if ( $username == "" || $password == "" ) {
-                wp_redirect( url() . "?login=empty" );
+                wp_redirect( \ucare\url() . "?login=empty" );
                 exit;
             }
         }
     }
 
-    public function register_menu_items() {
-        add_menu_page(
-            __( 'uCare Support', PLUGIN_ID ),
-            __( 'uCare Support', PLUGIN_ID ),
-            'manage_support',
-            'ucare_support',
-            '',
-            $this->url . 'assets/images/admin-icon.png',
-            71
+    public function register_menu() {
+
+        $this->menu_pages = array(
+            'root' => new MenuPage(
+                array(
+                    'type'          => 'menu',
+                    'menu_slug'     => 'ucare_support',
+                    'menu_title'    => __( 'uCare Support', \ucare\PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'position'      => 71,
+                    'icon'          => \ucare\plugin_url() . '/assets/images/admin-icon.png',
+                    'render'        => false
+                )
+            ),
+            'reports' => new TabbedMenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'ucare_support',
+                    'menu_title'    => __( 'Reports', PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'tabs' => array( new ReportsOverviewTab() )
+                )
+            ),
+           'tickets' => new MenuPage(
+                array(
+                    'type'        => 'submenu',
+                    'parent_menu' => 'ucare_support',
+                    'menu_title'  => __( 'Tickets List', \ucare\PLUGIN_ID ),
+                    'menu_slug'   => 'edit.php?post_type=support_ticket',
+                    'capability'  => 'edit_support_tickets',
+                    'render'      => false
+                )
+            ),
+            'create_ticket' => new MenuPage(
+                array(
+                    'type'        => 'submenu',
+                    'parent_menu' => 'ucare_support',
+                    'menu_title'  => __( 'Create Ticket', \ucare\PLUGIN_ID ),
+                    'menu_slug'   => 'post-new.php?post_type=support_ticket',
+                    'capability'  => 'edit_support_tickets',
+                    'render'      => false
+                )
+            ),
+            'launcher' => new MenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'launch',
+                    'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'onload'        => function () { wp_safe_redirect( url() ); }
+                )
+            ),
+            'settings'   => include_once $this->dir . '/config/admin_settings.php',
+            'extensions' => new MenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'add-ons',
+                    'menu_title'    => __( 'Add-ons', PLUGIN_ID ),
+                    'capability'    => 'manage_support',
+                    'render'        => $this->template_dir . '/admin-extensions.php'
+                )
+            )
         );
 
-        do_action( 'support_menu_register' );
+        do_action( 'support_menu_register', $this->menu_pages );
 
-        add_submenu_page(
-            'ucare_support',
-            '', __( 'Launch Help Desk', PLUGIN_ID ),
-            'manage_support',
-            'open_app',
-            function () {
-                wp_safe_redirect( get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ) );
-            }
-        );
     }
 
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'admin_menu'        => array( 'register_menu_items', 1, 0 ),
+            'wp_loaded'         => 'register_menu',
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'admin_enqueue_scripts' => array( 'admin_enqueue' ),
-//            'tgmpa_register' => array( 'register_dependencies' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
@@ -204,7 +220,7 @@ class Plugin extends AbstractPlugin {
     }
 
     public function mailer_text_domain( $text_domain ) {
-        return PLUGIN_ID;
+        return \ucare\PLUGIN_ID;
     }
 
     public function components() {
@@ -215,11 +231,11 @@ class Plugin extends AbstractPlugin {
             Settings::class,
             Hacks::class,
             Media::class,
-            ajax\Statistics::class,
-            admin\Reports::class
+            Statistics::class,
+            Reports::class
         );
 
-        if( util\ecommerce_enabled( false ) ) {
+        if( \ucare\util\ecommerce_enabled( false ) ) {
             $components[] = ECommerce::class;
         }
 
@@ -244,7 +260,7 @@ class Plugin extends AbstractPlugin {
 
     public function restore_template( $val ) {
         if( $val == 'on' ) {
-            proc\setup_template_page();
+            \ucare\proc\setup_template_page();
         }
 
         return '';

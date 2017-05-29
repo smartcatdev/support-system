@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\ajax;
+namespace ucare\ajax;
 
 class Comment extends AjaxComponent {
 
@@ -18,22 +18,20 @@ class Comment extends AjaxComponent {
             if ( !empty( $_POST['content'] ) ) {
                 $result = wp_update_comment( array(
                     'comment_ID'       => $comment->comment_ID,
-                    'comment_content'  => \SmartcatSupport\util\encode_code_blocks( $_POST['content'] ),
+                    'comment_content'  => \ucare\util\encode_code_blocks( $_POST['content'] ),
                     'comment_date'     => current_time( 'mysql' ),
                     'comment_date_gmt' => current_time( 'mysql', 1 )
                 ) );
 
                 $html = $this->render( $this->plugin->template_dir . '/comment.php',
-                    array(
-                        'comment' => $this->get_comment( $comment->comment_ID )
-                    )
+                    array( 'comment' => $this->get_comment( $comment->comment_ID ) )
                 );
 
                 if( $result ) {
                     wp_send_json_success( $html );
                 }
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', \ucare\PLUGIN_ID ), 400 );
             }
         }
     }

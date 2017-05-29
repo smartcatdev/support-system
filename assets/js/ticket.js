@@ -218,7 +218,7 @@ var Ticket = (function ($) {
                     
                     setTimeout(function () {
                         var ticket = $("#" + id);
-                        
+
                         ticket.find(".ticket-detail").fadeToggle();
                         ticket.find(".loader-mask").hide();
                         

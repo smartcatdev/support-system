@@ -1,11 +1,11 @@
 <?php
 
-namespace SmartcatSupport;
+namespace ucare;
 
 include_once 'vendor/autoload.php';
 
 use smartcat\mail\Mailer;
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;

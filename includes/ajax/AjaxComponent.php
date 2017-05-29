@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\ajax;
+namespace ucare\ajax;
 
 
 use smartcat\core\AbstractComponent;

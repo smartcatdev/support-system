@@ -55,6 +55,17 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 
 == Changelog == 
 
+= 1.2.0 =
+- Added reports menu page with overview of total tickets opened/closed and per agent totals
+- Added cron job to mark tickets as stale after a set number of days and option to delete tickets 24 hours later
+- Added new email and default template to notify users of ticket inactivity
+- Added ability to filter unassigned tickets from front-end
+- Fixed issue where updating a ticket overwrites its created date
+- Fixed issue where password reset link would not work if permalinks are not set
+- Prep for extensions support
+- Restructured admin menu configuration
+- Added branding to admin settings
+
 = 1.1.2 =
 - Fix issue with DB query showing up in the admin dashboard for some users
 

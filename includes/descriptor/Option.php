@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\descriptor;
+namespace ucare\descriptor;
 
 /**
  * Constant keys for use with calls to get_option()
@@ -235,4 +235,19 @@ final class Option {
      * @since 1.1.1
      */
     const PASSWORD_RESET_EMAIL = 'smartcat_support_password-reset-email';
+
+    /**
+     * @since 1.2.0
+     */
+    const INACTIVE_MAX_AGE = 'smartcat_support_inactive-max-age';
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE = 'smartcat_support_autoclose-enabled';
+
+    /**
+     * @since 1.2.0
+     */
+    const INACTIVE_EMAIL = 'smartcat_support_inactive-email';
 }

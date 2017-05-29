@@ -1,8 +1,8 @@
 <?php
 
-namespace SmartcatSupport\ajax;
+namespace ucare\ajax;
 
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 class Ticket extends AjaxComponent {
 
@@ -20,7 +20,7 @@ class Ticket extends AjaxComponent {
             if ( $form->is_valid() ) {
                 $post_id = wp_insert_post( array(
                     'post_title'     => $form->data['subject'],
-                    'post_content'   => \SmartcatSupport\util\encode_code_blocks( $form->data['description'] ),
+                    'post_content'   => \ucare\util\encode_code_blocks( $form->data['description'] ),
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open'
@@ -37,6 +37,7 @@ class Ticket extends AjaxComponent {
                     }
 
                     update_post_meta( $post_id, 'status', 'new' );
+                    update_post_meta( $post_id, 'agent', 0 );
                     update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
 
                     // link attachments with post
@@ -74,19 +75,15 @@ class Ticket extends AjaxComponent {
             }
 
             $html = $this->render( $this->plugin->template_dir . '/ticket.php',
-                array(
-                    'ticket' => $ticket
-                )
+                array( 'ticket' => $ticket )
             );
 
-            wp_send_json(
-                array(
-                    'success' => true,
-                    'id' => $ticket->ID,
-                    'title' => $ticket->post_title,
-                    'content' => $html
-                )
-            );
+            wp_send_json( array(
+                'success' => true,
+                'id'      => $ticket->ID,
+                'title'   => $ticket->post_title,
+                'content' => $html
+            ) );
         }
     }
 
@@ -98,31 +95,30 @@ class Ticket extends AjaxComponent {
      */
     public function update_ticket_properties() {
         if( current_user_can( 'manage_support_tickets' ) && isset( $_REQUEST['id'] ) ) {
+
             $ticket = $this->get_ticket( $_REQUEST['id'] );
 
             if ( !empty( $ticket ) ) {
+
                 $form = include $this->plugin->config_dir . '/ticket_properties_form.php';
 
-                if ( $form->is_valid() ) {
-                    $post_id = wp_update_post( array(
-                        'ID'          => $_REQUEST['id'],
-                        'post_date'   => current_time( 'mysql' )
+                if( $form->is_valid() ) {
+
+                    foreach( $form->data as $field => $value ) {
+
+                        update_post_meta( $ticket->ID, $field, $value );
+
+                    }
+
+                    update_post_meta( $ticket->ID, '_edit_last', wp_get_current_user()->ID );
+
+                    do_action( 'support_ticket_updated', $ticket );
+
+                    wp_send_json( array(
+                        'ticket_id' => $ticket->ID,
+                        'data'      => __( 'Ticket Successfully Updated', \ucare\PLUGIN_ID )
                     ) );
 
-                    if ( is_int( $post_id ) ) {
-                        foreach ( $form->data as $field => $value ) {
-                            update_post_meta( $post_id, $field, $value );
-                        }
-
-                        update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
-
-                        do_action( 'support_ticket_updated', get_post( $post_id ) );
-
-                        wp_send_json( array(
-                            'ticket_id' => $post_id,
-                            'data' => __( 'Ticket Successfully Updated', \SmartcatSupport\PLUGIN_ID ) )
-                        );
-                    }
                 }
             }
         }
@@ -130,9 +126,9 @@ class Ticket extends AjaxComponent {
 
     public function close_ticket() {
         if( update_post_meta( $_POST['id'], 'status', 'closed' ) ) {
-            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', \SmartcatSupport\PLUGIN_ID ) ) );
+            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', \ucare\PLUGIN_ID ) ) );
         } else {
-            wp_send_json_error( array( 'message' => __( 'Error closing ticket', \SmartcatSupport\PLUGIN_ID ) ) );
+            wp_send_json_error( array( 'message' => __( 'Error closing ticket', \ucare\PLUGIN_ID ) ) );
         }
     }
 
@@ -179,9 +175,7 @@ class Ticket extends AjaxComponent {
         if( !empty( $ticket ) ) {
 
             $html = $this->render( $this->plugin->template_dir . '/comments.php',
-                array(
-                    'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) )
-                )
+                array( 'comments' => get_comments( array( 'post_id' => $ticket->ID, 'order' => 'ASC' ) ) )
             );
 
             wp_send_json_success( $html );
@@ -212,22 +206,13 @@ class Ticket extends AjaxComponent {
                 'comment_author'              => $user->display_name,
                 'comment_author_email'        => $user->user_email,
                 'comment_author_url'          => $user->user_url,
-                'comment_content'             => \SmartcatSupport\util\encode_code_blocks( $_POST['content'] ),
+                'comment_content'             => \ucare\util\encode_code_blocks( $_POST['content'] ),
                 'comment_parent'              => 0,
                 'comment_approved'            => 1,
                 'user_id'                     => $user->ID
             ) );
 
             if ( !is_wp_error( $comment ) ) {
-                if ( current_user_can( 'manage_support_tickets' ) ) {
-
-                    if( $status != 'closed' ) {
-                        update_post_meta($ticket->ID, 'status', 'waiting');
-                    }
-
-                } elseif ( $status != 'new' && $status != 'closed' ) {
-                    update_post_meta( $ticket->ID, 'status', 'responded' );
-                }
 
                 do_action( 'support_ticket_reply', $comment, $ticket );
 
@@ -243,7 +228,7 @@ class Ticket extends AjaxComponent {
                 );
 
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', \SmartcatSupport\PLUGIN_ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', \ucare\PLUGIN_ID ), 400 );
             }
         } else {
             wp_send_json_error( null, 400 );
@@ -252,47 +237,56 @@ class Ticket extends AjaxComponent {
 
     public function list_tickets() {
         $html = $this->render( $this->plugin->template_dir . '/ticket_list.php',
-            array(
-                'query' => $this->query_tickets()
-            )
+            array( 'query' => $this->query_tickets() )
         );
 
         wp_send_json_success( $html );
     }
 
     public function filter_tickets( $args ) {
-        $form = include $this->plugin->config_dir . '/ticket_filter.php';
         $can_manage_tickets = current_user_can( 'manage_support_tickets' );
+
         $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
 
-        if( $form->is_submitted() ) {
-            $data = array();
+        if( isset( $_REQUEST['ticket_filter'] ) ) {
 
-            foreach( $form->fields as $name => $field ) {
-                if( !empty( $_REQUEST[ $name ] ) ) {
-                    $data[ $name ] = $_REQUEST[ $name ];
+            if( !empty( $_REQUEST['email'] ) ) {
+                $author = get_user_by( 'email', $_REQUEST['email'] );
+
+                if( $author ) {
+                    $args['author'] = $author->ID;
                 }
             }
 
-            if( $can_manage_tickets ) {
-                if( !empty( $data['email'] ) ) {
-                    $author = get_user_by('email', $data['email']);
+            if( !empty( $_REQUEST['agent'] ) ) {
+                switch( $_REQUEST['agent'] ) {
+                    case -1:
+                        $args['meta_query'][] = array(
+                            'key'     => 'agent',
+                            'value'   => 1,
+                            'compare' => '<'
+                        );
 
-                    if ($author) {
-                        $args['author'] = $author->ID;
+                        break;
+
+                    default:
+                        $args['meta_query'][] = array(
+                            'key'   => 'agent',
+                            'value' => $_REQUEST['agent']
+                        );
+
+                        break;
+                }
+            }
+
+            if( !empty( $_REQUEST['meta'] ) ) {
+                foreach( $_REQUEST['meta'] as $key => $value ) {
+                    if( !empty( $value ) ) {
+                        $args['meta_query'][] = array( 'key' => $key, 'value' => $value );
                     }
-
-                    unset($data['email']);
-                }
-            } else {
-                $args['author'] = wp_get_current_user()->ID;
-            }
-
-            foreach( $data as $name => $value ) {
-                if( !empty( $value ) ) {
-                    $args['meta_query'][] = array( 'key' => $name, 'value' => $value );
                 }
             }
+
         } elseif( $can_manage_tickets ) {
             $args['meta_query'][] = array(
                 'key'       => 'status',
@@ -302,15 +296,6 @@ class Ticket extends AjaxComponent {
         }
 
         return $args;
-    }
-
-    public function ticket_closed( $null, $ticket_id, $key, $value ) {
-        if( $key == 'status' && $value == 'closed' ) {
-            update_post_meta( $ticket_id, 'closed_date', current_time( 'mysql' ) );
-            update_post_meta( $ticket_id, 'closed_by', wp_get_current_user()->ID );
-        }
-
-        return $null;
     }
 
     /**
@@ -335,8 +320,6 @@ class Ticket extends AjaxComponent {
             'wp_ajax_support_list_tickets' => array( 'list_tickets' ),
 
             'support_ticket_list_query_vars' => array( 'filter_tickets' ),
-
-            'update_post_metadata' => array( 'ticket_closed', 10, 4 ),
         ) );
     }
 
@@ -368,7 +351,7 @@ class Ticket extends AjaxComponent {
             'paged'          => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
         );
 
-        if ( ! current_user_can( 'manage_support_tickets' ) ) {
+        if ( !current_user_can( 'manage_support_tickets' ) ) {
             $args['author'] = wp_get_current_user()->ID;
         }
 

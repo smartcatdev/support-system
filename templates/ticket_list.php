@@ -1,6 +1,6 @@
 <?php
 
-use SmartcatSupport\descriptor\Option;
+use ucare\descriptor\Option;
 
 ?>
 
@@ -8,7 +8,7 @@ use SmartcatSupport\descriptor\Option;
 
     <div class="row">
 
-        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \SmartcatSupport\PLUGIN_ID ); ?></p>
+        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \ucare\PLUGIN_ID ); ?></p>
 
     </div>
 
@@ -21,7 +21,7 @@ use SmartcatSupport\descriptor\Option;
             <?php foreach( $query->posts as $post ) : ?>
 
                 <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
-                <?php $statuses = \SmartcatSupport\util\statuses(); ?>
+                <?php $statuses = \ucare\util\statuses(); ?>
 
                 <div class="list-group-item ticket <?php echo $status; ?>">
 
@@ -35,7 +35,7 @@ use SmartcatSupport\descriptor\Option;
 
                                 <?php if( array_key_exists( $status, $statuses ) ) : ?>
 
-                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], \SmartcatSupport\PLUGIN_ID ); ?></span>
+                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], \ucare\PLUGIN_ID ); ?></span>
 
                                 <?php endif; ?>
 
@@ -47,7 +47,7 @@ use SmartcatSupport\descriptor\Option;
 
                             <div>
 
-                                <?php $products = \SmartcatSupport\util\products(); ?>
+                                <?php $products = \ucare\util\products(); ?>
                                 <?php $product = get_post_meta( $post->ID, 'product', true ); ?>
 
                                 <a class="open-ticket" data-id="<?php echo $post->ID; ?>">
@@ -66,7 +66,7 @@ use SmartcatSupport\descriptor\Option;
 
                                     #<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
 
-                                    <a class="ticket-email" href="#"><?php echo \SmartcatSupport\util\author_email( $post ); ?></a>
+                                    <a class="ticket-email" href="#"><?php echo \ucare\util\author_email( $post ); ?></a>
 
                                 </div>
 

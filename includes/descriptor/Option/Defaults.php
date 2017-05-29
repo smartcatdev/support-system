@@ -1,6 +1,6 @@
 <?php
 
-namespace SmartcatSupport\descriptor\Option;
+namespace ucare\descriptor\Option;
 
 /**
  * Default values for options. Correspond to their keys in desc\Option.
@@ -185,4 +185,15 @@ final class Defaults {
      * @since 1.1
      */
     const REFRESH_INTERVAL = '60';
+
+
+    /**
+     * @since 1.2.0
+     */
+    const INACTIVE_MAX_AGE = 4;
+
+    /**
+     * @since 1.2.0
+     */
+    const AUTO_CLOSE = 'on';
 }
