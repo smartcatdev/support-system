@@ -1,4 +1,7 @@
 {
+    "config": {
+      "autoloader-suffix": "ucare"
+    },
     "autoload" : {
         "psr-4" : {
             "ucare\\": "includes/",
