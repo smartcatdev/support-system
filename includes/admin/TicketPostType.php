@@ -224,7 +224,11 @@ class TicketPostType extends AbstractComponent {
                 $statuses = \ucare\util\statuses();
 
                 if( array_key_exists( $value, $statuses ) ) {
-                    echo $statuses[ $value ];
+                    echo  '<span class="status-tag">' . $statuses[ $value ] . '</span>';
+                }
+
+                if( get_post_meta( $post_id, 'stale', true ) ) {
+                    echo '<span class="stale-tag">' . __( 'Stale', \ucare\PLUGIN_ID ) . '</span>';
                 }
 
                 break;

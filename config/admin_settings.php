@@ -4,6 +4,7 @@ use smartcat\admin\CheckBoxField;
 use smartcat\admin\HTMLFilter;
 use smartcat\admin\IntegerValidator;
 use smartcat\admin\MatchFilter;
+use smartcat\admin\RangeValidator;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\SettingsTab;
@@ -301,7 +302,7 @@ $general->add_field( new TextField(
     )
 
 ) );
-/*
+
 $auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
 $auto_close_interval = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
@@ -328,7 +329,7 @@ $auto_close->add_field( new TextField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) );*/
+) );
 
 $emails = new SettingsSection( 'uc_email_templates', __( 'Email Templates', \ucare\PLUGIN_ID ) );
 
@@ -394,7 +395,7 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
-) )/*->add_field( new SelectBoxField(
+) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_autoclose_email_template',
         'option'        => Option::INACTIVE_EMAIL,
@@ -406,7 +407,7 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
-) )*/;
+) );
 
 $email_notifications = new SettingsSection( 'uc_email_notifications', __( 'Email Notifications', \ucare\PLUGIN_ID ) );
 
@@ -497,7 +498,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'uc_general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
-                    'sections' => array( $general, /*$auto_close*/ )
+                    'sections' => array( $general, $auto_close )
                 )
             ),
             new SettingsTab(
