@@ -510,11 +510,37 @@ hr {
 
 #navbar .button {
     line-height: 26px;
-    margin: 0 20px;
+    margin-right: 20px;
 }
 
 #navbar .button span {
     padding-right: 4px;
+}
+
+#navbar .clock {
+    display: none;
+}
+
+#navbar .actions {
+    width: 100%;
+}
+
+#navbar .actions .dropdown-wrapper {
+    text-align: right;
+}
+
+@media(min-width:  767px) {
+    #navbar .clock {
+        display: table;
+    }
+
+    #navbar .actions {
+        width: auto;
+    }
+
+    #navbar .actions .dropdown-wrapper {
+        text-align: center;
+    }
 }
 
 /* ## Body *****************************************************************************/

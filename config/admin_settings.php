@@ -4,12 +4,10 @@ use smartcat\admin\CheckBoxField;
 use smartcat\admin\HTMLFilter;
 use smartcat\admin\IntegerValidator;
 use smartcat\admin\MatchFilter;
-use smartcat\admin\RangeValidator;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\SettingsTab;
 use smartcat\admin\TabbedMenuPage;
-use smartcat\admin\TabbedSettingsPage;
 use smartcat\admin\TextAreaField;
 use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
@@ -19,7 +17,7 @@ use ucare\Plugin;
 
 $plugin_url = Plugin::plugin_url( \ucare\PLUGIN_ID );
 
-$appearance = new SettingsSection( 'appearance', __( 'Appearance', \ucare\PLUGIN_ID ) );
+$appearance = new SettingsSection( 'uc_appearance', __( 'Appearance', \ucare\PLUGIN_ID ) );
 
 $appearance->add_field( new TextField(
     array(
@@ -72,7 +70,7 @@ $appearance->add_field( new TextField(
 
 ) );
 
-$text = new SettingsSection( 'text', __( 'Text & Labels', \ucare\PLUGIN_ID ) );
+$text = new SettingsSection( 'uc_text', __( 'Text & Labels', \ucare\PLUGIN_ID ) );
 
 $text->add_field( new TextField(
     array(
@@ -173,7 +171,7 @@ $text->add_field( new TextField(
     )
 ) );
 
-$widgets = new SettingsSection( 'widgets', __( 'Widgets', \ucare\PLUGIN_ID ) );
+$widgets = new SettingsSection( 'uc_widgets', __( 'Widgets', \ucare\PLUGIN_ID ) );
 
 $widgets->add_field( new TextAreaField(
     array(
@@ -210,7 +208,7 @@ $widgets->add_field( new TextAreaField(
     )
 ) );
 
-$general = new SettingsSection( 'general', __( 'General Settings', \ucare\PLUGIN_ID ) );
+$general = new SettingsSection( 'uc_general', __( 'General Settings', \ucare\PLUGIN_ID ) );
 
 $general->add_field( new TextField(
     array(
@@ -304,7 +302,7 @@ $general->add_field( new TextField(
 
 ) );
 /*
-$auto_close = new SettingsSection( 'auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
+$auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
 $auto_close_interval = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
 
@@ -332,7 +330,7 @@ $auto_close->add_field( new TextField(
 
 ) );*/
 
-$emails = new SettingsSection( 'email_templates', __( 'Email Templates', \ucare\PLUGIN_ID ) );
+$emails = new SettingsSection( 'uc_email_templates', __( 'Email Templates', \ucare\PLUGIN_ID ) );
 
 $email_templates = array( '' => __( 'Notifications Disabled', \ucare\PLUGIN_ID ) ) + Mailer::list_templates();
 
@@ -410,7 +408,7 @@ $emails->add_field( new SelectBoxField(
 
 ) )*/;
 
-$email_notifications = new SettingsSection( 'email_notifications', __( 'Email Notifications', \ucare\PLUGIN_ID ) );
+$email_notifications = new SettingsSection( 'uc_email_notifications', __( 'Email Notifications', \ucare\PLUGIN_ID ) );
 
 $email_notifications->add_field( new CheckBoxField(
     array(
@@ -454,7 +452,7 @@ $email_notifications->add_field( new CheckBoxField(
 
 ) );
 
-$advanced = new SettingsSection( 'advanced', __( 'CAUTION: Some of these may bite', \ucare\PLUGIN_ID ) );
+$advanced = new SettingsSection( 'uc_advanced', __( 'CAUTION: Some of these may bite', \ucare\PLUGIN_ID ) );
 
 $advanced->add_field( new CheckBoxField(
     array(
@@ -497,35 +495,35 @@ $admin = new TabbedMenuPage(
         'tabs'          => array(
             new SettingsTab(
                 array(
-                    'slug'     => 'general',
+                    'slug'     => 'uc_general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
                     'sections' => array( $general, /*$auto_close*/ )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'display',
+                    'slug'     => 'uc_display',
                     'title'    => __( 'Display', \ucare\PLUGIN_ID ),
                     'sections' => array( $text, $widgets )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'appearance',
+                    'slug'     => 'uc_appearance',
                     'title'    => __( 'Appearance', \ucare\PLUGIN_ID ),
                     'sections' => array( $appearance )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'email',
+                    'slug'     => 'uc_email',
                     'title'    => __( 'Email', \ucare\PLUGIN_ID ),
                     'sections' => array( $emails, $email_notifications )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'advanced',
+                    'slug'     => 'uc_advanced',
                     'title'    => __( 'Advanced', \ucare\PLUGIN_ID ),
                     'sections' => array( $advanced )
                 )
