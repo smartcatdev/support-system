@@ -71,7 +71,7 @@ class MenuPage {
         }
     }
 
-    public function on_load() { }
+    public function on_load() {}
 
     public function render() {}
 
