@@ -46,15 +46,18 @@ function comment_save( $id ) {
 
         $status = get_post_meta( $post->ID, 'status', true );
 
-        if( current_user_can( 'manage_support_tickets' ) ) {
+        // Don't update the status if the ticket has already been closed
+        if( $status != 'closed' ) {
 
-            if( $status != 'closed' ) {
+            // If the user is an agent or admin
+            if( current_user_can( 'manage_support_tickets' ) ) {
+
                 update_post_meta( $post->ID, 'status', 'waiting' );
+
+            // If the status is new, overwrite it to clear stale values else set status to responded
+            } else {
+                update_post_meta( $post->ID, 'status', $status == 'new' ? 'new' : 'responded' );
             }
-
-        } elseif( $status != 'new' && $status != 'closed' ) {
-
-            update_post_meta( $post->ID, 'status', 'responded' );
 
         }
 
