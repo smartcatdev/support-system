@@ -8,7 +8,7 @@ $agents = \ucare\util\list_agents();
 $statuses = \ucare\util\statuses();
 $priorities = \ucare\util\priorities();
 
-$agents = array( 0 => __( 'Unassigned', \ucare\PLUGIN_ID ) ) + $agents;
+$agents = array( 0 => __( 'Unassigned', 'ucare' ) ) + $agents;
 
 $form = new Form( 'support_metabox' );
 
@@ -16,7 +16,7 @@ $form->add_field( new SelectBoxField(
     array(
         'name'          => 'agent',
         'class'         => array( 'metabox-field' ),
-        'label'         => __( 'Assigned', \ucare\PLUGIN_ID ),
+        'label'         => __( 'Assigned', 'ucare' ),
         'options'       => $agents,
         'value'         => get_post_meta( $post->ID, 'agent', true ),
         'constraints'   => array(
@@ -28,7 +28,7 @@ $form->add_field( new SelectBoxField(
     array(
         'name'          => 'status',
         'class'         => array( 'metabox-field' ),
-        'label'         => __( 'Status', \ucare\PLUGIN_ID ),
+        'label'         => __( 'Status', 'ucare' ),
         'options'       => $statuses,
         'value'         => get_post_meta( $post->ID, 'status', true ),
         'constraints'   => array(
@@ -40,7 +40,7 @@ $form->add_field( new SelectBoxField(
     array(
         'name'        => 'priority',
         'class'       => array( 'metabox-field' ),
-        'label'       => __( 'Priority', \ucare\PLUGIN_ID ),
+        'label'       => __( 'Priority', 'ucare' ),
         'options'     => $priorities,
         'value'       => get_post_meta( $post->ID, 'priority', true ),
         'constraints' => array(

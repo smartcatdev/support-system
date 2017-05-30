@@ -81,7 +81,7 @@ class Plugin extends AbstractPlugin {
 
         $menu_page = menu_page_url( 'support_options', false );
 
-        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', \ucare\PLUGIN_ID ) . '</a>' ), $links );
+        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', 'ucare' ) . '</a>' ), $links );
     }
 
     public function login_failed() {
@@ -107,7 +107,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'menu',
                     'menu_slug'     => 'ucare_support',
-                    'menu_title'    => __( 'uCare Support', \ucare\PLUGIN_ID ),
+                    'menu_title'    => __( 'uCare Support', 'ucare' ),
                     'capability'    => 'manage_support',
                     'position'      => 71,
                     'icon'          => \ucare\plugin_url() . '/assets/images/admin-icon.png',
@@ -128,7 +128,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Tickets List', \ucare\PLUGIN_ID ),
+                    'menu_title'  => __( 'Tickets List', 'ucare' ),
                     'menu_slug'   => 'edit.php?post_type=support_ticket',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
@@ -138,7 +138,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Create Ticket', \ucare\PLUGIN_ID ),
+                    'menu_title'  => __( 'Create Ticket', 'ucare' ),
                     'menu_slug'   => 'post-new.php?post_type=support_ticket',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
@@ -190,7 +190,7 @@ class Plugin extends AbstractPlugin {
     }
 
     public function mailer_text_domain( $text_domain ) {
-        return \ucare\PLUGIN_ID;
+        return 'ucare';
     }
 
     public function components() {

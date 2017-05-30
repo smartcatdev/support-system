@@ -116,7 +116,7 @@ class Ticket extends AjaxComponent {
 
                     wp_send_json( array(
                         'ticket_id' => $ticket->ID,
-                        'data'      => __( 'Ticket Successfully Updated', \ucare\PLUGIN_ID )
+                        'data'      => __( 'Ticket Successfully Updated', 'ucare' )
                     ) );
 
                 }
@@ -126,9 +126,9 @@ class Ticket extends AjaxComponent {
 
     public function close_ticket() {
         if( update_post_meta( $_POST['id'], 'status', 'closed' ) ) {
-            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', \ucare\PLUGIN_ID ) ) );
+            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', 'ucare' ) ) );
         } else {
-            wp_send_json_error( array( 'message' => __( 'Error closing ticket', \ucare\PLUGIN_ID ) ) );
+            wp_send_json_error( array( 'message' => __( 'Error closing ticket', 'ucare' ) ) );
         }
     }
 
@@ -228,7 +228,7 @@ class Ticket extends AjaxComponent {
                 );
 
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', \ucare\PLUGIN_ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', 'ucare' ), 400 );
             }
         } else {
             wp_send_json_error( null, 400 );

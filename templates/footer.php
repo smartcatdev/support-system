@@ -17,7 +17,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
                     <a href="http://ucaresupport.com" target="_blank">
 
-                        <?php _e( ' Powered by uCare Support', \ucare\PLUGIN_ID ); ?>
+                        <?php _e( ' Powered by uCare Support', 'ucare' ); ?>
 
                     </a>
 
@@ -34,14 +34,14 @@ $ver = get_option( Option::PLUGIN_VERSION );
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
                 refresh_interval: <?php echo get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ); ?>,
                 strings: {
-                    loading_tickets: "<?php _e( "Loading Tickets...", \ucare\PLUGIN_ID ); ?>",
-                    loading_generic: "<?php _e( "Loading...", \ucare\PLUGIN_ID ); ?>",
-                    delete_comment: "<?php _e( "Delete Comment", \ucare\PLUGIN_ID ); ?>",
-                    delete_attachment: "<?php _e( "Delete Attachment", \ucare\PLUGIN_ID ); ?>",
-                    close_ticket: "<?php _e( "Close Ticket", \ucare\PLUGIN_ID ); ?>",
-                    warning_permanent: "<?php _e( "Are you sure you want to do this? This operation cannot be undone!", \ucare\PLUGIN_ID ); ?>",
-                    yes: "<?php _e( "Yes", \ucare\PLUGIN_ID ); ?>",
-                    cancel: "<?php _e( "Cancel", \ucare\PLUGIN_ID ); ?>"
+                    loading_tickets: "<?php _e( "Loading Tickets...", 'ucare' ); ?>",
+                    loading_generic: "<?php _e( "Loading...", 'ucare' ); ?>",
+                    delete_comment: "<?php _e( "Delete Comment", 'ucare' ); ?>",
+                    delete_attachment: "<?php _e( "Delete Attachment", 'ucare' ); ?>",
+                    close_ticket: "<?php _e( "Close Ticket", 'ucare' ); ?>",
+                    warning_permanent: "<?php _e( "Are you sure you want to do this? This operation cannot be undone!", 'ucare' ); ?>",
+                    yes: "<?php _e( "Yes", 'ucare' ); ?>",
+                    cancel: "<?php _e( "Cancel", 'ucare' ); ?>"
                 }
             };
 

@@ -8,14 +8,14 @@ $agents = \ucare\util\list_agents();
 $statuses = \ucare\util\statuses();
 $priorities = \ucare\util\priorities();
 
-$agents = array( 0 => __( 'Unassigned', \ucare\PLUGIN_ID ) ) + $agents;
+$agents = array( 0 => __( 'Unassigned', 'ucare' ) ) + $agents;
 
 $form = new Form( 'ticket-properties' );
 
 $form->add_field( new SelectBoxField(
     array(
         'name'        => 'agent',
-        'label'       => __( 'Assigned to', \ucare\PLUGIN_ID ),
+        'label'       => __( 'Assigned to', 'ucare' ),
         'class'       => array( 'form-control', 'property-control' ),
         'options'     => $agents,
         'value'       => get_post_meta( $ticket->ID, 'agent', true ),
@@ -27,7 +27,7 @@ $form->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'name'        => 'status',
-        'label'       => __( 'Status', \ucare\PLUGIN_ID ),
+        'label'       => __( 'Status', 'ucare' ),
         'class'       => array( 'form-control', 'property-control' ),
         'options'     => $statuses,
         'value'       => get_post_meta( $ticket->ID, 'status', true ),
@@ -39,7 +39,7 @@ $form->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'name'        => 'priority',
-        'label'       => __( 'Priority', \ucare\PLUGIN_ID ),
+        'label'       => __( 'Priority', 'ucare' ),
         'class'       => array( 'form-control', 'property-control' ),
         'options'     => $priorities,
         'value'       => get_post_meta( $ticket->ID, 'priority', true ),

@@ -20,7 +20,7 @@ $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_fi
 
                         <span class="glyphicon glyphicon-filter"></span>
 
-                        <span class="toggle-label"><?php _e( 'Filter By', \ucare\PLUGIN_ID ); ?></span>
+                        <span class="toggle-label"><?php _e( 'Filter By', 'ucare' ); ?></span>
 
                     </button>
 
@@ -30,7 +30,7 @@ $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_fi
                        name="search"
                        type="text"
                        data-default=""
-                       placeholder="<?php _e('Search', \ucare\PLUGIN_ID); ?>"
+                       placeholder="<?php _e('Search', 'ucare'); ?>"
                        class="form-control filter-field"/>
 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
@@ -93,7 +93,7 @@ $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_fi
 
                     <span class="refresh glyphicon glyphicon-refresh"></span>
 
-                    <span class="refresh-label"><?php _e( 'Refresh', \ucare\PLUGIN_ID ); ?></span>
+                    <span class="refresh-label"><?php _e( 'Refresh', 'ucare' ); ?></span>
 
                 </button>
 

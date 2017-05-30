@@ -116,7 +116,7 @@ class Notifications extends AbstractComponent {
 
     public function email_template_branding() {
         if( $this->sending ) {
-            echo __( 'Powered by ', \ucare\PLUGIN_ID ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
+            echo __( 'Powered by ', 'ucare' ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
         }
     }
 

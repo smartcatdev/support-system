@@ -6,7 +6,7 @@ use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
 
 $products = \ucare\util\products();
-$products = array( 0 => __( 'Select a Product', \ucare\PLUGIN_ID ) ) + $products;
+$products = array( 0 => __( 'Select a Product', 'ucare' ) ) + $products;
 
 $form = new Form( 'product_metabox' );
 
@@ -15,7 +15,7 @@ $form->add_field( new TextBoxField(
         'name'              => 'receipt_id',
         'class'             => array( 'metabox-field' ),
         'type'              => 'text',
-        'label'             => __( 'Receipt #', \ucare\PLUGIN_ID ),
+        'label'             => __( 'Receipt #', 'ucare' ),
         'value'             => get_post_meta( $post->ID, 'receipt_id', true ),
         'sanitize_callback' => 'sanitize_text_field'
     )
@@ -24,7 +24,7 @@ $form->add_field( new TextBoxField(
     array(
         'id'          => 'product',
         'class'       => array( 'metabox-field' ),
-        'label'       => __( 'Product', \ucare\PLUGIN_ID ),
+        'label'       => __( 'Product', 'ucare' ),
         'value'       => get_post_meta( $post->ID, 'product', true ),
         'options'     => $products,
         'constraints' => array(

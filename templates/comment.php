@@ -35,11 +35,11 @@ use ucare\descriptor\Option;
                 <ul class="nav nav-tabs" style="display: none">
 
                     <li class="tab editor-tab active">
-                        <a class="nav-link edit" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \ucare\PLUGIN_ID ); ?></a>
+                        <a class="nav-link edit" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', 'ucare' ); ?></a>
                     </li>
 
                     <li class="tab editor-tab preview">
-                        <a class="nav-link" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', \ucare\PLUGIN_ID ); ?></a>
+                        <a class="nav-link" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', 'ucare' ); ?></a>
                     </li>
 
                 </ul>

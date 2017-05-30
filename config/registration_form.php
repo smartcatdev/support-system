@@ -11,8 +11,8 @@ $form->add_field( new TextBoxField(
     array(
         'name'          => 'first_name',
         'class'         => array( 'form-control' ),
-        'label'         => __( 'First Name', \ucare\PLUGIN_ID ),
-        'error_msg'     => __( 'First name cannot be blank', \ucare\PLUGIN_ID ),
+        'label'         => __( 'First Name', 'ucare' ),
+        'error_msg'     => __( 'First name cannot be blank', 'ucare' ),
         'constraints'   => array(
             new RequiredConstraint()
         )
@@ -22,8 +22,8 @@ $form->add_field( new TextBoxField(
     array(
         'name'          => 'last_name',
         'class'         => array( 'form-control' ),
-        'label'         => __( 'Last Name', \ucare\PLUGIN_ID ),
-        'error_msg'     => __( 'Last name cannot be blank', \ucare\PLUGIN_ID ),
+        'label'         => __( 'Last Name', 'ucare' ),
+        'error_msg'     => __( 'Last name cannot be blank', 'ucare' ),
         'constraints'   =>  array(
             new RequiredConstraint()
         )
@@ -34,8 +34,8 @@ $form->add_field( new TextBoxField(
         'name'              => 'email',
         'class'             => array( 'form-control' ),
         'type'              => 'email',
-        'label'             => __( 'Email Address', \ucare\PLUGIN_ID ),
-        'error_msg'         => __( 'Email cannot be empty or already in use', \ucare\PLUGIN_ID ),
+        'label'             => __( 'Email Address', 'ucare' ),
+        'error_msg'         => __( 'Email cannot be empty or already in use', 'ucare' ),
         'sanitize_callback' => 'sanitize_email',
         'constraints'       => array(
             new RequiredConstraint(), new UniqueEmailConstraint()

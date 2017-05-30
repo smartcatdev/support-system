@@ -23,7 +23,7 @@ class migration_1_1_1 implements \smartcat\core\Migration {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Your password has been changed', \ucare\PLUGIN_ID ),
+                    'post_title'    => __( 'Your password has been changed', 'ucare' ),
                     'post_content'  => file_get_contents( $dir . '/emails/password-reset.html' )
                 )
             );

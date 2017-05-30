@@ -21,7 +21,7 @@ use ucare\Plugin;
 
                         <span class="glyphicon glyphicon-chevron-left button-icon"></span>
 
-                        <span><?php _e( 'Back', \ucare\PLUGIN_ID ); ?></span>
+                        <span><?php _e( 'Back', 'ucare' ); ?></span>
 
                     </a>
 
@@ -31,19 +31,19 @@ use ucare\Plugin;
 
                         <div class="form-group">
 
-                            <h4><?php _e( 'Reset Password', \ucare\PLUGIN_ID ); ?></h4>
+                            <h4><?php _e( 'Reset Password', 'ucare' ); ?></h4>
 
                         </div>
 
                         <div class="form-group">
 
-                            <input class="form-control" type="text" name="username" placeholder="<?php _e( 'Username or Email Address', \ucare\PLUGIN_ID ); ?>" />
+                            <input class="form-control" type="text" name="username" placeholder="<?php _e( 'Username or Email Address', 'ucare' ); ?>" />
 
                         </div>
 
                         <div class="bottom">
 
-                            <input id="reset-password" type="submit" class="button button-primary" value="<?php _e( 'Reset', \ucare\PLUGIN_ID ); ?>" />
+                            <input id="reset-password" type="submit" class="button button-primary" value="<?php _e( 'Reset', 'ucare' ); ?>" />
 
                         </div>
 
@@ -63,7 +63,7 @@ use ucare\Plugin;
 
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
-                            <?php _e( 'Invalid username or password', \ucare\PLUGIN_ID ); ?>
+                            <?php _e( 'Invalid username or password', 'ucare' ); ?>
 
                         </div>
 
@@ -75,7 +75,7 @@ use ucare\Plugin;
 
                     <div class="text-center">
 
-                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \ucare\url() ); ?>"><?php _e( 'Lost password?', \ucare\PLUGIN_ID ); ?></a>
+                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \ucare\url() ); ?>"><?php _e( 'Lost password?', 'ucare' ); ?></a>
 
                     </div>
 
@@ -99,7 +99,7 @@ use ucare\Plugin;
 
                             <button id="login-back" class="btn btn-default registration-toggle button-back">
 
-                                <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', \ucare\PLUGIN_ID ); ?></span>
+                                <span class="glyphicon glyphicon-chevron-left button-icon"></span><span><?php _e( 'Back', 'ucare' ); ?></span>
 
                             </button>
 
@@ -133,7 +133,7 @@ use ucare\Plugin;
 
                                     <button id="registration-submit" type="submit" class="button button-primary">
 
-                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), \ucare\PLUGIN_ID ); ?>
+                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), 'ucare' ); ?>
 
                                     </button>
 

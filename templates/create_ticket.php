@@ -29,7 +29,7 @@ $form = include Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_create_
 
     <div class="form-group">
 
-        <label><?php _e( 'Attach Images', \ucare\PLUGIN_ID ); ?></label>
+        <label><?php _e( 'Attach Images', 'ucare' ); ?></label>
 
         <form id="ticket-media-upload" class="dropzone">
 

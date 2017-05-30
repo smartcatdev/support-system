@@ -37,11 +37,11 @@ $secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
     }
     
     #filter-toggle .toggle-label:after {
-        content: "<?php _e( 'Apply Filters', \ucare\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Apply Filters', 'ucare' ); ?>";
     }
 
     #filter-toggle.active .toggle-label:after {
-        content: "<?php _e( 'Filters Applied', \ucare\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Filters Applied', 'ucare' ); ?>";
     }
 
     #support-login-wrapper input[type="text"]:focus,

@@ -47,7 +47,7 @@ $user = wp_get_current_user();
 
                                 <span class="glyphicon glyphicon-plus-sign button-icon"></span>
 
-                                <span><?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \ucare\PLUGIN_ID ); ?></span>
+                                <span><?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), 'ucare' ); ?></span>
 
                             </button>
 
@@ -80,7 +80,7 @@ $user = wp_get_current_user();
 
                                         <span class="glyphicon glyphicon-cog"></span>
 
-                                        <?php _e( 'Settings', \ucare\PLUGIN_ID ); ?>
+                                        <?php _e( 'Settings', 'ucare' ); ?>
 
                                     </a>
 
@@ -95,7 +95,7 @@ $user = wp_get_current_user();
 
                                             <span class="glyphicon glyphicon-user"></span>
 
-                                            <?php _e( 'WordPress', \ucare\PLUGIN_ID ); ?>
+                                            <?php _e( 'WordPress', 'ucare' ); ?>
 
                                         </a>
 
@@ -110,7 +110,7 @@ $user = wp_get_current_user();
 
                                         <span class="glyphicon-log-out glyphicon"></span>
 
-                                        <?php _e( 'Logout', \ucare\PLUGIN_ID ); ?>
+                                        <?php _e( 'Logout', 'ucare' ); ?>
 
                                     </a>
 

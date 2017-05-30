@@ -41,7 +41,7 @@ class migration_1_2_1 implements \smartcat\core\Migration {
             array(
                 'post_type'     => 'email_template',
                 'post_status'   => 'publish',
-                'post_title'    => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID ),
+                'post_title'    => __( 'You have a ticket awaiting action', 'ucare' ),
                 'post_content'  => file_get_contents( $this->plugin->dir() . 'emails/ticket-close-warning.html' )
             )
         );

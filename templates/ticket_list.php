@@ -8,7 +8,7 @@ use ucare\descriptor\Option;
 
     <div class="row">
 
-        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \ucare\PLUGIN_ID ); ?></p>
+        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), 'ucare' ); ?></p>
 
     </div>
 
@@ -35,7 +35,7 @@ use ucare\descriptor\Option;
 
                                 <?php if( array_key_exists( $status, $statuses ) ) : ?>
 
-                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], \ucare\PLUGIN_ID ); ?></span>
+                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], 'ucare' ); ?></span>
 
                                 <?php endif; ?>
 

@@ -76,9 +76,9 @@ namespace  ucare\util {
         $date = date_create( $stamp );
 
         if( $now->diff( $date )->format( '%i' ) == 0 ) {
-            $out = __( 'Just Now', \ucare\PLUGIN_ID );
+            $out = __( 'Just Now', 'ucare' );
         } else {
-            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', \ucare\PLUGIN_ID );
+            $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', 'ucare' );
         }
 
         return $out;
@@ -109,20 +109,20 @@ namespace  ucare\util {
 
     function priorities () {
         return array(
-            __( 'Low', \ucare\PLUGIN_ID ),
-            __( 'Medium', \ucare\PLUGIN_ID ),
-            __( 'High', \ucare\PLUGIN_ID )
+            __( 'Low', 'ucare' ),
+            __( 'Medium', 'ucare' ),
+            __( 'High', 'ucare' )
         );
     }
 
     function statuses () {
         return array(
-            'new'               => __( 'New', \ucare\PLUGIN_ID ),
-            'waiting'           => __( 'Waiting', \ucare\PLUGIN_ID ),
-            'opened'            => __( 'Opened', \ucare\PLUGIN_ID ),
-            'responded'         => __( 'Responded', \ucare\PLUGIN_ID ),
-            'needs_attention'   => __( 'Needs Attention', \ucare\PLUGIN_ID ),
-            'closed'            => __( 'Closed', \ucare\PLUGIN_ID ),
+            'new'               => __( 'New', 'ucare' ),
+            'waiting'           => __( 'Waiting', 'ucare' ),
+            'opened'            => __( 'Opened', 'ucare' ),
+            'responded'         => __( 'Responded', 'ucare' ),
+            'needs_attention'   => __( 'Needs Attention', 'ucare' ),
+            'closed'            => __( 'Closed', 'ucare' ),
         );
     }
 
@@ -211,9 +211,9 @@ namespace  ucare\util {
 
     function roles() {
         return array(
-            'support_admin' => __( 'Support Admin', \ucare\PLUGIN_ID ),
-            'support_agent' => __( 'Support Agent', \ucare\PLUGIN_ID ),
-            'support_user'  => __( 'Support User', \ucare\PLUGIN_ID ),
+            'support_admin' => __( 'Support Admin', 'ucare' ),
+            'support_agent' => __( 'Support Agent', 'ucare' ),
+            'support_user'  => __( 'Support User', 'ucare' ),
         );
     }
 
@@ -303,7 +303,7 @@ namespace ucare\proc {
                 array(
                     'post_type' =>  'page',
                     'post_status' => 'publish',
-                    'post_title' => __( 'Support', \ucare\PLUGIN_ID )
+                    'post_title' => __( 'Support', 'ucare' )
                 )
             );
         } else if( $post->post_status == 'trash' ) {
@@ -325,32 +325,32 @@ namespace ucare\proc {
             array(
                 'template' => '/emails/ticket-created.html',
                 'option' => Option::CREATED_EMAIL_TEMPLATE,
-                'subject' => __( 'You have created a new request for support', \ucare\PLUGIN_ID )
+                'subject' => __( 'You have created a new request for support', 'ucare' )
             ),
             array(
                 'template' => '/emails/welcome.html',
                 'option' => Option::WELCOME_EMAIL_TEMPLATE,
-                'subject' => __( 'Welcome to Support', \ucare\PLUGIN_ID )
+                'subject' => __( 'Welcome to Support', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-closed.html',
                 'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
-                'subject' => __( 'Your request for support has been closed', \ucare\PLUGIN_ID )
+                'subject' => __( 'Your request for support has been closed', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-reply.html',
                 'option' => Option::REPLY_EMAIL_TEMPLATE,
-                'subject' => __( 'Reply to your request for support', \ucare\PLUGIN_ID )
+                'subject' => __( 'Reply to your request for support', 'ucare' )
             ),
             array(
                 'template' => '/emails/password-reset.html',
                 'option' => Option::PASSWORD_RESET_EMAIL,
-                'subject' => __( 'Your password has been reset', \ucare\PLUGIN_ID )
+                'subject' => __( 'Your password has been reset', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-close-warning.html',
                 'option' => Option::INACTIVE_EMAIL,
-                'subject' => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID )
+                'subject' => __( 'You have a ticket awaiting action', 'ucare' )
             )
         );
 

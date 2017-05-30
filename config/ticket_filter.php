@@ -17,9 +17,9 @@ if( \ucare\util\ecommerce_enabled() ) {
         array(
             'id'      => 'product',
             'name'    => 'meta[product]',
-            'label'   => __( 'Product', \ucare\PLUGIN_ID ),
+            'label'   => __( 'Product', 'ucare' ),
             'class'   => array( 'filter-field', 'form-control' ),
-            'options' => array( 0 => __( 'All Products', \ucare\PLUGIN_ID ) ) + $products
+            'options' => array( 0 => __( 'All Products', 'ucare' ) ) + $products
         )
 
     ) );
@@ -32,11 +32,11 @@ if( current_user_can( 'manage_support_tickets' ) ) {
         array(
             'id'      => 'agent',
             'name'    => 'agent',
-            'label'   => __( 'Agent', \ucare\PLUGIN_ID ),
+            'label'   => __( 'Agent', 'ucare' ),
             'class'   => array( 'filter-field', 'form-control' ),
             'options' => array(
-                 0 => __( 'All Agents', \ucare\PLUGIN_ID ),
-                -1 => __( 'Unassigned', \ucare\PLUGIN_ID ) ) + $agents
+                 0 => __( 'All Agents', 'ucare' ),
+                -1 => __( 'Unassigned', 'ucare' ) ) + $agents
         )
 
     ) );
@@ -45,7 +45,7 @@ if( current_user_can( 'manage_support_tickets' ) ) {
         array(
             'id'    => 'email',
             'name'  => 'email',
-            'label' => __( 'Email', \ucare\PLUGIN_ID ),
+            'label' => __( 'Email', 'ucare' ),
             'type'  => 'email',
             'class' => array('filter-field', 'form-control')
         )
@@ -57,7 +57,7 @@ $form->add_field( new CheckBoxGroup(
     array(
         'id'      => 'status',
         'name'    => 'meta[status]',
-        'label'   => __( 'Status', \ucare\PLUGIN_ID ),
+        'label'   => __( 'Status', 'ucare' ),
         'value'   => \ucare\util\filter_defaults()['status'],
         'class'   => array( 'filter-field' ),
         'options' => \ucare\util\statuses()

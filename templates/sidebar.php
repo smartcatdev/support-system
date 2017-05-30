@@ -30,14 +30,14 @@ if( array_key_exists( $product, $products ) ) {
 
             <div class="lead">
 
-                <?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), \ucare\PLUGIN_ID ); ?>
+                <?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), 'ucare' ); ?>
 
             </div>
 
             <?php if( empty( $closed_date ) ) : ?>
 
                 <p>
-                    <?php _e( 'Since ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\just_now( $ticket->post_modified ); ?>
+                    <?php _e( 'Since ', 'ucare' ); ?><?php echo \ucare\util\just_now( $ticket->post_modified ); ?>
 
                     <?php if( get_post_meta( $ticket->ID, 'stale', true ) ) : ?>
 
@@ -51,7 +51,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <p>
 
-                    <?php _e( 'Closed by ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
+                    <?php _e( 'Closed by ', 'ucare' ); ?><?php echo \ucare\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
 
                     (<?php echo \ucare\util\just_now( $closed_date ); ?>)
 
@@ -59,7 +59,7 @@ if( array_key_exists( $product, $products ) ) {
 
             <?php endif; ?>
 
-            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \ucare\PLUGIN_ID ); ?></p>
+            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), 'ucare' ); ?></p>
 
         </div>
 
@@ -72,7 +72,7 @@ if( array_key_exists( $product, $products ) ) {
             <div class="panel-heading">
 
                 <a href="#collapse-purchase-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Purchase Details', \ucare\PLUGIN_ID ); ?></a>
+                   class="panel-title"><?php _e( 'Purchase Details', 'ucare' ); ?></a>
 
             </div>
 
@@ -82,7 +82,7 @@ if( array_key_exists( $product, $products ) ) {
 
                     <div class="product-info">
 
-                        <span class="lead"><?php _e( $product, \ucare\PLUGIN_ID ); ?>
+                        <span class="lead"><?php _e( $product, 'ucare' ); ?>
 
                     </div>
 
@@ -90,7 +90,7 @@ if( array_key_exists( $product, $products ) ) {
 
                         <div class="purchase-info">
 
-                            <span><?php _e( "Receipt # {$receipt_id}", \ucare\PLUGIN_ID ); ?></span>
+                            <span><?php _e( "Receipt # {$receipt_id}", 'ucare' ); ?></span>
 
                         </div>
 
@@ -111,7 +111,7 @@ if( array_key_exists( $product, $products ) ) {
             <div class="panel-heading">
 
                 <a href="#collapse-customer-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Customer Details', \ucare\PLUGIN_ID ); ?></a>
+                   class="panel-title"><?php _e( 'Customer Details', 'ucare' ); ?></a>
 
             </div>
 
@@ -135,7 +135,7 @@ if( array_key_exists( $product, $products ) ) {
 
                             </p>
 
-                            <p><?php _e( 'Email: ', \ucare\PLUGIN_ID );
+                            <p><?php _e( 'Email: ', 'ucare' );
                                 echo \ucare\util\author_email( $ticket ); ?></p>
 
                         </div>
@@ -155,7 +155,7 @@ if( array_key_exists( $product, $products ) ) {
         <div class="panel-heading">
 
             <a href="#collapse-attachments-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-               class="panel-title"><?php _e( 'Attachments', \ucare\PLUGIN_ID ); ?></a>
+               class="panel-title"><?php _e( 'Attachments', 'ucare' ); ?></a>
 
         </div>
 
@@ -168,7 +168,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <?php if( $attachment_count === 0 ) : ?>
 
-                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', \ucare\PLUGIN_ID ); ?></p>
+                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', 'ucare' ); ?></p>
 
                 <?php else : ?>
 
@@ -222,7 +222,7 @@ if( array_key_exists( $product, $products ) ) {
 
                         <span class="glyphicon glyphicon-paperclip button-icon"></span>
 
-                        <span><?php _e( 'Upload', \ucare\PLUGIN_ID ); ?></span>
+                        <span><?php _e( 'Upload', 'ucare' ); ?></span>
 
                     </button>
 
@@ -241,7 +241,7 @@ if( array_key_exists( $product, $products ) ) {
             <div class="panel-heading">
 
                 <a href="#collapse-details-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Ticket Properties', \ucare\PLUGIN_ID ); ?></a>
+                   class="panel-title"><?php _e( 'Ticket Properties', 'ucare' ); ?></a>
 
             </div>
 

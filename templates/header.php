@@ -13,7 +13,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="<?php _e( 'uCare Support System', \ucare\PLUGIN_ID ); ?>"/>
+        <meta name="<?php _e( 'uCare Support System', 'ucare' ); ?>"/>
         <link href="<?php echo $url . 'assets/lib/bootstrap/css/bootstrap.min.css' . '?ver=' . $ver; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.css' . '?ver=' . $ver; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/dropzone/css/dropzone.min.css' . '?ver=' . $ver; ?>" rel="stylesheet">

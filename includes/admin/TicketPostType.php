@@ -17,7 +17,7 @@ class TicketPostType extends AbstractComponent {
         $this->plugin->add_api_subscriber( new FormMetaBox(
             array(
                 'id'        => 'ticket_support_meta',
-                'title'     => __( 'Ticket Information', \ucare\PLUGIN_ID ),
+                'title'     => __( 'Ticket Information', 'ucare' ),
                 'post_type' => 'support_ticket',
                 'context'   => 'advanced',
                 'priority'  => 'high',
@@ -30,7 +30,7 @@ class TicketPostType extends AbstractComponent {
             $this->plugin->add_api_subscriber( new FormMetaBox(
                 array(
                     'id'        => 'ticket_product_meta',
-                    'title'     => __( 'Product Information', \ucare\PLUGIN_ID ),
+                    'title'     => __( 'Product Information', 'ucare' ),
                     'post_type' => 'support_ticket',
                     'context'   => 'side',
                     'priority'  => 'high',
@@ -44,36 +44,36 @@ class TicketPostType extends AbstractComponent {
     public function register_cpt() {
         //<editor-fold desc="$args array">
         $labels = array(
-            'name'                  => _x( 'Support Tickets', 'Post Type General Name', \ucare\PLUGIN_ID ),
-            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', \ucare\PLUGIN_ID ),
-            'menu_name'             => __( 'uCare Support', \ucare\PLUGIN_ID ),
-            'name_admin_bar'        => __( 'uCare Support', \ucare\PLUGIN_ID ),
-            'archives'              => __( 'Item Archives', \ucare\PLUGIN_ID ),
-            'parent_item_colon'     => __( 'Parent Item:', \ucare\PLUGIN_ID ),
-            'all_items'             => __( 'Ticket List', \ucare\PLUGIN_ID ),
-            'add_new_item'          => __( 'Create Ticket', \ucare\PLUGIN_ID ),
-            'add_new'               => __( 'Create Ticket', \ucare\PLUGIN_ID ),
-            'new_item'              => __( 'Create Ticket', \ucare\PLUGIN_ID ),
-            'edit_item'             => __( 'Edit Ticket', \ucare\PLUGIN_ID ),
-            'update_item'           => __( 'Update Ticket', \ucare\PLUGIN_ID ),
-            'view_item'             => __( 'View Ticket', \ucare\PLUGIN_ID ),
-            'search_items'          => __( 'Search Ticket', \ucare\PLUGIN_ID ),
-            'not_found'             => __( 'Ticket Not found', \ucare\PLUGIN_ID ),
-            'not_found_in_trash'    => __( 'Ticket Not found in Trash', \ucare\PLUGIN_ID ),
-            'featured_image'        => __( 'Featured Image', \ucare\PLUGIN_ID ),
-            'set_featured_image'    => __( 'Set featured image', \ucare\PLUGIN_ID ),
-            'remove_featured_image' => __( 'Remove featured image', \ucare\PLUGIN_ID ),
-            'use_featured_image'    => __( 'Use as featured image', \ucare\PLUGIN_ID ),
-            'insert_into_item'      => __( 'Insert into ticket', \ucare\PLUGIN_ID ),
-            'uploaded_to_this_item' => __( 'Uploaded to this ticket', \ucare\PLUGIN_ID ),
-            'items_list'            => __( 'Tickets list', \ucare\PLUGIN_ID ),
-            'items_list_navigation' => __( 'Tickets list navigation', \ucare\PLUGIN_ID ),
-            'filter_items_list'     => __( 'Filter tickets list', \ucare\PLUGIN_ID )
+            'name'                  => _x( 'Support Tickets', 'Post Type General Name', 'ucare' ),
+            'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', 'ucare' ),
+            'menu_name'             => __( 'uCare Support', 'ucare' ),
+            'name_admin_bar'        => __( 'uCare Support', 'ucare' ),
+            'archives'              => __( 'Item Archives', 'ucare' ),
+            'parent_item_colon'     => __( 'Parent Item:', 'ucare' ),
+            'all_items'             => __( 'Ticket List', 'ucare' ),
+            'add_new_item'          => __( 'Create Ticket', 'ucare' ),
+            'add_new'               => __( 'Create Ticket', 'ucare' ),
+            'new_item'              => __( 'Create Ticket', 'ucare' ),
+            'edit_item'             => __( 'Edit Ticket', 'ucare' ),
+            'update_item'           => __( 'Update Ticket', 'ucare' ),
+            'view_item'             => __( 'View Ticket', 'ucare' ),
+            'search_items'          => __( 'Search Ticket', 'ucare' ),
+            'not_found'             => __( 'Ticket Not found', 'ucare' ),
+            'not_found_in_trash'    => __( 'Ticket Not found in Trash', 'ucare' ),
+            'featured_image'        => __( 'Featured Image', 'ucare' ),
+            'set_featured_image'    => __( 'Set featured image', 'ucare' ),
+            'remove_featured_image' => __( 'Remove featured image', 'ucare' ),
+            'use_featured_image'    => __( 'Use as featured image', 'ucare' ),
+            'insert_into_item'      => __( 'Insert into ticket', 'ucare' ),
+            'uploaded_to_this_item' => __( 'Uploaded to this ticket', 'ucare' ),
+            'items_list'            => __( 'Tickets list', 'ucare' ),
+            'items_list_navigation' => __( 'Tickets list navigation', 'ucare' ),
+            'filter_items_list'     => __( 'Filter tickets list', 'ucare' )
         );
 
         $args = array(
-            'label'               => __( 'Support Ticket', \ucare\PLUGIN_ID ),
-            'description'         => __( 'Tickets for support requests', \ucare\PLUGIN_ID ),
+            'label'               => __( 'Support Ticket', 'ucare' ),
+            'description'         => __( 'Tickets for support requests', 'ucare' ),
             'labels'              => $labels,
             'supports'            => array( 'editor', 'comments', 'title' ),
             'hierarchical'        => false,
@@ -126,7 +126,7 @@ class TicketPostType extends AbstractComponent {
 
                 <div class="inline-edit-col">
 
-                    <legend class="inline-edit-legend"><?php _e( 'Ticket Details', \ucare\PLUGIN_ID ); ?></legend>
+                    <legend class="inline-edit-legend"><?php _e( 'Ticket Details', 'ucare' ); ?></legend>
 
                     <div class="inline-edit-group">
 
@@ -134,7 +134,7 @@ class TicketPostType extends AbstractComponent {
 
                             <label>
 
-                                <span class="title"><?php _e( $field->label, \ucare\PLUGIN_ID ); ?></span>
+                                <span class="title"><?php _e( $field->label, 'ucare' ); ?></span>
 
                                 <span class="input-text-wrap">
 
@@ -163,22 +163,22 @@ class TicketPostType extends AbstractComponent {
 
         $cb = array_splice( $columns, 0, 1 );
         $left_cols = array_splice( $columns, 0, 1 );
-        $left_cols['title'] = __( 'Subject', \ucare\PLUGIN_ID );
+        $left_cols['title'] = __( 'Subject', 'ucare' );
 
-        $left_cols = array_merge( array( 'id' => __( 'Case', \ucare\PLUGIN_ID ) ), $left_cols );
+        $left_cols = array_merge( array( 'id' => __( 'Case', 'ucare' ) ), $left_cols );
 
         if( \ucare\util\ecommerce_enabled() ) {
-            $left_cols['product'] = __( 'Product', \ucare\PLUGIN_ID );
+            $left_cols['product'] = __( 'Product', 'ucare' );
         }
 
         return array_merge(
             $cb,
             $left_cols,
             array(
-                'email'    => __( 'Email', \ucare\PLUGIN_ID ),
-                'agent'    => __( 'Assigned', \ucare\PLUGIN_ID ),
-                'status'   => __( 'Status', \ucare\PLUGIN_ID ),
-                'priority' => __( 'Priority', \ucare\PLUGIN_ID ),
+                'email'    => __( 'Email', 'ucare' ),
+                'agent'    => __( 'Assigned', 'ucare' ),
+                'status'   => __( 'Status', 'ucare' ),
+                'priority' => __( 'Priority', 'ucare' ),
                 'flagged'  => '<span class="support_icon icon-flag"></span>'
             ),
             $columns
@@ -216,7 +216,7 @@ class TicketPostType extends AbstractComponent {
             case 'agent':
                 $agents = \ucare\util\list_agents();
 
-                echo array_key_exists( $value, $agents ) ? $agents[ $value ] : __( 'Unassigned', \ucare\PLUGIN_ID );
+                echo array_key_exists( $value, $agents ) ? $agents[ $value ] : __( 'Unassigned', 'ucare' );
 
                 break;
 
@@ -228,7 +228,7 @@ class TicketPostType extends AbstractComponent {
                 }
 
                 if( get_post_meta( $post_id, 'stale', true ) ) {
-                    echo '<span class="stale-tag">' . __( 'Stale', \ucare\PLUGIN_ID ) . '</span>';
+                    echo '<span class="stale-tag">' . __( 'Stale', 'ucare' ) . '</span>';
                 }
 
                 break;
@@ -255,7 +255,7 @@ class TicketPostType extends AbstractComponent {
         if( get_current_screen()->post_type == 'support_ticket' ) {
 
             $agents = \ucare\util\list_agents();
-            $agents = array( 0 => __( 'All Agents', \ucare\PLUGIN_ID ) ) + $agents;
+            $agents = array( 0 => __( 'All Agents', 'ucare' ) ) + $agents;
 
             $agent_filter = new SelectBoxField(
                 array(
@@ -270,8 +270,8 @@ class TicketPostType extends AbstractComponent {
                     'name'      => 'checked_meta',
                     'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
                     'options'   =>  array(
-                        '' => __( 'All Tickets', \ucare\PLUGIN_ID ),
-                        'flagged' => __( 'Flagged', \ucare\PLUGIN_ID )
+                        '' => __( 'All Tickets', 'ucare' ),
+                        'flagged' => __( 'Flagged', 'ucare' )
                     ),
                 )
             );

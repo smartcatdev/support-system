@@ -31,7 +31,7 @@ class Comment extends AjaxComponent {
                     wp_send_json_success( $html );
                 }
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', \ucare\PLUGIN_ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', 'ucare' ), 400 );
             }
         }
     }

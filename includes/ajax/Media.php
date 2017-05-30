@@ -26,9 +26,9 @@ class Media extends AjaxComponent {
 
             if( $post->post_author == wp_get_current_user()->ID ) {
                 if( wp_delete_attachment( $post->ID, true ) ) {
-                    wp_send_json_success( array( 'message' => __( 'Attachment successfully removed', \ucare\PLUGIN_ID ) ) );
+                    wp_send_json_success( array( 'message' => __( 'Attachment successfully removed', 'ucare' ) ) );
                 } else {
-                    wp_send_json_success( array( 'message' => __( 'Error occurred when removing attachment', \ucare\PLUGIN_ID ) ), 500 );
+                    wp_send_json_success( array( 'message' => __( 'Error occurred when removing attachment', 'ucare' ) ), 500 );
                 }
             }
         }
