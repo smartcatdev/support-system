@@ -201,7 +201,8 @@ class Plugin extends AbstractPlugin {
             Settings::class,
             Hacks::class,
             Media::class,
-            Statistics::class
+            Statistics::class,
+            Notifications::class
         );
 
         if( \ucare\util\ecommerce_enabled( false ) ) {
@@ -210,10 +211,6 @@ class Plugin extends AbstractPlugin {
 
         if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
             $components[] = Registration::class;
-        }
-
-        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
-            $components[] = Notifications::class;
         }
 
         return $components;

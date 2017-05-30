@@ -5,11 +5,18 @@ namespace ucare\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use ucare\descriptor\Option;
+use ucare\util\Logger;
 
 class Notifications extends AbstractComponent {
 
     private $user;
     private $sending = false;
+
+    private $logger;
+
+    public function __construct() {
+        $this->logger = new Logger( 'mail' );
+    }
 
     public function start() {
         $this->user = wp_get_current_user();
@@ -94,9 +101,17 @@ class Notifications extends AbstractComponent {
     }
 
     private function send_template( $template, $recipient, $template_vars, $args = array() ) {
+
         $this->sending = true;
 
-        return Mailer::send_template( $template, $recipient, $template_vars, $args );
+        $this->logger->i( "Sent notification to {$recipient}" );
+
+        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
+            return Mailer::send_template( $template, $recipient, $template_vars, $args );
+        } else {
+            return false;
+        }
+
     }
 
     public function email_template_branding() {
