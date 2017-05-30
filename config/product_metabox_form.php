@@ -22,7 +22,7 @@ $form->add_field( new TextBoxField(
 
 ) )->add_field( new SelectBoxField(
     array(
-        'id'          => 'product',
+        'name'        => 'product',
         'class'       => array( 'metabox-field' ),
         'label'       => __( 'Product', 'ucare' ),
         'value'       => get_post_meta( $post->ID, 'product', true ),

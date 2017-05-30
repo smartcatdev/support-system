@@ -30,6 +30,7 @@ class Form {
 
         if ( $this->is_submitted() ) {
             foreach ( $this->fields as $name => $field ) {
+
                 if ( isset( $_REQUEST[ $name ] ) && $field->validate( $_REQUEST[ $name ] ) ) {
                     $this->data[ $name ] = $field->sanitize( $_REQUEST[ $name ] );
                 } else {

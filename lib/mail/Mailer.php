@@ -11,7 +11,6 @@ class Mailer implements HookSubscriber  {
 
     private static $instance;
 
-    private $metabox;
     private $text_domain;
 
     public static function init( HookRegisterer $plugin ) {
@@ -20,7 +19,7 @@ class Mailer implements HookSubscriber  {
             self::configure_caps();
 
             $plugin->add_api_subscriber( self::$instance );
-            $plugin->add_api_subscriber( self::$instance->metabox );
+
         }
 
         return self::$instance;
@@ -29,7 +28,7 @@ class Mailer implements HookSubscriber  {
     private function __construct() {
         $this->text_domain = apply_filters( 'mailer_text_domain', '' );
 
-        $this->metabox = new StyleMetaBox( array(
+        $metabox = new StyleMetaBox( array(
             'id'        => 'mailer_meta',
             'title'     => __( 'Template Style Sheet', $this->text_domain ),
             'post_type' => 'email_template',

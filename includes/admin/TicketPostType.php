@@ -14,7 +14,7 @@ class TicketPostType extends AbstractComponent {
     public function start() {
         $this->quick_edit_form = include $this->plugin->config_dir . '/quick_edit_form.php';
 
-        $this->plugin->add_api_subscriber( new FormMetaBox(
+        $support_metabox = new FormMetaBox(
             array(
                 'id'        => 'ticket_support_meta',
                 'title'     => __( 'Ticket Information', 'ucare' ),
@@ -23,11 +23,11 @@ class TicketPostType extends AbstractComponent {
                 'priority'  => 'high',
                 'config'    =>  $this->plugin->config_dir . '/properties_metabox_form.php'
             )
-        ) );
+        );
 
         if( \ucare\util\ecommerce_enabled() ) {
 
-            $this->plugin->add_api_subscriber( new FormMetaBox(
+            $product_metabox = new FormMetaBox(
                 array(
                     'id'        => 'ticket_product_meta',
                     'title'     => __( 'Product Information', 'ucare' ),
@@ -36,7 +36,7 @@ class TicketPostType extends AbstractComponent {
                     'priority'  => 'high',
                     'config'    => $this->plugin->config_dir . '/product_metabox_form.php'
                 )
-            ) );
+            );
 
         }
     }
