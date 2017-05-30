@@ -2,9 +2,8 @@
 
 namespace ucare;
 
-include_once 'vendor/autoload.php';
+include_once 'loader.php';
 
-use smartcat\mail\Mailer;
 use ucare\descriptor\Option;
 
 if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -13,7 +12,7 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 if( get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
 
-    Mailer::cleanup( true );
+    \smartcat\mail\cleanup();
 
 
     // Trash all support tickets

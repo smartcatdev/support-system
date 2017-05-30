@@ -5,7 +5,6 @@ namespace ucare;
 use smartcat\admin\MenuPage;
 use smartcat\admin\TabbedMenuPage;
 use smartcat\core\AbstractPlugin;
-use smartcat\mail\Mailer;
 use ucare\admin\LogsTab;
 use ucare\admin\ReportsOverviewTab;
 use ucare\ajax\Media;
@@ -31,8 +30,6 @@ class Plugin extends AbstractPlugin {
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
-        Mailer::init( $this );
-
         proc\configure_roles();
     }
 
@@ -57,8 +54,6 @@ class Plugin extends AbstractPlugin {
 
         proc\cleanup_roles();
         proc\clear_scheduled_jobs();
-
-        Mailer::cleanup();
 
         do_action( $this->id . '_cleanup' );
 
@@ -178,19 +173,9 @@ class Plugin extends AbstractPlugin {
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
-            'mailer_consumers' => array( 'mailer_checkin' ),
-            'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
             'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
         ) );
-    }
-
-    public function mailer_checkin( $consumers ) {
-        return $consumers[] = $this->id;
-    }
-
-    public function mailer_text_domain( $text_domain ) {
-        return 'ucare';
     }
 
     public function components() {

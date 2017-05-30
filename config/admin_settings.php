@@ -12,7 +12,7 @@ use smartcat\admin\TabbedMenuPage;
 use smartcat\admin\TextAreaField;
 use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
-use smartcat\mail\Mailer;
+use smartcat\mail\Mail;
 use ucare\descriptor\Option;
 use ucare\Plugin;
 
@@ -334,7 +334,7 @@ $auto_close->add_field( new TextField(
 
 $emails = new SettingsSection( 'uc_email_templates', __( 'Email Templates', 'ucare' ) );
 
-$email_templates = array( '' => __( 'Notifications Disabled', 'ucare' ) ) + Mailer::list_templates();
+$email_templates = array( '' => __( 'Notifications Disabled', 'ucare' ) ) + \smartcat\mail\list_templates();
 
 $emails->add_field( new SelectBoxField(
     array(

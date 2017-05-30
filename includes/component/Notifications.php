@@ -3,7 +3,7 @@
 namespace ucare\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\mail\Mailer;
+use smartcat\mail\Mail;
 use ucare\descriptor\Option;
 use ucare\util\Logger;
 
@@ -107,7 +107,7 @@ class Notifications extends AbstractComponent {
         $this->logger->i( "Sent notification to {$recipient}" );
 
         if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
-            return Mailer::send_template( $template, $recipient, $template_vars, $args );
+            return \smartcat\mail\send_template( $template, $recipient, $template_vars, $args );
         } else {
             return false;
         }
