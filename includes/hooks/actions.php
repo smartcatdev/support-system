@@ -3,6 +3,62 @@
 namespace ucare\hooks;
 
 use ucare\descriptor\Option;
+use ucare\Plugin;
+
+function enqueue_admin_scripts( $hook ) {
+
+    $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
+
+    if( strpos( $hook, 'ucare' ) !== false ) {
+
+        wp_enqueue_script( 'moment',
+            $plugin->url() . '/assets/lib/moment/moment.min.js', null, $plugin->version() );
+
+        wp_enqueue_script( 'flot',
+            $plugin->url() . '/assets/lib/flot/jquery.flot.min.js', null, $plugin->version() );
+
+        wp_enqueue_script( 'flot-time',
+            $plugin->url() . '/assets/lib/flot/jquery.flot.time.min.js', null, $plugin->version() );
+
+        wp_enqueue_script( 'flot-resize',
+            $plugin->url() . '/assets/lib/flot/jquery.flot.resize.min.js', null, $plugin->version() );
+
+        wp_enqueue_script( 'moment',
+            $plugin->url() . '/assets/lib/moment/moment.min.js', null, $plugin->version() );
+
+        wp_enqueue_script( 'ucare-reports-js',
+            $plugin->url() . '/assets/admin/reports.js', null, $plugin->version() );
+
+        wp_enqueue_style( 'ucare-reports-css',
+            $plugin->url() . '/assets/admin/reports.css', null, $plugin->version() );
+
+        wp_enqueue_style( 'wp-color-picker');
+        wp_enqueue_script( 'wp-color-picker');
+
+        wp_enqueue_script( 'wp_media_uploader',
+            $plugin->url() . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $plugin->version() );
+
+        wp_enqueue_style( 'support-admin-icons',
+            $plugin->url() . '/assets/icons/style.css', null,$plugin->version() );
+
+        wp_register_script('support-admin-js',
+            $plugin->url() . 'assets/admin/admin.js', array( 'jquery' ), $plugin->version() );
+
+    }
+
+    wp_localize_script( 'support-admin-js',
+        'SupportSystem', array(
+            'ajax_url'   => admin_url( 'admin-ajax.php' ),
+            'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+        )
+    );
+
+    wp_enqueue_script( 'support-admin-js');
+
+    wp_enqueue_style( 'support-admin-css',
+        $plugin->url() . '/assets/admin/admin.css', null, $plugin->version() );
+
+}
 
 function admin_page_header() {
     include_once \ucare\plugin_dir() . '/templates/admin-header.php';
