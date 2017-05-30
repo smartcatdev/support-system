@@ -2,6 +2,8 @@
 
 namespace smartcat\core;
 
+use ucare\util\Logger;
+
 if( !class_exists( '\smartcat\core\AbstractPlugin' ) ) :
 
 /**
@@ -116,40 +118,31 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     }
 
     public function perform_migrations() {
-        $current = get_option( $this->id . '_version', 0 );
-        $result = true;
 
-        $admin_notice = function ( $message, $class ) {
-            add_action( 'admin_notices', function () use ( $message, $class ) {
-                printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
-            } );
-        };
+        $current = get_option( $this->id . '_version', 0 );
 
         if( $this->version > $current ) {
 
             // Perform migrations with the current version
             foreach( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
                 $migration = include_once( $file );
+
                 $version = $migration->version();
 
                 if( $version > $current && $version <= $this->version ) {
                     $result = $migration->migrate( $this );
 
-                    if( is_wp_error( $result ) || !$result['success'] ) {
-                        $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-error', 'is-dismissible' ) );
+                    if( $result === false || is_wp_error( $result ) ) {
                         break;
+                    } else {
+                        update_option( $this->id . '_version', $version );
                     }
-                }
-            }
 
-            if( !is_wp_error( $result ) || $result['success'] ) {
-                if( isset( $result['message'] ) ) {
-                    $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-success', 'is-dismissible' ) );
                 }
 
-                update_option( $this->id . '_version', $this->version );
             }
         }
+
     }
 
     /**

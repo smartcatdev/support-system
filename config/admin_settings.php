@@ -434,17 +434,7 @@ $email_notifications->add_field( new CheckBoxField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) )/*->add_field( new TextField(
-    array(
-        'id'            => 'support_forward_notification_email',
-        'option'        => Option::FORWARD_EMAIL,
-        'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::FORWARD_EMAIL, get_option( 'admin_email' ) ),
-        'label'         => __( 'Forward Email Address', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Comma separated list of email addresses that all notifications will be forwarded to', \ucare\PLUGIN_ID )
-    )
-
-) )*/->add_field( new TextField(
+) )->add_field( new TextField(
     array(
         'id'            => 'support_email_sender_email',
         'option'        => Option::SENDER_EMAIL,
