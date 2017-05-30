@@ -28,8 +28,8 @@ class LogsTable extends ListTable {
 
     public function get_columns() {
         return array(
-            'uc_log_class'        => __( 'Class', \ucare\PLUGIN_ID ),
-            'uc_log_type'         => __( 'Type', \ucare\PLUGIN_ID ),
+            'uc_log_class'        => __( 'Level', \ucare\PLUGIN_ID ),
+            'uc_log_type'         => __( 'Event', \ucare\PLUGIN_ID ),
             'uc_log_message'      => __( 'Message', \ucare\PLUGIN_ID ),
             'uc_log_timestamp'    => __( 'Timestamp', \ucare\PLUGIN_ID )
         );
@@ -52,6 +52,7 @@ class LogsTable extends ListTable {
         if( $which == 'top' ) { ?>
 
             <div class="alignleft actions filteractions">
+
                 <select name="level">
                     <option value=""><?php _e( 'Verbose', \ucare\PLUGIN_ID ); ?></option>
 
@@ -68,6 +69,7 @@ class LogsTable extends ListTable {
                     <?php endforeach; ?>
 
                 </select>
+
                 <select name="type">
                     <option value=""><?php _e( 'All Types', \ucare\PLUGIN_ID ); ?></option>
 
@@ -86,7 +88,11 @@ class LogsTable extends ListTable {
                     <?php endforeach; ?>
 
                 </select>
+
                 <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ucare\PLUGIN_ID ); ?>">
+
+                <button class="button" name="clear"><span style="line-height: 26px" class="dashicons dashicons-trash"></span></button>
+
             </div>
 
         <?php }

@@ -13,6 +13,12 @@ class LogsTab extends MenuPageTab {
             'slug'  => 'logs',
             'title' => __( 'Logs', \ucare\PLUGIN_ID )
         ) );
+
+        if( isset( $_GET['clear'] ) ) {
+            $this->clear_logs();
+
+            wp_redirect( admin_url( '?page=' . $_GET['page'] . '&tab=' . $_GET['tab'] ) );
+        }
     }
 
     public  function render() { ?>
@@ -38,4 +44,10 @@ class LogsTab extends MenuPageTab {
         </form>
 
     <?php }
+
+    private function clear_logs() {
+        global $wpdb;
+
+        $wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}ucare_logs" );
+    }
 }
