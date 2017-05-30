@@ -196,4 +196,9 @@ final class Defaults {
      * @since 1.2.0
      */
     const AUTO_CLOSE = 'on';
+
+    /**
+     * @since 1.3.0
+     */
+    const AGENT_NOTIFICATIONS = 'on';
 }

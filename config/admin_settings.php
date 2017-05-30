@@ -303,6 +303,21 @@ $general->add_field( new TextField(
 
 ) );
 
+$agent_notifications = new SettingsSection( 'uc_agent_notifications', __( 'Agent Notifications', \ucare\PLUGIN_ID ) );
+
+$agent_notifications->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::AGENT_NOTIFICATIONS,
+        'value'         => get_option( Option::AGENT_NOTIFICATIONS, Option\Defaults::AGENT_NOTIFICATIONS ),
+        'label'         => __( 'Agent Notifications', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Enable whether agents will receive help desk notifications', \ucare\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) );
+
+
 $auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
 $auto_close_interval = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
@@ -498,7 +513,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'uc_general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
-                    'sections' => array( $general, $auto_close )
+                    'sections' => array( $general, $agent_notifications, $auto_close )
                 )
             ),
             new SettingsTab(

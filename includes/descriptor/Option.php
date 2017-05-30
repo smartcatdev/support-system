@@ -250,4 +250,9 @@ final class Option {
      * @since 1.2.0
      */
     const INACTIVE_EMAIL = 'smartcat_support_inactive-email';
+
+    /**
+     * @since 1.3.0
+     */
+    const AGENT_NOTIFICATIONS = 'smartcat_support_agent-notifications';
 }
