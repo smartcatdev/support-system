@@ -4,6 +4,7 @@ namespace ucare\hooks;
 
 use ucare\descriptor\Option;
 use ucare\Plugin;
+use ucare\util\Logger;
 
 function enqueue_admin_scripts( $hook ) {
 
@@ -123,6 +124,8 @@ function comment_save( $id ) {
 
 function mark_stale_tickets() {
 
+    $logger = new Logger( 'cron' );
+
     // Calculate max age as n days
     $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
 
@@ -158,7 +161,7 @@ function mark_stale_tickets() {
         )
     ) );
 
-    error_log( $q->post_count . ' tickets have been marked stale' );
+    $logger->i( $q->post_count . ' tickets have been marked stale' );
 
     foreach( $q->posts as $ticket ) {
 
@@ -176,6 +179,8 @@ function close_stale_tickets() {
 
     if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
 
+        $logger = new Logger( 'cron' );
+
         // Get all stale tickets
         $q = new \WP_Query( array(
             'posts_per_page' => -1,
@@ -191,7 +196,7 @@ function close_stale_tickets() {
             )
         ) );
 
-        error_log( $q->post_count . ' tickets have been automatically closed' );
+        $logger->i( $q->post_count . ' tickets have been automatically closed' );
 
         foreach( $q->posts as $ticket ) {
 

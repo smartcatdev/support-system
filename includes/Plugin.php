@@ -6,6 +6,7 @@ use smartcat\admin\MenuPage;
 use smartcat\admin\TabbedMenuPage;
 use smartcat\core\AbstractPlugin;
 use smartcat\mail\Mailer;
+use ucare\admin\LogsTab;
 use ucare\admin\ReportsOverviewTab;
 use ucare\ajax\Media;
 use ucare\ajax\Statistics;
@@ -120,7 +121,7 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'ucare_support',
                     'menu_title'    => __( 'Reports', PLUGIN_ID ),
                     'capability'    => 'manage_support',
-                    'tabs' => array( new ReportsOverviewTab() )
+                    'tabs' => array( new ReportsOverviewTab(), new LogsTab() )
                 )
             ),
            'tickets' => new MenuPage(

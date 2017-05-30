@@ -135,7 +135,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
         </script>
 
-        <div class="stats-page-wrapper">
+        <div class="reports-wrapper">
 
             <form method="get">
 
