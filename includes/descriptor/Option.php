@@ -254,5 +254,5 @@ final class Option {
     /**
      * @since 1.3.0
      */
-    const AGENT_NOTIFICATIONS = 'smartcat_support_agent-notifications';
+    const AGENT_NOTIFICATION_EMAIL = 'smartcat_support_agent-notifications';
 }

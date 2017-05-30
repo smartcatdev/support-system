@@ -303,20 +303,6 @@ $general->add_field( new TextField(
 
 ) );
 
-$agent_notifications = new SettingsSection( 'uc_agent_notifications', __( 'Agent Notifications', \ucare\PLUGIN_ID ) );
-
-$agent_notifications->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_enable_dev_mode',
-        'option'        => Option::AGENT_NOTIFICATIONS,
-        'value'         => get_option( Option::AGENT_NOTIFICATIONS, Option\Defaults::AGENT_NOTIFICATIONS ),
-        'label'         => __( 'Agent Notifications', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Enable whether agents will receive help desk notifications', \ucare\PLUGIN_ID ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
-) );
-
 
 $auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
@@ -418,7 +404,19 @@ $emails->add_field( new SelectBoxField(
         'value'         => get_option( Option::INACTIVE_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Automatic Close Warning', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Notification sent out to warn users of automatic ticket closure', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Sent out to warn users of automatic ticket closure', \ucare\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_agent_notification_email_template',
+        'option'        => Option::AGENT_NOTIFICATION_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::AGENT_NOTIFICATION_EMAIL ),
+        'options'       => $email_templates,
+        'label'         => __( 'Agent Notification', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Sent out to support agents when they receive a new notification', \ucare\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
@@ -513,7 +511,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'uc_general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
-                    'sections' => array( $general, $agent_notifications, $auto_close )
+                    'sections' => array( $general, $auto_close )
                 )
             ),
             new SettingsTab(
