@@ -51,6 +51,7 @@ class Emails extends AbstractComponent {
 
                 $recipient = get_user_by( 'ID', $value );
 
+                // Make sure the ticket hans'nt been set to unassigned
                 if( $recipient ) {
 
                     $user = get_user_by( 'ID', $post->post_author );
@@ -103,11 +104,17 @@ class Emails extends AbstractComponent {
         } else if( current_user_can( 'create_support_tickets' ) ) {
 
             $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
-            $customer = get_user_by( 'ID', $comment->user_id );
 
-            $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
+            // If the ticket has been assigned to an agent
+            if( $recipient ) {
 
-            $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+                $customer = get_user_by( 'ID', $comment->user_id );
+
+                $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
+
+                $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+
+            }
 
         }
     }
