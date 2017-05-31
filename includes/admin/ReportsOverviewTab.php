@@ -124,8 +124,8 @@ class ReportsOverviewTab extends MenuPageTab {
                   end:   '<?php  echo date( 'Y-m-t',  strtotime( 'now' ) ); ?>'
               },
               'last_month': {
-                  start: '<?php  echo date( 'Y-m-01',  strtotime( '-1 month' ) ); ?>',
-                  end:   '<?php  echo date( 'Y-m-t',   strtotime( '-1 month' ) ); ?>'
+                  start: '<?php  echo date( 'Y-m-01',  strtotime( 'first day of last month' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-t',   strtotime( 'first day of last month' ) ); ?>'
               },
               'this_year': {
                   start: '<?php  echo date( 'Y-01-01', strtotime( 'now' ) ); ?>',
