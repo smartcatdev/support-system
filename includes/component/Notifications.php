@@ -81,19 +81,34 @@ class Notifications extends AbstractComponent {
     }
 
     public function ticket_reply( $comment_id ) {
+        $comment = get_comment( $comment_id );
+        $ticket = get_post( $comment->comment_post_ID );
+
+        $template_vars = array(
+            'ticket_subject' => $ticket->post_title,
+            'ticket_number'  => $ticket->ID,
+            'reply'          => $comment->comment_content
+        );
+
+        // If the current user is an agent, email the customer
         if( current_user_can( 'manage_support_tickets' ) ) {
-            $comment = get_comment( $comment_id );
-            $ticket = get_post( $comment->comment_post_ID );
+
             $recipient = get_user_by('id', $ticket->post_author );
 
-            $template_vars = array(
-                'ticket_subject' => $ticket->post_title,
-                'ticket_number'  => $ticket->ID,
-                'agent'          => $comment->comment_author,
-                'reply'          => $comment->comment_content
-            );
+            $template_vars['agent'] = $comment->comment_author;
 
             $this->send_template( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+
+        // If the user is a customer, notify the assigned agent
+        } else if( current_user_can( 'create_support_tickets' ) ) {
+
+            $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
+            $customer = get_user_by( 'ID', $comment->user_id );
+
+            $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
+
+            $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+
         }
     }
 
