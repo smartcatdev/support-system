@@ -339,9 +339,9 @@ $email_templates = array( '' => __( 'Notifications Disabled', 'ucare' ) ) + \sma
 $emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_welcome_email_template',
-        'option'        => Option::WELCOME_EMAIL,
+        'option'        => Option::WELCOME_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::WELCOME_EMAIL ),
+        'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Welcome', 'ucare' ),
         'desc'          => __( 'Sent when a user registers for the first time', 'ucare' ),
@@ -351,9 +351,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_closed_email_template',
-        'option'        => Option::TICKET_CLOSED_EMAIL,
+        'option'        => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::TICKET_CLOSED_EMAIL ),
+        'value'         => get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Closed', 'ucare' ),
         'desc'          => __( 'Sent when the ticket is marked as closed', 'ucare' ),
@@ -363,9 +363,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_created_email_template',
-        'option'        => Option::TICKET_CREATED_EMAIL,
+        'option'        => Option::TICKET_CREATED_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::TICKET_CREATED_EMAIL ),
+        'value'         => get_option( Option::TICKET_CREATED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Created', 'ucare' ),
         'desc'          => __( 'Sent when a user creates a new ticket', 'ucare' ),
@@ -375,9 +375,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_reply_email_template',
-        'option'        => Option::AGENT_REPLY_EMAIL,
+        'option'        => Option::AGENT_REPLY_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::AGENT_REPLY_EMAIL ),
+        'value'         => get_option( Option::AGENT_REPLY_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Agent Reply', 'ucare' ),
         'desc'          => __( 'Sent when an agent replies to a ticket', 'ucare' ),
@@ -387,9 +387,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_pw_reset_email_template',
-        'option'        => Option::PASSWORD_RESET_EMAIL,
+        'option'        => Option::PASSWORD_RESET_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::PASSWORD_RESET_EMAIL ),
+        'value'         => get_option( Option::PASSWORD_RESET_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Forgot Password Reset', 'ucare' ),
         'desc'          => __( 'Sent when a user forgets their password', 'ucare' ),
@@ -399,9 +399,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_autoclose_email_template',
-        'option'        => Option::INACTIVE_EMAIL,
+        'option'        => Option::INACTIVE_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::INACTIVE_EMAIL ),
+        'value'         => get_option( Option::INACTIVE_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Automatic Close Warning', 'ucare' ),
         'desc'          => __( 'Sent out to warn users of automatic ticket closure', 'ucare' ),
@@ -415,9 +415,9 @@ $agent_emails = new SettingsSection( 'uc_agent_email_notifications', __( 'Agent 
 $agent_emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_customer_reply_email_template',
-        'option'        => Option::CUSTOMER_REPLY_EMAIL,
+        'option'        => Option::CUSTOMER_REPLY_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::CUSTOMER_REPLY_EMAIL ),
+        'value'         => get_option( Option::CUSTOMER_REPLY_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Customer Reply', 'ucare' ),
         'desc'          => __( 'Sent out to support agents when a customer replies to a ticket they\'re assigned to', 'ucare' ),
@@ -427,9 +427,9 @@ $agent_emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_assigned_email_template',
-        'option'        => Option::TICKET_ASSIGNED_EMAIL,
+        'option'        => Option::TICKET_ASSIGNED_EMAIL_TEMPLATE,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::TICKET_ASSIGNED_EMAIL ),
+        'value'         => get_option( Option::TICKET_ASSIGNED_EMAIL_TEMPLATE ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Assigned', 'ucare' ),
         'desc'          => __( 'Sent out to support agents when they are assigned a ticket', 'ucare' ),

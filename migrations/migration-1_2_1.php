@@ -48,7 +48,7 @@ class migration_1_2_1 implements \smartcat\core\Migration {
 
         if( $id ) {
             update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
-            add_option( Option::INACTIVE_EMAIL, $id );
+            add_option( Option::INACTIVE_EMAIL_TEMPLATE, $id );
         }
 
     }

@@ -324,32 +324,32 @@ namespace ucare\proc {
         $default_templates = array(
             array(
                 'template' => '/emails/ticket-created.html',
-                'option' => Option::TICKET_CREATED_EMAIL,
+                'option' => Option::TICKET_CREATED_EMAIL_TEMPLATE,
                 'subject' => __( 'You have created a new request for support', 'ucare' )
             ),
             array(
                 'template' => '/emails/welcome.html',
-                'option' => Option::WELCOME_EMAIL,
+                'option' => Option::WELCOME_EMAIL_TEMPLATE,
                 'subject' => __( 'Welcome to Support', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-closed.html',
-                'option' => Option::TICKET_CLOSED_EMAIL,
+                'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
                 'subject' => __( 'Your request for support has been closed', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-reply.html',
-                'option' => Option::AGENT_REPLY_EMAIL,
+                'option' => Option::AGENT_REPLY_EMAIL_TEMPLATE,
                 'subject' => __( 'Reply to your request for support', 'ucare' )
             ),
             array(
                 'template' => '/emails/password-reset.html',
-                'option' => Option::PASSWORD_RESET_EMAIL,
+                'option' => Option::PASSWORD_RESET_EMAIL_TEMPLATE,
                 'subject' => __( 'Your password has been reset', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-close-warning.html',
-                'option' => Option::INACTIVE_EMAIL,
+                'option' => Option::INACTIVE_EMAIL_TEMPLATE,
                 'subject' => __( 'You have a ticket awaiting action', 'ucare' )
             )
         );

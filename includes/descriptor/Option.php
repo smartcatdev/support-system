@@ -124,17 +124,17 @@ final class Option {
     /**
      * @since 1.0.0
      */
-    const WELCOME_EMAIL = 'smartcat_support_welcome-email-template';
+    const WELCOME_EMAIL_TEMPLATE = 'smartcat_support_welcome-email-template';
 
     /**
      * @since 1.0.0
      */
-    const TICKET_CLOSED_EMAIL = 'smartcat_support_closed-email-template';
+    const TICKET_CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
 
     /**
      * @since 1.0.0
      */
-    const AGENT_REPLY_EMAIL = 'smartcat_support_reply-template';
+    const AGENT_REPLY_EMAIL_TEMPLATE = 'smartcat_support_reply-template';
 
     /**
      * @since 1.0.0
@@ -179,7 +179,7 @@ final class Option {
     /**
      * @since 1.0.2
      */
-    const TICKET_CREATED_EMAIL = 'smartcat_support_ticket-created-email';
+    const TICKET_CREATED_EMAIL_TEMPLATE = 'smartcat_support_ticket-created-email';
 
     /**
      * @since 1.0.2
@@ -229,7 +229,7 @@ final class Option {
     /**
      * @since 1.1.1
      */
-    const PASSWORD_RESET_EMAIL = 'smartcat_support_password-reset-email';
+    const PASSWORD_RESET_EMAIL_TEMPLATE = 'smartcat_support_password-reset-email';
 
     /**
      * @since 1.2.0
@@ -244,16 +244,16 @@ final class Option {
     /**
      * @since 1.2.0
      */
-    const INACTIVE_EMAIL = 'smartcat_support_inactive-email';
+    const INACTIVE_EMAIL_TEMPLATE = 'smartcat_support_inactive-email';
 
     /**
      * @since 1.3.0
      */
-    const TICKET_ASSIGNED_EMAIL = 'smartcat_support_ticket-assigned';
+    const TICKET_ASSIGNED_EMAIL_TEMPLATE = 'smartcat_support_ticket-assigned';
 
     /**
      * @since 1.3.0
      */
-    const CUSTOMER_REPLY_EMAIL = 'smartcat_support_customer-reply';
+    const CUSTOMER_REPLY_EMAIL_TEMPLATE = 'smartcat_support_customer-reply';
 
 }

@@ -19,7 +19,7 @@ class Emails extends AbstractComponent {
     }
 
     public function user_register( $user_data ) {
-        $this->send_template( get_option( Option::WELCOME_EMAIL ), $user_data['email'], $user_data );
+        $this->send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
     }
 
     public function ticket_updated( $null, $id, $key, $value, $old ) {
@@ -44,7 +44,7 @@ class Emails extends AbstractComponent {
 
                 $template_vars['ticket_status']  = $value;
 
-                $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL ), $recipient->user_email, $template_vars, $args );
+                $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars, $args );
 
             // Notify agents if they have been assigned to a ticket only if it hasn't been marked as closed
             } else if( $key == 'agent' && get_post_meta( $id, 'status', true ) != 'closed' ) {
@@ -58,7 +58,7 @@ class Emails extends AbstractComponent {
 
                     $template_vars['user'] = $user->first_name . ' ' . $user->last_name;
 
-                    $this->send_template( get_option( Option::TICKET_ASSIGNED_EMAIL ), $recipient->user_email, $template_vars, $args );
+                    $this->send_template( get_option( Option::TICKET_ASSIGNED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars, $args );
 
                 }
 
@@ -78,7 +78,7 @@ class Emails extends AbstractComponent {
             'ticket_content' => $ticket->post_content
         );
 
-        $this->send_template( get_option( Option::TICKET_CREATED_EMAIL ), $recipient, $template_vars );
+        $this->send_template( get_option( Option::TICKET_CREATED_EMAIL_TEMPLATE ), $recipient, $template_vars );
     }
 
     public function ticket_reply( $comment_id ) {
@@ -101,7 +101,7 @@ class Emails extends AbstractComponent {
 
                 $template_vars['agent'] = $comment->comment_author;
 
-                $this->send_template( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+                $this->send_template( get_option( Option::AGENT_REPLY_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars );
 
             // If the user is a customer, notify the assigned agent
             } else if( current_user_can( 'create_support_tickets' ) ) {
@@ -115,7 +115,7 @@ class Emails extends AbstractComponent {
 
                     $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
 
-                    $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+                    $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars );
 
                 }
 
@@ -178,7 +178,7 @@ class Emails extends AbstractComponent {
     }
 
     public function password_reset( $true, $email, $password, $user ) {
-        return $this->send_template( get_option( Option::PASSWORD_RESET_EMAIL ), $email, array(
+        return $this->send_template( get_option( Option::PASSWORD_RESET_EMAIL_TEMPLATE ), $email, array(
             'password'       => $password,
             'username'       => $user->user_login,
             'first_name'     => $user->first_name,
@@ -196,7 +196,7 @@ class Emails extends AbstractComponent {
             'ticket_number'  => $ticket->ID
         );
 
-        $this->send_template( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
+        $this->send_template( get_option( Option::INACTIVE_EMAIL_TEMPLATE ), $user->user_email, $replace );
     }
 
     public function subscribed_hooks() {
