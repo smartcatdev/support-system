@@ -28,18 +28,37 @@ class migration_1_3_0 implements smartcat\core\Migration {
 
     function create_email_template() {
 
-        $id = wp_insert_post(
+        $email_templates = array(
+          array(
+              'title'   => __( 'You have been assigned a ticket', 'ucare' ),
+              'option'  => Option::TICKET_ASSIGNED_EMAIL,
+              'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-assigned.html' )
+          ),
             array(
-                'post_type'     => 'email_template',
-                'post_status'   => 'publish',
-                'post_title'    => __( 'You have a new notification', 'ucare' ),
-                'post_content'  => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-assigned.html' )
-            )
+                'title'   => __( 'You have a reply to a ticket that you are assigned to', 'ucare' ),
+                'option'  => Option::CUSTOMER_REPLY_EMAIL,
+                'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-reply.html' )
+            ),
         );
 
-        if( $id ) {
-            update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
-            add_option( Option::AGENT_NOTIFICATION_EMAIL, $id );
+        $default_style = file_get_contents( $this->plugin->dir() . 'emails/default-style.css' );
+
+        foreach( $email_templates as $template ) {
+
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => $template['title'],
+                    'post_content'  => $template['content']
+                )
+            );
+
+            if( $id ) {
+                update_post_meta( $id, 'styles', $default_style );
+                add_option( $template['option'], $id );
+            }
+
         }
 
     }
