@@ -85,38 +85,44 @@ class Emails extends AbstractComponent {
         $comment = get_comment( $comment_id );
         $ticket = get_post( $comment->comment_post_ID );
 
-        $template_vars = array(
-            'ticket_subject' => $ticket->post_title,
-            'ticket_number'  => $ticket->ID,
-            'reply'          => $comment->comment_content
-        );
+        // Make sure the ticket is still open
+        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
 
-        // If the current user is an agent, email the customer
-        if( current_user_can( 'manage_support_tickets' ) ) {
+            $template_vars = array(
+                'ticket_subject' => $ticket->post_title,
+                'ticket_number'  => $ticket->ID,
+                'reply'          => $comment->comment_content
+            );
 
-            $recipient = get_user_by('id', $ticket->post_author );
+            // If the current user is an agent, email the customer
+            if( current_user_can( 'manage_support_tickets' ) ) {
 
-            $template_vars['agent'] = $comment->comment_author;
+                $recipient = get_user_by('id', $ticket->post_author );
 
-            $this->send_template( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+                $template_vars['agent'] = $comment->comment_author;
 
-        // If the user is a customer, notify the assigned agent
-        } else if( current_user_can( 'create_support_tickets' ) ) {
+                $this->send_template( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
 
-            $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
+            // If the user is a customer, notify the assigned agent
+            } else if( current_user_can( 'create_support_tickets' ) ) {
 
-            // If the ticket has been assigned to an agent
-            if( $recipient ) {
+                $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
 
-                $customer = get_user_by( 'ID', $comment->user_id );
+                // If the ticket has been assigned to an agent
+                if( $recipient ) {
 
-                $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
+                    $customer = get_user_by( 'ID', $comment->user_id );
 
-                $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+                    $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
+
+                    $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+
+                }
 
             }
 
         }
+
     }
 
     public function disable_wp_comment_notifications( $emails, $comment_id ) {
