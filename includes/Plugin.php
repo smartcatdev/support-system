@@ -14,7 +14,7 @@ use ucare\ajax\Comment;
 use ucare\ajax\Settings;
 use ucare\ajax\Registration;
 use ucare\component\ECommerce;
-use ucare\component\Notifications;
+use ucare\component\Emails;
 use ucare\admin\TicketPostType;
 use ucare\component\Hacks;
 use ucare\descriptor\Option;
@@ -187,7 +187,7 @@ class Plugin extends AbstractPlugin {
             Hacks::class,
             Media::class,
             Statistics::class,
-            Notifications::class
+            Emails::class
         );
 
         if( \ucare\util\ecommerce_enabled( false ) ) {

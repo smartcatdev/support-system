@@ -10,6 +10,30 @@ function enqueue_admin_scripts( $hook ) {
 
     $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
 
+    wp_enqueue_style( 'wp-color-picker');
+    wp_enqueue_script( 'wp-color-picker');
+
+    wp_enqueue_script( 'wp_media_uploader',
+        $plugin->url() . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $plugin->version() );
+
+    wp_enqueue_style( 'support-admin-icons',
+        $plugin->url() . '/assets/icons/style.css', null,$plugin->version() );
+
+    wp_register_script('support-admin-js',
+        $plugin->url() . 'assets/admin/admin.js', array( 'jquery' ), $plugin->version() );
+
+    wp_localize_script( 'support-admin-js',
+        'SupportSystem', array(
+            'ajax_url'   => admin_url( 'admin-ajax.php' ),
+            'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+        )
+    );
+
+    wp_enqueue_script( 'support-admin-js' );
+
+    wp_enqueue_style( 'support-admin-css',
+        $plugin->url() . '/assets/admin/admin.css', null, $plugin->version() );
+
     if( strpos( $hook, 'ucare' ) !== false ) {
 
         wp_enqueue_script( 'moment',
@@ -33,31 +57,7 @@ function enqueue_admin_scripts( $hook ) {
         wp_enqueue_style( 'ucare-reports-css',
             $plugin->url() . '/assets/admin/reports.css', null, $plugin->version() );
 
-        wp_enqueue_style( 'wp-color-picker');
-        wp_enqueue_script( 'wp-color-picker');
-
-        wp_enqueue_script( 'wp_media_uploader',
-            $plugin->url() . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $plugin->version() );
-
-        wp_enqueue_style( 'support-admin-icons',
-            $plugin->url() . '/assets/icons/style.css', null,$plugin->version() );
-
-        wp_register_script('support-admin-js',
-            $plugin->url() . 'assets/admin/admin.js', array( 'jquery' ), $plugin->version() );
-
     }
-
-    wp_localize_script( 'support-admin-js',
-        'SupportSystem', array(
-            'ajax_url'   => admin_url( 'admin-ajax.php' ),
-            'ajax_nonce' => wp_create_nonce( 'support_ajax' )
-        )
-    );
-
-    wp_enqueue_script( 'support-admin-js');
-
-    wp_enqueue_style( 'support-admin-css',
-        $plugin->url() . '/assets/admin/admin.css', null, $plugin->version() );
 
 }
 

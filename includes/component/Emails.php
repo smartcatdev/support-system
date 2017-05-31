@@ -6,7 +6,7 @@ use smartcat\core\AbstractComponent;
 use ucare\descriptor\Option;
 use ucare\util\Logger;
 
-class Notifications extends AbstractComponent {
+class Emails extends AbstractComponent {
 
     private $user;
     private $sending = false;
