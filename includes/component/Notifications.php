@@ -23,7 +23,7 @@ class Notifications extends AbstractComponent {
     }
 
     public function user_register( $user_data ) {
-        $this->send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
+        $this->send_template( get_option( Option::WELCOME_EMAIL ), $user_data['email'], $user_data );
     }
 
     public function ticket_updated( $null, $ticket_id, $key, $value ) {
@@ -38,7 +38,7 @@ class Notifications extends AbstractComponent {
                 'ticket_status' => $value
             );
 
-            $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars, $args );
+            $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL ), $recipient->user_email, $template_vars, $args );
         }
 
         return $null;
@@ -53,7 +53,7 @@ class Notifications extends AbstractComponent {
             'ticket_content' => $ticket->post_content
         );
 
-        $this->send_template( get_option( Option::CREATED_EMAIL_TEMPLATE ), $recipient, $template_vars );
+        $this->send_template( get_option( Option::TICKET_CREATED_EMAIL ), $recipient, $template_vars );
     }
 
     public function ticket_reply( $comment_id ) {
@@ -69,7 +69,7 @@ class Notifications extends AbstractComponent {
                 'reply'          => $comment->comment_content
             );
 
-            $this->send_template( get_option( Option::REPLY_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars );
+            $this->send_template( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
         }
     }
 

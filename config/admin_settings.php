@@ -339,9 +339,9 @@ $email_templates = array( '' => __( 'Notifications Disabled', 'ucare' ) ) + \sma
 $emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_welcome_email_template',
-        'option'        => Option::WELCOME_EMAIL_TEMPLATE,
+        'option'        => Option::WELCOME_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::WELCOME_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::WELCOME_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Welcome', 'ucare' ),
         'desc'          => __( 'Sent when a user registers for the first time', 'ucare' ),
@@ -351,9 +351,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_closed_email_template',
-        'option'        => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+        'option'        => Option::TICKET_CLOSED_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::TICKET_CLOSED_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Closed', 'ucare' ),
         'desc'          => __( 'Sent when the ticket is marked as closed', 'ucare' ),
@@ -363,9 +363,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_created_email_template',
-        'option'        => Option::CREATED_EMAIL_TEMPLATE,
+        'option'        => Option::TICKET_CREATED_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::CREATED_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::TICKET_CREATED_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Created', 'ucare' ),
         'desc'          => __( 'Sent when a user creates a new ticket', 'ucare' ),
@@ -375,11 +375,11 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_reply_email_template',
-        'option'        => Option::REPLY_EMAIL_TEMPLATE,
+        'option'        => Option::AGENT_REPLY_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::REPLY_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::AGENT_REPLY_EMAIL ),
         'options'       => $email_templates,
-        'label'         => __( 'Ticket Reply', 'ucare' ),
+        'label'         => __( 'Agent Reply', 'ucare' ),
         'desc'          => __( 'Sent when an agent replies to a ticket', 'ucare' ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
@@ -408,15 +408,31 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
+) );
+
+$agent_emails = new SettingsSection( 'uc_agent_email_notifications', __( 'Agent Notification Templates', 'ucare' ) );
+
+$agent_emails->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_customer_reply_email_template',
+        'option'        => Option::CUSTOMER_REPLY_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::CUSTOMER_REPLY_EMAIL ),
+        'options'       => $email_templates,
+        'label'         => __( 'Customer Reply', 'ucare' ),
+        'desc'          => __( 'Sent out to support agents when a customer replies to a ticket they\'re assigned to', 'ucare' ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
 ) )->add_field( new SelectBoxField(
     array(
-        'id'            => 'support_agent_notification_email_template',
-        'option'        => Option::AGENT_NOTIFICATION_EMAIL,
+        'id'            => 'support_ticket_assigned_email_template',
+        'option'        => Option::TICKET_ASSIGNED_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::AGENT_NOTIFICATION_EMAIL ),
+        'value'         => get_option( Option::TICKET_ASSIGNED_EMAIL ),
         'options'       => $email_templates,
-        'label'         => __( 'Agent Notification', 'ucare' ),
-        'desc'          => __( 'Sent out to support agents when they receive a new notification', 'ucare' ),
+        'label'         => __( 'Ticket Assigned', 'ucare' ),
+        'desc'          => __( 'Sent out to support agents when they are assigned a ticket', 'ucare' ),
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
@@ -522,7 +538,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'uc_email',
                     'title'    => __( 'Email', 'ucare' ),
-                    'sections' => array( $emails, $email_notifications )
+                    'sections' => array( $emails, $agent_emails, $email_notifications )
                 )
             ),
             new SettingsTab(

@@ -324,22 +324,22 @@ namespace ucare\proc {
         $default_templates = array(
             array(
                 'template' => '/emails/ticket-created.html',
-                'option' => Option::CREATED_EMAIL_TEMPLATE,
+                'option' => Option::TICKET_CREATED_EMAIL,
                 'subject' => __( 'You have created a new request for support', 'ucare' )
             ),
             array(
                 'template' => '/emails/welcome.html',
-                'option' => Option::WELCOME_EMAIL_TEMPLATE,
+                'option' => Option::WELCOME_EMAIL,
                 'subject' => __( 'Welcome to Support', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-closed.html',
-                'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+                'option' => Option::TICKET_CLOSED_EMAIL,
                 'subject' => __( 'Your request for support has been closed', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-reply.html',
-                'option' => Option::REPLY_EMAIL_TEMPLATE,
+                'option' => Option::AGENT_REPLY_EMAIL,
                 'subject' => __( 'Reply to your request for support', 'ucare' )
             ),
             array(
