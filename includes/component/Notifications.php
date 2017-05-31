@@ -3,7 +3,6 @@
 namespace ucare\component;
 
 use smartcat\core\AbstractComponent;
-use smartcat\mail\Mail;
 use ucare\descriptor\Option;
 use ucare\util\Logger;
 
@@ -16,9 +15,6 @@ class Notifications extends AbstractComponent {
 
     public function __construct() {
         $this->logger = new Logger( 'mail' );
-    }
-
-    public function start() {
         $this->user = wp_get_current_user();
     }
 
@@ -26,19 +22,47 @@ class Notifications extends AbstractComponent {
         $this->send_template( get_option( Option::WELCOME_EMAIL ), $user_data['email'], $user_data );
     }
 
-    public function ticket_updated( $null, $ticket_id, $key, $value ) {
-        if( $key == 'status' && $value == 'closed' ) {
-            $ticket = get_post( $ticket_id );
-            $recipient = get_user_by('id', $ticket->post_author );
-            $args = array( 'ticket' => $ticket );
+    public function ticket_updated( $null, $id, $key, $value, $old ) {
+
+        $post = get_post( $id );
+
+        // Only if the meta value has changed and the post type is support_ticket
+        if( $value !== $old && $post->post_type == 'support_ticket' ) {
+
+            $args = array( 'ticket' => $post );
 
             $template_vars = array(
-                'ticket_subject' => $ticket->post_title,
-                'ticket_number' => $ticket->ID,
-                'ticket_status' => $value
+                'ticket_subject' => $post->post_title,
+                'ticket_content' => $post->post_content,
+                'ticket_number'  => $post->ID,
             );
 
-            $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL ), $recipient->user_email, $template_vars, $args );
+            // Notify the user that their ticket has been closed
+            if( $key == 'status' && $value == 'closed' ) {
+
+                $recipient = get_user_by('id', $post->post_author );
+
+                $template_vars['ticket_status']  = $value;
+
+                $this->send_template( get_option( Option::TICKET_CLOSED_EMAIL ), $recipient->user_email, $template_vars, $args );
+
+            // Notify agents if they have been assigned to a ticket only if it hasn't been marked as closed
+            } else if( $key == 'agent' && get_post_meta( $id, 'status', true ) != 'closed' ) {
+
+                $recipient = get_user_by( 'ID', $value );
+
+                if( $recipient ) {
+
+                    $user = get_user_by( 'ID', $post->post_author );
+
+                    $template_vars['user'] = $user->first_name . ' ' . $user->last_name;
+
+                    $this->send_template( get_option( Option::TICKET_ASSIGNED_EMAIL ), $recipient->user_email, $template_vars, $args );
+
+                }
+
+            }
+
         }
 
         return $null;
@@ -86,13 +110,8 @@ class Notifications extends AbstractComponent {
 
     public function email_headers( $headers ) {
         if( $this->sending ) {
-//            $forward_address = get_option( Option::FORWARD_EMAIL, Option\Defaults::FORWARD_EMAIL );
             $sender_email = get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) );
             $sender_name = get_option( Option::SENDER_NAME, Option\Defaults::SENDER_NAME );
-
-//            if ( !empty( $forward_address ) ) {
-//                $headers[] = 'CC:' . $forward_address;
-//            }
 
             $headers[] = "From: {$sender_name} <{$sender_email}>";
         }
@@ -155,18 +174,18 @@ class Notifications extends AbstractComponent {
     public function subscribed_hooks() {
         return array(
             'support_password_reset_notification' => array( 'password_reset', 1, 4 ),
-            'support_user_registered' => array( 'user_register' ),
-            'support_mark_ticket_stale' => array( 'stale_ticket' ),
-            'support_ticket_created' => array( 'ticket_created' ),
-            'comment_post' => array( 'ticket_reply' ),
-            'update_post_metadata' => array( 'ticket_updated', 10, 4 ),
+            'support_user_registered'             => array( 'user_register' ),
+            'support_mark_ticket_stale'           => array( 'stale_ticket' ),
+            'support_ticket_created'              => array( 'ticket_created' ),
+            'comment_post'                        => array( 'ticket_reply' ),
+            'update_post_metadata'                => array( 'ticket_updated', 10, 5 ),
 
-            'mailer_email_headers' => array( 'email_headers' ),
-            'email_template_footer' => array( 'email_template_branding' ),
-            'mailer_template_vars' => array( 'email_template_vars' ),
+            'mailer_email_headers'                => array( 'email_headers' ),
+            'email_template_footer'               => array( 'email_template_branding' ),
+            'mailer_template_vars'                => array( 'email_template_vars' ),
 
-            'comment_notification_recipients' => array( 'disable_wp_comment_notifications', 10, 2 ),
-            'comment_moderation_recipients' => array( 'disable_wp_comment_notifications', 10, 2 )
+            'comment_notification_recipients'     => array( 'disable_wp_comment_notifications', 10, 2 ),
+            'comment_moderation_recipients'       => array( 'disable_wp_comment_notifications', 10, 2 )
         );
     }
 }

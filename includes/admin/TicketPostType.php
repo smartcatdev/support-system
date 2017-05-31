@@ -112,7 +112,7 @@ class TicketPostType extends AbstractComponent {
         if( wp_doing_ajax() ) {
             if( $this->quick_edit_form->is_valid() ) {
                 foreach( $this->quick_edit_form->data as $key => $value ) {
-                    update_post_meta( $post_id, $key, $value );
+                    update_post_meta( $post_id, $key, $value, get_post_meta( $post_id, $key, true ) );
                 }
             }
         }

@@ -60,7 +60,7 @@ class FormMetaBox extends AbstractMetaBox {
 
         if( $form->is_valid() ) {
             foreach( $form->data as $key => $value ) {
-                update_post_meta( $post->ID, $key, $value );
+                update_post_meta( $post->ID, $key, $value, get_post_meta( $post_id, $key, true ) );
             }
         }
     }

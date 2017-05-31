@@ -106,7 +106,7 @@ class Ticket extends AjaxComponent {
 
                     foreach( $form->data as $field => $value ) {
 
-                        update_post_meta( $ticket->ID, $field, $value );
+                        update_post_meta( $ticket->ID, $field, $value, get_post_meta( $ticket->ID, $field, true ) );
 
                     }
 
