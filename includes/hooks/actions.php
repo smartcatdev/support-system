@@ -54,7 +54,8 @@ function enqueue_admin_scripts( $hook ) {
         )
     );
 
-    wp_enqueue_script( 'support-admin-js');
+    wp_enqueue_media();
+    wp_enqueue_script( 'support-admin-js' );
 
     wp_enqueue_style( 'support-admin-css',
         $plugin->url() . '/assets/admin/admin.css', null, $plugin->version() );
