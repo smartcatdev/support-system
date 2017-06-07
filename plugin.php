@@ -19,10 +19,25 @@ if( !defined( 'ABSPATH' ) ) {
 
 const PLUGIN_ID = 'smartcat_support';
 const PLUGIN_VERSION = '1.3.0';
+const MIN_PHP_VERSION = '5.5';
 
-// Pull in manual includes
-include_once 'loader.php';
+if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
+    // Pull in manual includes
+    include_once 'loader.php';
 
-// Boot up the container
-Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
+    // Boot up the container
+    Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
+
+} else {
+
+    add_action( 'admin_notices', function () { ?>
+
+        <div class="notice notice-error is-dismissible">
+            <p><?php _e( 'Your PHP version ' .PHP_VERSION . ' does not meet minimum requirements. Requires at 5.5 or higher', 'ucare' ); ?></p>
+        </div>
+
+    <?php } );
+
+}
+
