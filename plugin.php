@@ -19,7 +19,7 @@ if( !defined( 'ABSPATH' ) ) {
 
 const PLUGIN_ID = 'smartcat_support';
 const PLUGIN_VERSION = '1.3.0';
-const MIN_PHP_VERSION = '8';
+const MIN_PHP_VERSION = '5.5';
 
 if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
