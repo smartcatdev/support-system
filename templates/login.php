@@ -119,6 +119,8 @@ use ucare\Plugin;
 
                                 <input type="hidden" name="<?php echo $form->id; ?>" />
 
+                                <?php do_action( 'support_after_registration_fields' ); ?>
+
                                 <div class="terms">
 
                                     <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
