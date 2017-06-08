@@ -39,5 +39,11 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
     <?php } );
 
+    add_action( 'admin_init', function () {
+
+        deactivate_plugins( plugin_basename( __FILE__ ), true );
+
+    } );
+
 }
 
