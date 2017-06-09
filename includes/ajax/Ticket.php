@@ -279,6 +279,13 @@ class Ticket extends AjaxComponent {
                 }
             }
 
+            if( isset( $_REQUEST['stale'] ) ) {
+                $args['meta_query'][] = array(
+                    'key'     => 'stale',
+                    'compare' => 'EXISTS'
+                );
+            }
+
             if( !empty( $_REQUEST['meta'] ) ) {
                 foreach( $_REQUEST['meta'] as $key => $value ) {
                     if( !empty( $value ) ) {
