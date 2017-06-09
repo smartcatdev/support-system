@@ -60,6 +60,15 @@ td.column-id.id:before {
     content: '' !important;
 }
 
+.ucare_filter_checkboxes {
+    line-height: 25px;
+    display: inline-block;
+}
+
+.ucare_filter_checkboxes input {
+    margin-left: 5px;
+}
+
 .image-upload {
     display: none;
 }

@@ -264,34 +264,41 @@ class TicketPostType extends AbstractComponent {
                 )
             );
 
-            $meta_filter = new SelectBoxField(
-                array(
-                    'name'      => 'checked_meta',
-                    'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
-                    'options'   =>  array(
-                        '' => __( 'All Tickets', \ucare\PLUGIN_ID ),
-                        'flagged' => __( 'Flagged', \ucare\PLUGIN_ID )
-                    ),
-                )
-            );
+            ?>
+
+                <div class="ucare_filter_checkboxes">
+                    <label><input type="checkbox" name="flagged"
+
+                        <?php checked( 'on', isset( $_GET['flagged'] ) ? $_GET['flagged'] : '' ); ?> /> <?php _e( 'Flagged', \ucare\PLUGIN_ID ); ?></label>
+
+                    <label><input type="checkbox" name="stale"
+
+                        <?php checked( 'on', isset( $_GET['stale'] ) ? $_GET['stale'] : '' ); ?> /> <?php _e( 'Stale', \ucare\PLUGIN_ID ); ?></label>
+                </div>
+
+            <?php
 
             $agent_filter->render();
-            $meta_filter->render();
+
         }
     }
 
     public function filter_post_table( $query ) {
-        if ( ( !empty( $GLOBALS['typenow'] ) && !empty( $GLOBALS['pagenow'] ) ) &&
-            ( $GLOBALS['typenow'] == 'support_ticket' && $GLOBALS['pagenow'] == 'edit.php' )
-        ) {
+
+        if ( get_query_var( 'post_type' ) ) {
+
             $meta_query = array();
 
-            if ( !empty( $_REQUEST['agent'] ) ) {
+            if ( !empty( $_GET['agent'] ) ) {
                 $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
             }
 
-            if ( !empty( $_REQUEST['checked_meta'] ) ) {
-                $meta_query[] = array( 'key' => $_REQUEST['checked_meta'], 'value' => 'on' );
+            if ( isset( $_GET['flagged'] ) ) {
+                $meta_query[] = array( 'key' => 'flagged', 'value' => 'on' );
+            }
+
+            if( isset( $_GET['stale'] ) ) {
+                $meta_query[] = array( 'key' => 'stale', 'compare' => 'EXISTS' );
             }
 
             $query->query_vars['meta_query'] = $meta_query;
