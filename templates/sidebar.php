@@ -51,7 +51,15 @@ if( array_key_exists( $product, $products ) ) {
 
                 <p>
 
+                    <?php if( $closed_by > 0 ) : ?>
+
                     <?php _e( 'Closed by ', \ucare\PLUGIN_ID ); ?><?php echo \ucare\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
+
+                    <?php else : ?>
+
+                        <?php _e( 'Automatically closed ', \ucare\PLUGIN_ID ); ?>
+
+                    <?php endif; ?>
 
                     (<?php echo \ucare\util\just_now( $closed_date ); ?>)
 
