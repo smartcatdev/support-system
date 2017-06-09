@@ -254,15 +254,34 @@ class TicketPostType extends AbstractComponent {
         if( get_current_screen()->post_type == 'support_ticket' ) {
 
             $agents = \ucare\util\list_agents();
+            $products = \ucare\util\products();
+
             $agents = array( 0 => __( 'All Agents', \ucare\PLUGIN_ID ) ) + $agents;
+            $products = array( 0 => __( 'All Products', \ucare\PLUGIN_ID ) ) + $products;
 
             $agent_filter = new SelectBoxField(
                 array(
                     'name'      => 'agent',
                     'options'   =>  $agents,
-                    'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
+                    'value'     => !empty( $_GET['agent'] ) ? $_GET['agent'] : ''
                 )
             );
+
+            $agent_filter->render();
+
+            if( \ucare\util\ecommerce_enabled() ) {
+
+                $product_filter = new SelectBoxField(
+                    array(
+                        'name' => 'product',
+                        'options' => $products,
+                        'value' => !empty( $_GET['product'] ) ? $_GET['product'] : ''
+                    )
+                );
+
+                $product_filter->render();
+
+            }
 
             ?>
 
@@ -278,7 +297,8 @@ class TicketPostType extends AbstractComponent {
 
             <?php
 
-            $agent_filter->render();
+
+
 
         }
     }
@@ -289,11 +309,15 @@ class TicketPostType extends AbstractComponent {
 
             $meta_query = array();
 
-            if ( !empty( $_GET['agent'] ) ) {
+            if( !empty( $_GET['agent'] ) ) {
                 $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
             }
 
-            if ( isset( $_GET['flagged'] ) ) {
+            if( !empty( $_GET['product'] ) ) {
+                $meta_query[] = array( 'key' => 'product', 'value' => intval( $_REQUEST['product'] ) );
+            }
+
+            if( isset( $_GET['flagged'] ) ) {
                 $meta_query[] = array( 'key' => 'flagged', 'value' => 'on' );
             }
 
