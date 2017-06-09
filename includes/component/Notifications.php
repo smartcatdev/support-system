@@ -142,14 +142,20 @@ class Notifications extends AbstractComponent {
     }
 
     public function stale_ticket( $ticket ) {
-        $user = get_user_by( 'ID', $ticket->post_author );
 
-        $replace = array(
-            'ticket_subject' => $ticket->post_title,
-            'ticket_number'  => $ticket->ID
-        );
+        if( get_post_meta( $ticket->ID, 'status', true ) === 'waiting' ) {
 
-        $this->send_template( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
+            $user = get_user_by( 'ID', $ticket->post_author );
+
+            $replace = array(
+                'ticket_subject' => $ticket->post_title,
+                'ticket_number' => $ticket->ID
+            );
+
+            $this->send_template( get_option(Option::INACTIVE_EMAIL), $user->user_email, $replace );
+
+        }
+
     }
 
     public function subscribed_hooks() {

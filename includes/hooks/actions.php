@@ -162,7 +162,7 @@ function mark_stale_tickets() {
         )
     ) );
 
-    $logger->i( $q->post_count . ' tickets have been marked stale' );
+    $logger->i( $q->post_count . _n( ' ticket', ' tickets', $q->post_count ) . _n( ' has', ' have', $q->post_count ) . '  been marked stale' );
 
     foreach( $q->posts as $ticket ) {
 
@@ -193,11 +193,15 @@ function close_stale_tickets() {
                     'value'   => current_time( 'mysql', 1 ),
                     'type'    => 'DATETIME',
                     'compare' => '<='
+                ),
+                array(
+                    'key'     => 'status',
+                    'value'   => 'waiting'
                 )
             )
         ) );
 
-        $logger->i( $q->post_count . ' tickets have been automatically closed' );
+        $logger->i( $q->post_count . _n( ' ticket', ' tickets', $q->post_count ) . _n( ' has', ' have', $q->post_count ) . ' been automatically closed' );
 
         foreach( $q->posts as $ticket ) {
 
