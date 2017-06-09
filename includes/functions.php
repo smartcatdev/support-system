@@ -389,6 +389,7 @@ namespace ucare\proc {
         $administrator->add_cap( 'edit_others_support_tickets' );
         $administrator->add_cap( 'edit_published_support_tickets' );
         $administrator->add_cap( 'publish_support_tickets' );
+        $administrator->add_cap( 'delete_support_tickets' );
         $administrator->add_cap( 'delete_others_support_tickets' );
         $administrator->add_cap( 'delete_private_support_tickets' );
         $administrator->add_cap( 'delete_published_support_tickets' );
@@ -425,6 +426,7 @@ namespace ucare\proc {
         $administrator->remove_cap( 'edit_others_support_tickets' );
         $administrator->remove_cap( 'edit_published_support_tickets' );
         $administrator->remove_cap( 'publish_support_tickets' );
+        $administrator->remove_cap( 'delete_support_tickets' );
         $administrator->remove_cap( 'delete_others_support_tickets' );
         $administrator->remove_cap( 'delete_private_support_tickets' );
         $administrator->remove_cap( 'delete_published_support_tickets' );

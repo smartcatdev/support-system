@@ -208,6 +208,7 @@ class Mailer implements HookSubscriber  {
         $administrator->add_cap( 'edit_others_email_templates' );
         $administrator->add_cap( 'edit_published_email_templates' );
         $administrator->add_cap( 'publish_email_templates' );
+        $administrator->add_cap( 'delete_email_templates' );
         $administrator->add_cap( 'delete_others_email_templates' );
         $administrator->add_cap( 'delete_private_email_templates' );
         $administrator->add_cap( 'delete_published_email_templates' );
@@ -223,6 +224,7 @@ class Mailer implements HookSubscriber  {
         $administrator->remove_cap( 'edit_others_email_templates' );
         $administrator->remove_cap( 'edit_published_email_templates' );
         $administrator->remove_cap( 'publish_email_templates' );
+        $administrator->remove_cap( 'delete_email_templates' );
         $administrator->remove_cap( 'delete_others_email_templates' );
         $administrator->remove_cap( 'delete_private_email_templates' );
         $administrator->remove_cap( 'delete_published_email_templates' );

@@ -2,7 +2,6 @@
 
 namespace ucare\admin;
 
-use smartcat\admin\MenuPage;
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use smartcat\post\FormMetaBox;
@@ -88,7 +87,7 @@ class TicketPostType extends AbstractComponent {
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
-            'capability_type'     => 'support_ticket',
+            'capability_type'     => array( 'support_ticket', 'support_tickets' ),
             'feeds'               => null,
             'map_meta_cap'        => true
         );
