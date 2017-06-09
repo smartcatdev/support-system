@@ -62,7 +62,7 @@ class Plugin extends AbstractPlugin {
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' && get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
+        if( get_option( Option::DEV_MODE ) === 'on' && get_option( Option::NUKE ) === 'on' ) {
             $options = new \ReflectionClass( Option::class );
 
             foreach( $options->getConstants() as $option ) {

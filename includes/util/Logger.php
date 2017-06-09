@@ -15,8 +15,8 @@ class Logger {
 
     public $type;
 
-    public function __construct( $type = 'general' ) {
-        $this->type = $type;
+    public function __construct($tag = 'general' ) {
+        $this->type = $tag;
     }
 
     protected function insert_log( $class, $message ) {

@@ -178,9 +178,9 @@ function mark_stale_tickets() {
 
 function close_stale_tickets() {
 
-    if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
+    $logger = new Logger( 'cron' );
 
-        $logger = new Logger( 'cron' );
+    if( get_option( Option::AUTO_CLOSE ) === 'on' ) {
 
         // Get all stale tickets
         $q = new \WP_Query( array(
@@ -216,6 +216,10 @@ function close_stale_tickets() {
             do_action( 'support_autoclose_ticket', $ticket );
 
         }
+    } else {
+
+        $logger->i( 'Ticket auto-closing is disabled, please re-enable if you wish for tickets to be closed automatically' );
+
     }
 
 }

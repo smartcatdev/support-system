@@ -254,5 +254,5 @@ final class Option {
     /**
      * @since 1.2.1
      */
-    const LOGGING_ENABLED = 'smartcat_support_iloggin-enabled';
+    const LOGGING_ENABLED = 'smartcat_support_logging-enabled';
 }
