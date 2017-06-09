@@ -2,32 +2,36 @@
 
 namespace ucare;
 
-include_once 'vendor/autoload.php';
-
-use smartcat\mail\Mailer;
-use ucare\descriptor\Option;
-
 if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-if( get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
+include_once 'loader.php';
 
-    Mailer::cleanup( true );
-
-
-    // Trash all support tickets
-    $query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
-
-    foreach( $query->posts as $post ) {
-        wp_trash_post( $post->ID );
-    }
+use smartcat\mail\Mailer;
+use ucare\descriptor\Option;
 
 
-    // Cleanup wp_options
-    $options = new \ReflectionClass( Option::class );
+Mailer::cleanup( true );
 
-    foreach( $options->getConstants() as $option ) {
-        delete_option( $option );
-    }
+
+// Trash all support tickets
+$query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
+
+foreach( $query->posts as $post ) {
+    wp_trash_post( $post->ID );
 }
+
+
+// Cleanup wp_options
+$options = new \ReflectionClass( Option::class );
+
+foreach( $options->getConstants() as $option ) {
+    delete_option( $option );
+}
+
+
+// Drop logs table
+global $wpdb;
+
+$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ucare_logs" );
