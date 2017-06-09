@@ -59,7 +59,7 @@ if( array_key_exists( $product, $products ) ) {
 
             <?php endif; ?>
 
-            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), \ucare\PLUGIN_ID ); ?></p>
+            <p><?php _e( 'From ' . get_the_date( 'l F j, Y @ g:i A', $ticket ), \ucare\PLUGIN_ID ); ?></p>
 
         </div>
 
