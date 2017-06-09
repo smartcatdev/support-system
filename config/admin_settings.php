@@ -502,7 +502,7 @@ $admin = new TabbedMenuPage(
         'type'          => 'submenu',
         'parent_menu'   => 'ucare_support',
         'menu_title'    => __( 'Settings', \ucare\PLUGIN_ID ),
-        'menu_slug'     => 'support_options',
+        'menu_slug'     => 'uc-settings',
         'tabs'          => array(
             new SettingsTab(
                 array(
