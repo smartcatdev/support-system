@@ -152,7 +152,7 @@ class Notifications extends AbstractComponent {
                 'ticket_number' => $ticket->ID
             );
 
-            $this->send_template( get_option(Option::INACTIVE_EMAIL), $user->user_email, $replace );
+            $this->send_template( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
 
         }
 

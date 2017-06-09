@@ -17,6 +17,8 @@ class migration_1_2_1 implements \smartcat\core\Migration {
         $this->create_email_template();
         $this->create_log_table();
 
+        update_option( Option::LOGGING_ENABLED, Option\Defaults::LOGGING_ENABLED );
+
         return array( 'success' => true, 'message' => 'uCare has been successfully upgraded to version 1.2.0' );
     }
 
