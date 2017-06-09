@@ -53,7 +53,9 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 1. Download the plugin, then upload the zipped file to your site from the WordPress dashboard plugin uploader menu
 2. OR - Upload the unpacked folder folder via FTP into /wp-content/plugins
 
-== Changelog == 
+== Changelog ==
+
+//TODO 121 changes
 
 = 1.2.0 =
 - Added reports menu page with overview of total tickets opened/closed and per agent totals

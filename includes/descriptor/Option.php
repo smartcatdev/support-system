@@ -250,4 +250,9 @@ final class Option {
      * @since 1.2.0
      */
     const INACTIVE_EMAIL = 'smartcat_support_inactive-email';
+
+    /**
+     * @since 1.2.1
+     */
+    const LOGGING_ENABLED = 'smartcat_support_iloggin-enabled';
 }

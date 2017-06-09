@@ -121,7 +121,9 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'ucare_support',
                     'menu_title'    => __( 'Reports', PLUGIN_ID ),
                     'capability'    => 'manage_support',
-                    'tabs' => array( new ReportsOverviewTab(), new LogsTab() )
+                    'tabs' => get_option( Option::LOGGING_ENABLED ) == 'on'
+                                ? array( new ReportsOverviewTab(), new LogsTab() )
+                                : array( new ReportsOverviewTab() )
                 )
             ),
            'tickets' => new MenuPage(

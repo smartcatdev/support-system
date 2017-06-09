@@ -301,6 +301,16 @@ $general->add_field( new TextField(
         'validators'    => array( new IntegerValidator() )
     )
 
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_logging_enabled',
+        'option'        => Option::LOGGING_ENABLED,
+        'value'         => get_option( Option::LOGGING_ENABLED, Option\Defaults::LOGGING_ENABLED ),
+        'label'         => __( 'Enable Logging', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Enable or disable the logging of system events', \ucare\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
 
 $auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
