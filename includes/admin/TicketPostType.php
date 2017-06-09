@@ -255,9 +255,21 @@ class TicketPostType extends AbstractComponent {
 
             $agents = \ucare\util\list_agents();
             $products = \ucare\util\products();
+            $statuses = \ucare\util\statuses();
 
             $agents = array( 0 => __( 'All Agents', \ucare\PLUGIN_ID ) ) + $agents;
             $products = array( 0 => __( 'All Products', \ucare\PLUGIN_ID ) ) + $products;
+            $statuses = array( '' => __( 'All Statuses', \ucare\PLUGIN_ID ) ) + $statuses;
+
+            $status_filter = new SelectBoxField(
+                array(
+                    'name'      => 'status',
+                    'options'   =>  $statuses,
+                    'value'     => !empty( $_GET['status'] ) ? $_GET['status'] : ''
+                )
+            );
+
+            $status_filter->render();
 
             $agent_filter = new SelectBoxField(
                 array(
@@ -310,12 +322,17 @@ class TicketPostType extends AbstractComponent {
             $meta_query = array();
 
             if( !empty( $_GET['agent'] ) ) {
-                $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
+                $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_GET['agent'] ) );
             }
 
             if( !empty( $_GET['product'] ) ) {
-                $meta_query[] = array( 'key' => 'product', 'value' => intval( $_REQUEST['product'] ) );
+                $meta_query[] = array( 'key' => 'product', 'value' => intval( $_GET['product'] ) );
             }
+
+            if( !empty( $_GET['status'] ) ) {
+                $meta_query[] = array( 'key' => 'status', 'value' => $_GET['status'] );
+            }
+
 
             if( isset( $_GET['flagged'] ) ) {
                 $meta_query[] = array( 'key' => 'flagged', 'value' => 'on' );
