@@ -4,7 +4,7 @@ Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 Tested up to: 4.8
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 
 If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
@@ -28,19 +28,22 @@ The front-end is fully using Ajax, no loading, everything updates while you're o
 
 The frontend app is fully responsive, and is coded in a way to use as little resource as possible, ensuring it always runs super fast.
 
-=Features=
-* Multiple users & groups: Support Admin, Support Agent & Support User ( customer )
-* Works with ANY theme. The support system app is 100% compatible with any theme, and runs separately from your theme files
-* Fast & Lightweight. 100% Ajax-ified, loads data on the fly to prevent impacting your site speed
-* Ticket search & filter
-* Ticket status & priority
-* Product & invoice number for E-commerce products
-* Assign tickets to agents
-* Integrated with WooCommerce and Easy Digital Downloads
-* Tabbed view: Load and work on multiple tickets at a time
-* Frontend & Backend: Work on tickets from the WP dashboard, or from the frontend app
-* Notification system: Automated & customizable emails
-* Welcome screen to first-time users. Your customers will find this easy to use and part of a great customer service.
+= Features =
+- **Reporting:** A reports view allowing you to track your ticket activity and your agent productivity
+- **Multiple users & groups:** Support Admin, Support Agent & Support User ( customer )
+- **Works with ANY theme**. The support system app is 100% compatible with any theme, and runs separately from your theme files
+- **Fast & Lightweight**. 100% Ajax-ified, loads data on the fly to prevent impacting your site speed
+- **Ticket search & filter**
+- **Ticket status & priority**
+- Product & invoice number for E-commerce products
+- **Assign tickets** to agents
+- **Integrated with WooCommerce and Easy Digital Downloads**
+- **Tabbed view:** Load and work on multiple tickets at a time
+- **Frontend & Backend:** Work on tickets from the WP dashboard, or from the frontend app
+- **Notification system:** Automated & customizable email notifications for customers and agents
+- **Welcome screen** to first-time users. Your customers will find this easy to use and part of a great customer service.
+- **Auto-close tickets**. If turned on, the plugin will automatically close tickets after X number of days of no customer interaction.
+- **Event logging**. If turned on, the plugin will log all events so you can have a full view of everything that is happening in the system.
 
 == Screenshots ==
 
