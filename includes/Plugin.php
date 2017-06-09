@@ -150,7 +150,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'launch',
+                    'menu_slug'     => 'uc-launch',
                     'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'onload'        => function () { wp_safe_redirect( url() ); }
@@ -161,7 +161,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'add-ons',
+                    'menu_slug'     => 'uc-add-ons',
                     'menu_title'    => __( 'Add-ons', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'render'        => $this->template_dir . '/admin-extensions.php'

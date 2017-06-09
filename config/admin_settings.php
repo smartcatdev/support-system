@@ -506,35 +506,35 @@ $admin = new TabbedMenuPage(
         'tabs'          => array(
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_general',
+                    'slug'     => 'uc-general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
                     'sections' => array( $general, $auto_close )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_display',
+                    'slug'     => 'uc-display',
                     'title'    => __( 'Display', \ucare\PLUGIN_ID ),
                     'sections' => array( $text, $widgets )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_appearance',
+                    'slug'     => 'uc-appearance',
                     'title'    => __( 'Appearance', \ucare\PLUGIN_ID ),
                     'sections' => array( $appearance )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_email',
+                    'slug'     => 'uc-email',
                     'title'    => __( 'Email', \ucare\PLUGIN_ID ),
                     'sections' => array( $emails, $email_notifications )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_advanced',
+                    'slug'     => 'uc-advanced',
                     'title'    => __( 'Advanced', \ucare\PLUGIN_ID ),
                     'sections' => array( $advanced )
                 )
