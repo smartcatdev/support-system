@@ -195,5 +195,5 @@ final class Defaults {
     /**
      * @since 1.2.0
      */
-    const AUTO_CLOSE = 'on';
+    const AUTO_CLOSE = '';
 }
