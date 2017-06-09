@@ -148,7 +148,7 @@ class LogsTable extends ListTable {
 
         $q = "SELECT class AS uc_log_class,
                 type AS uc_log_type,
-                timestamp AS uc_log_timestamp,
+                event_timestamp AS uc_log_timestamp,
                 message AS uc_log_message
               FROM {$wpdb->prefix}ucare_logs";
 

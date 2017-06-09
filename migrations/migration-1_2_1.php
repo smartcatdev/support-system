@@ -26,11 +26,11 @@ class migration_1_2_1 implements \smartcat\core\Migration {
 
         $wpdb->query(
             "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ucare_logs (
-                id          INT PRIMARY KEY AUTO_INCREMENT,
-                class       CHAR(1),
-                type        VARCHAR(30),
-                timestamp   DATETIME DEFAULT CURRENT_TIMESTAMP,
-                message     TEXT
+                id              INT PRIMARY KEY AUTO_INCREMENT,
+                class           CHAR(1),
+                type            VARCHAR(30),
+                event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                message         TEXT
             )"
         );
     }

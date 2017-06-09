@@ -457,21 +457,21 @@ $advanced = new SettingsSection( 'uc_advanced', __( 'CAUTION: Some of these may 
 
 $advanced->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_nuke_data',
-        'option'        => Option::NUKE,
-        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
-        'label'         => __( 'Erase All Data', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Erase all data on plugin uninstall', \ucare\PLUGIN_ID ),
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::DEV_MODE,
+        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
+        'label'         => __( 'Developer Mode', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Enable development functionality', \ucare\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
 ) )->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_enable_dev_mode',
-        'option'        => Option::DEV_MODE,
-        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
-        'label'         => __( 'Developer Mode', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Enable Development functionality', \ucare\PLUGIN_ID ),
+        'id'            => 'support_nuke_data',
+        'option'        => Option::NUKE,
+        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
+        'label'         => __( 'Erase All Data', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Erase all data on plugin deactivation if developer mode is enabled', \ucare\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
