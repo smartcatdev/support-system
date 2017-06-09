@@ -58,7 +58,17 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 
 == Changelog ==
 
-//TODO 121 changes
+= 1.2.1 =
+- Added system log with level and tag filtering under reports view
+- Tweaks and re-enabled cron that deletes abandoned stale tickets
+- Added ability to filter out stale tickets from WordPress admin and front end
+- Added filters to WordPress admin for ticket product and status
+- Fixed permission issue preventing Email Templates and Support Ticket custom post types from being able to be deleted in bulk
+- Prefixed plugin menu pages in WordPress admin
+- Front end link back to WordPress admin now links to top level Support System menu page
+- Colorized reports Y-axes to match their respective lines
+- Added ability to disable system logging and clear existing log entries
+- Added ability to set the maximum number of days before a ticket is marked as stale
 
 = 1.2.0 =
 - Added reports menu page with overview of total tickets opened/closed and per agent totals
