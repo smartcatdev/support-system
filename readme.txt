@@ -71,6 +71,7 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - Colorized reports Y-axes to match their respective lines
 - Added ability to disable system logging and clear existing log entries
 - Added ability to set the maximum number of days before a ticket is marked as stale
+- Fixed issue where multiple migrations would run at once
 
 = 1.2.0 =
 - Added reports menu page with overview of total tickets opened/closed and per agent totals
