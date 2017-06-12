@@ -40,18 +40,22 @@ class migration_1_2_1 implements \smartcat\core\Migration {
 
     function create_email_template() {
 
-        $id = wp_insert_post(
-            array(
-                'post_type'     => 'email_template',
-                'post_status'   => 'publish',
-                'post_title'    => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID ),
-                'post_content'  => file_get_contents( $this->plugin->dir() . 'emails/ticket-close-warning.html' )
-            )
-        );
+        if( !get_post( get_option( Option::INACTIVE_EMAIL ) ) ) {
 
-        if( $id ) {
-            update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
-            add_option( Option::INACTIVE_EMAIL, $id );
+            $id = wp_insert_post(
+                array(
+                    'post_type'    => 'email_template',
+                    'post_status'  => 'publish',
+                    'post_title'   => __( 'You have a ticket awaiting action', \ucare\PLUGIN_ID ),
+                    'post_content' => file_get_contents( $this->plugin->dir() . 'emails/ticket-close-warning.html' )
+                )
+            );
+
+            if ( $id ) {
+                update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
+                add_option( Option::INACTIVE_EMAIL, $id );
+            }
+
         }
 
     }
