@@ -40,7 +40,7 @@ class migration_1_2_1 implements \smartcat\core\Migration {
 
     function create_email_template() {
 
-        if( !get_post( get_option( Option::INACTIVE_EMAIL ) ) ) {
+        if( is_null( get_post( get_option( Option::INACTIVE_EMAIL ) ) ) ) {
 
             $id = wp_insert_post(
                 array(
@@ -52,8 +52,10 @@ class migration_1_2_1 implements \smartcat\core\Migration {
             );
 
             if ( $id ) {
+
                 update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
                 add_option( Option::INACTIVE_EMAIL, $id );
+
             }
 
         }
