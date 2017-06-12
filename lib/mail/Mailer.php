@@ -106,8 +106,6 @@ class Mailer implements HookSubscriber  {
             $content = self::parse_template( $template->post_content, $template, $recipient );
             $headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-            error_log("sent {$template->post_title} to {$recipient}");
-
             $sent = wp_mail(
                 $recipient,
                 $template->post_title,
@@ -210,6 +208,7 @@ class Mailer implements HookSubscriber  {
         $administrator->add_cap( 'edit_others_email_templates' );
         $administrator->add_cap( 'edit_published_email_templates' );
         $administrator->add_cap( 'publish_email_templates' );
+        $administrator->add_cap( 'delete_email_templates' );
         $administrator->add_cap( 'delete_others_email_templates' );
         $administrator->add_cap( 'delete_private_email_templates' );
         $administrator->add_cap( 'delete_published_email_templates' );
@@ -225,6 +224,7 @@ class Mailer implements HookSubscriber  {
         $administrator->remove_cap( 'edit_others_email_templates' );
         $administrator->remove_cap( 'edit_published_email_templates' );
         $administrator->remove_cap( 'publish_email_templates' );
+        $administrator->remove_cap( 'delete_email_templates' );
         $administrator->remove_cap( 'delete_others_email_templates' );
         $administrator->remove_cap( 'delete_private_email_templates' );
         $administrator->remove_cap( 'delete_published_email_templates' );

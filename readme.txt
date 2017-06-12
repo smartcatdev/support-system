@@ -3,7 +3,9 @@ Contributors: smartcat
 Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.7.5
+
+Tested up to: 4.8
+
 Stable tag: 1.2.0
 License: GPLv2 or later
 
@@ -28,19 +30,22 @@ The front-end is fully using Ajax, no loading, everything updates while you're o
 
 The frontend app is fully responsive, and is coded in a way to use as little resource as possible, ensuring it always runs super fast.
 
-=Features=
-* Multiple users & groups: Support Admin, Support Agent & Support User ( customer )
-* Works with ANY theme. The support system app is 100% compatible with any theme, and runs separately from your theme files
-* Fast & Lightweight. 100% Ajax-ified, loads data on the fly to prevent impacting your site speed
-* Ticket search & filter
-* Ticket status & priority
-* Product & invoice number for E-commerce products
-* Assign tickets to agents
-* Integrated with WooCommerce and Easy Digital Downloads
-* Tabbed view: Load and work on multiple tickets at a time
-* Frontend & Backend: Work on tickets from the WP dashboard, or from the frontend app
-* Notification system: Automated & customizable emails
-* Welcome screen to first-time users. Your customers will find this easy to use and part of a great customer service.
+= Features =
+- **Reporting:** A reports view allowing you to track your ticket activity and your agent productivity
+- **Multiple users & groups:** Support Admin, Support Agent & Support User ( customer )
+- **Works with ANY theme**. The support system app is 100% compatible with any theme, and runs separately from your theme files
+- **Fast & Lightweight**. 100% Ajax-ified, loads data on the fly to prevent impacting your site speed
+- **Ticket search & filter**
+- **Ticket status & priority**
+- Product & invoice number for E-commerce products
+- **Assign tickets** to agents
+- **Integrated with WooCommerce and Easy Digital Downloads**
+- **Tabbed view:** Load and work on multiple tickets at a time
+- **Frontend & Backend:** Work on tickets from the WP dashboard, or from the frontend app
+- **Notification system:** Automated & customizable email notifications for customers and agents
+- **Welcome screen** to first-time users. Your customers will find this easy to use and part of a great customer service.
+- **Auto-close tickets**. If turned on, the plugin will automatically close tickets after X number of days of no customer interaction.
+- **Event logging**. If turned on, the plugin will log all events so you can have a full view of everything that is happening in the system.
 
 == Screenshots ==
 
@@ -53,7 +58,20 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 1. Download the plugin, then upload the zipped file to your site from the WordPress dashboard plugin uploader menu
 2. OR - Upload the unpacked folder folder via FTP into /wp-content/plugins
 
-== Changelog == 
+== Changelog ==
+
+= 1.2.1 =
+- Added system log with level and tag filtering under reports view
+- Tweaks and re-enabled cron that deletes abandoned stale tickets
+- Added ability to filter out stale tickets from WordPress admin and front end
+- Added filters to WordPress admin for ticket product and status
+- Fixed permission issue preventing Email Templates and Support Ticket custom post types from being able to be deleted in bulk
+- Prefixed plugin menu pages in WordPress admin
+- Front end link back to WordPress admin now links to top level Support System menu page
+- Colorized reports Y-axes to match their respective lines
+- Added ability to disable system logging and clear existing log entries
+- Added ability to set the maximum number of days before a ticket is marked as stale
+- Fixed issue where multiple migrations would run at once
 
 = 1.2.0 =
 - Added reports menu page with overview of total tickets opened/closed and per agent totals

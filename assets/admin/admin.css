@@ -38,12 +38,35 @@ table.wp-list-table td.thumb {
     text-align: center;
 }
 
+table.wp-list-table td.column-status .status-tag {
+    margin-right: 5px;
+}
+
+table.wp-list-table td.column-status .stale-tag {
+    border: 1px solid #ccc;
+    vertical-align: text-bottom;
+    margin-bottom: -2px;
+    padding: 0px 6px;
+    border-radius: 3px;
+    background: white;
+    display: inline-block;
+}
+
 .inline-edit-col .quick-edit-field {
    width: 100%;
 }
 
 td.column-id.id:before {
     content: '' !important;
+}
+
+.ucare_filter_checkboxes {
+    line-height: 25px;
+    display: inline-block;
+}
+
+.ucare_filter_checkboxes input {
+    margin-left: 5px;
 }
 
 .image-upload {

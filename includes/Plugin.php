@@ -6,7 +6,7 @@ use smartcat\admin\MenuPage;
 use smartcat\admin\TabbedMenuPage;
 use smartcat\core\AbstractPlugin;
 use smartcat\mail\Mailer;
-use ucare\admin\Reports;
+use ucare\admin\LogsTab;
 use ucare\admin\ReportsOverviewTab;
 use ucare\ajax\Media;
 use ucare\ajax\Statistics;
@@ -62,7 +62,7 @@ class Plugin extends AbstractPlugin {
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' && get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
+        if( get_option( Option::DEV_MODE ) === 'on' && get_option( Option::NUKE ) === 'on' ) {
             $options = new \ReflectionClass( Option::class );
 
             foreach( $options->getConstants() as $option ) {
@@ -82,35 +82,6 @@ class Plugin extends AbstractPlugin {
         $menu_page = menu_page_url( 'support_options', false );
 
         return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', \ucare\PLUGIN_ID ) . '</a>' ), $links );
-    }
-
-    public function admin_enqueue( $hook ) {
-            wp_enqueue_script( 'jquery-ui-datepicker' );
-
-            wp_enqueue_media();
-
-            wp_enqueue_style( 'wp-color-picker');
-            wp_enqueue_script( 'wp-color-picker');
-
-            wp_enqueue_script( 'wp_media_uploader',
-                $this->url . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $this->version );
-
-            wp_register_script('support-admin-js',
-                $this->url . 'assets/admin/admin.js', array( 'jquery' ), $this->version );
-
-            wp_localize_script( 'support-admin-js',
-                'SupportSystem', array(
-                    'ajax_url' => admin_url( 'admin-ajax.php' ),
-                    'ajax_nonce' => wp_create_nonce( 'support_ajax' )
-                )
-            );
-            wp_enqueue_script( 'support-admin-js');
-
-            wp_enqueue_style( 'support-admin-icons',
-                $this->url . '/assets/icons/style.css', null, $this->version );
-
-            wp_enqueue_style( 'support-admin-css',
-                $this->url . '/assets/admin/admin.css', null, $this->version );
     }
 
     public function login_failed() {
@@ -150,7 +121,9 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'ucare_support',
                     'menu_title'    => __( 'Reports', PLUGIN_ID ),
                     'capability'    => 'manage_support',
-                    'tabs' => array( new ReportsOverviewTab() )
+                    'tabs' => get_option( Option::LOGGING_ENABLED ) == 'on'
+                                ? array( new ReportsOverviewTab(), new LogsTab() )
+                                : array( new ReportsOverviewTab() )
                 )
             ),
            'tickets' => new MenuPage(
@@ -177,7 +150,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'launch',
+                    'menu_slug'     => 'uc-launch',
                     'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'onload'        => function () { wp_safe_redirect( url() ); }
@@ -188,7 +161,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'add-ons',
+                    'menu_slug'     => 'uc-add-ons',
                     'menu_title'    => __( 'Add-ons', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'render'        => $this->template_dir . '/admin-extensions.php'
@@ -207,7 +180,6 @@ class Plugin extends AbstractPlugin {
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
-            'admin_enqueue_scripts' => array( 'admin_enqueue' ),
             'mailer_consumers' => array( 'mailer_checkin' ),
             'mailer_text_domain' => array( 'mailer_text_domain' ),
             'template_include' => array( 'swap_template' ),
@@ -232,7 +204,7 @@ class Plugin extends AbstractPlugin {
             Hacks::class,
             Media::class,
             Statistics::class,
-            Reports::class
+            Notifications::class
         );
 
         if( \ucare\util\ecommerce_enabled( false ) ) {
@@ -241,10 +213,6 @@ class Plugin extends AbstractPlugin {
 
         if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
             $components[] = Registration::class;
-        }
-
-        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
-            $components[] = Notifications::class;
         }
 
         return $components;
@@ -266,7 +234,8 @@ class Plugin extends AbstractPlugin {
         return '';
     }
 
-    public function feedback_form( $hook ) {
+    public function feedback_form() {
+
         if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
             require_once $this->dir . '/templates/feedback.php';
         }

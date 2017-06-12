@@ -5,11 +5,18 @@ namespace ucare\component;
 use smartcat\core\AbstractComponent;
 use smartcat\mail\Mailer;
 use ucare\descriptor\Option;
+use ucare\util\Logger;
 
 class Notifications extends AbstractComponent {
 
     private $user;
     private $sending = false;
+
+    private $logger;
+
+    public function __construct() {
+        $this->logger = new Logger( 'mail' );
+    }
 
     public function start() {
         $this->user = wp_get_current_user();
@@ -94,9 +101,17 @@ class Notifications extends AbstractComponent {
     }
 
     private function send_template( $template, $recipient, $template_vars, $args = array() ) {
+
         $this->sending = true;
 
-        return Mailer::send_template( $template, $recipient, $template_vars, $args );
+        $this->logger->i( "Sent notification to {$recipient}" );
+
+        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
+            return Mailer::send_template( $template, $recipient, $template_vars, $args );
+        } else {
+            return false;
+        }
+
     }
 
     public function email_template_branding() {
@@ -127,14 +142,20 @@ class Notifications extends AbstractComponent {
     }
 
     public function stale_ticket( $ticket ) {
-        $user = get_user_by( 'ID', $ticket->post_author );
 
-        $replace = array(
-            'ticket_subject' => $ticket->post_title,
-            'ticket_number'  => $ticket->ID
-        );
+        if( get_post_meta( $ticket->ID, 'status', true ) === 'waiting' ) {
 
-        $this->send_template( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
+            $user = get_user_by( 'ID', $ticket->post_author );
+
+            $replace = array(
+                'ticket_subject' => $ticket->post_title,
+                'ticket_number' => $ticket->ID
+            );
+
+            $this->send_template( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
+
+        }
+
     }
 
     public function subscribed_hooks() {

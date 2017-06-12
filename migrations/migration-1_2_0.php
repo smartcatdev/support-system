@@ -1,7 +1,5 @@
 <?php
 
-use ucare\descriptor\Option;
-
 class migration_1_2_0 implements smartcat\core\Migration {
 
     private $plugin;

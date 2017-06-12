@@ -1,5 +1,6 @@
 <?php
 
+use smartcat\form\CheckBoxField;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
@@ -53,7 +54,16 @@ if( current_user_can( 'manage_support_tickets' ) ) {
     ));
 }
 
-$form->add_field( new CheckBoxGroup(
+$form->add_field( new CheckBoxField(
+    array(
+        'id'             => 'stale',
+        'name'           => 'stale',
+        'checkbox_label' => __( 'Stale', \ucare\PLUGIN_ID ),
+        'value'          => '',
+        'class'          => array( 'filter-field' )
+    )
+
+) )->add_field( new CheckBoxGroup(
     array(
         'id'      => 'status',
         'name'    => 'meta[status]',

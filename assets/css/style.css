@@ -675,6 +675,7 @@ hr {
     vertical-align: middle;
     min-width: 40px;
     text-align: center;
+    color: #575757;
 }
 
 #tickets-container .ticket .flagged {
@@ -703,31 +704,7 @@ hr {
 
 #tickets-container .comment-icon {
     font-size: 20px;
-    color: #575757;
     transform: scaleX(0.8);
-}
-
-#tickets-container .comment-count-badge {
-    position: relative;
-
-}
-
-#tickets-container .comment-count-badge:after {
-    content: attr(data-count);
-    position: absolute;
-    top: -10px;
-    right: -5px;
-    font-size: 10px;
-    background: #337ab7;
-    color: white;
-    min-width: 15px;
-    height: 15px;
-    text-align: center;
-    line-height: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 1px #333;
-    font-weight: 700;
-    padding: 0 2px;
 }
 
 #tickets-container .status-wrapper {
@@ -914,6 +891,10 @@ button.close-ticket:hover {
 /* #### Sidebar ************************************************************************/
 .panel-group .panel+.panel {
     margin-top: 15px !important;
+}
+
+.sidebar .ticket-details .ticket-stale {
+    font-size: 12px;
 }
 
 .sidebar .sidebar-divider {

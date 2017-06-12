@@ -116,40 +116,48 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     }
 
     public function perform_migrations() {
-        $current = get_option( $this->id . '_version', 0 );
-        $result = true;
 
-        $admin_notice = function ( $message, $class ) {
-            add_action( 'admin_notices', function () use ( $message, $class ) {
-                printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( implode( ' ', $class ) ), $message );
-            } );
-        };
+        // If we're not already in an upgrade
+        if( !get_transient( $this->id . '_doing_upgrade' ) ) {
 
-        if( $this->version > $current ) {
+            $current = get_option( $this->id . '_version', 0 );
+            $result = true;
 
-            // Perform migrations with the current version
-            foreach( glob($this->dir . 'migrations/migration-*.php' ) as $file ) {
-                $migration = include_once( $file );
-                $version = $migration->version();
+            // If the version in code > version in database
+            if( $this->version > $current ) {
 
-                if( $version > $current && $version <= $this->version ) {
-                    $result = $migration->migrate( $this );
+                // Prevent multiple migrations from running at the same time
+                set_transient( $this->id . '_doing_upgrade', true, 60 * 2 /* Allow 2 minutes for migration */ );
 
-                    if( is_wp_error( $result ) || !$result['success'] ) {
-                        $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-error', 'is-dismissible' ) );
-                        break;
+                // Perform migrations with the current version
+                foreach ( glob( $this->dir . 'migrations/migration-*.php' ) as $file ) {
+                    $migration = include_once( $file );
+                    $version = $migration->version();
+
+                    if ( $version > $current && $version <= $this->version ) {
+                        $result = $migration->migrate( $this );
+
+                        if ( $result === false || is_wp_error( $result ) ) {
+                            break;
+                        }
                     }
                 }
-            }
 
-            if( !is_wp_error( $result ) || $result['success'] ) {
-                if( isset( $result['message'] ) ) {
-                    $admin_notice( __( $result['message'], $this->id ), array( 'notice', 'notice-success', 'is-dismissible' ) );
+                if ( $result !== false || !is_wp_error( $result ) ) {
+
+                    // Let everyone know we're done
+                    do_action( $this->id . '_upgraded' );
+
+                    // Increment the version number
+                    update_option( $this->id . '_version', $this->version );
                 }
 
-                update_option( $this->id . '_version', $this->version );
+                // Unblock migrations now that we're all done
+                delete_transient( $this->id . '_doing_upgrade' );
+
             }
         }
+
     }
 
     /**

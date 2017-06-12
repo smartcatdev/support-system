@@ -4,6 +4,7 @@ use smartcat\admin\CheckBoxField;
 use smartcat\admin\HTMLFilter;
 use smartcat\admin\IntegerValidator;
 use smartcat\admin\MatchFilter;
+use smartcat\admin\RangeValidator;
 use smartcat\admin\SelectBoxField;
 use smartcat\admin\SettingsSection;
 use smartcat\admin\SettingsTab;
@@ -300,8 +301,18 @@ $general->add_field( new TextField(
         'validators'    => array( new IntegerValidator() )
     )
 
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_logging_enabled',
+        'option'        => Option::LOGGING_ENABLED,
+        'value'         => get_option( Option::LOGGING_ENABLED, Option\Defaults::LOGGING_ENABLED ),
+        'label'         => __( 'Enable Logging', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Enable or disable the logging of system events', \ucare\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
-/*
+
 $auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', \ucare\PLUGIN_ID ) );
 
 $auto_close_interval = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
@@ -328,7 +339,7 @@ $auto_close->add_field( new TextField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) );*/
+) );
 
 $emails = new SettingsSection( 'uc_email_templates', __( 'Email Templates', \ucare\PLUGIN_ID ) );
 
@@ -394,7 +405,7 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
-) )/*->add_field( new SelectBoxField(
+) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_autoclose_email_template',
         'option'        => Option::INACTIVE_EMAIL,
@@ -406,7 +417,7 @@ $emails->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
     )
 
-) )*/;
+) );
 
 $email_notifications = new SettingsSection( 'uc_email_notifications', __( 'Email Notifications', \ucare\PLUGIN_ID ) );
 
@@ -456,21 +467,21 @@ $advanced = new SettingsSection( 'uc_advanced', __( 'CAUTION: Some of these may 
 
 $advanced->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_nuke_data',
-        'option'        => Option::NUKE,
-        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
-        'label'         => __( 'Erase All Data', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Erase all data on plugin uninstall', \ucare\PLUGIN_ID ),
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::DEV_MODE,
+        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
+        'label'         => __( 'Developer Mode', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Enable development functionality', \ucare\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
 ) )->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_enable_dev_mode',
-        'option'        => Option::DEV_MODE,
-        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
-        'label'         => __( 'Developer Mode', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Enable Development functionality', \ucare\PLUGIN_ID ),
+        'id'            => 'support_nuke_data',
+        'option'        => Option::NUKE,
+        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
+        'label'         => __( 'Erase All Data', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Erase all data on plugin deactivation if developer mode is enabled', \ucare\PLUGIN_ID ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
@@ -491,39 +502,39 @@ $admin = new TabbedMenuPage(
         'type'          => 'submenu',
         'parent_menu'   => 'ucare_support',
         'menu_title'    => __( 'Settings', \ucare\PLUGIN_ID ),
-        'menu_slug'     => 'support_options',
+        'menu_slug'     => 'uc-settings',
         'tabs'          => array(
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_general',
+                    'slug'     => 'uc-general',
                     'title'    => __( 'General', \ucare\PLUGIN_ID ),
-                    'sections' => array( $general, /*$auto_close*/ )
+                    'sections' => array( $general, $auto_close )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_display',
+                    'slug'     => 'uc-display',
                     'title'    => __( 'Display', \ucare\PLUGIN_ID ),
                     'sections' => array( $text, $widgets )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_appearance',
+                    'slug'     => 'uc-appearance',
                     'title'    => __( 'Appearance', \ucare\PLUGIN_ID ),
                     'sections' => array( $appearance )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_email',
+                    'slug'     => 'uc-email',
                     'title'    => __( 'Email', \ucare\PLUGIN_ID ),
                     'sections' => array( $emails, $email_notifications )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_advanced',
+                    'slug'     => 'uc-advanced',
                     'title'    => __( 'Advanced', \ucare\PLUGIN_ID ),
                     'sections' => array( $advanced )
                 )
