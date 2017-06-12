@@ -111,6 +111,10 @@ class LogsTable extends ListTable {
         return wp_trim_words( $item['uc_log_message'], 15 );
     }
 
+    public function column_uc_log_timestamp( $item ) {
+        return get_date_from_gmt( $item['uc_log_timestamp'], get_option( 'date_format') . ' @ ' . get_option( 'time_format' ) );
+    }
+
     public function column_default( $item, $column_name ) {
         if( !empty( $item[ $column_name ] ) ) {
             return $item[ $column_name ];

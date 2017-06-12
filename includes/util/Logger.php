@@ -27,7 +27,7 @@ class Logger {
 
             $q = "INSERT INTO {$wpdb->prefix}ucare_logs VALUES( NULL, %s, %s, %s, %s )";
 
-            $wpdb->query($wpdb->prepare($q, array($class, $this->type, current_time('mysql', 1), $message)));
+            $wpdb->query( $wpdb->prepare( $q, array( $class, $this->type, current_time( 'mysql', 1 ), $message ) ) );
 
 
         }
