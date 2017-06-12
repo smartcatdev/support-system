@@ -109,6 +109,7 @@ function add_caps() {
     $administrator->add_cap( 'read_email_templates' );
     $administrator->add_cap( 'edit_email_template' );
     $administrator->add_cap( 'edit_email_templates' );
+    $administrator->add_cap( 'delete_email_templates' );
     $administrator->add_cap( 'edit_others_email_templates' );
     $administrator->add_cap( 'edit_published_email_templates' );
     $administrator->add_cap( 'publish_email_templates' );
@@ -124,6 +125,7 @@ function remove_caps() {
     $administrator->remove_cap( 'read_email_templates' );
     $administrator->remove_cap( 'edit_email_template' );
     $administrator->remove_cap( 'edit_email_templates' );
+    $administrator->remove_cap( 'delete_email_templates' );
     $administrator->remove_cap( 'edit_others_email_templates' );
     $administrator->remove_cap( 'edit_published_email_templates' );
     $administrator->remove_cap( 'publish_email_templates' );

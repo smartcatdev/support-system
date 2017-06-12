@@ -2,7 +2,6 @@
 
 namespace ucare\admin;
 
-use smartcat\admin\MenuPage;
 use smartcat\core\AbstractComponent;
 use smartcat\form\SelectBoxField;
 use smartcat\post\FormMetaBox;
@@ -88,7 +87,7 @@ class TicketPostType extends AbstractComponent {
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
-            'capability_type'     => 'support_ticket',
+            'capability_type'     => array( 'support_ticket', 'support_tickets' ),
             'feeds'               => null,
             'map_meta_cap'        => true
         );
@@ -255,44 +254,92 @@ class TicketPostType extends AbstractComponent {
         if( get_current_screen()->post_type == 'support_ticket' ) {
 
             $agents = \ucare\util\list_agents();
+            $products = \ucare\util\products();
+            $statuses = \ucare\util\statuses();
+
             $agents = array( 0 => __( 'All Agents', 'ucare' ) ) + $agents;
+            $products = array( 0 => __( 'All Products', 'ucare' ) ) + $products;
+            $statuses = array( '' => __( 'All Statuses', 'ucare' ) ) + $statuses;
+
+            $status_filter = new SelectBoxField(
+                array(
+                    'name'      => 'status',
+                    'options'   =>  $statuses,
+                    'value'     => !empty( $_GET['status'] ) ? $_GET['status'] : ''
+                )
+            );
+
+            $status_filter->render();
 
             $agent_filter = new SelectBoxField(
                 array(
                     'name'      => 'agent',
                     'options'   =>  $agents,
-                    'value'     => !empty( $_REQUEST['agent'] ) ? $_REQUEST['agent'] : ''
-                )
-            );
-
-            $meta_filter = new SelectBoxField(
-                array(
-                    'name'      => 'checked_meta',
-                    'value'     => !empty( $_REQUEST['checked_meta'] ) ? $_REQUEST['checked_meta'] : '',
-                    'options'   =>  array(
-                        '' => __( 'All Tickets', 'ucare' ),
-                        'flagged' => __( 'Flagged', 'ucare' )
-                    ),
+                    'value'     => !empty( $_GET['agent'] ) ? $_GET['agent'] : ''
                 )
             );
 
             $agent_filter->render();
-            $meta_filter->render();
+
+            if( \ucare\util\ecommerce_enabled() ) {
+
+                $product_filter = new SelectBoxField(
+                    array(
+                        'name' => 'product',
+                        'options' => $products,
+                        'value' => !empty( $_GET['product'] ) ? $_GET['product'] : ''
+                    )
+                );
+
+                $product_filter->render();
+
+            }
+
+            ?>
+
+                <div class="ucare_filter_checkboxes">
+                    <label><input type="checkbox" name="flagged"
+
+                        <?php checked( 'on', isset( $_GET['flagged'] ) ? $_GET['flagged'] : '' ); ?> /> <?php _e( 'Flagged', 'ucare' ); ?></label>
+
+                    <label><input type="checkbox" name="stale"
+
+                        <?php checked( 'on', isset( $_GET['stale'] ) ? $_GET['stale'] : '' ); ?> /> <?php _e( 'Stale', 'ucare' ); ?></label>
+                </div>
+
+            <?php
+
+
+
+
         }
     }
 
     public function filter_post_table( $query ) {
-        if ( ( !empty( $GLOBALS['typenow'] ) && !empty( $GLOBALS['pagenow'] ) ) &&
-            ( $GLOBALS['typenow'] == 'support_ticket' && $GLOBALS['pagenow'] == 'edit.php' )
-        ) {
+
+        if ( get_query_var( 'post_type' ) ) {
+
             $meta_query = array();
 
-            if ( !empty( $_REQUEST['agent'] ) ) {
-                $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_REQUEST['agent'] ) );
+            if( !empty( $_GET['agent'] ) ) {
+                $meta_query[] = array( 'key' => 'agent', 'value' => intval( $_GET['agent'] ) );
             }
 
-            if ( !empty( $_REQUEST['checked_meta'] ) ) {
-                $meta_query[] = array( 'key' => $_REQUEST['checked_meta'], 'value' => 'on' );
+            if( !empty( $_GET['product'] ) ) {
+                $meta_query[] = array( 'key' => 'product', 'value' => intval( $_GET['product'] ) );
+            }
+
+            if( !empty( $_GET['status'] ) ) {
+                $meta_query[] = array( 'key' => 'status', 'value' => $_GET['status'] );
+            }
+
+
+            if( isset( $_GET['flagged'] ) ) {
+                $meta_query[] = array( 'key' => 'flagged', 'value' => 'on' );
+            }
+
+            if( isset( $_GET['stale'] ) ) {
+                $meta_query[] = array( 'key' => 'stale', 'compare' => 'EXISTS' );
             }
 
             $query->query_vars['meta_query'] = $meta_query;

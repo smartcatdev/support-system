@@ -29,7 +29,7 @@ class LogsTable extends ListTable {
     public function get_columns() {
         return array(
             'uc_log_class'        => __( 'Level', 'ucare' ),
-            'uc_log_type'         => __( 'Event', 'ucare' ),
+            'uc_log_tag'          => __( 'Event', 'ucare' ),
             'uc_log_message'      => __( 'Message', 'ucare' ),
             'uc_log_timestamp'    => __( 'Timestamp', 'ucare' )
         );
@@ -38,7 +38,7 @@ class LogsTable extends ListTable {
     public function get_sortable_columns() {
         return array(
             'uc_log_class'        => array( 'uc_log_class', true ),
-            'uc_log_type'         => array( 'uc_log_type', true ),
+            'uc_log_tag'          => array( 'uc_log_tag', true ),
             'uc_log_timestamp'    => array( 'uc_log_timestamp', true )
         );
     }
@@ -70,18 +70,18 @@ class LogsTable extends ListTable {
 
                 </select>
 
-                <select name="type">
-                    <option value=""><?php _e( 'All Types', 'ucare' ); ?></option>
+                <select name="tag">
+                    <option value=""><?php _e( 'All Tags', 'ucare' ); ?></option>
 
-                    <?php $types = $this->get_log_types(); ?>
+                    <?php $tags = $this->get_log_tags(); ?>
 
-                    <?php foreach( $types as $type ) : ?>
+                    <?php foreach( $tags as $tag ) : ?>
 
-                        <option value="<?php echo $type; ?>"
+                        <option value="<?php echo $tag; ?>"
 
-                            <?php selected( isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : '', $type ); ?>>
+                            <?php selected( isset( $_REQUEST['tag'] ) ? $_REQUEST['tag'] : '', $tag ); ?>>
 
-                            <?php echo ucwords( strtolower( $type ) ); ?>
+                            <?php echo $tag; ?>
 
                         </option>
 
@@ -109,6 +109,10 @@ class LogsTable extends ListTable {
 
     public function column_uc_log_message( $item ) {
         return wp_trim_words( $item['uc_log_message'], 15 );
+    }
+
+    public function column_uc_log_timestamp( $item ) {
+        return get_date_from_gmt( $item['uc_log_timestamp'], get_option( 'date_format') . ' @ ' . get_option( 'time_format' ) );
     }
 
     public function column_default( $item, $column_name ) {
@@ -147,8 +151,8 @@ class LogsTable extends ListTable {
         $vars = array();
 
         $q = "SELECT class AS uc_log_class,
-                type AS uc_log_type,
-                timestamp AS uc_log_timestamp,
+                tag AS uc_log_tag,
+                event_timestamp AS uc_log_timestamp,
                 message AS uc_log_message
               FROM {$wpdb->prefix}ucare_logs";
 
@@ -162,9 +166,9 @@ class LogsTable extends ListTable {
                 $and = true;
             }
 
-            if( !empty( $_GET['type'] ) ) {
-                $q .=  ( $and ? ' AND ' : ' WHERE ' ). ' type = %s ';
-                $vars[] = $_GET['type'];
+            if( !empty( $_GET['tag'] ) ) {
+                $q .=  ( $and ? ' AND ' : ' WHERE ' ). ' tag = %s ';
+                $vars[] = $_GET['tag'];
             }
 
         }
@@ -182,10 +186,10 @@ class LogsTable extends ListTable {
         return $wpdb->get_results( $q, ARRAY_A );
     }
 
-    private function get_log_types() {
+    private function get_log_tags() {
         global $wpdb;
 
-        return $wpdb->get_col( "SELECT DISTINCT type FROM {$wpdb->prefix}ucare_logs", 0 );
+        return $wpdb->get_col( "SELECT DISTINCT tag FROM {$wpdb->prefix}ucare_logs", 0 );
     }
 
 }

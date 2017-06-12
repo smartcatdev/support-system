@@ -2,7 +2,6 @@
 
 use ucare\descriptor\Option;
 use ucare\Plugin;
-use ucare\utilUtils;
 
 $products = \ucare\util\products();
 $statuses = \ucare\util\statuses();
@@ -51,7 +50,15 @@ if( array_key_exists( $product, $products ) ) {
 
                 <p>
 
+                    <?php if( $closed_by > 0 ) : ?>
+
                     <?php _e( 'Closed by ', 'ucare' ); ?><?php echo \ucare\util\user_full_name( get_user_by( 'id', $closed_by ) ); ?>
+
+                    <?php else : ?>
+
+                        <?php _e( 'Automatically closed ', \ucare\PLUGIN_ID ); ?>
+
+                    <?php endif; ?>
 
                     (<?php echo \ucare\util\just_now( $closed_date ); ?>)
 
@@ -59,7 +66,7 @@ if( array_key_exists( $product, $products ) ) {
 
             <?php endif; ?>
 
-            <p><?php _e( 'From ' . get_the_date( 'l F j, Y', $ticket ), 'ucare' ); ?></p>
+            <p><?php _e( 'From ' . get_the_date( 'l F j, Y @ g:i A', $ticket ), 'ucare' ); ?></p>
 
         </div>
 

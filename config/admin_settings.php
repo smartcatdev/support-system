@@ -301,6 +301,16 @@ $general->add_field( new TextField(
         'validators'    => array( new IntegerValidator() )
     )
 
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_logging_enabled',
+        'option'        => Option::LOGGING_ENABLED,
+        'value'         => get_option( Option::LOGGING_ENABLED, Option\Defaults::LOGGING_ENABLED ),
+        'label'         => __( 'Enable Logging', \ucare\PLUGIN_ID ),
+        'desc'          => __( 'Enable or disable the logging of system events', \ucare\PLUGIN_ID ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
 
 
@@ -363,9 +373,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_created_email_template',
-        'option'        => Option::TICKET_CREATED_EMAIL_TEMPLATE,
+        'option'        => Option::TICKET_CREATED_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::TICKET_CREATED_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::TICKET_CREATED_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Created', 'ucare' ),
         'desc'          => __( 'Sent when a user creates a new ticket', 'ucare' ),
@@ -375,9 +385,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_reply_email_template',
-        'option'        => Option::AGENT_REPLY_EMAIL_TEMPLATE,
+        'option'        => Option::AGENT_REPLY_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::AGENT_REPLY_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::AGENT_REPLY_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Agent Reply', 'ucare' ),
         'desc'          => __( 'Sent when an agent replies to a ticket', 'ucare' ),
@@ -387,9 +397,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_pw_reset_email_template',
-        'option'        => Option::PASSWORD_RESET_EMAIL_TEMPLATE,
+        'option'        => Option::PASSWORD_RESET_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::PASSWORD_RESET_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::PASSWORD_RESET_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Forgot Password Reset', 'ucare' ),
         'desc'          => __( 'Sent when a user forgets their password', 'ucare' ),
@@ -399,9 +409,9 @@ $emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_autoclose_email_template',
-        'option'        => Option::INACTIVE_EMAIL_TEMPLATE,
+        'option'        => Option::INACTIVE_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::INACTIVE_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::INACTIVE_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Automatic Close Warning', 'ucare' ),
         'desc'          => __( 'Sent out to warn users of automatic ticket closure', 'ucare' ),
@@ -415,9 +425,9 @@ $agent_emails = new SettingsSection( 'uc_agent_email_notifications', __( 'Agent 
 $agent_emails->add_field( new SelectBoxField(
     array(
         'id'            => 'support_customer_reply_email_template',
-        'option'        => Option::CUSTOMER_REPLY_EMAIL_TEMPLATE,
+        'option'        => Option::CUSTOMER_REPLY_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::CUSTOMER_REPLY_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::CUSTOMER_REPLY_EMAIL ),
         'options'       => $email_templates,
         'label'         => __( 'Customer Reply', 'ucare' ),
         'desc'          => __( 'Sent out to support agents when a customer replies to a ticket they\'re assigned to', 'ucare' ),
@@ -427,9 +437,9 @@ $agent_emails->add_field( new SelectBoxField(
 ) )->add_field( new SelectBoxField(
     array(
         'id'            => 'support_ticket_assigned_email_template',
-        'option'        => Option::TICKET_ASSIGNED_EMAIL_TEMPLATE,
+        'option'        => Option::TICKET_ASSIGNED,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::TICKET_ASSIGNED_EMAIL_TEMPLATE ),
+        'value'         => get_option( Option::TICKET_ASSIGNED ),
         'options'       => $email_templates,
         'label'         => __( 'Ticket Assigned', 'ucare' ),
         'desc'          => __( 'Sent out to support agents when they are assigned a ticket', 'ucare' ),
@@ -476,21 +486,21 @@ $advanced = new SettingsSection( 'uc_advanced', __( 'CAUTION: Some of these may 
 
 $advanced->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_nuke_data',
-        'option'        => Option::NUKE,
-        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
-        'label'         => __( 'Erase All Data', 'ucare' ),
-        'desc'          => __( 'Erase all data on plugin uninstall', 'ucare' ),
+        'id'            => 'support_enable_dev_mode',
+        'option'        => Option::DEV_MODE,
+        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
+        'label'         => __( 'Developer Mode', 'ucare' ),
+        'desc'          => __( 'Enable development functionality', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
 ) )->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_enable_dev_mode',
-        'option'        => Option::DEV_MODE,
-        'value'         => get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ),
-        'label'         => __( 'Developer Mode', 'ucare' ),
-        'desc'          => __( 'Enable Development functionality', 'ucare' ),
+        'id'            => 'support_nuke_data',
+        'option'        => Option::NUKE,
+        'value'         => get_option( Option::NUKE, Option\Defaults::NUKE ),
+        'label'         => __( 'Erase All Data', 'ucare'),
+        'desc'          => __( 'Erase all data on plugin deactivation if developer mode is enabled', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
@@ -511,39 +521,39 @@ $admin = new TabbedMenuPage(
         'type'          => 'submenu',
         'parent_menu'   => 'ucare_support',
         'menu_title'    => __( 'Settings', 'ucare' ),
-        'menu_slug'     => 'support_options',
+        'menu_slug'     => 'uc-settings',
         'tabs'          => array(
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_general',
+                    'slug'     => 'uc-general',
                     'title'    => __( 'General', 'ucare' ),
                     'sections' => array( $general, $auto_close )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_display',
+                    'slug'     => 'uc-display',
                     'title'    => __( 'Display', 'ucare' ),
                     'sections' => array( $text, $widgets )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_appearance',
+                    'slug'     => 'uc-appearance',
                     'title'    => __( 'Appearance', 'ucare' ),
                     'sections' => array( $appearance )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_email',
+                    'slug'     => 'uc-email',
                     'title'    => __( 'Email', 'ucare' ),
                     'sections' => array( $emails, $agent_emails, $email_notifications )
                 )
             ),
             new SettingsTab(
                 array(
-                    'slug'     => 'uc_advanced',
+                    'slug'     => 'uc-advanced',
                     'title'    => __( 'Advanced', 'ucare' ),
                     'sections' => array( $advanced )
                 )

@@ -62,3 +62,11 @@
         width: auto;
     }
 }
+
+.flot-y1-axis .flot-tick-label {
+    color: #EDC240;
+}
+
+.flot-y2-axis .flot-tick-label {
+    color: #AFD8F8;
+}

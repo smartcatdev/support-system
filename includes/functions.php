@@ -324,7 +324,7 @@ namespace ucare\proc {
         $default_templates = array(
             array(
                 'template' => '/emails/ticket-created.html',
-                'option' => Option::TICKET_CREATED_EMAIL_TEMPLATE,
+                'option' => Option::TICKET_CREATED_EMAIL,
                 'subject' => __( 'You have created a new request for support', 'ucare' )
             ),
             array(
@@ -339,17 +339,17 @@ namespace ucare\proc {
             ),
             array(
                 'template' => '/emails/ticket-reply.html',
-                'option' => Option::AGENT_REPLY_EMAIL_TEMPLATE,
+                'option' => Option::AGENT_REPLY_EMAIL,
                 'subject' => __( 'Reply to your request for support', 'ucare' )
             ),
             array(
                 'template' => '/emails/password-reset.html',
-                'option' => Option::PASSWORD_RESET_EMAIL_TEMPLATE,
+                'option' => Option::PASSWORD_RESET_EMAIL,
                 'subject' => __( 'Your password has been reset', 'ucare' )
             ),
             array(
                 'template' => '/emails/ticket-close-warning.html',
-                'option' => Option::INACTIVE_EMAIL_TEMPLATE,
+                'option' => Option::INACTIVE_EMAIL,
                 'subject' => __( 'You have a ticket awaiting action', 'ucare' )
             )
         );
@@ -389,6 +389,7 @@ namespace ucare\proc {
         $administrator->add_cap( 'edit_others_support_tickets' );
         $administrator->add_cap( 'edit_published_support_tickets' );
         $administrator->add_cap( 'publish_support_tickets' );
+        $administrator->add_cap( 'delete_support_tickets' );
         $administrator->add_cap( 'delete_others_support_tickets' );
         $administrator->add_cap( 'delete_private_support_tickets' );
         $administrator->add_cap( 'delete_published_support_tickets' );
@@ -425,6 +426,7 @@ namespace ucare\proc {
         $administrator->remove_cap( 'edit_others_support_tickets' );
         $administrator->remove_cap( 'edit_published_support_tickets' );
         $administrator->remove_cap( 'publish_support_tickets' );
+        $administrator->remove_cap( 'delete_support_tickets' );
         $administrator->remove_cap( 'delete_others_support_tickets' );
         $administrator->remove_cap( 'delete_private_support_tickets' );
         $administrator->remove_cap( 'delete_published_support_tickets' );

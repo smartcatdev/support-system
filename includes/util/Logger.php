@@ -4,6 +4,8 @@
 namespace ucare\util;
 
 
+use ucare\descriptor\Option;
+
 class Logger {
 
     const INFO = 'i';
@@ -13,17 +15,22 @@ class Logger {
 
     public $type;
 
-    public function __construct( $type = 'general' ) {
-        $this->type = $type;
+    public function __construct($tag = 'general' ) {
+        $this->type = $tag;
     }
 
     protected function insert_log( $class, $message ) {
 
-        global $wpdb;
+        if( get_option( Option::LOGGING_ENABLED ) == 'on' ) {
 
-        $q = "INSERT INTO {$wpdb->prefix}ucare_logs VALUES( NULL, %s, %s, %s, %s )";
+            global $wpdb;
 
-        $wpdb->query( $wpdb->prepare( $q, array( $class, $this->type, current_time( 'mysql', 1 ), $message ) ) );
+            $q = "INSERT INTO {$wpdb->prefix}ucare_logs VALUES( NULL, %s, %s, %s, %s )";
+
+            $wpdb->query( $wpdb->prepare( $q, array( $class, $this->type, current_time( 'mysql', 1 ), $message ) ) );
+
+
+        }
 
     }
 

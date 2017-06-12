@@ -57,7 +57,7 @@ class Plugin extends AbstractPlugin {
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' && get_option( Option::NUKE, Option\Defaults::NUKE ) == 'on' ) {
+        if( get_option( Option::DEV_MODE ) === 'on' && get_option( Option::NUKE ) === 'on' ) {
             $options = new \ReflectionClass( Option::class );
 
             foreach( $options->getConstants() as $option ) {
@@ -116,7 +116,9 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'ucare_support',
                     'menu_title'    => __( 'Reports', PLUGIN_ID ),
                     'capability'    => 'manage_support',
-                    'tabs' => array( new ReportsOverviewTab(), new LogsTab() )
+                    'tabs' => get_option( Option::LOGGING_ENABLED ) == 'on'
+                                ? array( new ReportsOverviewTab(), new LogsTab() )
+                                : array( new ReportsOverviewTab() )
                 )
             ),
            'tickets' => new MenuPage(
@@ -143,7 +145,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'launch',
+                    'menu_slug'     => 'uc-launch',
                     'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'onload'        => function () { wp_safe_redirect( url() ); }
@@ -154,7 +156,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'add-ons',
+                    'menu_slug'     => 'uc-add-ons',
                     'menu_title'    => __( 'Add-ons', PLUGIN_ID ),
                     'capability'    => 'manage_support',
                     'render'        => $this->template_dir . '/admin-extensions.php'

@@ -91,11 +91,11 @@ $user = wp_get_current_user();
                                 <?php if( current_user_can( 'manage_options') ) : ?>
 
                                     <li>
-                                        <a href="<?php echo admin_url(); ?>" class="alignright background-secondary hover menu-item">
+                                        <a href="<?php echo admin_url( 'admin.php?page=ucare_support' ); ?>" class="alignright background-secondary hover menu-item">
 
-                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="glyphicon glyphicon-th-large"></span>
 
-                                            <?php _e( 'WordPress', 'ucare' ); ?>
+                                            <?php _e( 'Support Admin', 'ucare' ); ?>
 
                                         </a>
 

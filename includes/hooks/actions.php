@@ -59,6 +59,31 @@ function enqueue_admin_scripts( $hook ) {
 
     }
 
+    wp_enqueue_style( 'wp-color-picker');
+    wp_enqueue_script( 'wp-color-picker');
+
+    wp_enqueue_script( 'wp_media_uploader',
+        $plugin->url() . 'assets/lib/wp_media_uploader.js', array( 'jquery' ), $plugin->version() );
+
+    wp_enqueue_style( 'support-admin-icons',
+        $plugin->url() . '/assets/icons/style.css', null,$plugin->version() );
+
+    wp_register_script('support-admin-js',
+        $plugin->url() . 'assets/admin/admin.js', array( 'jquery' ), $plugin->version() );
+
+    wp_localize_script( 'support-admin-js',
+        'SupportSystem', array(
+            'ajax_url'   => admin_url( 'admin-ajax.php' ),
+            'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+        )
+    );
+
+    wp_enqueue_media();
+    wp_enqueue_script( 'support-admin-js' );
+
+    wp_enqueue_style( 'support-admin-css',
+        $plugin->url() . '/assets/admin/admin.css', null, $plugin->version() );
+
 }
 
 function admin_page_header() {
@@ -161,7 +186,7 @@ function mark_stale_tickets() {
         )
     ) );
 
-    $logger->i( $q->post_count . ' tickets have been marked stale' );
+    $logger->i( $q->post_count . _n( ' ticket', ' tickets', $q->post_count ) . _n( ' has', ' have', $q->post_count ) . '  been marked stale' );
 
     foreach( $q->posts as $ticket ) {
 
@@ -177,9 +202,9 @@ function mark_stale_tickets() {
 
 function close_stale_tickets() {
 
-    if( get_option( Option::AUTO_CLOSE, Option\Defaults::AUTO_CLOSE ) == 'on' ) {
+    $logger = new Logger( 'cron' );
 
-        $logger = new Logger( 'cron' );
+    if( get_option( Option::AUTO_CLOSE ) === 'on' ) {
 
         // Get all stale tickets
         $q = new \WP_Query( array(
@@ -192,11 +217,15 @@ function close_stale_tickets() {
                     'value'   => current_time( 'mysql', 1 ),
                     'type'    => 'DATETIME',
                     'compare' => '<='
+                ),
+                array(
+                    'key'     => 'status',
+                    'value'   => 'waiting'
                 )
             )
         ) );
 
-        $logger->i( $q->post_count . ' tickets have been automatically closed' );
+        $logger->i( $q->post_count . _n( ' ticket', ' tickets', $q->post_count ) . _n( ' has', ' have', $q->post_count ) . ' been automatically closed' );
 
         foreach( $q->posts as $ticket ) {
 
@@ -211,6 +240,10 @@ function close_stale_tickets() {
             do_action( 'support_autoclose_ticket', $ticket );
 
         }
+    } else {
+
+        $logger->i( 'Ticket auto-closing is disabled, please re-enable if you wish for tickets to be closed automatically' );
+
     }
 
 }

@@ -31,12 +31,12 @@ class migration_1_3_0 implements smartcat\core\Migration {
         $email_templates = array(
           array(
               'title'   => __( 'You have been assigned a ticket', 'ucare' ),
-              'option'  => Option::TICKET_ASSIGNED_EMAIL_TEMPLATE,
+              'option'  => Option::TICKET_ASSIGNED,
               'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-assigned.html' )
           ),
             array(
                 'title'   => __( 'You have a reply to a ticket that you are assigned to', 'ucare' ),
-                'option'  => Option::CUSTOMER_REPLY_EMAIL_TEMPLATE,
+                'option'  => Option::CUSTOMER_REPLY_EMAI,
                 'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-reply.html' )
             ),
         );
