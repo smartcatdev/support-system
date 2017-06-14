@@ -390,7 +390,7 @@ function filter_defaults() {
     return $defaults;
 }
 
-function products () {
+function products() {
     $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
     $products = array();
 

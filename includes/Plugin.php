@@ -32,6 +32,29 @@ class Plugin extends AbstractPlugin {
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
         proc\configure_roles();
+
+
+        $this->register_activation( 'plugin', array(
+
+            'store_url'      => 'https://google.ca',
+            'status_option'  => 'plugin_status',
+            'license_option' => 'plugin_license',
+            'version'   => '1.0',
+            'item_name' => 'My Plugin',
+            'author'    => 'joe blow'
+
+        ) );
+
+        $this->register_activation( 'plugin_2', array(
+
+            'store_url'      => 'https://google.ca',
+            'status_option'  => 'plugin_status',
+            'license_option' => 'plugin_license',
+                'version'   => '1.0',
+                'item_name' => 'My Plugin 2',
+                'author'    => 'joe blow'
+
+            ) );
     }
 
     public function activate() {
@@ -187,7 +210,27 @@ class Plugin extends AbstractPlugin {
 
     public function register_activation( $id, $args ) {
 
+        if( !in_array( $id, $this->activations ) ) {
 
+            $activation = array(
+                'store_url'      => $args['store_url'],
+                'support_file'   => $this->file,
+                'status_option'  => $args['status_option'],
+                'license_option' => $args['license_option'],
+                'plugin_info'   => array(
+                    'version'   => $args['version'],
+                    'license'   => trim( get_option( $args['license_option'] ) ),
+                    'item_name' => $args['item_name'],
+                    'author'    => $args['author'],
+                    'beta'      => !empty( $args['beta'] )
+                )
+            );
+
+            $this->activations[ $id ] = $activation;
+
+        }
+
+        return false;
 
     }
 

@@ -2,8 +2,8 @@
 
 namespace ucare;
 
-$license = get_option( 'edd_sample_license_key' );
-$status  = get_option( 'edd_sample_license_status' );
+$plugin = Plugin::get_plugin( PLUGIN_ID );
+$activations = $plugin->get_activations();
 
 ?>
 
@@ -11,52 +11,48 @@ $status  = get_option( 'edd_sample_license_status' );
 
     <h2><?php _e( 'Add-on Licenses', 'ucare' ); ?></h2>
 
-    <form method="post" action="options.php">
+        <form method="post" action="options.php">
 
-<!--        --><?php //settings_fields('edd_sample_license'); ?>
+            <?php settings_fields( 'ucare_extension_licenses' ); ?>
 
-        <table class="form-table">
+            <?php foreach ( $activations as $id => $activation ) : ?>
 
-            <tbody>
+                <div class="extension-activation">
 
-                <tr valign="top">
-                    <th scope="row" valign="top"><?php _e('License Key'); ?></th>
-                    <td>
-                        <input type="text" class="regular-text" value="<?php esc_attr_e( $license ); ?>" />
-                    </td>
-                </tr>
+                    <h3><?php echo $activation['plugin_info']['item_name']; ?></h3>
 
-                <?php if ( false !== $license ) : ?>
+                    <input class="ucare_extension_key"
+                           type="text"
+                           name="<?php echo $activation['license_option']; ?>"
+                           value="<?php esc_attr_e( $activation['plugin_info']['license'] ); ?>" />
 
-                    <tr valign="top">
-                        <th scope="row" valign="top">
-                            <?php _e('Activate License'); ?>
-                        </th>
-                        <td>
+                    <?php if( !empty( $activation['plugin_info']['license'] ) ) : ?>
 
-                            <?php if( $status !== false && $status == 'valid' ) : ?>
+                        <button class="button button-secondary"
+                                type="submit"
+                                name="deactivate_extension_license"
+                                value="<?php esc_attr_e( $id ); ?>"><?php _e( 'Deactivate License', 'ucare' ); ?></button>
 
-                                <span style="color:green;"><?php _e('active'); ?></span>
-                                <?php wp_nonce_field( 'edd_sample_nonce', 'edd_sample_nonce' ); ?>
-                                <input type="submit" class="button-secondary" name="edd_license_deactivate" value="<?php _e('Deactivate License'); ?>"/>
+                        <?php wp_nonce_field( 'ucare_extension_deactivation', 'ucare_extension_nonce' ); ?>
 
-                            <?php else :
+                    <?php else : ?>
 
-                                wp_nonce_field( 'edd_sample_nonce', 'edd_sample_nonce' ); ?>
-                                <input type="submit" class="button-secondary" name="edd_license_activate" value="<?php _e('Activate License'); ?>"/>
+                        <button class="button button-secondary"
+                                type="submit"
+                                name="activate_extension_license"
+                                value="<?php esc_attr_e( $id ); ?>"><?php _e( 'Activate License', 'ucare' ); ?></button>
 
-                            <?php endif;  ?>
 
-                        </td>
-                    </tr>
+                        <?php wp_nonce_field( 'ucare_extension_activation', 'ucare_extension_nonce' ); ?>
 
-                <?php endif; ?>
+                    <?php endif; ?>
 
-            </tbody>
+                </div>
 
-        </table>
+            <?php endforeach; ?>
 
-        <?php submit_button(); ?>
+            <?php submit_button(); ?>
 
-    </form>
+        </form>
+
 </div>
