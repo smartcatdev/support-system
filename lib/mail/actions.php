@@ -2,8 +2,9 @@
 
 namespace smartcat\mail;
 
+
 function init() {
-    $metabox = new StyleMetaBox( array(
+    $metabox = new TemplateStyleMetaBox( array(
         'id'        => 'mailer_meta',
         'title'     => __( 'Template Style Sheet' ),
         'post_type' => 'email_template',
@@ -13,6 +14,8 @@ function init() {
 
     add_caps();
 }
+
+add_action( 'plugins_loaded', 'smartcat\mail\init' );
 
 function register_template_post_type() {
     $labels = array(
@@ -69,6 +72,9 @@ function register_template_post_type() {
 
 }
 
+add_action( 'init', 'smartcat\mail\register_template_post_type' );
+
+
 function disable_wsiwyg( $enabled ) {
     if( get_post_type() == 'email_template' ) {
         $enabled = false;
@@ -76,3 +82,5 @@ function disable_wsiwyg( $enabled ) {
 
     return $enabled;
 }
+
+add_filter( 'user_can_richedit', 'smartcat\mail\disable_wsiwyg' );

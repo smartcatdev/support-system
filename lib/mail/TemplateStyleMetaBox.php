@@ -4,7 +4,7 @@ namespace smartcat\mail;
 
 use smartcat\post\AbstractMetaBox;
 
-class StyleMetaBox extends AbstractMetaBox {
+class TemplateStyleMetaBox extends AbstractMetaBox {
 
     public function render( \WP_Post $post ) { ?>
 
