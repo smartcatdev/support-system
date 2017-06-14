@@ -22,6 +22,7 @@ use ucare\descriptor\Option;
 class Plugin extends AbstractPlugin {
 
     private $menu_pages = array();
+    private $activations = array();
 
     public function start() {
         $this->config_dir = $this->dir . '/config/';
@@ -114,14 +115,14 @@ class Plugin extends AbstractPlugin {
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
                     'menu_slug'     => 'ucare_support',
-                    'menu_title'    => __( 'Reports', PLUGIN_ID ),
+                    'menu_title'    => __( 'Reports', 'ucare' ),
                     'capability'    => 'manage_support',
                     'tabs' => get_option( Option::LOGGING_ENABLED ) == 'on'
                                 ? array( new ReportsOverviewTab(), new LogsTab() )
                                 : array( new ReportsOverviewTab() )
                 )
             ),
-           'tickets' => new MenuPage(
+            'tickets' => new MenuPage(
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
@@ -146,7 +147,7 @@ class Plugin extends AbstractPlugin {
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
                     'menu_slug'     => 'uc-launch',
-                    'menu_title'    => __( 'Launch Desk', PLUGIN_ID ),
+                    'menu_title'    => __( 'Launch Desk', 'ucare' ),
                     'capability'    => 'manage_support',
                     'onload'        => function () { wp_safe_redirect( url() ); }
                 )
@@ -157,14 +158,36 @@ class Plugin extends AbstractPlugin {
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
                     'menu_slug'     => 'uc-add-ons',
-                    'menu_title'    => __( 'Add-ons', PLUGIN_ID ),
-                    'capability'    => 'manage_support',
+                    'menu_title'    => __( 'Add-ons', 'ucare' ),
                     'render'        => $this->template_dir . '/admin-extensions.php'
                 )
             )
         );
 
+// TODO Only add this if there are activations
+            $this->menu_pages['licenses'] = new MenuPage(
+                array(
+                    'type'          => 'submenu',
+                    'parent_menu'   => 'ucare_support',
+                    'menu_slug'     => 'uc-licenses',
+                    'menu_title'    => __( 'Licenses', 'ucare' ),
+                    'render'        => $this->template_dir . '/admin-activations.php'
+                )
+            );
+
+
+
         do_action( 'support_menu_register', $this->menu_pages );
+
+    }
+
+    public function get_activations() {
+        return $this->activations;
+    }
+
+    public function register_activation( $id, $args ) {
+
+
 
     }
 

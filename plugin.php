@@ -6,7 +6,7 @@
  * Version: 1.3.0
  * Author: Smartcat
  * Author URI: https://smartcatdesign.net
- * License: GPL V2
+ * license: GPL V2
  * 
  */
 
@@ -34,7 +34,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     add_action( 'admin_notices', function () { ?>
 
         <div class="notice notice-error is-dismissible">
-            <p><?php _e( 'Your PHP version ' .PHP_VERSION . ' does not meet minimum requirements. uCare Support requires version 5.5 or higher', 'ucare' ); ?></p>
+            <p><?php _e( 'Your PHP version ' . PHP_VERSION . ' does not meet minimum requirements. uCare Support requires version 5.5 or higher', 'ucare' ); ?></p>
         </div>
 
     <?php } );
