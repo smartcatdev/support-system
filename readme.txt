@@ -6,10 +6,10 @@ Requires at least: 4.6
 
 Tested up to: 4.8
 
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 
-If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
+If you have customers, then you need uCare. An intelligent support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
 
 == Description ==
 
@@ -72,6 +72,7 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - Added ability to disable system logging and clear existing log entries
 - Added ability to set the maximum number of days before a ticket is marked as stale
 - Fixed issue where multiple migrations would run at once
+- Auto close tickets is now available
 
 = 1.2.0 =
 - Added reports menu page with overview of total tickets opened/closed and per agent totals
