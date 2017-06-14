@@ -141,7 +141,7 @@ class LogsTable extends ListTable {
     private function record_count() {
         global $wpdb;
 
-        return $wpdb->query( "SELECT COUNT(*) FROM {$wpdb->prefix}ucare_logs" );
+        return $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ucare_logs" );
     }
 
     private function get_logs( $per_page = 5, $page_number = 1 ) {

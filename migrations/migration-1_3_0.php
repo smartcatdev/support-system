@@ -36,7 +36,7 @@ class migration_1_3_0 implements smartcat\core\Migration {
           ),
             array(
                 'title'   => __( 'You have a reply to a ticket that you are assigned to', 'ucare' ),
-                'option'  => Option::CUSTOMER_REPLY_EMAI,
+                'option'  => Option::CUSTOMER_REPLY_EMAIL,
                 'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-reply.html' )
             ),
         );
