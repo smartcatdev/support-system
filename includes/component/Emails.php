@@ -115,7 +115,7 @@ class Emails extends AbstractComponent {
 
                     $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
 
-                    $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAI ), $recipient->user_email, $template_vars );
+                    $this->send_template( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
 
                 }
 
