@@ -14,6 +14,8 @@ function init_extension_licensing() {
 
             if( $old && $old != $new ) {
                 delete_option( $edd_options['license_option'] );
+                delete_option( $edd_options['status_option'] );
+                delete_option( $edd_options['expire_option'] );
             }
 
             return $new;

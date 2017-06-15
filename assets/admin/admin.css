@@ -319,9 +319,8 @@ a.ucare-addon-link {
 }
 
 .ucare-extension-activation .license-expiration {
-    height: 50px;
-    padding-left: 10px;
-    padding-top: 15px;
+    height: 40px;
+    padding: 15px 10px;
     border-top: 1px solid #ddd;
     background: rgba(0, 0, 0, 0.02);
     font-size: 14px;
