@@ -53,6 +53,10 @@ settings_errors( 'ucare_extension_license' );
 
                             <?php endif; ?>
 
+                        <?php else : ?>
+
+                            <span class="description"><?php _e( 'Please enter your license key', 'ucare' ); ?></span>
+
                         <?php endif; ?>
 
                     </p>
