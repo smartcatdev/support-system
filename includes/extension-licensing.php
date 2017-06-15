@@ -45,7 +45,7 @@ add_action( 'admin_init', 'ucare\init_extension_licensing' );
 function activate_license() {
 
     if ( isset( $_POST['ucare_activate_extension_license'] ) &&
-            check_admin_referer( 'ucare_extension_activation', 'ucare_extension_nonce' ) ) {
+            check_admin_referer( 'ucare_extension_activation', $_POST['ucare_activate_extension_license'] . '_activation_nonce' ) ) {
     
         $activation = get_activation( $_POST['ucare_activate_extension_license'] );
 
@@ -143,7 +143,7 @@ add_action( 'admin_init', 'ucare\activate_license' );
 function deactivate_license() {
 
     if ( isset( $_POST['ucare_deactivate_extension_license'] ) &&
-        check_admin_referer( 'ucare_extension_deactivation', 'ucare_extension_nonce' ) ) {
+        check_admin_referer( 'ucare_extension_deactivation', $_POST['ucare_deactivate_extension_license'] . '_deactivation_nonce' ) ) {
 
         $activation = get_activation( $_POST['ucare_deactivate_extension_license'] );
 

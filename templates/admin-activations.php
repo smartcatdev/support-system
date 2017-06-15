@@ -39,7 +39,7 @@ settings_errors( 'ucare_extension_license' );
                                         name="ucare_deactivate_extension_license"
                                         value="<?php esc_attr_e( $id ); ?>"><?php _e( 'Deactivate License', 'ucare' ); ?></button>
 
-                                <?php wp_nonce_field( 'ucare_extension_deactivation', 'ucare_extension_nonce' ); ?>
+                                <?php wp_nonce_field( 'ucare_extension_deactivation', $id . '_deactivation_nonce' ); ?>
 
                             <?php else : ?>
 
@@ -49,7 +49,7 @@ settings_errors( 'ucare_extension_license' );
                                         value="<?php esc_attr_e( $id ); ?>"><?php _e( 'Activate License', 'ucare' ); ?></button>
 
 
-                                <?php wp_nonce_field( 'ucare_extension_activation', 'ucare_extension_nonce' ); ?>
+                                <?php wp_nonce_field( 'ucare_extension_activation', $id . '_activation_nonce' ); ?>
 
                             <?php endif; ?>
 
