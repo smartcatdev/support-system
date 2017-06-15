@@ -33,28 +33,6 @@ class Plugin extends AbstractPlugin {
 
         proc\configure_roles();
 
-
-        $this->register_activation( 'plugin', array(
-
-            'store_url'      => 'https://google.ca',
-            'status_option'  => 'plugin_status',
-            'license_option' => 'plugin_license',
-            'version'   => '1.0',
-            'item_name' => 'My Plugin',
-            'author'    => 'joe blow'
-
-        ) );
-
-        $this->register_activation( 'plugin_2', array(
-
-            'store_url'      => 'https://google.ca',
-            'status_option'  => 'plugin_status',
-            'license_option' => 'plugin_license',
-                'version'   => '1.0',
-                'item_name' => 'My Plugin 2',
-                'author'    => 'joe blow'
-
-            ) );
     }
 
     public function activate() {
@@ -187,18 +165,19 @@ class Plugin extends AbstractPlugin {
             )
         );
 
-// TODO Only add this if there are activations
+        if ( !empty( $this->activations ) ) {
+
             $this->menu_pages['licenses'] = new MenuPage(
                 array(
-                    'type'          => 'submenu',
-                    'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'uc-licenses',
-                    'menu_title'    => __( 'Licenses', 'ucare' ),
-                    'render'        => $this->template_dir . '/admin-activations.php'
+                    'type'        => 'submenu',
+                    'parent_menu' => 'ucare_support',
+                    'menu_slug'   => 'uc-licenses',
+                    'menu_title'  => __('Licenses', 'ucare'),
+                    'render'      => $this->template_dir . '/admin-activations.php'
                 )
             );
 
-
+        }
 
         do_action( 'support_menu_register', $this->menu_pages );
 
@@ -217,13 +196,11 @@ class Plugin extends AbstractPlugin {
                 'support_file'   => $this->file,
                 'status_option'  => $args['status_option'],
                 'license_option' => $args['license_option'],
-                'plugin_info'   => array(
-                    'version'   => $args['version'],
-                    'license'   => trim( get_option( $args['license_option'] ) ),
-                    'item_name' => $args['item_name'],
-                    'author'    => $args['author'],
-                    'beta'      => !empty( $args['beta'] )
-                )
+                'expire_option'  => $args['expire_option'],
+                'version'        => $args['version'],
+                'item_name'      => $args['item_name'],
+                'author'         => $args['author'],
+                'beta'           => !empty( $args['beta'] )
             );
 
             $this->activations[ $id ] = $activation;

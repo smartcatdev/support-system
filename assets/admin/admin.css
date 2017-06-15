@@ -292,3 +292,49 @@ a.ucare-addon-link {
 .ucare-addon .ad.auto-ticket-routing h2 {
     color: #f9f9f9;
 }
+
+/** Activations page **/
+.ucare-extension-activation {
+    float: left;
+    width: 100%;
+    background: #fff;
+    margin: 10px 10px 0 0;
+    border: 1px solid #ddd;
+}
+
+.ucare-extension-activation h3 {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.ucare-extension-activation p {
+    padding: 10px;
+}
+
+.ucare-extension-activation .ucare-license-key {
+    width: 100%;
+}
+
+.ucare-extension-activation .license-expiration {
+    height: 50px;
+    padding-left: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    background: rgba(0, 0, 0, 0.02);
+    font-size: 14px;
+}
+
+.ucare-extension-activation .button {
+    margin-top: 10px;
+}
+
+@media(min-width: 783px) {
+
+    .ucare-extension-activation {
+        width: 30%;
+    }
+
+}
