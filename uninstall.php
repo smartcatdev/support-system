@@ -29,6 +29,7 @@ foreach( $options->getConstants() as $option ) {
     delete_option( $option );
 }
 
+delete_option( 'ucare_version' );
 
 // Drop logs table
 global $wpdb;
