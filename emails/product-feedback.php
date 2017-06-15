@@ -2,24 +2,24 @@
 
     <div>
 
-        <h2>Reason</h2>
-        <p style="margin-left: 20px"><?php echo $_POST['reason']; ?></p>
+        <h2><?php _e( 'Reason', 'ucare' ); ?></h2>
+        <p style="margin-left: 20px"><?php echo esc_attr( $_POST['reason'] ); ?></p>
 
         <?php if( !empty( $_POST['details'] ) ) : ?>
 
-            <h2>Details</h2>
-            <p style="margin-left: 20px"><?php echo $_POST['details']; ?></p>
+            <h2><?php _e( 'Details', 'ucare' ); ?></h2>
+            <p style="margin-left: 20px"><?php echo esc_attr( $_POST['details'] ); ?></p>
 
         <?php endif; ?>
 
         <?php if( !empty( $_POST['comments'] ) ) : ?>
 
-            <h2>Comments</h2>
-            <p style="margin-left: 20px"><?php echo $_POST['comments']; ?></p>
+            <h2><?php _e( 'Comments', 'ucare' ); ?></h2>
+            <p style="margin-left: 20px"><?php echo esc_attr( $_POST['comments'] ); ?></p>
 
         <?php endif; ?>
 
-        <a href="<?php echo home_url(); ?>">website can be viewed here</a>
+        <a href="<?php echo esc_url( home_url() ); ?>"><?php _e( 'website can be viewed here', 'ucare' ); ?></a>
 
     </div>
 
