@@ -193,7 +193,7 @@ class Plugin extends AbstractPlugin {
 
             $activation = array(
                 'store_url'      => $args['store_url'],
-                'support_file'   => $this->file,
+                'support_file'   => $args['file'],
                 'status_option'  => $args['status_option'],
                 'license_option' => $args['license_option'],
                 'expire_option'  => $args['expire_option'],

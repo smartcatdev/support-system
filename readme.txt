@@ -66,6 +66,7 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - Added new email notifications for agents
     - Ticket Assigned
     - Customer Reply
+- Added check for minimum PHP version 5.5
 
 = 1.2.1 =
 - Added system log with level and tag filtering under reports view
