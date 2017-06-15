@@ -187,7 +187,7 @@ class Plugin extends AbstractPlugin {
         return $this->activations;
     }
 
-    public function register_activation( $id, $args ) {
+    public function add_activation( $id, $args ) {
 
         if( !in_array( $id, $this->activations ) ) {
 
@@ -203,7 +203,23 @@ class Plugin extends AbstractPlugin {
                 'beta'           => !empty( $args['beta'] )
             );
 
-            $this->activations[ $id ] = $activation;
+            $this->activations [ $id ] = $activation;
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+    public function remove_activation( $id ) {
+
+        if( !in_array( $id, $this->activations ) ) {
+
+            unset( $this->activations['id'] );
+
+            return true;
 
         }
 

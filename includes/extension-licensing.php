@@ -44,14 +44,11 @@ function activate_license() {
 
     if ( isset( $_POST['ucare_activate_extension_license'] ) &&
             check_admin_referer( 'ucare_extension_activation', 'ucare_extension_nonce' ) ) {
+    
+        $activation = get_activation( $_POST['ucare_activate_extension_license'] );
 
-        $plugin = Plugin::get_plugin( PLUGIN_ID );
-        $activations = $plugin->get_activations();
-
-        if ( !isset( $activations[ $_POST['ucare_activate_extension_license'] ] ) ) {
+        if ( !$activation ) {
             return;
-        } else {
-            $activation = $activations[ $_POST['ucare_activate_extension_license'] ];
         }
 
         $api_params = array(
@@ -146,13 +143,10 @@ function deactivate_license() {
     if ( isset( $_POST['ucare_deactivate_extension_license'] ) &&
         check_admin_referer( 'ucare_extension_deactivation', 'ucare_extension_nonce' ) ) {
 
-        $plugin = Plugin::get_plugin( PLUGIN_ID );
-        $activations = $plugin->get_activations();
+        $activation = get_activation( $_POST['ucare_deactivate_extension_license'] );
 
-        if ( !isset( $activations[ $_POST['ucare_deactivate_extension_license'] ] ) ) {
+        if ( !$activation ) {
             return;
-        } else {
-            $activation = $activations[ $_POST['ucare_deactivate_extension_license'] ];
         }
 
         $api_params = array(
@@ -195,12 +189,10 @@ add_action( 'admin_init', 'ucare\deactivate_license' );
 
 function get_license( $id ) {
 
-    $plugin = Plugin::get_plugin( PLUGIN_ID );
-    $activations = $plugin->get_activations();
+    $activation = get_activation( $id );
 
-    if( array_key_exists( $id, $activations ) ) {
+    if( $activation ) {
 
-        $activation = $activations[ $id ];
         $license = trim( get_option( $activation['license_option'] ) );
 
         $api_params = array(
@@ -220,5 +212,14 @@ function get_license( $id ) {
         return json_decode( wp_remote_retrieve_body( $response ), true );
 
     }
+
+}
+
+function get_activation( $id ) {
+
+    $plugin = Plugin::get_plugin( PLUGIN_ID );
+    $activations = $plugin->get_activations();
+
+    return array_key_exists( $id, $activations  ) ? $activations[ $id ] : false;
 
 }
