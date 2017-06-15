@@ -60,6 +60,13 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 
 == Changelog ==
 
+= 1.3.0 =
+- Added extension licensing support
+- Added public functions for registering extension licenses in core
+- Added new email notifications for agents
+    - Ticket Assigned
+    - Customer Reply
+
 = 1.2.1 =
 - Added system log with level and tag filtering under reports view
 - Tweaks and re-enabled cron that deletes abandoned stale tickets
