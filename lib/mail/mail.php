@@ -93,9 +93,9 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
         $results = array();
         $templates = $wpdb->get_results(
             "SELECT ID, post_title 
-        FROM {$wpdb->prefix}posts 
-        WHERE post_type='email_template' 
-          AND post_status='publish'"
+             FROM {$wpdb->prefix}posts 
+             WHERE post_type='email_template' 
+                AND post_status='publish'"
         );
 
         foreach( $templates as $template ) {
@@ -143,13 +143,7 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
     }
 
     function init() {
-        $metabox = new TemplateStyleMetaBox( array(
-            'id'        => 'mailer_meta',
-            'title'     => __( 'Template Style Sheet' ),
-            'post_type' => 'email_template',
-            'context'   => 'advanced',
-            'priority'  => 'high'
-        ) );
+        $metabox = new TemplateStyleMetaBox();
 
         add_caps();
     }

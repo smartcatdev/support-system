@@ -15,4 +15,5 @@ include_once 'includes/ticket.php';
 include_once 'includes/comment.php';
 include_once 'includes/cron.php';
 include_once 'includes/extension-licensing.php';
+include_once 'includes/ticket-post-type.php';
 

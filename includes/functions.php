@@ -21,7 +21,27 @@ function in_dev_mode() {
     return get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on';
 }
 
+function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
 
+    <select name="<?php esc_attr_e( $name ); ?>"
+
+            <?php foreach ( $attrs as $attr => $values ) : ?>
+
+                <?php echo $attr . '="' . esc_attr( $values ) . '"' ?>
+
+            <?php endforeach; ?>>
+
+        <?php foreach ( $options as $value => $label ) : ?>
+
+            <option value="<?php esc_attr_e( $value ); ?>"
+
+                <?php selected( $selected, $value ); ?> ><?php echo $label ?></option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+<?php }
 
 
 namespace ucare\util;

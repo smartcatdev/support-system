@@ -15,7 +15,6 @@ use ucare\ajax\Settings;
 use ucare\ajax\Registration;
 use ucare\component\ECommerce;
 use ucare\component\Emails;
-use ucare\admin\TicketPostType;
 use ucare\component\Hacks;
 use ucare\descriptor\Option;
 
@@ -68,6 +67,9 @@ class Plugin extends AbstractPlugin {
 
             update_option( Option::DEV_MODE, 'on' );
         }
+
+        unregister_post_type( 'support_ticket' );
+
     }
 
     public function add_action_links( $links ) {
@@ -241,7 +243,6 @@ class Plugin extends AbstractPlugin {
 
     public function components() {
         $components = array(
-            TicketPostType::class,
             Ticket::class,
             Comment::class,
             Settings::class,

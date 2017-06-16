@@ -6,6 +6,16 @@ use smartcat\post\AbstractMetaBox;
 
 class TemplateStyleMetaBox extends AbstractMetaBox {
 
+    public function __construct() {
+        parent::__construct( array(
+            'id'        => 'mailer_meta',
+            'title'     => __( 'Template Style Sheet' ),
+            'post_type' => 'email_template',
+            'context'   => 'advanced',
+            'priority'  => 'high'
+        ) );
+    }
+
     public function render( \WP_Post $post ) { ?>
 
         <textarea rows="25" style="width: 100%" name="template_styles"><?php echo get_post_meta( $post->ID, 'styles', true ); ?></textarea>
