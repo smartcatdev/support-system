@@ -60,7 +60,7 @@ add_action( 'admin_enqueue_scripts', 'ucare\enqueue_admin_scripts' );
 
 
 function admin_page_header() {
-    include_once \ucare\plugin_dir() . '/templates/admin-header.php';
+    include_once plugin_dir() . '/templates/admin-header.php';
 }
 
 // Include admin header
@@ -68,7 +68,7 @@ add_action( 'support_options_admin_page_header', 'ucare\admin_page_header' );
 
 
 function admin_page_sidebar() {
-    include_once \ucare\plugin_dir() . '/templates/admin-sidebar.php';
+    include_once plugin_dir() . '/templates/admin-sidebar.php';
 }
 
 // Include admin sidebar on options page

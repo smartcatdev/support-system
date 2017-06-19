@@ -46,4 +46,3 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     } );
 
 }
-
