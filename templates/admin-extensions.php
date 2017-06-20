@@ -32,6 +32,7 @@
 
             <div class="ad mailchimp">
                 <img src="<?php echo esc_url( \ucare\plugin_url( 'assets/images/mailchimp-icon.png' ) ); ?>">
+                <h2><?php _e( 'MailChimp', 'ucare' ); ?></h2>
             </div>
 
             <p class="details"><?php _e( '' ) ?></p>
