@@ -140,7 +140,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Ticket Categories', 'ucare' ),
+                    'menu_title'  => __( 'Categories', 'ucare' ),
                     'menu_slug'   => 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false

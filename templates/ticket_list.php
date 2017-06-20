@@ -56,9 +56,17 @@ use ucare\descriptor\Option;
 
                                 </a>
 
+                                <?php $terms = get_the_terms( $post, 'ticket_category' ); ?>
+
+                                <?php if( !empty( $terms ) ) : ?>
+
+                                    <span class="tag"><?php echo $terms[0]->name; ?></span>
+
+                                <?php endif; ?>
+
                                 <?php if( array_key_exists( $product, $products ) ) : ?>
 
-                                    <span class="product"><?php echo $products[ $product ]; ?></span>
+                                    <span class="tag"><?php echo $products[ $product ]; ?></span>
 
                                 <?php endif; ?>
 

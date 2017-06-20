@@ -691,11 +691,11 @@ hr {
     display: inline-block;
 }
 
-#tickets-container .ticket .product {
+#tickets-container .ticket .tag {
     border: 1px solid #ccc;
     vertical-align: text-bottom;
     font-size: 14px;
-    margin: 0px 5px;
+    margin-left: 2px;
     padding: 0px 6px;
     border-radius: 3px;
     background: white;
@@ -895,15 +895,14 @@ button.close-ticket:hover {
 
 .sidebar .ticket-details .lead {
     margin-bottom: 0;
-    display: inline-block;
 }
 
 .sidebar .ticket-details .category {
-    display: inline-block;
-    margin: 0 5px !important;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    margin: 0 2px !important;
+    border: 1px solid #ccc;
+    border-radius: 3px;
     padding: 2px 5px;
+    font-size: 14px;
 }
 
 .sidebar .ticket-details .ticket-stale {

@@ -31,15 +31,15 @@ if( array_key_exists( $product, $products ) ) {
 
                 <?php _e( ( array_key_exists( $status, $statuses ) ? $statuses[ $status ] : '—' ), 'ucare' ); ?>
 
+                <?php $terms = get_the_terms( $ticket, 'ticket_category' ); ?>
+
+                <?php if( !empty( $terms ) ) : ?>
+
+                    <span class="category"><?php echo $terms[0]->name; ?></span>
+
+                <?php endif; ?>
+
             </div>
-
-            <?php $terms = get_the_terms( $ticket, 'ticket_category' ); ?>
-
-            <?php if( !empty( $terms ) ) : ?>
-
-                <p class="category"><?php echo $terms[0]->name; ?></p>
-
-            <?php endif; ?>
 
             <hr class="sidebar-divider">
 
