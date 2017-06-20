@@ -6,6 +6,11 @@ if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
     include_once 'lib/license/EDD_SL_Plugin_Updater.php';
 }
 
+add_action( 'plugins_loaded', function() {
+    load_plugin_textdomain( 'ucare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+});
+
+
 include_once 'lib/mail/mail.php';
 
 include_once 'includes/functions.php';
