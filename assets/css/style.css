@@ -893,6 +893,19 @@ button.close-ticket:hover {
     margin-top: 15px !important;
 }
 
+.sidebar .ticket-details .lead {
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+.sidebar .ticket-details .category {
+    display: inline-block;
+    margin: 0 5px !important;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 5px;
+}
+
 .sidebar .ticket-details .ticket-stale {
     font-size: 12px;
 }

@@ -33,6 +33,16 @@ if( array_key_exists( $product, $products ) ) {
 
             </div>
 
+            <?php $terms = get_the_terms( $ticket, 'ticket_category' ); ?>
+
+            <?php if( !empty( $terms ) ) : ?>
+
+                <p class="category"><?php echo $terms[0]->name; ?></p>
+
+            <?php endif; ?>
+
+            <hr class="sidebar-divider">
+
             <?php if( empty( $closed_date ) ) : ?>
 
                 <p>
