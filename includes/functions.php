@@ -310,11 +310,16 @@ function schedule_cron_jobs() {
     if ( !wp_next_scheduled( 'ucare_cron_close_tickets' ) ) {
         wp_schedule_event( time(), 'daily', 'ucare_cron_close_tickets' );
     }
+
+    if ( !wp_next_scheduled( 'ucare_check_extension_licenses' ) ) {
+        wp_schedule_event( time(), 'daily', 'ucare_check_extension_licenses' );
+    }
 }
 
 function clear_scheduled_jobs() {
     wp_clear_scheduled_hook( 'ucare_cron_stale_tickets' );
     wp_clear_scheduled_hook( 'ucare_cron_close_tickets' );
+    wp_clear_scheduled_hook( 'ucare_check_extension_licenses' );
 }
 
 function setup_template_page() {

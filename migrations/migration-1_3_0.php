@@ -20,17 +20,12 @@ class migration_1_3_0 implements smartcat\core\Migration {
 
         $this->plugin = $plugin;
 
-        $this->setup_cron();
         $this->create_email_template();
+
+        \ucare\proc\schedule_cron_jobs();
 
         $this->logger->i( 'Upgraded to 1.3.0' );
 
-    }
-
-    function setup_cron() {
-        if ( !wp_next_scheduled( 'ucare_check_extension_licenses' ) ) {
-            wp_schedule_event( time(), 'daily', 'ucare_check_extension_licenses' );
-        }
     }
 
     function create_email_template() {
