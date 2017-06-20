@@ -110,3 +110,41 @@ function close_stale_tickets() {
 }
 
 add_action( 'ucare_cron_close_tickets', 'ucare\close_stale_tickets' );
+
+
+function check_extension_licenses() {
+
+    $plugin = Plugin::get_plugin( PLUGIN_ID );
+    $activations = $plugin->get_activations();
+
+    $notices = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+
+    foreach( $activations as $id => $activation ) {
+
+        $license_data = get_license( $id );
+
+        if( $license_data ) {
+
+            if( $license_data['license'] !== 'valid' ) {
+
+                delete_option( $activation['status_option'] );
+                delete_option( $activation['expire_option'] );
+
+                $notices[ $id ] = __( 'Your license for ' . $activation['item_name'] . ' has expired.', 'ucare' );
+
+            } else {
+
+                update_option( $activation['expire_option'], $license_data['expires'] );
+
+            }
+
+        }
+
+    }
+
+
+    update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
+
+}
+
+add_action( 'ucare_check_extension_licenses', 'ucare\check_extension_licenses' );

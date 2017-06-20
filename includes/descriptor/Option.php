@@ -261,4 +261,10 @@ final class Option {
      * @since 1.2.1
      */
     const LOGGING_ENABLED = 'smartcat_support_logging-enabled';
+
+    /**
+     * @since 1.3.0
+     */
+    const EXTENSION_LICENSE_NOTICES = 'smartcat_support_extension-license-notifications';
+
 }

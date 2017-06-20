@@ -3,6 +3,8 @@
 namespace ucare;
 
 
+use ucare\descriptor\Option;
+
 function init_extension_licensing() {
 
     $plugin = Plugin::get_plugin( PLUGIN_ID );
@@ -40,6 +42,31 @@ function init_extension_licensing() {
 }
 
 add_action( 'admin_init', 'ucare\init_extension_licensing' );
+
+
+function license_expiration_notifications() {
+
+    $notifications = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+
+    if( !empty( $notifications ) ) {
+
+        foreach( $notifications as $id => $message ) {
+
+            add_action( 'admin_notices', function () use ( $id, $message ) { ?>
+
+                <div class="notice notice-error is-dismissible">
+                    <p><?php echo $message; ?></p>
+                </div>
+
+            <?php } );
+
+        }
+
+    }
+
+}
+
+add_action( 'admin_init', 'ucare\license_expiration_notifications' );
 
 
 function activate_license() {
@@ -124,8 +151,20 @@ function activate_license() {
 
             }
 
-            update_option( $activation['status_option'], $license_data['license'] );
-            update_option( $activation['expire_option'], $license_data['expires'] );
+            if( $license_data['license'] === 'valid' ) {
+
+                update_option( $activation['status_option'], $license_data['license'] );
+                update_option( $activation['expire_option'], $license_data['expires'] );
+
+                // Remove this plugin from list of extension expiration notices
+                $notices = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+
+                if( array_key_exists( $_POST['ucare_activate_extension_license'], $notices ) ) {
+                    unset( $notices[ $_POST['ucare_activate_extension_license'] ] );
+                    update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
+                }
+
+            }
 
         }
 
