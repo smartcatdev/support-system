@@ -69,8 +69,8 @@ add_action( 'init', 'ucare\register_ticket_post_type' );
 function register_category_taxonomy() {
 
     $labels = array(
-        'name'                       => _x( 'Categories', 'taxonomy general name', 'ucare' ),
-        'singular_name'              => _x( 'Category', 'taxonomy singular name', 'ucare' ),
+        'name'                       => _x( 'Ticket Categories', 'taxonomy general name', 'ucare' ),
+        'singular_name'              => _x( 'Ticket Category', 'taxonomy singular name', 'ucare' ),
         'all_items'                  => __( 'All Categories', 'ucare' ),
         'edit_item'                  => __( 'Edit Category', 'ucare' ),
         'view_item'                  => __( 'View Category', 'ucare' ),
@@ -98,6 +98,36 @@ function register_category_taxonomy() {
 }
 
 add_action( 'init', 'ucare\register_category_taxonomy' );
+
+
+function force_menu_expand( $file ) {
+
+    $screen = get_current_screen();
+
+    if( $screen && $screen->taxonomy == 'ticket_category' ) {
+        return 'ucare_support';
+    }
+
+    return $file;
+
+}
+
+add_filter( 'parent_file', 'ucare\force_menu_expand' );
+
+
+function menu_highlight_categories( $file ) {
+
+    $screen = get_current_screen();
+
+    if( $screen && $screen->taxonomy == 'ticket_category' ) {
+        return 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category';
+    }
+
+    return $file;
+
+}
+
+add_filter( 'submenu_file', 'ucare\menu_highlight_categories' );
 
 
 function tickets_table_sortable_columns( $columns ) {

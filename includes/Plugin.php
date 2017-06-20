@@ -130,18 +130,8 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Tickets List', 'ucare' ),
+                    'menu_title'  => __( 'Tickets', 'ucare' ),
                     'menu_slug'   => 'edit.php?post_type=support_ticket',
-                    'capability'  => 'edit_support_tickets',
-                    'render'      => false
-                )
-            ),
-            'categories' => new MenuPage(
-                array(
-                    'type'        => 'submenu',
-                    'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Categories', 'ucare' ),
-                    'menu_slug'   => 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
                 )
@@ -152,6 +142,16 @@ class Plugin extends AbstractPlugin {
                     'parent_menu' => 'ucare_support',
                     'menu_title'  => __( 'Create Ticket', 'ucare' ),
                     'menu_slug'   => 'post-new.php?post_type=support_ticket',
+                    'capability'  => 'edit_support_tickets',
+                    'render'      => false
+                )
+            ),
+            'categories' => new MenuPage(
+                array(
+                    'type'        => 'submenu',
+                    'parent_menu' => 'ucare_support',
+                    'menu_title'  => __( 'Categories', 'ucare' ),
+                    'menu_slug'   => 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
                 )
