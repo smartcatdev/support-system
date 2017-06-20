@@ -74,11 +74,12 @@ $categories = new SettingsSection( 'uc_categories', __( 'Ticket Categories', 'uc
 
 $categories->add_field( new TextField(
     array(
-        'id'            => 'support_ticket_categories_label',
+        'id'            => 'support_ticket_categories_name',
         'class'         => array( 'regular-text' ),
-        'option'        => Option::CATEGORIES_LABEL,
-        'value'         => get_option( Option::CATEGORIES_LABEL, Option\Defaults::CATEGORIES_LABEL ),
-        'label'         => __( 'Categories Dropdown Label', 'ucare' )
+        'option'        => Option::CATEGORIES_NAME,
+        'value'         => get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME ),
+        'label'         => __( 'Categories Name', 'ucare' ),
+        'desc'          => __( 'The name to be used for ticket category', 'ucare' ),
     )
 
 ) )->add_field( new CheckBoxField(

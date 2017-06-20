@@ -6,12 +6,44 @@ use smartcat\form\RequiredConstraint;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextAreaField;
 use smartcat\form\TextBoxField;
+use ucare\descriptor\Option;
 
 $products = \ucare\util\products();
 
 $products = array( 0 => __( 'Select a Product', 'ucare' ) ) + $products;
 
 $form = new Form( 'create_ticket' );
+
+if( get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
+
+    $categories = array();
+    $name = get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME );
+
+    foreach( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $term ) {
+        $categories[ $term->term_id ] = $term->name;
+    }
+
+//    error_log( serialize( $categories )); die;
+
+    $form->add_field( new SelectBoxField(
+        array(
+            'name'          => 'category',
+            'class'         => array( 'form-control' ),
+            'label'         => __( ucwords( $name ), 'ucare' ),
+            'error_msg'     => __( "Please select a $name", 'ucare' ),
+            'options'       => array( '' => __( "Select a $name", 'ucare' ) ) + $categories,
+            'props'         => array(
+                'data-default' => array( 0 )
+            ),
+            'constraints'   => array(
+                new ChoiceConstraint( array_keys( $categories ) )
+            )
+        )
+
+    ) );
+
+}
+
 
 if( \ucare\util\ecommerce_enabled() ) {
 

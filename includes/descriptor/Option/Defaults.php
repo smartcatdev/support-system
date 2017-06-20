@@ -210,6 +210,6 @@ final class Defaults {
     /**
      * @since 1.3.0
      */
-    const CATEGORIES_LABEL = 'Select a category';
+    const CATEGORIES_NAME = 'category';
 
 }

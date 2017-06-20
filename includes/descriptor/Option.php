@@ -275,6 +275,6 @@ final class Option {
     /**
      * @since 1.3.0
      */
-    const CATEGORIES_LABEL = 'smartcat_support_extension-categories-label';
+    const CATEGORIES_NAME = 'smartcat_support_extension-categories-name';
 
 }
