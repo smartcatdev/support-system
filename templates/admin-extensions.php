@@ -24,6 +24,40 @@
 
         </div>
     </a>
+
+    <a href="https://ucaresupport.com/downloads/mailchimp/" class="ucare-addon-link">
+        <div class="ucare-addon">
+
+            <h3><?php _e( 'MailChimp', 'ucare' ); ?></h3>
+
+            <div class="ad mailchimp">
+                <img src="<?php echo esc_url( \ucare\plugin_url( 'assets/images/mailchimp-icon.png' ) ); ?>">
+                <h2><?php _e( 'MailChimp', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( '' ) ?></p>
+
+            <a href="https://ucaresupport.com/downloads/mailchimp/" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+
+        </div>
+    </a>
+
+    <a href="https://ucaresupport.com/downloads/knowledge-base/" class="ucare-addon-link">
+        <div class="ucare-addon">
+
+            <h3><?php _e( 'Knowledge Base', 'ucare' ); ?></h3>
+
+            <div class="ad knowledge-base">
+                <span class="dashicons dashicons-admin-site"></span>
+                <h2><?php _e( 'Knowledge Base', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( '' ) ?></p>
+
+            <a href="https://ucaresupport.com/downloads/knowledge-base/" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+
+        </div>
+    </a>
     
     <a href="https://ucaresupport.com/add-ons/" class="ucare-addon-link">
         <div class="ucare-addon">

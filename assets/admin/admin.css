@@ -227,10 +227,15 @@ a.ucare-addon-link {
 .ucare-addon h2 {
     font-size: 24px;
     font-family: 'Source Sans Pro', sans-serif;
+    color: #fff;
 }
 
 .ucare-addon p {
     color: #333;
+}
+
+.ucare-addon img {
+    max-width: 60%;
 }
 
 .ucare-addon .ad {
@@ -239,6 +244,7 @@ a.ucare-addon-link {
     height: 150px;
     text-align: center;
     padding-top: 30px;
+    color: #fff;
 }
 
 .ucare-addon .ad span.dashicons {
@@ -250,48 +256,32 @@ a.ucare-addon-link {
 
 .ucare-addon .ad.customer-satisfaction {
     background: #5bb8a7;
-    color: #fff;
-}
-
-.ucare-addon .ad.customer-satisfaction h2 {
-    color: #fff;
 }
 
 .ucare-addon .ad.email-piping {
     background: #22a3e0;
-    color: #fff;
 }
 
-.ucare-addon .ad.email-piping h2 {
-    color: #fff;
+.ucare-addon .ad.mailchimp {
+    background: #52bad5;
+}
+
+.ucare-addon .ad.knowledge-base {
+    background: #0073aa;
 }
 
 .ucare-addon .ad.live-chat {
     background: #ff6f6f;
-    color: #fff;
-}
-
-.ucare-addon .ad.live-chat h2 {
-    color: #fff;
 }
 
 .ucare-addon .ad.paid-support {
     background: #011c25;
-    color: #f9f9f9;
-}
-
-.ucare-addon .ad.paid-support h2 {
-    color: #f9f9f9;
 }
 
 .ucare-addon .ad.auto-ticket-routing {
     background: #de5d3f;
-    color: #f9f9f9;
 }
 
-.ucare-addon .ad.auto-ticket-routing h2 {
-    color: #f9f9f9;
-}
 
 /** Activations page **/
 .ucare-extension-activation {
