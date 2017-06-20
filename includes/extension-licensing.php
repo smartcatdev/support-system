@@ -11,13 +11,16 @@ function init_extension_licensing() {
 
     foreach( $plugin->get_activations() as $id => $edd_options ) {
 
-        $sanitize = function ( $new ) use ( $edd_options ) {
+        $sanitize = function ( $new ) use ( $id, $edd_options ) {
             $old = get_option( $edd_options['license_option'] );
 
             if( $old && $old != $new ) {
                 delete_option( $edd_options['license_option'] );
                 delete_option( $edd_options['status_option'] );
                 delete_option( $edd_options['expire_option'] );
+
+                clear_expiration_notice( $id );
+
             }
 
             return $new;
@@ -156,15 +159,9 @@ function activate_license() {
                 update_option( $activation['status_option'], $license_data['license'] );
                 update_option( $activation['expire_option'], $license_data['expires'] );
 
-                // Remove this plugin from list of extension expiration notices
-                $notices = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
-
-                if( array_key_exists( $_POST['ucare_activate_extension_license'], $notices ) ) {
-                    unset( $notices[ $_POST['ucare_activate_extension_license'] ] );
-                    update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
-                }
-
             }
+
+            clear_expiration_notice( $_POST['ucare_activate_extension_license'] );
 
         }
 
@@ -262,5 +259,17 @@ function get_activation( $id ) {
     $activations = $plugin->get_activations();
 
     return array_key_exists( $id, $activations  ) ? $activations[ $id ] : false;
+
+}
+
+function clear_expiration_notice( $id ) {
+
+    // Remove this plugin from list of extension expiration notices
+    $notices = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+
+    if( array_key_exists( $id, $notices ) ) {
+        unset( $notices[ $id ] );
+        update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
+    }
 
 }

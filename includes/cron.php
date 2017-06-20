@@ -142,7 +142,6 @@ function check_extension_licenses() {
 
     }
 
-
     update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
 
 }
