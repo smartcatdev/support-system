@@ -28,8 +28,11 @@ class Ticket extends AjaxComponent {
 
                 if( is_numeric( $post_id ) ) {
 
+                    wp_set_post_terms( $post_id, $form->data['category'], 'ticket_category' );
+
                     // Remove them so that they are not saved as meta
                     unset( $form->data['subject'] );
+                    unset( $form->data['category'] );
                     unset( $form->data['description'] );
 
                     foreach( $form->data as $field => $value ) {

@@ -20,10 +20,8 @@ if( get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED 
     $name = get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME );
 
     foreach( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $term ) {
-        $categories[ $term->term_id ] = $term->name;
+        $categories[ $term->name ] = $term->name;
     }
-
-//    error_log( serialize( $categories )); die;
 
     $form->add_field( new SelectBoxField(
         array(
@@ -31,7 +29,7 @@ if( get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED 
             'class'         => array( 'form-control' ),
             'label'         => __( ucwords( $name ), 'ucare' ),
             'error_msg'     => __( "Please select a $name", 'ucare' ),
-            'options'       => array( '' => __( "Select a $name", 'ucare' ) ) + $categories,
+            'options'       => array( 0 => __( "Select a $name", 'ucare' ) ) + $categories,
             'props'         => array(
                 'data-default' => array( 0 )
             ),
