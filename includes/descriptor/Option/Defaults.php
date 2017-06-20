@@ -202,4 +202,14 @@ final class Defaults {
      */
     const LOGGING_ENABLED = 'on';
 
+    /**
+     * @since 1.3.0
+     */
+    const CATEGORIES_ENABLED = 'on';
+
+    /**
+     * @since 1.3.0
+     */
+    const CATEGORIES_LABEL = 'Select a category';
+
 }

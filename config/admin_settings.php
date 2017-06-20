@@ -12,7 +12,6 @@ use smartcat\admin\TabbedMenuPage;
 use smartcat\admin\TextAreaField;
 use smartcat\admin\TextField;
 use smartcat\admin\TextFilter;
-use smartcat\mail\Mail;
 use ucare\descriptor\Option;
 use ucare\Plugin;
 
@@ -67,6 +66,29 @@ $appearance->add_field( new TextField(
         'option'        => Option::LOGIN_BACKGROUND,
         'value'         => get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ),
         'label'         => __( 'Login Background Image', 'ucare' )
+    )
+
+) );
+
+$categories = new SettingsSection( 'uc_categories', __( 'Ticket Categories', 'ucare' ) );
+
+$categories->add_field( new TextField(
+    array(
+        'id'            => 'support_ticket_categories_label',
+        'class'         => array( 'regular-text' ),
+        'option'        => Option::CATEGORIES_LABEL,
+        'value'         => get_option( Option::CATEGORIES_LABEL, Option\Defaults::CATEGORIES_LABEL ),
+        'label'         => __( 'Categories Dropdown Label', 'ucare' )
+    )
+
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_categories_enabled',
+        'option'        => Option::CATEGORIES_ENABLED,
+        'value'         => get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED ),
+        'label'         => __( 'Categories Enabled', 'ucare'),
+        'desc'          => __( 'Allow tickets to be assigned a category when created', 'ucare' ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
 ) );
@@ -534,7 +556,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'uc-display',
                     'title'    => __( 'Display', 'ucare' ),
-                    'sections' => array( $text, $widgets )
+                    'sections' => array( $categories, $text, $widgets )
                 )
             ),
             new SettingsTab(

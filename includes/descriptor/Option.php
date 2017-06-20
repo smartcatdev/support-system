@@ -267,4 +267,14 @@ final class Option {
      */
     const EXTENSION_LICENSE_NOTICES = 'smartcat_support_extension-license-notifications';
 
+    /**
+     * @since 1.3.0
+     */
+    const CATEGORIES_ENABLED = 'smartcat_support_enable-categories';
+
+    /**
+     * @since 1.3.0
+     */
+    const CATEGORIES_LABEL = 'smartcat_support_extension-categories-label';
+
 }
