@@ -253,6 +253,14 @@ class Ticket extends AjaxComponent {
 
         if( isset( $_REQUEST['ticket_filter'] ) ) {
 
+            if( !empty( $_REQUEST['category'] ) ) {
+                $args['tax_query'][] = array(
+                    'taxonomy' => 'ticket_category',
+                    'field'    => 'slug',
+                    'terms'    => array( $_REQUEST['category'] )
+                );
+            }
+
             if( !empty( $_REQUEST['email'] ) ) {
                 $author = get_user_by( 'email', $_REQUEST['email'] );
 

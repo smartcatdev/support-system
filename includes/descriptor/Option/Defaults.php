@@ -212,4 +212,9 @@ final class Defaults {
      */
     const CATEGORIES_NAME = 'category';
 
+    /**
+     * @since 1.3.0
+     */
+    const CATEGORIES_NAME_PLURAL = 'categories';
+
 }

@@ -82,6 +82,16 @@ $categories->add_field( new TextField(
         'desc'          => __( 'The name to be used for ticket category', 'ucare' ),
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_ticket_categories_name_plural',
+        'class'         => array( 'regular-text' ),
+        'option'        => Option::CATEGORIES_NAME_PLURAL,
+        'value'         => get_option( Option::CATEGORIES_NAME_PLURAL, Option\Defaults::CATEGORIES_NAME_PLURAL ),
+        'label'         => __( 'Categories Name Plural', 'ucare' ),
+        'desc'          => __( 'The plural name to be used for ticket category', 'ucare' ),
+    )
+
 ) )->add_field( new CheckBoxField(
     array(
         'id'            => 'support_categories_enabled',

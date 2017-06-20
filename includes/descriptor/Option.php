@@ -277,4 +277,9 @@ final class Option {
      */
     const CATEGORIES_NAME = 'smartcat_support_extension-categories-name';
 
+    /**
+     * @since 1.3.0
+     */
+    const CATEGORIES_NAME_PLURAL = 'smartcat_support_extension-categories-name-plural';
+
 }
