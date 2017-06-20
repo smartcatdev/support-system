@@ -698,7 +698,6 @@ hr {
     margin-left: 2px;
     padding: 0px 6px;
     border-radius: 3px;
-    background: white;
     display: inline-block;
 }
 
@@ -897,7 +896,7 @@ button.close-ticket:hover {
     margin-bottom: 0;
 }
 
-.sidebar .ticket-details .category {
+.tag.category {
     margin: 0 2px !important;
     border: 1px solid #ccc;
     border-radius: 3px;

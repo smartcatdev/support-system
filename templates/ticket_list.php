@@ -60,7 +60,7 @@ use ucare\descriptor\Option;
 
                                 <?php if( !empty( $terms ) ) : ?>
 
-                                    <span class="tag"><?php echo $terms[0]->name; ?></span>
+                                    <span class="tag category"><?php echo $terms[0]->name; ?></span>
 
                                 <?php endif; ?>
 

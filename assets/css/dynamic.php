@@ -196,6 +196,10 @@ $secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
         }
         
     }
-    
+
+    .tag.category {
+        background: <?php echo $primary_color; ?>;
+        color: #fff;
+    }
 
 </style>

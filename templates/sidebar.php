@@ -35,7 +35,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <?php if( !empty( $terms ) ) : ?>
 
-                    <span class="category"><?php echo $terms[0]->name; ?></span>
+                    <span class="tag category"><?php echo $terms[0]->name; ?></span>
 
                 <?php endif; ?>
 
