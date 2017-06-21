@@ -282,4 +282,14 @@ final class Option {
      */
     const CATEGORIES_NAME_PLURAL = 'smartcat_support_extension-categories-name-plural';
 
+    /**
+     * @since 1.3.0
+     */
+    const ADMIN_EMAIL = 'smartcat_support_admin-email';
+
+    /**
+     * @since 1.3.0
+     */
+    const NEW_TICKET_ADMIN_EMAIL = 'smartcat_support_new-ticket-admin-email';
+
 }

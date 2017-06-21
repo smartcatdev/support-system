@@ -31,15 +31,20 @@ class migration_1_3_0 implements smartcat\core\Migration {
     function create_email_template() {
 
         $email_templates = array(
-          array(
-              'title'   => __( 'You have been assigned a ticket', 'ucare' ),
-              'option'  => Option::TICKET_ASSIGNED,
-              'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-assigned.html' )
-          ),
+            array(
+                'title'   => __( 'You have been assigned a ticket', 'ucare' ),
+                'option'  => Option::TICKET_ASSIGNED,
+                'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-assigned.html' )
+            ),
             array(
                 'title'   => __( 'You have a reply to a ticket that you are assigned to', 'ucare' ),
                 'option'  => Option::CUSTOMER_REPLY_EMAIL,
                 'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-reply.html' )
+            ),
+            array(
+                'title'   => __( 'A new ticket has been created', 'ucare' ),
+                'option'  => Option::NEW_TICKET_ADMIN_EMAIL,
+                'content' => file_get_contents( $this->plugin->dir() . 'emails/admin-ticket-created.html' )
             ),
         );
 
@@ -47,18 +52,22 @@ class migration_1_3_0 implements smartcat\core\Migration {
 
         foreach( $email_templates as $template ) {
 
-            $id = wp_insert_post(
-                array(
-                    'post_type'     => 'email_template',
-                    'post_status'   => 'publish',
-                    'post_title'    => $template['title'],
-                    'post_content'  => $template['content']
-                )
-            );
+            if( is_null( get_post( get_option( $template['option'] ) ) ) ) {
 
-            if( $id ) {
-                update_post_meta( $id, 'styles', $default_style );
-                add_option( $template['option'], $id );
+                $id = wp_insert_post(
+                    array(
+                        'post_type'     => 'email_template',
+                        'post_status'   => 'publish',
+                        'post_title'    => $template['title'],
+                        'post_content'  => $template['content']
+                    )
+                );
+
+                if( $id ) {
+                    update_post_meta( $id, 'styles', $default_style );
+                    add_option( $template['option'], $id );
+                }
+
             }
 
         }

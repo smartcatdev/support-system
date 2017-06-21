@@ -339,8 +339,8 @@ $general->add_field( new TextField(
         'id'            => 'support_logging_enabled',
         'option'        => Option::LOGGING_ENABLED,
         'value'         => get_option( Option::LOGGING_ENABLED, Option\Defaults::LOGGING_ENABLED ),
-        'label'         => __( 'Enable Logging', \ucare\PLUGIN_ID ),
-        'desc'          => __( 'Enable or disable the logging of system events', \ucare\PLUGIN_ID ),
+        'label'         => __( 'Enable Logging', 'ucare' ),
+        'desc'          => __( 'Enable or disable the logging of system events', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
@@ -375,7 +375,7 @@ $auto_close->add_field( new TextField(
 
 ) );
 
-$emails = new SettingsSection( 'uc_email_templates', __( 'Email Templates', 'ucare' ) );
+$emails = new SettingsSection( 'uc_email_templates', __( 'User Notification Templates', 'ucare' ) );
 
 $email_templates = array( '' => __( 'Notifications Disabled', 'ucare' ) ) + \smartcat\mail\list_templates();
 
@@ -453,6 +453,22 @@ $emails->add_field( new SelectBoxField(
 
 ) );
 
+$admin_emails = new SettingsSection( 'uc_admin_email_notifications', __( 'Admin Notification Templates', 'ucare' ) );
+
+$admin_emails->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_ticket_created_admin_email_template',
+        'option'        => Option::NEW_TICKET_ADMIN_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::NEW_TICKET_ADMIN_EMAIL ),
+        'options'       => $email_templates,
+        'label'         => __( 'New Ticket', 'ucare' ),
+        'desc'          => __( 'Sent to the admin user when a user creates a new ticket', 'ucare' ),
+        'validators'    => array( new MatchFilter( array_keys( $email_templates ), '' ) )
+    )
+
+) );
+
 $agent_emails = new SettingsSection( 'uc_agent_email_notifications', __( 'Agent Notification Templates', 'ucare' ) );
 
 $agent_emails->add_field( new SelectBoxField(
@@ -495,12 +511,22 @@ $email_notifications->add_field( new CheckBoxField(
 
 ) )->add_field( new TextField(
     array(
+        'id'            => 'support_email_recipient_email',
+        'option'        => Option::ADMIN_EMAIL,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::ADMIN_EMAIL, get_option( 'admin_email' ) ),
+        'label'         => __( 'Admin Email', 'ucare' ),
+        'desc'          => __( 'Email address of the support administrator', 'ucare' )
+    )
+
+) )->add_field( new TextField(
+    array(
         'id'            => 'support_email_sender_email',
         'option'        => Option::SENDER_EMAIL,
         'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) ),
         'label'         => __( 'Sender Email', 'ucare' ),
-        'desc'          => __( 'Email address used for support emails', 'ucare' )
+        'desc'          => __( 'Email address used when sending support emails', 'ucare' )
     )
 
 ) )->add_field( new TextField(
@@ -510,7 +536,7 @@ $email_notifications->add_field( new CheckBoxField(
         'class'         => array( 'regular-text' ),
         'value'         => get_option( Option::SENDER_NAME, __( 'uCare Support', 'ucare' ) ),
         'label'         => __( 'Sender Name', 'ucare' ),
-        'desc'          => __( 'Name used for support emails', 'ucare' )
+        'desc'          => __( 'Name used for outgoing support emails', 'ucare' )
     )
 
 ) );
@@ -581,7 +607,7 @@ $admin = new TabbedMenuPage(
                 array(
                     'slug'     => 'uc-email',
                     'title'    => __( 'Email', 'ucare' ),
-                    'sections' => array( $emails, $agent_emails, $email_notifications )
+                    'sections' => array( $emails, $agent_emails, $admin_emails, $email_notifications )
                 )
             ),
             new SettingsTab(
