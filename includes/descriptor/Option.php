@@ -292,4 +292,9 @@ final class Option {
      */
     const NEW_TICKET_ADMIN_EMAIL = 'smartcat_support_new-ticket-admin-email';
 
+    /**
+     * @since 1.3.0
+     */
+    const FIRST_RUN = 'smartcat_support_first-run';
+
 }

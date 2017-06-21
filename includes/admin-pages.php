@@ -2,7 +2,9 @@
 
 namespace ucare;
 
-function enqueue_admin_scripts( $hook ) {
+use ucare\descriptor\Option;
+
+function enqueue_admin_scripts($hook ) {
 
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'wp-color-picker' );
@@ -83,3 +85,16 @@ function add_admin_menu_pages() {
 
 add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
 
+
+function admin_first_run_tutorial_page() {
+
+    if( !get_option( Option::FIRST_RUN ) ) {
+
+        update_option( Option::FIRST_RUN, true );
+        wp_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
+
+    }
+
+}
+
+add_action( 'admin_init', 'ucare\admin_first_run_tutorial_page' );
