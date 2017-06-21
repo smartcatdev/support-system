@@ -156,6 +156,24 @@ function send_ticket_created_email( \WP_Post $ticket ) {
 add_action( 'support_ticket_created', 'ucare\send_ticket_created_email' );
 
 
+function send_new_ticket_email( \WP_Post $ticket ) {
+
+    $recipient = get_option( Option::ADMIN_EMAIL );
+
+    $template_vars = array(
+        'ticket_subject' => $ticket->post_title,
+        'ticket_number'  => $ticket->ID,
+        'user'           => util\user_full_name( get_user_by( 'id', $ticket->post_author ) ),
+        'ticket_content' => $ticket->post_content
+    );
+
+    send_email( get_option( Option::NEW_TICKET_ADMIN_EMAIL ), $recipient, $template_vars );
+
+}
+
+add_action( 'support_ticket_created', 'ucare\send_new_ticket_email' );
+
+
 function send_ticket_reply_email( $comment_id ) {
 
     $comment = get_comment( $comment_id );

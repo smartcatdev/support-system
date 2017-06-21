@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @param $id
+ * @param $args
+ * @return mixed
+ * @TODO document args
+ *
+ */
 function ucare_register_license( $id, $args ) {
 
     $plugin = \ucare\Plugin::get_plugin( \ucare\PLUGIN_ID );
@@ -8,6 +15,10 @@ function ucare_register_license( $id, $args ) {
 
 }
 
+/**
+ * @param $id
+ * @TODO document
+ */
 function ucare_unregister_license( $id ) {
 
     $plugin = \ucare\Plugin::get_plugin( \ucare\PLUGIN_ID );
