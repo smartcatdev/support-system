@@ -174,53 +174,67 @@ function send_new_ticket_email( \WP_Post $ticket ) {
 add_action( 'support_ticket_created', 'ucare\send_new_ticket_email' );
 
 
-function send_ticket_reply_email( $comment_id ) {
+function send_user_replied_email( $comment_id ) {
 
-    $comment = get_comment( $comment_id );
-    $ticket  = get_post( $comment->comment_post_ID );
+    // Check to see if the user has lower privileges than support agents
+    if( !current_user_can( 'create_manage_support_tickets' ) ) {
 
-    // Make sure the ticket is still open
-    if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
+        $comment = get_comment( $comment_id );
+        $ticket  = get_post( $comment->comment_post_ID );
 
-        $template_vars = array(
-            'ticket_subject' => $ticket->post_title,
-            'ticket_number'  => $ticket->ID,
-            'reply'          => $comment->comment_content
-        );
+        // Make sure the ticket is still open
+        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
 
-        // If the current user is an agent, email the customer
-        if( current_user_can( 'manage_support_tickets' ) ) {
-
-            $recipient = get_user_by( 'id', $ticket->post_author );
-
-            $template_vars['agent'] = $comment->comment_author;
-
-            send_email( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
-
-            // If the user is a customer, notify the assigned agent
-        } else if( current_user_can( 'create_support_tickets' ) ) {
+            $template_vars = array(
+                'ticket_subject' => $ticket->post_title,
+                'ticket_number'  => $ticket->ID,
+                'reply'          => $comment->comment_content,
+                'user'           => $comment->comment_author
+            );
 
             $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
 
-            // If the ticket has been assigned to an agent
             if( $recipient ) {
-
-                $customer = get_user_by( 'ID', $comment->user_id );
-
-                $template_vars['user'] = $customer->first_name . ' ' . $customer->last_name;
-
                 send_email( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
-
             }
 
         }
 
     }
 
+}
+
+add_action( 'comment_post', 'ucare\send_user_replied_email' );
+
+
+function send_agent_replied_email( $comment_id ) {
+
+    if( current_user_can( 'manage_support_tickets' ) ) {
+
+        $comment = get_comment( $comment_id );
+        $ticket  = get_post( $comment->comment_post_ID );
+
+        // Make sure the ticket is still open
+        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
+
+            $template_vars = array(
+                'ticket_subject' => $ticket->post_title,
+                'ticket_number'  => $ticket->ID,
+                'reply'          => $comment->comment_content,
+                'agent'          => $comment->comment_author
+            );
+
+            $recipient = get_user_by( 'id', $ticket->post_author );
+
+            send_email( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+
+        }
+
+    }
 
 }
 
-add_action( 'comment_post', 'ucare\send_ticket_reply_email' );
+add_action( 'comment_post', 'ucare\send_agent_replied_email' );
 
 
 function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
@@ -230,38 +244,21 @@ function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
     // Only if the meta value has changed and the post type is support_ticket
     if( $value !== $old && $post->post_type == 'support_ticket' ) {
 
-        $args = array( 'ticket' => $post );
-
-        $template_vars = array(
-            'ticket_subject' => $post->post_title,
-            'ticket_content' => $post->post_content,
-            'ticket_number'  => $post->ID,
-        );
-
         // Notify the user that their ticket has been closed
         if( $key == 'status' && $value == 'closed' ) {
 
             $recipient = get_user_by('id', $post->post_author );
 
-            $template_vars['ticket_status']  = $value;
+            $args = array( 'ticket' => $post );
+
+            $template_vars = array(
+                'ticket_subject' => $post->post_title,
+                'ticket_content' => $post->post_content,
+                'ticket_number'  => $post->ID,
+                'ticket_status'  => $value
+            );
 
             send_email( get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars, $args );
-
-            // Notify agents if they have been assigned to a ticket only if it hasn't been marked as closed
-        } else if( $key == 'agent' && get_post_meta( $id, 'status', true ) != 'closed' ) {
-
-            $recipient = get_user_by( 'ID', $value );
-
-            // Make sure the ticket hans'nt been set to unassigned
-            if( $recipient ) {
-
-                $user = get_user_by( 'ID', $post->post_author );
-
-                $template_vars['user'] = $user->first_name . ' ' . $user->last_name;
-
-                send_email( get_option( Option::TICKET_ASSIGNED ), $recipient->user_email, $template_vars, $args );
-
-            }
 
         }
 
@@ -272,3 +269,37 @@ function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
 }
 
 add_action( 'update_post_metadata', 'ucare\send_ticket_updated_email', 10, 5 );
+
+
+function send_ticket_assigned_email( $null, $id, $key, $value, $old ) {
+
+    if( $key == 'agent' && get_post_meta( $id, 'status', true ) != 'closed' ) {
+
+        $post = get_post( $id );
+        $recipient = get_user_by( 'ID', $value );
+
+        // Make sure the ticket hasn't been unassigned ( -1 or 0 )
+        if( $recipient ) {
+
+            $user = get_user_by( 'ID', $post->post_author );
+
+            $args = array( 'ticket' => $post );
+
+            $template_vars = array(
+                'ticket_subject' => $post->post_title,
+                'ticket_content' => $post->post_content,
+                'ticket_number'  => $post->ID,
+                'user'           => util\user_full_name( $user )
+            );
+
+            send_email( get_option( Option::TICKET_ASSIGNED ), $recipient->user_email, $template_vars, $args );
+
+        }
+
+    }
+
+    return $null;
+
+}
+
+add_action( 'update_post_metadata', 'ucare\send_ticket_assigned_email', 10, 5 );
