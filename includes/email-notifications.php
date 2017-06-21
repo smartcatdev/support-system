@@ -116,7 +116,7 @@ add_action( 'support_password_reset_notification', 'ucare\send_password_reset_em
 
 function send_user_registration_email( $user_data ) {
 
-    $this->send_template( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
+    send_email( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
 
 }
 
@@ -177,7 +177,7 @@ add_action( 'support_ticket_created', 'ucare\send_new_ticket_email' );
 function send_user_replied_email( $comment_id ) {
 
     // Check to see if the user has lower privileges than support agents
-    if( !current_user_can( 'create_manage_support_tickets' ) ) {
+    if( !current_user_can( 'manage_support_tickets' ) ) {
 
         $comment = get_comment( $comment_id );
         $ticket  = get_post( $comment->comment_post_ID );
