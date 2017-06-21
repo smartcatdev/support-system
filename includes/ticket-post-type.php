@@ -294,31 +294,33 @@ add_action( 'restrict_manage_posts', 'ucare\tickets_table_filters' );
 
 function filter_tickets_table( $query ) {
 
-    if ( get_query_var( 'post_type' ) === 'support_ticket' ) {
-
-        $meta_query = array();
-
-        if( isset( $_GET['meta'] ) ) {
-
-            foreach( $_GET['meta'] as $key => $value ) {
-
-                if( !empty( $_GET['meta'][ $key ] ) ) {
-                    $meta_query[] = array('key' => $key, 'value' => $value);
-                }
-            }
-
-        }
-
-        if( isset( $_GET['flagged'] ) ) {
-            $meta_query[] = array( 'key' => 'flagged', 'value' => 'on' );
-        }
-
-        if( isset( $_GET['stale'] ) ) {
-            $meta_query[] = array( 'key' => 'stale', 'compare' => 'EXISTS' );
-        }
-
-        $query->query_vars['meta_query'] = $meta_query;
+    if( ! isset( $_GET['post_type'] ) || $_GET['post_type'] !== 'support_ticket' ) {
+        return $query;
     }
+
+    $meta_query = array();
+
+    if( isset( $_GET['meta'] ) ) {
+
+        foreach( $_GET['meta'] as $key => $value ) {
+
+            if( !empty( $_GET['meta'][ $key ] ) ) {
+                $meta_query[] = array('key' => $key, 'value' => $value);
+            }
+        }
+
+    }
+
+    if( isset( $_GET['flagged'] ) ) {
+        $meta_query[] = array( 'key' => 'flagged', 'value' => 'on' );
+    }
+
+    if( isset( $_GET['stale'] ) ) {
+        $meta_query[] = array( 'key' => 'stale', 'compare' => 'EXISTS' );
+    }
+
+    $query->query_vars['meta_query'] = $meta_query;
+
 
     return $query;
 
