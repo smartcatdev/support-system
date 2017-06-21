@@ -191,6 +191,16 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
         $this->cache[ $name ] = $value;
     }
 
+    public function __isset( $name ) {
+        return array_key_exists( $name, $this->cache );
+    }
+
+    public function __unset( $name ) {
+        if( isset( $this->cache[ $name ] ) ) {
+            unset( $this->cache[ $name ] );
+        }
+    }
+
     /**
      * Instances of AbstractPlugin are singleton and should not be cloned.
      */

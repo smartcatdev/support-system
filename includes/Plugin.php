@@ -259,8 +259,7 @@ class Plugin extends AbstractPlugin {
             Settings::class,
             Hacks::class,
             Media::class,
-            Statistics::class,
-            Emails::class
+            Statistics::class
         );
 
         if( \ucare\util\ecommerce_enabled( false ) ) {
