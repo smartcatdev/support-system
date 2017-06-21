@@ -1,4 +1,12 @@
-<div class="sidebar">
+<div class="sidebar ucare-admin-sidebar">
+    
+    <div class="ucare-sidebar-widget">
+        <h3><?php _e( 'Plugin Tutorial', 'ucare' ); ?></h3>
+        <p><?php _e( 'Click the link below to view the plugin tutorial, as well as links to various helpful resources.', 'ucare' ); ?></p>
+        <p>
+            <a href="https://wordpress.org/support/plugin/ucare-support-system/" target="_BLANK" class="button"><?php _e( 'Provide feedback', 'ucare' ); ?></a>
+        </p>
+    </div>
     
     <div class="ucare-sidebar-widget">
         <h3><?php _e( 'We want your feedback!', 'ucare' ); ?></h3>

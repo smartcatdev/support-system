@@ -72,4 +72,4 @@ function admin_page_sidebar() {
 }
 
 // Include admin sidebar on options page
-add_action( 'support_options_menu_page', 'ucare\admin_page_sidebar' );
+add_action( 'uc-settings_menu_page', 'ucare\admin_page_sidebar' );

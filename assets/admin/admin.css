@@ -134,7 +134,7 @@ td.column-id.id:before {
 }
 
 /* Settings Sidebar */
-#support_options_menu_page .sidebar {
+.ucare-admin-sidebar {
     display: none;
     width: 25%;
 }
@@ -189,12 +189,12 @@ td.column-id.id:before {
 
 
 @media(min-width: 783px) {
-    #support_options_menu_page .tabs-content {
+    #uc-settings_menu_page .tabs-content {
         width: 70%;
     }
 
-    #support_options_menu_page .tabs-content,
-    #support_options_menu_page .sidebar {
+    #uc-settings_menu_page .tabs-content,
+    .ucare-admin-sidebar {
         float: left;
         display: inline-block;
     }
