@@ -90,6 +90,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     /**
      * Register the callbacks of an event listener with the Plugin API.
      *
+     * @deprecated
      * @param HookSubscriber $listener
      */
     public function add_api_subscriber( HookSubscriber $listener ) {
@@ -105,6 +106,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     /**
      * Unregister the callbacks of an event listener from the Plugin API.
      *
+     * @deprecated
      * @param HookSubscriber $listener
      */
     public function remove_api_subscriber( HookSubscriber $listener ) {
@@ -165,6 +167,7 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
     /**
      * The list of Components to instantiate.
      *
+     * @deprecated
      * @return array
      */
     protected function components() {
