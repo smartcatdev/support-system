@@ -64,7 +64,7 @@ function admin_page_header() {
 }
 
 // Include admin header
-add_action( 'support_options_admin_page_header', 'ucare\admin_page_header' );
+add_action( 'uc-settings_admin_page_header', 'ucare\admin_page_header' );
 
 
 function admin_page_sidebar() {
@@ -72,4 +72,14 @@ function admin_page_sidebar() {
 }
 
 // Include admin sidebar on options page
-add_action( 'support_options_menu_page', 'ucare\admin_page_sidebar' );
+add_action( 'uc-settings_menu_page', 'ucare\admin_page_sidebar' );
+
+
+function add_admin_menu_pages() {
+
+    add_submenu_page( null, __( 'uCare - Introduction', 'ucare' ), __( 'uCare - Introduction', 'ucare' ), 'manage_options', 'uc-tutorial', function() { include_once plugin_dir() . 'templates/admin-tutorial.php'; } );
+
+}
+
+add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
+
