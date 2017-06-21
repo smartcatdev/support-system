@@ -188,6 +188,14 @@ td.column-id.id:before {
 }
 
 
+
+
+#ucare-tutorial .notice, 
+#ucare-tutorial div.error, 
+#ucare-tutorial div.updated{
+    display: none !important;
+}
+
 @media(min-width: 783px) {
     #uc-settings_menu_page .tabs-content {
         width: 70%;
