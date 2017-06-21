@@ -150,7 +150,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Categories', 'ucare' ),
+                    'menu_title'  => __( 'Ticket Categories', 'ucare' ),
                     'menu_slug'   => 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
@@ -161,7 +161,7 @@ class Plugin extends AbstractPlugin {
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
                     'menu_slug'     => 'uc-launch',
-                    'menu_title'    => __( 'Launch Desk', 'ucare' ),
+                    'menu_title'    => __( 'Launch Help Desk', 'ucare' ),
                     'capability'    => 'manage_support',
                     'onload'        => function () { wp_safe_redirect( url() ); }
                 )
