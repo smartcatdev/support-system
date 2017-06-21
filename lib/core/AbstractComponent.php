@@ -7,6 +7,7 @@ if( !class_exists( '\smartcat\core\AbstractComponent' ) ) :
 /**
  * A single component of a plugin that is instantiated automatically on plugin init.
  *
+ * @deprecated
  * @package smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */

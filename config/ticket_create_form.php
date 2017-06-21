@@ -16,29 +16,35 @@ $form = new Form( 'create_ticket' );
 
 if( get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
 
-    $categories = array();
-    $name = get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME );
+    $terms = get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) );
 
-    foreach( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $term ) {
-        $categories[ $term->name ] = $term->name;
-    }
+    if( !empty( $terms ) ) {
 
-    $form->add_field( new SelectBoxField(
-        array(
-            'name'          => 'category',
-            'class'         => array( 'form-control' ),
-            'label'         => __( ucwords( $name ), 'ucare' ),
-            'error_msg'     => __( "Please select a $name", 'ucare' ),
-            'options'       => array( 0 => __( "Select a $name", 'ucare' ) ) + $categories,
-            'props'         => array(
-                'data-default' => array( 0 )
-            ),
-            'constraints'   => array(
-                new ChoiceConstraint( array_keys( $categories ) )
+        $categories = array();
+        $name = get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME );
+
+        foreach( $terms as $term ) {
+            $categories[ $term->name ] = $term->name;
+        }
+
+        $form->add_field( new SelectBoxField(
+            array(
+                'name'          => 'category',
+                'class'         => array( 'form-control' ),
+                'label'         => __( ucwords( $name ), 'ucare' ),
+                'error_msg'     => __( "Please select a $name", 'ucare' ),
+                'options'       => array( 0 => __( "Select a $name", 'ucare' ) ) + $categories,
+                'props'         => array(
+                    'data-default' => array( 0 )
+                ),
+                'constraints'   => array(
+                    new ChoiceConstraint( array_keys( $categories ) )
+                )
             )
-        )
 
-    ) );
+        ) );
+
+    }
 
 }
 

@@ -43,6 +43,34 @@ function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
 
 <?php }
 
+function cache_put( $key, $value ) {
+
+    $plugin = Plugin::get_plugin( PLUGIN_ID );
+
+    $plugin->$key = $value;
+
+}
+
+function cache_delete( $key ) {
+
+    $plugin = Plugin::get_plugin( PLUGIN_ID );
+
+    unset( $plugin->$key );
+
+}
+
+function cache_get( $key, $default = false ) {
+
+    $plugin = Plugin::get_plugin( PLUGIN_ID );
+
+    if( isset( $plugin->$key ) ) {
+        return $plugin->$key;
+    } else {
+        return $default;
+    }
+
+}
+
 
 namespace ucare\util;
 

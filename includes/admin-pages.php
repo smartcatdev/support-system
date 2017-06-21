@@ -2,7 +2,9 @@
 
 namespace ucare;
 
-function enqueue_admin_scripts( $hook ) {
+use ucare\descriptor\Option;
+
+function enqueue_admin_scripts($hook ) {
 
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'wp-color-picker' );
@@ -64,7 +66,7 @@ function admin_page_header() {
 }
 
 // Include admin header
-add_action( 'support_options_admin_page_header', 'ucare\admin_page_header' );
+add_action( 'uc-settings_admin_page_header', 'ucare\admin_page_header' );
 
 
 function admin_page_sidebar() {
@@ -73,3 +75,26 @@ function admin_page_sidebar() {
 
 // Include admin sidebar on options page
 add_action( 'uc-settings_menu_page', 'ucare\admin_page_sidebar' );
+
+
+function add_admin_menu_pages() {
+
+    add_submenu_page( null, __( 'uCare - Introduction', 'ucare' ), __( 'uCare - Introduction', 'ucare' ), 'manage_options', 'uc-tutorial', function() { include_once plugin_dir() . 'templates/admin-tutorial.php'; } );
+
+}
+
+add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
+
+
+function admin_first_run_tutorial_page() {
+
+    if( !get_option( Option::FIRST_RUN ) ) {
+
+        update_option( Option::FIRST_RUN, true );
+        wp_safe_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
+
+    }
+
+}
+
+add_action( 'admin_init', 'ucare\admin_first_run_tutorial_page' );
