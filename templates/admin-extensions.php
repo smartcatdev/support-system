@@ -35,7 +35,7 @@
                 <h2><?php _e( 'MailChimp', 'ucare' ); ?></h2>
             </div>
 
-            <p class="details"><?php _e( '' ) ?></p>
+            <p class="details"><?php _e( 'Sync up your support users and customers with your mailchimp account with this extension', 'ucare' ) ?></p>
 
             <a href="https://ucaresupport.com/downloads/mailchimp/" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
 
@@ -52,7 +52,7 @@
                 <h2><?php _e( 'Knowledge Base', 'ucare' ); ?></h2>
             </div>
 
-            <p class="details"><?php _e( '' ) ?></p>
+            <p class="details"><?php _e( 'Provide your customers the ability to search your Knowledge Base for answers. This increases customer satisfaction and reduces the amount of tickets you receive.', 'ucare' ) ?></p>
 
             <a href="https://ucaresupport.com/downloads/knowledge-base/" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
 
