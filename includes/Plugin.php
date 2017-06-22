@@ -165,7 +165,7 @@ class Plugin extends AbstractPlugin {
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
                     'menu_slug'     => 'uc-launch',
-                    'menu_title'    => __( 'Launch Help Desk', 'ucare' ),
+                    'menu_title'    => __( 'Help Desk', 'ucare' ),
                     'capability'    => 'manage_support',
                     'onload'        => function () { wp_safe_redirect( url() ); }
                 )
