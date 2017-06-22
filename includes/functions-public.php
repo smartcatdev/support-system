@@ -1,5 +1,9 @@
 <?php
 
+use ucare\Defaults;
+use ucare\Options;
+use ucare\util\Logger;
+
 /**
  * @param $id
  * @param $args
@@ -33,4 +37,12 @@ function ucare_unregister_license( $id ) {
         unregister_setting( 'ucare_extension_licenses', $activation['license_option'] );
     }
 
+}
+
+function ucare_in_dev_mode() {
+    return get_option( Options::DEV_MODE, Defaults::DEV_MODE ) == 'on';
+}
+
+function ucare_get_logger( $type ) {
+    return new Logger( $type );
 }

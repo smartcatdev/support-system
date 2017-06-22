@@ -17,10 +17,6 @@ function plugin_url( $path = '' ) {
     return trailingslashit( Plugin::plugin_url( PLUGIN_ID ) ) . ltrim( $path, '/' );
 }
 
-function in_dev_mode() {
-    return get_option( Options::DEV_MODE, \ucare\Defaults::DEV_MODE ) == 'on';
-}
-
 function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
 
     <select name="<?php esc_attr_e( $name ); ?>"
