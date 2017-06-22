@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: uCare - Support Ticket System\n"
-"POT-Creation-Date: 2017-06-21 10:54-0400\n"
-"PO-Revision-Date: 2017-06-20 18:32-0400\n"
+"POT-Creation-Date: 2017-06-22 16:03-0400\n"
+"PO-Revision-Date: 2017-06-22 16:03-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,384 +21,436 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: assets/css/dynamic.php:40
+#: assets/css/dynamic.php:43
 msgid "Apply Filters"
 msgstr ""
 
-#: assets/css/dynamic.php:44
+#: assets/css/dynamic.php:47
 msgid "Filters Applied"
 msgstr ""
 
-#: config/admin_settings.php:20 config/admin_settings.php:576
+#: config/admin_settings.php:20 config/admin_settings.php:648
 msgid "Appearance"
 msgstr ""
 
-#: config/admin_settings.php:28
+#: config/admin_settings.php:31
+msgid "Primary Font"
+msgstr ""
+
+#: config/admin_settings.php:32
+msgid "Headings font for the system"
+msgstr ""
+
+#: config/admin_settings.php:43
+msgid "Secondary Font"
+msgstr ""
+
+#: config/admin_settings.php:44
+msgid "Main content / body text font for the system"
+msgstr ""
+
+#: config/admin_settings.php:54
 msgid "Primary color"
 msgstr ""
 
-#: config/admin_settings.php:38
+#: config/admin_settings.php:64
 msgid "Hover color"
 msgstr ""
 
-#: config/admin_settings.php:47
+#: config/admin_settings.php:73
 msgid "Secondary color"
 msgstr ""
 
-#: config/admin_settings.php:57
+#: config/admin_settings.php:83
 msgid "Tertiary color"
 msgstr ""
 
-#: config/admin_settings.php:68
+#: config/admin_settings.php:94
 msgid "Login Background Image"
 msgstr ""
 
-#: config/admin_settings.php:73
+#: config/admin_settings.php:99 includes/Plugin.php:146
 msgid "Ticket Categories"
 msgstr ""
 
-#: config/admin_settings.php:81
+#: config/admin_settings.php:107
 msgid "Categories Name"
 msgstr ""
 
-#: config/admin_settings.php:82
+#: config/admin_settings.php:108
 msgid "The name to be used for ticket category"
 msgstr ""
 
-#: config/admin_settings.php:91
+#: config/admin_settings.php:117
 msgid "Categories Name Plural"
 msgstr ""
 
-#: config/admin_settings.php:92
+#: config/admin_settings.php:118
 msgid "The plural name to be used for ticket category"
 msgstr ""
 
-#: config/admin_settings.php:100
+#: config/admin_settings.php:126
 msgid "Categories Enabled"
 msgstr ""
 
-#: config/admin_settings.php:101
+#: config/admin_settings.php:127
 msgid "Allow tickets to be assigned a category when created"
 msgstr ""
 
-#: config/admin_settings.php:107
+#: config/admin_settings.php:133
 msgid "Text & Labels"
 msgstr ""
 
-#: config/admin_settings.php:115
+#: config/admin_settings.php:141
 msgid "Login Disclaimer"
 msgstr ""
 
-#: config/admin_settings.php:125
+#: config/admin_settings.php:151
 msgid "Register Button Label"
 msgstr ""
 
-#: config/admin_settings.php:135
+#: config/admin_settings.php:161
 msgid "Login Button Label"
 msgstr ""
 
-#: config/admin_settings.php:145
+#: config/admin_settings.php:171
 msgid "Create Ticket Button Label"
 msgstr ""
 
-#: config/admin_settings.php:155
+#: config/admin_settings.php:181
 msgid "Cancel Operation Button Label"
 msgstr ""
 
-#: config/admin_settings.php:165
+#: config/admin_settings.php:191
 msgid "Ticket Created Message"
 msgstr ""
 
-#: config/admin_settings.php:175
+#: config/admin_settings.php:201
 msgid "Ticket Updated Message"
 msgstr ""
 
-#: config/admin_settings.php:185
+#: config/admin_settings.php:211
 msgid "No Tickets Message"
 msgstr ""
 
-#: config/admin_settings.php:194
+#: config/admin_settings.php:220
 msgid "Comments Closed Message"
 msgstr ""
 
-#: config/admin_settings.php:203
+#: config/admin_settings.php:229
 msgid "Footer Text"
 msgstr ""
 
-#: config/admin_settings.php:208
+#: config/admin_settings.php:234
 msgid "Widgets"
 msgstr ""
 
-#: config/admin_settings.php:217
+#: config/admin_settings.php:243
 msgid "Login Widget Area"
 msgstr ""
 
-#: config/admin_settings.php:218
+#: config/admin_settings.php:244
 msgid "Displayed on the login page"
 msgstr ""
 
-#: config/admin_settings.php:228
+#: config/admin_settings.php:254
 msgid "User Widget Area"
 msgstr ""
 
-#: config/admin_settings.php:229
+#: config/admin_settings.php:255
 msgid "Only visible to support users"
 msgstr ""
 
-#: config/admin_settings.php:239
+#: config/admin_settings.php:265
 msgid "Agent Widget Area"
 msgstr ""
 
-#: config/admin_settings.php:240
+#: config/admin_settings.php:266
 msgid "Only visible to support agents and admins"
 msgstr ""
 
-#: config/admin_settings.php:245
-msgid "General Settings"
+#: config/admin_settings.php:274
+msgid "Quick Link Enabled"
 msgstr ""
 
-#: config/admin_settings.php:253
-msgid "Logo Image"
+#: config/admin_settings.php:275
+msgid "Display support quick link widget on your site"
 msgstr ""
 
-#: config/admin_settings.php:262
-msgid "Favicon"
+#: config/admin_settings.php:285
+msgid "Quick Link Label"
 msgstr ""
 
-#: config/admin_settings.php:271
-msgid "Company Name"
-msgstr ""
-
-#: config/admin_settings.php:281
-msgid "Terms & Conditions URL"
-msgstr ""
-
-#: config/admin_settings.php:282
-msgid "URL of page containing your terms and conditions"
-msgstr ""
-
-#: config/admin_settings.php:290
-msgid "Allow users to signup"
+#: config/admin_settings.php:286
+msgid "Label to be displayed on the quick link widget"
 msgstr ""
 
 #: config/admin_settings.php:291
+msgid "General Settings"
+msgstr ""
+
+#: config/admin_settings.php:299
+msgid "Logo Image"
+msgstr ""
+
+#: config/admin_settings.php:308
+msgid "Favicon"
+msgstr ""
+
+#: config/admin_settings.php:317
+msgid "Company Name"
+msgstr ""
+
+#: config/admin_settings.php:327
+msgid "Terms & Conditions URL"
+msgstr ""
+
+#: config/admin_settings.php:328
+msgid "URL of page containing your terms and conditions"
+msgstr ""
+
+#: config/admin_settings.php:336
+msgid "Allow users to signup"
+msgstr ""
+
+#: config/admin_settings.php:337
 msgid "Allow users to create accounts for submitting tickets"
 msgstr ""
 
-#: config/admin_settings.php:300
+#: config/admin_settings.php:346
 msgid "E-Commerce Integration"
 msgstr ""
 
-#: config/admin_settings.php:301
+#: config/admin_settings.php:347
 msgid "Enable integration with Easy Digital Downloads or WooCommerce"
 msgstr ""
 
-#: config/admin_settings.php:311
+#: config/admin_settings.php:357
 msgid "Tickets Per Page"
 msgstr ""
 
-#: config/admin_settings.php:312
+#: config/admin_settings.php:358
 msgid "The maximum number of tickets to be loaded per page"
 msgstr ""
 
-#: config/admin_settings.php:321
+#: config/admin_settings.php:367
 msgid "Maximum attachment size"
 msgstr ""
 
-#: config/admin_settings.php:322
+#: config/admin_settings.php:368
 msgid "The maximum file size for attachments in MB"
 msgstr ""
 
-#: config/admin_settings.php:332
+#: config/admin_settings.php:378
 msgid "List Refresh Interval"
 msgstr ""
 
-#: config/admin_settings.php:333
+#: config/admin_settings.php:379
 msgid "Automatic refresh interval in seconds"
 msgstr ""
 
-#: config/admin_settings.php:342
+#: config/admin_settings.php:388
 msgid "Enable Logging"
 msgstr ""
 
-#: config/admin_settings.php:343
+#: config/admin_settings.php:389
 msgid "Enable or disable the logging of system events"
 msgstr ""
 
-#: config/admin_settings.php:350
+#: config/admin_settings.php:396
 msgid "Inactive Tickets"
 msgstr ""
 
-#: config/admin_settings.php:360
+#: config/admin_settings.php:406
 msgid "Max Ticket Age"
 msgstr ""
 
-#: config/admin_settings.php:361
+#: config/admin_settings.php:407
 msgid "The maximum number of days of inactivity for a ticket"
 msgstr ""
 
-#: config/admin_settings.php:371
+#: config/admin_settings.php:417
 msgid "Auto Close Tickets"
 msgstr ""
 
-#: config/admin_settings.php:372
+#: config/admin_settings.php:418
 msgid "Automatically close tickets after they become inactive"
 msgstr ""
 
-#: config/admin_settings.php:378 lib/mail/mail.php:158 lib/mail/mail.php:159
-msgid "Email Templates"
-msgstr ""
-
-#: config/admin_settings.php:380
-msgid "Notifications Disabled"
-msgstr ""
-
-#: config/admin_settings.php:389
-msgid "Welcome"
-msgstr ""
-
-#: config/admin_settings.php:390
-msgid "Sent when a user registers for the first time"
-msgstr ""
-
-#: config/admin_settings.php:401
-msgid "Ticket Closed"
-msgstr ""
-
-#: config/admin_settings.php:402
-msgid "Sent when the ticket is marked as closed"
-msgstr ""
-
-#: config/admin_settings.php:413
-msgid "Ticket Created"
-msgstr ""
-
-#: config/admin_settings.php:414
-msgid "Sent when a user creates a new ticket"
-msgstr ""
-
-#: config/admin_settings.php:425
-msgid "Agent Reply"
+#: config/admin_settings.php:424
+msgid "User Notification Templates"
 msgstr ""
 
 #: config/admin_settings.php:426
+msgid "Notifications Disabled"
+msgstr ""
+
+#: config/admin_settings.php:435
+msgid "Welcome"
+msgstr ""
+
+#: config/admin_settings.php:436
+msgid "Sent when a user registers for the first time"
+msgstr ""
+
+#: config/admin_settings.php:447
+msgid "Ticket Closed"
+msgstr ""
+
+#: config/admin_settings.php:448
+msgid "Sent when the ticket is marked as closed"
+msgstr ""
+
+#: config/admin_settings.php:459
+msgid "Ticket Created"
+msgstr ""
+
+#: config/admin_settings.php:460
+msgid "Sent when a user creates a new ticket"
+msgstr ""
+
+#: config/admin_settings.php:471
+msgid "Agent Reply"
+msgstr ""
+
+#: config/admin_settings.php:472
 msgid "Sent when an agent replies to a ticket"
 msgstr ""
 
-#: config/admin_settings.php:437
+#: config/admin_settings.php:483
 msgid "Forgot Password Reset"
 msgstr ""
 
-#: config/admin_settings.php:438
+#: config/admin_settings.php:484
 msgid "Sent when a user forgets their password"
 msgstr ""
 
-#: config/admin_settings.php:449
+#: config/admin_settings.php:495
 msgid "Automatic Close Warning"
 msgstr ""
 
-#: config/admin_settings.php:450
+#: config/admin_settings.php:496
 msgid "Sent out to warn users of automatic ticket closure"
 msgstr ""
 
-#: config/admin_settings.php:456
+#: config/admin_settings.php:502
+msgid "Admin Notification Templates"
+msgstr ""
+
+#: config/admin_settings.php:511
+msgid "New Ticket"
+msgstr ""
+
+#: config/admin_settings.php:512
+msgid "Sent to the admin user when a user creates a new ticket"
+msgstr ""
+
+#: config/admin_settings.php:518
 msgid "Agent Notification Templates"
 msgstr ""
 
-#: config/admin_settings.php:465
+#: config/admin_settings.php:527
 msgid "Customer Reply"
 msgstr ""
 
-#: config/admin_settings.php:466
+#: config/admin_settings.php:528
 msgid ""
 "Sent out to support agents when a customer replies to a ticket they're "
 "assigned to"
 msgstr ""
 
-#: config/admin_settings.php:477
+#: config/admin_settings.php:539
 msgid "Ticket Assigned"
 msgstr ""
 
-#: config/admin_settings.php:478
+#: config/admin_settings.php:540
 msgid "Sent out to support agents when they are assigned a ticket"
 msgstr ""
 
-#: config/admin_settings.php:484 config/admin_settings.php:491
+#: config/admin_settings.php:546 config/admin_settings.php:553
 msgid "Email Notifications"
 msgstr ""
 
-#: config/admin_settings.php:492
+#: config/admin_settings.php:554
 msgid "Send out automated email notifications in response to ticket events"
 msgstr ""
 
-#: config/admin_settings.php:502
+#: config/admin_settings.php:564
+msgid "Admin Email"
+msgstr ""
+
+#: config/admin_settings.php:565
+msgid "Email address of the support administrator"
+msgstr ""
+
+#: config/admin_settings.php:574
 msgid "Sender Email"
 msgstr ""
 
-#: config/admin_settings.php:503
-msgid "Email address used for support emails"
+#: config/admin_settings.php:575
+msgid "Email address used when sending support emails"
 msgstr ""
 
-#: config/admin_settings.php:511 includes/Plugin.php:110
+#: config/admin_settings.php:583 includes/Plugin.php:103
 #: includes/ticket-post-type.php:15 includes/ticket-post-type.php:16
 msgid "uCare Support"
 msgstr ""
 
-#: config/admin_settings.php:512
+#: config/admin_settings.php:584
 msgid "Sender Name"
 msgstr ""
 
-#: config/admin_settings.php:513
-msgid "Name used for support emails"
+#: config/admin_settings.php:585
+msgid "Name used for outgoing support emails"
 msgstr ""
 
-#: config/admin_settings.php:518
+#: config/admin_settings.php:590
 msgid "CAUTION: Some of these may bite"
 msgstr ""
 
-#: config/admin_settings.php:525
+#: config/admin_settings.php:597
 msgid "Developer Mode"
 msgstr ""
 
-#: config/admin_settings.php:526
+#: config/admin_settings.php:598
 msgid "Enable development functionality"
 msgstr ""
 
-#: config/admin_settings.php:535
+#: config/admin_settings.php:607
 msgid "Erase All Data"
 msgstr ""
 
-#: config/admin_settings.php:536
+#: config/admin_settings.php:608
 msgid "Erase all data on plugin deactivation if developer mode is enabled"
 msgstr ""
 
-#: config/admin_settings.php:545
+#: config/admin_settings.php:617
 msgid "Restore Template Page"
 msgstr ""
 
-#: config/admin_settings.php:546
+#: config/admin_settings.php:618
 msgid "Restore the template page if its been deleted"
 msgstr ""
 
-#: config/admin_settings.php:556 includes/Plugin.php:84 templates/dash.php:19
-#: templates/navbar.php:83
+#: config/admin_settings.php:628 includes/wp-admin.php:132
+#: templates/dash.php:19 templates/navbar.php:83
 msgid "Settings"
 msgstr ""
 
-#: config/admin_settings.php:562
+#: config/admin_settings.php:634
 msgid "General"
 msgstr ""
 
-#: config/admin_settings.php:569
+#: config/admin_settings.php:641
 msgid "Display"
 msgstr ""
 
-#: config/admin_settings.php:583 config/ticket_filter.php:72
+#: config/admin_settings.php:655 config/ticket_filter.php:72
 #: includes/ticket-post-type.php:167
 msgid "Email"
 msgstr ""
 
-#: config/admin_settings.php:590
+#: config/admin_settings.php:662
 msgid "Advanced"
 msgstr ""
 
@@ -406,34 +458,34 @@ msgstr ""
 msgid "Select a Product"
 msgstr ""
 
-#: config/product_metabox_form.php:18 config/ticket_create_form.php:67
+#: config/product_metabox_form.php:18 config/ticket_create_form.php:73
 msgid "Receipt #"
 msgstr ""
 
-#: config/product_metabox_form.php:27 config/ticket_create_form.php:52
+#: config/product_metabox_form.php:27 config/ticket_create_form.php:58
 #: config/ticket_filter.php:44 includes/ticket-post-type.php:160
 msgid "Product"
 msgstr ""
 
 #: config/properties_metabox_form.php:11 config/ticket_filter.php:63
 #: config/ticket_properties_form.php:11 includes/ticket-post-type.php:214
-#: includes/ticket-post-type.php:332
+#: includes/ticket-post-type.php:334
 msgid "Unassigned"
 msgstr ""
 
 #: config/properties_metabox_form.php:19 includes/admin/AgentStatsTable.php:28
-#: includes/ticket-post-type.php:168 includes/ticket-post-type.php:342
+#: includes/ticket-post-type.php:168 includes/ticket-post-type.php:344
 msgid "Assigned"
 msgstr ""
 
 #: config/properties_metabox_form.php:31 config/ticket_filter.php:93
 #: config/ticket_properties_form.php:30 includes/ticket-post-type.php:169
-#: includes/ticket-post-type.php:353
+#: includes/ticket-post-type.php:355
 msgid "Status"
 msgstr ""
 
 #: config/properties_metabox_form.php:43 config/ticket_properties_form.php:42
-#: includes/ticket-post-type.php:170 includes/ticket-post-type.php:364
+#: includes/ticket-post-type.php:170 includes/ticket-post-type.php:366
 msgid "Priority"
 msgstr ""
 
@@ -481,28 +533,28 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: config/ticket_create_form.php:53
+#: config/ticket_create_form.php:59
 msgid "Please Select a product"
 msgstr ""
 
-#: config/ticket_create_form.php:81 config/ticket_create_form.php:96
+#: config/ticket_create_form.php:87 config/ticket_create_form.php:102
 #: includes/ticket-post-type.php:155
 msgid "Subject"
 msgstr ""
 
-#: config/ticket_create_form.php:82
+#: config/ticket_create_form.php:88
 msgid "Cannot be blank"
 msgstr ""
 
-#: config/ticket_create_form.php:97
+#: config/ticket_create_form.php:103
 msgid "Subject cannot be blank"
 msgstr ""
 
-#: config/ticket_create_form.php:112
+#: config/ticket_create_form.php:118
 msgid "Description"
 msgstr ""
 
-#: config/ticket_create_form.php:113
+#: config/ticket_create_form.php:119
 msgid "Description cannot be blank"
 msgstr ""
 
@@ -544,32 +596,28 @@ msgstr ""
 msgid "website can be viewed here"
 msgstr ""
 
-#: includes/Plugin.php:122
+#: includes/Plugin.php:115
 msgid "Reports"
 msgstr ""
 
-#: includes/Plugin.php:133 templates/dash.php:119
+#: includes/Plugin.php:126 templates/dash.php:119
 msgid "Tickets"
 msgstr ""
 
-#: includes/Plugin.php:143 includes/ticket-post-type.php:20
+#: includes/Plugin.php:136 includes/ticket-post-type.php:20
 #: includes/ticket-post-type.php:21 includes/ticket-post-type.php:22
 msgid "Create Ticket"
 msgstr ""
 
-#: includes/Plugin.php:153 includes/ticket-post-type.php:91
-msgid "Categories"
+#: includes/Plugin.php:157
+msgid "Help Desk"
 msgstr ""
 
-#: includes/Plugin.php:164
-msgid "Launch Desk"
-msgstr ""
-
-#: includes/Plugin.php:175
+#: includes/Plugin.php:168
 msgid "Add-ons"
 msgstr ""
 
-#: includes/Plugin.php:188
+#: includes/Plugin.php:181
 msgid "Licenses"
 msgstr ""
 
@@ -582,7 +630,7 @@ msgid "Agent Totals"
 msgstr ""
 
 #: includes/admin/AgentStatsTable.php:29
-#: includes/admin/ReportsOverviewTab.php:80 includes/functions.php:148
+#: includes/admin/ReportsOverviewTab.php:80 includes/functions.php:222
 msgid "Closed"
 msgstr ""
 
@@ -674,7 +722,7 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: includes/admin/ReportsOverviewTab.php:79 includes/functions.php:145
+#: includes/admin/ReportsOverviewTab.php:79 includes/functions.php:219
 msgid "Opened"
 msgstr ""
 
@@ -722,10 +770,6 @@ msgstr ""
 msgid "Error closing ticket"
 msgstr ""
 
-#: includes/component/Emails.php:166
-msgid "Powered by "
-msgstr ""
-
 #: includes/cron.php:47 includes/cron.php:89
 msgid " ticket"
 msgid_plural " tickets"
@@ -740,6 +784,10 @@ msgstr[1] ""
 
 #: includes/cron.php:133
 msgid "Your license for "
+msgstr ""
+
+#: includes/email-notifications.php:59
+msgid "Powered by "
 msgstr ""
 
 #: includes/extension-licensing.php:101 includes/extension-licensing.php:150
@@ -773,79 +821,79 @@ msgstr ""
 msgid "Your license key has reached its activation limit."
 msgstr ""
 
-#: includes/functions.php:102
+#: includes/functions.php:176
 msgid "Just Now"
 msgstr ""
 
-#: includes/functions.php:104
+#: includes/functions.php:178
 msgid " ago"
 msgstr ""
 
-#: includes/functions.php:135
+#: includes/functions.php:209
 msgid "Low"
 msgstr ""
 
-#: includes/functions.php:136
+#: includes/functions.php:210
 msgid "Medium"
 msgstr ""
 
-#: includes/functions.php:137
+#: includes/functions.php:211
 msgid "High"
 msgstr ""
 
-#: includes/functions.php:143
+#: includes/functions.php:217
 msgid "New"
 msgstr ""
 
-#: includes/functions.php:144 templates/statistics.php:54
+#: includes/functions.php:218 templates/statistics.php:54
 msgid "Waiting"
 msgstr ""
 
-#: includes/functions.php:146
+#: includes/functions.php:220
 msgid "Responded"
 msgstr ""
 
-#: includes/functions.php:147 templates/statistics.php:24
+#: includes/functions.php:221 templates/statistics.php:24
 msgid "Needs Attention"
 msgstr ""
 
-#: includes/functions.php:237 templates/navbar.php:98
+#: includes/functions.php:311 templates/navbar.php:98
 msgid "Support Admin"
 msgstr ""
 
-#: includes/functions.php:238
+#: includes/functions.php:312
 msgid "Support Agent"
 msgstr ""
 
-#: includes/functions.php:239
+#: includes/functions.php:313
 msgid "Support User"
 msgstr ""
 
-#: includes/functions.php:334
+#: includes/functions.php:408
 msgid "Support"
 msgstr ""
 
-#: includes/functions.php:356
+#: includes/functions.php:430
 msgid "You have created a new request for support"
 msgstr ""
 
-#: includes/functions.php:361
+#: includes/functions.php:435
 msgid "Welcome to Support"
 msgstr ""
 
-#: includes/functions.php:366
+#: includes/functions.php:440
 msgid "Your request for support has been closed"
 msgstr ""
 
-#: includes/functions.php:371
+#: includes/functions.php:445
 msgid "Reply to your request for support"
 msgstr ""
 
-#: includes/functions.php:376
+#: includes/functions.php:450
 msgid "Your password has been reset"
 msgstr ""
 
-#: includes/functions.php:381 migrations/migration-1_2_1.php:49
+#: includes/functions.php:455 migrations/migration-1_2_1.php:49
 msgid "You have a ticket awaiting action"
 msgstr ""
 
@@ -1005,6 +1053,10 @@ msgstr ""
 msgid "Separate categories with commas"
 msgstr ""
 
+#: includes/ticket-post-type.php:91
+msgid "Categories"
+msgstr ""
+
 #: includes/ticket-post-type.php:157
 msgid "Case"
 msgstr ""
@@ -1017,16 +1069,20 @@ msgstr ""
 msgid "Flagged"
 msgstr ""
 
-#: includes/ticket-post-type.php:407
+#: includes/ticket-post-type.php:409
 msgid "Ticket Details"
 msgstr ""
 
-#: includes/ticket-post-type.php:448
+#: includes/ticket-post-type.php:450
 msgid "Ticket Information"
 msgstr ""
 
-#: includes/ticket-post-type.php:461
+#: includes/ticket-post-type.php:463
 msgid "Product Information"
+msgstr ""
+
+#: includes/wp-admin.php:81
+msgid "uCare - Introduction"
 msgstr ""
 
 #: lib/admin/ListTable.php:165
@@ -1173,6 +1229,10 @@ msgctxt "Post Type Singular Name"
 msgid "Email Template"
 msgstr ""
 
+#: lib/mail/mail.php:158 lib/mail/mail.php:159
+msgid "Email Templates"
+msgstr ""
+
 #: lib/mail/mail.php:160
 msgid "Template Archives"
 msgstr ""
@@ -1249,7 +1309,11 @@ msgstr ""
 msgid "You have a reply to a ticket that you are assigned to"
 msgstr ""
 
-#: plugin.php:37
+#: migrations/migration-1_3_0.php:45
+msgid "A new ticket has been created"
+msgstr ""
+
+#: plugin.php:36
 msgid "Your PHP version "
 msgstr ""
 
@@ -1277,124 +1341,191 @@ msgstr ""
 msgid "Add-ons for uCare Support Help Desk"
 msgstr ""
 
-#: templates/admin-extensions.php:14 templates/admin-extensions.php:18
+#: templates/admin-extensions.php:11
+msgid "Available Add-ons"
+msgstr ""
+
+#: templates/admin-extensions.php:16 templates/admin-extensions.php:20
 msgid "Customer Satisfaction"
 msgstr ""
 
-#: templates/admin-extensions.php:21
+#: templates/admin-extensions.php:23
 msgid ""
 "This add-on allows you to automatically send a survey to rate the agents "
 "performance on the ticket, and to collect feedback from the customer."
 msgstr ""
 
-#: templates/admin-extensions.php:23 templates/admin-extensions.php:40
-#: templates/admin-extensions.php:57
+#: templates/admin-extensions.php:25 templates/admin-extensions.php:42
+#: templates/admin-extensions.php:59
 msgid "Get this Add-on"
 msgstr ""
 
-#: templates/admin-extensions.php:31 templates/admin-extensions.php:35
+#: templates/admin-extensions.php:33 templates/admin-extensions.php:37
 msgid "MailChimp"
 msgstr ""
 
-#: templates/admin-extensions.php:38
+#: templates/admin-extensions.php:40
 msgid ""
 "Sync up your support users and customers with your mailchimp account with "
 "this extension"
 msgstr ""
 
-#: templates/admin-extensions.php:48 templates/admin-extensions.php:52
+#: templates/admin-extensions.php:50 templates/admin-extensions.php:54
 msgid "Knowledge Base"
 msgstr ""
 
-#: templates/admin-extensions.php:55
+#: templates/admin-extensions.php:57
 msgid ""
 "Provide your customers the ability to search your Knowledge Base for "
 "answers. This increases customer satisfaction and reduces the amount of "
 "tickets you receive."
 msgstr ""
 
-#: templates/admin-extensions.php:65 templates/admin-extensions.php:69
-msgid "Live Chat"
+#: templates/admin-extensions.php:69
+msgid "Coming soon"
 msgstr ""
 
-#: templates/admin-extensions.php:72
-msgid ""
-"This add-on allows your customers to chat with your agents directly from "
-"your website."
-msgstr ""
-
-#: templates/admin-extensions.php:74 templates/admin-extensions.php:91
-#: templates/admin-extensions.php:109 templates/admin-extensions.php:126
-msgid "Coming soon!"
-msgstr ""
-
-#: templates/admin-extensions.php:82 templates/admin-extensions.php:86
+#: templates/admin-extensions.php:74 templates/admin-extensions.php:78
 msgid "Email Piping"
 msgstr ""
 
-#: templates/admin-extensions.php:89
+#: templates/admin-extensions.php:81
 msgid ""
 "This add-on allows your customers to reply to tickets via email, it also "
 "allows new tickets to be created through email."
 msgstr ""
 
-#: templates/admin-extensions.php:100 templates/admin-extensions.php:104
+#: templates/admin-extensions.php:83 templates/admin-extensions.php:98
+#: templates/admin-extensions.php:113 templates/admin-extensions.php:128
+#: templates/admin-extensions.php:144 templates/admin-extensions.php:161
+#: templates/admin-extensions.php:177
+msgid "Coming soon!"
+msgstr ""
+
+#: templates/admin-extensions.php:89 templates/admin-extensions.php:93
+msgid "Custom Fields"
+msgstr ""
+
+#: templates/admin-extensions.php:96
+msgid ""
+"This extension allows you to create additional fields for your ticket and "
+"for the New Ticket form."
+msgstr ""
+
+#: templates/admin-extensions.php:104 templates/admin-extensions.php:108
+msgid "Canned Responses"
+msgstr ""
+
+#: templates/admin-extensions.php:111
+msgid ""
+"This extension allows you to create templated reponses to common issues that "
+"you can insert to a ticket with a click."
+msgstr ""
+
+#: templates/admin-extensions.php:119 templates/admin-extensions.php:123
+msgid "Live Chat"
+msgstr ""
+
+#: templates/admin-extensions.php:126
+msgid ""
+"This add-on allows your customers to chat with your agents directly from "
+"your website."
+msgstr ""
+
+#: templates/admin-extensions.php:135 templates/admin-extensions.php:139
 msgid "Automatic Ticket Routing"
 msgstr ""
 
-#: templates/admin-extensions.php:107
+#: templates/admin-extensions.php:142
 msgid ""
 "This add-on allows to create rules and automate routing tickets to agents."
 msgstr ""
 
-#: templates/admin-extensions.php:117 templates/admin-extensions.php:121
+#: templates/admin-extensions.php:152 templates/admin-extensions.php:156
 msgid "Paid Support"
 msgstr ""
 
-#: templates/admin-extensions.php:124
+#: templates/admin-extensions.php:159
 msgid ""
 "This add-on allows you to sell support as a service with multiple tiers."
 msgstr ""
 
-#: templates/admin-header.php:9
+#: templates/admin-extensions.php:168 templates/admin-extensions.php:172
+msgid "Agent Notes"
+msgstr ""
+
+#: templates/admin-extensions.php:175
+msgid ""
+"This add-on your agents to add comments within the ticket that can only be "
+"viewed by other agents."
+msgstr ""
+
+#: templates/admin-header.php:8
 msgid "uCare Support Help Desk"
 msgstr ""
 
-#: templates/admin-header.php:10
-msgid "plugin settings"
+#: templates/admin-header.php:9
+msgid "Plugin Settings"
 msgstr ""
 
-#: templates/admin-header.php:14
+#: templates/admin-header.php:13
 msgid "Plugin homepage"
 msgstr ""
 
+#: templates/admin-header.php:22
+msgid "Your help desk URL is: "
+msgstr ""
+
 #: templates/admin-sidebar.php:4
-msgid "We want your feedback!"
+msgid "Plugin Tutorial"
 msgstr ""
 
 #: templates/admin-sidebar.php:5
+msgid ""
+"Click the link below to view the plugin tutorial, as well as links to "
+"various helpful resources."
+msgstr ""
+
+#: templates/admin-sidebar.php:7
+msgid "Watch tutorial"
+msgstr ""
+
+#: templates/admin-sidebar.php:12
+msgid "We want your feedback!"
+msgstr ""
+
+#: templates/admin-sidebar.php:13
 msgid ""
 "Help us make this plugin better! Please provide us comments and suggestions "
 "based on your experience or any bugs you come across. Feel free to tell us "
 "about any features that will improve this plugin."
 msgstr ""
 
-#: templates/admin-sidebar.php:8
+#: templates/admin-sidebar.php:16
 msgid "Provide feedback"
 msgstr ""
 
-#: templates/admin-sidebar.php:13
-msgid "Show your support"
+#: templates/admin-sidebar.php:21
+msgid "Support this plugin"
 msgstr ""
 
-#: templates/admin-sidebar.php:14
+#: templates/admin-sidebar.php:22
 msgid ""
 "Do you like this plugin? Support it by leaving a 5-star review on WordPress."
 "org"
 msgstr ""
 
-#: templates/admin-sidebar.php:16
+#: templates/admin-sidebar.php:24
 msgid "Leave review"
+msgstr ""
+
+#: templates/admin-tutorial.php:4
+msgid "Welcome to uCare Support System "
+msgstr ""
+
+#: templates/admin-tutorial.php:6
+msgid ""
+"uCare is the most intelligent and user friendly WordPress support plugin."
 msgstr ""
 
 #: templates/comment.php:38 templates/ticket.php:48
@@ -1552,8 +1683,12 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: templates/header.php:16
+#: templates/header.php:20
 msgid "uCare Support System"
+msgstr ""
+
+#: templates/header.php:34
+msgid "|"
 msgstr ""
 
 #: templates/login.php:24 templates/login.php:102

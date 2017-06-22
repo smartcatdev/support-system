@@ -6,7 +6,7 @@
     
     <div class="alignleft header-component">
         <h1><?php _e( 'uCare Support Help Desk', 'ucare' ); ?></h1>
-        <p><?php _e( 'plugin settings', 'ucare' ); ?></p>
+        <p><?php _e( 'Plugin Settings', 'ucare' ); ?></p>
     </div>
     
     <div class="alignright header-component">
