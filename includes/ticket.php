@@ -2,7 +2,7 @@
 
 namespace ucare;
 
-function ticket_updated( $null, $id, $key, $value ) {
+function ticket_properties_updated($null, $id, $key, $value ) {
 
     global $wpdb;
 
@@ -29,4 +29,23 @@ function ticket_updated( $null, $id, $key, $value ) {
 }
 
 // Update the ticket modified on status changes
-add_action( 'update_post_metadata', 'ucare\ticket_updated', 10, 4 );
+add_action( 'update_post_metadata', 'ucare\ticket_properties_updated', 10, 4 );
+
+
+function set_default_ticket_meta( $post_id, $post, $update ) {
+
+    $defaults = array(
+        'priority' => 0
+    );
+
+    if( !$update ) {
+
+        foreach( $defaults as $key => $value ) {
+            add_post_meta( $post_id, $key, $value );
+        }
+
+    }
+
+}
+
+add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
