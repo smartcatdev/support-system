@@ -1,7 +1,3 @@
-<style>
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
-</style>
-
 <div id="ucare-settings-header">
     
     <div class="alignleft header-component">

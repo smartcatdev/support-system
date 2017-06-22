@@ -4,7 +4,7 @@
         <h3><span class="dashicons dashicons-book"></span> <?php _e( 'Plugin Tutorial', 'ucare' ); ?></h3>
         <p><?php _e( 'Click the link below to view the plugin tutorial, as well as links to various helpful resources.', 'ucare' ); ?></p>
         <p>
-            <a href="<?php echo esc_url( admin_url( 'admin.php?page=uc-tutorial' ) ); ?>" class="button"><?php _e( 'View tutorial', 'ucare' ); ?></a>
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=uc-tutorial' ) ); ?>" class="button"><?php _e( 'Watch tutorial', 'ucare' ); ?></a>
         </p>
     </div>
     
