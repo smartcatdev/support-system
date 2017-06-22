@@ -305,9 +305,9 @@ a.ucare-addon-link {
     float: left;
     padding: 14px;
     position: relative;
-    margin: 0 15px 15px 0;
-    width: 320px;
-    height: 315px;
+    margin: 0 1% 15px 0;
+    width: 29%;
+    height: 340px;
 
 }
 
@@ -363,6 +363,10 @@ a.ucare-addon-link {
 
 .ucare-addon .ad.live-chat {
     background: #ff6f6f;
+}
+
+.ucare-addon .ad.custom-fields {
+    background: #ffb86f;
 }
 
 .ucare-addon .ad.paid-support {
