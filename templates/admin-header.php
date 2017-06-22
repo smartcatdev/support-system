@@ -16,3 +16,10 @@
     <div class="clear"></div>
     
 </div>
+
+<div class="ucare-url">
+    <p>
+        <?php echo __( 'Your help desk URL is: ', 'ucare' ); ?>
+        <a href="<?php echo esc_url( \ucare\url() ); ?>"><?php echo esc_url( \ucare\url() ); ?></a>
+    </p>
+</div>
