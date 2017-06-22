@@ -220,11 +220,11 @@ final class Defaults {
     /**
      * @since 1.3.0
      */
-    const PRIMARY_FONT = '';
+    const PRIMARY_FONT = 'Montserrat, sans-serif';
 
     /**
      * @since 1.3.0
      */
-    const SECONDARY_FONT = '';
+    const SECONDARY_FONT = 'Montserrat, sans-serif';
 
 }

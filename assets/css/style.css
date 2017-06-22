@@ -25,10 +25,6 @@
 
 }
 
-body{
-    font-family: 'Montserrat', sans-serif !important;
-}
-
 p {
     margin: auto !important;
 }
@@ -40,6 +36,14 @@ form {
 form .bottom {
     margin-top: 15px;
     text-align: right;
+}
+
+form label {
+    margin-bottom: 7px !important;
+}
+
+form .form-check label {
+    font-weight: 500;
 }
 
 a:hover,
@@ -518,6 +522,7 @@ hr {
 }
 
 #navbar .clock {
+    font-weight: 300;
     display: none;
 }
 
@@ -836,6 +841,10 @@ hr {
 .additional-filters {
     width: 30px;
     padding-right: 10px;
+}
+
+.ticket-list .ticket .media-body .text-muted a {
+    font-weight: 700;
 }
 
 /* ### Ticket **************************************************************************/

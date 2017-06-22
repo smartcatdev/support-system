@@ -26,10 +26,10 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_primary_font',
         'option'        => Option::PRIMARY_FONT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::PRIMARY_FONT ),
+        'value'         => get_option( Option::PRIMARY_FONT, Option\Defaults::PRIMARY_FONT ),
         'options'       => $fonts,
         'label'         => __( 'Primary Font', 'ucare' ),
-        'desc'          => __( 'Primary font for the system', 'ucare' ),
+        'desc'          => __( 'Headings font for the system', 'ucare' ),
         'validators'    => array( new MatchFilter( array_keys( $fonts ), '' ) )
     )
 
@@ -38,10 +38,10 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_secondary_font',
         'option'        => Option::SECONDARY_FONT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Option::SECONDARY_FONT ),
+        'value'         => get_option( Option::SECONDARY_FONT, Option\Defaults::SECONDARY_FONT ),
         'options'       => $fonts,
         'label'         => __( 'Secondary Font', 'ucare' ),
-        'desc'          => __( 'Secondary font for the system', 'ucare' ),
+        'desc'          => __( 'Main content / body text font for the system', 'ucare' ),
         'validators'    => array( new MatchFilter( array_keys( $fonts ), '' ) )
     )
 
