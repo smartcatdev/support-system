@@ -108,7 +108,7 @@ function admin_bar_ticket_count( \WP_Admin_Bar $admin_bar ) {
         'id'     => 'ucare_admin_ticket_count',
         'title'  => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: 2px;"></span>
                      <span class="ab-label">' . $count . ' </span>',
-        'href'   => 'edit.php?post_type=support_ticket'
+        'href'   => url()
     );
 
     $admin_bar->add_node( $item );
