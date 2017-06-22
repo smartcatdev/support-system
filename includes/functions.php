@@ -71,6 +71,56 @@ function cache_get( $key, $default = false ) {
 
 }
 
+function fonts() {
+
+    $new_fonts = array(
+
+        'Abel, sans-serif'                                  => 'Abel',
+        'Arvo, serif'                                       => 'Arvo:400,400i,700',
+        'Courgette, cursive'                                => 'Courgette',
+        'Bad Script, cursive'                               => 'Bad+Script',
+        'Domine, serif'                                     => 'Domine',
+        'Dosis, sans-serif'                                 => 'Dosis:200,300,400',
+        'Droid Sans, sans-serif'                            => 'Droid+Sans:400,700',
+        'Economica, sans-serif'                             => 'Economica:400,700',
+        'Itim, cursive'                                     => 'Itim',
+        'Lilita One, cursive'                               => 'Lilita+One',
+        'Noto Serif, serif'                                 => 'Noto+Serif',
+        'Open Sans Condensed, sans-serif'                   => 'Open+Sans+Condensed:300,300i,700',
+        'Rajdhani, sans-serif'                              => 'Rajdhani:300,400,500,600',
+        'Roboto, sans-serif'                                => 'Roboto:100,300,400,500',
+        'Roboto Condensed, sans-serif'                      => 'Roboto+Condensed:400,300,700',
+        'Shrikhand, cursive'                                => 'Shrikhand',
+        'Teko, sans-serif'                                  => 'Teko:300,400,600',
+        'Titillium Web, sans-serif'                         => 'Titillium+Web:400,200,300,600,700,200italic,300italic,400italic,600italic,700italic',
+        'Ubuntu, sans-serif'                                => 'Ubuntu',
+        'Vollkorn, serif'                                   => 'Vollkorn:400,400i,700',
+        'Voltaire, sans-serif'                              => 'Voltaire',
+        'Corben, cursive'                                   => 'Corben',
+        'Josefin Sans, sans-serif'                          => 'Josefin+Sans:300,400,600,700',
+        'Lato, sans-serif'                                  => 'Lato:100,300,400,700,900,300italic,400italic',
+        'Lobster Two, cursive'                              => 'Lobster+Two',
+        'Lora, serif'                                       => 'Lora',
+        'Montserrat, sans-serif'                            => 'Montserrat:400,700',
+        'Open Sans, sans-serif'                             => 'Open Sans',
+        'Old Standard TT, serif'                            => 'Old+Standard+TT',
+        'Orbitron, sans-serif'                              => 'Orbitron',
+        'Oswald, sans-serif'                                => 'Oswald',
+        'Palatino Linotype, Book Antiqua, Palatino, serif'  => 'Palatino Linotype',
+        'PT Sans Narrow, sans-serif'                        => 'PT+Sans+Narrow',
+        'Playfair Display, serif'                           => 'Playfair+Display:400,700',
+        'Poiret One, cursive'                               => 'Poiret+One',
+        'Raleway, sans-serif'                               => 'Raleway:400,300,500,700',
+        'Russo One, sans-serif'                             => 'Russo+One',
+        'Shadows Into Light, cursive'                       => 'Shadows+Into+Light',
+        'Source Sans Pro, sans-serif'                       => 'Source+Sans+Pro:200,400,600',
+        'Yellowtail, cursive'                               => 'Yellowtail',
+    );
+
+    return $new_fonts;
+
+}
+
 
 namespace ucare\util;
 

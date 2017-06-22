@@ -144,6 +144,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
         <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js' . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js' . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/lib/textarea-autosize.min.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' . '?ver=' . $ver ?>" ></script>

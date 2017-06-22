@@ -19,7 +19,33 @@ $plugin_url = Plugin::plugin_url( \ucare\PLUGIN_ID );
 
 $appearance = new SettingsSection( 'uc_appearance', __( 'Appearance', 'ucare' ) );
 
-$appearance->add_field( new TextField(
+$fonts = \ucare\fonts();
+
+$appearance->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_primary_font',
+        'option'        => Option::PRIMARY_FONT,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::PRIMARY_FONT ),
+        'options'       => $fonts,
+        'label'         => __( 'Primary Font', 'ucare' ),
+        'desc'          => __( 'Primary font for the system', 'ucare' ),
+        'validators'    => array( new MatchFilter( array_keys( $fonts ), '' ) )
+    )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_secondary_font',
+        'option'        => Option::SECONDARY_FONT,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::SECONDARY_FONT ),
+        'options'       => $fonts,
+        'label'         => __( 'Secondary Font', 'ucare' ),
+        'desc'          => __( 'Secondary font for the system', 'ucare' ),
+        'validators'    => array( new MatchFilter( array_keys( $fonts ), '' ) )
+    )
+
+) )->add_field( new TextField(
     array(
         'id'            => 'support_primary_color',
         'option'        => Option::PRIMARY_COLOR,
@@ -240,6 +266,26 @@ $widgets->add_field( new TextAreaField(
         'desc'          => __( 'Only visible to support agents and admins', 'ucare' ),
         'validators'    => array( new HTMLFilter() )
     )
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_categories_enabled',
+        'option'        => Option::QUICK_LINK_ENABLED,
+        'value'         => get_option( Option::QUICK_LINK_ENABLED, Option\Defaults::QUICK_LINK_ENABLED ),
+        'label'         => __( 'Quick Link Enabled', 'ucare'),
+        'desc'          => __( 'Display support quick link widget on your site', 'ucare' ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_quick_link_label',
+        'class'         => array( 'regular-text' ),
+        'option'        => Option::QUICK_LINK_LABEL,
+        'value'         => get_option( Option::QUICK_LINK_LABEL, Option\Defaults::QUICK_LINK_LABEL ),
+        'label'         => __( 'Quick Link Label', 'ucare' ),
+        'desc'          => __( 'Label to be displayed on the quick link widget', 'ucare' ),
+    )
+
 ) );
 
 $general = new SettingsSection( 'uc_general', __( 'General Settings', 'ucare' ) );

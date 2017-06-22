@@ -209,7 +209,7 @@ class Ticket extends AjaxComponent {
                 'comment_author'              => $user->display_name,
                 'comment_author_email'        => $user->user_email,
                 'comment_author_url'          => $user->user_url,
-                'comment_content'             => \ucare\util\encode_code_blocks( $_POST['content'] ),
+                'comment_content'             => \ucare\util\encode_code_blocks( trim( $_POST['content'] ) ),
                 'comment_parent'              => 0,
                 'comment_approved'            => 1,
                 'user_id'                     => $user->ID

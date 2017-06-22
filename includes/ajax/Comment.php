@@ -18,7 +18,7 @@ class Comment extends AjaxComponent {
             if ( !empty( $_POST['content'] ) ) {
                 $result = wp_update_comment( array(
                     'comment_ID'       => $comment->comment_ID,
-                    'comment_content'  => \ucare\util\encode_code_blocks( $_POST['content'] ),
+                    'comment_content'  => \ucare\util\encode_code_blocks( trim( $_POST['content'] ) ),
                     'comment_date'     => current_time( 'mysql' ),
                     'comment_date_gmt' => current_time( 'mysql', 1 )
                 ) );

@@ -66,7 +66,12 @@
             data: data,
             success: function (response) {
                 comment.fadeToggle("slow", function () {
-                    comment.replaceWith($(response.data).fadeToggle());
+                    var updated = $(response.data).fadeToggle();
+
+                    updated.find('textarea')
+                        .textareaAutoSize();
+
+                    comment.replaceWith(updated);
                 });
 
                 App.close_preview(tabs);

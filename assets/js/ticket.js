@@ -208,7 +208,13 @@ var Ticket = (function ($) {
                 success: function (data) {
                     App.new_tab(data);
 
-                    $("#" + id).find(".loader-mask").html(App.ajax_loader(Globals.strings.loading_generic));
+                    var tab = $('#' + id);
+
+                    tab.find(".loader-mask")
+                       .html(App.ajax_loader(Globals.strings.loading_generic));
+
+                    tab.find('.comment-form textarea')
+                        .textareaAutoSize();
 
                     load_sidebar(data.id);
                     load_comments(data.id);
@@ -322,6 +328,7 @@ var Ticket = (function ($) {
                 },
                 success: function (response) {
                     comments.html(response.data);
+                    comments.find('textarea').textareaAutoSize();
                 }
             });
         }
@@ -350,7 +357,10 @@ var Ticket = (function ($) {
 
                 comment.hide();
                 comments.append(comment);
-                comment.fadeToggle();
+                comment.fadeToggle()
+                        .find('textarea')
+                        .textareaAutoSize();
+
                 content.val("");
 
                 App.close_preview(tabs);

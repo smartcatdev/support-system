@@ -21,5 +21,6 @@ include_once 'includes/email-notifications.php';
 include_once 'includes/cron.php';
 include_once 'includes/extension-licensing.php';
 include_once 'includes/ticket-post-type.php';
-include_once 'includes/admin-pages.php';
+include_once 'includes/wp-admin.php';
+include_once 'includes/wp-widgets.php';
 
