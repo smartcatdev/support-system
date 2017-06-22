@@ -212,6 +212,13 @@ td.column-id.id:before {
     margin-bottom: 0;
 }
 
+#uc-settings_menu_page .tabs-content h2:before {
+    content: "\f347";
+    font-family: 'dashicons';
+    line-height: 18px;
+    position: relative;
+    top: 3px;
+}
 
 #uc-settings_menu_page .tabs-content .form-table {
     background: #fff;
@@ -367,6 +374,14 @@ a.ucare-addon-link {
 
 .ucare-addon .ad.custom-fields {
     background: #ffb86f;
+}
+
+.ucare-addon .ad.canned-responses {
+    background: #6f95ff;
+}
+
+.ucare-addon .ad.agent-notes {
+    background: #ff6fb8;
 }
 
 .ucare-addon .ad.paid-support {

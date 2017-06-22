@@ -108,7 +108,7 @@
                 <h2><?php _e( 'Canned Responses', 'ucare' ); ?></h2>
             </div>
 
-            <p class="details"><?php _e( 'This extension allows you to create additional fields for your ticket and for the New Ticket form.', 'ucare' ); ?></p>
+            <p class="details"><?php _e( 'This extension allows you to create templated reponses to common issues that you can insert to a ticket with a click.', 'ucare' ); ?></p>
 
             <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Canned+Responses" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
         </a>
