@@ -98,3 +98,21 @@ function admin_first_run_tutorial_page() {
 }
 
 add_action( 'admin_init', 'ucare\admin_first_run_tutorial_page' );
+
+
+function admin_bar_ticket_count( \WP_Admin_Bar $admin_bar ) {
+
+    $count = statprocs\get_unclosed_tickets();
+
+    $item = array(
+        'id'     => 'ucare_admin_ticket_count',
+        'title'  => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: 2px;"></span>
+                     <span class="ab-label">' . $count . ' </span>',
+        'href'   => 'edit.php?post_type=support_ticket'
+    );
+
+    $admin_bar->add_node( $item );
+
+}
+
+add_action( 'admin_bar_menu', 'ucare\admin_bar_ticket_count', 80 );
