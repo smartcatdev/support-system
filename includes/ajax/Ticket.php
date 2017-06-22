@@ -2,7 +2,7 @@
 
 namespace ucare\ajax;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class Ticket extends AjaxComponent {
 
@@ -365,7 +365,7 @@ class Ticket extends AjaxComponent {
         $args = array(
             'post_type'      => 'support_ticket',
             'post_status'    => 'publish',
-            'posts_per_page' => get_option( Option::MAX_TICKETS, Option\Defaults::MAX_TICKETS ),
+            'posts_per_page' => get_option( Options::MAX_TICKETS, \ucare\Defaults::MAX_TICKETS ),
             'paged'          => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
         );
 

@@ -1,14 +1,14 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\Plugin;
 
 $url = Plugin::plugin_url( \ucare\PLUGIN_ID );
-$ver = get_option( Option::PLUGIN_VERSION );
+$ver = get_option( Options::PLUGIN_VERSION );
 $fonts = \ucare\fonts();
 
-$primary_font   = get_option( Option::PRIMARY_FONT, Option\Defaults::PRIMARY_FONT );
-$secondary_font = get_option( Option::SECONDARY_FONT, Option\Defaults::SECONDARY_FONT );
+$primary_font   = get_option( Options::PRIMARY_FONT, \ucare\Defaults::PRIMARY_FONT );
+$secondary_font = get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDARY_FONT );
 
 ?>
 
@@ -39,7 +39,7 @@ $secondary_font = get_option( Option::SECONDARY_FONT, Option\Defaults::SECONDARY
              
         <link href="<?php echo $url . 'assets/css/style.css' . '?ver=' . $ver; ?>" rel="stylesheet">
         <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ) . '?ver=' . $ver; ?>"></script>
-        <link href="<?php echo get_option( Option::FAVICON ); ?>" rel="icon">
+        <link href="<?php echo get_option( Options::FAVICON ); ?>" rel="icon">
 
         <?php include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/assets/css/dynamic.php'; ?>
     

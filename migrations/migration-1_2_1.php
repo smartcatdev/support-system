@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class migration_1_2_1 implements \smartcat\core\Migration {
 
@@ -17,7 +17,7 @@ class migration_1_2_1 implements \smartcat\core\Migration {
         $this->create_email_template();
         $this->create_log_table();
 
-        update_option( Option::LOGGING_ENABLED, Option\Defaults::LOGGING_ENABLED );
+        update_option( Options::LOGGING_ENABLED, \ucare\Defaults::LOGGING_ENABLED );
 
         return array( 'success' => true, 'message' => 'uCare has been successfully upgraded to version 1.2.1' );
 
@@ -40,7 +40,7 @@ class migration_1_2_1 implements \smartcat\core\Migration {
 
     function create_email_template() {
 
-        if( is_null( get_post( get_option( Option::INACTIVE_EMAIL ) ) ) ) {
+        if( is_null( get_post( get_option( Options::INACTIVE_EMAIL ) ) ) ) {
 
             $id = wp_insert_post(
                 array(
@@ -54,7 +54,7 @@ class migration_1_2_1 implements \smartcat\core\Migration {
             if ( $id ) {
 
                 update_post_meta( $id, 'styles', file_get_contents( $this->plugin->dir() . 'emails/default-style.css' ) );
-                add_option( Option::INACTIVE_EMAIL, $id );
+                add_option( Options::INACTIVE_EMAIL, $id );
 
             }
 

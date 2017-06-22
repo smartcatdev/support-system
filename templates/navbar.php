@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 $user = wp_get_current_user();
 
@@ -47,7 +47,7 @@ $user = wp_get_current_user();
 
                                 <span class="glyphicon glyphicon-plus-sign button-icon"></span>
 
-                                <span><?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), 'ucare' ); ?></span>
+                                <span><?php _e( get_option(Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT), 'ucare' ); ?></span>
 
                             </button>
 

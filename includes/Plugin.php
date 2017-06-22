@@ -16,7 +16,7 @@ use ucare\ajax\Registration;
 use ucare\component\ECommerce;
 use ucare\component\Emails;
 use ucare\component\Hacks;
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class Plugin extends AbstractPlugin {
 
@@ -45,7 +45,7 @@ class Plugin extends AbstractPlugin {
         
         // Delete the first run option on de-activate
         // This triggers the First Run welcome screen to load on reload
-        delete_option( Option::FIRST_RUN );
+        delete_option( Options::FIRST_RUN );
         
         if( isset( $_POST['product_feedback'] ) ) {
             $message = include $this->dir . '/emails/product-feedback.php';
@@ -55,21 +55,21 @@ class Plugin extends AbstractPlugin {
         }
 
         // Trash the template page
-        wp_trash_post( get_option( Option::TEMPLATE_PAGE_ID ) );
+        wp_trash_post( get_option( Options::TEMPLATE_PAGE_ID ) );
 
         proc\cleanup_roles();
         proc\clear_scheduled_jobs();
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Option::DEV_MODE ) === 'on' && get_option( Option::NUKE ) === 'on' ) {
-            $options = new \ReflectionClass( Option::class );
+        if( get_option( Options::DEV_MODE ) === 'on' && get_option( Options::NUKE ) === 'on' ) {
+            $options = new \ReflectionClass( Options::class );
 
             foreach( $options->getConstants() as $option ) {
                 delete_option( $option );
             }
 
-            update_option( Option::DEV_MODE, 'on' );
+            update_option( Options::DEV_MODE, 'on' );
         }
 
         unregister_post_type( 'support_ticket' );
@@ -79,7 +79,7 @@ class Plugin extends AbstractPlugin {
 
     public function add_action_links( $links ) {
 
-        if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+        if( !get_option( Options::DEV_MODE, \ucare\Defaults::DEV_MODE ) == 'on' ) {
             $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
         }
 
@@ -125,7 +125,7 @@ class Plugin extends AbstractPlugin {
                     'menu_slug'     => 'ucare_support',
                     'menu_title'    => __( 'Reports', 'ucare' ),
                     'capability'    => 'manage_support',
-                    'tabs' => get_option( Option::LOGGING_ENABLED ) == 'on'
+                    'tabs' => get_option( Options::LOGGING_ENABLED ) == 'on'
                                 ? array( new ReportsOverviewTab(), new LogsTab() )
                                 : array( new ReportsOverviewTab() )
                 )
@@ -252,7 +252,7 @@ class Plugin extends AbstractPlugin {
             'admin_footer'      => array( 'feedback_form' ),
             'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'template_include' => array( 'swap_template' ),
-            'pre_update_option_' . Option::RESTORE_TEMPLATE => array( 'restore_template' )
+            'pre_update_option_' . Options::RESTORE_TEMPLATE => array( 'restore_template' )
         ) );
     }
 
@@ -270,7 +270,7 @@ class Plugin extends AbstractPlugin {
             $components[] = ECommerce::class;
         }
 
-        if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
+        if( get_option( Options::ALLOW_SIGNUPS, \ucare\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
             $components[] = Registration::class;
         }
 
@@ -278,7 +278,7 @@ class Plugin extends AbstractPlugin {
     }
 
     public function swap_template( $template ) {
-        if( is_page( get_option( Option::TEMPLATE_PAGE_ID ) ) ) {
+        if( is_page( get_option( Options::TEMPLATE_PAGE_ID ) ) ) {
             $template = $this->template_dir . '/app.php';
         }
 
@@ -295,7 +295,7 @@ class Plugin extends AbstractPlugin {
 
     public function feedback_form() {
 
-        if( !get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on' ) {
+        if( !get_option( Options::DEV_MODE, \ucare\Defaults::DEV_MODE ) == 'on' ) {
             require_once $this->dir . '/templates/feedback.php';
         }
     }

@@ -1,8 +1,8 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
-$ver = get_option( Option::PLUGIN_VERSION );
+$ver = get_option( Options::PLUGIN_VERSION );
 
 ?>
         <footer id="footer">
@@ -11,7 +11,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
                 <p class="footer-text text-center">
 
-                    <?php $footer_text = get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?>
+                    <?php $footer_text = get_option( Options::FOOTER_TEXT, \ucare\Defaults::FOOTER_TEXT ); ?>
 
                     <?php echo !empty( $footer_text ) ? $footer_text . ' |' : ''; ?>
 
@@ -32,7 +32,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
             var Globals = {
                 ajax_url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
-                refresh_interval: <?php echo get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ); ?>,
+                refresh_interval: <?php echo get_option( Options::REFRESH_INTERVAL, \ucare\Defaults::REFRESH_INTERVAL ); ?>,
                 strings: {
                     loading_tickets: "<?php _e( "Loading Tickets...", 'ucare' ); ?>",
                     loading_generic: "<?php _e( "Loading...", 'ucare' ); ?>",
@@ -153,7 +153,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
         <script>
 
-            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Option::MAX_ATTACHMENT_SIZE, Option\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
+            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Options::MAX_ATTACHMENT_SIZE, \ucare\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
 
         </script>
 

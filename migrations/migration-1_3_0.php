@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\util\Logger;
 
 class migration_1_3_0 implements smartcat\core\Migration {
@@ -33,17 +33,17 @@ class migration_1_3_0 implements smartcat\core\Migration {
         $email_templates = array(
             array(
                 'title'   => __( 'You have been assigned a ticket', 'ucare' ),
-                'option'  => Option::TICKET_ASSIGNED,
+                'option'  => Options::TICKET_ASSIGNED,
                 'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-assigned.html' )
             ),
             array(
                 'title'   => __( 'You have a reply to a ticket that you are assigned to', 'ucare' ),
-                'option'  => Option::CUSTOMER_REPLY_EMAIL,
+                'option'  => Options::CUSTOMER_REPLY_EMAIL,
                 'content' => file_get_contents( $this->plugin->dir() . 'emails/agent-ticket-reply.html' )
             ),
             array(
                 'title'   => __( 'A new ticket has been created', 'ucare' ),
-                'option'  => Option::NEW_TICKET_ADMIN_EMAIL,
+                'option'  => Options::NEW_TICKET_ADMIN_EMAIL,
                 'content' => file_get_contents( $this->plugin->dir() . 'emails/admin-ticket-created.html' )
             ),
         );

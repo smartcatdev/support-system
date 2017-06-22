@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 ?>
 
@@ -95,7 +95,7 @@ use ucare\descriptor\Option;
 
                             <span class="glyphicon glyphicon-remove-sign button-icon"></span>
 
-                            <span><?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?></span>
+                            <span><?php _e( get_option( Options::CANCEL_BTN_TEXT, \ucare\Defaults::CANCEL_BTN_TEXT ) ); ?></span>
 
                         </button>
 
@@ -103,7 +103,7 @@ use ucare\descriptor\Option;
 
                             <span class="glyphicon glyphicon-floppy-save button-icon"></span>
 
-                            <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
+                            <span><?php _e( get_option( Options::SAVE_BTN_TEXT, \ucare\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                         </button>
 

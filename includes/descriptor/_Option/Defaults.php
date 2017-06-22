@@ -1,6 +1,6 @@
 <?php
 
-namespace ucare\descriptor\Option;
+namespace ucare\Options;
 
 /**
  * Default values for options. Correspond to their keys in desc\Option.

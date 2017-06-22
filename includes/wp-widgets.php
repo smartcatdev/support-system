@@ -2,7 +2,7 @@
 
 namespace ucare;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 function enqueue_widget_scripts() {
 
@@ -16,7 +16,7 @@ add_action( 'wp_enqueue_scripts', 'ucare\enqueue_widget_scripts' );
 
 function do_quick_link_widget() {
 
-    if( get_option( Option::QUICK_LINK_ENABLED, Option\Defaults::QUICK_LINK_ENABLED ) ) { ?>
+    if( get_option( Options::QUICK_LINK_ENABLED, \ucare\Defaults::QUICK_LINK_ENABLED ) ) { ?>
 
         <div id="ucare-quick-link-widget">
 
@@ -24,7 +24,7 @@ function do_quick_link_widget() {
 
                 <a href="<?php echo url(); ?>">
 
-                    <?php echo get_option( Option::QUICK_LINK_LABEL, Option\Defaults::QUICK_LINK_LABEL ); ?>
+                    <?php echo get_option( Options::QUICK_LINK_LABEL, \ucare\Defaults::QUICK_LINK_LABEL ); ?>
 
                 </a>
 

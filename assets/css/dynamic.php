@@ -1,17 +1,17 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
-$primary_color   = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
-$hover_color     = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
-$secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
-$tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ) );
+$primary_color   = esc_attr( get_option( Options::PRIMARY_COLOR, \ucare\Defaults::PRIMARY_COLOR ) );
+$hover_color     = esc_attr( get_option( Options::HOVER_COLOR, \ucare\Defaults::HOVER_COLOR ) );
+$secondary_color = esc_attr( get_option( Options::SECONDARY_COLOR, \ucare\Defaults::SECONDARY_COLOR ) );
+$tertiary_color  = esc_attr( get_option( Options::TERTIARY_COLOR, \ucare\Defaults::TERTIARY_COLOR ) );
 
 $primary_color_rgb      = \ucare\proc\hex2rgb( $primary_color );
 $secondary_color_rgb    = \ucare\proc\hex2rgb( $secondary_color );
 
-$primary_font   = esc_attr( get_option( Option::PRIMARY_FONT, Option\Defaults::PRIMARY_FONT ) );
-$secondary_font = esc_attr( get_option( Option::SECONDARY_FONT, Option\Defaults::SECONDARY_FONT ) );
+$primary_font   = esc_attr( get_option( Options::PRIMARY_FONT, \ucare\Defaults::PRIMARY_FONT ) );
+$secondary_font = esc_attr( get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDARY_FONT ) );
 
 ?>
 
@@ -88,7 +88,7 @@ $secondary_font = esc_attr( get_option( Option::SECONDARY_FONT, Option\Defaults:
     /* Tertiary color */
 
     #support-login-page {
-        background-image: url(<?php echo get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ); ?> )
+        background-image: url(<?php echo get_option( Options::LOGIN_BACKGROUND, \ucare\Defaults::LOGIN_BACKGROUND ); ?> )
     }
     
     /* Primary Heading Font */

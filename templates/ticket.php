@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 $attachments = get_attached_media( 'image', $ticket->ID );
 $attachment_count = count( $attachments );
@@ -102,7 +102,7 @@ $user = wp_get_current_user();
 
                                         <span class="glyphicon glyphicon-send button-icon"></span>
 
-                                        <span><?php _e( get_option( Option::REPLY_BTN_TEXT, Option\Defaults::REPLY_BTN_TEXT ) ); ?></span>
+                                        <span><?php _e( get_option( Options::REPLY_BTN_TEXT, \ucare\Defaults::REPLY_BTN_TEXT ) ); ?></span>
 
                                     </button>
 
