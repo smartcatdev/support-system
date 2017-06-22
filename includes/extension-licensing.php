@@ -3,7 +3,7 @@
 namespace ucare;
 
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 function init_extension_licensing() {
 
@@ -49,7 +49,7 @@ add_action( 'admin_init', 'ucare\init_extension_licensing' );
 
 function license_expiration_notifications() {
 
-    $notifications = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+    $notifications = get_option( Options::EXTENSION_LICENSE_NOTICES, array() );
 
     if( !empty( $notifications ) ) {
 
@@ -265,11 +265,11 @@ function get_activation( $id ) {
 function clear_expiration_notice( $id ) {
 
     // Remove this plugin from list of extension expiration notices
-    $notices = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+    $notices = get_option( Options::EXTENSION_LICENSE_NOTICES, array() );
 
     if( array_key_exists( $id, $notices ) ) {
         unset( $notices[ $id ] );
-        update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
+        update_option( Options::EXTENSION_LICENSE_NOTICES, $notices );
     }
 
 }

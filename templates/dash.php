@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 ?>
 
@@ -34,7 +34,7 @@ use ucare\descriptor\Option;
 
                         <span class="glyphicon glyphicon-floppy-save button-icon"></span>
 
-                        <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
+                        <span><?php _e( get_option( Options::SAVE_BTN_TEXT, \ucare\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                     </button>
 
@@ -70,7 +70,7 @@ use ucare\descriptor\Option;
 
                     <button id="create-ticket" type="button" class="button button-submit">
 
-                        <?php _e( get_option( Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT ) ); ?>
+                        <?php _e( get_option( Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT ) ); ?>
 
                     </button>
 
@@ -85,8 +85,8 @@ use ucare\descriptor\Option;
     <div class="container-fluid">
 
         <?php $widget = current_user_can( 'manage_support_tickets' )
-                ? stripslashes( get_option( Option::AGENT_WIDGET_AREA, Option\Defaults::AGENT_WIDGET_AREA ) )
-                : stripslashes( get_option( Option::USER_WIDGET_AREA, Option\Defaults::USER_WIDGET_AREA ) ); ?>
+                ? stripslashes( get_option( Options::AGENT_WIDGET_AREA, \ucare\Defaults::AGENT_WIDGET_AREA ) )
+                : stripslashes( get_option( Options::USER_WIDGET_AREA, \ucare\Defaults::USER_WIDGET_AREA ) ); ?>
 
         <?php if( !empty( $widget ) ) : ?>
 

@@ -1,11 +1,11 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\Plugin;
 
 ?>
 
-<?php $signups = get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ); ?>
+<?php $signups = get_option( Options::ALLOW_SIGNUPS, \ucare\Defaults::ALLOW_SIGNUPS ); ?>
 
 <div id="support-login-bg" xmlns="http://www.w3.org/1999/html">
 
@@ -55,7 +55,7 @@ use ucare\Plugin;
 
                 <div id="login">
 
-                    <img class="logo" src="<?php echo get_option( Option::LOGO, Option\Defaults::LOGO ) ?>"/>
+                    <img class="logo" src="<?php echo get_option( Options::LOGO, \ucare\Defaults::LOGO ) ?>"/>
 
                     <?php if( isset( $_REQUEST['login'] ) ) : ?>
 
@@ -79,11 +79,11 @@ use ucare\Plugin;
 
                     </div>
 
-                    <?php if( get_option( Option::ALLOW_SIGNUPS, Option\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>
+                    <?php if( get_option( Options::ALLOW_SIGNUPS, \ucare\Defaults::ALLOW_SIGNUPS ) == 'on' ) : ?>
 
                         <button style="display: none" id="show-registration" type="button" class="button button-primary registration-toggle">
 
-                            <?php echo get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ); ?>
+                            <?php echo get_option( Options::REGISTER_BTN_TEXT, \ucare\Defaults::REGISTER_BTN_TEXT ); ?>
 
                         </button>
 
@@ -123,9 +123,9 @@ use ucare\Plugin;
 
                                 <div class="terms">
 
-                                    <a href="<?php echo esc_url( get_option( Option::TERMS_URL, Option\Defaults::TERMS_URL ) ); ?>">
+                                    <a href="<?php echo esc_url( get_option( Options::TERMS_URL, \ucare\Defaults::TERMS_URL ) ); ?>">
 
-                                        <?php _e( get_option( Option::LOGIN_DISCLAIMER, Option\Defaults::LOGIN_DISCLAIMER ), ucare\PLUGIN_ID ); ?>
+                                        <?php _e( get_option( Options::LOGIN_DISCLAIMER, \ucare\Defaults::LOGIN_DISCLAIMER ), ucare\PLUGIN_ID ); ?>
 
                                     </a>
 
@@ -135,7 +135,7 @@ use ucare\Plugin;
 
                                     <button id="registration-submit" type="submit" class="button button-primary">
 
-                                        <?php _e( get_option( Option::REGISTER_BTN_TEXT, Option\Defaults::REGISTER_BTN_TEXT ), 'ucare' ); ?>
+                                        <?php _e( get_option( Options::REGISTER_BTN_TEXT, \ucare\Defaults::REGISTER_BTN_TEXT ), 'ucare' ); ?>
 
                                     </button>
 
@@ -148,7 +148,7 @@ use ucare\Plugin;
 
                     <?php endif; ?>
 
-                    <?php $login_widget = get_option( Option::LOGIN_WIDGET_AREA, Option\Defaults::LOGIN_WIDGET_AREA ); ?>
+                    <?php $login_widget = get_option( Options::LOGIN_WIDGET_AREA, \ucare\Defaults::LOGIN_WIDGET_AREA ); ?>
 
                     <?php if( !empty( $login_widget ) ) : ?>
 

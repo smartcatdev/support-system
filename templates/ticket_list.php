@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 ?>
 
@@ -8,7 +8,7 @@ use ucare\descriptor\Option;
 
     <div class="row">
 
-        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), 'ucare' ); ?></p>
+        <p class="text-center text-muted"><?php _e( get_option( Options::EMPTY_TABLE_MSG, \ucare\Defaults::EMPTY_TABLE_MSG ), 'ucare' ); ?></p>
 
     </div>
 

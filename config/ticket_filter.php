@@ -4,7 +4,7 @@ use smartcat\form\CheckBoxField;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextBoxField;
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\form\CheckBoxGroup;
 use ucare\Plugin;
 
@@ -13,11 +13,11 @@ $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
 $agents = \ucare\util\list_agents();
 $products = \ucare\util\products();
 
-if( get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
+if( get_option( Options::CATEGORIES_ENABLED, \ucare\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
 
     $categories = array();
-    $name = get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME );
-    $plural = get_option( Option::CATEGORIES_NAME_PLURAL, Option\Defaults::CATEGORIES_NAME_PLURAL );
+    $name = get_option( Options::CATEGORIES_NAME, \ucare\Defaults::CATEGORIES_NAME );
+    $plural = get_option( Options::CATEGORIES_NAME_PLURAL, \ucare\Defaults::CATEGORIES_NAME_PLURAL );
 
     foreach( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $term ) {
         $categories[ $term->slug ] = $term->name;

@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class migration_1_1_1 implements \smartcat\core\Migration {
 
@@ -30,7 +30,7 @@ class migration_1_1_1 implements \smartcat\core\Migration {
 
             if( !empty( $id ) ) {
                 update_post_meta( $id, 'styles', file_get_contents( $dir . '/emails/default-style.css' ) );
-                update_option( Option::PASSWORD_RESET_EMAIL, $id );
+                update_option( Options::PASSWORD_RESET_EMAIL, $id );
             }
 
         } catch( Exception $ex ) { }

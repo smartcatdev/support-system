@@ -1,7 +1,7 @@
 <?php
 
 use smartcat\form\Form;
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\Plugin;
 
 $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/settings_form.php';

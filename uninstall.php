@@ -8,7 +8,7 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 include_once 'loader.php';
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 
 \smartcat\mail\cleanup();
@@ -23,7 +23,7 @@ foreach( $query->posts as $post ) {
 
 
 // Cleanup wp_options
-$options = new \ReflectionClass( Option::class );
+$options = new \ReflectionClass( Options::class );
 
 foreach( $options->getConstants() as $option ) {
     delete_option( $option );

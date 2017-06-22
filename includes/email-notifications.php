@@ -2,7 +2,7 @@
 
 namespace ucare;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\util\Logger;
 
 function send_email( $template, $recipient, $replace, $args = array() ) {
@@ -17,7 +17,7 @@ function send_email( $template, $recipient, $replace, $args = array() ) {
 
         cache_put( 'email_sending', true );
 
-        if( get_option( Option::EMAIL_NOTIFICATIONS, Option\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
+        if( get_option( Options::EMAIL_NOTIFICATIONS, \ucare\Defaults::EMAIL_NOTIFICATIONS ) == 'on' ) {
 
             $sent = \smartcat\mail\send_template( $template, $recipient, $replace, $args );
 
@@ -39,8 +39,8 @@ function edit_email_headers( $headers ) {
 
     if( is_sending_email() ) {
 
-        $sender_email = get_option( Option::SENDER_EMAIL, get_option( 'admin_email' ) );
-        $sender_name = get_option( Option::SENDER_NAME, Option\Defaults::SENDER_NAME );
+        $sender_email = get_option( Options::SENDER_EMAIL, get_option( 'admin_email' ) );
+        $sender_name = get_option( Options::SENDER_NAME, \ucare\Defaults::SENDER_NAME );
 
         $headers[] = "From: {$sender_name} <{$sender_email}>";
 
@@ -67,9 +67,9 @@ add_action( 'email_template_footer', 'ucare\email_template_branding' );
 function email_template_vars( $vars ) {
 
     $support_defaults = array(
-        'support_url'  => get_permalink( get_option( Option::TEMPLATE_PAGE_ID ) ),
-        'company_name' => get_option( Option::COMPANY_NAME, Option\Defaults::COMPANY_NAME ),
-        'company_logo' => get_option( Option::LOGO, Option\Defaults::LOGO )
+        'support_url'  => get_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ),
+        'company_name' => get_option( Options::COMPANY_NAME, \ucare\Defaults::COMPANY_NAME ),
+        'company_logo' => get_option( Options::LOGO, \ucare\Defaults::LOGO )
     );
 
     return array_merge( $vars, $support_defaults );
@@ -107,7 +107,7 @@ function send_password_reset_email( $true, $email, $password, $user ) {
         'email'          => $email
     );
 
-    return send_email( get_option( Option::PASSWORD_RESET_EMAIL ), $email, $args );
+    return send_email( get_option( Options::PASSWORD_RESET_EMAIL ), $email, $args );
 
 }
 
@@ -116,7 +116,7 @@ add_action( 'support_password_reset_notification', 'ucare\send_password_reset_em
 
 function send_user_registration_email( $user_data ) {
 
-    send_email( get_option( Option::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
+    send_email( get_option( Options::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
 
 }
 
@@ -132,7 +132,7 @@ function send_stale_ticket_email( \WP_Post $ticket ) {
         'ticket_number'  => $ticket->ID
     );
 
-    send_email( get_option( Option::INACTIVE_EMAIL ), $user->user_email, $replace );
+    send_email( get_option( Options::INACTIVE_EMAIL ), $user->user_email, $replace );
 
 }
 
@@ -149,7 +149,7 @@ function send_ticket_created_email( \WP_Post $ticket ) {
         'ticket_content' => $ticket->post_content
     );
 
-    send_email( get_option( Option::TICKET_CREATED_EMAIL ), $recipient->user_email, $template_vars );
+    send_email( get_option( Options::TICKET_CREATED_EMAIL ), $recipient->user_email, $template_vars );
 
 }
 
@@ -158,7 +158,7 @@ add_action( 'support_ticket_created', 'ucare\send_ticket_created_email' );
 
 function send_new_ticket_email( \WP_Post $ticket ) {
 
-    $recipient = get_option( Option::ADMIN_EMAIL );
+    $recipient = get_option( Options::ADMIN_EMAIL );
 
     $template_vars = array(
         'ticket_subject' => $ticket->post_title,
@@ -167,7 +167,7 @@ function send_new_ticket_email( \WP_Post $ticket ) {
         'ticket_content' => $ticket->post_content
     );
 
-    send_email( get_option( Option::NEW_TICKET_ADMIN_EMAIL ), $recipient, $template_vars );
+    send_email( get_option( Options::NEW_TICKET_ADMIN_EMAIL ), $recipient, $template_vars );
 
 }
 
@@ -195,7 +195,7 @@ function send_user_replied_email( $comment_id ) {
             $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
 
             if( $recipient ) {
-                send_email( get_option( Option::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+                send_email( get_option( Options::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
             }
 
         }
@@ -226,7 +226,7 @@ function send_agent_replied_email( $comment_id ) {
 
             $recipient = get_user_by( 'id', $ticket->post_author );
 
-            send_email( get_option( Option::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
+            send_email( get_option( Options::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
 
         }
 
@@ -258,7 +258,7 @@ function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
                 'ticket_status'  => $value
             );
 
-            send_email( get_option( Option::TICKET_CLOSED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars, $args );
+            send_email( get_option( Options::TICKET_CLOSED_EMAIL_TEMPLATE ), $recipient->user_email, $template_vars, $args );
 
         }
 
@@ -292,7 +292,7 @@ function send_ticket_assigned_email( $null, $id, $key, $value, $old ) {
                 'user'           => util\user_full_name( $user )
             );
 
-            send_email( get_option( Option::TICKET_ASSIGNED ), $recipient->user_email, $template_vars, $args );
+            send_email( get_option( Options::TICKET_ASSIGNED ), $recipient->user_email, $template_vars, $args );
 
         }
 

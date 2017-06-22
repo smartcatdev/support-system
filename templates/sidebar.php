@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\Plugin;
 
 $products = \ucare\util\products();
@@ -295,7 +295,7 @@ if( array_key_exists( $product, $products ) ) {
 
                                 <span class="glyphicon glyphicon-floppy-save button-icon"></span>
 
-                                <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
+                                <span><?php _e( get_option( Options::SAVE_BTN_TEXT, \ucare\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                             </button>
 

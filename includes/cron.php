@@ -2,7 +2,7 @@
 
 namespace ucare;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\util\Logger;
 
 function mark_stale_tickets() {
@@ -10,7 +10,7 @@ function mark_stale_tickets() {
     $logger = new Logger( 'cron' );
 
     // Calculate max age as n days
-    $max_age = get_option( Option::INACTIVE_MAX_AGE, Option\Defaults::INACTIVE_MAX_AGE );
+    $max_age = get_option( Options::INACTIVE_MAX_AGE, \ucare\Defaults::INACTIVE_MAX_AGE );
 
     // Current server time
     $time = current_time( 'timestamp', 1 );
@@ -65,7 +65,7 @@ function close_stale_tickets() {
 
     $logger = new Logger( 'cron' );
 
-    if( get_option( Option::AUTO_CLOSE ) === 'on' ) {
+    if( get_option( Options::AUTO_CLOSE ) === 'on' ) {
 
         // Get all stale tickets
         $q = new \WP_Query( array(
@@ -117,7 +117,7 @@ function check_extension_licenses() {
     $plugin = Plugin::get_plugin( PLUGIN_ID );
     $activations = $plugin->get_activations();
 
-    $notices = get_option( Option::EXTENSION_LICENSE_NOTICES, array() );
+    $notices = get_option( Options::EXTENSION_LICENSE_NOTICES, array() );
 
     foreach( $activations as $id => $activation ) {
 
@@ -142,7 +142,7 @@ function check_extension_licenses() {
 
     }
 
-    update_option( Option::EXTENSION_LICENSE_NOTICES, $notices );
+    update_option( Options::EXTENSION_LICENSE_NOTICES, $notices );
 
 }
 

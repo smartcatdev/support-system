@@ -2,11 +2,11 @@
 
 namespace ucare;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 
 function url() {
-    return get_the_permalink( get_option( Option::TEMPLATE_PAGE_ID ) );
+    return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) );
 }
 
 function plugin_dir() {
@@ -15,10 +15,6 @@ function plugin_dir() {
 
 function plugin_url( $path = '' ) {
     return trailingslashit( Plugin::plugin_url( PLUGIN_ID ) ) . ltrim( $path, '/' );
-}
-
-function in_dev_mode() {
-    return get_option( Option::DEV_MODE, Option\Defaults::DEV_MODE ) == 'on';
 }
 
 function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
@@ -92,13 +88,13 @@ function fonts() {
         'Roboto Condensed, sans-serif'                      => 'Roboto+Condensed:400,300,700',
         'Shrikhand, cursive'                                => 'Shrikhand',
         'Teko, sans-serif'                                  => 'Teko:300,400,600',
-        'Titillium Web, sans-serif'                         => 'Titillium+Web:400,200,300,600,700,200italic,300italic,400italic,600italic,700italic',
+        'Titillium Web, sans-serif'                         => 'Titillium+Web:200,300,400,600',
         'Ubuntu, sans-serif'                                => 'Ubuntu',
         'Vollkorn, serif'                                   => 'Vollkorn:400,400i,700',
         'Voltaire, sans-serif'                              => 'Voltaire',
         'Corben, cursive'                                   => 'Corben',
         'Josefin Sans, sans-serif'                          => 'Josefin+Sans:300,400,600,700',
-        'Lato, sans-serif'                                  => 'Lato:100,300,400,700,900,300italic,400italic',
+        'Lato, sans-serif'                                  => 'Lato:100,300,400,700',
         'Lobster Two, cursive'                              => 'Lobster+Two',
         'Lora, serif'                                       => 'Lora',
         'Montserrat, sans-serif'                            => 'Montserrat:400,700',
@@ -124,7 +120,7 @@ function fonts() {
 
 namespace ucare\util;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 use ucare\Plugin;
 
 function render( $template, array $data = array() ) {
@@ -250,7 +246,7 @@ function products() {
     $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
     $products = array();
 
-    if( get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE ) ) {
+    if( get_option( Options::ECOMMERCE, \ucare\Defaults::ECOMMERCE ) ) {
         $post_type = array();
 
         if ( $plugin->woo_active ) {
@@ -286,7 +282,7 @@ function ecommerce_enabled( $strict = true ) {
     $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
     $enabled = false;
 
-    if( get_option( Option::ECOMMERCE, Option\Defaults::ECOMMERCE == 'on' ) ) {
+    if( get_option( Options::ECOMMERCE, \ucare\Defaults::ECOMMERCE == 'on' ) ) {
         if( $strict && ( $plugin->woo_active || $plugin->edd_active ) ) {
             $enabled = true;
         } else {
@@ -378,7 +374,7 @@ function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
 
 namespace ucare\proc;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 function schedule_cron_jobs() {
     if ( !wp_next_scheduled( 'ucare_cron_stale_tickets' ) ) {
@@ -402,7 +398,7 @@ function clear_scheduled_jobs() {
 
 function setup_template_page() {
     $post_id = null;
-    $post = get_post( get_option( Option::TEMPLATE_PAGE_ID ) ) ;
+    $post = get_post( get_option( Options::TEMPLATE_PAGE_ID ) ) ;
 
     if( empty( $post ) ) {
         $post_id = wp_insert_post(
@@ -421,7 +417,7 @@ function setup_template_page() {
     }
 
     if( !empty( $post_id ) ) {
-        update_option( Option::TEMPLATE_PAGE_ID, $post_id );
+        update_option( Options::TEMPLATE_PAGE_ID, $post_id );
     }
 }
 
@@ -430,32 +426,32 @@ function create_email_templates() {
     $default_templates = array(
         array(
             'template' => '/emails/ticket-created.html',
-            'option' => Option::TICKET_CREATED_EMAIL,
+            'option' => Options::TICKET_CREATED_EMAIL,
             'subject' => __( 'You have created a new request for support', 'ucare' )
         ),
         array(
             'template' => '/emails/welcome.html',
-            'option' => Option::WELCOME_EMAIL_TEMPLATE,
+            'option' => Options::WELCOME_EMAIL_TEMPLATE,
             'subject' => __( 'Welcome to Support', 'ucare' )
         ),
         array(
             'template' => '/emails/ticket-closed.html',
-            'option' => Option::TICKET_CLOSED_EMAIL_TEMPLATE,
+            'option' => Options::TICKET_CLOSED_EMAIL_TEMPLATE,
             'subject' => __( 'Your request for support has been closed', 'ucare' )
         ),
         array(
             'template' => '/emails/ticket-reply.html',
-            'option' => Option::AGENT_REPLY_EMAIL,
+            'option' => Options::AGENT_REPLY_EMAIL,
             'subject' => __( 'Reply to your request for support', 'ucare' )
         ),
         array(
             'template' => '/emails/password-reset.html',
-            'option' => Option::PASSWORD_RESET_EMAIL,
+            'option' => Options::PASSWORD_RESET_EMAIL,
             'subject' => __( 'Your password has been reset', 'ucare' )
         ),
         array(
             'template' => '/emails/ticket-close-warning.html',
-            'option' => Option::INACTIVE_EMAIL,
+            'option' => Options::INACTIVE_EMAIL,
             'subject' => __( 'You have a ticket awaiting action', 'ucare' )
         )
     );

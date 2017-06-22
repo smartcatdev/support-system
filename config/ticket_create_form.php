@@ -6,7 +6,7 @@ use smartcat\form\RequiredConstraint;
 use smartcat\form\SelectBoxField;
 use smartcat\form\TextAreaField;
 use smartcat\form\TextBoxField;
-use ucare\descriptor\Option;
+use ucare\Options;
 
 $products = \ucare\util\products();
 
@@ -14,14 +14,14 @@ $products = array( 0 => __( 'Select a Product', 'ucare' ) ) + $products;
 
 $form = new Form( 'create_ticket' );
 
-if( get_option( Option::CATEGORIES_ENABLED, Option\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
+if( get_option( Options::CATEGORIES_ENABLED, \ucare\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
 
     $terms = get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) );
 
     if( !empty( $terms ) ) {
 
         $categories = array();
-        $name = get_option( Option::CATEGORIES_NAME, Option\Defaults::CATEGORIES_NAME );
+        $name = get_option( Options::CATEGORIES_NAME, \ucare\Defaults::CATEGORIES_NAME );
 
         foreach( $terms as $term ) {
             $categories[ $term->name ] = $term->name;

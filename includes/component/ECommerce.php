@@ -3,7 +3,7 @@
 namespace ucare\component;
 
 use smartcat\core\AbstractComponent;
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class ECommerce extends AbstractComponent {
 
@@ -46,7 +46,7 @@ class ECommerce extends AbstractComponent {
      */
     public function subscribed_hooks() {
         return array(
-            'pre_update_option_' . Option::ECOMMERCE => array( 'configure_user_caps' )
+            'pre_update_option_' . Options::ECOMMERCE => array( 'configure_user_caps' )
         );
     }
 }
