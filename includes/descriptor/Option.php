@@ -297,4 +297,14 @@ final class Option {
      */
     const FIRST_RUN = 'smartcat_support_first-run';
 
+    /**
+     * @since 1.3.0
+     */
+    const PRIMARY_FONT = 'smartcat_support_primary-font';
+
+    /**
+     * @since 1.3.0
+     */
+    const SECONDARY_FONT = 'smartcat_support_secondary-font';
+
 }

@@ -19,7 +19,33 @@ $plugin_url = Plugin::plugin_url( \ucare\PLUGIN_ID );
 
 $appearance = new SettingsSection( 'uc_appearance', __( 'Appearance', 'ucare' ) );
 
-$appearance->add_field( new TextField(
+$fonts = \ucare\fonts();
+
+$appearance->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_primary_font',
+        'option'        => Option::PRIMARY_FONT,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::PRIMARY_FONT ),
+        'options'       => $fonts,
+        'label'         => __( 'Primary Font', 'ucare' ),
+        'desc'          => __( 'Primary font for the system', 'ucare' ),
+        'validators'    => array( new MatchFilter( array_keys( $fonts ), '' ) )
+    )
+
+) )->add_field( new SelectBoxField(
+    array(
+        'id'            => 'support_secondary_font',
+        'option'        => Option::SECONDARY_FONT,
+        'class'         => array( 'regular-text' ),
+        'value'         => get_option( Option::SECONDARY_FONT ),
+        'options'       => $fonts,
+        'label'         => __( 'Secondary Font', 'ucare' ),
+        'desc'          => __( 'Secondary font for the system', 'ucare' ),
+        'validators'    => array( new MatchFilter( array_keys( $fonts ), '' ) )
+    )
+
+) )->add_field( new TextField(
     array(
         'id'            => 'support_primary_color',
         'option'        => Option::PRIMARY_COLOR,

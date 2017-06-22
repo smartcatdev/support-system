@@ -217,4 +217,14 @@ final class Defaults {
      */
     const CATEGORIES_NAME_PLURAL = 'categories';
 
+    /**
+     * @since 1.3.0
+     */
+    const PRIMARY_FONT = '';
+
+    /**
+     * @since 1.3.0
+     */
+    const SECONDARY_FONT = '';
+
 }

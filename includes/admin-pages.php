@@ -91,7 +91,7 @@ function admin_first_run_tutorial_page() {
     if( !get_option( Option::FIRST_RUN ) ) {
 
         update_option( Option::FIRST_RUN, true );
-        wp_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
 
     }
 
