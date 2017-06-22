@@ -42,7 +42,11 @@ class Plugin extends AbstractPlugin {
     }
 
     public function deactivate() {
-
+        
+        // Delete the first run option on de-activate
+        // This triggers the First Run welcome screen to load on reload
+        delete_option( Option::FIRST_RUN );
+        
         if( isset( $_POST['product_feedback'] ) ) {
             $message = include $this->dir . '/emails/product-feedback.php';
             $headers = array( 'Content-Type: text/html; charset=UTF-8' );
