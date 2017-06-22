@@ -146,8 +146,12 @@ td.column-id.id:before {
     border-radius: 3px;
 }
 
+.ucare-sidebar-widget .ucare-button {
+    display: inline-block;
+}
+
 .ucare-sidebar-widget h3 {
-    border-bottom: 1px solid #e9e9e9;
+    border-bottom: 1px solid #273140;
     padding-bottom: 10px;
     margin-top: 0;
     color: #273140;
@@ -180,6 +184,11 @@ td.column-id.id:before {
 .ucare-button.secondary {
     background: #273140;
     color: #fff;
+}
+
+.ucare-button.secondary.small {
+    padding: 8px;
+    font-size: 14px;
 }
 
 .ucare-button.secondary:hover {
@@ -235,11 +244,15 @@ td.column-id.id:before {
 }
 
 #uc-settings_menu_page input[type="text"],
+#uc-settings_menu_page input[type="number"],
+#uc-settings_menu_page input[type="email"],
 #uc-settings_menu_page input[type="url"]{
     padding: 8px 12px;
 }
 
 #uc-settings_menu_page input[type="text"]:focus,
+#uc-settings_menu_page input[type="number"]:focus,
+#uc-settings_menu_page input[type="email"]:focus,
 #uc-settings_menu_page input[type="url"]:focus{
     box-shadow: 0 0 3px #0e7463;
     border: 1px solid #0e7463;
