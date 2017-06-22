@@ -19,6 +19,7 @@ if( !defined( 'ABSPATH' ) ) {
 
 include_once 'constants.php';
 
+
 if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
     // Pull in manual includes
@@ -43,4 +44,8 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
     } );
 
+}
+
+function basename() {
+    return plugin_basename( __FILE__ );
 }

@@ -77,17 +77,6 @@ class Plugin extends AbstractPlugin {
 
     }
 
-    public function add_action_links( $links ) {
-
-        if( !get_option( Options::DEV_MODE, \ucare\Defaults::DEV_MODE ) == 'on' ) {
-            $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
-        }
-
-        $menu_page = menu_page_url( 'support_options', false );
-
-        return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', 'ucare' ) . '</a>' ), $links );
-    }
-
     public function login_failed() {
         if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
             wp_redirect( \ucare\url() . '?login=failed' );
@@ -250,7 +239,6 @@ class Plugin extends AbstractPlugin {
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
-            'plugin_action_links_' . plugin_basename( $this->file ) => array( 'add_action_links' ),
             'template_include' => array( 'swap_template' ),
             'pre_update_option_' . Options::RESTORE_TEMPLATE => array( 'restore_template' )
         ) );
