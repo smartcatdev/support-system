@@ -5,6 +5,10 @@ use ucare\Plugin;
 
 $url = Plugin::plugin_url( \ucare\PLUGIN_ID );
 $ver = get_option( Option::PLUGIN_VERSION );
+$fonts = \ucare\fonts();
+
+$primary_font   = get_option( Option::PRIMARY_FONT, Option\Defaults::PRIMARY_FONT );
+$secondary_font = get_option( Option::SECONDARY_FONT, Option\Defaults::SECONDARY_FONT );
 
 ?>
 
@@ -19,7 +23,20 @@ $ver = get_option( Option::PLUGIN_VERSION );
         <link href="<?php echo $url . 'assets/lib/dropzone/css/dropzone.min.css' . '?ver=' . $ver; ?>" rel="stylesheet">
         <link href="<?php echo $url . 'assets/lib/lightGallery/css/lightgallery.min.css' . '?ver=' . $ver; ?>" rel="stylesheet">
 
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+        <?php if( array_key_exists ( $primary_font, $fonts ) && array_key_exists ( $secondary_font, $fonts ) ) : ?>
+            
+            <?php if ( $primary_font == $secondary_font ) : ?>
+        
+                <link href="https://fonts.googleapis.com/css?family=<?php esc_attr_e( $fonts[ $primary_font ] ); ?>" rel="stylesheet">        
+            
+            <?php else : ?>
+                
+                <link href="https://fonts.googleapis.com/css?family=<?php esc_attr_e( $fonts[ $primary_font ] . '|' . $fonts[ $secondary_font ] ); ?>" rel="stylesheet">
+                
+            <?php endif; ?>
+        
+        <?php endif; ?>
+             
         <link href="<?php echo $url . 'assets/css/style.css' . '?ver=' . $ver; ?>" rel="stylesheet">
         <script src="<?php echo home_url( 'wp-includes/js/jquery/jquery.js' ) . '?ver=' . $ver; ?>"></script>
         <link href="<?php echo get_option( Option::FAVICON ); ?>" rel="icon">
