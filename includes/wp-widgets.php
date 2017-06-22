@@ -2,8 +2,6 @@
 
 namespace ucare;
 
-use ucare\Options;
-
 function enqueue_widget_scripts() {
 
     wp_enqueue_style( 'ucare-widget-styles', plugin_url( 'assets/css/wp-widgets.css' ), null, PLUGIN_VERSION );
@@ -20,10 +18,8 @@ function do_quick_link_widget() {
 
         <div id="ucare-quick-link-widget">
 
-
             <a style="background-color: <?php echo esc_attr( get_option( Options::PRIMARY_COLOR, \ucare\Defaults::PRIMARY_COLOR ) ); ?>"
-               href="<?php echo esc_url( url() ); ?>"><?php echo esc_attr( get_option( Options::QUICK_LINK_LABEL, \ucare\Defaults::QUICK_LINK_LABEL ) ); ?></a>
-
+               href="<?php echo esc_url( support_page_url() ); ?>"><?php echo esc_attr( get_option( Options::QUICK_LINK_LABEL, \ucare\Defaults::QUICK_LINK_LABEL ) ); ?></a>
 
         </div>
 

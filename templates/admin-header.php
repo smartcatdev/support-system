@@ -20,6 +20,6 @@
 <div class="ucare-url">
     <p>
         <?php echo __( 'Your help desk URL is: ', 'ucare' ); ?>
-        <a href="<?php echo esc_url( \ucare\url() ); ?>"><?php echo esc_url( \ucare\url() ); ?></a>
+        <a href="<?php echo esc_url( \ucare\support_page_url() ); ?>"><?php echo esc_url( \ucare\support_page_url() ); ?></a>
     </p>
 </div>

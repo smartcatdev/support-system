@@ -106,7 +106,7 @@ $user = wp_get_current_user();
                                 <?php endif; ?>
 
                                 <li>
-                                    <a href="<?php echo wp_logout_url() . '&redirect_to=' . \ucare\url(); ?>" class="alignright background-secondary hover menu-item">
+                                    <a href="<?php echo wp_logout_url() . '&redirect_to=' . \ucare\support_page_url(); ?>" class="alignright background-secondary hover menu-item">
 
                                         <span class="glyphicon-log-out glyphicon"></span>
 

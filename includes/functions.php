@@ -2,10 +2,8 @@
 
 namespace ucare;
 
-use ucare\Options;
 
-
-function url() {
+function support_page_url() {
     return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) );
 }
 

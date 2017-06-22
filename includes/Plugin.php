@@ -14,9 +14,7 @@ use ucare\ajax\Comment;
 use ucare\ajax\Settings;
 use ucare\ajax\Registration;
 use ucare\component\ECommerce;
-use ucare\component\Emails;
 use ucare\component\Hacks;
-use ucare\Options;
 
 class Plugin extends AbstractPlugin {
 
@@ -78,16 +76,16 @@ class Plugin extends AbstractPlugin {
     }
 
     public function login_failed() {
-        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
-            wp_redirect( \ucare\url() . '?login=failed' );
+        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'], support_page_url() ) ) {
+            wp_redirect( \ucare\support_page_url() . '?login=failed' );
             exit;
         }
     }
 
     public function authenticate( $user, $username, $password ) {
-        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'],  \ucare\url() ) ) {
+        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'], support_page_url() ) ) {
             if ( $username == "" || $password == "" ) {
-                wp_redirect( \ucare\url() . "?login=empty" );
+                wp_redirect( \ucare\support_page_url() . "?login=empty" );
                 exit;
             }
         }
@@ -154,9 +152,9 @@ class Plugin extends AbstractPlugin {
                     'type'          => 'submenu',
                     'parent_menu'   => 'ucare_support',
                     'menu_slug'     => 'uc-launch',
-                    'menu_title'    => __( 'Help Desk', 'ucare' ),
+                    'menu_title'    => __( 'Launch Help Desk', 'ucare' ),
                     'capability'    => 'manage_support',
-                    'onload'        => function () { wp_safe_redirect( url() ); }
+                    'onload'        => function () { wp_safe_redirect( support_page_url() ); }
                 )
             ),
             'settings'   => include_once $this->dir . '/config/admin_settings.php',

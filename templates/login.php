@@ -17,7 +17,7 @@ use ucare\Plugin;
 
                 <?php if( isset( $_REQUEST['reset_password'] ) ) : ?>
 
-                    <a class="btn btn-default button-back" href="<?php echo \ucare\url(); ?>">
+                    <a class="btn btn-default button-back" href="<?php echo \ucare\support_page_url(); ?>">
 
                         <span class="glyphicon glyphicon-chevron-left button-icon"></span>
 
@@ -69,13 +69,13 @@ use ucare\Plugin;
 
                     <?php endif; ?>
 
-                    <?php wp_login_form( array( 'redirect' => \ucare\url() ) ); ?>
+                    <?php wp_login_form( array( 'redirect' => \ucare\support_page_url() ) ); ?>
 
                     <div class="clearfix"></div>
 
                     <div class="text-center">
 
-                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \ucare\url() ); ?>"><?php _e( 'Lost password?', 'ucare' ); ?></a>
+                        <a href="<?php echo add_query_arg( 'reset_password', 'true', \ucare\support_page_url() ); ?>"><?php _e( 'Lost password?', 'ucare' ); ?></a>
 
                     </div>
 
