@@ -307,4 +307,14 @@ final class Option {
      */
     const SECONDARY_FONT = 'smartcat_support_secondary-font';
 
+    /**
+     * @since 1.3.0
+     */
+    const QUICK_LINK_ENABLED = 'smartcat_support_quick-link-enabled';
+
+    /**
+     * @since 1.3.0
+     */
+    const QUICK_LINK_LABEL = 'smartcat_support_quick-link-label';
+
 }

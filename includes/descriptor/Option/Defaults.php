@@ -227,4 +227,14 @@ final class Defaults {
      */
     const SECONDARY_FONT = '';
 
+    /**
+     * @since 1.3.0
+     */
+    const QUICK_LINK_ENABLED = 'on';
+
+    /**
+     * @since 1.3.0
+     */
+    const QUICK_LINK_LABEL = 'Get Support';
+
 }

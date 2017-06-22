@@ -22,4 +22,5 @@ include_once 'includes/cron.php';
 include_once 'includes/extension-licensing.php';
 include_once 'includes/ticket-post-type.php';
 include_once 'includes/wp-admin.php';
+include_once 'includes/wp-widgets.php';
 

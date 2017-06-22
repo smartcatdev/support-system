@@ -266,6 +266,26 @@ $widgets->add_field( new TextAreaField(
         'desc'          => __( 'Only visible to support agents and admins', 'ucare' ),
         'validators'    => array( new HTMLFilter() )
     )
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_categories_enabled',
+        'option'        => Option::QUICK_LINK_ENABLED,
+        'value'         => get_option( Option::QUICK_LINK_ENABLED, Option\Defaults::QUICK_LINK_ENABLED ),
+        'label'         => __( 'Quick Link Enabled', 'ucare'),
+        'desc'          => __( 'Display support quick link widget on your site', 'ucare' ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_quick_link_label',
+        'class'         => array( 'regular-text' ),
+        'option'        => Option::QUICK_LINK_LABEL,
+        'value'         => get_option( Option::QUICK_LINK_LABEL, Option\Defaults::QUICK_LINK_LABEL ),
+        'label'         => __( 'Quick Link Label', 'ucare' ),
+        'desc'          => __( 'Label to be displayed on the quick link widget', 'ucare' ),
+    )
+
 ) );
 
 $general = new SettingsSection( 'uc_general', __( 'General Settings', 'ucare' ) );
