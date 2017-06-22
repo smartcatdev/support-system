@@ -67,7 +67,7 @@ add_action( 'email_template_footer', 'ucare\email_template_branding' );
 function email_template_vars( $vars ) {
 
     $support_defaults = array(
-        'support_url'  => get_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ),
+        'support_url'  => support_page_url(),
         'company_name' => get_option( Options::COMPANY_NAME, \ucare\Defaults::COMPANY_NAME ),
         'company_logo' => get_option( Options::LOGO, \ucare\Defaults::LOGO )
     );

@@ -22,7 +22,7 @@ function do_quick_link_widget() {
 
             <p>
 
-                <a href="<?php echo url(); ?>">
+                <a href="<?php echo support_page_url(); ?>">
 
                     <?php echo get_option( Options::QUICK_LINK_LABEL, \ucare\Defaults::QUICK_LINK_LABEL ); ?>
 
