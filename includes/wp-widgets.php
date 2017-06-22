@@ -20,15 +20,8 @@ function do_quick_link_widget() {
 
         <div id="ucare-quick-link-widget">
 
-            <p>
-
-                <a href="<?php echo url(); ?>">
-
-                    <?php echo get_option( Option::QUICK_LINK_LABEL, Option\Defaults::QUICK_LINK_LABEL ); ?>
-
-                </a>
-
-            </p>
+            <a style="background-color: <?php echo esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) ); ?>"
+               href="<?php echo esc_url( url() ); ?>"><?php echo esc_attr( get_option( Option::QUICK_LINK_LABEL, Option\Defaults::QUICK_LINK_LABEL ) ); ?></a>
 
         </div>
 
