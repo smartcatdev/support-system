@@ -18,7 +18,7 @@
     </div>
     
     <div class="ucare-sidebar-widget">
-        <h3><span class="dashicons dashicons-star-filled"></span> <?php _e( 'Show your support', 'ucare' ); ?></h3>
+        <h3><span class="dashicons dashicons-star-filled"></span> <?php _e( 'Support this plugin', 'ucare' ); ?></h3>
         <p><?php _e( 'Do you like this plugin? Support it by leaving a 5-star review on WordPress.org', 'ucare' ); ?></p>
         <p>
             <a href="https://wordpress.org/support/plugin/ucare-support-system/reviews/" target="_BLANK" class="button"><?php _e( 'Leave review', 'ucare' ); ?></a>
