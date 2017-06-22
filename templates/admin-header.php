@@ -6,7 +6,7 @@
     
     <div class="alignleft header-component">
         <h1><?php _e( 'uCare Support Help Desk', 'ucare' ); ?></h1>
-        <p><?php _e( 'plugin settings', 'ucare' ); ?></p>
+        <p><?php _e( 'Plugin Settings', 'ucare' ); ?></p>
     </div>
     
     <div class="alignright header-component">
@@ -15,4 +15,11 @@
     
     <div class="clear"></div>
     
+</div>
+
+<div class="ucare-url">
+    <p>
+        <?php echo __( 'Your help desk URL is: ', 'ucare' ); ?>
+        <a href="<?php echo esc_url( \ucare\url() ); ?>"><?php echo esc_url( \ucare\url() ); ?></a>
+    </p>
 </div>

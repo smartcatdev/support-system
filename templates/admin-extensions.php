@@ -89,7 +89,7 @@
             <h3><?php _e( 'Custom Fields', 'ucare' ); ?></h3>
 
             <div class="ad custom-fields">
-                <span class="dashicons dashicons-format-chat"></span>
+                <span class="dashicons dashicons-forms"></span>
                 <h2><?php _e( 'Custom Fields', 'ucare' ); ?></h2>
             </div>
 
@@ -104,7 +104,7 @@
             <h3><?php _e( 'Canned Responses', 'ucare' ); ?></h3>
 
             <div class="ad canned-responses">
-                <span class="dashicons dashicons-format-chat"></span>
+                <span class="dashicons dashicons-format-aside"></span>
                 <h2><?php _e( 'Canned Responses', 'ucare' ); ?></h2>
             </div>
 
