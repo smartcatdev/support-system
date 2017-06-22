@@ -123,7 +123,7 @@ add_action( 'admin_bar_menu', 'ucare\admin_bar_ticket_count', 80 );
 
 function add_plugin_action_links( $links ) {
 
-    if( get_option( Options::DEV_MODE, Defaults::DEV_MODE ) !== 'on' ) {
+    if( get_option( Options::DEV_MODE ) !== 'on' ) {
         $links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
     }
 
