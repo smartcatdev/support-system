@@ -115,8 +115,10 @@
             });
         }
 
-        editor.find(".editor-content")
-            .val(_.unescape(content.html()).trim())
+        var textarea = editor.find(".editor-content");
+
+        textarea.val(_.unescape(content.html()).trim())
+            .textareaAutoSize();
     };
 
     var initialize = function () {

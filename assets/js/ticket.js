@@ -357,11 +357,10 @@ var Ticket = (function ($) {
 
                 comment.hide();
                 comments.append(comment);
-                comment.fadeToggle()
-                        .find('textarea')
-                        .textareaAutoSize();
+                comment.fadeToggle();
 
-                content.val("");
+                content.val("")
+                       .css('height', content.css('min-height'));
 
                 App.close_preview(tabs);
 
