@@ -273,7 +273,7 @@ add_action( 'update_post_metadata', 'ucare\send_ticket_updated_email', 10, 5 );
 
 function send_ticket_assigned_email( $null, $id, $key, $value, $old ) {
 
-    if( $key == 'agent' && get_post_meta( $id, 'status', true ) != 'closed' ) {
+    if( $key == 'agent' && $value != $old && get_post_meta( $id, 'status', true ) != 'closed' ) {
 
         $post = get_post( $id );
         $recipient = get_user_by( 'ID', $value );
