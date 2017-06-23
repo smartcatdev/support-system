@@ -312,7 +312,9 @@ td.column-id.id:before {
 
 @media(min-width: 768px) {
 
-    
+    .ucare-addon {
+        width: 28%;
+    }
     
    
 }
@@ -331,9 +333,7 @@ a.ucare-addon-link {
     padding: 14px;
     position: relative;
     margin: 0 1% 15px 0;
-    width: 29%;
-    height: 340px;
-
+    height: 360px;
 }
 
 .ucare-addon h3 {
