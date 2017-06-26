@@ -1,7 +1,7 @@
 === uCare - Support Ticket System ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,desk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 
 Tested up to: 4.8
@@ -57,6 +57,36 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 == Installation ==
 1. Download the plugin, then upload the zipped file to your site from the WordPress dashboard plugin uploader menu
 2. OR - Upload the unpacked folder folder via FTP into /wp-content/plugins
+
+== Frequently Asked Questions ==
+
+= How do I access the support system ? =
+
+uCare automatically creates a page called *Support*. You can access the help desk by going to yourwebsite.com/support. You can find this page in your page list.
+
+= Where is the plugin documentation ? =
+
+uCare documentation [can be accessed by clicking here] (https://ucaresupport.com/documentation/) We are constantly adding documentation to this plugin.
+
+= Does uCare work with WordPress user roles ? =
+
+Yes, uCare is programmed to work right away with WordPress default user roles, as well as WooCommerce and Easy Digital Downloads. This allows you to restrict access to the support system only to your customers, or leave it open for anyone to register. Your choice! 
+
+= How can I add agents to my support system ? =
+
+Adding agents is as simple as creating a new user in WordPress from Users - Add New. You can select one of the user roles Support Agent or Support Admin. [Click here for more details on this] (https://ucaresupport.com/kb/user-roles-capabilities/)
+
+= What type of reporting is available with uCare ? =
+
+The plugin comes with a reporting tool built right into your WordPress dashboard. This tool allows you to view how many tickets your support system receives daily/weekly/monthly or within a custom date range. The reporting also allows you to see your agent's productivity as well as who is solving the most tickets.
+
+= Does this plugin support Email Piping ? =
+
+Email piping is currently planned to be released in Q3 of 2017.
+
+= Does this plugin have notifications for users and agents ? =
+
+Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
 
