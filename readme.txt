@@ -1,7 +1,7 @@
 === uCare - Support Ticket System ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,desk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 
 Tested up to: 4.8
