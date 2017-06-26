@@ -2,8 +2,6 @@
 
 namespace smartcat\post;
 
-use smartcat\core\HookSubscriber;
-
 if( !class_exists('smartcat\post\AbstractMetaBox') ) :
 
 /**
@@ -15,7 +13,7 @@ if( !class_exists('smartcat\post\AbstractMetaBox') ) :
  * @package admin
  * @author Eric Green <eric@smartcat.ca>
  */
-abstract class AbstractMetaBox implements HookSubscriber {
+abstract class AbstractMetaBox {
 
     public $id;
     public $title;
@@ -48,6 +46,8 @@ abstract class AbstractMetaBox implements HookSubscriber {
         if( !empty( $args['priority'] ) ) {
             $this->priority['priority'];
         }
+
+        $this->init();
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class AbstractMetaBox implements HookSubscriber {
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
      */
-    public function install() {
+    public function add() {
         add_meta_box(
             $this->id,
             $this->title,
@@ -72,16 +72,14 @@ abstract class AbstractMetaBox implements HookSubscriber {
      * 
      * @since 1.0.0
      * @author Eric Green <eric@smartcat.ca>
-     */
-    public function uninstall() {
+         */
+        public function remove() {
         remove_meta_box( $this->id, $this->post_type, $this->context );
     }
 
-    public function subscribed_hooks() {
-        return array(
-            'add_meta_boxes_' . $this->post_type => array( 'install' ),
-            'save_post' => array( 'save', 10, 2 )
-        );
+    private function init() {
+        add_action( "add_meta_boxes_{$this->post_type}", array( $this, 'add' ) );
+        add_action( 'save_post', array( $this, 'save' ), 10, 2 );
     }
 
     /**

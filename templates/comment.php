@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 ?>
 
@@ -35,11 +35,11 @@ use ucare\descriptor\Option;
                 <ul class="nav nav-tabs" style="display: none">
 
                     <li class="tab editor-tab active">
-                        <a class="nav-link edit" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', \ucare\PLUGIN_ID ); ?></a>
+                        <a class="nav-link edit" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-editor"><?php _e( 'Write', 'ucare' ); ?></a>
                     </li>
 
                     <li class="tab editor-tab preview">
-                        <a class="nav-link" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', \ucare\PLUGIN_ID ); ?></a>
+                        <a class="nav-link" data-toggle="tab" href="#comment-<?php echo $comment->comment_ID; ?>-preview"><?php _e( 'Preview', 'ucare' ); ?></a>
                     </li>
 
                 </ul>
@@ -95,7 +95,7 @@ use ucare\descriptor\Option;
 
                             <span class="glyphicon glyphicon-remove-sign button-icon"></span>
 
-                            <span><?php _e( get_option( Option::CANCEL_BTN_TEXT, Option\Defaults::CANCEL_BTN_TEXT ) ); ?></span>
+                            <span><?php _e( get_option( Options::CANCEL_BTN_TEXT, \ucare\Defaults::CANCEL_BTN_TEXT ) ); ?></span>
 
                         </button>
 
@@ -103,7 +103,7 @@ use ucare\descriptor\Option;
 
                             <span class="glyphicon glyphicon-floppy-save button-icon"></span>
 
-                            <span><?php _e( get_option( Option::SAVE_BTN_TEXT, Option\Defaults::SAVE_BTN_TEXT ) ); ?></span>
+                            <span><?php _e( get_option( Options::SAVE_BTN_TEXT, \ucare\Defaults::SAVE_BTN_TEXT ) ); ?></span>
 
                         </button>
 

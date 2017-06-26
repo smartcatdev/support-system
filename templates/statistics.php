@@ -5,7 +5,7 @@
         <h4>
             <?php echo \ucare\statprocs\get_unclosed_tickets(); ?>
         </h4>
-        <h5 class="stat-label"><?php _e( 'Total Tickets', \ucare\PLUGIN_ID ); ?></h5>
+        <h5 class="stat-label"><?php _e( 'Total Tickets', 'ucare' ); ?></h5>
         
         <span class="glyphicon glyphicon-envelope"></span>
         
@@ -21,7 +21,7 @@
             'status'    => 'needs_attention'
         ) ) ?>
         </h4>
-        <h5 class="stat-label"><?php _e( 'Needs Attention', \ucare\PLUGIN_ID ); ?></h5>
+        <h5 class="stat-label"><?php _e( 'Needs Attention', 'ucare' ); ?></h5>
         
         <span class="glyphicon glyphicon-exclamation-sign"></span>
         
@@ -36,7 +36,7 @@
             'status'    => 'responded'
         ) ) ?>
         </h4>
-        <h5 class="stat-label"><?php _e( 'Awaiting Response', \ucare\PLUGIN_ID ); ?></h5>
+        <h5 class="stat-label"><?php _e( 'Awaiting Response', 'ucare' ); ?></h5>
         
         <span class="glyphicon glyphicon-repeat"></span>
         
@@ -51,7 +51,7 @@
             'status'    => 'waiting'
         ) ); ?>
         </h4>
-        <h5 class="stat-label"><?php _e( 'Waiting', \ucare\PLUGIN_ID ); ?></h5>
+        <h5 class="stat-label"><?php _e( 'Waiting', 'ucare' ); ?></h5>
         
         <span class="glyphicon glyphicon-time"></span>
         
@@ -66,7 +66,7 @@
             'agent'    => get_current_user_id()
         ) ) ?>
         </h4>
-        <h5 class="stat-label"><?php _e( 'Assigned to Me', \ucare\PLUGIN_ID ); ?></h5>
+        <h5 class="stat-label"><?php _e( 'Assigned to Me', 'ucare' ); ?></h5>
         
         <span class="glyphicon glyphicon-user"></span>
         

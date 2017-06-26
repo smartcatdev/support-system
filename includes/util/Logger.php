@@ -4,7 +4,7 @@
 namespace ucare\util;
 
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class Logger {
 
@@ -21,7 +21,7 @@ class Logger {
 
     protected function insert_log( $class, $message ) {
 
-        if( get_option( Option::LOGGING_ENABLED ) == 'on' ) {
+        if( get_option( Options::LOGGING_ENABLED ) == 'on' ) {
 
             global $wpdb;
 

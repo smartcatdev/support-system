@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 $user = wp_get_current_user();
 
@@ -47,7 +47,7 @@ $user = wp_get_current_user();
 
                                 <span class="glyphicon glyphicon-plus-sign button-icon"></span>
 
-                                <span><?php _e( get_option(Option::CREATE_BTN_TEXT, Option\Defaults::CREATE_BTN_TEXT), \ucare\PLUGIN_ID ); ?></span>
+                                <span><?php _e( get_option(Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT), 'ucare' ); ?></span>
 
                             </button>
 
@@ -80,7 +80,7 @@ $user = wp_get_current_user();
 
                                         <span class="glyphicon glyphicon-cog"></span>
 
-                                        <?php _e( 'Settings', \ucare\PLUGIN_ID ); ?>
+                                        <?php _e( 'Settings', 'ucare' ); ?>
 
                                     </a>
 
@@ -95,7 +95,7 @@ $user = wp_get_current_user();
 
                                             <span class="glyphicon glyphicon-th-large"></span>
 
-                                            <?php _e( 'Support Admin', \ucare\PLUGIN_ID ); ?>
+                                            <?php _e( 'Support Admin', 'ucare' ); ?>
 
                                         </a>
 
@@ -106,11 +106,11 @@ $user = wp_get_current_user();
                                 <?php endif; ?>
 
                                 <li>
-                                    <a href="<?php echo wp_logout_url() . '&redirect_to=' . \ucare\url(); ?>" class="alignright background-secondary hover menu-item">
+                                    <a href="<?php echo wp_logout_url() . '&redirect_to=' . \ucare\support_page_url(); ?>" class="alignright background-secondary hover menu-item">
 
                                         <span class="glyphicon-log-out glyphicon"></span>
 
-                                        <?php _e( 'Logout', \ucare\PLUGIN_ID ); ?>
+                                        <?php _e( 'Logout', 'ucare' ); ?>
 
                                     </a>
 

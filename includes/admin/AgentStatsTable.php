@@ -12,8 +12,8 @@ class AgentStatsTable extends ListTable {
 
     public function __construct( $start_date, $end_date ) {
         parent::__construct( array(
-            'singular' => __( 'Agent Total', \ucare\PLUGIN_ID ),
-            'plural'   => __( 'Agent Totals', \ucare\PLUGIN_ID ),
+            'singular' => __( 'Agent Total', 'ucare' ),
+            'plural'   => __( 'Agent Totals', 'ucare' ),
             'ajax'     => false
         ) );
 
@@ -24,10 +24,10 @@ class AgentStatsTable extends ListTable {
 
     public function get_columns() {
         return array(
-            'uc_agent'            => __( 'Agent', \ucare\PLUGIN_ID ),
-            'uc_number_assigned'  => __( 'Assigned', \ucare\PLUGIN_ID ),
-            'uc_number_closed'    => __( 'Closed', \ucare\PLUGIN_ID ),
-            'uc_workload_percent' => __( '% Workload', \ucare\PLUGIN_ID )
+            'uc_agent'            => __( 'Agent', 'ucare' ),
+            'uc_number_assigned'  => __( 'Assigned', 'ucare' ),
+            'uc_number_closed'    => __( 'Closed', 'ucare' ),
+            'uc_workload_percent' => __( '% Workload', 'ucare' )
         );
     }
 
@@ -41,7 +41,7 @@ class AgentStatsTable extends ListTable {
     }
 
     public function no_items() {
-        _e( 'No totals available.', \ucare\PLUGIN_ID );
+        _e( 'No totals available.', 'ucare' );
     }
 
     public function extra_tablenav( $which ) {
@@ -50,7 +50,7 @@ class AgentStatsTable extends ListTable {
 
             <div class="alignleft actions filteractions">
                 <select name="agent">
-                    <option value="0"><?php _e( 'All Agents', \ucare\PLUGIN_ID ); ?></option>
+                    <option value="0"><?php _e( 'All Agents', 'ucare' ); ?></option>
 
                     <?php foreach( $this->agents as $id => $name ) : ?>
 
@@ -65,7 +65,7 @@ class AgentStatsTable extends ListTable {
                     <?php endforeach; ?>
 
                 </select>
-                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ucare\PLUGIN_ID ); ?>">
+                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', 'ucare' ); ?>">
             </div>
 
         <?php }

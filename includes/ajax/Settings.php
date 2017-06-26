@@ -30,7 +30,7 @@ class Settings extends AjaxComponent {
                 )
             );
 
-            wp_send_json_success( __( 'Settings updated refresh to apply your changes', \ucare\PLUGIN_ID ) );
+            wp_send_json_success( __( 'Settings updated refresh to apply your changes', 'ucare' ) );
 
         } else {
             wp_send_json_error( $form->errors, 400 );

@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 ?>
 
@@ -8,7 +8,7 @@ use ucare\descriptor\Option;
 
     <div class="row">
 
-        <p class="text-center text-muted"><?php _e( get_option( Option::EMPTY_TABLE_MSG, Option\Defaults::EMPTY_TABLE_MSG ), \ucare\PLUGIN_ID ); ?></p>
+        <p class="text-center text-muted"><?php _e( get_option( Options::EMPTY_TABLE_MSG, \ucare\Defaults::EMPTY_TABLE_MSG ), 'ucare' ); ?></p>
 
     </div>
 
@@ -35,7 +35,7 @@ use ucare\descriptor\Option;
 
                                 <?php if( array_key_exists( $status, $statuses ) ) : ?>
 
-                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], \ucare\PLUGIN_ID ); ?></span>
+                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], 'ucare' ); ?></span>
 
                                 <?php endif; ?>
 
@@ -56,9 +56,17 @@ use ucare\descriptor\Option;
 
                                 </a>
 
+                                <?php $terms = get_the_terms( $post, 'ticket_category' ); ?>
+
+                                <?php if( !empty( $terms ) ) : ?>
+
+                                    <span class="tag category"><?php echo $terms[0]->name; ?></span>
+
+                                <?php endif; ?>
+
                                 <?php if( array_key_exists( $product, $products ) ) : ?>
 
-                                    <span class="product"><?php echo $products[ $product ]; ?></span>
+                                    <span class="tag"><?php echo $products[ $product ]; ?></span>
 
                                 <?php endif; ?>
 

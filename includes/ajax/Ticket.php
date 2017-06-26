@@ -2,7 +2,7 @@
 
 namespace ucare\ajax;
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class Ticket extends AjaxComponent {
 
@@ -28,8 +28,11 @@ class Ticket extends AjaxComponent {
 
                 if( is_numeric( $post_id ) ) {
 
+                    wp_set_post_terms( $post_id, $form->data['category'], 'ticket_category' );
+
                     // Remove them so that they are not saved as meta
                     unset( $form->data['subject'] );
+                    unset( $form->data['category'] );
                     unset( $form->data['description'] );
 
                     foreach( $form->data as $field => $value ) {
@@ -106,7 +109,7 @@ class Ticket extends AjaxComponent {
 
                     foreach( $form->data as $field => $value ) {
 
-                        update_post_meta( $ticket->ID, $field, $value );
+                        update_post_meta( $ticket->ID, $field, $value, get_post_meta( $ticket->ID, $field, true ) );
 
                     }
 
@@ -116,7 +119,7 @@ class Ticket extends AjaxComponent {
 
                     wp_send_json( array(
                         'ticket_id' => $ticket->ID,
-                        'data'      => __( 'Ticket Successfully Updated', \ucare\PLUGIN_ID )
+                        'data'      => __( 'Ticket Successfully Updated', 'ucare' )
                     ) );
 
                 }
@@ -126,9 +129,9 @@ class Ticket extends AjaxComponent {
 
     public function close_ticket() {
         if( update_post_meta( $_POST['id'], 'status', 'closed' ) ) {
-            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', \ucare\PLUGIN_ID ) ) );
+            wp_send_json_success( array( 'message' => __( 'Ticket successfully closed', 'ucare' ) ) );
         } else {
-            wp_send_json_error( array( 'message' => __( 'Error closing ticket', \ucare\PLUGIN_ID ) ) );
+            wp_send_json_error( array( 'message' => __( 'Error closing ticket', 'ucare' ) ) );
         }
     }
 
@@ -206,7 +209,7 @@ class Ticket extends AjaxComponent {
                 'comment_author'              => $user->display_name,
                 'comment_author_email'        => $user->user_email,
                 'comment_author_url'          => $user->user_url,
-                'comment_content'             => \ucare\util\encode_code_blocks( $_POST['content'] ),
+                'comment_content'             => \ucare\util\encode_code_blocks( trim( $_POST['content'] ) ),
                 'comment_parent'              => 0,
                 'comment_approved'            => 1,
                 'user_id'                     => $user->ID
@@ -228,7 +231,7 @@ class Ticket extends AjaxComponent {
                 );
 
             } else {
-                wp_send_json_error( __( 'Reply cannot be blank', \ucare\PLUGIN_ID ), 400 );
+                wp_send_json_error( __( 'Reply cannot be blank', 'ucare' ), 400 );
             }
         } else {
             wp_send_json_error( null, 400 );
@@ -249,6 +252,14 @@ class Ticket extends AjaxComponent {
         $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
 
         if( isset( $_REQUEST['ticket_filter'] ) ) {
+
+            if( !empty( $_REQUEST['category'] ) ) {
+                $args['tax_query'][] = array(
+                    'taxonomy' => 'ticket_category',
+                    'field'    => 'slug',
+                    'terms'    => array( $_REQUEST['category'] )
+                );
+            }
 
             if( !empty( $_REQUEST['email'] ) ) {
                 $author = get_user_by( 'email', $_REQUEST['email'] );
@@ -354,7 +365,7 @@ class Ticket extends AjaxComponent {
         $args = array(
             'post_type'      => 'support_ticket',
             'post_status'    => 'publish',
-            'posts_per_page' => get_option( Option::MAX_TICKETS, Option\Defaults::MAX_TICKETS ),
+            'posts_per_page' => get_option( Options::MAX_TICKETS, \ucare\Defaults::MAX_TICKETS ),
             'paged'          => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
         );
 

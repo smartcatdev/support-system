@@ -11,16 +11,16 @@ class LogsTable extends ListTable {
 
     public function __construct() {
         parent::__construct( array(
-            'singular' => __( 'Log', \ucare\PLUGIN_ID ),
-            'plural'   => __( 'Logs', \ucare\PLUGIN_ID ),
+            'singular' => __( 'Log', 'ucare' ),
+            'plural'   => __( 'Logs', 'ucare' ),
             'ajax'     => false
         ) );
 
         $this->classes = array(
-            'i' => __( 'Info', \ucare\PLUGIN_ID ),
-            'd' => __( 'Debug', \ucare\PLUGIN_ID ),
-            'e' => __( 'Error', \ucare\PLUGIN_ID ),
-            'w' => __( 'Warning', \ucare\PLUGIN_ID ),
+            'i' => __( 'Info', 'ucare' ),
+            'd' => __( 'Debug', 'ucare' ),
+            'e' => __( 'Error', 'ucare' ),
+            'w' => __( 'Warning', 'ucare' ),
         );
 
         apply_filters( 'support_default_log_classes', $this->classes );
@@ -28,10 +28,10 @@ class LogsTable extends ListTable {
 
     public function get_columns() {
         return array(
-            'uc_log_class'        => __( 'Level', \ucare\PLUGIN_ID ),
-            'uc_log_tag'          => __( 'Event', \ucare\PLUGIN_ID ),
-            'uc_log_message'      => __( 'Message', \ucare\PLUGIN_ID ),
-            'uc_log_timestamp'    => __( 'Timestamp', \ucare\PLUGIN_ID )
+            'uc_log_class'        => __( 'Level', 'ucare' ),
+            'uc_log_tag'          => __( 'Event', 'ucare' ),
+            'uc_log_message'      => __( 'Message', 'ucare' ),
+            'uc_log_timestamp'    => __( 'Timestamp', 'ucare' )
         );
     }
 
@@ -44,7 +44,7 @@ class LogsTable extends ListTable {
     }
 
     public function no_items() {
-        _e( 'No logs available.', \ucare\PLUGIN_ID );
+        _e( 'No logs available.', 'ucare' );
     }
 
     public function extra_tablenav( $which ) {
@@ -54,7 +54,7 @@ class LogsTable extends ListTable {
             <div class="alignleft actions filteractions">
 
                 <select name="level">
-                    <option value=""><?php _e( 'Verbose', \ucare\PLUGIN_ID ); ?></option>
+                    <option value=""><?php _e( 'Verbose', 'ucare' ); ?></option>
 
                     <?php foreach( $this->classes as $class => $name ) : ?>
 
@@ -71,7 +71,7 @@ class LogsTable extends ListTable {
                 </select>
 
                 <select name="tag">
-                    <option value=""><?php _e( 'All Tags', \ucare\PLUGIN_ID ); ?></option>
+                    <option value=""><?php _e( 'All Tags', 'ucare' ); ?></option>
 
                     <?php $tags = $this->get_log_tags(); ?>
 
@@ -89,7 +89,7 @@ class LogsTable extends ListTable {
 
                 </select>
 
-                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', \ucare\PLUGIN_ID ); ?>">
+                <input type="submit" name="filter_action" class="button" value="<?php _e( 'Filter', 'ucare' ); ?>">
 
                 <button class="button" name="clear"><span style="line-height: 26px" class="dashicons dashicons-trash"></span></button>
 
@@ -141,7 +141,7 @@ class LogsTable extends ListTable {
     private function record_count() {
         global $wpdb;
 
-        return $wpdb->query( "SELECT COUNT(*) FROM {$wpdb->prefix}ucare_logs" );
+        return $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ucare_logs" );
     }
 
     private function get_logs( $per_page = 5, $page_number = 1 ) {

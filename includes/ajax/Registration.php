@@ -50,16 +50,16 @@ class Registration extends AjaxComponent {
             }
 
             if( !$user ) {
-                wp_send_json_error( array( 'username' => __( 'That user could not be found', \ucare\PLUGIN_ID ) ), 400 );
+                wp_send_json_error( array( 'username' => __( 'That user could not be found', 'ucare' ) ), 400 );
             } else {
                 $password = wp_generate_password();
 
                 wp_set_password( $password, $user->ID );
 
                 if( apply_filters( 'support_password_reset_notification', true, $user->user_email, $password, $user ) ) {
-                    wp_send_json_success( array( 'message' => __( 'Password reset, a temporary password has been sent to your email', \ucare\PLUGIN_ID ) ) );
+                    wp_send_json_success( array( 'message' => __( 'Password reset, a temporary password has been sent to your email', 'ucare' ) ) );
                 } else {
-                    wp_send_json_error( array( 'message' => __( 'An error has occurred, Please try again later', \ucare\PLUGIN_ID ) ), 500 );
+                    wp_send_json_error( array( 'message' => __( 'An error has occurred, Please try again later', 'ucare' ) ), 500 );
                 }
             }
         }

@@ -60,6 +60,25 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 
 == Changelog ==
 
+= 1.3.0 =
+- Added extension licensing support
+- Added public functions for registering extension licenses in core
+- Added new email notifications for agents
+    - Ticket Assigned
+    - Customer Reply
+- Added check for minimum PHP version 5.5
+- Deprecated use of Components
+- Moved Options under root namespace
+- Added options to configure primary and secondary fonts
+- New look for settings page
+- Added new public functions for logging and developer mode
+- Added open ticket count to WordPress admin bar
+- Ticket response text input now auto expands when typing long replies
+- Added support quick link widget to display on site
+- Added new email notification to send to site admin when a ticket is created
+- Fixed issue where quick editor would not update in WordPress admin
+- Added ability to create categories for support tickets
+
 = 1.2.1 =
 - Added system log with level and tag filtering under reports view
 - Tweaks and re-enabled cron that deletes abandoned stale tickets

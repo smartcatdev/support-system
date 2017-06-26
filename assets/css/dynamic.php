@@ -1,14 +1,17 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
-$primary_color   = esc_attr( get_option( Option::PRIMARY_COLOR, Option\Defaults::PRIMARY_COLOR ) );
-$hover_color     = esc_attr( get_option( Option::HOVER_COLOR, Option\Defaults::HOVER_COLOR ) );
-$secondary_color = esc_attr( get_option( Option::SECONDARY_COLOR, Option\Defaults::SECONDARY_COLOR ) );
-$tertiary_color  = esc_attr( get_option( Option::TERTIARY_COLOR, Option\Defaults::TERTIARY_COLOR ) );
+$primary_color   = esc_attr( get_option( Options::PRIMARY_COLOR, \ucare\Defaults::PRIMARY_COLOR ) );
+$hover_color     = esc_attr( get_option( Options::HOVER_COLOR, \ucare\Defaults::HOVER_COLOR ) );
+$secondary_color = esc_attr( get_option( Options::SECONDARY_COLOR, \ucare\Defaults::SECONDARY_COLOR ) );
+$tertiary_color  = esc_attr( get_option( Options::TERTIARY_COLOR, \ucare\Defaults::TERTIARY_COLOR ) );
 
-$primary_color_rgb = \ucare\proc\hex2rgb( $primary_color );
-$secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
+$primary_color_rgb      = \ucare\proc\hex2rgb( $primary_color );
+$secondary_color_rgb    = \ucare\proc\hex2rgb( $secondary_color );
+
+$primary_font   = esc_attr( get_option( Options::PRIMARY_FONT, \ucare\Defaults::PRIMARY_FONT ) );
+$secondary_font = esc_attr( get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDARY_FONT ) );
 
 ?>
 
@@ -37,11 +40,11 @@ $secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
     }
     
     #filter-toggle .toggle-label:after {
-        content: "<?php _e( 'Apply Filters', \ucare\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Apply Filters', 'ucare' ); ?>";
     }
 
     #filter-toggle.active .toggle-label:after {
-        content: "<?php _e( 'Filters Applied', \ucare\PLUGIN_ID ); ?>";
+        content: "<?php _e( 'Filters Applied', 'ucare' ); ?>";
     }
 
     #support-login-wrapper input[type="text"]:focus,
@@ -85,7 +88,38 @@ $secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
     /* Tertiary color */
 
     #support-login-page {
-        background-image: url(<?php echo get_option( Option::LOGIN_BACKGROUND, Option\Defaults::LOGIN_BACKGROUND ); ?> )
+        background-image: url(<?php echo get_option( Options::LOGIN_BACKGROUND, \ucare\Defaults::LOGIN_BACKGROUND ); ?> )
+    }
+    
+    /* Primary Heading Font */
+    
+    body{
+        font-family: <?php echo $primary_font; ?> !important;
+    }
+    
+    .sidebar .ticket-details .panel-body .lead,
+    .customer-details .panel-body strong {
+        font-family: <?php echo $primary_font; ?>;
+    }
+    
+    /* Secondary Body Font */
+    
+    form select,
+    input#search,
+    form input, form textarea,
+    .discussion-area > .ticket .panel-body,
+    .ticket-list .ticket .media-body .text-muted,
+    #navbar .clock,
+    form .form-check label,
+    .dz-message,
+    .discussion-area .comments .comment .comment-content,
+    .comments .comment .meta .text-muted,
+    .purchase-info,
+    .customer-details .panel-body,
+    .sidebar .ticket-details .panel-body,
+    .discussion-area .editor .preview,
+    .modal-body {
+        font-family: <?php echo $secondary_font; ?> !important;
     }
     
     /* - Statistics - */
@@ -196,6 +230,10 @@ $secondary_color_rgb = \ucare\proc\hex2rgb( $secondary_color );
         }
         
     }
-    
+
+    .tag.category {
+        background: <?php echo $primary_color; ?>;
+        color: #fff;
+    }
 
 </style>

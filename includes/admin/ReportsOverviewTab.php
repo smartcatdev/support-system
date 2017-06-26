@@ -18,15 +18,15 @@ class ReportsOverviewTab extends MenuPageTab {
 
         parent::__construct( array(
             'slug'  => 'overview',
-            'title' => __( 'Overview', \ucare\PLUGIN_ID )
+            'title' => __( 'Overview', 'ucare' )
         ) );
 
         $this->predefined_ranges = array(
-            'last_week'     => __( 'Last 7 Days', \ucare\PLUGIN_ID ),
-            'this_month'    => __( 'This Month', \ucare\PLUGIN_ID ),
-            'last_month'    => __( 'Last Month', \ucare\PLUGIN_ID ),
-            'this_year'     => __( 'This Year', \ucare\PLUGIN_ID ),
-            'custom'        => __( 'Custom', \ucare\PLUGIN_ID ),
+            'last_week'     => __( 'Last 7 Days', 'ucare' ),
+            'this_month'    => __( 'This Month', 'ucare' ),
+            'last_month'    => __( 'Last Month', 'ucare' ),
+            'this_year'     => __( 'This Year', 'ucare' ),
+            'custom'        => __( 'Custom', 'ucare' ),
         );
 
         $this->today = date_create();
@@ -76,8 +76,8 @@ class ReportsOverviewTab extends MenuPageTab {
                 }
 
                 $.plot('#ticket-overview-chart', [
-                    { label: '<?php _e( 'Opened', \ucare\PLUGIN_ID ); ?>', data: opened },
-                    { label: '<?php _e( 'Closed', \ucare\PLUGIN_ID ); ?>', data: closed, yaxis: 2 }
+                    { label: '<?php _e( 'Opened', 'ucare' ); ?>', data: opened },
+                    { label: '<?php _e( 'Closed', 'ucare' ); ?>', data: closed, yaxis: 2 }
                 ],{
                     colors: [ '#EDC240', '#AFD8F8' ],
                     grid: {
@@ -124,8 +124,8 @@ class ReportsOverviewTab extends MenuPageTab {
                   end:   '<?php  echo date( 'Y-m-t',  strtotime( 'now' ) ); ?>'
               },
               'last_month': {
-                  start: '<?php  echo date( 'Y-m-01',  strtotime( '-1 month' ) ); ?>',
-                  end:   '<?php  echo date( 'Y-m-t',   strtotime( '-1 month' ) ); ?>'
+                  start: '<?php  echo date( 'Y-m-01',  strtotime( 'first day of last month' ) ); ?>',
+                  end:   '<?php  echo date( 'Y-m-t',   strtotime( 'first day of last month' ) ); ?>'
               },
               'this_year': {
                   start: '<?php  echo date( 'Y-01-01', strtotime( 'now' ) ); ?>',
@@ -190,7 +190,7 @@ class ReportsOverviewTab extends MenuPageTab {
                                 </span>
                             </div>
                             <div class="control-group">
-                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', \ucare\PLUGIN_ID ); ?></button>
+                                <button type="submit" class="form-control button button-secondary"><?php _e( 'Go', 'ucare' ); ?></button>
                             </div>
                         </div>
 
@@ -226,7 +226,7 @@ class ReportsOverviewTab extends MenuPageTab {
 
                     <?php selected( isset( $_GET["{$prefix}month"] ) ? $_GET["{$prefix}month"] : $month, $m ); ?>>
 
-                    <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), \ucare\PLUGIN_ID ); ?>
+                    <?php _e( date('F', mktime(0, 0, 0, $m, 1 ) ), 'ucare' ); ?>
 
                 </option>
 

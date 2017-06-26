@@ -11,7 +11,7 @@ class LogsTab extends MenuPageTab {
     public function __construct() {
         parent::__construct( array(
             'slug'  => 'logs',
-            'title' => __( 'Logs', \ucare\PLUGIN_ID )
+            'title' => __( 'Logs', 'ucare' )
         ) );
 
         if( isset( $_GET['clear'] ) ) {

@@ -9,6 +9,7 @@ if( !interface_exists( '\smartcat\core\Component' ) ) :
  * and given a reference to the Plugin class. All Components are decoupled from each other and
  * communicate with each other through the WordPress Plugin API.
  *
+ * @deprecated
  * @package smartcat\core
  * @author Eirc Green <eric@smartcat.ca>
  */

@@ -1,6 +1,6 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
 class migration_1_1_1 implements \smartcat\core\Migration {
 
@@ -23,14 +23,14 @@ class migration_1_1_1 implements \smartcat\core\Migration {
                 array(
                     'post_type'     => 'email_template',
                     'post_status'   => 'publish',
-                    'post_title'    => __( 'Your password has been changed', \ucare\PLUGIN_ID ),
+                    'post_title'    => __( 'Your password has been changed', 'ucare' ),
                     'post_content'  => file_get_contents( $dir . '/emails/password-reset.html' )
                 )
             );
 
             if( !empty( $id ) ) {
                 update_post_meta( $id, 'styles', file_get_contents( $dir . '/emails/default-style.css' ) );
-                update_option( Option::PASSWORD_RESET_EMAIL, $id );
+                update_option( Options::PASSWORD_RESET_EMAIL, $id );
             }
 
         } catch( Exception $ex ) { }

@@ -1,8 +1,8 @@
 <?php
 
-use ucare\descriptor\Option;
+use ucare\Options;
 
-$ver = get_option( Option::PLUGIN_VERSION );
+$ver = get_option( Options::PLUGIN_VERSION );
 
 ?>
         <footer id="footer">
@@ -11,13 +11,13 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
                 <p class="footer-text text-center">
 
-                    <?php $footer_text = get_option( Option::FOOTER_TEXT, Option\Defaults::FOOTER_TEXT ); ?>
+                    <?php $footer_text = get_option( Options::FOOTER_TEXT, \ucare\Defaults::FOOTER_TEXT ); ?>
 
                     <?php echo !empty( $footer_text ) ? $footer_text . ' |' : ''; ?>
 
                     <a href="http://ucaresupport.com" target="_blank">
 
-                        <?php _e( ' Powered by uCare Support', \ucare\PLUGIN_ID ); ?>
+                        <?php _e( ' Powered by uCare Support', 'ucare' ); ?>
 
                     </a>
 
@@ -32,16 +32,16 @@ $ver = get_option( Option::PLUGIN_VERSION );
             var Globals = {
                 ajax_url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
-                refresh_interval: <?php echo get_option( Option::REFRESH_INTERVAL, Option\Defaults::REFRESH_INTERVAL ); ?>,
+                refresh_interval: <?php echo get_option( Options::REFRESH_INTERVAL, \ucare\Defaults::REFRESH_INTERVAL ); ?>,
                 strings: {
-                    loading_tickets: "<?php _e( "Loading Tickets...", \ucare\PLUGIN_ID ); ?>",
-                    loading_generic: "<?php _e( "Loading...", \ucare\PLUGIN_ID ); ?>",
-                    delete_comment: "<?php _e( "Delete Comment", \ucare\PLUGIN_ID ); ?>",
-                    delete_attachment: "<?php _e( "Delete Attachment", \ucare\PLUGIN_ID ); ?>",
-                    close_ticket: "<?php _e( "Close Ticket", \ucare\PLUGIN_ID ); ?>",
-                    warning_permanent: "<?php _e( "Are you sure you want to do this? This operation cannot be undone!", \ucare\PLUGIN_ID ); ?>",
-                    yes: "<?php _e( "Yes", \ucare\PLUGIN_ID ); ?>",
-                    cancel: "<?php _e( "Cancel", \ucare\PLUGIN_ID ); ?>"
+                    loading_tickets: "<?php _e( "Loading Tickets...", 'ucare' ); ?>",
+                    loading_generic: "<?php _e( "Loading...", 'ucare' ); ?>",
+                    delete_comment: "<?php _e( "Delete Comment", 'ucare' ); ?>",
+                    delete_attachment: "<?php _e( "Delete Attachment", 'ucare' ); ?>",
+                    close_ticket: "<?php _e( "Close Ticket", 'ucare' ); ?>",
+                    warning_permanent: "<?php _e( "Are you sure you want to do this? This operation cannot be undone!", 'ucare' ); ?>",
+                    yes: "<?php _e( "Yes", 'ucare' ); ?>",
+                    cancel: "<?php _e( "Cancel", 'ucare' ); ?>"
                 }
             };
 
@@ -144,6 +144,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
         <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js' . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js' . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' . '?ver=' . $ver ?>" ></script>
+        <script src="<?php echo $url . 'assets/lib/textarea-autosize.min.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/plugins.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' . '?ver=' . $ver ?>" ></script>
@@ -152,7 +153,7 @@ $ver = get_option( Option::PLUGIN_VERSION );
 
         <script>
 
-            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Option::MAX_ATTACHMENT_SIZE, Option\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
+            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Options::MAX_ATTACHMENT_SIZE, \ucare\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
 
         </script>
 

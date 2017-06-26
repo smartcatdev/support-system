@@ -1,0 +1,31 @@
+#ucare-quick-link-widget {
+    position: fixed;
+    opacity: 1;
+    right: 0px;
+    bottom: 0px;
+    height: 47px;
+    margin: 10px 20px;
+    z-index: 9998;
+
+}
+
+#ucare-quick-link-widget a {
+    background-color: #055864;
+    box-sizing: border-box;
+    border-radius: 999rem;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 400;
+    padding: 1rem 2rem;
+    white-space: nowrap;
+    opacity: 1;
+    transition: 0.2s all ease;
+    -moz-transition: 0.2s all ease;
+    -webkit-transition: 0.2s all ease;
+}
+
+#ucare-quick-link-widget a:hover {
+    opacity: 0.9;
+}

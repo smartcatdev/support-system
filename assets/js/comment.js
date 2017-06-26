@@ -66,7 +66,12 @@
             data: data,
             success: function (response) {
                 comment.fadeToggle("slow", function () {
-                    comment.replaceWith($(response.data).fadeToggle());
+                    var updated = $(response.data).fadeToggle();
+
+                    updated.find('textarea')
+                        .textareaAutoSize();
+
+                    comment.replaceWith(updated);
                 });
 
                 App.close_preview(tabs);
@@ -110,8 +115,10 @@
             });
         }
 
-        editor.find(".editor-content")
-            .val(_.unescape(content.html()).trim())
+        var textarea = editor.find(".editor-content");
+
+        textarea.val(_.unescape(content.html()).trim())
+            .textareaAutoSize();
     };
 
     var initialize = function () {

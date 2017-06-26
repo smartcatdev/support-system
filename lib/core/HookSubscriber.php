@@ -7,6 +7,7 @@ if( !interface_exists( '\smartcat\core\HookSubscriber' ) ) :
 /**
  * Interface for objects that subscribe to hooks in the Plugin API.
  *
+ * @deprecated
  * @package smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */

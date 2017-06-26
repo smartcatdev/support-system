@@ -7,6 +7,7 @@ if( !interface_exists( '\smartcat\core\HookRegister' ) ) :
 /**
  * Interface that a HookSubscriber registers with.
  *
+ * @deprecated
  * @package smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */

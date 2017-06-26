@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><strong><?php echo __( 'Welcome ', \ucare\PLUGIN_ID ) . $user->user_firstname ?>!</strong></h4>
+                <h4 class="modal-title"><strong><?php echo __( 'Welcome ', 'ucare' ) . $user->user_firstname ?>!</strong></h4>
             </div>
             
             <div class="modal-body">
@@ -13,7 +13,7 @@
 
                 <?php if ( is_array( $user->roles ) && ( in_array( 'support_user', $user->roles ) || user_can( $user, 'manage_support_tickets' ) ) ) : ?>
                 
-                    <p><?php _e( 'Since this is your first login to the system, we will take a view seconds to quickly show you around.', \ucare\PLUGIN_ID ); ?></p>
+                    <p><?php _e( 'Since this is your first login to the system, we will take a view seconds to quickly show you around.', 'ucare' ); ?></p>
                     <br>
                     
                     <script src="<?php echo $url . '/assets/js/first_login_agent.js'; ?>"></script>
@@ -28,27 +28,27 @@
                       <!-- Wrapper for slides -->
                       <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-1.jpg" alt="<?php _e( 'Creating tickets', \ucare\PLUGIN_ID ); ?>">
+                            <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-1.jpg" alt="<?php _e( 'Creating tickets', 'ucare' ); ?>">
                           <div class="carousel-caption">
-                            <?php _e( 'Click on the "Create Ticket" button to create a support request', \ucare\PLUGIN_ID ); ?>
+                            <?php _e( 'Click on the "Create Ticket" button to create a support request', 'ucare' ); ?>
                           </div>
                         </div>
                         <div class="item">
-                          <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-2.jpg" alt="<?php _e( 'Creating tickets', \ucare\PLUGIN_ID ); ?>">
+                          <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-2.jpg" alt="<?php _e( 'Creating tickets', 'ucare' ); ?>">
                           <div class="carousel-caption">
-                            <?php _e( 'Your tickets will be displayed in the ticket view once created.', \ucare\PLUGIN_ID ); ?>
+                            <?php _e( 'Your tickets will be displayed in the ticket view once created.', 'ucare' ); ?>
                           </div>
                         </div>
                         <div class="item">
-                          <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-3.jpg" alt="<?php _e( 'Creating tickets', \ucare\PLUGIN_ID ); ?>">
+                          <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-3.jpg" alt="<?php _e( 'Creating tickets', 'ucare' ); ?>">
                           <div class="carousel-caption">
-                            <?php _e( 'You can update your password from the Settings menu', \ucare\PLUGIN_ID ); ?>
+                            <?php _e( 'You can update your password from the Settings menu', 'ucare' ); ?>
                           </div>
                         </div>
                         <div class="item">
-                          <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-4.jpg" alt="<?php _e( 'Creating tickets', \ucare\PLUGIN_ID ); ?>">
+                          <img src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ); ?>assets/images/slide-4.jpg" alt="<?php _e( 'Creating tickets', 'ucare' ); ?>">
                           <div class="carousel-caption">
-                            <?php _e( 'You can click on the ticket to open it and add comments as well as view the agent responses in real time.', \ucare\PLUGIN_ID ); ?>
+                            <?php _e( 'You can click on the ticket to open it and add comments as well as view the agent responses in real time.', 'ucare' ); ?>
                           </div>
                         </div>
                           
@@ -70,7 +70,7 @@
 
                 <?php elseif( user_can( $user, 'manage_support_tickets' ) ) : ?>
                     
-                    <p><?php _e( 'Since this is your first login to the system, please take a moment to get familiar with how it works!', \ucare\PLUGIN_ID ); ?></p>
+                    <p><?php _e( 'Since this is your first login to the system, please take a moment to get familiar with how it works!', 'ucare' ); ?></p>
                     <br>
                     <script src="<?php echo $url . '/assets/js/first_login_agent.js'; ?>"></script>
                     <iframe width="100%" height="400" src="https://www.youtube.com/embed/ZX1oAGWmFh0?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1 " frameborder="0" allowfullscreen></iframe>
@@ -80,7 +80,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="button button-secondary" data-dismiss="modal"><?php _e( 'Close', \ucare\PLUGIN_ID ); ?></button>
+                <button type="button" class="button button-secondary" data-dismiss="modal"><?php _e( 'Close', 'ucare' ); ?></button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
