@@ -2,7 +2,8 @@
 
 namespace ucare;
 
-function comment_save( $id ) {
+
+function comment_save($id ) {
 
     $post = get_post( get_comment( $id )->comment_post_ID );
 

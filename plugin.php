@@ -17,13 +17,13 @@ if( !defined( 'ABSPATH' ) ) {
     die();
 }
 
-include_once 'constants.php';
+include_once dirname( __FILE__ ) . '/constants.php';
 
 
 if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
     // Pull in manual includes
-    include_once 'loader.php';
+    include_once dirname( __FILE__ ) . '/loader.php';
 
     // Boot up the container
     Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
