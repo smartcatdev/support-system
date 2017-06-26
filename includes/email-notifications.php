@@ -79,7 +79,7 @@ function email_template_vars( $vars ) {
 add_filter( 'mailer_template_vars', 'ucare\email_template_vars' );
 
 
-function disable_wp_comment_moderation_notices( $emails ) {
+function disable_wp_comment_moderation_notices( $emails, $comment_id ) {
 
     $comment = get_comment( $comment_id );
     $ticket = get_post( $comment->comment_post_ID );
