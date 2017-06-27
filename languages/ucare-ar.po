@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uCare - Support Ticket System\n"
 "POT-Creation-Date: 2017-06-27 14:27-0400\n"
-"PO-Revision-Date: 2017-06-27 14:31-0400\n"
+"PO-Revision-Date: 2017-06-27 14:41-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -1487,23 +1487,23 @@ msgstr ""
 
 #: templates/admin-header.php:8
 msgid "uCare Support Help Desk"
-msgstr ""
+msgstr "نظام الدعم uCare"
 
 #: templates/admin-header.php:9
 msgid "Plugin Settings"
-msgstr ""
+msgstr "إعدادات البرنامج المساعد"
 
 #: templates/admin-header.php:13
 msgid "Plugin Documentations"
-msgstr ""
+msgstr "وثائق البرنامج المساعد"
 
 #: templates/admin-header.php:22
 msgid "Your help desk URL is: "
-msgstr ""
+msgstr "عنوان مكتب المساعدة:"
 
 #: templates/admin-sidebar.php:4
 msgid "We want your feedback!"
-msgstr ""
+msgstr "نحن نريد مشاركتك!"
 
 #: templates/admin-sidebar.php:5
 msgid ""
@@ -1518,7 +1518,7 @@ msgstr ""
 
 #: templates/admin-sidebar.php:13
 msgid "Support this plugin"
-msgstr ""
+msgstr "أعط تقييما لهذه الإضافة"
 
 #: templates/admin-sidebar.php:14
 msgid ""
@@ -1528,11 +1528,11 @@ msgstr ""
 
 #: templates/admin-sidebar.php:16
 msgid "Leave review"
-msgstr ""
+msgstr "يرجى ترك تقييم"
 
 #: templates/admin-sidebar.php:21
 msgid "Plugin Tutorial"
-msgstr ""
+msgstr "دروس البرنامج المساعد"
 
 #: templates/admin-sidebar.php:22
 msgid ""
@@ -1635,51 +1635,51 @@ msgstr ""
 
 #: templates/feedback.php:32
 msgid "What did you expect?"
-msgstr ""
+msgstr "ماذا تتوقع؟"
 
 #: templates/feedback.php:34
 msgid "The plugin does not function as expected"
-msgstr ""
+msgstr "البرنامج المساعد لا يعمل كما هو متوقع"
 
 #: templates/feedback.php:37
 msgid "Can you explain what is happening?"
-msgstr ""
+msgstr "ماذا يحدث؟"
 
 #: templates/feedback.php:39
 msgid "The plugin does not work"
-msgstr ""
+msgstr "لا يعمل البرنامج المساعد"
 
 #: templates/feedback.php:42
 msgid "Which one?"
-msgstr ""
+msgstr "أي واحد؟"
 
 #: templates/feedback.php:44
 msgid "I found a better plugin"
-msgstr ""
+msgstr "لقد وجدت مساعد أفضل"
 
 #: templates/feedback.php:49
 msgid "Other"
-msgstr ""
+msgstr "أخرى"
 
 #: templates/feedback.php:54
 msgid "Additional comments"
-msgstr ""
+msgstr "تعليقات إضافية"
 
 #: templates/feedback.php:64
 msgid "No thanks, just deactivate"
-msgstr ""
+msgstr "لا شكرا، فقط قم بإلغاء تنشيط"
 
 #: templates/feedback.php:66 templates/footer.php:44
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #: templates/feedback.php:67
 msgid "Submit & Deactivate"
-msgstr ""
+msgstr "تقديم وإلغاء التنشيط"
 
 #: templates/first_login.php:8
 msgid "Welcome "
-msgstr ""
+msgstr "أهلا وسهلا فيك؟"
 
 #: templates/first_login.php:16
 msgid ""
@@ -1718,87 +1718,87 @@ msgstr ""
 
 #: templates/first_login.php:83
 msgid "Close"
-msgstr ""
+msgstr "إغلاق"
 
 #: templates/footer.php:20
 msgid " Powered by uCare Support"
-msgstr ""
+msgstr "نظام الدعم uCare"
 
 #: templates/footer.php:37
 msgid "Loading Tickets..."
-msgstr ""
+msgstr "تحميل تذاكر..."
 
 #: templates/footer.php:38 templates/ticket.php:17
 msgid "Loading..."
-msgstr ""
+msgstr "جارٍ التحميل..."
 
 #: templates/footer.php:39
 msgid "Delete Comment"
-msgstr ""
+msgstr "حذف التعليق"
 
 #: templates/footer.php:40
 msgid "Delete Attachment"
-msgstr ""
+msgstr "حذف المرفق"
 
 #: templates/footer.php:41 templates/ticket.php:95
 msgid "Close Ticket"
-msgstr ""
+msgstr "اغلاق التذكرة"
 
 #: templates/footer.php:42
 msgid "Are you sure you want to do this? This operation cannot be undone!"
-msgstr ""
+msgstr "هل أنت متأكد من أنك تريد القيام بهذا؟ لا يمكن التراجع عن هذه العملية!"
 
 #: templates/footer.php:43
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: templates/header.php:20
 msgid "uCare Support System"
-msgstr ""
+msgstr "نظام الدعم uCare"
 
 #: templates/header.php:34
 msgid "|"
-msgstr ""
+msgstr "|"
 
 #: templates/login.php:24 templates/login.php:102
 msgid "Back"
-msgstr ""
+msgstr "العودة"
 
 #: templates/login.php:34
 msgid "Reset Password"
-msgstr ""
+msgstr "إعاده تعيين كلمة المرور"
 
 #: templates/login.php:40
 msgid "Username or Email Address"
-msgstr ""
+msgstr "الاسم /  البريد الالكتروني"
 
 #: templates/login.php:46
 msgid "Reset"
-msgstr ""
+msgstr "إعادة تعيين"
 
 #: templates/login.php:66
 msgid "Invalid username or password"
-msgstr ""
+msgstr "اسم المستخدم أو كلمة المرور غير صالحة"
 
 #: templates/login.php:78
 msgid "Lost password?"
-msgstr ""
+msgstr "كلمة مرور مفقودة؟"
 
 #: templates/navbar.php:113
 msgid "Logout"
-msgstr ""
+msgstr "تسجيل خروج"
 
 #: templates/sidebar.php:49
 msgid "Since "
-msgstr ""
+msgstr "منذ"
 
 #: templates/sidebar.php:65
 msgid "Closed by "
-msgstr ""
+msgstr "مغلقة من قبل"
 
 #: templates/sidebar.php:69
 msgid "Automatically closed "
-msgstr ""
+msgstr "إغلاق تلقائياً"
 
 #: templates/sidebar.php:79
 msgid "From "
@@ -1806,7 +1806,7 @@ msgstr ""
 
 #: templates/sidebar.php:92
 msgid "Purchase Details"
-msgstr ""
+msgstr "تفاصيل الطلب"
 
 #: templates/sidebar.php:131
 msgid "Customer Details"
@@ -1814,51 +1814,51 @@ msgstr ""
 
 #: templates/sidebar.php:155
 msgid "Email: "
-msgstr ""
+msgstr "البريد الإلكتروني:"
 
 #: templates/sidebar.php:175
 msgid "Attachments"
-msgstr ""
+msgstr "الملاحق"
 
 #: templates/sidebar.php:188
 msgid "There are no attachments for this ticket"
-msgstr ""
+msgstr "هناك لا مرفقات لهذه التذكرة"
 
 #: templates/sidebar.php:242
 msgid "Upload"
-msgstr ""
+msgstr "رفع"
 
 #: templates/sidebar.php:261
 msgid "Ticket Properties"
-msgstr ""
+msgstr "خصائص التذكرة"
 
 #: templates/statistics.php:8
 msgid "Total Tickets"
-msgstr ""
+msgstr "مجموع التذاكر"
 
 #: templates/statistics.php:39
 msgid "Awaiting Response"
-msgstr ""
+msgstr "في انتظار الرد"
 
 #: templates/statistics.php:69
 msgid "Assigned to Me"
-msgstr ""
+msgstr "تعيين (ه/ها) لي"
 
 #: templates/ticket.php:161
 msgid "Done"
-msgstr ""
+msgstr "تم"
 
 #: templates/ticket_filter.php:23
 msgid "Filter By"
-msgstr ""
+msgstr "ترتيب حسب"
 
 #: templates/ticket_filter.php:33
 msgid "Search"
-msgstr ""
+msgstr "البحث"
 
 #: templates/ticket_filter.php:96
 msgid "Refresh"
-msgstr ""
+msgstr "تحديث"
 
 #. Plugin Name of the plugin/theme
 msgid "uCare - Support Ticket System"
@@ -1874,8 +1874,8 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Smartcat"
-msgstr ""
+msgstr "‫Smartcat"
 
 #. Author URI of the plugin/theme
 msgid "https://smartcatdesign.net"
-msgstr ""
+msgstr "‫https://smartcatdesign.net"
