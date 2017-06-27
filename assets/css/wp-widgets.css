@@ -1,7 +1,7 @@
 #ucare-quick-link-widget {
     position: fixed;
     opacity: 1;
-    right: 0px;
+    left: 0px;
     bottom: 0px;
     height: 47px;
     margin: 10px 20px;
@@ -16,9 +16,9 @@
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-size: 1.3rem;
+    font-size: 14px;
     font-weight: 400;
-    padding: 1rem 2rem;
+    padding: 10px 20px;
     white-space: nowrap;
     opacity: 1;
     transition: 0.2s all ease;

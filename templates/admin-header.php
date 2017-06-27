@@ -10,7 +10,7 @@
     </div>
     
     <div class="alignright header-component">
-        <a href="https://ucaresupport.com?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=uCareSettingsPage&utm_content=Plugin+Homepage" target="_blank" class="ucare-button secondary"><?php _e( 'Plugin homepage', 'ucare' ); ?></a>
+        <a href="https://ucaresupport.com/documentation/?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=uCareSettingsPage&utm_content=Plugin+Documentation" target="_blank" class="ucare-button secondary"><?php _e( 'Plugin Documentations', 'ucare' ); ?></a>
     </div>
     
     <div class="clear"></div>
