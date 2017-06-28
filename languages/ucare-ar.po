@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: uCare - Support Ticket System\n"
-"POT-Creation-Date: 2017-06-27 14:27-0400\n"
-"PO-Revision-Date: 2017-06-27 14:41-0400\n"
+"POT-Creation-Date: 2017-06-28 06:17-0400\n"
+"PO-Revision-Date: 2017-06-28 06:18-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -28,11 +28,11 @@ msgstr "تصفية"
 
 #: assets/css/dynamic.php:47
 msgid "Filters Applied"
-msgstr ""
+msgstr "تصفية"
 
 #: config/admin_settings.php:20 config/admin_settings.php:648
 msgid "Appearance"
-msgstr ""
+msgstr "الظهور"
 
 #: config/admin_settings.php:31
 msgid "Primary Font"
@@ -80,7 +80,7 @@ msgstr "اسم الأقسام"
 
 #: config/admin_settings.php:108
 msgid "The name to be used for ticket category"
-msgstr ""
+msgstr "اسم لاستخدامها لفئة التذاكر"
 
 #: config/admin_settings.php:117
 msgid "Categories Name Plural"
