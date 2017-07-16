@@ -6,7 +6,7 @@ Requires at least: 4.6
 
 Tested up to: 4.8
 
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 
 If you have customers, then you need uCare. An intelligent support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
