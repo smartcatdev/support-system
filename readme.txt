@@ -3,9 +3,7 @@ Contributors: smartcat
 Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-
 Tested up to: 4.8
-
 Stable tag: 1.3.1
 License: GPLv2 or later
 
