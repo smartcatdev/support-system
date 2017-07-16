@@ -1,7 +1,7 @@
 === uCare - Support Ticket System ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,desk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 
 Tested up to: 4.8
@@ -47,6 +47,14 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - **Auto-close tickets**. If turned on, the plugin will automatically close tickets after X number of days of no customer interaction.
 - **Event logging**. If turned on, the plugin will log all events so you can have a full view of everything that is happening in the system.
 
+= Translation =
+The plugin lists all translatable strings in /languages/ucare.pot file allowing you to translate the plugin into your language.
+The following translations are currently bundled:
+- Arabic
+- English
+- French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli")
+If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
+
 == Screenshots ==
 
 1. Help desk dashboard ( Ticket list )
@@ -89,6 +97,9 @@ Email piping is currently planned to be released in Q3 of 2017.
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.3.1 =
+- Added French/Arabic translations
 
 = 1.3.0 =
 - Added extension licensing support
