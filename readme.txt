@@ -96,6 +96,9 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
+= 1.3.2 =
+- Fixed readme file structure
+
 = 1.3.1 =
 - Added French/Arabic translations
 
