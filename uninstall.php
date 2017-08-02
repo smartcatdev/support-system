@@ -6,32 +6,36 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-include_once 'loader.php';
-
-use ucare\Options;
-
-
-\smartcat\mail\cleanup();
+include_once dirname( __FILE__ ) . '/constants.php';
+include_once dirname( __FILE__ ) . '/loader.php';
 
 
-// Trash all support tickets
-$query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
+if ( get_option( Options::NUKE ) == 'on' ) {
 
-foreach( $query->posts as $post ) {
-    wp_trash_post( $post->ID );
+	\smartcat\mail\cleanup();
+
+
+	// Trash all support tickets
+	$query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
+
+	foreach ( $query->posts as $post ) {
+		wp_trash_post( $post->ID );
+	}
+
+
+	// Cleanup wp_options
+	$options = new \ReflectionClass( Options::class );
+
+	foreach ( $options->getConstants() as $option ) {
+		delete_option( $option );
+	}
+
+	delete_option( 'ucare_version' );
+
+	// Drop logs table
+	global $wpdb;
+
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ucare_logs" );
+
+
 }
-
-
-// Cleanup wp_options
-$options = new \ReflectionClass( Options::class );
-
-foreach( $options->getConstants() as $option ) {
-    delete_option( $option );
-}
-
-delete_option( 'ucare_version' );
-
-// Drop logs table
-global $wpdb;
-
-$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ucare_logs" );

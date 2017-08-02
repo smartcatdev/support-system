@@ -46,6 +46,16 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 }
 
-function basename() {
-    return plugin_basename( __FILE__ );
+
+function add_plugin_action_links( $links ) {
+
+	if( get_option( Options::DEV_MODE ) !== 'on' ) {
+		$links['deactivate'] = '<span id="feedback-prompt">' . $links['deactivate'] . '</span>';
+	}
+
+	$menu_page = menu_page_url( 'uc-settings', false );
+
+	return array_merge( array( 'settings' => '<a href="' . $menu_page . '">' . __( 'Settings', 'ucare' ) . '</a>' ), $links );
 }
+
+add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
