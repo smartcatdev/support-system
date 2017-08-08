@@ -605,7 +605,7 @@ $advanced->add_field( new CheckBoxField(
         'option'        => Options::NUKE,
         'value'         => get_option( Options::NUKE, \ucare\Defaults::NUKE ),
         'label'         => __( 'Erase All Data', 'ucare'),
-        'desc'          => __( 'Erase all data on plugin deactivation if developer mode is enabled', 'ucare' ),
+        'desc'          => __( 'Erase all plugin data on deactivation if developer mode is enabled or during un-installation', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
