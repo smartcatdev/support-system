@@ -1,9 +1,9 @@
 === uCare - Support Ticket System ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,helpdesk,system,customer service,helpdesk,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,helpdesk,system,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.8
+Tested up to: 4.8.1
 Stable tag: 1.3.2
 License: GPLv2 or later
 
@@ -50,7 +50,7 @@ The plugin lists all translatable strings in /languages/ucare.pot file allowing 
 The following translations are currently bundled:
 - Arabic
 - English
-- French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli")
+- French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli") )
 If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
 
 == Screenshots ==
@@ -95,6 +95,10 @@ Email piping is currently planned to be released in Q3 of 2017.
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.3.3 =
+- Bug fix for error occuring on un-install
+- Logout redirect fix
 
 = 1.3.2 =
 - Fixed readme file structure
