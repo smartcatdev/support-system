@@ -27,4 +27,4 @@ function do_quick_link_widget() {
 
 }
 
-add_action( 'wp_head', 'ucare\do_quick_link_widget' );
+add_action( 'wp_footer', 'ucare\do_quick_link_widget' );
