@@ -42,6 +42,7 @@ $secondary_font = get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDAR
         <link href="<?php echo get_option( Options::FAVICON ); ?>" rel="icon">
 
         <?php include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/assets/css/dynamic.php'; ?>
-        
+        <?php do_action( 'ucare_head' ); ?>
     </head>
     <body>
+    <?php do_action( 'ucare_body' ); ?>
