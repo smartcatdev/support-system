@@ -180,52 +180,84 @@ if( array_key_exists( $product, $products ) ) {
 
             <div class="panel-body">
 
-                <?php $attachments = \ucare\util\get_attachments( $ticket ); ?>
-                <?php $attachment_count = count( $attachments ); ?>
+                <?php
 
-                <?php if( $attachment_count === 0 ) : ?>
+                    $mime_types = array(
+                        'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/zip',
+                    );
 
-                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', 'ucare' ); ?></p>
+                    $files = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', $mime_types );
+                    $file_count = count( $files );
+
+                ?>
+
+                <div class="row">
+
+                    <?php if ( $file_count == 0 ) : ?>
+
+                        <p class="text-muted"><?php _e( 'There are no files for this ticket', 'ucare' ); ?></p>
+
+                    <?php else : ?>
+
+                        <?php foreach ( $files as $file ) : ?>
+
+
+                            <a target="_blank" href="<?php echo esc_url( wp_get_attachment_url( $file->ID ) ); ?>"><?php esc_html_e( $file->post_title ); ?></a>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+
+                </div>
+
+                    <hr>
+
+                <?php
+
+                    $mime_types = array(
+                        'image/jpeg', 'image/gif', 'image/png', 'image/bmp'
+                    );
+
+                    $images = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', $mime_types );
+                    $image_count = count( $images );
+
+                ?>
+
+                <?php if( $image_count === 0 ) : ?>
+
+                    <p class="text-muted"><?php _e( 'There are no images for this ticket', 'ucare' ); ?></p>
 
                 <?php else : ?>
 
                     <div class="row gallery">
 
-                        <?php foreach ( $attachments as $attachment ) : ?>
+                        <?php foreach ( $images as $image ) : ?>
 
                             <div class="image-wrapper col-xs-3 col-sm-12 col-md-4">
 
-                                <?php if( $attachment->post_author == wp_get_current_user()->ID ) : ?>
+                                <?php if( $image->post_author == wp_get_current_user()->ID ) : ?>
 
                                     <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
-                                          data-attachment_id="<?php echo $attachment->ID; ?>"
+                                          data-attachment_id="<?php echo $image->ID; ?>"
                                           data-ticket_id="<?php echo $ticket->ID; ?>">
 
                                     </span>
 
                                 <?php endif; ?>
 
-                                <div class="image" data-src="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
-                                     data-sub-html="#caption-<?php echo $attachment->ID; ?>">
+                                <div class="image" data-src="<?php echo wp_get_attachment_url( $image->ID ); ?>"
+                                     data-sub-html="#caption-<?php echo $image->ID; ?>">
 
-                                    <?php if ( strpos( $attachment->post_mime_type, 'image' ) !== false ) : ?>
-
-                                        <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
-
-                                    <?php else : ?>
-
-                                        <img height="60" src="<?php echo esc_url( Plugin::plugin_url( \ucare\PLUGIN_ID ) . '/assets/images/file-icon.png' ); ?>" />
-
-                                    <?php endif; ?>
+                                        <?php echo wp_get_attachment_image( $image->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
 
                                 </div>
 
-                                <div id="caption-<?php echo $attachment->ID; ?>" style="display: none">
+                                <div id="caption-<?php echo $image->ID; ?>" style="display: none">
 
-                                    <?php $author = get_user_by( 'id', $attachment->post_author ); ?>
+                                    <?php $author = get_user_by( 'id', $image->post_author ); ?>
 
                                     <h4><?php echo $author->first_name . ' ' . $author->last_name; ?></h4>
-                                    <p><?php echo \ucare\util\just_now( $attachment->post_date ); ?></p>
+                                    <p><?php echo \ucare\util\just_now( $image->post_date ); ?></p>
 
                                 </div>
 

@@ -355,14 +355,15 @@ function remove_caps( $role ) {
     }
 }
 
-function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
+function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC', $mime_type = '' ) {
     $query = new \WP_Query(
         array(
             'post_parent'       => $ticket->ID,
             'post_type'         => 'attachment',
             'post_status'       => 'inherit',
             'orderby'           => $order,
-            'order'             => $order
+            'order'             => $order,
+            'post_mime_type'    => $mime_type
         ) );
 
     return $query->posts;

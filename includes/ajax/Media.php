@@ -6,15 +6,38 @@ namespace ucare\ajax;
 class Media extends AjaxComponent {
 
     public function upload_media() {
+
+        $filename = false;
+
+        // Get the file's original name
+        if ( !empty( $_FILES['file'] ) ) {
+            $filename = $_FILES['file']['name'];
+        }
+
         define( 'USE_SUPPORT_UPLOADS', true );
+
 
         $result = media_handle_upload( 'file', isset( $_REQUEST['ticket_id'] ) ? $_REQUEST['ticket_id'] : 0 );
 
         if( !is_wp_error( $result ) ) {
-            wp_update_post( array( 'ID' => $result ) );
+
+            if ( !empty( $filename ) ) {
+
+                $data = array(
+                    'ID'         => $result,
+                    'post_title' => $filename
+                );
+
+                wp_update_post( $data );
+
+            }
+
             wp_send_json_success( array( 'id' => $result ), 200 );
+
         } else {
+
             wp_send_json( $result->get_error_message(), 400 );
+
         }
     }
 
