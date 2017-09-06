@@ -14,7 +14,7 @@ class Media extends AjaxComponent {
             wp_update_post( array( 'ID' => $result ) );
             wp_send_json_success( array( 'id' => $result ), 200 );
         } else {
-            wp_send_json_error( array( 'message' => $result->get_error_message() ), 400 );
+            wp_send_json( $result->get_error_message(), 400 );
         }
     }
 
@@ -26,9 +26,9 @@ class Media extends AjaxComponent {
 
             if( $post->post_author == wp_get_current_user()->ID ) {
                 if( wp_delete_attachment( $post->ID, true ) ) {
-                    wp_send_json_success( array( 'message' => __( 'Attachment successfully removed', 'ucare' ) ) );
+                    wp_send_json( __( 'Attachment successfully removed', 'ucare' ) );
                 } else {
-                    wp_send_json_success( array( 'message' => __( 'Error occurred when removing attachment', 'ucare' ) ), 500 );
+                    wp_send_json( __( 'Error occurred when removing attachment', 'ucare' ), 500 );
                 }
             }
         }
