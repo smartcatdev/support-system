@@ -94,6 +94,16 @@ $appearance->add_field( new SelectBoxField(
         'label'         => __( 'Login Background Image', 'ucare' )
     )
 
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_display_back_button',
+        'option'        => Options::DISPLAY_BACK_BUTTON,
+        'value'         => get_option( Options::DISPLAY_BACK_BUTTON, \ucare\Defaults::DISPLAY_BACK_BUTTON ),
+        'label'         => __( 'Display Back Button', 'ucare'),
+        'desc'          => __( 'Display button that links back to your website in the navigation bar', 'ucare' ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
 
 $categories = new SettingsSection( 'uc_categories', __( 'Ticket Categories', 'ucare' ) );

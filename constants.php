@@ -316,6 +316,10 @@ final class Options {
      */
     const QUICK_LINK_LABEL = 'smartcat_support_quick-link-label';
 
+    /**
+     * @since 1.4.0
+     */
+    const DISPLAY_BACK_BUTTON = 'smartcat_support_display_back_button';
 }
 
 
@@ -546,5 +550,10 @@ final class Defaults {
      * @since 1.3.0
      */
     const QUICK_LINK_LABEL = 'Get Support';
+
+    /**
+     * @since 1.4.0
+     */
+    const DISPLAY_BACK_BUTTON = 'on';
 
 }
