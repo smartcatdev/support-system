@@ -934,32 +934,27 @@ button.close-ticket:hover {
 }
 
 .sidebar .attachments .image-wrapper {
-    padding: 0 5px;
-    margin: 5px 0;
+    position: relative;
 }
 
 .sidebar .attachments .image {
-    position: relative;
     cursor: pointer;
-    max-width: 150px;
-}
-
-.sidebar .attachments .image:after {
-    content: '\A';
-    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    float: left;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.75);
-    opacity: 0;
+    height: 90px;
+    position: relative;
+    margin: 10px 0;
     transition: all 0.5s;
-    -webkit-transition: all 0.5s;
 }
 
-.sidebar .attachments .image-wrapper:hover > .image:after {
-    opacity: 1;
+.sidebar .attachments .image:hover {
+    filter: brightness(0.8);
 }
+
 
 .sidebar .attachments .delete-attachment {
     opacity: 0;
@@ -973,13 +968,7 @@ button.close-ticket:hover {
     transition: all 0.5s;
 }
 
-.sidebar .attachments .image-wrapper .delete-attachment {
-    position: absolute;
-    left: -4px;
-    top: -4px;
-}
-
-.sidebar .attachments .file-wrapper .delete-attachment {
+.sidebar .attachments .delete-attachment {
     position: absolute;
     left: -8px;
 }
