@@ -183,7 +183,10 @@ if( array_key_exists( $product, $products ) ) {
                 <?php
 
                     $mime_types = array(
-                        'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/zip',
+                        'text/csv',
+                        'application/zip',
+                        'application/pdf',
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                     );
 
                     $files = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', $mime_types );
@@ -201,8 +204,43 @@ if( array_key_exists( $product, $products ) ) {
 
                         <?php foreach ( $files as $file ) : ?>
 
+                            <div class="col-md-4">
 
-                            <a target="_blank" href="<?php echo esc_url( wp_get_attachment_url( $file->ID ) ); ?>"><?php esc_html_e( $file->post_title ); ?></a>
+                                <div class="file-wrapper">
+
+                                <?php if( $file->post_author == wp_get_current_user()->ID ) : ?>
+
+                                    <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
+                                          data-attachment_id="<?php echo $file->ID; ?>"
+                                          data-ticket_id="<?php echo $ticket->ID; ?>">
+
+                                    </span>
+
+                                <?php endif; ?>
+
+                                <a target="_blank" href="<?php echo esc_url( wp_get_attachment_url( $file->ID ) ); ?>">
+
+                                    <div class="file">
+
+                                        <div class="icon">
+
+                                            <img src="<?php echo esc_url( \ucare\plugin_url( '/assets/images/document.png' ) ); ?>" />
+
+                                        </div>
+
+                                        <div class="filename">
+
+                                            <div><?php esc_html_e( mb_strimwidth( $file->post_title, 0, 50, '...' ) ); ?></div>
+
+                                        </div>
+
+                                    </div>
+
+                                </a>
+
+                            </div>
+
+                            </div>
 
                         <?php endforeach; ?>
 

@@ -962,25 +962,91 @@ button.close-ticket:hover {
 }
 
 .sidebar .attachments .delete-attachment {
-    position: absolute;
-    display: none;
+    opacity: 0;
     background: #8e8e8e;
     color: #fff;
     border-radius: 50%;
     padding: 4px;
     font-size: 18px;
     cursor: pointer;
+    z-index: 10;
+    transition: all 0.5s;
+}
+
+.sidebar .attachments .image-wrapper .delete-attachment {
+    position: absolute;
     left: -4px;
     top: -4px;
-    z-index: 10;
+}
+
+.sidebar .attachments .file-wrapper .delete-attachment {
+    position: absolute;
+    left: -8px;
 }
 
 .sidebar .attachments .delete-attachment:hover {
     background: #696969;
 }
 
-.sidebar .attachments .image-wrapper:hover > .delete-attachment {
-    display: inline-block;
+.sidebar .attachments .file-wrapper {
+    position: relative;
+}
+
+.sidebar .attachments .file {
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    float: left;
+    width: 100%;
+    height: 90px;
+    position: relative;
+    background: #ddd;
+    margin: 10px 0;
+    transition: all 0.5s;
+}
+
+.sidebar .attachments .file:hover {
+    filter: brightness(0.9);
+}
+
+.sidebar .attachments .file .icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.sidebar .attachments .file .icon img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.sidebar .attachments .file .filename {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    max-height: 100%;
+    word-wrap: break-word;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+
+.sidebar .attachments .file .filename div {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px;
+    font-size: 10px;
+}
+
+.sidebar .attachments .image-wrapper:hover > .delete-attachment,
+.sidebar .attachments .file-wrapper:hover > .delete-attachment {
+    opacity: 1;
 }
 
 /* #### Comments ***********************************************************************/
