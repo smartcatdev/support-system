@@ -360,7 +360,6 @@ function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
         array(
             'post_parent'       => $ticket->ID,
             'post_type'         => 'attachment',
-            'post_mime_type'    => 'image',
             'post_status'       => 'inherit',
             'orderby'           => $order,
             'order'             => $order

@@ -15,7 +15,7 @@ $user = wp_get_current_user();
 
                     <div class="row-table-cell">
 
-                        <a class="button back" href="<?php echo esc_url( home_url() ); ?>">
+                        <a class="button button-primary back" href="<?php echo esc_url( home_url() ); ?>">
 
                             <span class="glyphicon glyphicon-chevron-left"></span>
 

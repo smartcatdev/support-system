@@ -208,7 +208,15 @@ if( array_key_exists( $product, $products ) ) {
                                 <div class="image" data-src="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
                                      data-sub-html="#caption-<?php echo $attachment->ID; ?>">
 
-                                     <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
+                                    <?php if ( strpos( $attachment->post_mime_type, 'image' ) !== false ) : ?>
+
+                                        <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
+
+                                    <?php else : ?>
+
+                                        <img height="60" src="<?php echo esc_url( Plugin::plugin_url( \ucare\PLUGIN_ID ) . '/assets/images/file-icon.png' ); ?>" />
+
+                                    <?php endif; ?>
 
                                 </div>
 
