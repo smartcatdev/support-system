@@ -11,6 +11,20 @@ $user = wp_get_current_user();
 
         <div class="row">
 
+                <div class="row-table pull-left">
+
+                    <div class="row-table-cell">
+
+                        <a class="button back" href="<?php echo esc_url( home_url() ); ?>">
+
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
                 <div class="row-table pull-left clock">
 
                     <div class="row-table-cell">
@@ -88,7 +102,7 @@ $user = wp_get_current_user();
 
                                 <li role="separator" class="divider"></li>
 
-                                <?php if( current_user_can( 'manage_options') ) : ?>
+                                <?php if( current_user_can( 'manage_options' ) ) : ?>
 
                                     <li>
                                         <a href="<?php echo admin_url( 'admin.php?page=ucare_support' ); ?>" class="alignright background-secondary hover menu-item">
@@ -104,6 +118,19 @@ $user = wp_get_current_user();
                                     <li role="separator" class="divider"></li>
 
                                 <?php endif; ?>
+
+                                <li>
+                                    <a href="<?php echo esc_url( home_url() ); ?>" class="alignright background-secondary hover menu-item">
+
+                                        <span class="glyphicon glyphicon-globe  "></span>
+
+                                        <?php _e( 'Back to Site', 'ucare' ); ?>
+
+                                    </a>
+
+                                </li>
+
+                                <li role="separator" class="divider"></li>
 
                                 <li>
                                     <a href="<?php echo add_query_arg( 'redirect_to', urlencode( \ucare\support_page_url() ), wp_logout_url() ); ?>" class="alignright background-secondary hover menu-item">

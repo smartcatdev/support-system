@@ -517,8 +517,8 @@ hr {
     margin-right: 20px;
 }
 
-#navbar .button span {
-    padding-right: 4px;
+#navbar .button.back {
+    display: none;
 }
 
 #navbar .clock {
@@ -534,7 +534,14 @@ hr {
     text-align: right;
 }
 
-@media(min-width:  767px) {
+@media(min-width: 767px) {
+
+    #navbar .button.back {
+        padding: 10px 15px;
+        width: 30px;
+        display: inline;
+    }
+
     #navbar .clock {
         display: table;
     }
