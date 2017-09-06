@@ -219,6 +219,7 @@ var App = (function ($) {
         var refresh = $("#refresh-tickets").find(".refresh");
         var filter_controls = $("#filter-controls");
         var page = sessionStorage.getItem("page");
+
         var request = {
             url: Globals.ajax_url + "?action=support_list_tickets",
             dataType: "json",
@@ -232,6 +233,7 @@ var App = (function ($) {
                 name: "search",
                 value: $("#search").val()
             }],
+
             success: function (response) {
                 _tickets_container.html(response.data);
 

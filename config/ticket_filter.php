@@ -40,7 +40,7 @@ if( \ucare\util\ecommerce_enabled() ) {
     $form->add_field( new SelectBoxField(
         array(
             'id'      => 'product',
-            'name'    => 'meta[product]',
+            'name'    => 'product',
             'label'   => __( 'Product', 'ucare' ),
             'class'   => array( 'filter-field', 'form-control' ),
             'options' => array( 0 => __( 'All Products', 'ucare' ) ) + $products
@@ -89,7 +89,7 @@ $form->add_field( new CheckBoxField(
 ) )->add_field( new CheckBoxGroup(
     array(
         'id'      => 'status',
-        'name'    => 'meta[status]',
+        'name'    => 'status',
         'label'   => __( 'Status', 'ucare' ),
         'value'   => \ucare\util\filter_defaults()['status'],
         'class'   => array( 'filter-field' ),
