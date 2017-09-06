@@ -7,21 +7,17 @@ class Media extends AjaxComponent {
 
     public function upload_media() {
 
-        $filename = false;
+        if ( !empty( $_FILES['file'] ) && in_array( $_FILES['file']['type'], \ucare\allowed_mime_types() ) ) {
 
-        // Get the file's original name
-        if ( !empty( $_FILES['file'] ) ) {
             $filename = $_FILES['file']['name'];
-        }
 
-        define( 'USE_SUPPORT_UPLOADS', true );
+            define( 'USE_SUPPORT_UPLOADS', true );
 
 
-        $result = media_handle_upload( 'file', isset( $_REQUEST['ticket_id'] ) ? $_REQUEST['ticket_id'] : 0 );
+            $result = media_handle_upload( 'file', isset( $_REQUEST['ticket_id'] ) ? $_REQUEST['ticket_id'] : 0 );
 
-        if( !is_wp_error( $result ) ) {
 
-            if ( !empty( $filename ) ) {
+            if( !is_wp_error( $result ) ) {
 
                 $data = array(
                     'ID'         => $result,
@@ -30,15 +26,20 @@ class Media extends AjaxComponent {
 
                 wp_update_post( $data );
 
-            }
+                wp_send_json_success( array( 'id' => $result ), 200 );
 
-            wp_send_json_success( array( 'id' => $result ), 200 );
+            } else {
+
+                wp_send_json( $result->get_error_message(), 400 );
+
+            }
 
         } else {
 
-            wp_send_json( $result->get_error_message(), 400 );
+            wp_send_json( __( 'Error uploading invalid file format.', 'ucare' ), 400 );
 
         }
+
     }
 
     public function delete_media() {

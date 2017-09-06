@@ -3,6 +3,31 @@
 namespace ucare;
 
 
+function allowed_mime_types( $type = null ) {
+
+    $file_types = array(
+        'application/pdf',
+        'application/zip'
+    );
+
+    $image_types = array(
+        'image/jpg',
+        'image/jpeg',
+        'image/png',
+        'image/gif'
+    );
+
+    if ( $type == 'image' ) {
+        return $image_types;
+    } else if ( $type == 'file' ) {
+        return $file_types;
+    }
+
+    return array_merge( $file_types, $image_types );
+
+}
+
+
 function support_page_url() {
     return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) );
 }

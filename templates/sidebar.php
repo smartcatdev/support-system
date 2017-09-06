@@ -180,18 +180,7 @@ if( array_key_exists( $product, $products ) ) {
 
             <div class="panel-body">
 
-                <?php
-
-                    $mime_types = array(
-                        'text/csv',
-                        'application/zip',
-                        'application/pdf',
-                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                    );
-
-                    $files = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', $mime_types );
-
-                ?>
+                <?php $files = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', \ucare\allowed_mime_types( 'file' ) ); ?>
 
                 <?php if ( count( $files ) > 0 ) : ?>
 
@@ -245,19 +234,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <?php endif; ?>
 
-                <?php
-
-                    $mime_types = array(
-                        'image/jpeg',
-                        'image/gif',
-                        'image/png',
-                        'image/bmp'
-                    );
-
-                    $images = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', $mime_types );
-                    $image_count = count( $images );
-
-                ?>
+                <?php $images = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', \ucare\allowed_mime_types( 'image' ) ); ?>
 
                 <?php if ( count( $images ) > 0 ) : ?>
 
