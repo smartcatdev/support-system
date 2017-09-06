@@ -517,7 +517,7 @@ hr {
     margin-right: 20px;
 }
 
-#navbar .button.back {
+#navbar .brand-logo {
     display: none;
 }
 
@@ -536,9 +536,8 @@ hr {
 
 @media(min-width: 767px) {
 
-    #navbar .button.back {
-        padding: 10px 15px;
-        width: 30px;
+    #navbar .brand-logo {
+        margin-right: 15px;
         display: inline;
     }
 

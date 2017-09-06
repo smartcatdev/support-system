@@ -15,9 +15,9 @@ $user = wp_get_current_user();
 
                     <div class="row-table-cell">
 
-                        <a class="button button-primary back" href="<?php echo esc_url( home_url() ); ?>">
+                        <a class="brand-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php _e( 'Back to site', 'ucare' ); ?>">
 
-                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <img height="40" width="40" src="<?php echo esc_url( get_option( Options::LOGO, \ucare\Defaults::LOGO ) ); ?>" />
 
                         </a>
 
