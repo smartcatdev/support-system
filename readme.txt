@@ -96,6 +96,9 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
+= 1.3.4 =
+- Fix div being injected in the header 
+
 = 1.3.3 =
 - Bug fix for error occuring on un-install
 - Logout redirect fix
