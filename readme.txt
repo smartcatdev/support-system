@@ -96,6 +96,9 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
+= 1.3.5 =
+- Fix bug that is blocking comments for other CPTs from appearing public 
+
 = 1.3.4 =
 - Fix div being injected in the header 
 

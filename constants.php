@@ -3,7 +3,7 @@
 namespace ucare;
 
 const PLUGIN_ID = 'smartcat_support';
-const PLUGIN_VERSION = '1.3.4';
+const PLUGIN_VERSION = '1.3.5';
 
 const MIN_PHP_VERSION = '5.5';
 
