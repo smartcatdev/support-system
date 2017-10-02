@@ -109,7 +109,7 @@ var SupportAdmin = (function (module, $, window) {
 
         $("#id.manage-column").addClass("column-primary");
 
-        $.wpMediaUploader({
+        $.ucareMediaUploader({
             target: ".image-upload",
             buttonText: "Select image"
         });

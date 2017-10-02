@@ -8,7 +8,7 @@
 
 ( function( $) {
 
-    $.wpMediaUploader = function( options ) {
+    $.ucareMediaUploader = function( options ) {
 
         var settings = $.extend({
 
