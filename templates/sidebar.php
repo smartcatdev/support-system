@@ -180,44 +180,47 @@ if( array_key_exists( $product, $products ) ) {
 
             <div class="panel-body">
 
-                <?php $attachments = \ucare\util\get_attachments( $ticket ); ?>
-                <?php $attachment_count = count( $attachments ); ?>
+                <?php $files = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', \ucare\allowed_mime_types( 'file' ) ); ?>
 
-                <?php if( $attachment_count === 0 ) : ?>
+                <?php if ( count( $files ) > 0 ) : ?>
 
-                    <p class="text-muted"><?php _e( 'There are no attachments for this ticket', 'ucare' ); ?></p>
+                    <div class="row">
 
-                <?php else : ?>
+                        <?php foreach ( $files as $file ) : ?>
 
-                    <div class="row gallery">
+                            <div class="col-md-4">
 
-                        <?php foreach ( $attachments as $attachment ) : ?>
+                                <div class="file-wrapper">
 
-                            <div class="image-wrapper col-xs-3 col-sm-12 col-md-4">
+                                    <?php if( $file->post_author == wp_get_current_user()->ID ) : ?>
 
-                                <?php if( $attachment->post_author == wp_get_current_user()->ID ) : ?>
+                                        <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
+                                              data-attachment_id="<?php echo $file->ID; ?>"
+                                              data-ticket_id="<?php echo $ticket->ID; ?>">
 
-                                    <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
-                                          data-attachment_id="<?php echo $attachment->ID; ?>"
-                                          data-ticket_id="<?php echo $ticket->ID; ?>">
+                                        </span>
 
-                                    </span>
+                                    <?php endif; ?>
 
-                                <?php endif; ?>
+                                    <a target="_blank" href="<?php echo esc_url( wp_get_attachment_url( $file->ID ) ); ?>">
 
-                                <div class="image" data-src="<?php echo wp_get_attachment_url( $attachment->ID ); ?>"
-                                     data-sub-html="#caption-<?php echo $attachment->ID; ?>">
+                                        <div class="file">
 
-                                     <?php echo wp_get_attachment_image( $attachment->ID, 'thumbnail', false, 'class=img-responsive attachment-img' ); ?>
+                                            <div class="icon">
 
-                                </div>
+                                                <img src="<?php echo esc_url( \ucare\plugin_url( '/assets/images/document.png' ) ); ?>" />
 
-                                <div id="caption-<?php echo $attachment->ID; ?>" style="display: none">
+                                            </div>
 
-                                    <?php $author = get_user_by( 'id', $attachment->post_author ); ?>
+                                            <div class="filename">
 
-                                    <h4><?php echo $author->first_name . ' ' . $author->last_name; ?></h4>
-                                    <p><?php echo \ucare\util\just_now( $attachment->post_date ); ?></p>
+                                                <div><?php esc_html_e( mb_strimwidth( $file->post_title, 0, 50, '...' ) ); ?></div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </a>
 
                                 </div>
 
@@ -227,9 +230,60 @@ if( array_key_exists( $product, $products ) ) {
 
                     </div>
 
+                    <hr class="sidebar-divider">
+
                 <?php endif; ?>
 
-                <hr class="sidebar-divider">
+                <?php $images = \ucare\util\get_attachments( $ticket, 'post_date', 'DESC', \ucare\allowed_mime_types( 'image' ) ); ?>
+
+                <?php if ( count( $images ) > 0 ) : ?>
+
+                    <div class="row">
+
+                        <div class="gallery">
+
+                            <?php foreach ( $images as $image ) : ?>
+
+                                <div class="col-md-4">
+
+                                    <div class="image-wrapper">
+
+                                        <?php if( $image->post_author == wp_get_current_user()->ID ) : ?>
+
+                                            <span class="glyphicon glyphicon glyphicon-remove delete-attachment"
+                                                  data-attachment_id="<?php echo $image->ID; ?>"
+                                                  data-ticket_id="<?php echo $ticket->ID; ?>">
+
+                                            </span>
+
+                                        <?php endif; ?>
+
+                                        <div class="image" data-src="<?php echo wp_get_attachment_url( $image->ID ); ?>"
+                                             data-sub-html="#caption-<?php echo $image->ID; ?>"
+                                             style="background-image: url( <?php echo wp_get_attachment_url( $image->ID ); ?> )"></div>
+
+                                        <div id="caption-<?php echo $image->ID; ?>" style="display: none">
+
+                                            <?php $author = get_user_by( 'id', $image->post_author ); ?>
+
+                                            <h4><?php echo $author->first_name . ' ' . $author->last_name; ?></h4>
+                                            <p><?php echo \ucare\util\just_now( $image->post_date ); ?></p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            <?php endforeach; ?>
+
+                        </div>
+
+                    </div>
+
+                    <hr class="sidebar-divider">
+
+                <?php endif; ?>
 
                 <div class="bottom text-right">
 
@@ -311,6 +365,6 @@ if( array_key_exists( $product, $products ) ) {
 
     <?php endif; ?>
 
-    <?php do_action( 'support_ticket_side_bar', $ticket ); ?>
+    <?php do_action( 'ucare_ticket_side_bar', $ticket ); ?>
 
 </div>

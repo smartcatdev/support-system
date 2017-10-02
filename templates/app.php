@@ -6,15 +6,18 @@
         
         <?php include_once 'first_login.php'; ?>
 
-        <?php do_action( 'support_first_login' ); ?>
+        <?php do_action( 'ucare_first_login' ); ?>
 
         <?php update_user_meta( wp_get_current_user()->ID, 'first_login', true ); ?>
 
     <?php endif; ?>
 
     <div id="page-container">
-
+        
+        <?php do_action( 'ucare_before_navbar' ); ?>
         <?php include_once 'navbar.php'; ?>
+        <?php do_action( 'ucare_after_navbar' ); ?>
+        
         <?php include_once 'dash.php'; ?>
 
 <?php else : ?>

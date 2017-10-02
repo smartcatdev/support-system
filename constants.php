@@ -3,7 +3,7 @@
 namespace ucare;
 
 const PLUGIN_ID = 'smartcat_support';
-const PLUGIN_VERSION = '1.3.5';
+const PLUGIN_VERSION = '1.4.0';
 
 const MIN_PHP_VERSION = '5.5';
 
@@ -297,6 +297,11 @@ final class Options {
     const FIRST_RUN = 'smartcat_support_first-run';
 
     /**
+     * @since 1.4.0
+     */
+    const FIRST_140_RUN = 'smartcat_support_first-140-run';
+
+    /**
      * @since 1.3.0
      */
     const PRIMARY_FONT = 'smartcat_support_primary-font';
@@ -316,6 +321,10 @@ final class Options {
      */
     const QUICK_LINK_LABEL = 'smartcat_support_quick-link-label';
 
+    /**
+     * @since 1.4.0
+     */
+    const DISPLAY_BACK_BUTTON = 'smartcat_support_display_back_button';
 }
 
 
@@ -546,5 +555,10 @@ final class Defaults {
      * @since 1.3.0
      */
     const QUICK_LINK_LABEL = 'Get Support';
+
+    /**
+     * @since 1.4.0
+     */
+    const DISPLAY_BACK_BUTTON = 'on';
 
 }

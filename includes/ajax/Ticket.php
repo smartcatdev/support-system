@@ -246,74 +246,145 @@ class Ticket extends AjaxComponent {
         wp_send_json_success( $html );
     }
 
-    public function filter_tickets( $args ) {
-        $can_manage_tickets = current_user_can( 'manage_support_tickets' );
+    public function filter_tickets( $query ) {
 
-        $args['s'] = isset( $_REQUEST['search'] ) ? $_REQUEST['search'] : '';
+        $defaults = array(
+            'id'       => 0,
+            'category' => 0,
+            'email'    => '',
+            'agent'    => 0,
+            'product'  => 0,
+            'stale'    => false,
+            'status'   => array(
+                'new',
+                'waiting',
+                'opened',
+                'responded',
+                'needs_attention'
+            )
+        );
 
-        if( isset( $_REQUEST['ticket_filter'] ) ) {
+        $args   = array_merge( $defaults, $_GET );
+        $search = $_GET['search'];
 
-            if( !empty( $_REQUEST['category'] ) ) {
-                $args['tax_query'][] = array(
-                    'taxonomy' => 'ticket_category',
-                    'field'    => 'slug',
-                    'terms'    => array( $_REQUEST['category'] )
-                );
-            }
+        unset( $args['search'] );
 
-            if( !empty( $_REQUEST['email'] ) ) {
-                $author = get_user_by( 'email', $_REQUEST['email'] );
+        if ( isset( $search ) ) {
 
-                if( $author ) {
-                    $args['author'] = $author->ID;
-                }
-            }
+            $query_pieces = explode( ':', $search );
 
-            if( !empty( $_REQUEST['agent'] ) ) {
-                switch( $_REQUEST['agent'] ) {
-                    case -1:
-                        $args['meta_query'][] = array(
-                            'key'     => 'agent',
-                            'value'   => 1,
-                            'compare' => '<'
-                        );
+            if ( count( $query_pieces ) > 1 ) {
 
-                        break;
+                foreach( $query_pieces as $piece ) {
 
-                    default:
-                        $args['meta_query'][] = array(
-                            'key'   => 'agent',
-                            'value' => $_REQUEST['agent']
-                        );
+                    $q = explode( '=', $piece );
 
-                        break;
-                }
-            }
-
-            if( isset( $_REQUEST['stale'] ) ) {
-                $args['meta_query'][] = array(
-                    'key'     => 'stale',
-                    'compare' => 'EXISTS'
-                );
-            }
-
-            if( !empty( $_REQUEST['meta'] ) ) {
-                foreach( $_REQUEST['meta'] as $key => $value ) {
-                    if( !empty( $value ) ) {
-                        $args['meta_query'][] = array( 'key' => $key, 'value' => $value );
+                    if ( !empty( $q[1] ) ) {
+                        $args[ $q[0] ] = $q[1];
+                    } else {
+                        $args['search'] .= $q[0];
                     }
+
                 }
+
+            } else {
+
+                $q = explode( '=', $query_pieces[0] );
+
+                if ( count( $q ) > 1 ) {
+                    $args[ $q[0] ] = $q[1];
+                } else {
+                    $args['search'] = $q[0];
+                }
+
             }
 
-        } elseif( $can_manage_tickets ) {
-            $args['meta_query'][] = array(
-                'key'       => 'status',
-                'value'     => 'closed',
-                'compare'   => '!='
-            );
         }
 
-        return $args;
+        unset( $args['action'] );
+        unset( $args['page'] );
+        unset( $args['_ajax_nonce'] );
+        unset( $args['ticket_filter'] );
+
+
+        if ( !current_user_can( 'manage_support_tickets' ) ) {
+
+            // Restrict only to tickets created by the current user
+            $query['author'] = wp_get_current_user()->ID;
+
+        } else {
+
+            $author = get_user_by( 'email', $args['email'] );
+
+            if( $author ) {
+                $query['author'] = $author->ID;
+            }
+
+            if ( $args['agent'] == -1 ) {
+
+                $query['meta_query'][] = array(
+                    'key'     => 'agent',
+                    'value'   => 1,
+                    'compare' => '<'
+                );
+
+            } else if ( $args['agent'] > 0 ) {
+
+                $query['meta_query'][] = array(
+                    'key'   => 'agent',
+                    'value' => $args['agent']
+                );
+
+            }
+
+        }
+
+        unset( $args['agent'] );
+        unset( $args['email'] );
+
+
+        if ( !empty( $args['search'] ) ) {
+            $query['s'] = $args['search'];
+        }
+
+        unset( $args['search'] );
+
+
+        if ( !empty( $args['category'] ) ) {
+
+            $query['tax_query'][] = array(
+                'taxonomy' => 'ticket_category',
+                'field'    => 'slug',
+                'terms'    => array( $args['category'] )
+            );
+
+        }
+
+        unset( $args['category'] );
+
+
+        if ( !empty( $args['id'] ) ) {
+            $query['p'] = $args['id'];
+        }
+
+        unset( $args['id'] );
+
+        // Loop through the remaining args as meta fields
+        foreach ( $args as $key => $value ) {
+
+            if ( !empty( $value ) ) {
+
+                $query['meta_query'][] = array(
+                    'key'     => $key,
+                    'value'   => $value
+                );
+
+            }
+
+        }
+
+        return $query;
+
     }
 
     /**

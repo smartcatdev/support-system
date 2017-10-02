@@ -87,9 +87,16 @@ add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
 
 function admin_first_run_tutorial_page() {
 
-    if( !get_option( Options::FIRST_RUN ) ) {
+    if( ! get_option( Options::FIRST_RUN ) ) {
 
         update_option( Options::FIRST_RUN, true );
+        wp_safe_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
+
+    }
+
+    if( ! get_option( Options::FIRST_140_RUN ) ) {
+
+        update_option( Options::FIRST_140_RUN, true );
         wp_safe_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
 
     }

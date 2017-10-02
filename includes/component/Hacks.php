@@ -31,7 +31,7 @@ class Hacks extends AbstractComponent {
 
     public function remove_admin_comments( $query ) {
 
-    	if ( is_admin() && get_current_screen()->id == 'dashboard'  ) {
+    	if ( is_admin() && isset( get_current_screen()->id ) && get_current_screen()->id == 'dashboard'  ) {
 
 		    $query['join']  .= "INNER JOIN {$this->wpdb->posts} ON {$this->wpdb->posts}.ID = {$this->wpdb->comments}.comment_post_ID";
 		    $query['where'] .=  " AND {$this->wpdb->posts}.post_type NOT IN ( 'support_ticket' )";

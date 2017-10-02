@@ -88,13 +88,19 @@ The plugin comes with a reporting tool built right into your WordPress dashboard
 
 = Does this plugin support Email Piping ? =
 
-Email piping is currently planned to be released in Q3 of 2017.
+Yes! Email Piping is an add-on that you can purchase. This allows you to integrate your mailbox with the helpdesk, so that emails are automatically created as tickets.
 
 = Does this plugin have notifications for users and agents ? =
 
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.4.0 =
+- Added Email Piping & Guest Tickets add-on
+- Ticket attachments now supports zip, pdf and text files
+- Added company logo in the help desk header with link back to site
+- Added Back To Site link in the dropdown menu in the helpdesk
 
 = 1.3.5 =
 - Fix bug that is blocking comments for other CPTs from appearing public 
@@ -184,3 +190,12 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Requirements == 
 - PHP 5.6 or higher
+
+== Useful hooks ==
+`ucare_head` useful for adding CSS, JavaScript, linking in fonts etc..
+`ucare_body` Inject HTML to the top of the body
+`ucare_before_navbar` Before the navbar
+`ucare_after_navbar` After the navbar
+`ucare_ticket_side_bar` After the sidebar in the single ticket tab view
+`ucare_after_registration_fields` After the registration fields
+`ucare_before_filter_sidebar` Before the search bar in the sidebar filter

@@ -16,7 +16,7 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
     function send_template( $template_id, $recipient, $replace = array(), $args = array() ) {
         $template = get_post( $template_id );
         $sent = false;
-
+        
         if( !empty( $template ) ) {
 
             add_filter( 'mailer_template_vars', function ( $vars ) use ( $replace ) {
@@ -28,7 +28,7 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
 
             $sent = wp_mail(
                 $recipient,
-                $template->post_title,
+                isset( $replace['ticket_number'] ) ? apply_filters( 'ucare_email_subject', $template->post_title, $replace['ticket_number'] ) : $template->post_title,
                 wrap_template( $template, $content, $args ),
                 apply_filters( 'mailer_email_headers', $headers, $template_id, $recipient )
             );
@@ -61,7 +61,7 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
 
     function wrap_template( $template, $content, $args ) {
         ob_start(); ?>
-
+        <?php do_action( 'ucare_above_email' ); ?>
         <html>
         <head>
             <meta charset="UTF-8">
@@ -77,7 +77,7 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
             <?php echo do_action( 'email_template_header', $template, $args ); ?>
         </head>
         <body>
-        <?php echo $content; ?>
+            <?php echo $content; ?>
         <div class="footer">
             <?php echo do_action( 'email_template_footer', $template, $args ); ?>
         </div>

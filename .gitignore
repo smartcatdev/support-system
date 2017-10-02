@@ -5,3 +5,5 @@
 **/*.iml
 *.yml
 .env
+/nbproject/private/
+/nbproject
