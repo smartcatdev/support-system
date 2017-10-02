@@ -19,7 +19,7 @@ $user = wp_get_current_user();
 
                         <a class="brand-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php _e( 'Back to site', 'ucare' ); ?>">
 
-                            <img height="40" width="40" src="<?php echo esc_url( get_option( Options::LOGO, \ucare\Defaults::LOGO ) ); ?>" />
+                            <img height="40" src="<?php echo esc_url( get_option( Options::LOGO, \ucare\Defaults::LOGO ) ); ?>" />
 
                         </a>
 
