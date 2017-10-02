@@ -184,3 +184,12 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Requirements == 
 - PHP 5.6 or higher
+
+== Useful hooks ==
+`ucare_head` useful for adding CSS, JavaScript, linking in fonts etc..
+`ucare_body` Inject HTML to the top of the body
+`ucare_before_navbar` Before the navbar
+`ucare_after_navbar` After the navbar
+`ucare_ticket_side_bar` After the sidebar in the single ticket tab view
+`ucare_after_registration_fields` After the registration fields
+`ucare_before_filter_sidebar` Before the search bar in the sidebar filter

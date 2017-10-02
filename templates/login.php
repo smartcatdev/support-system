@@ -119,7 +119,7 @@ use ucare\Plugin;
 
                                 <input type="hidden" name="<?php echo $form->id; ?>" />
 
-                                <?php do_action( 'support_after_registration_fields' ); ?>
+                                <?php do_action( 'ucare_after_registration_fields' ); ?>
 
                                 <div class="terms">
 

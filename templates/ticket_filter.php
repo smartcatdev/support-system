@@ -9,7 +9,7 @@ $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_fi
 <div id="filter-controls" class="row" style="display: none">
 
     <div class="row-table">
-
+        <?php do_action( 'ucare_before_filter_sidebar' ); ?>
         <div class="row-table-cell search">
 
             <div id="search-wrapper" class="input-group">

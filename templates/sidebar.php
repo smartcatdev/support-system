@@ -311,6 +311,6 @@ if( array_key_exists( $product, $products ) ) {
 
     <?php endif; ?>
 
-    <?php do_action( 'support_ticket_side_bar', $ticket ); ?>
+    <?php do_action( 'ucare_ticket_side_bar', $ticket ); ?>
 
 </div>
