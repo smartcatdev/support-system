@@ -156,7 +156,12 @@ function render( $template, array $data = array() ) {
 }
 
 function user_full_name( $user ) {
-    return $user->first_name . ' ' . $user->last_name;
+    
+    if( $user ) {
+        return $user->first_name . ' ' . $user->last_name;
+    }
+    
+    return;
 
 }
 
