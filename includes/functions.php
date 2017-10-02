@@ -3,6 +3,31 @@
 namespace ucare;
 
 
+function allowed_mime_types( $type = null ) {
+
+    $file_types = array(
+        'application/pdf',
+        'application/zip'
+    );
+
+    $image_types = array(
+        'image/jpg',
+        'image/jpeg',
+        'image/png',
+        'image/gif'
+    );
+
+    if ( $type == 'image' ) {
+        return $image_types;
+    } else if ( $type == 'file' ) {
+        return $file_types;
+    }
+
+    return array_merge( $file_types, $image_types );
+
+}
+
+
 function support_page_url() {
     return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) );
 }
@@ -365,15 +390,15 @@ function remove_caps( $role ) {
     }
 }
 
-function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC' ) {
+function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC', $mime_type = '' ) {
     $query = new \WP_Query(
         array(
             'post_parent'       => $ticket->ID,
             'post_type'         => 'attachment',
-            'post_mime_type'    => 'image',
             'post_status'       => 'inherit',
             'orderby'           => $order,
-            'order'             => $order
+            'order'             => $order,
+            'post_mime_type'    => $mime_type
         ) );
 
     return $query->posts;

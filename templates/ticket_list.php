@@ -150,7 +150,7 @@ use ucare\Options;
 
             <?php endforeach; ?>
 
-            <?php if( !empty( $query->posts ) ) : ?>
+            <?php if( $query->max_num_pages > 0 ) : ?>
 
                 <div class="list-group-item bottom text-right">
 
