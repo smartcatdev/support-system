@@ -96,6 +96,9 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
+= 1.4.1 =
+- Bug fix with logo in navbar
+
 = 1.4.0 =
 - Added Email Piping & Guest Tickets add-on
 - Ticket attachments now supports zip, pdf and text files
