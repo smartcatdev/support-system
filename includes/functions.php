@@ -199,7 +199,17 @@ function encode_code_blocks( $str ) {
 }
 
 function author_email( $ticket ) {
-    return get_user_by( 'ID', $ticket->post_author )->user_email;
+    
+    $user = get_user_by( 'ID', $ticket->post_author );
+    
+    if( $user ) {
+        
+        return $user->user_email;
+        
+    }
+    
+    return;
+    
 }
 
 function priorities () {
