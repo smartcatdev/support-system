@@ -10,6 +10,20 @@
     
     <h2><?php _e( 'Available Add-ons', 'ucare' ); ?></h2>
     
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping" class="ucare-addon-link">
+            <h3><?php _e( 'Email Piping', 'ucare' ); ?></h3>
+
+            <div class="ad email-piping">
+                <span class="dashicons dashicons-email-alt"></span>
+                <h2><?php _e( 'Email Piping', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'This add-on allows your customers to reply to tickets via email, it also allows new tickets to be created through email.', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
+        </a>
+    </div>
 
     <div class="ucare-addon">
         <a href="https://ucaresupport.com/downloads/customer-satisfaction-survey?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Customer%20Satisfaction" class="ucare-addon-link">
@@ -68,21 +82,6 @@
     
     <h2><?php _e( 'Coming soon', 'ucare' ); ?></h2>
 
-
-    <div class="ucare-addon">
-        <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping" class="ucare-addon-link">
-            <h3><?php _e( 'Email Piping', 'ucare' ); ?></h3>
-
-            <div class="ad email-piping">
-                <span class="dashicons dashicons-email-alt"></span>
-                <h2><?php _e( 'Email Piping', 'ucare' ); ?></h2>
-            </div>
-
-            <p class="details"><?php _e( 'This add-on allows your customers to reply to tickets via email, it also allows new tickets to be created through email.', 'ucare' ); ?></p>
-
-            <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
-        </a>
-    </div>
 
     <div class="ucare-addon">
         <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Custom+Fields" class="ucare-addon-link">

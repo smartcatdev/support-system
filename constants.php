@@ -3,7 +3,7 @@
 namespace ucare;
 
 const PLUGIN_ID = 'smartcat_support';
-const PLUGIN_VERSION = '1.3.5';
+const PLUGIN_VERSION = '1.4.0';
 
 const MIN_PHP_VERSION = '5.5';
 
@@ -295,6 +295,11 @@ final class Options {
      * @since 1.3.0
      */
     const FIRST_RUN = 'smartcat_support_first-run';
+
+    /**
+     * @since 1.4.0
+     */
+    const FIRST_140_RUN = 'smartcat_support_first-140-run';
 
     /**
      * @since 1.3.0
