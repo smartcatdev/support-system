@@ -1,6 +1,6 @@
 <?php
 
-use ucare\Options;
+namespace ucare;
 
 ?>
 
@@ -104,7 +104,7 @@ use ucare\Options;
         <?php endif; ?>
         
         <div class="row ticket-area-wrapper">
-            
+
             <div class="text-right">
 
                 <div class="clear"></div>

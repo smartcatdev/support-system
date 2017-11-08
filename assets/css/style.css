@@ -626,6 +626,16 @@ hr {
 }
 
 /* ### Panel Navbars *******************************************************************/
+#ucare-navigation-menu {
+    margin-bottom: 0;
+    border-radius: 0;
+    border-right: none;
+    border-left: none;
+}
+
+#ucare-navigation-menu .navbar-toggle {
+    margin-left: 15px;
+}
 
 .editor-area {
     padding: 10px;
