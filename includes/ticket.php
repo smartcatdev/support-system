@@ -49,3 +49,29 @@ function set_default_ticket_meta( $post_id, $post, $update ) {
 }
 
 add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
+
+
+function get_recent_tickets( $args = array() ) {
+
+    $defaults = array(
+        'author'  => '',
+        'after'   => 'now',
+        'before'  => '30 days ago',
+        'exclude' => array()
+    );
+
+    $args = wp_parse_args( $args, $defaults );
+
+
+    $q = array(
+        'post_type'    => 'support_ticket',
+        'post_status'  => 'publish',
+        'author'       => $args['author'],
+        'after'        => $args['after'],
+        'before'       => $args['before'],
+        'post__not_in' => $args['exclude']
+    );
+
+    return new \WP_Query( $q );
+
+}

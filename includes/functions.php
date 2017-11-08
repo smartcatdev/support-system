@@ -681,26 +681,35 @@ function get_ticket_count( $args = array() ) {
 
     global $wpdb;
 
-    $args['status'] = isset( $args['status'] ) ? $args['status'] : null;
-    $args['priority'] = isset( $args['priority'] ) ? $args['priority'] : null;
-    $args['agent'] = isset( $args['agent'] ) ? $args['agent'] : null;
+    $defaults = array(
+        'status'   => false,
+        'priority' => false,
+        'agent'    => false,
+        'author'   => false
+    );
+
+    $args = wp_parse_args( $args, $defaults );
 
 
-    $q = 'select ifnull( count(*), 0 ) from ' . $wpdb->prefix . 'posts as a '
+    $q = 'select ifnull( count( DISTINCT a.ID ), 0 ) from ' . $wpdb->prefix . 'posts as a '
             . 'left join ' . $wpdb->prefix . 'postmeta as b '
             . 'on a.ID = b.post_id '
             . 'where a.post_type = "support_ticket" and a.post_status = "publish"';
 
-    if( $args['status'] ) {
-        $q .= ' and b.meta_key = "status" and b.meta_value in ("'. $args['status'] . '")';
+    if ( $args['status'] ) {
+        $q .= ' and b.meta_key = "status" and b.meta_value in ("'. esc_sql( $args['status'] ) . '")';
     }
 
-    if( $args['priority'] ) {
-        $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. $args['priority'] . '")';
+    if ( $args['priority'] ) {
+        $q .= ' and b.meta_key = "priority" and b.meta_value in ("'. esc_sql( $args['priority'] ) . '")';
     }
 
-    if( $args['agent'] ) {
-        $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. $args['agent'] . '")';
+    if ( $args['agent'] ) {
+        $q .= ' and b.meta_key = "agent" and b.meta_value in ("'. esc_sql( $args['agent'] ) . '")';
+    }
+
+    if ( $args['author'] ) {
+        $q .= " AND a.post_author = " . absint( $args['author'] );
     }
 
     return $wpdb->get_var( $q );

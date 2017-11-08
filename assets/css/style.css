@@ -1038,7 +1038,42 @@ button.close-ticket:hover {
     opacity: 1;
 }
 
-/* #### Comments ***********************************************************************/
+.sidebar .customer-stats {
+    margin: 15px -15px -15px -15px;
+    border: none;
+    border-radius: 0;
+}
+
+.sidebar .customer-stats .list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.sidebar .customer-stats .list-group-item:first-child {
+    border-radius: 0;
+}
+
+.sidebar .customer-stats .list-group-item .lead {
+    margin-right: 5px;
+}
+
+.sidebar .customer-stats .recent-tickets .panel-title {
+    margin-bottom: 5px !important;
+}
+
+.sidebar .customer-stats .recent-tickets ul {
+    padding: 0 10px;
+    list-style: none;
+}
+
+.sidebar .customer-stats .recent-tickets .recent-ticket {
+    margin: 2px auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    /* #### Comments ***********************************************************************/
 
 .comments .comment .meta p {
     font-size: 8pt;
