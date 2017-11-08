@@ -368,6 +368,28 @@ $general->add_field( new TextField(
         'desc'          => __( 'The maximum number of tickets to be loaded per page', 'ucare' ),
         'validators'    => array( new IntegerValidator() )
     )
+) )->add_field( new TextAreaField(
+    array(
+        'id'            => 'support_image_mime_types',
+        'option'        => Options::IMAGE_MIME_TYPES,
+        'class'         => array( 'regular-text' ),
+        'props'         => array( 'rows' => array( 2 ) ),
+        'value'         => get_option( Options::IMAGE_MIME_TYPES, \ucare\Defaults::IMAGE_MIME_TYPES ),
+        'label'         => __( 'Image MIME types', 'ucare' ),
+        'desc'          => __( 'Allowed file types for image uploads (comma separated)', 'ucare' ),
+        'validators'    => array()
+    )
+) )->add_field( new TextAreaField(
+    array(
+        'id'            => 'support_file_mime_types',
+        'option'        => Options::FILE_MIME_TYPES,
+        'class'         => array( 'regular-text' ),
+        'props'         => array( 'rows' => array( 2 ) ),
+        'value'         => get_option( Options::FILE_MIME_TYPES, \ucare\Defaults::FILE_MIME_TYPES ),
+        'label'         => __( 'File MIME types', 'ucare' ),
+        'desc'          => __( 'Allowed file types for file uploads (comma separated)', 'ucare' ),
+        'validators'    => array()
+    )
 ) )->add_field( new TextField(
     array(
         'id'            => 'support_max_attachment_size',

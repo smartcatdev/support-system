@@ -5,17 +5,8 @@ namespace ucare;
 
 function allowed_mime_types( $type = null ) {
 
-    $file_types = array(
-        'application/pdf',
-        'application/zip'
-    );
-
-    $image_types = array(
-        'image/jpg',
-        'image/jpeg',
-        'image/png',
-        'image/gif'
-    );
+    $file_types  = explode( ',', get_option( Options::FILE_MIME_TYPES, Defaults::FILE_MIME_TYPES   ) );
+    $image_types = explode( ',', get_option( Options::IMAGE_MIME_TYPES, Defaults::IMAGE_MIME_TYPES ) );
 
     if ( $type == 'image' ) {
         return $image_types;
