@@ -10,6 +10,47 @@ $form = include Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_create_
 
     <form id="create-ticket-form">
 
+        <?php if ( \ucare\util\can_manage_tickets() ) : ?>
+
+            <div class="form-group">
+
+                <p id="toggle-set-author">
+
+                    <label data-target="#select-author" data-toggle="collapse">
+                        <input type="checkbox" name="override_author"> <?php _e( 'Manually set ticket author', 'ucare' ); ?>
+                    </label>
+
+                </p>
+
+                <div id="select-author" class="collapse">
+
+                    <label for="ticket-author"><?php _e( 'Author', 'ucare' ); ?></label>
+
+                    <select id="ticket-author"
+                            class="form-control"
+                            name="author"
+                            data-default="<?php esc_attr_e( get_current_user_id() ); ?>">
+
+                        <option value="<?php esc_attr_e( get_current_user_id() ); ?>">
+                            <?php _e( 'Me', 'ucare' ); ?>
+                        </option>
+
+                        <?php foreach ( \ucare\util\get_users_with_cap( 'use_support', true ) as $user ) : ?>
+
+                            <option value="<?php esc_attr_e( $user->ID ); ?>">
+                                <?php esc_html_e( $user->display_name ); ?>
+                            </option>
+
+                        <?php endforeach; ?>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        <?php endif; ?>
+
         <?php foreach( $form->fields as $name => $field ) : ?>
 
             <div class="form-group">
