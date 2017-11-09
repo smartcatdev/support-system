@@ -47,6 +47,25 @@ function shortcode_login_form() { ?>
 add_shortcode( 'support-login', 'ucare\shortcode_login_form' );
 
 
+
+function add_login_registration_button( $content, $args ) {
+
+    if ( get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ) && $args['form_id'] == 'support_login' ) {
+
+        $content .=
+            '<p class="login-register">
+                <a class="button button-primary" href="' . esc_url( support_page_url( '?register=true' ) ) . '">' . __( 'Register', 'ucare' ) . '</a>
+            </p>';
+
+    }
+
+    return $content;
+
+}
+
+add_action( 'login_form_bottom', 'ucare\add_login_registration_button', 10, 2 );
+
+
 function add_support_login_field( $content, $args ) {
 
     if ( $args['form_id'] == 'support_login' ) {

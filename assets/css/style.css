@@ -408,36 +408,26 @@ hr {
     color: #7b858d;
 }
 
-#support-login-form .login-submit {
-    text-align: center;
-    min-height: 40px;
-}
-
-#support-login-form .login-submit .button {
-    display: inline-block;
-    float: right;
-    margin-bottom: 15px;
-}
-
 #support-login-form .button {
     width: 100%;
+    margin: 5px auto;
+    display: inline-block;
+    text-align: center;
 }
 
-@media(min-width: 767px) {
-    #support-login-form .button {
-        width: 48% !important;
-    }
-
-    #support-login-form .login-submit :nth-child(1) {
-        width: 48% !important;
-        margin-right: 1%;
-        margin-left: 1%;
-    }
-
-    #support-login-form .login-submit :nth-child(2) {
-        width: 49% !important;
-    }
+#support-login-form.has-registration .login-submit,
+#support-login-form.has-registration .login-register {
+    width: 49%;
 }
+
+#support-login-form.has-registration .login-submit {
+    float: right;
+}
+
+#support-login-form.has-registration .login-register {
+    float: left;
+}
+
 
 #register_form {
     display: none;

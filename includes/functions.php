@@ -19,8 +19,8 @@ function allowed_mime_types( $type = null ) {
 }
 
 
-function support_page_url() {
-    return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) );
+function support_page_url( $path = '' ) {
+    return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ) . $path;
 }
 
 function plugin_dir() {
