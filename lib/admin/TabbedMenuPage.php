@@ -6,7 +6,7 @@ if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
 
 class TabbedMenuPage extends MenuPage {
 
-    protected $tabs = array();
+    public $tabs = array();
 
     public function __construct( array $config ) {
         parent::__construct( $config );
@@ -26,6 +26,7 @@ class TabbedMenuPage extends MenuPage {
     }
 
     private function active_tab() {
+
         $active = array_keys( $this->tabs )[0];
 
         if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {
@@ -43,10 +44,12 @@ class TabbedMenuPage extends MenuPage {
 
             <h2 class="nav-tab-wrapper">
 
-                <?php foreach( $this->tabs as $id => $tab ) : ?>
+                <?php foreach ( apply_filters( $this->menu_slug . '_tabs', $this->tabs ) as $id => $tab ) : ?>
+
+                    <?php $url = apply_filters( 'tab_url_' . $id, 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ); ?>
 
                     <a class="nav-tab <?php echo $this->active_tab() == $id ? 'nav-tab-active' : ''; ?>"
-                       href="<?php echo 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ?>"><?php echo $tab->title; ?></a>
+                       href="<?php echo esc_url( $url ); ?>"><?php echo $tab->title; ?></a>
 
                 <?php endforeach; ?>
 
