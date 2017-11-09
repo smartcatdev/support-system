@@ -336,6 +336,11 @@ final class Options {
      */
     const FILE_MIME_TYPES = 'smartcat_support_file_mime_types';
 
+    /**
+     * @since 1.4.1
+     */
+    const SHOW_CLOCK = 'smartcat_support_show_clock';
+
 }
 
 
@@ -581,5 +586,10 @@ final class Defaults {
      * @since 1.4.1
      */
     const FILE_MIME_TYPES = 'application/pdf,application/zip,text/csv';
+
+    /**
+     * @since 1.4.1
+     */
+    const SHOW_CLOCK = 'on';
 
 }

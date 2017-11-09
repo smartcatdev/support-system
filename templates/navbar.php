@@ -30,31 +30,35 @@ $user = wp_get_current_user();
 
             <?php endif; ?>
 
-            <div class="row-table pull-left clock">
+            <?php if ( get_option( Options::SHOW_CLOCK, Defaults::SHOW_CLOCK ) ) : ?>
 
-                <div class="row-table-cell">
+                <div class="row-table pull-left clock">
 
-                    <a href="#date" class="background-secondary hover menu-item">
+                    <div class="row-table-cell">
 
-                        <span class="glyphicon-calendar glyphicon"></span>
+                        <a href="#date" class="background-secondary hover menu-item">
 
-                        <span id="sys-date"></span>
+                            <span class="glyphicon-calendar glyphicon"></span>
 
-                    </a>
+                            <span id="sys-date"></span>
 
-                    <span class="text-muted">|</span>
+                        </a>
 
-                    <a href="#time" class="background-secondary hover menu-item">
+                        <span class="text-muted">|</span>
 
-                        <span class="glyphicon-time glyphicon"></span>
+                        <a href="#time" class="background-secondary hover menu-item">
 
-                        <span id="sys-time"></span>
+                            <span class="glyphicon-time glyphicon"></span>
 
-                    </a>
+                            <span id="sys-time"></span>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
-            </div>
+            <?php endif; ?>
 
             <div class="row-table pull-right actions">
 
