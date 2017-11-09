@@ -24,25 +24,36 @@ function register_menu_locations() {
 add_action( 'init', 'ucare\register_menu_locations' );
 
 
-function shortcode_login_form() { ?>
+function shortcode_login_form( $args = array() ) {
 
-    <?php if ( !is_user_logged_in() ) : ?>
+    $defaults = array(
+        'form_id'              => 'loginform',
+        'form_class'           => 'support-login-form',
+        'show_pw_reset_link'   => true,
+        'show_register_link'   => true,
+        'logged_in_link_text'  => __( 'Get Support', 'ucare' ),
+        'pw_reset_link_text'   => __( 'Forgot Password', 'ucare' ),
+        'register_link_text'   => __( 'Register', 'ucare' ),
 
-        <?php wp_login_form( array( 'form_id' => 'support_login', 'redirect' => support_page_url() ) ); ?>
+        'label_password' => __( 'Password', 'ucare' ),
+        'label_username' => __( 'Username or Email Address', 'ucare' ),
+        'label_remember' => __( 'Remember Me', 'ucare' ),
+        'label_log_in'   => __( 'Login', 'ucare' ),
 
-        <a href="<?php echo esc_url( add_query_arg( 'reset_password', 'true', support_page_url() ) ); ?>">
-            <?php _e( 'Forgot password?', 'ucare' ); ?>
-        </a>
+        'id_username' => 'user_login',
+        'id_password' => 'user_pass',
+        'id_remember' => 'rememberme',
+        'id_submit'   => 'wp-submit',
 
-    <?php else : ?>
+        'value_username' => '',
+        'value_remember' => false
+    );
 
-        <a href="<?php echo esc_url( support_page_url() ); ?>">
-            <?php esc_html_e( get_option( Options::LOGIN_SHORTCODE_TEXT, Defaults::LOGIN_SHORTCODE_TEXT ) ); ?>
-        </a>
+    $args = shortcode_atts( $defaults, $args, 'support-login' );
 
-    <?php endif; ?>
+    echo \ucare\util\render( plugin_dir() . '/templates/login-shortcode.php', $args );
 
-<?php }
+}
 
 add_shortcode( 'support-login', 'ucare\shortcode_login_form' );
 
@@ -50,11 +61,19 @@ add_shortcode( 'support-login', 'ucare\shortcode_login_form' );
 
 function add_login_registration_button( $content, $args ) {
 
-    if ( get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ) && $args['form_id'] == 'support_login' ) {
+    if ( $args['form_id'] == 'support_login' &&
+         get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ) &&
+
+         // Bypass check fif not passed in args
+         ( !isset( $args['show_register_link'] ) || $args['show_register_link'] == true ) ) {
+
+        $link_text = isset( $args['register_link_text'] ) ? $args['register_link_text'] : __( 'Register', 'ucare' );
 
         $content .=
             '<p class="login-register">
-                <a class="button button-primary" href="' . esc_url( support_page_url( '?register=true' ) ) . '">' . __( 'Register', 'ucare' ) . '</a>
+                <a class="button button-primary" href="' . esc_url( support_page_url( '?register=true' ) ) . '">' .
+                    esc_html( $link_text ) .
+                '</a>
             </p>';
 
     }

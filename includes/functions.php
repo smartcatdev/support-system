@@ -3,6 +3,11 @@
 namespace ucare;
 
 
+function boolval( $val ) {
+    return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
+}
+
+
 function allowed_mime_types( $type = null ) {
 
     $file_types  = explode( ',', get_option( Options::FILE_MIME_TYPES, Defaults::FILE_MIME_TYPES   ) );
