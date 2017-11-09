@@ -2,6 +2,7 @@
 
 namespace ucare;
 
+
 function ticket_properties_updated( $null, $id, $key, $value ) {
 
     global $wpdb;

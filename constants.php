@@ -341,6 +341,11 @@ final class Options {
      */
     const SHOW_CLOCK = 'smartcat_support_show_clock';
 
+    /**
+     * @since 1.4.1
+     */
+    const LOGIN_SHORTCODE_TEXT = 'smartcat_support_login_shortcode_text';
+
 }
 
 
@@ -591,5 +596,10 @@ final class Defaults {
      * @since 1.4.1
      */
     const SHOW_CLOCK = 'on';
+
+    /**
+     * @since 1.4.1
+     */
+    const LOGIN_SHORTCODE_TEXT = 'Get Support';
 
 }

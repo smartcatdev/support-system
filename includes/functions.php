@@ -132,10 +132,6 @@ function fonts() {
 }
 
 
-
-
-
-
 namespace ucare\util;
 
 use ucare\Options;

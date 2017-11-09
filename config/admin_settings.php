@@ -306,6 +306,16 @@ $widgets->add_field( new TextAreaField(
         'desc'          => __( 'Label to be displayed on the quick link widget', 'ucare' ),
     )
 
+) )->add_field( new TextField(
+    array(
+        'id'            => 'support_login_shortcode_text',
+        'class'         => array( 'regular-text' ),
+        'option'        => Options::LOGIN_SHORTCODE_TEXT,
+        'value'         => get_option( Options::LOGIN_SHORTCODE_TEXT, \ucare\Defaults::LOGIN_SHORTCODE_TEXT ),
+        'label'         => __( 'Shortcode Login Text', 'ucare' ),
+        'desc'          => __( 'Text displayed for link in login shortcode if user is already authenticated', 'ucare' ),
+    )
+
 ) );
 
 $general = new SettingsSection( 'uc_general', __( 'General Settings', 'ucare' ) );

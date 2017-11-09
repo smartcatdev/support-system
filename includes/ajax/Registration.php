@@ -2,7 +2,6 @@
 
 namespace ucare\ajax;
 
-use ucare\descriptor\Defines;
 
 class Registration extends AjaxComponent {
 
