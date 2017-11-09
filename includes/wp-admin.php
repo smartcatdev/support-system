@@ -3,34 +3,43 @@
 namespace ucare;
 
 
-function enqueue_admin_scripts($hook ) {
+function enqueue_admin_scripts( $hook ) {
 
-    wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'wp-color-picker' );
+    wp_enqueue_script( 'ucare-admin-global',
+        plugin_url( '/assets/admin/global.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
-    wp_enqueue_script( 'wp_media_uploader',
-        plugin_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );
-
-    wp_enqueue_style( 'support-admin-icons',
-        plugin_url( '/assets/icons/style.css' ), null, PLUGIN_VERSION );
-
-    wp_register_script('support-admin-js',
-        plugin_url( 'assets/admin/admin.js' ), array( 'jquery' ), PLUGIN_VERSION );
-
-    wp_localize_script( 'support-admin-js',
-        'SupportSystem', array(
-            'ajax_url'   => admin_url( 'admin-ajax.php' ),
-            'ajax_nonce' => wp_create_nonce( 'support_ajax' )
-        )
-    );
-
-    wp_enqueue_media();
-    wp_enqueue_script( 'support-admin-js' );
-
-    wp_enqueue_style( 'support-admin-css',
-        plugin_url( '/assets/admin/admin.css' ), null, PLUGIN_VERSION );
+    wp_enqueue_style( 'ucare-admin-global',
+        plugin_url( '/assets/admin/global.css' ), null, PLUGIN_VERSION );
 
     if( strpos( $hook, 'ucare' ) !== false ) {
+
+        wp_enqueue_script( 'wp_media_uploader',
+            plugin_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );
+
+        wp_enqueue_style( 'support-admin-icons',
+            plugin_url( '/assets/icons/style.css' ), null, PLUGIN_VERSION );
+
+        wp_register_script('support-admin-js',
+            plugin_url( 'assets/admin/admin.js' ), array( 'jquery' ), PLUGIN_VERSION );
+
+        wp_localize_script( 'support-admin-js',
+            'SupportSystem', array(
+                'ajax_url'   => admin_url( 'admin-ajax.php' ),
+                'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+            )
+        );
+
+        wp_enqueue_script( 'support-admin-js' );
+
+        wp_enqueue_style( 'support-admin-css',
+            plugin_url( '/assets/admin/admin.css' ), null, PLUGIN_VERSION );
+
+
+        //<editor-fold desc="Libraries">
+        wp_enqueue_media();
+
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'wp-color-picker' );
 
         wp_enqueue_script( 'moment',
             plugin_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );
@@ -52,20 +61,13 @@ function enqueue_admin_scripts($hook ) {
 
         wp_enqueue_style( 'ucare-reports-css',
             plugin_url( '/assets/admin/reports.css' ), null, PLUGIN_VERSION );
+        //</editor-fold>
 
     }
 
 }
 
 add_action( 'admin_enqueue_scripts', 'ucare\enqueue_admin_scripts' );
-
-
-function admin_page_header() {
-    include_once plugin_dir() . '/templates/admin-header.php';
-}
-
-// Include admin header
-add_action( 'uc-settings_admin_page_header', 'ucare\admin_page_header' );
 
 
 function admin_page_sidebar() {
@@ -126,3 +128,19 @@ function admin_bar_ticket_count( \WP_Admin_Bar $admin_bar ) {
 }
 
 add_action( 'admin_bar_menu', 'ucare\admin_bar_ticket_count', 80 );
+
+
+function get_admin_header( $echo = true ) {
+
+    $header = \ucare\util\render( plugin_dir() . '/templates/admin-header.php' );
+
+    if ( $echo !== false ) {
+        echo $header;
+    }
+
+    return $header;
+
+}
+
+add_action( 'ucare_admin_header', 'ucare\get_admin_header' );
+add_action( 'uc-settings_admin_page_header', 'ucare\get_admin_header' );

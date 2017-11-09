@@ -5,8 +5,7 @@
     </div>
     
     <div class="alignleft header-component">
-        <h1><?php _e( 'uCare Support Help Desk', 'ucare' ); ?></h1>
-        <p><?php _e( 'Plugin Settings', 'ucare' ); ?></p>
+        <h1><?php _e( 'uCare Customer Support', 'ucare' ); ?></h1>
     </div>
     
     <div class="alignright header-component">
@@ -16,11 +15,4 @@
     
     <div class="clear"></div>
     
-</div>
-
-<div class="ucare-url">
-    <p>
-        <?php echo __( 'Your help desk URL is: ', 'ucare' ); ?>
-        <a href="<?php echo esc_url( \ucare\support_page_url() ); ?>"><?php echo esc_url( \ucare\support_page_url() ); ?></a>
-    </p>
 </div>

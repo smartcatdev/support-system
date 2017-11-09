@@ -58,7 +58,6 @@ function shortcode_login_form( $args = array() ) {
 add_shortcode( 'support-login', 'ucare\shortcode_login_form' );
 
 
-
 function add_login_registration_button( $content, $args ) {
 
     if ( $args['form_id'] == 'support_login' &&
