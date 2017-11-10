@@ -1,3 +1,9 @@
+<?php
+
+namespace ucare;
+
+?>
+
 <div id="ucare-settings-header">
 
     <div class="inner">
@@ -6,7 +12,7 @@
             <img src="http://localhost:8888/wordpress/wp-content/plugins/support-system/assets/images/logo.png">
         </div>
         <p class="page-title">
-            <?php _e( 'uCare Customer Support', 'ucare' ); ?>
+            <?php _e( 'uCare Customer Support', 'ucare' ); ?> <span class="small version-number">v<?php esc_html_e( PLUGIN_VERSION ); ?></span>
         </p>
 
     </div>

@@ -38,7 +38,7 @@ class TabbedMenuPage extends MenuPage {
 
     public function render() { ?>
 
-        <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap ucare-admin-page">
+        <div id="<?php esc_attr_e( $this->menu_slug . '_menu_page' ); ?>" class="wrap ucare-admin-page">
 
             <?php $this->do_header(); ?>
 
@@ -52,14 +52,14 @@ class TabbedMenuPage extends MenuPage {
 
                     <?php $url = apply_filters( 'tab_url_' . $id, 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ); ?>
 
-                    <a class="nav-tab <?php echo $this->active_tab() == $id ? 'nav-tab-active' : ''; ?>"
+                    <a class="nav-tab <?php echo $this->active_tab() == $id ? 'nav-tab-active' : ''; ?> <?php esc_attr_e( $id ); ?>"
                        href="<?php echo esc_url( $url ); ?>"><?php echo $tab->title; ?></a>
 
                 <?php endforeach; ?>
 
             </h2>
 
-            <div class="content">
+            <div class="content <?php esc_attr_e( $this->menu_slug ); ?>">
 
                 <div class="tabs-content">
 
@@ -67,9 +67,11 @@ class TabbedMenuPage extends MenuPage {
 
                 </div>
 
-            </div>
+                <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
-            <?php do_action( $this->menu_slug . '_menu_page' ); ?>
+                <div class="clear"></div>
+
+            </div>
 
         </div>
 

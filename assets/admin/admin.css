@@ -73,32 +73,21 @@ td.column-id.id:before {
     margin: 10px auto !important;
 }
 
-
-/* Settings Sidebar */
-.ucare-admin-sidebar {
-    display: none;
-    width: 25%;
-}
-
-.ucare-sidebar-widget {
-    background: #5bb8a7;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 3px;
-}
-
-.ucare-sidebar-widget .ucare-button {
-    display: inline-block;
-}
-
-.ucare-sidebar-widget h3 {
-    border-bottom: 1px solid #273140;
-    padding-bottom: 10px;
-    margin-top: 0;
-    color: #273140;
-}
-
 /*<editor-fold desc="Settings Page">*/
+.small {
+    font-size: 12px;
+}
+
+.text-center {
+    text-align: center;
+}
+.button.button-cta {
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    text-shadow: none;
+}
+
 .wrap {
     margin: -20px 0 0 -20px;
     padding-top: 20px;
@@ -152,6 +141,14 @@ td.column-id.id:before {
 .nav-tab {
     font-weight: 500;
     border-bottom: 1px solid #ccc !important;
+}
+
+.nav-tab.ucare-pro {
+    background: #fff;
+}
+
+.nav-tab.ucare-pro:hover {
+    background: #F1F1F1;
 }
 
 .nav-tab:first-of-type {
@@ -211,6 +208,41 @@ td.column-id.id:before {
     max-width: none;
 }
 
+.ucare-admin-sidebar {
+    display: none;
+    width: 30%;
+    float: right;
+    margin: 0 10px 15px 10px;
+}
+
+.ucare-sidebar-widget {
+    border: 1px solid #dccc;
+    background: #fff;
+    margin-top: 15px;
+}
+
+.ucare-sidebar-widget .widget-header {
+    padding: 15px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+}
+
+.ucare-sidebar-widget .widget-header h3 {
+    margin: 0;
+}
+
+.ucare-sidebar-widget .widget-header .label {
+    border: 1px solid #ddd;
+    padding: 2px 5px;
+    background: #fff;
+    margin: 0 5px;
+}
+
+.ucare-sidebar-widget .widget-content {
+    padding: 10px 15px;
+}
+
+
 @media(min-width: 767px) {
 
     .page-title {
@@ -248,9 +280,13 @@ td.column-id.id:before {
         font-size: 14px;
     }
 
-    .wrap .content h2,
-    .form-table {
+    .content.uc-settings .tabs-content {
         width: 65%;
+        display: inline-block;
+    }
+
+    .ucare-admin-sidebar {
+        display: inline-block;
     }
 
 }
