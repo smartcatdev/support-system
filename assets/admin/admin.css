@@ -106,17 +106,18 @@ td.column-id.id:before {
 }
 
 .wrap .content {
-    padding: 20px 10px 0 20px;
+    padding: 1px 10px 0 20px;
     background: #f1f1f1;
 }
 
 .wrap h2 {
-    margin: 0;
+    margin: 15px auto;
 }
 
 #ucare-settings-header {
     margin: 10px 10px 0 20px;
     padding: 10px 0;
+    color: #555;
 }
 
 #ucare-settings-header .inner {
