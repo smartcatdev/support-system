@@ -113,6 +113,14 @@ td.column-id.id:before {
     display: table;
 }
 
+#ucare-settings-header .links {
+    margin: 10px 0 0 0;
+}
+
+#ucare-settings-header .links a {
+    text-decoration: none;
+}
+
 .page-title {
     font-size: 24px;
     line-height: 24px;
@@ -130,12 +138,12 @@ td.column-id.id:before {
 
 .ucare-logo {
     padding-right: 10px;
+    vertical-align: top;
 }
 
 .ucare-logo img {
     height: 40px;
     width: 40px;
-    vertical-align: middle;
 }
 
 .nav-tab {
