@@ -11,7 +11,9 @@ function enqueue_admin_scripts( $hook ) {
     wp_enqueue_style( 'ucare-admin-global',
         plugin_url( '/assets/admin/global.css' ), null, PLUGIN_VERSION );
 
-    if( strpos( $hook, 'ucare' ) !== false ) {
+
+    // Load assets only on plugin admin pages
+    if( strpos( $hook, 'ucare' ) !== false || get_post_type() == 'support_ticket' ) {
 
         wp_enqueue_script( 'wp_media_uploader',
             plugin_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );

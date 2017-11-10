@@ -154,8 +154,6 @@ function tickets_table_columns( $columns ) {
     $left_cols = array_splice( $columns, 0, 1 );
     $left_cols['title'] = __( 'Subject', 'ucare' );
 
-    $left_cols = array_merge( array( 'id' => __( 'Case', 'ucare' ) ), $left_cols );
-
     if( \ucare\util\ecommerce_enabled() ) {
         $left_cols['product'] = __( 'Product', 'ucare' );
     }
@@ -184,18 +182,6 @@ function tickets_table_column_data( $column, $post_id ) {
     $ticket = get_post( $post_id );
 
     switch ( $column ) {
-        case 'id':
-            echo $post_id;
-
-            echo '<div class="hidden" id="support_inline_' . $post_id . '">';
-
-            foreach( ticket_quick_edit_form()->fields as $name => $field ) {
-                echo '<div class="' . $field->name . '">' . get_post_meta( $post_id, $field->name, true ) . '</div>';
-            }
-
-            echo '</div>';
-
-            break;
 
         case 'email':
             echo \ucare\util\author_email( $ticket );
@@ -244,6 +230,7 @@ function tickets_table_column_data( $column, $post_id ) {
                 'data-id="' . $post_id .'"></i>';
 
             break;
+
     }
 
 }
