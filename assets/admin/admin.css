@@ -203,10 +203,7 @@ td.column-id.id:before {
     padding: 4px;
 }
 
-.form-table input[type=text],
-.form-table input[type=number],
-.form-table input[type=url],
-.form-table textarea {
+.form-table .regular-text {
     width: 100%;
     font-size: 14px;
     line-height: 1.5;
@@ -295,6 +292,10 @@ td.column-id.id:before {
 
     .form-table th {
         font-size: 14px;
+    }
+
+    .form-table .regular-text {
+        width: 25em !important;
     }
 
     .content.uc-settings .tabs-content {
