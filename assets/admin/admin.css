@@ -144,6 +144,7 @@ td.column-id.id:before {
 .ucare-logo img {
     height: 40px;
     width: 40px;
+    vertical-align: middle;
 }
 
 .nav-tab {
