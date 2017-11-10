@@ -1,4 +1,9 @@
 <?php
+/**
+ * New place for templating related code
+ *
+ * @since 1.4.2
+ */
 
 namespace ucare;
 
