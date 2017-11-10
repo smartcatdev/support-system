@@ -98,6 +98,93 @@ td.column-id.id:before {
     color: #273140;
 }
 
+/*<editor-fold desc="Settings Page">*/
+.wrap {
+    margin: -20px 0 0 -20px;
+    padding-top: 20px;
+    background: #f9f9f9;
+}
+
+.wrap .content {
+    padding: 20px 10px 0 20px;
+    background: #f1f1f1;
+}
+
+.wrap h2 {
+    margin: 0;
+}
+
+#ucare-settings-header {
+    margin: 10px 10px 0 20px;
+    padding: 10px 0;
+}
+
+#ucare-settings-header .inner {
+    display: table;
+}
+
+.page-title {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 200;
+    margin: 0;
+}
+
+.page-title,
+.ucare-logo {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.ucare-logo {
+    padding-right: 10px;
+}
+
+.ucare-logo img {
+    height: 40px;
+    width: 40px;
+}
+
+.nav-tab {
+    font-weight: 500;
+}
+
+.nav-tab-wrapper {
+    padding: 9px 10px 15px 20px !important;
+    border-bottom: 1px solid #ccc !important;
+}
+
+@media(min-width: 767px) {
+
+    .page-title {
+        font-size: 36px;
+        line-height: 36px;
+    }
+
+    .nav-tab-wrapper {
+        padding-bottom: 0 !important;
+    }
+
+    .nav-tab {
+        padding: 10px 15px;
+        margin: 0 0 0 -1px;
+        font-size: 16px;
+        border-bottom: none !important;
+        background: #f9f9f9;
+    }
+
+    .nav-tab-active {
+        border-bottom: 1px solid #F1F1F1 !important;
+        background: #F1F1F1;
+        margin-bottom: -1px;
+    }
+
+}
+
+
+/*</editor-fold>*/
+
+
 /* Settings Header */
 /*#ucare-settings-header {*/
     /*background: #0e7463;*/

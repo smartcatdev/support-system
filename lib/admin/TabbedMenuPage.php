@@ -38,9 +38,13 @@ class TabbedMenuPage extends MenuPage {
 
     public function render() { ?>
 
-        <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
+        <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap ucare-admin-page">
 
             <?php $this->do_header(); ?>
+
+            <?php settings_errors(); ?>
+
+            <h2 style="display: none"></h2>
 
             <h2 class="nav-tab-wrapper">
 
@@ -55,9 +59,13 @@ class TabbedMenuPage extends MenuPage {
 
             </h2>
 
-            <div class="tabs-content">
+            <div class="content">
 
-                <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+                <div class="tabs-content">
+
+                    <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+
+                </div>
 
             </div>
 
