@@ -89,7 +89,7 @@ td.column-id.id:before {
 }
 
 .wrap.ucare-admin-page .content {
-    padding: 1px 10px 0 20px;
+    padding: 15px 10px 0 20px;
     background: #f1f1f1;
 }
 
@@ -163,8 +163,8 @@ td.column-id.id:before {
 }
 
 .content.uc-settings h2 {
-    margin: 15px 0 0 0;
-    padding: 15px 10px;
+    margin: 0;
+    padding: 15px;
     border: 1px solid #ccc;
     background: #f9f9f9;
     box-sizing: border-box;
@@ -173,6 +173,7 @@ td.column-id.id:before {
 .form-table {
     border: 1px solid #ccc;
     margin-top: -1px;
+    margin-bottom: 10px;
     background: #fff;
 }
 
@@ -220,9 +221,9 @@ td.column-id.id:before {
 }
 
 .ucare-sidebar-widget {
-    border: 1px solid #dccc;
+    border: 1px solid #ccc;
     background: #fff;
-    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .ucare-sidebar-widget .widget-header {
