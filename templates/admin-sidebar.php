@@ -5,8 +5,11 @@
         <div class="widget-header">
             <h3>
                 <span class="dashicons dashicons-megaphone"></span> <?php _e( 'Email Piping', 'ucare' ); ?>
-                <span class="label"><?php _e( 'New', 'ucare' ) ?></span>
             </h3>
+            <a class="button button-primary button-cta"
+               href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=ucareSettingsPage&utm_content=Email+piping" target="_BLANK">
+                <?php _e( 'Learn More', 'ucare' ); ?>
+            </a>
         </div>
 
         <div class="widget-content">
@@ -14,10 +17,7 @@
                     . 'be imported to your help desk as tickets. This also allows your customers to post reply to tickets directly from their own mailbox.', 'ucare' ); ?>
             </p>
             <p class="text-center">
-                <a class="button button-primary button-cta"
-                   href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=ucareSettingsPage&utm_content=Email+piping" target="_BLANK">
-                    <?php _e( 'Get Email Piping', 'ucare' ); ?>
-                </a>
+
             </p>
         </div>
         

@@ -78,16 +78,6 @@ td.column-id.id:before {
     font-size: 12px;
 }
 
-.text-center {
-    text-align: center;
-}
-.button.button-cta {
-    height: 36px;
-    line-height: 36px;
-    font-size: 16px;
-    text-shadow: none;
-}
-
 .ucare-admin-page .notice {
     margin: 5px 15px 15px 15px !important;
 }
@@ -208,6 +198,11 @@ td.column-id.id:before {
     display: none !important;
 }
 
+.form-table .color_picker.wp-color-picker {
+    display: inline-block;
+    padding: 4px;
+}
+
 .form-table input[type=text],
 .form-table input[type=number],
 .form-table input[type=url],
@@ -240,7 +235,17 @@ td.column-id.id:before {
 }
 
 .ucare-sidebar-widget .widget-header h3 {
-    margin: 0;
+    margin: 0 10px 0 0;
+    display: inline-block;
+    line-height: 36px;
+}
+
+.ucare-sidebar-widget .widget-header .button-cta {
+    margin: 4px auto;
+}
+
+.ucare-sidebar-widget .widget-header .dashicons {
+    line-height: 36px;
 }
 
 .ucare-sidebar-widget .widget-header .label {
@@ -255,7 +260,7 @@ td.column-id.id:before {
 }
 
 
-@media(min-width: 767px) {
+@media(min-width: 768px) {
 
     .page-title .title-text {
         font-size: 36px;
@@ -306,31 +311,7 @@ td.column-id.id:before {
 
 /*</editor-fold>*/
 
-#ucare-tutorial .postbox {
-    padding: 15px;
-}
-
-#ucare-tutorial h1 {
-    font-size: 40px;
-    line-height: 44px;
-}
-
-#ucare-tutorial h3 {
-    font-size: 24px;
-    line-height: 28px;
-}
-
-@media(min-width: 768px) {
-
-    .ucare-addon {
-        width: 28%;
-    }
-    
-   
-}
-
-/* Extensions */
-
+/*<editor-fold desc="Extensions Page">*/
 a.ucare-addon-link {
     display: block;
     text-decoration: none;
@@ -420,8 +401,16 @@ a.ucare-addon-link {
     background: #de5d3f;
 }
 
+@media(min-width: 768px) {
 
-/** Activations page **/
+    .ucare-addon {
+        width: 28%;
+    }
+
+}
+/*</editor-fold>*/
+
+/*<editor-fold desc="Licensing Page">*/
 .ucare-extension-activation {
     float: left;
     width: 100%;
@@ -465,3 +454,4 @@ a.ucare-addon-link {
     }
 
 }
+/*</editor-fold>*/
