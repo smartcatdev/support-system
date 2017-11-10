@@ -88,19 +88,19 @@ td.column-id.id:before {
     text-shadow: none;
 }
 
-.wrap {
+.ucare-admin-page .notice {
+    margin: 5px 15px 15px 15px !important;
+}
+
+.wrap.ucare-admin-page {
     margin: -20px 0 0 -20px;
     padding-top: 20px;
     background: #f9f9f9;
 }
 
-.wrap .content {
+.wrap.ucare-admin-page .content {
     padding: 1px 10px 0 20px;
     background: #f1f1f1;
-}
-
-.wrap h2 {
-    margin: 15px auto;
 }
 
 #ucare-settings-header {
@@ -122,12 +122,15 @@ td.column-id.id:before {
 }
 
 .page-title {
-    font-size: 24px;
-    line-height: 24px;
     font-weight: 200;
     margin: 0;
     box-sizing: border-box;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+.page-title .title-text {
+    font-size: 24px;
+    line-height: 24px;
 }
 
 .page-title,
@@ -138,12 +141,13 @@ td.column-id.id:before {
 
 .ucare-logo {
     padding-right: 10px;
-    vertical-align: top;
 }
 
 .ucare-logo img {
-    height: 40px;
-    width: 40px;
+    height: 34px;
+    width: auto;
+    image-rendering: -webkit-optimize-contrast;
+    filter: opacity(0.8);
 }
 
 .nav-tab {
@@ -168,7 +172,7 @@ td.column-id.id:before {
     border-bottom: 1px solid #ccc !important;
 }
 
-.wrap .content h2 {
+.content.uc-settings h2 {
     margin: 15px 0 0 0;
     padding: 15px 10px;
     border: 1px solid #ccc;
@@ -253,7 +257,7 @@ td.column-id.id:before {
 
 @media(min-width: 767px) {
 
-    .page-title {
+    .page-title .title-text {
         font-size: 36px;
         line-height: 36px;
     }

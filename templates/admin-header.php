@@ -9,10 +9,12 @@ namespace ucare;
     <div class="inner">
 
         <div class="ucare-logo">
-            <img src="http://localhost:8888/wordpress/wp-content/plugins/support-system/assets/images/logo.png">
+            <img src="<?php echo esc_url( plugin_url( 'assets/images/admin-icon-grey.png' ) ); ?>">
         </div>
+
         <p class="page-title">
-            <?php _e( 'uCare Customer Support', 'ucare' ); ?> <span class="small version-number">v<?php esc_html_e( PLUGIN_VERSION ); ?></span>
+            <span class="title-text"><?php _e( 'uCare Customer Support', 'ucare' ); ?></span>
+            <span class="small version-number">v<?php esc_html_e( PLUGIN_VERSION ); ?></span>
         </p>
 
     </div>
