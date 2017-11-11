@@ -341,17 +341,6 @@ function list_agents() {
 }
 
 
-function get_users_with_cap( $cap = 'use_support', $exclude_current = false ) {
-
-    return array_filter( get_users(), function ( $user ) use ( $cap, $exclude_current ) {
-
-        return $user->has_cap( $cap ) && ( !$exclude_current || $user->ID !== get_current_user_id() );
-
-    } );
-
-}
-
-
 function roles() {
     return array(
         'support_admin' => __( 'Support Admin', 'ucare' ),

@@ -19,7 +19,7 @@ class Ticket extends AjaxComponent {
 
             if ( $form->is_valid() ) {
 
-                $users = \ucare\util\get_users_with_cap();
+                $users = \ucare\get_users_with_cap();
 
                 $data = array(
                     'post_title'     => $form->data['subject'],

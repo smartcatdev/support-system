@@ -32,4 +32,5 @@ include_once dirname( __FILE__ ) . '/includes/class-bootstrap-nav-walker.php';
 include_once dirname( __FILE__ ) . '/includes/template.php';
 include_once dirname( __FILE__ ) . '/includes/sanitize.php';
 include_once dirname( __FILE__ ) . '/includes/helpers.php';
+include_once dirname( __FILE__ ) . '/includes/user.php';
 include_once dirname( __FILE__ ) . '/includes/admin-settings.php';
