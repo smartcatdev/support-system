@@ -33,7 +33,7 @@ $form_args = array(
 
         <?php if ( boolval( $show_pw_reset_link ) ) : ?>
 
-            <a href="<?php echo esc_url( add_query_arg( 'reset_password', 'true', support_page_url() ) ); ?>">
+            <a class="<?php echo esc_attr( $button_class ) ?>" href="<?php echo esc_url( add_query_arg( 'reset_password', 'true', support_page_url() ) ); ?>">
                 <?php esc_html_e( $pw_reset_link_text ); ?>
             </a>
 
@@ -41,7 +41,7 @@ $form_args = array(
 
     <?php else : ?>
 
-        <a href="<?php echo esc_url( support_page_url() ); ?>">
+        <a class="<?php echo esc_attr( $button_class ) ?>" href="<?php echo esc_url( support_page_url() ); ?>">
             <?php esc_html_e( $logged_in_link_text ); ?>
         </a>
 

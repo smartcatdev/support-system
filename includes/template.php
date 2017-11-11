@@ -29,6 +29,7 @@ function shortcode_login_form( $args = array() ) {
     $defaults = array(
         'form_id'              => 'loginform',
         'form_class'           => 'support-login-form',
+        'button_class'          => 'button',
         'show_pw_reset_link'   => true,
         'show_register_link'   => true,
         'logged_in_link_text'  => __( 'Get Support', 'ucare' ),
