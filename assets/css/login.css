@@ -1,0 +1,40 @@
+.login-username label,
+.login-password label{
+    display: block;
+}
+
+.support-login-wrapper {
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    padding: 30px;
+    margin: 15px auto;
+    width: 100%;
+    box-shadow: 0 0 3px #d4d4d4;
+    -moz-box-shadow: 0 0 3px #d4d4d4;
+    -webkit-box-shadow: 0 0 3px #d4d4d4;
+}
+
+@media( min-width: 769px ) {
+    .support-login-wrapper{
+        width: 50%;
+    }
+}
+
+.support-login-wrapper p{
+    margin: 5px 0 10px 0;
+}
+
+.support-login-wrapper input[type="text"],
+.support-login-wrapper input[type="password"]{
+    width: 100%;
+    padding: 8px;
+    outline: none;
+    transition: 0.3s all ease;
+    -moz-transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+}
+
+.support-login-wrapper input[type="text"]:focus,
+.support-login-wrapper input[type="password"]:focus{
+    
+}
