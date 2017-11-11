@@ -98,6 +98,13 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 = 1.4.1 =
 - Bug fix with logo in navbar
+- Added option allowing users to set attachment file types
+- Added additional customer ticket history in the ticket view sidebar
+- Added option allowing agents to create tickets on behalf of customers
+- Added menu location allowing users to set a custom menu for the helpdesk
+- Added option to toggle clock on/off
+- Added option for login-form shortcode
+- Re-styled the admin page to look more WP native
 
 = 1.4.0 =
 - Added Email Piping & Guest Tickets add-on

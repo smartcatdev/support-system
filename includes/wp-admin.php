@@ -119,7 +119,7 @@ function admin_bar_ticket_count( \WP_Admin_Bar $admin_bar ) {
         $item = array(
             'id' => 'ucare_admin_ticket_count',
             'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: 2px;"></span>
-                        <span class="ab-label">' . $count . ' </span>',
+                        <span class="ab-label">' . $count . __( ' tickets', 'ucare' ) . ' </span>',
             'href' => support_page_url()
         );
 
