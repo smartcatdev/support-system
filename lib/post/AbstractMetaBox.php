@@ -79,7 +79,7 @@ abstract class AbstractMetaBox {
 
     private function init() {
         add_action( "add_meta_boxes_{$this->post_type}", array( $this, 'add' ) );
-        add_action( 'save_post', array( $this, 'save' ), 10, 2 );
+        add_action( "save_post_{$this->post_type}", array( $this, 'save' ), 10, 2 );
     }
 
     /**
