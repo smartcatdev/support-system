@@ -32,7 +32,7 @@
         </div>
 
         <div class="widget-content">
-            <p><?php _e( 'Love it, or hate it? We want to know! Tell us what you like and dislike about this plugin, so we can keep improving it for you!', 'ucare' ); ?>
+            <p><?php _e( 'Love it, or hate it? We want to know! Tell us what you think of the plugin, or make any suggestions for improvement.', 'ucare' ); ?>
             </p>
             <p class="text-center">
 
