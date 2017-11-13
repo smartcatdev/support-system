@@ -16,6 +16,11 @@ use ucare\ajax\Registration;
 use ucare\component\ECommerce;
 use ucare\component\Hacks;
 
+/**
+ * Class Plugin
+ * @package ucare
+ * @deprecated
+ */
 class Plugin extends AbstractPlugin {
 
     private $menu_pages = array();
