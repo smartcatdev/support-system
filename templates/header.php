@@ -1,7 +1,6 @@
 <?php
 
-use ucare\Options;
-use ucare\Plugin;
+namespace ucare;
 
 $url = Plugin::plugin_url( \ucare\PLUGIN_ID );
 $ver = get_option( Options::PLUGIN_VERSION );
@@ -9,6 +8,8 @@ $fonts = \ucare\fonts();
 
 $primary_font   = get_option( Options::PRIMARY_FONT, \ucare\Defaults::PRIMARY_FONT );
 $secondary_font = get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDARY_FONT );
+
+
 
 ?>
 
@@ -42,7 +43,14 @@ $secondary_font = get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDAR
         <link href="<?php echo get_option( Options::FAVICON ); ?>" rel="icon">
 
         <?php include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/assets/css/dynamic.php'; ?>
+
         <?php do_action( 'ucare_head' ); ?>
+
+        <?php print_header_scripts(); ?>
+
     </head>
     <body>
+
+    <div id="page-container"><!-- Start Page Container -->
+
     <?php do_action( 'ucare_body' ); ?>

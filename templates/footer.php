@@ -1,10 +1,14 @@
 <?php
 
-use ucare\Options;
+namespace ucare;
 
 $ver = get_option( Options::PLUGIN_VERSION );
 
+$url = resolve_url();
+
 ?>
+        </div><!-- End Page Container -->
+
         <footer id="footer">
 
             <div class="container">
@@ -26,6 +30,9 @@ $ver = get_option( Options::PLUGIN_VERSION );
             </div>
 
         </footer>
+
+        <?php print_footer_scripts() ?>
+        <?php print_styles(); ?>
 
         <script>
 
@@ -156,7 +163,9 @@ $ver = get_option( Options::PLUGIN_VERSION );
             Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Options::MAX_ATTACHMENT_SIZE, \ucare\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
 
         </script>
+
         <?php do_action( 'ucare_footer' ); ?>
+
     </body>
 
 </html>

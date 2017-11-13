@@ -34,6 +34,9 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         private static $instance = null;
 
 
+        private $data = array();
+
+
         public static function instance() {
 
             if ( is_null( self::$instance ) ) {
@@ -46,16 +49,20 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
         private static function initialize() {
 
-            self::do_defines();
-            self::do_includes();
+            $instance = new self();
 
-            self::add_hooks();
+            $instance->do_defines();
+            $instance->do_includes();
 
-            return new self();
+            // All done
+            do_action( 'ucare_loaded', $instance );
+
+            return $instance;
+
         }
 
 
-        private static function do_defines() {
+        private function do_defines() {
 
             define( 'UCARE_DIR', plugin_dir_path( __FILE__ ) );
             define( 'UCARE_URL', plugin_dir_url(  __FILE__ ) );
@@ -67,7 +74,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
 
-        private static function do_includes() {
+        private function do_includes() {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
             include_once dirname( __FILE__ ) . '/includes/functions.php';
@@ -94,6 +101,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/login-form.php';
             include_once dirname( __FILE__ ) . '/includes/admin-settings.php';
             include_once dirname( __FILE__ ) . '/includes/taxonomy-ticket_category.php';
+            include_once dirname( __FILE__ ) . '/includes/scripts.php';
 
             if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
                 include_once dirname( __FILE__ ) . '/lib/license/EDD_SL_Plugin_Updater.php';
@@ -102,8 +110,19 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
 
-        private static function add_hooks() {
+        public function get( $var, $default = false ) {
 
+            if ( isset( $this->data[ $var ] ) ) {
+                return $this->data[ $var ];
+            }
+
+            return $default;
+
+        }
+
+
+        public function set( $var, $value ) {
+            $this->data[ $var ] = $value;
         }
 
     }

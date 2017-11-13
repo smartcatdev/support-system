@@ -20,6 +20,18 @@ function register_menu_locations() {
 add_action( 'init', 'ucare\register_menu_locations' );
 
 
+function include_support_template( $template ) {
+
+    if( get_the_ID() == get_option( Options::TEMPLATE_PAGE_ID ) ) {
+        $template = get_template( 'app', null, false );
+    }
+
+    return $template;
+}
+
+add_filter( 'template_include', 'ucare\include_support_template' );
+
+
 function get_template( $name, $args = array(), $include = true, $once = true ) {
 
     $tmpl = false;

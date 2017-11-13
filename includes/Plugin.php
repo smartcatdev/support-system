@@ -246,7 +246,6 @@ class Plugin extends AbstractPlugin {
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
-            'template_include' => array( 'swap_template' )
         ) );
     }
 
@@ -271,13 +270,6 @@ class Plugin extends AbstractPlugin {
         return $components;
     }
 
-    public function swap_template( $template ) {
-        if( is_page( get_option( Options::TEMPLATE_PAGE_ID ) ) ) {
-            $template = $this->template_dir . '/app.php';
-        }
-
-        return $template;
-    }
 
     public function feedback_form() {
 
