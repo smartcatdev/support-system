@@ -22,6 +22,7 @@ include_once dirname( __FILE__ ) . '/constants.php';
 
 if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
+
     /**
      * Main plugin class
      *
@@ -71,7 +72,6 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-public.php';
-            include_once dirname( __FILE__ ) . '/includes/ticket.php';
             include_once dirname( __FILE__ ) . '/includes/comment.php';
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
             include_once dirname( __FILE__ ) . '/includes/cron.php';
@@ -108,18 +108,19 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     }
 
 
+
     function ucare() {
         return uCare::instance();
     }
 
 
+
     function enqueue_scripts() {
-
         wp_enqueue_style( 'ucare-login-form', plugin_url( 'assets/css/login.css' ), null, PLUGIN_VERSION );
-
     }
 
     add_action( 'wp_enqueue_scripts', 'ucare\enqueue_scripts' );
+
 
 
     function load_text_domain() {
@@ -147,6 +148,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
 
 
+
     // TODO move this to a plugins_loaded callback
     ucare();
 
@@ -154,6 +156,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     do_action_deprecated( 'support_register_autoloader', include_once 'vendor/autoload.php', '1.4.2' );
     Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
     //</editor-fold>
+
 
 } else {
 
@@ -170,6 +173,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 }
 
+
 /**
  * @since 1.4.2
  * @param string $path
@@ -178,6 +182,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 function resolve_path( $path = '' ) {
     return plugin_dir_path( __FILE__ ) . $path;
 }
+
 
 /**
  * @param string $path

@@ -134,7 +134,7 @@ add_action( 'admin_bar_menu', 'ucare\admin_bar_ticket_count', 80 );
 
 function get_admin_header( $echo = true ) {
 
-    $header = \ucare\util\render( plugin_dir() . '/templates/admin-header.php' );
+    $header = buffer_template( 'admin-header' );
 
     if ( $echo !== false ) {
         echo $header;
@@ -146,3 +146,21 @@ function get_admin_header( $echo = true ) {
 
 add_action( 'ucare_admin_header', 'ucare\get_admin_header' );
 add_action( 'uc-settings_admin_page_header', 'ucare\get_admin_header' );
+
+
+function set_submenu_file( $submenu_file ) {
+
+    global $parent_file, $current_screen;
+
+    if ( $current_screen->taxonomy === 'ticket_category' ) {
+        $parent_file = 'ucare_support';
+        $submenu_file = 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category';
+    } else if ( $current_screen->base === 'post' && $current_screen->post_type == 'support_ticket' ) {
+        $parent_file = 'ucare_support';
+    }
+
+    return $submenu_file;
+
+}
+
+add_filter( 'submenu_file', 'ucare\set_submenu_file' );

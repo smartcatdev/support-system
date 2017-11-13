@@ -54,3 +54,14 @@ function get_template( $name, $args = array(), $include = true, $once = true ) {
     return false;
 
 }
+
+
+function buffer_template( $name, $args = array(), $once = true ) {
+
+    ob_start();
+
+    get_template( $name, $args, true, $once );
+
+    return ob_get_clean();
+
+}
