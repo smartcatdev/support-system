@@ -35,4 +35,3 @@ function register_category_taxonomy() {
 }
 
 add_action( 'init', 'ucare\register_category_taxonomy' );
-

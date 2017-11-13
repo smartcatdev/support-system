@@ -58,7 +58,7 @@ function register_ticket_post_type() {
         'capability_type'      => array( 'support_ticket', 'support_tickets' ),
         'feeds'                => null,
         'map_meta_cap'         => true,
-        'register_meta_box_cb' => 'ucare\add_ticket_metaboxes'
+        'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes'
     );
 
     register_post_type( 'support_ticket', $args );
@@ -66,20 +66,6 @@ function register_ticket_post_type() {
 }
 
 add_action( 'init', 'ucare\register_ticket_post_type' );
-
-
-
-function add_ticket_metaboxes() {
-
-    // Remove the original category metabox
-    remove_meta_box( 'tagsdiv-ticket_category', 'support_ticket', 'side' );
-
-    // Add category metabox
-    add_meta_box( 'ticket-category', __( 'Category', 'ucare' ), 'ucare\render_ticket_category_metabox', 'support_ticket', 'side' );
-
-}
-
-
 
 
 function force_menu_expand( $file ) {
