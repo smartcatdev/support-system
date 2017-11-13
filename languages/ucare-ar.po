@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uCare - Support Ticket System\n"
 "POT-Creation-Date: 2017-06-28 06:17-0400\n"
-"PO-Revision-Date: 2017-06-28 06:18-0400\n"
+"PO-Revision-Date: 2017-11-13 11:05-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -84,11 +84,11 @@ msgstr "اسم لاستخدامها لفئة التذاكر"
 
 #: config/admin_settings.php:117
 msgid "Categories Name Plural"
-msgstr ""
+msgstr "الاسم (بصيغة الجمع)"
 
 #: config/admin_settings.php:118
 msgid "The plural name to be used for ticket category"
-msgstr ""
+msgstr "اسم الجمع لاستخدامها لفئة التذاكر"
 
 #: config/admin_settings.php:126
 msgid "Categories Enabled"
@@ -104,7 +104,7 @@ msgstr ""
 
 #: config/admin_settings.php:141
 msgid "Login Disclaimer"
-msgstr ""
+msgstr "6 - شرط عدم المسؤولية"
 
 #: config/admin_settings.php:151
 msgid "Register Button Label"
@@ -116,7 +116,7 @@ msgstr "تسمية زر تسجيل الدخول"
 
 #: config/admin_settings.php:171
 msgid "Create Ticket Button Label"
-msgstr ""
+msgstr "تسمية زر تسجيل الدخول"
 
 #: config/admin_settings.php:181
 msgid "Cancel Operation Button Label"
@@ -124,11 +124,11 @@ msgstr ""
 
 #: config/admin_settings.php:191
 msgid "Ticket Created Message"
-msgstr ""
+msgstr "تم إنشاء التذكرة"
 
 #: config/admin_settings.php:201
 msgid "Ticket Updated Message"
-msgstr ""
+msgstr "تم تحديث التذكرة"
 
 #: config/admin_settings.php:211
 msgid "No Tickets Message"
@@ -136,19 +136,19 @@ msgstr ""
 
 #: config/admin_settings.php:220
 msgid "Comments Closed Message"
-msgstr ""
+msgstr "رسالة التعليقات مغلقة"
 
 #: config/admin_settings.php:229
 msgid "Footer Text"
-msgstr ""
+msgstr "النص في الفوتر"
 
 #: config/admin_settings.php:234
 msgid "Widgets"
-msgstr ""
+msgstr "الودجات"
 
 #: config/admin_settings.php:243
 msgid "Login Widget Area"
-msgstr ""
+msgstr "مربع تسجيل الدخول"
 
 #: config/admin_settings.php:244
 msgid "Displayed on the login page"
@@ -188,7 +188,7 @@ msgstr ""
 
 #: config/admin_settings.php:291
 msgid "General Settings"
-msgstr ""
+msgstr "إعدادات البرنامج المساعد"
 
 #: config/admin_settings.php:299
 msgid "Logo Image"
@@ -268,15 +268,15 @@ msgstr "العمر التذاكر ماكس"
 
 #: config/admin_settings.php:407
 msgid "The maximum number of days of inactivity for a ticket"
-msgstr ""
+msgstr "الحد الأقصى لعدد أيام خمول لتذكرة"
 
 #: config/admin_settings.php:417
 msgid "Auto Close Tickets"
-msgstr ""
+msgstr "تذاكر إغلاق تلقائي"
 
 #: config/admin_settings.php:418
 msgid "Automatically close tickets after they become inactive"
-msgstr ""
+msgstr "إغلاق تذاكر تلقائياً بعد أن تصبح غير نشطة"
 
 #: config/admin_settings.php:424
 msgid "User Notification Templates"
@@ -288,15 +288,15 @@ msgstr ""
 
 #: config/admin_settings.php:435
 msgid "Welcome"
-msgstr ""
+msgstr "مرحبا"
 
 #: config/admin_settings.php:436
 msgid "Sent when a user registers for the first time"
-msgstr ""
+msgstr "أرسلت عندما يسجل مستخدم للمرة الأولى"
 
 #: config/admin_settings.php:447
 msgid "Ticket Closed"
-msgstr ""
+msgstr "التذاكر مغلقة"
 
 #: config/admin_settings.php:448
 msgid "Sent when the ticket is marked as closed"
@@ -999,7 +999,7 @@ msgstr ""
 #: includes/ticket-post-type.php:72
 msgctxt "taxonomy general name"
 msgid "Ticket Categories"
-msgstr ""
+msgstr "فئات التذاكر"
 
 #: includes/ticket-post-type.php:73
 msgctxt "taxonomy singular name"
@@ -1008,7 +1008,7 @@ msgstr ""
 
 #: includes/ticket-post-type.php:74
 msgid "All Categories"
-msgstr ""
+msgstr "فئات التذاكر"
 
 #: includes/ticket-post-type.php:75
 msgid "Edit Category"
@@ -1247,12 +1247,12 @@ msgstr ""
 #: lib/mail/mail.php:156
 msgctxt "Post Type General Name"
 msgid "Email Templates"
-msgstr ""
+msgstr "قوالب البريد الإلكتروني"
 
 #: lib/mail/mail.php:157
 msgctxt "Post Type Singular Name"
 msgid "Email Template"
-msgstr ""
+msgstr "قالب البريد الإلكتروني"
 
 #: lib/mail/mail.php:158 lib/mail/mail.php:159
 msgid "Email Templates"
