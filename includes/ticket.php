@@ -56,23 +56,24 @@ function get_recent_tickets( $args = array() ) {
 
     $defaults = array(
         'author'  => '',
-        'after'   => 'now',
-        'before'  => '30 days ago',
+        'before'   => 'now',
+        'after'  => '30 days ago',
         'exclude' => array(),
         'limit'   => -1
     );
 
     $args = wp_parse_args( $args, $defaults );
 
-
     $q = array(
         'post_type'      => 'support_ticket',
         'post_status'    => 'publish',
         'author'         => $args['author'],
-        'after'          => $args['after'],
-        'before'         => $args['before'],
         'post__not_in'   => $args['exclude'],
-        'posts_per_page' => $args['limit'] ?: -1
+        'posts_per_page' => $args['limit'] ?: -1,
+        'date_query'    => array(
+            'after'          => $args['after'],
+            'before'         => $args['before'],
+        )
     );
 
     return new \WP_Query( $q );
