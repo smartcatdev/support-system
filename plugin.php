@@ -91,6 +91,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/helpers.php';
             include_once dirname( __FILE__ ) . '/includes/user.php';
             include_once dirname( __FILE__ ) . '/includes/metabox.php';
+            include_once dirname( __FILE__ ) . '/includes/login-form.php';
             include_once dirname( __FILE__ ) . '/includes/admin-settings.php';
             include_once dirname( __FILE__ ) . '/includes/taxonomy-ticket_category.php';
 

@@ -48,12 +48,11 @@ function add_login_registration_button( $content, $args ) {
 
         $link_text = isset( $args['register_link_text'] ) ? $args['register_link_text'] : __( 'Register', 'ucare' );
 
-        $content .=
-            '<p class="login-register">
-                <a class="button button-primary" href="' . esc_url( support_page_url( '?register=true' ) ) . '">' .
-            esc_html( $link_text ) .
-            '</a>
-            </p>';
+        $content .= sprintf(
+            '<p class="login-register"><a class="button button-primary" href="%1$s">%2$s</a></p>',
+            esc_url( support_page_url( '?register=true' ) ),
+            esc_html( $link_text )
+        );
 
     }
 
