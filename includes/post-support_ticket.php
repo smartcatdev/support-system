@@ -2,9 +2,7 @@
 
 namespace ucare;
 
-use smartcat\form\ChoiceConstraint;
-use smartcat\form\Form;
-use smartcat\form\SelectBoxField;
+
 use smartcat\post\FormMetaBox;
 
 
@@ -66,6 +64,32 @@ function register_ticket_post_type() {
 }
 
 add_action( 'init', 'ucare\register_ticket_post_type' );
+
+
+function disable_ticket_inline_edit( $actions ) {
+
+    if ( get_post_type() == 'support_ticket' ) {
+        unset( $actions['edit'] );
+    }
+
+    return $actions;
+
+}
+
+add_filter( 'bulk_actions-edit-support_ticket', 'ucare\disable_ticket_inline_edit' );
+
+
+function remove_quick_edit_link( $actions, $post ) {
+
+    if ( $post->post_type == 'support_ticket' ) {
+        unset( $actions['inline hide-if-no-js'] );
+    }
+
+    return $actions;
+
+}
+
+add_filter( 'post_row_actions', 'ucare\remove_quick_edit_link', 10, 2 );
 
 
 function force_menu_expand( $file ) {
@@ -205,6 +229,7 @@ function tickets_table_column_data( $column, $post_id ) {
 
 add_action( 'manage_support_ticket_posts_custom_column', 'ucare\tickets_table_column_data', 10, 2 );
 
+
 function tickets_table_filters() {
 
     if( get_current_screen()->post_type == 'support_ticket' ) {
@@ -282,118 +307,6 @@ function filter_tickets_table( $query ) {
 }
 
 add_filter( 'parse_query', 'ucare\filter_tickets_table' );
-
-
-function ticket_quick_edit_form() {
-
-    $agents = array( 0 => __( 'Unassigned', 'ucare' ) ) + \ucare\util\list_agents();
-    $statuses = \ucare\util\statuses();
-    $priorities = \ucare\util\priorities();
-
-    $form = new Form( 'ticket_quick_edit' );
-
-    $form->add_field( new SelectBoxField(
-        array(
-            'name'          => 'agent',
-            'class'         => array( 'quick-edit-field', 'agent' ),
-            'label'         => __( 'Assigned', 'ucare' ),
-            'options'       => $agents,
-            'constraints'   => array(
-                new ChoiceConstraint( array_keys( $agents ) )
-            )
-        )
-
-    ) )->add_field( new SelectBoxField(
-        array(
-            'name'          => 'status',
-            'class'         => array( 'quick-edit-field', 'status' ),
-            'label'         => __( 'Status', 'ucare' ),
-            'options'       => $statuses,
-            'constraints'   => array(
-                new ChoiceConstraint( array_keys( $statuses ) )
-            )
-        )
-
-    ) )->add_field( new SelectBoxField(
-        array(
-            'name'          => 'priority',
-            'class'         => array( 'quick-edit-field', 'priority' ),
-            'label'         => __( 'Priority', 'ucare' ),
-            'options'       => $priorities,
-            'constraints'   => array(
-                new ChoiceConstraint( array_keys( $priorities ) )
-            )
-        )
-    ) );
-
-    return $form;
-
-}
-
-function ticket_quick_edit_save( $post_id ) {
-
-    if( wp_doing_ajax() ) {
-
-        $form = ticket_quick_edit_form();
-
-        if( $form->is_valid() ) {
-
-            foreach( $form->data as $key => $value ) {
-                update_post_meta( $post_id, $key, $value, get_post_meta( $post_id, $key, true ) );
-            }
-
-        }
-
-    }
-
-}
-
-add_action( 'save_post', 'ucare\ticket_quick_edit_save' );
-
-
-function render_ticket_quick_edit( $column, $post_type ) {
-
-    if( $post_type == 'support_ticket' && $column == 'id' ) : ?>
-
-        <?php $form = ticket_quick_edit_form(); ?>
-
-        <fieldset class="inline-edit-col-left">
-
-            <div class="inline-edit-col">
-
-                <legend class="inline-edit-legend"><?php _e( 'Ticket Details', 'ucare' ); ?></legend>
-
-                <div class="inline-edit-group">
-
-                    <?php foreach ( $form->fields as $field ) : ?>
-
-                        <label>
-
-                            <span class="title"><?php _e( $field->label, 'ucare' ); ?></span>
-
-                            <span class="input-text-wrap">
-
-                                    <?php $field->render(); ?>
-
-                                </span>
-
-                        </label>
-
-                    <?php endforeach; ?>
-
-                    <input type="hidden" name="<?php esc_attr_e( $form->id ); ?>"/>
-
-                </div>
-
-            </div>
-
-        </fieldset>
-
-    <?php endif;
-
-}
-
-add_action( 'quick_edit_custom_box', 'ucare\render_ticket_quick_edit', 10, 2 );
 
 
 function ticket_meta_boxes() {
