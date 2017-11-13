@@ -74,6 +74,10 @@ uCare automatically creates a page called *Support*. You can access the help des
 
 uCare documentation [can be accessed by clicking here] (https://ucaresupport.com/documentation/) We are constantly adding documentation to this plugin.
 
+= Is there a shortcode for the login form that I can include on my theme =
+
+Yes! You can simply add `[support-login]` to any page or post to display a login form in your theme. If you're viewing this page while you're logged in, you will see a link that takes you to the help desk page.
+
 = Does uCare work with WordPress user roles ? =
 
 Yes, uCare is programmed to work right away with WordPress default user roles, as well as WooCommerce and Easy Digital Downloads. This allows you to restrict access to the support system only to your customers, or leave it open for anyone to register. Your choice! 
@@ -105,6 +109,8 @@ Yes, uCare is built with a notification system and templates for your customers 
 - Added option to toggle clock on/off
 - Added option for login-form shortcode
 - Re-styled the admin page to look more WP native
+- Added all the Google Fonts to the font options
+- Added a shortcode **[support-login]** that displays a login form for the support system 
 
 = 1.4.0 =
 - Added Email Piping & Guest Tickets add-on
@@ -209,3 +215,5 @@ Yes, uCare is built with a notification system and templates for your customers 
 `ucare_ticket_side_bar` After the sidebar in the single ticket tab view
 `ucare_after_registration_fields` After the registration fields
 `ucare_before_filter_sidebar` Before the search bar in the sidebar filter
+
+[Hooks details and instructions](https://ucaresupport.com/kb/ucare-hooks-actions-filters/ "uCare Help Desk WordPress Hooks")
