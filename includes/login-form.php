@@ -30,7 +30,7 @@ function shortcode_login_form( $args = array() ) {
 
     $args = shortcode_atts( $defaults, $args, 'support-login' );
 
-    echo \ucare\util\render( plugin_dir() . '/templates/login-shortcode.php', $args );
+    echo buffer_template( 'shortcode-login', $args );
 
 }
 

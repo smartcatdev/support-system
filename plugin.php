@@ -154,7 +154,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     ucare();
 
     //<editor-fold desc="Legacy Boot">
-    do_action_deprecated( 'support_register_autoloader', include_once 'vendor/autoload.php', '1.4.2' );
+    do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
     Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
     //</editor-fold>
 

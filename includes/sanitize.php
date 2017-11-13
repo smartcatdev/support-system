@@ -26,3 +26,8 @@ function sanitize_agent_id( $id ) {
     return false;
 
 }
+
+
+function sanitize_boolean( $val ) {
+    return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
+}

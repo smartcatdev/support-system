@@ -3,11 +3,6 @@
 namespace ucare;
 
 
-function boolval( $val ) {
-    return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
-}
-
-
 function allowed_mime_types( $type = null ) {
 
     $file_types  = explode( ',', get_option( Options::FILE_MIME_TYPES, Defaults::FILE_MIME_TYPES   ) );
@@ -28,10 +23,20 @@ function support_page_url( $path = '' ) {
     return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ) . $path;
 }
 
+/**
+ * @return null
+ * @deprecated
+ */
 function plugin_dir() {
     return Plugin::plugin_dir( PLUGIN_ID );
 }
 
+/**
+ * @param string $path
+ *
+ * @return string
+ * @deprecated
+ */
 function plugin_url( $path = '' ) {
     return trailingslashit( Plugin::plugin_url( PLUGIN_ID ) ) . ltrim( $path, '/' );
 }
@@ -58,6 +63,12 @@ function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
 
 <?php }
 
+
+/**
+ * @param $key
+ * @param $value
+ * @deprecated
+ */
 function cache_put( $key, $value ) {
 
     $plugin = Plugin::get_plugin( PLUGIN_ID );
@@ -66,6 +77,10 @@ function cache_put( $key, $value ) {
 
 }
 
+/**
+ * @param $key
+ * @deprecated
+ */
 function cache_delete( $key ) {
 
     $plugin = Plugin::get_plugin( PLUGIN_ID );
@@ -74,6 +89,13 @@ function cache_delete( $key ) {
 
 }
 
+/**
+ * @param $key
+ * @param bool $default
+ *
+ * @return bool
+ * @deprecated
+ */
 function cache_get( $key, $default = false ) {
 
     $plugin = Plugin::get_plugin( PLUGIN_ID );
@@ -142,6 +164,13 @@ namespace ucare\util;
 use ucare\Options;
 use ucare\Plugin;
 
+/**
+ * @param $template
+ * @param array $data
+ *
+ * @return string
+ * @deprecated
+ */
 function render( $template, array $data = array() ) {
     extract($data);
     ob_start();
