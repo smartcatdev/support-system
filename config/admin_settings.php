@@ -651,16 +651,6 @@ $advanced->add_field( new CheckBoxField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-//) )->add_field( new CheckBoxField(
-//    array(
-//        'id'            => 'support_restore_template',
-//        'option'        => Options::RESTORE_TEMPLATE,
-//        'value'         => '',
-//        'label'         => __( 'Restore Template Page', 'ucare' ),
-//        'desc'          => __( 'Restore the template page if its been deleted', 'ucare' ),
-//        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-//    )
-
 ) );
 
 $admin = new TabbedMenuPage(

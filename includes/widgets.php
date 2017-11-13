@@ -2,6 +2,7 @@
 
 namespace ucare;
 
+
 function enqueue_widget_scripts() {
 
     wp_enqueue_style( 'ucare-widget-styles', plugin_url( 'assets/css/wp-widgets.css' ), null, PLUGIN_VERSION );

@@ -19,9 +19,9 @@ include_once dirname( __FILE__ ) . '/includes/comment.php';
 include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
 include_once dirname( __FILE__ ) . '/includes/cron.php';
 include_once dirname( __FILE__ ) . '/includes/extension-licensing.php';
-include_once dirname( __FILE__ ) . '/includes/ticket-post-type.php';
-include_once dirname( __FILE__ ) . '/includes/wp-admin.php';
-include_once dirname( __FILE__ ) . '/includes/wp-widgets.php';
+include_once dirname( __FILE__ ) . '/includes/post-support_ticket.php';
+include_once dirname( __FILE__ ) . '/includes/admin-menu.php';
+include_once dirname( __FILE__ ) . '/includes/widgets.php';
 
 
 /**
@@ -33,4 +33,6 @@ include_once dirname( __FILE__ ) . '/includes/template.php';
 include_once dirname( __FILE__ ) . '/includes/sanitize.php';
 include_once dirname( __FILE__ ) . '/includes/helpers.php';
 include_once dirname( __FILE__ ) . '/includes/user.php';
+include_once dirname( __FILE__ ) . '/includes/metabox.php';
 include_once dirname( __FILE__ ) . '/includes/admin-settings.php';
+include_once dirname( __FILE__ ) . '/includes/taxonomy-ticket_category.php';

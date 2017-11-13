@@ -25,6 +25,16 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     // Pull in manual includes
     include_once dirname( __FILE__ ) . '/loader.php';
 
+
+    function enqueue_scripts() {
+
+        wp_enqueue_style( 'ucare-login-form', plugin_url( 'assets/css/login.css' ), null, PLUGIN_VERSION );
+
+    }
+
+    add_action( 'wp_enqueue_scripts', 'ucare\enqueue_scripts' );
+
+
     // Boot up the container
     Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
 
