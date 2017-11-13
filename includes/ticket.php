@@ -2,6 +2,7 @@
 
 namespace ucare;
 
+
 function ticket_properties_updated( $null, $id, $key, $value ) {
 
     global $wpdb;
@@ -49,3 +50,31 @@ function set_default_ticket_meta( $post_id, $post, $update ) {
 }
 
 add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
+
+
+function get_recent_tickets( $args = array() ) {
+
+    $defaults = array(
+        'author'  => '',
+        'after'   => 'now',
+        'before'  => '30 days ago',
+        'exclude' => array(),
+        'limit'   => -1
+    );
+
+    $args = wp_parse_args( $args, $defaults );
+
+
+    $q = array(
+        'post_type'      => 'support_ticket',
+        'post_status'    => 'publish',
+        'author'         => $args['author'],
+        'after'          => $args['after'],
+        'before'         => $args['before'],
+        'post__not_in'   => $args['exclude'],
+        'posts_per_page' => $args['limit'] ?: -1
+    );
+
+    return new \WP_Query( $q );
+
+}

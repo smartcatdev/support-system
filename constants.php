@@ -325,6 +325,22 @@ final class Options {
      * @since 1.4.0
      */
     const DISPLAY_BACK_BUTTON = 'smartcat_support_display_back_button';
+
+    /**
+     * @since 1.4.1
+     */
+    const IMAGE_MIME_TYPES = 'smartcat_support_image_mime_types';
+
+    /**
+     * @since 1.4.1
+     */
+    const FILE_MIME_TYPES = 'smartcat_support_file_mime_types';
+
+    /**
+     * @since 1.4.1
+     */
+    const SHOW_CLOCK = 'smartcat_support_show_clock';
+
 }
 
 
@@ -560,5 +576,20 @@ final class Defaults {
      * @since 1.4.0
      */
     const DISPLAY_BACK_BUTTON = 'on';
+
+    /**
+     * @since 1.4.1
+     */
+    const IMAGE_MIME_TYPES = 'image/jpg,image/jpeg,image/png,image/gif';
+
+    /**
+     * @since 1.4.1
+     */
+    const FILE_MIME_TYPES = 'application/pdf,application/zip,text/csv';
+
+    /**
+     * @since 1.4.1
+     */
+    const SHOW_CLOCK = 'on';
 
 }

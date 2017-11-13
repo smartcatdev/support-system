@@ -23,4 +23,4 @@ include_once dirname( __FILE__ ) . '/includes/extension-licensing.php';
 include_once dirname( __FILE__ ) . '/includes/ticket-post-type.php';
 include_once dirname( __FILE__ ) . '/includes/wp-admin.php';
 include_once dirname( __FILE__ ) . '/includes/wp-widgets.php';
-
+include_once dirname( __FILE__ ) . '/includes/template.php';

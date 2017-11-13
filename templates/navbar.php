@@ -1,10 +1,11 @@
 <?php
 
-use ucare\Options;
+namespace ucare;
 
 $user = wp_get_current_user();
 
 ?>
+
 <div id="navbar" class="background-secondary">
 
     <div class="container-fluid">
@@ -29,31 +30,35 @@ $user = wp_get_current_user();
 
             <?php endif; ?>
 
-            <div class="row-table pull-left clock">
+            <?php if ( get_option( Options::SHOW_CLOCK, Defaults::SHOW_CLOCK ) ) : ?>
 
-                <div class="row-table-cell">
+                <div class="row-table pull-left clock">
 
-                    <a href="#date" class="background-secondary hover menu-item">
+                    <div class="row-table-cell">
 
-                        <span class="glyphicon-calendar glyphicon"></span>
+                        <a href="#date" class="background-secondary hover menu-item">
 
-                        <span id="sys-date"></span>
+                            <span class="glyphicon-calendar glyphicon"></span>
 
-                    </a>
+                            <span id="sys-date"></span>
 
-                    <span class="text-muted">|</span>
+                        </a>
 
-                    <a href="#time" class="background-secondary hover menu-item">
+                        <span class="text-muted">|</span>
 
-                        <span class="glyphicon-time glyphicon"></span>
+                        <a href="#time" class="background-secondary hover menu-item">
 
-                        <span id="sys-time"></span>
+                            <span class="glyphicon-time glyphicon"></span>
 
-                    </a>
+                            <span id="sys-time"></span>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
-            </div>
+            <?php endif; ?>
 
             <div class="row-table pull-right actions">
 
@@ -160,3 +165,41 @@ $user = wp_get_current_user();
     </div>
 
 </div>
+
+
+<?php if ( has_nav_menu( 'ucare_header_navbar' ) ) : ?>
+
+    <?php
+
+        $navbar = array(
+            'menu'           => 'header',
+            'theme_location' => 'ucare_header_navbar',
+            'depth'          => 2,
+            'menu_class'     => 'nav navbar-nav',
+            'fallback_cb'    => 'ucare\BootstrapNavWalker::fallback',
+            'walker'         => new BootstrapNavWalker()
+        );
+
+    ?>
+
+    <nav class="navbar navbar-default" id="ucare-navigation-menu">
+
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#nav-menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="nav-menu">
+                <?php wp_nav_menu( $navbar ); ?>
+            </div>
+
+        </div>
+
+    </nav>
+
+<?php endif; ?>

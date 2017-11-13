@@ -336,12 +336,6 @@ var App = (function ($) {
 
         $(".nav-tabs").scrollingTabs();
 
-        var register_button = $("#show-registration");
-
-        if(register_button.length > 0) {
-            register_button.show().insertAfter('#wp-submit')
-        }
-
         Dropzone.autoDiscover = false;
 
         _time();

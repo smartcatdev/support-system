@@ -18,15 +18,32 @@ class Ticket extends AjaxComponent {
             $form = include $this->plugin->config_dir . '/ticket_create_form.php';
 
             if ( $form->is_valid() ) {
-                $post_id = wp_insert_post( array(
+
+                $users = \ucare\util\get_users_with_cap();
+
+                $data = array(
                     'post_title'     => $form->data['subject'],
                     'post_content'   => \ucare\util\encode_code_blocks( $form->data['description'] ),
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open'
-                ) );
+                );
 
-                if( is_numeric( $post_id ) ) {
+
+                if ( isset( $_REQUEST['override_author'] ) ) {
+
+                    $user = get_user_by( 'id', absint( $_REQUEST['author'] ) );
+
+                    if ( $user && in_array( $user, $users ) ) {
+                        $data['post_author'] = $user->ID;
+                    }
+
+                }
+
+                $post_id = wp_insert_post( $data );
+
+
+                if ( is_numeric( $post_id ) ) {
 
                     wp_set_post_terms( $post_id, $form->data['category'], 'ticket_category' );
 

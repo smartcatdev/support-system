@@ -408,36 +408,26 @@ hr {
     color: #7b858d;
 }
 
-#support-login-form .login-submit {
-    text-align: center;
-    min-height: 40px;
-}
-
-#support-login-form .login-submit .button {
-    display: inline-block;
-    float: right;
-    margin-bottom: 15px;
-}
-
 #support-login-form .button {
     width: 100%;
+    margin: 5px auto;
+    display: inline-block;
+    text-align: center;
 }
 
-@media(min-width: 767px) {
-    #support-login-form .button {
-        width: 48% !important;
-    }
-
-    #support-login-form .login-submit :nth-child(1) {
-        width: 48% !important;
-        margin-right: 1%;
-        margin-left: 1%;
-    }
-
-    #support-login-form .login-submit :nth-child(2) {
-        width: 49% !important;
-    }
+#support-login-form.has-registration .login-submit,
+#support-login-form.has-registration .login-register {
+    width: 49%;
 }
+
+#support-login-form.has-registration .login-submit {
+    float: right;
+}
+
+#support-login-form.has-registration .login-register {
+    float: left;
+}
+
 
 #register_form {
     display: none;
@@ -626,6 +616,16 @@ hr {
 }
 
 /* ### Panel Navbars *******************************************************************/
+#ucare-navigation-menu {
+    margin-bottom: 0;
+    border-radius: 0;
+    border-right: none;
+    border-left: none;
+}
+
+#ucare-navigation-menu .navbar-toggle {
+    margin-left: 15px;
+}
 
 .editor-area {
     padding: 10px;
@@ -1038,7 +1038,42 @@ button.close-ticket:hover {
     opacity: 1;
 }
 
-/* #### Comments ***********************************************************************/
+.sidebar .customer-stats {
+    margin: 15px -15px -15px -15px;
+    border: none;
+    border-radius: 0;
+}
+
+.sidebar .customer-stats .list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.sidebar .customer-stats .list-group-item:first-child {
+    border-radius: 0;
+}
+
+.sidebar .customer-stats .list-group-item .lead {
+    margin-right: 5px;
+}
+
+.sidebar .customer-stats .recent-tickets .panel-title {
+    margin-bottom: 5px !important;
+}
+
+.sidebar .customer-stats .recent-tickets ul {
+    padding: 0 10px;
+    list-style: none;
+}
+
+.sidebar .customer-stats .recent-tickets .recent-ticket {
+    margin: 2px auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    /* #### Comments ***********************************************************************/
 
 .comments .comment .meta p {
     font-size: 8pt;

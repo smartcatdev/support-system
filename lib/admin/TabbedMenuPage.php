@@ -6,7 +6,7 @@ if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
 
 class TabbedMenuPage extends MenuPage {
 
-    protected $tabs = array();
+    public $tabs = array();
 
     public function __construct( array $config ) {
         parent::__construct( $config );
@@ -26,6 +26,7 @@ class TabbedMenuPage extends MenuPage {
     }
 
     private function active_tab() {
+
         $active = array_keys( $this->tabs )[0];
 
         if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {
@@ -37,28 +38,40 @@ class TabbedMenuPage extends MenuPage {
 
     public function render() { ?>
 
-        <div id="<?php echo $this->menu_slug . '_menu_page'; ?>" class="wrap">
+        <div id="<?php esc_attr_e( $this->menu_slug . '_menu_page' ); ?>" class="wrap ucare-admin-page">
 
             <?php $this->do_header(); ?>
 
+            <?php settings_errors(); ?>
+
+            <h2 style="display: none"></h2>
+
             <h2 class="nav-tab-wrapper">
 
-                <?php foreach( $this->tabs as $id => $tab ) : ?>
+                <?php foreach ( apply_filters( $this->menu_slug . '_tabs', $this->tabs ) as $id => $tab ) : ?>
 
-                    <a class="nav-tab <?php echo $this->active_tab() == $id ? 'nav-tab-active' : ''; ?>"
-                       href="<?php echo 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ?>"><?php echo $tab->title; ?></a>
+                    <?php $url = apply_filters( 'tab_url_' . $id, 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ); ?>
+
+                    <a class="nav-tab <?php echo $this->active_tab() == $id ? 'nav-tab-active' : ''; ?> <?php esc_attr_e( $id ); ?>"
+                       href="<?php echo esc_url( $url ); ?>"><?php echo $tab->title; ?></a>
 
                 <?php endforeach; ?>
 
             </h2>
 
-            <div class="tabs-content">
+            <div class="content <?php esc_attr_e( $this->menu_slug ); ?>">
 
-                <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+                <div class="tabs-content">
+
+                    <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+
+                </div>
+
+                <?php do_action( $this->menu_slug . '_menu_page' ); ?>
+
+                <div class="clear"></div>
 
             </div>
-
-            <?php do_action( $this->menu_slug . '_menu_page' ); ?>
 
         </div>
 

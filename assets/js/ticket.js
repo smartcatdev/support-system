@@ -133,15 +133,19 @@ var Ticket = (function ($) {
 
                 Dropzone.forElement("#ticket-media-upload").reset();
 
-                form.find(".form-control").each(function (index, element) {
+                form.find(".form-control, input[type=checkbox]").each(function (index, element) {
                     var field = $(element);
 
-                    if(typeof(field.data("default")) === "string") {
+                    if (field.is(':checkbox')) {
+                        field.attr('checked', !!field.data('default'));
+                    } else if (typeof(field.data("default")) === "string") {
                         field.val(field.data("default"));
                     } else {
                         field.val(JSON.stringify(field.data("default")));
                     }
                 });
+
+                $('#select-author').collapse('hide');
 
                 App.load_tickets();
             },

@@ -144,20 +144,76 @@ if( array_key_exists( $product, $products ) ) {
 
                         </div>
 
-                        <div class="media-body" style="width: auto">
+                        <div class="media-body">
 
                             <p>
-
-                                <strong class="media-middle"><?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?></strong>
-
+                                <strong class="media-middle">
+                                    <?php echo get_the_author_meta( 'display_name', $ticket->post_author ); ?>
+                                </strong>
                             </p>
 
-                            <p><?php _e( 'Email: ', 'ucare' );
-                                echo \ucare\util\author_email( $ticket ); ?></p>
+                            <p><?php _e( 'Email: ', 'ucare' ); echo \ucare\util\author_email( $ticket ); ?></p>
 
                         </div>
 
                     </div>
+
+                    <?php
+
+                        $total_args = array(
+                            'author' => $ticket->post_author
+                        );
+
+                        $total = \ucare\statprocs\get_ticket_count( $total_args );
+
+                        $recent_args = array(
+                            'author'  => $ticket->post_author,
+                            'exclude' => array( $ticket->ID )
+                        );
+
+                        $recent = \ucare\get_recent_tickets( $recent_args );
+
+                    ?>
+
+                     <ul class="list-group customer-stats">
+
+                        <li class="list-group-item">
+                            <span class="lead"><?php esc_html_e( $total ); ?></span>
+                            <span><?php echo sprintf( __( '%s total', 'ucare' ), _n( 'Ticket', 'Tickets', $total, 'ucare' ) ); ?></span>
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="lead"><?php esc_html_e( $recent->post_count + 1 ); ?></span>
+                            <span><?php echo sprintf( __( '%s in the past 30 days', 'ucare' ), _n( 'Ticket', 'Tickets', $recent->post_count + 1, 'ucare' ) ); ?></span>
+                        </li>
+
+                        <li class="list-group-item recent-tickets">
+
+                            <p class="panel-title"><?php _e( 'Recent Tickets', 'ucare' ); ?></p>
+
+                            <?php if ( $recent->have_posts() ) : ?>
+
+                                <ul>
+
+                                    <?php foreach ( array_splice( $recent->posts, 0, 3 ) as $post ) : ?>
+
+                                        <li class="recent-ticket">
+                                            <strong>#<?php esc_html_e( $post->ID ); ?></strong> <?php esc_html_e( $post->post_title ); ?>
+                                        </li>
+
+                                    <?php endforeach; ?>
+
+                                </ul>
+
+                            <?php else : ?>
+
+                                <small class="text-muted"><?php _e( 'No tickets yet', 'ucare' ); ?></small>
+
+                            <?php endif; ?>
+
+                        </li>
+
+                    </ul>
 
                 </div>
 

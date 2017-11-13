@@ -76,19 +76,23 @@ class Plugin extends AbstractPlugin {
     }
 
     public function login_failed() {
-        if ( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'], support_page_url() ) ) {
-            wp_redirect( \ucare\support_page_url() . '?login=failed' );
-            exit;
+
+        if ( isset( $_REQUEST['support_login_form'] ) ) {
+            wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
         }
+
     }
 
     public function authenticate( $user, $username, $password ) {
-        if( !empty( $_SERVER['HTTP_REFERER'] ) && strstr( $_SERVER['HTTP_REFERER'], support_page_url() ) ) {
-            if ( $username == "" || $password == "" ) {
-                wp_redirect( \ucare\support_page_url() . "?login=empty" );
-                exit;
+
+        if ( isset( $_REQUEST['support_login_form'] ) ) {
+
+            if ( empty( $username ) || empty( $password ) ) {
+                wp_redirect( add_query_arg( 'login', 'empty', wp_get_referer() ) );
             }
+
         }
+
     }
 
     public function register_menu() {

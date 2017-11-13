@@ -30,6 +30,7 @@
 
             $( element ).parent().append('<div><br><img src="' + $( element ).val() + '" style="max-width: ' + settings.previewSize + '"/></div>');
             $( element ).parent().append( button );
+            $( element ).parent().addClass('has-media-uploader');
 
             $( settings.buttonClass ).css(settings.buttonStyle);
 

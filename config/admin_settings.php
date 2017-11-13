@@ -104,6 +104,16 @@ $appearance->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
+) )->add_field( new CheckBoxField(
+    array(
+        'id'            => 'support_show_clock',
+        'option'        => Options::SHOW_CLOCK,
+        'value'         => get_option( Options::SHOW_CLOCK, \ucare\Defaults::SHOW_CLOCK ),
+        'label'         => __( 'Show Clock', 'ucare'),
+        'desc'          => __( 'Display the date and time in the primary navbar', 'ucare' ),
+        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
+    )
+
 ) );
 
 $categories = new SettingsSection( 'uc_categories', __( 'Ticket Categories', 'ucare' ) );
@@ -367,6 +377,28 @@ $general->add_field( new TextField(
         'label'         => __( 'Tickets Per Page', 'ucare' ),
         'desc'          => __( 'The maximum number of tickets to be loaded per page', 'ucare' ),
         'validators'    => array( new IntegerValidator() )
+    )
+) )->add_field( new TextAreaField(
+    array(
+        'id'            => 'support_image_mime_types',
+        'option'        => Options::IMAGE_MIME_TYPES,
+        'class'         => array( 'regular-text' ),
+        'props'         => array( 'rows' => array( 2 ) ),
+        'value'         => get_option( Options::IMAGE_MIME_TYPES, \ucare\Defaults::IMAGE_MIME_TYPES ),
+        'label'         => __( 'Image MIME types', 'ucare' ),
+        'desc'          => __( 'Allowed file types for image uploads (comma separated)', 'ucare' ),
+        'validators'    => array()
+    )
+) )->add_field( new TextAreaField(
+    array(
+        'id'            => 'support_file_mime_types',
+        'option'        => Options::FILE_MIME_TYPES,
+        'class'         => array( 'regular-text' ),
+        'props'         => array( 'rows' => array( 2 ) ),
+        'value'         => get_option( Options::FILE_MIME_TYPES, \ucare\Defaults::FILE_MIME_TYPES ),
+        'label'         => __( 'File MIME types', 'ucare' ),
+        'desc'          => __( 'Allowed file types for file uploads (comma separated)', 'ucare' ),
+        'validators'    => array()
     )
 ) )->add_field( new TextField(
     array(
