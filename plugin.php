@@ -47,6 +47,10 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
         }
 
+
+        private function __construct() {}
+
+
         private static function initialize() {
 
             $instance = new self();
