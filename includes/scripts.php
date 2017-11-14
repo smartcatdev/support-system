@@ -61,7 +61,7 @@ function enqueue_style( $handle, $src = '', $deps = array(), $ver = false, $args
     if ( $styles ) {
 
         if ( $src ) {
-            register_style( $handle, $src = '', $deps = array(), $ver = false, $args = null );
+            register_style( $handle, $src, $deps = array(), $ver = false, $args = null );
         }
 
         return $styles->enqueue( $handle );

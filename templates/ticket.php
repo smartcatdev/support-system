@@ -36,6 +36,8 @@ $user = wp_get_current_user();
 
         </div>
 
+        <?php do_action( 'ucare_before_comments', $ticket ); ?>
+
         <div class="comments"></div>
 
         <div class="comment-reply-wrapper">
