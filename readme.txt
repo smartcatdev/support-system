@@ -4,7 +4,7 @@ Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,system,email,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 Tested up to: 4.8.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 
 If you have customers, then you need uCare. An intelligent support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
@@ -100,8 +100,7 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
-= 1.4.1 =
-- Bug fix with logo in navbar
+= 1.4.2 =
 - Added option allowing users to set attachment file types
 - Added additional customer ticket history in the ticket view sidebar
 - Added option allowing agents to create tickets on behalf of customers
@@ -111,6 +110,9 @@ Yes, uCare is built with a notification system and templates for your customers 
 - Re-styled the admin page to look more WP native
 - Added all the Google Fonts to the font options
 - Added a shortcode **[support-login]** that displays a login form for the support system 
+
+= 1.4.1 =
+- Bug fix with logo in navbar
 
 = 1.4.0 =
 - Added Email Piping & Guest Tickets add-on
