@@ -8,10 +8,6 @@ function init_scripts( uCare $ucare ) {
     $ucare->set( 'scripts', new \WP_Scripts() );
     $ucare->set( 'styles', new \WP_Styles() );
 
-    $scripts = new \WP_Scripts();
-
-//    $scripts->add()
-
 }
 
 add_action( 'ucare_loaded', 'ucare\init_scripts' );
