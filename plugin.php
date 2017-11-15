@@ -24,7 +24,13 @@ if( !defined( 'ABSPATH' ) ) {
 include_once dirname( __FILE__ ) . '/constants.php';
 
 
+
 if( PHP_VERSION >= MIN_PHP_VERSION ) {
+
+
+    // Pull in immediate dependencies
+    include_once dirname( __FILE__ ) . '/includes/trait-data.php';
+    include_once dirname( __FILE__ ) . '/includes/trait-singleton.php';
 
 
     /**
@@ -35,37 +41,17 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
      */
     class uCare {
 
-        private static $instance = null;
+        use Data;
+        use Singleton;
 
 
-        private $data = array();
+        protected function initialize() {
 
-
-        public static function instance() {
-
-            if ( is_null( self::$instance ) ) {
-                self::$instance = self::initialize();
-            }
-
-            return self::$instance;
-
-        }
-
-
-        private function __construct() {}
-
-
-        private static function initialize() {
-
-            $instance = new self();
-
-            $instance->do_defines();
-            $instance->do_includes();
+            $this->do_defines();
+            $this->do_includes();
 
             // All done
-            do_action( 'ucare_loaded', $instance );
-
-            return $instance;
+            do_action( 'ucare_loaded', $this );
 
         }
 
@@ -111,36 +97,19 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/taxonomy-ticket_category.php';
             include_once dirname( __FILE__ ) . '/includes/scripts.php';
 
+
             if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
                 include_once dirname( __FILE__ ) . '/lib/license/EDD_SL_Plugin_Updater.php';
             }
 
         }
 
-
-        public function get( $var, $default = false ) {
-
-            if ( isset( $this->data[ $var ] ) ) {
-                return $this->data[ $var ];
-            }
-
-            return $default;
-
-        }
-
-
-        public function set( $var, $value ) {
-            $this->data[ $var ] = $value;
-        }
-
     }
-
 
 
     function ucare() {
         return uCare::instance();
     }
-
 
 
     function enqueue_scripts() {
