@@ -1,43 +1,15 @@
 <?php
-/**
- * Misc helper code
- *
- * @since 1.4.2
- */
 
 namespace ucare;
 
 
-function verify_request_nonce( $action, $nonce = '_wpnonce' ) {
+function maybe_inflate_field( $field ) {
 
-    if ( isset( $_REQUEST[ $nonce ] ) ) {
-        return wp_verify_nonce( $_REQUEST[ $nonce ], $action );
+    if ( is_array( $field ) ) {
+        return new Field( $field );
     }
 
-    return false;
-
-}
-
-
-function get_var( $var, $default = '', callable $sanitize = null ) {
-
-    if ( isset( $_REQUEST[ $var ] ) ) {
-        return !empty( $sanitize ) ? $sanitize( $_REQUEST[ $var ] ) : $_REQUEST[ $var ];
-    }
-
-    return $default;
-}
-
-
-function parse_attributes( $attributes ) {
-
-    $str = '';
-
-    foreach ( $attributes as $name => $attr ) {
-        $str .= $name . '="' . ( is_array( $attr ) ? implode( ' ', $attr ) : esc_attr( $attr ) ) . '" ';
-    }
-
-    return $str;
+    return $field;
 
 }
 
@@ -91,7 +63,7 @@ function render_select_box( $field ) {
     foreach ( $field->config['options'] as $option ) {
 
         echo '<option ' . parse_attributes( $option['attributes'] ) .
-                selected( $option['attributes']['value'], $field->value, false ) . '>' . esc_attr( $option['title'] ) .
+             selected( $option['attributes']['value'], $field->value, false ) . '>' . esc_attr( $option['title'] ) .
              '</option>';
 
     }

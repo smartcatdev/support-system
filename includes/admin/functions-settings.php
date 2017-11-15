@@ -8,6 +8,11 @@
 namespace ucare;
 
 
+add_action( 'init', 'ucare\register_settings' );
+
+add_action( 'admin_init', 'ucare\add_settings_fields', 100 );
+
+
 function register_settings() {
 
     register_setting( 'uc-advanced', Options::TEMPLATE_PAGE_ID, array(
@@ -16,8 +21,6 @@ function register_settings() {
     ) );
 
 }
-
-add_action( 'init', 'ucare\register_settings' );
 
 
 function add_settings_fields() {
@@ -52,5 +55,3 @@ function add_settings_fields() {
     );
 
 }
-
-add_action( 'admin_init', 'ucare\add_settings_fields', 100 );

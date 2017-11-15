@@ -40,14 +40,3 @@ class Field {
     }
 
 }
-
-
-function maybe_inflate_field( $field ) {
-
-    if ( is_array( $field ) ) {
-        return new Field( $field );
-    }
-
-    return $field;
-
-}

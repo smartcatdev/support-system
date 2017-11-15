@@ -8,6 +8,9 @@
 namespace ucare;
 
 
+add_action( 'save_post_support_ticket', 'ucare\save_ticket_category_metabox' );
+
+
 function add_support_ticket_metaboxes() {
 
     // Remove the original category metabox
@@ -75,5 +78,3 @@ function save_ticket_category_metabox( $post_id ) {
     }
 
 }
-
-add_action( 'save_post_support_ticket', 'ucare\save_ticket_category_metabox' );

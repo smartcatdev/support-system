@@ -3,6 +3,22 @@
 namespace ucare;
 
 
+add_action( 'admin_enqueue_scripts', 'ucare\enqueue_admin_scripts' );
+
+// Include admin sidebar on options page
+add_action( 'uc-settings_menu_page', 'ucare\admin_page_sidebar' );
+
+add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
+
+add_action( 'admin_init', 'ucare\admin_first_run_tutorial_page' );
+
+add_action( 'ucare_admin_header', 'ucare\get_admin_header' );
+
+add_action( 'uc-settings_admin_page_header', 'ucare\get_admin_header' );
+
+add_filter( 'submenu_file', 'ucare\set_submenu_file' );
+
+
 function enqueue_admin_scripts( $hook ) {
 
     wp_enqueue_script( 'ucare-admin-global',
@@ -13,7 +29,7 @@ function enqueue_admin_scripts( $hook ) {
 
 
     // Load assets only on plugin admin pages
-    if( strpos( $hook, 'ucare' ) !== false || get_post_type() == 'support_ticket' ) {
+    if ( strpos( $hook, 'ucare' ) !== false || get_post_type() == 'support_ticket' ) {
 
         wp_enqueue_script( 'wp_media_uploader',
             plugin_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );
@@ -21,7 +37,7 @@ function enqueue_admin_scripts( $hook ) {
         wp_enqueue_style( 'support-admin-icons',
             plugin_url( '/assets/icons/style.css' ), null, PLUGIN_VERSION );
 
-        wp_register_script('support-admin-js',
+        wp_register_script( 'support-admin-js',
             plugin_url( 'assets/admin/admin.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
         wp_localize_script( 'support-admin-js',
@@ -69,15 +85,10 @@ function enqueue_admin_scripts( $hook ) {
 
 }
 
-add_action( 'admin_enqueue_scripts', 'ucare\enqueue_admin_scripts' );
-
 
 function admin_page_sidebar() {
     include_once plugin_dir() . '/templates/admin-sidebar.php';
 }
-
-// Include admin sidebar on options page
-add_action( 'uc-settings_menu_page', 'ucare\admin_page_sidebar' );
 
 
 function add_admin_menu_pages() {
@@ -85,8 +96,6 @@ function add_admin_menu_pages() {
     add_submenu_page( null, __( 'uCare - Introduction', 'ucare' ), __( 'uCare - Introduction', 'ucare' ), 'manage_options', 'uc-tutorial', function() { include_once plugin_dir() . 'templates/admin-tutorial.php'; } );
 
 }
-
-add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
 
 
 function admin_first_run_tutorial_page() {
@@ -107,30 +116,6 @@ function admin_first_run_tutorial_page() {
 
 }
 
-add_action( 'admin_init', 'ucare\admin_first_run_tutorial_page' );
-
-
-function admin_bar_ticket_count( \WP_Admin_Bar $admin_bar ) {
-
-    if( current_user_can( 'manage_support' ) ) {
-
-        $count = statprocs\get_unclosed_tickets();
-
-        $item = array(
-            'id' => 'ucare_admin_ticket_count',
-            'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: 2px;"></span>
-                        <span class="ab-label">' . $count . ' </span>',
-            'href' => support_page_url()
-        );
-
-        $admin_bar->add_node($item);
-
-    }
-
-}
-
-add_action( 'admin_bar_menu', 'ucare\admin_bar_ticket_count', 80 );
-
 
 function get_admin_header( $echo = true ) {
 
@@ -143,9 +128,6 @@ function get_admin_header( $echo = true ) {
     return $header;
 
 }
-
-add_action( 'ucare_admin_header', 'ucare\get_admin_header' );
-add_action( 'uc-settings_admin_page_header', 'ucare\get_admin_header' );
 
 
 function set_submenu_file( $submenu_file ) {
@@ -163,4 +145,3 @@ function set_submenu_file( $submenu_file ) {
 
 }
 
-add_filter( 'submenu_file', 'ucare\set_submenu_file' );

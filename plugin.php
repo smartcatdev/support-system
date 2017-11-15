@@ -24,13 +24,18 @@ if( !defined( 'ABSPATH' ) ) {
 include_once dirname( __FILE__ ) . '/constants.php';
 
 
-
+// PHP Version check
 if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
     // Pull in immediate dependencies
     include_once dirname( __FILE__ ) . '/includes/trait-data.php';
     include_once dirname( __FILE__ ) . '/includes/trait-singleton.php';
+
+
+    add_action( 'plugins_loaded', 'ucare\load_text_domain' );
+
+    add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
 
 
     /**
@@ -71,31 +76,39 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         private function do_includes() {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
-            include_once dirname( __FILE__ ) . '/includes/functions.php';
-            include_once dirname( __FILE__ ) . '/includes/functions-public.php';
-            include_once dirname( __FILE__ ) . '/includes/comment.php';
+
+
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
             include_once dirname( __FILE__ ) . '/includes/cron.php';
             include_once dirname( __FILE__ ) . '/includes/extension-licensing.php';
-            include_once dirname( __FILE__ ) . '/includes/post-support_ticket.php';
-            include_once dirname( __FILE__ ) . '/includes/admin-menu.php';
-            include_once dirname( __FILE__ ) . '/includes/widgets.php';
 
 
-            /**
-             * @since 1.4.2
-             */
             include_once dirname( __FILE__ ) . '/includes/class-field.php';
             include_once dirname( __FILE__ ) . '/includes/class-bootstrap-nav-walker.php';
-            include_once dirname( __FILE__ ) . '/includes/template.php';
-            include_once dirname( __FILE__ ) . '/includes/sanitize.php';
-            include_once dirname( __FILE__ ) . '/includes/helpers.php';
-            include_once dirname( __FILE__ ) . '/includes/user.php';
-            include_once dirname( __FILE__ ) . '/includes/metabox.php';
-            include_once dirname( __FILE__ ) . '/includes/login-form.php';
-            include_once dirname( __FILE__ ) . '/includes/admin-settings.php';
-            include_once dirname( __FILE__ ) . '/includes/taxonomy-ticket_category.php';
-            include_once dirname( __FILE__ ) . '/includes/scripts.php';
+
+
+            include_once dirname( __FILE__ ) . '/includes/functions.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-comment.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-user.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-metabox.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-template.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-sanitize.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-field.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-public.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-shortcodes.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-post-support_ticket.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-taxonomy-ticket_category.php';
+
+
+            if ( is_admin() ) {
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
+            }
 
 
             if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
@@ -112,20 +125,9 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     }
 
 
-    function enqueue_scripts() {
-        wp_enqueue_style( 'ucare-login-form', plugin_url( 'assets/css/login.css' ), null, PLUGIN_VERSION );
-    }
-
-    add_action( 'wp_enqueue_scripts', 'ucare\enqueue_scripts' );
-
-
-
     function load_text_domain() {
         load_plugin_textdomain( 'ucare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
     }
-
-    add_action( 'plugins_loaded', 'ucare\load_text_domain' );
-
 
 
     function add_plugin_action_links( $links ) {
@@ -141,9 +143,6 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         return array_merge( $links, $custom );
 
     }
-
-    add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
-
 
 
     // TODO move this to a plugins_loaded callback

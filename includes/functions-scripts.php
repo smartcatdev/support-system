@@ -3,14 +3,19 @@
 namespace ucare;
 
 
+add_action( 'ucare_loaded', 'ucare\init_scripts' );
+
+add_action( 'wp', 'ucare\enqueue_system_scripts' );
+
+add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
+
+
 function init_scripts( uCare $ucare ) {
 
     $ucare->set( 'scripts', new \WP_Scripts() );
     $ucare->set( 'styles', new \WP_Styles() );
 
 }
-
-add_action( 'ucare_loaded', 'ucare\init_scripts' );
 
 
 function enqueue_system_scripts() {
@@ -21,14 +26,10 @@ function enqueue_system_scripts() {
 
 }
 
-add_action( 'wp', 'ucare\enqueue_system_scripts' );
-
 
 function enqueue_default_scripts() {
 
 }
-
-add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
 
 
 function enqueue_script( $handle, $src = '', $deps = array(), $ver = false, $args = null ) {

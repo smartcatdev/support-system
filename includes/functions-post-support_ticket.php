@@ -6,6 +6,29 @@ namespace ucare;
 use smartcat\post\FormMetaBox;
 
 
+add_action( 'init', 'ucare\register_ticket_post_type' );
+
+add_action( 'admin_init', 'ucare\ticket_meta_boxes' );
+
+add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
+
+add_action( 'restrict_manage_posts', 'ucare\tickets_table_filters' );
+
+add_action( 'update_post_metadata', 'ucare\ticket_properties_updated', 10, 4 );
+
+add_action( 'manage_support_ticket_posts_custom_column', 'ucare\tickets_table_column_data', 10, 2 );
+
+add_filter( 'post_row_actions', 'ucare\remove_quick_edit_link', 10, 2 );
+
+add_filter( 'parse_query', 'ucare\filter_tickets_table' );
+
+add_filter( 'bulk_actions-edit-support_ticket', 'ucare\disable_ticket_inline_edit' );
+
+add_filter( 'manage_edit-support_ticket_sortable_columns', 'ucare\tickets_table_sortable_columns' );
+
+add_filter( 'manage_support_ticket_posts_columns', 'ucare\tickets_table_columns' );
+
+
 function register_ticket_post_type() {
 
     $labels = array(
@@ -63,8 +86,6 @@ function register_ticket_post_type() {
 
 }
 
-add_action( 'init', 'ucare\register_ticket_post_type' );
-
 
 function disable_ticket_inline_edit( $actions ) {
 
@@ -76,8 +97,6 @@ function disable_ticket_inline_edit( $actions ) {
 
 }
 
-add_filter( 'bulk_actions-edit-support_ticket', 'ucare\disable_ticket_inline_edit' );
-
 
 function remove_quick_edit_link( $actions, $post ) {
 
@@ -88,8 +107,6 @@ function remove_quick_edit_link( $actions, $post ) {
     return $actions;
 
 }
-
-add_filter( 'post_row_actions', 'ucare\remove_quick_edit_link', 10, 2 );
 
 
 function tickets_table_sortable_columns( $columns ) {
@@ -104,8 +121,6 @@ function tickets_table_sortable_columns( $columns ) {
     return array_merge(  $columns, $sortable );
 
 }
-
-add_filter( 'manage_edit-support_ticket_sortable_columns', 'ucare\tickets_table_sortable_columns' );
 
 
 function tickets_table_columns( $columns ) {
@@ -134,8 +149,6 @@ function tickets_table_columns( $columns ) {
     );
 
 }
-
-add_filter( 'manage_support_ticket_posts_columns', 'ucare\tickets_table_columns' );
 
 
 function tickets_table_column_data( $column, $post_id ) {
@@ -197,8 +210,6 @@ function tickets_table_column_data( $column, $post_id ) {
 
 }
 
-add_action( 'manage_support_ticket_posts_custom_column', 'ucare\tickets_table_column_data', 10, 2 );
-
 
 function tickets_table_filters() {
 
@@ -239,8 +250,6 @@ function tickets_table_filters() {
 
 }
 
-add_action( 'restrict_manage_posts', 'ucare\tickets_table_filters' );
-
 
 function filter_tickets_table( $query ) {
 
@@ -276,8 +285,6 @@ function filter_tickets_table( $query ) {
 
 }
 
-add_filter( 'parse_query', 'ucare\filter_tickets_table' );
-
 
 function ticket_meta_boxes() {
 
@@ -310,8 +317,6 @@ function ticket_meta_boxes() {
 
 }
 
-add_action( 'admin_init', 'ucare\ticket_meta_boxes' );
-
 
 function ticket_properties_updated( $null, $id, $key, $value ) {
 
@@ -340,8 +345,6 @@ function ticket_properties_updated( $null, $id, $key, $value ) {
 
 }
 
-add_action( 'update_post_metadata', 'ucare\ticket_properties_updated', 10, 4 );
-
 
 function set_default_ticket_meta( $post_id, $post, $update ) {
 
@@ -358,8 +361,6 @@ function set_default_ticket_meta( $post_id, $post, $update ) {
     }
 
 }
-
-add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
 
 
 function get_recent_tickets( $args = array() ) {

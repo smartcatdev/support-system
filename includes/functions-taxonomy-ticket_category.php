@@ -3,6 +3,9 @@
 namespace ucare;
 
 
+add_action( 'init', 'ucare\register_category_taxonomy' );
+
+
 function register_category_taxonomy() {
 
     $labels = array(
@@ -34,4 +37,3 @@ function register_category_taxonomy() {
 
 }
 
-add_action( 'init', 'ucare\register_category_taxonomy' );

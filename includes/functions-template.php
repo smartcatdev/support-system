@@ -8,6 +8,15 @@
 namespace ucare;
 
 
+add_action( 'init', 'ucare\register_menu_locations' );
+
+add_action( 'login_form_bottom', 'ucare\add_support_login_field', 10, 2 );
+
+add_action( 'login_form_bottom', 'ucare\add_login_registration_button', 10, 2 );
+
+add_filter( 'template_include', 'ucare\include_support_template' );
+
+
 function register_menu_locations() {
 
     $locations = array(
@@ -16,8 +25,6 @@ function register_menu_locations() {
 
     register_nav_menus( $locations );
 }
-
-add_action( 'init', 'ucare\register_menu_locations' );
 
 
 function include_support_template( $template ) {
@@ -28,8 +35,6 @@ function include_support_template( $template ) {
 
     return $template;
 }
-
-add_filter( 'template_include', 'ucare\include_support_template' );
 
 
 function get_template( $name, $args = array(), $include = true, $once = true ) {
@@ -75,5 +80,39 @@ function buffer_template( $name, $args = array(), $once = true ) {
     get_template( $name, $args, true, $once );
 
     return ob_get_clean();
+
+}
+
+
+function add_login_registration_button( $content, $args ) {
+
+    if ( $args['form_id'] == 'support_login' &&
+         get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ) &&
+
+         // Bypass check fif not passed in args
+         ( !isset( $args['show_register_link'] ) || $args['show_register_link'] == true ) ) {
+
+        $link_text = isset( $args['register_link_text'] ) ? $args['register_link_text'] : __( 'Register', 'ucare' );
+
+        $content .= sprintf(
+            '<p class="login-register"><a class="button button-primary" href="%1$s">%2$s</a></p>',
+            esc_url( support_page_url( '?register=true' ) ),
+            esc_html( $link_text )
+        );
+
+    }
+
+    return $content;
+
+}
+
+
+function add_support_login_field( $content, $args ) {
+
+    if ( $args['form_id'] == 'support_login' ) {
+        $content .= '<input type="hidden" name="support_login_form" />';
+    }
+
+    return $content;
 
 }
