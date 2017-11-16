@@ -116,3 +116,17 @@ function add_support_login_field( $content, $args ) {
     return $content;
 
 }
+
+/**
+ * Output underscore.js templates.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function print_underscore_templates() {
+
+    get_template( 'underscore/tmpl-confirm-modal' );
+    get_template( 'underscore/tmpl-notice-inline' );
+    get_template( 'underscore/tmpl-ajax-loader-mask' );
+
+}

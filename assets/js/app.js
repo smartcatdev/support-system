@@ -336,7 +336,9 @@ var App = (function ($) {
 
         $(".nav-tabs").scrollingTabs();
 
+        Dropzone.prototype.defaultOptions.maxFilesize = Globals.max_attachment_size;
         Dropzone.autoDiscover = false;
+
 
         _time();
         _bind_events();
