@@ -16,7 +16,7 @@ namespace ucare;
 
 
 // Die if access directly
-if( !defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
     die();
 }
 
@@ -25,7 +25,7 @@ include_once dirname( __FILE__ ) . '/constants.php';
 
 
 // PHP Version check
-if( PHP_VERSION >= MIN_PHP_VERSION ) {
+if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
     // Pull in immediate dependencies
@@ -33,8 +33,10 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     include_once dirname( __FILE__ ) . '/includes/trait-singleton.php';
 
 
+    // load the plugin text domain
     add_action( 'plugins_loaded', 'ucare\load_text_domain' );
 
+    // Add custom action links to the plugins table row
     add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
 
 
@@ -44,12 +46,19 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @package ucare
      * @since 1.4.2
      */
-    class uCare {
+    final class uCare {
 
         use Data;
         use Singleton;
 
 
+        /**
+         * Sets up includes and defines global constants.
+         *
+         * @since 1.4.2
+         * @access protected
+         * @return void
+         */
         protected function initialize() {
 
             $this->do_defines();
@@ -61,6 +70,13 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
 
+        /**
+         * Define plugin constants.
+         *
+         * @since 14.2
+         * @access private
+         * @return void
+         */
         private function do_defines() {
 
             define( 'UCARE_DIR', plugin_dir_path( __FILE__ ) );
@@ -73,6 +89,13 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
 
+        /**
+         * Include plugin files.
+         *
+         * @since 1.4.2
+         * @access private
+         * @return void
+         */
         private function do_includes() {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
@@ -90,7 +113,6 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-comment.php';
             include_once dirname( __FILE__ ) . '/includes/functions-user.php';
-            include_once dirname( __FILE__ ) . '/includes/functions-metabox.php';
             include_once dirname( __FILE__ ) . '/includes/functions-template.php';
             include_once dirname( __FILE__ ) . '/includes/functions-sanitize.php';
             include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
@@ -108,6 +130,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-metabox.php';
             }
 
 
@@ -120,16 +143,41 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     }
 
 
+    /**
+     * Get the main plugin instance.
+     *
+     * @todo call in plugins_loaded
+     * @since 1.4.2
+     * @return Singleton|uCare
+     */
     function ucare() {
         return uCare::instance();
     }
 
 
+    /**
+     * Action to load the plugin text domain.
+     *
+     * @action plugins_loaded
+     *
+     * @since 1.0.0
+     * @return void
+     */
     function load_text_domain() {
         load_plugin_textdomain( 'ucare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
     }
 
 
+    /**
+     * Action to add custom links to the plugins table row.
+     *
+     * @action plugin_action_links_{$basename}
+     *
+     * @param $links
+     *
+     * @since 1.0.0
+     * @return array
+     */
     function add_plugin_action_links( $links ) {
 
         if ( !get_option( Options::DEV_MODE ) ) {
@@ -145,7 +193,12 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
     }
 
 
-    // TODO move this to a plugins_loaded callback
+    /**
+     * Boot the plugin.
+     *
+     * @todo move this to a plugins_loaded callback
+     * @since 1.4.2
+     */
     ucare();
 
     //<editor-fold desc="Legacy Boot">
@@ -156,6 +209,11 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 } else {
 
+    /**
+     * Add an error in the admin dashboard if the server's PHP version does not meet the minimum requirements.
+     *
+     * @since 1.0.0
+     */
     add_action( 'admin_notices', function () { ?>
 
         <div class="notice notice-error is-dismissible">
@@ -176,7 +234,7 @@ if( PHP_VERSION >= MIN_PHP_VERSION ) {
  * @return string
  */
 function resolve_path( $path = '' ) {
-    return plugin_dir_path( __FILE__ ) . $path;
+    return UCARE_DIR . $path;
 }
 
 
@@ -186,5 +244,5 @@ function resolve_path( $path = '' ) {
  * @return string
  */
 function resolve_url( $path = '' ) {
-    return plugin_dir_url( __FILE__ ) . $path;
+    return UCARE_URL . $path;
 }

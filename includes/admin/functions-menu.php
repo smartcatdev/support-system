@@ -22,23 +22,23 @@ add_filter( 'submenu_file', 'ucare\set_submenu_file' );
 function enqueue_admin_scripts( $hook ) {
 
     wp_enqueue_script( 'ucare-admin-global',
-        plugin_url( '/assets/admin/global.js' ), array( 'jquery' ), PLUGIN_VERSION );
+        resolve_url( '/assets/admin/global.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
     wp_enqueue_style( 'ucare-admin-global',
-        plugin_url( '/assets/admin/global.css' ), null, PLUGIN_VERSION );
+        resolve_url( '/assets/admin/global.css' ), null, PLUGIN_VERSION );
 
 
     // Load assets only on plugin admin pages
     if ( strpos( $hook, 'ucare' ) !== false || get_post_type() == 'support_ticket' ) {
 
         wp_enqueue_script( 'wp_media_uploader',
-            plugin_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );
+            resolve_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
         wp_enqueue_style( 'support-admin-icons',
-            plugin_url( '/assets/icons/style.css' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/icons/style.css' ), null, PLUGIN_VERSION );
 
         wp_register_script( 'support-admin-js',
-            plugin_url( 'assets/admin/admin.js' ), array( 'jquery' ), PLUGIN_VERSION );
+            resolve_url( 'assets/admin/admin.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
         wp_localize_script( 'support-admin-js',
             'SupportSystem', array(
@@ -50,7 +50,7 @@ function enqueue_admin_scripts( $hook ) {
         wp_enqueue_script( 'support-admin-js' );
 
         wp_enqueue_style( 'support-admin-css',
-            plugin_url( '/assets/admin/admin.css' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/admin/admin.css' ), null, PLUGIN_VERSION );
 
 
         //<editor-fold desc="Libraries">
@@ -60,31 +60,31 @@ function enqueue_admin_scripts( $hook ) {
         wp_enqueue_script( 'wp-color-picker' );
 
         wp_enqueue_script( 'moment',
-            plugin_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_script( 'selectize-js',
-            plugin_url( '/assets/lib/selectize/js/selectize.min.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/selectize/js/selectize.min.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_style( 'selectize-css',
-            plugin_url( '/assets/lib/selectize/css/selectize.css' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/selectize/css/selectize.css' ), null, PLUGIN_VERSION );
         
         wp_enqueue_script( 'flot',
-            plugin_url( '/assets/lib/flot/jquery.flot.min.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/flot/jquery.flot.min.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_script( 'flot-time',
-            plugin_url( '/assets/lib/flot/jquery.flot.time.min.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/flot/jquery.flot.time.min.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_script( 'flot-resize',
-            plugin_url( '/assets/lib/flot/jquery.flot.resize.min.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/flot/jquery.flot.resize.min.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_script( 'moment',
-            plugin_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_script( 'ucare-reports-js',
-            plugin_url( '/assets/admin/reports.js' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/admin/reports.js' ), null, PLUGIN_VERSION );
 
         wp_enqueue_style( 'ucare-reports-css',
-            plugin_url( '/assets/admin/reports.css' ), null, PLUGIN_VERSION );
+            resolve_url( '/assets/admin/reports.css' ), null, PLUGIN_VERSION );
         //</editor-fold>
 
     }

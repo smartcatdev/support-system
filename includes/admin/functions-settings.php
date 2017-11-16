@@ -1,18 +1,28 @@
 <?php
 /**
- * New place for Settings API Related code. Old School Cool.
+ * Functions related to the WordPress Settings API.
  *
  * @since 1.4.2
+ * @package ucare
  */
-
 namespace ucare;
 
 
+// Register settings
 add_action( 'init', 'ucare\register_settings' );
 
+// Add settings fields
 add_action( 'admin_init', 'ucare\add_settings_fields', 100 );
 
 
+/**
+ * Action to register settings with the settings API.
+ *
+ * @action init
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function register_settings() {
 
     register_setting( 'uc-advanced', Options::TEMPLATE_PAGE_ID, array(
@@ -23,6 +33,14 @@ function register_settings() {
 }
 
 
+/**
+ * Action to add settings fields to be output in the settings page.
+ *
+ * @action admin_init
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function add_settings_fields() {
 
     add_settings_field(
