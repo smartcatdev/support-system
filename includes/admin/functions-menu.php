@@ -62,6 +62,12 @@ function enqueue_admin_scripts( $hook ) {
         wp_enqueue_script( 'moment',
             plugin_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );
 
+        wp_enqueue_script( 'selectize-js',
+            plugin_url( '/assets/lib/selectize/js/selectize.min.js' ), null, PLUGIN_VERSION );
+
+        wp_enqueue_style( 'selectize-css',
+            plugin_url( '/assets/lib/selectize/css/selectize.css' ), null, PLUGIN_VERSION );
+        
         wp_enqueue_script( 'flot',
             plugin_url( '/assets/lib/flot/jquery.flot.min.js' ), null, PLUGIN_VERSION );
 
@@ -120,6 +126,7 @@ function admin_first_run_tutorial_page() {
 function get_admin_header( $echo = true ) {
 
     $header = buffer_template( 'admin-header' );
+
 
     if ( $echo !== false ) {
         echo $header;

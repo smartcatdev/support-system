@@ -144,7 +144,7 @@ $url = resolve_url();
 
         </script>
 
-        <script src="<?php echo home_url( 'wp-includes/js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
+        <script src="<?php echo includes_url( 'js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js' . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js' . '?ver=' . $ver; ?>"></script>
         <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js' . '?ver=' . $ver; ?>"></script>

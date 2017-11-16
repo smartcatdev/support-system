@@ -20,6 +20,10 @@ namespace ucare;
     </div>
 
     <p class="links">
+        <a href="<?php echo esc_url( support_page_url() ); ?>" target="_blank">
+            <?php _e( 'Go to the Helpdesk', 'ucare' ); ?>
+        </a>
+        |
         <a href="https://ucaresupport.com/documentation/?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=uCareSettingsPage&utm_content=Plugin+Documentation" target="_blank">
             <?php _e( 'Documentation', 'ucare' ); ?>
         </a>

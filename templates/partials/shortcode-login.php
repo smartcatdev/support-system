@@ -25,10 +25,12 @@ $form_args = array(
 ?>
 
 <div id="<?php esc_attr_e( $form_id ); ?>"
-     class="<?php esc_attr_e( $form_class ); ?> <?php echo $allow_registration ? 'has-registration' : ''; ?>">
+     class="support-login-wrapper <?php esc_attr_e( $form_class ); ?> <?php echo $allow_registration ? 'has-registration' : ''; ?>">
 
     <?php if ( !is_user_logged_in() ) : ?>
-
+        
+        <h3><?php echo esc_attr( $form_title ); ?></h3>
+    
         <?php wp_login_form( $form_args ); ?>
 
         <?php if ( sanitize_boolean( $show_pw_reset_link ) ) : ?>

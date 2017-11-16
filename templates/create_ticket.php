@@ -17,14 +17,14 @@ $form = include Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_create_
                 <p id="toggle-set-author">
 
                     <label data-target="#select-author" data-toggle="collapse">
-                        <input type="checkbox" name="override_author"> <?php _e( 'Manually set ticket author', 'ucare' ); ?>
+                        <input type="checkbox" name="override_author"> <?php _e( 'Manually set ticket creator', 'ucare' ); ?>
                     </label>
 
                 </p>
 
                 <div id="select-author" class="collapse">
 
-                    <label for="ticket-author"><?php _e( 'Author', 'ucare' ); ?></label>
+                    <label for="ticket-author"><?php _e( 'Created by', 'ucare' ); ?></label>
 
                     <select id="ticket-author"
                             class="form-control"
