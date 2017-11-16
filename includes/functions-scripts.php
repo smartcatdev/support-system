@@ -29,6 +29,28 @@ function enqueue_system_scripts() {
 
 function enqueue_default_scripts() {
 
+    // Styles
+    enqueue_style( 'dropzone',       resolve_url( 'assets/lib/dropzone/css/dropzone.min.css'         ), null, PLUGIN_VERSION );
+    enqueue_style( 'bootstrap',      resolve_url( 'assets/lib/bootstrap/css/bootstrap.min.css'       ), null, PLUGIN_VERSION );
+    enqueue_style( 'scrolling-tabs', resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.css'   ), null, PLUGIN_VERSION );
+    enqueue_style( 'light-gallery',  resolve_url( 'assets/lib/lightGallery/css/lightgallery.min.css' ), null, PLUGIN_VERSION );
+
+    enqueue_style( 'ucare-style',    resolve_url( 'assets/css/style.css' ), null, PLUGIN_VERSION );
+
+    enqueue_fonts();
+
+
+    // Scripts
+    enqueue_script( 'jquery' );
+    enqueue_script( 'wp-util' );
+    enqueue_script( 'moment',            resolve_url( 'assets/lib/moment/moment.min.js'                ), null, PLUGIN_VERSION );
+    enqueue_script( 'bootstrap',         resolve_url( 'assets/lib/bootstrap/js/bootstrap.min.js'       ), null, PLUGIN_VERSION );
+    enqueue_script( 'dropzone',          resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'         ), null, PLUGIN_VERSION );
+    enqueue_script( 'scrolling-tabs',    resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.js'  ), null, PLUGIN_VERSION );
+    enqueue_script( 'light-gallery',     resolve_url( 'assets/lib/lightGallery/js/lightgallery.min.js' ), null, PLUGIN_VERSION );
+    enqueue_script( 'lg-zoom',           resolve_url( 'assets/lib/lightGallery/plugins/lg-zoom.min.js' ), null, PLUGIN_VERSION );
+    enqueue_script( 'textarea-autosize', resolve_url( 'assets/lib/textarea-autosize.min.js'            ), null, PLUGIN_VERSION );
+
 }
 
 

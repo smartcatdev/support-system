@@ -15,14 +15,10 @@ $url = resolve_url();
 
                 <p class="footer-text text-center">
 
-                    <?php $footer_text = get_option( Options::FOOTER_TEXT, \ucare\Defaults::FOOTER_TEXT ); ?>
-
-                    <?php echo !empty( $footer_text ) ? $footer_text . ' |' : ''; ?>
+                    <?php echo get_option( Options::FOOTER_TEXT, Defaults::FOOTER_TEXT ) . ' | ' ?: ''; ?>
 
                     <a href="http://ucaresupport.com" target="_blank">
-
-                        <?php _e( ' Powered by uCare Support', 'ucare' ); ?>
-
+                        <?php _e( 'Powered by uCare Support', 'ucare' ); ?>
                     </a>
 
                 </p>
@@ -32,14 +28,13 @@ $url = resolve_url();
         </footer>
 
         <?php print_footer_scripts() ?>
-        <?php print_styles(); ?>
 
         <script>
 
             var Globals = {
                 ajax_url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
                 ajax_nonce: "<?php echo wp_create_nonce( 'support_ajax' ); ?>",
-                refresh_interval: <?php echo get_option( Options::REFRESH_INTERVAL, \ucare\Defaults::REFRESH_INTERVAL ); ?>,
+                refresh_interval: <?php echo get_option( Options::REFRESH_INTERVAL, Defaults::REFRESH_INTERVAL ); ?>,
                 strings: {
                     loading_tickets: "<?php _e( "Loading Tickets...", 'ucare' ); ?>",
                     loading_generic: "<?php _e( "Loading...", 'ucare' ); ?>",
@@ -144,14 +139,7 @@ $url = resolve_url();
 
         </script>
 
-        <script src="<?php echo includes_url( 'js/underscore.min.js' ) . '?ver=' . $ver; ?>"></script>
-        <script src="<?php echo $url . '/assets/lib/bootstrap/js/bootstrap.min.js' . '?ver=' . $ver; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/scrollingTabs/scrollingTabs.min.js' . '?ver=' . $ver; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/dropzone/js/dropzone.min.js' . '?ver=' . $ver; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/lightGallery/js/lightgallery.min.js' . '?ver=' . $ver; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/lightGallery/plugins/lg-zoom.min.js' . '?ver=' . $ver; ?>"></script>
-        <script src="<?php echo $url . 'assets/lib/moment/moment.min.js' . '?ver=' . $ver ?>" ></script>
-        <script src="<?php echo $url . 'assets/lib/textarea-autosize.min.js' . '?ver=' . $ver ?>" ></script>
+
         <script src="<?php echo $url . 'assets/js/plugins.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/app.js' . '?ver=' . $ver ?>" ></script>
         <script src="<?php echo $url . 'assets/js/settings.js' . '?ver=' . $ver ?>" ></script>
@@ -160,12 +148,12 @@ $url = resolve_url();
 
         <script>
 
-            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Options::MAX_ATTACHMENT_SIZE, \ucare\Defaults::MAX_ATTACHMENT_SIZE ); ?>;
+            Dropzone.prototype.defaultOptions.maxFilesize = <?php echo get_option( Options::MAX_ATTACHMENT_SIZE, Defaults::MAX_ATTACHMENT_SIZE ); ?>;
 
         </script>
 
         <?php do_action( 'ucare_footer' ); ?>
 
-    </body>
+    </body><!-- End body -->
 
-</html>
+</html><!-- End html -->
