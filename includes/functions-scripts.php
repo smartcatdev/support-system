@@ -1,15 +1,33 @@
 <?php
-
+/**
+ * Functions for managing scripts on the application's front-end.
+ *
+ * @since 1.4.2
+ * @package ucare
+ */
 namespace ucare;
 
 
+// Init scrips on load
 add_action( 'ucare_loaded', 'ucare\init_scripts' );
 
+// Fire our enqueue hook
 add_action( 'wp', 'ucare\enqueue_system_scripts' );
 
+// Load default scripts
 add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
 
 
+/**
+ * Initialize the script and style service.
+ *
+ * @param uCare $ucare The plugin instance.
+ *
+ * @action ucare_loaded
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function init_scripts( uCare $ucare ) {
 
     $ucare->set( 'scripts', new \WP_Scripts() );
@@ -18,6 +36,14 @@ function init_scripts( uCare $ucare ) {
 }
 
 
+/**
+ * Fires the ucare_enqueue_scripts action at the earliest moment we know that we are on the support page.
+ *
+ * @action wp
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function enqueue_system_scripts() {
 
     if ( get_option( Options::TEMPLATE_PAGE_ID ) == get_the_ID() ) {
@@ -27,6 +53,14 @@ function enqueue_system_scripts() {
 }
 
 
+/**
+ * Enqueue all of the scripts needed for the system's front-end.
+ *
+ * @action ucare_enqueue_scripts
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function enqueue_default_scripts() {
 
     // Styles
@@ -62,7 +96,12 @@ function enqueue_default_scripts() {
 }
 
 
-
+/**
+ * Localizes and enqueues the core app script.
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function enqueue_app() {
 
     $i10n = array(
@@ -90,6 +129,22 @@ function enqueue_app() {
 }
 
 
+/**
+ * Enqueue a script in the front-end application. Can be called at any point before output begins, However enqueuing is
+ * not available until after ucare_loaded has fired. It is recommended to enqueue scripts in the ucare_enqueue_scripts
+ * hook.
+ *
+ * @see wp_enqueue_script
+ *
+ * @param string $handle    The handle of the script to enqueue.
+ * @param string $src       The URL of the script.
+ * @param array  $deps      Any dependencies the script requires.
+ * @param bool   $ver       A version for the script.
+ * @param bool   $in_footer Whether the script should be printed in the footer.
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function enqueue_script( $handle, $src = '', $deps = array(), $ver = false, $in_footer = false ) {
 
     $scripts = scripts();
