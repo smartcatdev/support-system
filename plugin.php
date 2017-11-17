@@ -123,6 +123,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-styles.php';
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
 
+            include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
             include_once dirname( __FILE__ ) . '/includes/functions-field.php';
             include_once dirname( __FILE__ ) . '/includes/functions-public.php';
