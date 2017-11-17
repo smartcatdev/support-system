@@ -19,7 +19,7 @@ use ucare\util\Logger;
  *      @type string    $version        The version number of your extension
  *      @type string    $item_name      The item name as it appears in EDD
  *      @type string    $author         The name of the extension author
- *      @type boolean   $beta           Whether or not your extension is in beta
+ *      @type string    $file           Your plugin's main file
  * }
  *
  * @return boolean True on success, false if the extension has already registered.
@@ -27,34 +27,28 @@ use ucare\util\Logger;
  */
 function ucare_register_license( $id, $args ) {
 
-    $plugin = \ucare\Plugin::get_plugin( \ucare\PLUGIN_ID );
+    $manager = \ucare\ucare()->get( 'license_manager' );
 
-    return $plugin->add_activation( $id, $args );
+    if ( $manager ) {
 
-}
+        $options = array(
+            'license'    => $args['license_option'],
+            'status'     => $args['status_option'],
+            'expiration' => $args['expire_option'],
+        );
 
-/**
- * Un-registers an extension from the license management page and cleans up.
- *
- * @since 1.3.0
- *
- * @param $id
- */
-function ucare_unregister_license( $id ) {
+        $edd_args = array(
+            'version'   => $args['version'],
+            'author'    => $args['author'],
+            'item_name' => $args['item_name']
+        );
 
-    $plugin = \ucare\Plugin::get_plugin( \ucare\PLUGIN_ID );
-    $activation = $plugin->get_activation( $id );
+        $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args );
 
-    if( $activation ) {
-
-        delete_option( $activation['status_option'] );
-        delete_option( $activation['license_option'] );
-        delete_option( $activation['expire_option'] );
-
-        unregister_setting( 'ucare_extension_licenses', $activation['license_option'] );
     }
 
 }
+
 
 /**
  * Returns whether or not the plugin is in development mode.

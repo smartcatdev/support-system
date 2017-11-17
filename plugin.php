@@ -64,6 +64,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             $this->do_defines();
             $this->do_includes();
 
+            $this->init_licensing();
+
             // All done
             do_action( 'ucare_loaded', $this );
 
@@ -100,10 +102,11 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
+            include_once dirname( __FILE__ ) . '/includes/lib/extension-licensing.php';
 
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
             include_once dirname( __FILE__ ) . '/includes/cron.php';
-            include_once dirname( __FILE__ ) . '/includes/extension-licensing.php';
+
 
 
             include_once dirname( __FILE__ ) . '/includes/class-field.php';
@@ -118,13 +121,16 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-sanitize.php';
             include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
-            include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
+
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
             include_once dirname( __FILE__ ) . '/includes/functions-field.php';
             include_once dirname( __FILE__ ) . '/includes/functions-public.php';
             include_once dirname( __FILE__ ) . '/includes/functions-shortcodes.php';
             include_once dirname( __FILE__ ) . '/includes/functions-post-support_ticket.php';
             include_once dirname( __FILE__ ) . '/includes/functions-taxonomy-ticket_category.php';
+
+            include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
 
 
             if ( is_admin() ) {
@@ -134,12 +140,23 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-metabox.php';
             }
 
+        }
 
-            if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-                include_once dirname( __FILE__ ) . '/lib/license/EDD_SL_Plugin_Updater.php';
-            }
+
+        private function init_licensing() {
+
+            $license_page_args = array(
+                'parent_slug' => 'ucare_support',
+                'page_title'  => __( 'uCare Licenses', 'ucare' ),
+                'menu_title'  => __( 'Licenses', 'ucare' ),
+                'capability'  => 'manage_options',
+                'menu_slug'   => 'ucare-licenses'
+            );
+
+            $this->set( 'license_manager', new \SC_License_Manager( 'ucare', 'submenu', $license_page_args ) );
 
         }
+
 
     }
 
