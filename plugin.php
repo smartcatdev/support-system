@@ -120,6 +120,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-template.php';
             include_once dirname( __FILE__ ) . '/includes/functions-sanitize.php';
             include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-styles.php';
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';

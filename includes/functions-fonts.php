@@ -24,8 +24,8 @@ function enqueue_fonts() {
     $secondary = get_option( Options::PRIMARY_FONT, Defaults::PRIMARY_FONT );
 
 
-    enqueue_style( 'ucare-primary-font',   $fonts_url . $fonts[ $primary   ], null, PLUGIN_VERSION );
-    enqueue_style( 'ucare-secondary-font', $fonts_url . $fonts[ $secondary ], null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'ucare-primary-font', $fonts_url . $fonts[ $primary   ], null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'ucare-secondary-font', $fonts_url . $fonts[ $secondary ], null, PLUGIN_VERSION );
 
 }
 
