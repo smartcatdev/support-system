@@ -165,7 +165,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function load_text_domain() {
-        load_plugin_textdomain( 'ucare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+        load_plugin_textdomain( 'ucare', false, UCARE_DIR . '/i18n/languages' );
     }
 
 
