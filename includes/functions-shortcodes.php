@@ -6,8 +6,6 @@ namespace ucare;
 // Add a shortcode for the login page
 add_shortcode( 'support-login', 'ucare\shortcode_login_form' );
 
-add_action( 'wp_enqueue_scripts', 'ucare\enqueue_shortcode_scripts' );
-
 
 function shortcode_login_form( $args = array() ) {
 
@@ -38,12 +36,5 @@ function shortcode_login_form( $args = array() ) {
     $args = shortcode_atts( $defaults, $args, 'support-login' );
 
     echo buffer_template( 'shortcode-login', $args );
-
-}
-
-
-function enqueue_shortcode_scripts() {
-
-    wp_enqueue_style( 'ucare-login-form', resolve_url( 'assets/css/login.css' ), null, PLUGIN_VERSION );
 
 }
