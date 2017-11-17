@@ -111,3 +111,35 @@ function render_support_users_dropdown( $field ) {
     render_select_box( $field );
 
 }
+
+
+/**
+ * Renders a group of linked checkboxes.
+ *
+ * @param Field $field The field configuration object.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function render_checkbox_group( $field ) {
+
+    $field = maybe_inflate_field( $field );
+    $name  = $field->attributes['name'];
+
+    echo '<fieldset ' . parse_attributes( $field->attributes ) . '">';
+
+    foreach ( $field->config['options'] as $option ) {
+
+        echo '<label>' .
+                '<input type="checkbox" name="' . esc_attr( $name ) .'[]" ' .
+                    parse_attributes( $option['attributes'] ) . ' /> ' . esc_html( $option['title'] ) .
+             '</label><br>';
+
+    }
+
+    // Always return an empty array
+    echo '<input type="hidden" name="' . esc_attr( $name ) . '[]" value="" />';
+
+    echo '</fieldset>';
+
+}
