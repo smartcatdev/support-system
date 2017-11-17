@@ -1,8 +1,21 @@
 <?php
-
+/**
+ * Functions for rendering with Field objects.
+ *
+ * @since 1.4.2
+ * @package ucare
+ */
 namespace ucare;
 
 
+/**
+ * Inflates an array of arguments into a field object.
+ *
+ * @param array|Field $field
+ *
+ * @since 1.4.2
+ * @return Field
+ */
 function maybe_inflate_field( $field ) {
 
     if ( is_array( $field ) ) {
@@ -44,6 +57,38 @@ function map_users_to_select_options( $cap = 'use_support', $field = 'ID' ) {
     return $options;
 
 }
+
+
+/**
+ * Output a checkbox field.
+ *
+ * @param Field $field
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function render_checkbox( $field ) {
+
+    $field = maybe_inflate_field( $field );
+    $attrs = $field->attributes;
+    $value = isset( $attrs['value'] ) ? $attrs['value'] : '';
+
+    unset( $attrs['value'] );
+
+    $defaults = array(
+        'checked' => true
+    );
+
+    $config = wp_parse_args( $field->config, $defaults );
+
+    echo '<label>' .
+            '<input type="checkbox" ' . parse_attributes( $attrs ) .
+            checked( $config['checked'], $value, false ) . ' /> '.
+            esc_html( $field->description ?: '' ) .
+         '</label>';
+
+}
+
 
 
 function render_posts_dropdown( $field ) {
