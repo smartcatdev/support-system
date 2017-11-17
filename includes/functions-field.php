@@ -14,6 +14,38 @@ function maybe_inflate_field( $field ) {
 }
 
 
+/**
+ * Map list of agents to options use by \ucare\render_select_box()
+ *
+ * @param string $cap   The minimum capability for the user.
+ * @param string $field The field to use as the value attribute. Default is 'id'.
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function map_users_to_select_options( $cap = 'use_support', $field = 'ID' ) {
+
+    $options = array();
+    $agents  = get_users_with_cap( $cap );
+
+    foreach ( $agents as $agent ) {
+
+        $option = array(
+            'title'      => $agent->data->display_name,
+            'attributes' => array(
+                'value' => $agent->data->$field
+            )
+        );
+
+        array_push( $options, $option );
+
+    }
+
+    return $options;
+
+}
+
+
 function render_posts_dropdown( $field ) {
 
     $field = maybe_inflate_field( $field );
@@ -73,42 +105,6 @@ function render_select_box( $field ) {
     if ( !empty( $field->description ) ) {
         echo '<p class="description">' . esc_html( $field->description ) . '</p>';
     }
-
-}
-
-
-function render_support_users_dropdown( $field ) {
-
-    $field = maybe_inflate_field( $field );
-
-    $capability = 'use_support';
-    $user_query =  isset( $field->config['user_query'] ) ? $field->config['user_query'] : array();
-
-    if ( isset( $field->config['capability'] ) ) {
-        $capability = $field->config['capability'];
-    }
-
-    if ( empty( $field->config['options'] ) ) {
-        $field->config['options'] = array();
-    }
-
-    $users = get_users_with_cap( $capability, $user_query );
-
-
-    foreach ( $users as $user ) {
-
-        $option = array(
-            'title'      => $user->display_name,
-            'attributes' => array(
-                'value' => $user->ID
-            )
-        );
-
-        array_push( $field->config['options'], $option );
-
-    }
-
-    render_select_box( $field );
 
 }
 
