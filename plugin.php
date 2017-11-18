@@ -32,6 +32,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
     include_once dirname( __FILE__ ) . '/includes/trait-data.php';
     include_once dirname( __FILE__ ) . '/includes/trait-singleton.php';
 
+    // Boot plugin
+    add_action( 'plugins_loaded', 'ucare\ucare' );
 
     // load the plugin text domain
     add_action( 'plugins_loaded', 'ucare\load_text_domain' );
@@ -168,7 +170,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
     /**
      * Get the main plugin instance.
      *
-     * @todo call in plugins_loaded
+     * @action plugins_loaded
+     *
      * @since 1.4.2
      * @return Singleton|uCare
      */
@@ -186,7 +189,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function load_text_domain() {
-        load_plugin_textdomain( 'ucare', false, UCARE_DIR . '/i18n/languages' );
+        load_plugin_textdomain( 'ucare', false, dirname( __FILE__ ) . '/i18n/languages' );
     }
 
 
@@ -213,15 +216,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         return array_merge( $links, $custom );
 
     }
-
-
-    /**
-     * Boot the plugin.
-     *
-     * @todo move this to a plugins_loaded callback
-     * @since 1.4.2
-     */
-    ucare();
 
     //<editor-fold desc="Legacy Boot">
     do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
@@ -256,7 +250,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
  * @return string
  */
 function resolve_path( $path = '' ) {
-    return UCARE_DIR . $path;
+    return plugin_dir_path( __FILE__ ) . $path;
 }
 
 
@@ -266,5 +260,5 @@ function resolve_path( $path = '' ) {
  * @return string
  */
 function resolve_url( $path = '' ) {
-    return UCARE_URL . $path;
+    return plugin_dir_url( __FILE__ ) . $path;
 }
