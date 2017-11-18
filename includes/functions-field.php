@@ -62,7 +62,7 @@ function map_users_to_select_options( $cap = 'use_support', $field = 'ID' ) {
 /**
  * Output a checkbox field.
  *
- * @param Field $field
+ * @param array|Field $field
  *
  * @since 1.4.2
  * @return void
@@ -89,6 +89,32 @@ function render_checkbox( $field ) {
 
 }
 
+
+/**
+ * Render a text field.
+ *
+ * @param array|Field $field
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function render_text_field( $field ) {
+
+    $field = maybe_inflate_field( $field );
+
+    $defaults = array(
+        'type' => 'text'
+    );
+
+    $attrs = wp_parse_args( $field->attributes, $defaults );
+
+    echo '<input ' . parse_attributes( $attrs) . ' />';
+
+    if ( !empty( $field->description ) ) {
+        echo '<p class="description">' . esc_html( $field->description ) . '</p>';
+    }
+
+}
 
 
 function render_posts_dropdown( $field ) {
