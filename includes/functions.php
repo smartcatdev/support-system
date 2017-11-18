@@ -291,6 +291,12 @@ function products() {
     return $products;
 }
 
+/**
+ * @param bool $strict
+ *
+ * @return bool
+ * @deprecated
+ */
 function ecommerce_enabled( $strict = true ) {
     $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
     $enabled = false;

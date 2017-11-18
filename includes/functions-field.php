@@ -70,21 +70,14 @@ function map_users_to_select_options( $cap = 'use_support', $field = 'ID' ) {
 function render_checkbox( $field ) {
 
     $field = maybe_inflate_field( $field );
-    $attrs = $field->attributes;
-    $value = isset( $attrs['value'] ) ? $attrs['value'] : '';
 
-    unset( $attrs['value'] );
-
-    $defaults = array(
-        'checked' => true
-    );
-
-    $config = wp_parse_args( $field->config, $defaults );
+    $checked    = isset( $field->config['checked'] )    ? $field->config['checked']    : true;
+    $is_checked = isset( $field->config['is_checked'] ) ? $field->config['is_checked'] : false;
 
     echo '<label>' .
-            '<input type="checkbox" ' . parse_attributes( $attrs ) .
-            checked( $config['checked'], $value, false ) . ' /> '.
-            esc_html( $field->description ?: '' ) .
+            '<input type="checkbox" ' . parse_attributes( $field->attributes ) .
+                checked( $checked, $is_checked, false ) . ' /> ' .
+                esc_html( $field->description ?: '' ) .
          '</label>';
 
 }

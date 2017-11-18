@@ -90,6 +90,18 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             define( 'UCARE_PARTIALS_PATH',  UCARE_DIR . 'templates/partials/' );
             define( 'UCARE_INCLUDES_PATH',  UCARE_DIR . 'includes/'  );
 
+
+            // Define which e-commerce mode the plugin is running in
+            if ( get_option( Options::ECOMMERCE ) ) {
+
+                if ( class_exists( 'WooCommerce' ) ) {
+                    define( 'UCARE_ECOMMERCE_MODE', 'woo' );
+                } else if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+                    define( 'UCARE_ECOMMERCE_MODE', 'edd' );
+                }
+
+            }
+
         }
 
 
@@ -124,7 +136,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/functions-styles.php';
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
-
+            include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
             include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
             include_once dirname( __FILE__ ) . '/includes/functions-field.php';

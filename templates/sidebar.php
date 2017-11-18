@@ -1,7 +1,6 @@
 <?php
 
-use ucare\Options;
-use ucare\Plugin;
+namespace ucare;
 
 $products = \ucare\util\products();
 $statuses = \ucare\util\statuses();
@@ -421,6 +420,5 @@ if( array_key_exists( $product, $products ) ) {
 
     <?php endif; ?>
 
-    <?php do_action( 'ucare_ticket_side_bar', $ticket ); ?>
 
 </div>

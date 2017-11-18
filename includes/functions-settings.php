@@ -27,4 +27,10 @@ function register_settings() {
         'sanitize_callback' => 'ucare\sanitize_post_id',
     ) );
 
+    register_setting( 'uc-general', Options::ECOMMERCE, array(
+        'type'    => 'string',
+        'default' => Defaults::ECOMMERCE,
+        'sanitize_callback' => 'ucare\sanitize_boolean'
+    ) );
+
 }

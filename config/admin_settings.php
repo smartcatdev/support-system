@@ -358,16 +358,6 @@ $general->add_field( new TextField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) )->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_ecommerce_integration',
-        'option'        => Options::ECOMMERCE,
-        'value'         => get_option( Options::ECOMMERCE, \ucare\Defaults::ECOMMERCE ),
-        'label'         => __( 'E-Commerce Integration', 'ucare' ),
-        'desc'          => __( 'Enable integration with Easy Digital Downloads or WooCommerce', 'ucare' ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
 ) )->add_field( new TextField(
     array(
         'id'            => 'support_tickets_per_page',
