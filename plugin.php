@@ -94,10 +94,17 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             // Define which e-commerce mode the plugin is running in
             if ( get_option( Options::ECOMMERCE ) ) {
 
+                // Use WooCommerce specific settings
                 if ( class_exists( 'WooCommerce' ) ) {
                     define( 'UCARE_ECOMMERCE_MODE', 'woo' );
+
+                // Use EDD specific settings
                 } else if ( class_exists( 'Easy_Digital_Downloads' ) ) {
                     define( 'UCARE_ECOMMERCE_MODE', 'edd' );
+
+                // Use basic e-commerce support
+                } else {
+                    define( 'UCARE_ECOMMERCE_MODE', 'default' );
                 }
 
             }
@@ -136,7 +143,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/functions-styles.php';
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
-            include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
+
             include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
             include_once dirname( __FILE__ ) . '/includes/functions-field.php';
@@ -151,11 +158,30 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-wp-scripts.php';
 
 
+            // If eCommerce support is enabled pull in general support functions
+            if ( defined( 'UCARE_ECOMMERCE_MODE' ) ) {
+                include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
+
+                // Pull in function definitions for EDD
+                if ( UCARE_ECOMMERCE_MODE == 'edd' ) {
+                    include_once dirname( __FILE__ ) . '/includes/functions-ecommerce-edd.php';
+
+                // Pull in function definitions for WooCommerce
+                } else if ( UCARE_ECOMMERCE_MODE == 'woo' ) {
+                    include_once dirname( __FILE__ ) . '/includes/functions-ecommerce-woo.php';
+                }
+
+            }
+
+
+            // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
+
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-metabox.php';
+
             }
 
         }
@@ -163,7 +189,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
         private function init_licensing() {
 
-            $license_page_args = array(
+            $page = array(
                 'parent_slug' => 'ucare_support',
                 'page_title'  => __( 'uCare Licenses', 'ucare' ),
                 'menu_title'  => __( 'Licenses', 'ucare' ),
@@ -171,7 +197,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 'menu_slug'   => 'ucare-licenses'
             );
 
-            $this->set( 'license_manager', new \SC_License_Manager( 'ucare', 'submenu', $license_page_args ) );
+            $this->set( 'license_manager', new \SC_License_Manager( 'ucare', 'submenu', $page ) );
 
         }
 

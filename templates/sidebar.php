@@ -2,21 +2,15 @@
 
 namespace ucare;
 
-$products = \ucare\util\products();
+
 $statuses = \ucare\util\statuses();
 $status = get_post_meta( $ticket->ID, 'status', true );
 
-$product = get_post_meta( $ticket->ID, 'product', true );
-$receipt_id = get_post_meta( $ticket->ID, 'receipt_id', true );
 
 $closed_date = get_post_meta( $ticket->ID, 'closed_date', true );
 $closed_by = get_post_meta( $ticket->ID, 'closed_by', true );
 
-if( array_key_exists( $product, $products ) ) {
-    $product = $products[$product];
-} else {
-    $product = 'Not Available';
-}
+
 
 ?>
 
@@ -81,14 +75,19 @@ if( array_key_exists( $product, $products ) ) {
 
     </div>
 
-    <?php if( \ucare\util\ecommerce_enabled() ) : ?>
+    <?php if ( is_ecommerce_support_enabled() ) : ?>
 
         <div class="panel panel-default purchase-details" data-id="purchase-details">
 
             <div class="panel-heading">
 
-                <a href="#collapse-purchase-<?php echo $ticket->ID; ?>" data-toggle="collapse"
-                   class="panel-title"><?php _e( 'Purchase Details', 'ucare' ); ?></a>
+                <a class="panel-title"
+                   data-toggle="collapse"
+                   href="#collapse-purchase-<?php echo $ticket->ID; ?>">
+
+                        <?php _e( 'Purchase Details', 'ucare' ); ?>
+
+                </a>
 
             </div>
 
@@ -96,21 +95,7 @@ if( array_key_exists( $product, $products ) ) {
 
                 <div class="panel-body">
 
-                    <div class="product-info">
-
-                        <span class="lead"><?php _e( $product, 'ucare' ); ?>
-
-                    </div>
-
-                    <?php if( !empty( $receipt_id ) ) : ?>
-
-                        <div class="purchase-info">
-
-                            <span><?php _e( "Receipt # {$receipt_id}", 'ucare' ); ?></span>
-
-                        </div>
-
-                    <?php endif; ?>
+                   <?php do_action( 'ucare_ticket_sidebar_ecommerce', $ticket ); ?>
 
                 </div>
 

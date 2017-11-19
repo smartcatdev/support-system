@@ -255,6 +255,9 @@ function filter_defaults() {
     return $defaults;
 }
 
+/**
+ * @deprecated
+ */
 function products() {
     $plugin = Plugin::get_plugin( \ucare\PLUGIN_ID );
     $products = array();
