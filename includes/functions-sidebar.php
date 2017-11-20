@@ -9,10 +9,16 @@ namespace ucare;
 
 
 // Get the eCommerce sidebar
-add_action( 'ucare_ticket_sidebar_ecommerce', 'ucare\get_ecommerce_sidebar' );
+add_action( 'ucare_ticket_sidebar_purchase-details', 'ucare\get_ecommerce_sidebar' );
 
 // Get the customer sidebar
-add_action( 'ucare_ticket_sidebar_customer', 'ucare\get_customer_sidebar' );
+add_action( 'ucare_ticket_sidebar_customer-details', 'ucare\get_customer_sidebar' );
+
+// Get the attachments sidebar
+add_action( 'ucare_ticket_sidebar_attachments', 'ucare\get_attachments_sidebar' );
+
+// Get the properties sidebar
+add_action( 'ucare_ticket_sidebar_ticket-properties', 'ucare\get_properties_sidebar' );
 
 
 /**
@@ -20,7 +26,7 @@ add_action( 'ucare_ticket_sidebar_customer', 'ucare\get_customer_sidebar' );
  *
  * @param \WP_Post $ticket The current ticket.
  *
- * @action ucare_ticket_sidebar_ecommerce
+ * @action ucare_ticket_sidebar_purchase-details
  *
  * @since 1.4.2
  * @return void
@@ -47,7 +53,7 @@ function get_ecommerce_sidebar( \WP_Post $ticket ) {
  *
  * @param \WP_Post $ticket The current ticket.
  *
- * @action ucare_ticket_sidebar_customer
+ * @action ucare_ticket_sidebar_customer-details
  *
  * @since 1.4.2
  * @return void
@@ -64,10 +70,121 @@ function get_customer_sidebar( \WP_Post $ticket ) {
     $args = array(
         'ticket' => $ticket,
         'author' => $author,
-        'total'  => count_user_tickets( $author->ID ),
-        'recent' => get_user_recent_tickets( $author, $recent )
+        'total'  => ucare_count_user_tickets( $author->ID ),
+        'recent' => ucare_get_user_recent_tickets( $author, $recent )
     );
 
     get_template( 'sidebar-customer', $args );
+
+}
+
+
+/**
+ * Action to get the attachments sidebar.
+ *
+ * @param \WP_Post $ticket
+ *
+ * @action ucare_ticket_sidebar_attachments
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function get_attachments_sidebar( \WP_Post $ticket ) {
+
+    $args = array(
+        'ticket' => $ticket
+    );
+
+    get_template( 'sidebar-attachments', $args );
+
+}
+
+
+/**
+ * Action to get the properties sidebar.
+ *
+ * @param \WP_Post $ticket
+ *
+ * @action ucare_ticket_sidebar_ticket-properties
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function get_properties_sidebar( \WP_Post $ticket ) {
+
+    $args = array(
+        'ticket' => $ticket
+    );
+
+    get_template( 'sidebar-properties', $args );
+
+}
+
+
+/**
+ * Get the details sidebar.
+ *
+ * @param \WP_Post $ticket The ticket.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function get_details_sidebar( \WP_Post $ticket ) {
+
+    $args = array(
+        'ticket' => $ticket
+    );
+
+    get_template( 'sidebar-details', $args );
+
+}
+
+
+/**
+ * Get the ticket sidebar.
+ *
+ * @param string   $sidebar
+ * @param \WP_Post $ticket
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function get_sidebar( $sidebar, $ticket ) {
+
+    /**
+     * Pull in sidebar sections
+     */
+    do_action( "ucare_ticket_sidebar_$sidebar", $ticket );
+
+}
+
+
+/**
+ * Configure the default sidebar sections.
+ *
+ * @param $ticket
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function get_sidebar_sections( $ticket ) {
+
+    $sections = array();
+
+    if ( is_ecommerce_support_enabled() ) {
+        $sections['purchase-details'] = __( 'Purchase Details', 'ucare' );
+    }
+
+    if ( current_user_can( 'manage_support_tickets' ) ) {
+        $sections['customer-details'] = __( 'Customer Details', 'ucare' );
+    }
+
+    $sections['attachments'] = __( 'Attachments', 'ucare' );
+
+    if ( current_user_can( 'manage_support_tickets' ) ) {
+        $sections['ticket-properties'] = __( 'Ticket Properties', 'ucare' );
+    }
+
+    return apply_filters( 'ucare_ticket_sidebar_sections', $sections, $ticket );
 
 }

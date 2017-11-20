@@ -10,8 +10,6 @@
 /**
  * Register's an extension with the plugin's license management page.
  *
-
- *
  * @param $id
  * @param array $args {
  *
@@ -200,5 +198,74 @@ function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $me
     }
 
     return true;
+
+}
+
+
+/***********************************************************************************************************************
+ *
+ * Functions for plugin statistics
+ *
+ * @since 1.4.2
+ * @scope global
+ */
+
+
+/**
+ * Get a list of recent tickets for a specific user.
+ *
+ * @param $user
+ * @param array $args
+ *
+ * @since 1.0.0
+ * @return \WP_Query
+ */
+function ucare_get_user_recent_tickets( $user, $args = array() ) {
+
+    $user = \ucare\get_user( $user );
+
+    $defaults = array(
+        'after'   => 'now',
+        'before'  => '30 days ago',
+        'exclude' => array(),
+        'limit'   => -1
+    );
+
+    $args = wp_parse_args( $args, $defaults );
+
+    $q = array(
+        'post_type'      => 'support_ticket',
+        'post_status'    => 'publish',
+        'author'         => $user->ID,
+        'after'          => $args['after'],
+        'before'         => $args['before'],
+        'post__not_in'   => $args['exclude'],
+        'posts_per_page' => $args['limit'] ?: -1
+    );
+
+    return new \WP_Query( $q );
+
+}
+
+
+/**
+ * Count the number of tickets that a user has created.
+ *
+ * @param int $user_id The ID of the user.
+ *
+ * @since 1.0.0
+ * @return int
+ */
+function ucare_count_user_tickets( $user_id ) {
+
+    global $wpdb;
+
+    $sql = "SELECT COUNT( * )
+            FROM $wpdb->posts
+            WHERE post_author = %d 
+              AND post_type = 'support_ticket'
+              AND post_status = 'publish'";
+
+    return $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
 
 }
