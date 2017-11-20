@@ -16,6 +16,9 @@
  */
 function ucare_unregister_license( $id ) {
 
+    /**
+     * No-Op
+     */
     return;
 
 }
