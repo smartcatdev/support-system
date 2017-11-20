@@ -49,10 +49,106 @@ function cache_get( $key, $default = false ) {
 }
 
 
+/**
+ * @return null
+ * @deprecated
+ */
+function plugin_dir() {
+    return Plugin::plugin_dir( PLUGIN_ID );
+}
+
+/**
+ * @param string $path
+ *
+ * @return string
+ * @deprecated
+ */
+function plugin_url( $path = '' ) {
+    return trailingslashit( Plugin::plugin_url( PLUGIN_ID ) ) . ltrim( $path, '/' );
+}
+
+
 namespace ucare\util;
 
 use ucare\Options;
 use ucare\Plugin;
+
+
+/**
+ * @deprecated
+ * @return array
+ */
+function statuses () {
+    return array(
+        'new'               => __( 'New', 'ucare' ),
+        'waiting'           => __( 'Waiting', 'ucare' ),
+        'opened'            => __( 'Opened', 'ucare' ),
+        'responded'         => __( 'Responded', 'ucare' ),
+        'needs_attention'   => __( 'Needs Attention', 'ucare' ),
+        'closed'            => __( 'Closed', 'ucare' ),
+    );
+}
+
+
+/**
+ * @param $user
+ *
+ * @return string|void
+ * @deprecated
+ */
+function user_full_name( $user ) {
+
+    if( $user ) {
+        return $user->first_name . ' ' . $user->last_name;
+    }
+
+    return;
+
+}
+
+
+/**
+ * @param $ticket
+ * @param string $orderby
+ * @param string $order
+ * @param string $mime_type
+ *
+ * @return array
+ * @deprecated
+ */
+function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC', $mime_type = '' ) {
+    $query = new \WP_Query(
+        array(
+            'post_parent'       => $ticket->ID,
+            'post_type'         => 'attachment',
+            'post_status'       => 'inherit',
+            'orderby'           => $order,
+            'order'             => $order,
+            'post_mime_type'    => $mime_type
+        ) );
+
+    return $query->posts;
+}
+
+
+/**
+ * @param $stamp
+ *
+ * @return mixed|string|void
+ * @deprecated
+ */
+function just_now( $stamp ) {
+    $now = date_create();
+    $date = date_create( $stamp );
+
+    if( $now->diff( $date )->format( '%i' ) == 0 ) {
+        $out = __( 'Just Now', 'ucare' );
+    } else {
+        $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', 'ucare' );
+    }
+
+    return $out;
+}
 
 
 /**
@@ -150,3 +246,4 @@ function ecommerce_enabled( $strict = true ) {
 
     return $enabled;
 }
+

@@ -135,6 +135,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-formatting.php';
             include_once dirname( __FILE__ ) . '/includes/functions-fonts.php';
             include_once dirname( __FILE__ ) . '/includes/functions-comment.php';
             include_once dirname( __FILE__ ) . '/includes/functions-user.php';
@@ -144,6 +145,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-styles.php';
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
             include_once dirname( __FILE__ ) . '/includes/functions-sidebar.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-media.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';

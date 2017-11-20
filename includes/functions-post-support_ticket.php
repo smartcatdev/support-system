@@ -78,11 +78,33 @@ function register_ticket_post_type() {
         'publicly_queryable'   => false,
         'capability_type'      => array( 'support_ticket', 'support_tickets' ),
         'feeds'                => null,
-        'map_meta_cap'         => true,
+        'map_meta_cap'         => false,
         'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes'
     );
 
     register_post_type( 'support_ticket', $args );
+
+}
+
+
+/**
+ * Get a list of the ticket statuses.
+ *
+ * @since 1.4.2
+ * @return array
+ */
+function get_ticket_statuses() {
+
+    $statuses = array(
+        'new'               => __( 'New', 'ucare' ),
+        'waiting'           => __( 'Waiting', 'ucare' ),
+        'opened'            => __( 'Opened', 'ucare' ),
+        'responded'         => __( 'Responded', 'ucare' ),
+        'needs_attention'   => __( 'Needs Attention', 'ucare' ),
+        'closed'            => __( 'Closed', 'ucare' )
+    );
+
+    return apply_filters( 'ucare_ticket_statuses', $statuses );
 
 }
 

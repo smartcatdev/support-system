@@ -23,23 +23,6 @@ function support_page_url( $path = '' ) {
     return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ) . $path;
 }
 
-/**
- * @return null
- * @deprecated
- */
-function plugin_dir() {
-    return Plugin::plugin_dir( PLUGIN_ID );
-}
-
-/**
- * @param string $path
- *
- * @return string
- * @deprecated
- */
-function plugin_url( $path = '' ) {
-    return trailingslashit( Plugin::plugin_url( PLUGIN_ID ) ) . ltrim( $path, '/' );
-}
 
 function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
 
@@ -75,16 +58,6 @@ use ucare\Options;
 use ucare\Plugin;
 
 
-function user_full_name( $user ) {
-    
-    if( $user ) {
-        return $user->first_name . ' ' . $user->last_name;
-    }
-    
-    return;
-
-}
-
 function can_use_support( $id = false ) {
     if( $id ) {
 
@@ -116,18 +89,6 @@ function can_manage_support( $id = false ) {
     return $result;
 }
 
-function just_now( $stamp ) {
-    $now = date_create();
-    $date = date_create( $stamp );
-
-    if( $now->diff( $date )->format( '%i' ) == 0 ) {
-        $out = __( 'Just Now', 'ucare' );
-    } else {
-        $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', 'ucare' );
-    }
-
-    return $out;
-}
 
 function extract_tags( $str, $open, $close ) {
     $matches = array();
@@ -159,16 +120,7 @@ function priorities () {
     );
 }
 
-function statuses () {
-    return array(
-        'new'               => __( 'New', 'ucare' ),
-        'waiting'           => __( 'Waiting', 'ucare' ),
-        'opened'            => __( 'Opened', 'ucare' ),
-        'responded'         => __( 'Responded', 'ucare' ),
-        'needs_attention'   => __( 'Needs Attention', 'ucare' ),
-        'closed'            => __( 'Closed', 'ucare' ),
-    );
-}
+
 
 function filter_defaults() {
     $defaults = array(
@@ -255,19 +207,6 @@ function remove_caps( $role ) {
     }
 }
 
-function get_attachments( $ticket, $orderby = 'post_date', $order = 'DESC', $mime_type = '' ) {
-    $query = new \WP_Query(
-        array(
-            'post_parent'       => $ticket->ID,
-            'post_type'         => 'attachment',
-            'post_status'       => 'inherit',
-            'orderby'           => $order,
-            'order'             => $order,
-            'post_mime_type'    => $mime_type
-        ) );
-
-    return $query->posts;
-}
 
 
 namespace ucare\proc;

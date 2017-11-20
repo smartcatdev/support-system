@@ -86,6 +86,17 @@ function ucare_get_logger( $type ) {
 }
 
 
+/**
+ * Check to see if eCommerce support is enabled.
+ *
+ * @since 1.4.2
+ * @return bool
+ */
+function ucare_is_ecommerce_enabled() {
+    return defined( 'UCARE_ECOMMERCE_MODE' );
+}
+
+
 /***********************************************************************************************************************
  *
  * Functions for managing assets in the front-end application.

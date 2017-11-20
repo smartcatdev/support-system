@@ -57,8 +57,8 @@ function get_user( $user = null ) {
 
     if ( is_null( $user ) ) {
         $user = wp_get_current_user();
-    } else if ( !is_a( $user, '\WP_User' ) ) {
-        $user = get_userdata( $user );
+    } else if ( is_numeric( $user ) ) {
+        $user = get_userdata( absint( $user ) );
     }
 
     // Make sure we have a valid support user

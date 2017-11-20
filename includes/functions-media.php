@@ -1,6 +1,6 @@
 <?php
 /**
- * General use functions for providing e-commerce product support.
+ * Functions for handling ticket media.
  *
  * @since 1.4.2
  * @package ucare

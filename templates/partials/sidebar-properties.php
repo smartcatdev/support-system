@@ -9,11 +9,14 @@ namespace ucare;
 
 ?>
 
+<!-- panel-body -->
+
     <div class="message"></div>
 
     <form class="ticket-status-form" method="post">
 
-        <?php $form = include_once Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_properties_form.php'; ?>
+        <?php // TODO Replace this with regular HTML Form ?>
+        <?php $form = include $form_config; ?>
 
         <?php foreach ( $form->fields as $field ) : ?>
 
@@ -45,3 +48,5 @@ namespace ucare;
         </div>
 
     </form>
+
+<!-- /panel-body -->

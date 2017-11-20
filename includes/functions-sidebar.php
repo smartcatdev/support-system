@@ -92,7 +92,9 @@ function get_customer_sidebar( \WP_Post $ticket ) {
 function get_attachments_sidebar( \WP_Post $ticket ) {
 
     $args = array(
-        'ticket' => $ticket
+        'ticket' => $ticket,
+        'files'  => get_attached_media( allowed_mime_types( 'file'  ), $ticket ),
+        'images' => get_attached_media( allowed_mime_types( 'image' ), $ticket )
     );
 
     get_template( 'sidebar-attachments', $args );
@@ -113,7 +115,10 @@ function get_attachments_sidebar( \WP_Post $ticket ) {
 function get_properties_sidebar( \WP_Post $ticket ) {
 
     $args = array(
-        'ticket' => $ticket
+        'ticket' => $ticket,
+
+        //TODO remove this
+        'form_config' => resolve_path( 'config/ticket_properties_form.php' )
     );
 
     get_template( 'sidebar-properties', $args );
@@ -131,8 +136,14 @@ function get_properties_sidebar( \WP_Post $ticket ) {
  */
 function get_details_sidebar( \WP_Post $ticket ) {
 
+    $terms = get_the_terms( $ticket, 'ticket_category' );
+
     $args = array(
-        'ticket' => $ticket
+        'ticket'      => $ticket,
+        'stale'       => !!get_post_meta( $ticket->ID, 'stale', true ),
+        'closed_by'   => get_post_meta( $ticket->ID, 'closed_by', true ),
+        'closed_date' => get_post_meta( $ticket->ID, 'closed_date', true ),
+        'category'    => $terms ? current( $terms )->name : ''
     );
 
     get_template( 'sidebar-details', $args );
@@ -171,7 +182,7 @@ function get_sidebar_sections( $ticket ) {
 
     $sections = array();
 
-    if ( is_ecommerce_support_enabled() ) {
+    if ( ucare_is_ecommerce_enabled() ) {
         $sections['purchase-details'] = __( 'Purchase Details', 'ucare' );
     }
 
