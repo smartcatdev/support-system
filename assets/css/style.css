@@ -1047,6 +1047,7 @@ button.close-ticket:hover {
 .sidebar .customer-stats .list-group-item {
     border-left: none;
     border-right: none;
+    border-radius: 0;
 }
 
 .sidebar .customer-stats .list-group-item:first-child {

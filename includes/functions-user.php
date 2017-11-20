@@ -57,11 +57,12 @@ function get_user( $user = null ) {
 
     if ( is_null( $user ) ) {
         $user = wp_get_current_user();
-    } else if ( is_int( $user ) ) {
+    } else if ( !is_a( $user, '\WP_User' ) ) {
         $user = get_userdata( $user );
     }
 
-    return is_a( $user, '\WP_User' ) ? $user : false ;
+    // Make sure we have a valid support user
+    return $user->has_cap( 'use_support' ) ? $user : false;
 
 }
 

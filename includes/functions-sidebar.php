@@ -54,7 +54,7 @@ function get_ecommerce_sidebar( \WP_Post $ticket ) {
  */
 function get_customer_sidebar( \WP_Post $ticket ) {
 
-    $author = get_userdata( $ticket->post_author );
+    $author = get_userdata( abs( $ticket->post_author ) );
 
     // Don't include the current ticket in the recent list
     $recent = array(
