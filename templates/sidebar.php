@@ -22,7 +22,9 @@ namespace ucare;
 
             <div class="panel-heading">
 
-                <a class="panel-title" data-toggle="collapse" href="#collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>">
+                <a data-toggle="collapse"
+                   class="panel-title <?php echo $section['collapse'] ? 'collapsed' : ''; ?>"
+                   href="#collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>">
 
                     <?php esc_html_e( $section['title'] ); ?>
 

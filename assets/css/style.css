@@ -907,6 +907,17 @@ button.close-ticket:hover {
     margin-top: 15px !important;
 }
 
+.sidebar .panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e113";
+    float: right;
+    transition: transform 0.5s;
+}
+
+.sidebar .panel-heading a.collapsed:after {
+    transform: rotate(90deg);
+}
+
 .sidebar .ticket-details .lead {
     margin-bottom: 0;
 }
