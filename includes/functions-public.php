@@ -280,3 +280,34 @@ function ucare_count_user_tickets( $user_id ) {
     return $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
 
 }
+
+
+/***********************************************************************************************************************
+ * General template functions
+ *
+ * @since 1.4.2
+ * @scope global
+ */
+
+/**
+ * Register a section to display in the ticket sidebar.
+ *
+ * @param string $id       The section ID.
+ * @param int    $position Where the sidebar should display.
+ * @param array  $section  The sidebar section.
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function ucare_register_sidebar( $id, $position, array $section ) {
+
+    $sidebars = \ucare\get_sidebars();
+
+    if ( is_array( $sidebars ) ) {
+        $top = array_slice( $sidebars, 0, $position );
+        $new = array( $id => $section );
+
+        \ucare\ucare()->set( 'sidebars', array_merge( $top, $new, $sidebars ) );
+    }
+
+}

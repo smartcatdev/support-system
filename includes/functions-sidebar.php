@@ -8,6 +8,9 @@
 namespace ucare;
 
 
+// Register our sidebars
+add_action( 'ucare_loaded', 'ucare\register_sidebars' );
+
 // Get the eCommerce sidebar
 add_action( 'ucare_ticket_sidebar_purchase-details', 'ucare\get_ecommerce_sidebar' );
 
@@ -20,6 +23,75 @@ add_action( 'ucare_ticket_sidebar_attachments', 'ucare\get_attachments_sidebar' 
 // Get the properties sidebar
 add_action( 'ucare_ticket_sidebar_ticket-properties', 'ucare\get_properties_sidebar' );
 
+// Set the collapsed sections
+add_filter( 'ucare_ticket_sidebar_sections', 'ucare\set_collapsed_sidebar_sections' );
+
+
+/**
+ * Action to register ticket sidebar sections.
+ *
+ * @param uCare|Data $ucare
+ *
+ * @action ucare_loaded
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function register_sidebars( $ucare ) {
+
+    // Initialize empty array of sidebars
+    $ucare->set( 'sidebars', array() );
+
+    if ( ucare_is_ecommerce_enabled() ) {
+        ucare_register_sidebar( 'purchase-details', 0, array( 'title' => __( 'Purchase Details', 'ucare' ) ) );
+    }
+
+    if ( current_user_can( 'manage_support_tickets' ) ) {
+        ucare_register_sidebar( 'customer-details', 1, array( 'title' => __( 'Customer Details', 'ucare' ) ) );
+    }
+
+    ucare_register_sidebar( 'attachments', 2, array( 'title' => __( 'Attachments', 'ucare' ) ) );
+
+    if ( current_user_can( 'manage_support_tickets' ) ) {
+        ucare_register_sidebar( 'ticket-properties', 3, array( 'title' => __( 'Ticket Properties', 'ucare' ) ) );
+    }
+
+
+    do_action( 'ucare_register_ticket_sidebar' );
+
+}
+
+
+/**
+ * Get the registered sidebars.
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function get_sidebars() {
+
+    return apply_filters( 'ucare_ticket_sidebar_sections', ucare()->get( 'sidebars', array() ) );
+
+}
+
+
+/**
+ * Set collapsed sidebar sections.
+ *
+ * @param $sidebars
+ *
+ * @since 1.4.2
+ * @return array
+ */
+function set_collapsed_sidebar_sections( $sidebars ) {
+
+    foreach ( $sidebars as $id => $section ) {
+        $sidebars[ $id ] = array_merge( $sidebars[ $id ], array( 'collapse' => true ) );
+    }
+
+    return $sidebars;
+
+}
 
 /**
  * Action to pull in the default eCommerce sidebar.

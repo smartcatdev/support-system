@@ -16,7 +16,7 @@ namespace ucare;
 
     </div>
 
-    <?php foreach ( get_sidebar_sections( $ticket ) as $id => $title ) : ?>
+    <?php foreach ( get_sidebars() as $id => $section ) : ?>
 
         <div class="panel panel-default <?php esc_attr_e( $id ); ?>" data-id="<?php esc_attr_e( $id ); ?>">
 
@@ -24,13 +24,14 @@ namespace ucare;
 
                 <a class="panel-title" data-toggle="collapse" href="#collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>">
 
-                    <?php esc_html_e( $title ); ?>
+                    <?php esc_html_e( $section['title'] ); ?>
 
                 </a>
 
             </div>
 
-            <div id="collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>" class="panel-collapse in">
+            <div id="collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>"
+                 class="panel-collapse collapse <?php echo $section['collapse'] ? 'collapsed' : ''; ?>">
 
                 <div class="panel-body">
 
