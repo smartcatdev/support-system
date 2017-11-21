@@ -259,8 +259,12 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
     }
 
     //<editor-fold desc="Legacy Boot">
-    do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
-    Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
+        include_once dirname( __FILE__ ) . '/includes/functions-public.php';
+        include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
+        include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
+
+        do_action( 'support_register_autoloader', include_once 'vendor/autoload.php' );
+        Plugin::boot( PLUGIN_ID, PLUGIN_VERSION, __FILE__ );
     //</editor-fold>
 
 
