@@ -1085,6 +1085,10 @@ button.close-ticket:hover {
     text-overflow: ellipsis;
 }
 
+.sidebar .ticket-properties .message {
+    margin: -16px -16px 10px -16px;
+}
+
     /* #### Comments ***********************************************************************/
 
 .comments .comment .meta p {
