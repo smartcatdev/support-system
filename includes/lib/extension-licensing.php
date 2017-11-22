@@ -528,7 +528,8 @@ if( !class_exists( 'SC_License_Manager' ) ) :
          */
         public function do_license_page() {
 
-            settings_errors( "{$this->id}_extensions" ); ?>
+            $count = 0;
+            settings_errors( "{$this->id}_extensions" );  ?>
 
             <div class="wrap <?php esc_attr_e( "{$this->id}-licenses" ); ?> license-activation-page">
 
@@ -536,13 +537,19 @@ if( !class_exists( 'SC_License_Manager' ) ) :
 
                 <form method="post" action="options.php">
 
-                    <?php foreach ( $this->extensions as $id => $extension ) : ?>
+                    <?php foreach ( $this->extensions as $id => $extension ) :
 
-                        <?php $this->do_license_field( $id, $extension ); ?>
+                        $this->do_license_field( $id, $extension );
+                        $count++;
 
-                    <?php endforeach; ?>
+                        if ( $count == 3 ) :
+                            $count = 0;
+                            echo '<div class="clear"></div>';
+                        endif;
 
-                    <?php settings_fields( "{$this->id}_extensions" ); ?>
+                    endforeach;
+
+                    settings_fields( "{$this->id}_extensions" ); ?>
 
                     <div class="clear"></div>
 
