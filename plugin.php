@@ -259,6 +259,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
     }
 
     //<editor-fold desc="Legacy Boot">
+        include_once dirname( __FILE__ ) . '/includes/functions.php';
         include_once dirname( __FILE__ ) . '/includes/functions-public.php';
         include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
         include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
@@ -275,16 +276,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      *
      * @since 1.0.0
      */
-    add_action( 'admin_notices', function () { ?>
-
-        <div class="notice notice-error is-dismissible">
-            <p>
-                <?php _e( 'Your PHP version ' . PHP_VERSION . ' does not meet minimum' .
-                          'requirements. uCare Support requires version 5.5 or higher', 'ucare' ); ?>
-            </p>
-        </div>
-
-    <?php } );
+    admin_notification( sprintf( __( 'Your PHP version %s does not meet minimum requirements. uCare Support requires version %s or higher', 'ucare' ), PHP_VERSION, MIN_PHP_VERSION ) );
 
 }
 
@@ -306,4 +298,25 @@ function resolve_path( $path = '' ) {
  */
 function resolve_url( $path = '' ) {
     return plugin_dir_url( __FILE__ ) . $path;
+}
+
+
+/**
+ * Add a message to the admin notification area.
+ *
+ * @param string $message
+ * @param string $type
+ * @param bool   $dismissible
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function admin_notification( $message, $type = 'error', $dismissible = true ) {
+
+    add_action( 'admin_notices', function () use ( $message, $type, $dismissible ) {
+
+        printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>', esc_attr( $type ), $dismissible ? 'is-dismissible' : '', $message );
+
+    } );
+
 }
