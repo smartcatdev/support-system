@@ -11,7 +11,7 @@ namespace ucare;
 
 <!-- panel-body -->
 
-    <div class="message"></div>
+    <div class="message-area"></div>
 
     <form class="ticket-status-form" method="post">
 
