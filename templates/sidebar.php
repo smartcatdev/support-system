@@ -23,7 +23,7 @@ namespace ucare;
             <div class="panel-heading">
 
                 <a data-toggle="collapse"
-                   class="panel-title <?php echo $section['collapse'] ? 'collapsed' : ''; ?>"
+                   class="panel-title <?php echo $section['collapsed'] ? 'collapsed' : ''; ?>"
                    href="#collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>">
 
                     <?php esc_html_e( $section['title'] ); ?>
@@ -33,7 +33,7 @@ namespace ucare;
             </div>
 
             <div id="collapse-<?php esc_attr_e( $id ); ?>-<?php echo $ticket->ID; ?>"
-                 class="panel-collapse collapse <?php echo $section['collapse'] ? 'collapsed' : ''; ?>">
+                 class="panel-collapse in <?php echo $section['collapsed'] ? 'collapse' : ''; ?>">
 
                 <div class="panel-body">
 

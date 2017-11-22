@@ -86,7 +86,7 @@ function get_sidebars() {
 function set_collapsed_sidebar_sections( $sidebars ) {
 
     foreach ( $sidebars as $id => $section ) {
-        $sidebars[ $id ] = array_merge( $sidebars[ $id ], array( 'collapse' => true ) );
+        $sidebars[ $id ] = array_merge( $sidebars[ $id ], array( 'collapsed' => false ) );
     }
 
     return $sidebars;
