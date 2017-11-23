@@ -130,3 +130,29 @@ function print_underscore_templates() {
     get_template( 'underscore/tmpl-ajax-loader-mask' );
 
 }
+
+
+/**
+ * Print copyright text with branding.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function print_footer_copyright() {
+
+    $text  = get_option( Options::FOOTER_TEXT );
+    $brand = apply_filters( 'ucare_footer_branding', true );
+
+    if ( $text ) {
+        echo $text . ( $brand ? ' | ' : '' );
+    }
+
+    if ( $brand ) { ?>
+
+        <a href="http://ucaresupport.com" target="_blank">
+            <?php _e( 'Powered by uCare Support', 'ucare' ); ?>
+        </a>
+
+    <?php }
+
+}

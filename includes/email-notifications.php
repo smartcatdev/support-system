@@ -55,8 +55,8 @@ add_action( 'mailer_email_headers', 'ucare\edit_email_headers' );
 
 function email_template_branding() {
 
-    if( is_sending_email() ) {
-        echo __( 'Powered by ', 'ucare' ) . '<a href="https://ucaresupport.com/support">uCare Support</a>';
+    if ( is_sending_email() ) {
+        print_footer_copyright();
     }
 
 }
