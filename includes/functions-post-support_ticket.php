@@ -78,7 +78,7 @@ function register_ticket_post_type() {
         'publicly_queryable'   => false,
         'capability_type'      => array( 'support_ticket', 'support_tickets' ),
         'feeds'                => null,
-        'map_meta_cap'         => false,
+        'map_meta_cap'         => true,
         'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes'
     );
 
