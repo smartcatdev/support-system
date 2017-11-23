@@ -7,39 +7,79 @@
  */
 namespace ucare;
 
+$draft = get_user_draft_ticket();
+
 ?>
 
 <?php get_header(); ?>
 
     <div class="container">
 
+        <h1><?php the_title(); ?></h1>
+
         <div class="row">
 
-            <form id="create-ticket-form" data-id="<?php echo absint( get_user_draft_ticket() ); ?>">
+            <form id="create-ticket-form" data-id="<?php esc_attr_e( $draft->ID ); ?>">
 
-                <div class="input-group">
+                <div class="form-group">
 
-                    <span class="input-group-addon" id="basic-addon1">
-
-                    </span>
-
-                    <input type="text" class="form-control" placeholder="<?php _e( 'Receipt #', 'ucare' ); ?>">
-
-                </div>
-
-                <div class="input-group">
-
-                    <span class="input-group-addon" id="basic-addon1">
-
-                    </span>
-
-                    <input type="text" class="form-control" name="title" placeholder="<?php _e( 'Subject', 'ucare' ); ?>">
+                    <label>
+                        <input type="checkbox"> <?php _e( 'Set ticket author', 'ucare' ); ?>
+                    </label>
 
                 </div>
 
                 <div class="form-group">
 
-                    <textarea class="form-control" name="content" placeholder="<?php _e( 'Description', 'ucare' ); ?>"></textarea>
+                    <?php render_create_ticket_users_dropdown( $draft ); ?>
+
+                </div>
+
+                <div class="form-group">
+
+                    <?php render_create_ticket_categories_dropdown( $draft ); ?>
+
+                </div>
+
+                <div class="form-group">
+
+                    <?php render_create_ticket_products_dropdown( $draft ); ?>
+
+                </div>
+
+                <div class="input-group">
+
+                    <span class="input-group-addon" id="basic-addon1">
+
+                    </span>
+
+                    <input type="text"
+                           class="form-control"
+                           name="meta[receipt_id]"
+                           placeholder="<?php _e( 'Receipt #', 'ucare' ); ?>"
+                           value="<?php esc_attr_e( get_post_meta( $draft->ID, 'receipt_id', true ) ); ?>">
+
+                </div>
+
+                <div class="input-group">
+
+                    <span class="input-group-addon" id="basic-addon1">
+
+                    </span>
+
+                    <input type="text"
+                           class="form-control"
+                           name="title"
+                           value="<?php esc_html_e( $draft->post_title ); ?>"
+                           placeholder="<?php _e( 'Subject', 'ucare' ); ?>">
+
+                </div>
+
+                <div class="form-group">
+
+                    <textarea class="form-control"
+                              placeholder="<?php _e( 'Description', 'ucare' ); ?>"
+                              name="content"><?php echo wp_kses_post( $draft->post_content ); ?></textarea>
 
                 </div>
 
@@ -56,7 +96,7 @@ namespace ucare;
 
 
                 <!-- User draft ticket ID -->
-                <input type="hidden" name="id" value="<?php echo absint( get_user_draft_ticket() ); ?>">
+                <input type="hidden" name="id" value="<?php esc_attr_e( $draft->ID ); ?>">
 
             </form>
 

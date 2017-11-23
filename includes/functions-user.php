@@ -112,14 +112,14 @@ function create_draft_ticket() {
  * Get the draft ticket for the current user.
  *
  * @since 1.5.1
- * @return int
+ * @return \WP_Post|false
  */
 function get_user_draft_ticket() {
 
     $draft = get_post( get_user_meta( get_current_user_id(), 'draft_ticket', true ) );
 
     if ( $draft && $draft->post_status == 'draft' ) {
-        return $draft->ID;
+        return $draft;
     }
 
     return false;
