@@ -1,6 +1,16 @@
 <?php
-
+/**
+ * Functions for managing WordPress users.
+ *
+ * @since 1.4.2
+ * @package ucare
+ */
 namespace ucare;
+
+
+// Create a draft ticket for a user
+add_action( 'template_redirect', 'ucare\create_draft_ticket' );
+
 
 /**
  * @param string $cap
@@ -63,5 +73,55 @@ function get_user( $user = null ) {
 
     // Make sure we have a valid support user
     return $user->has_cap( 'use_support' ) ? $user : false;
+
+}
+
+
+/**
+ * Create a post draft for the user when they navigate to the create ticket page.
+ *
+ * @action template_redirect
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function create_draft_ticket() {
+
+    if ( !get_user_draft_ticket() ) {
+
+        $user = get_current_user_id();
+
+        $data = array(
+            'post_author' => $user,
+            'post_type'   => 'support_ticket',
+            'post_status' => 'draft'
+        );
+
+        $id = wp_insert_post( $data );
+
+        if ( is_numeric( $id ) ) {
+            update_user_meta( $user, 'draft_ticket', $id );
+        }
+
+    }
+
+}
+
+
+/**
+ * Get the draft ticket for the current user.
+ *
+ * @since 1.5.1
+ * @return int
+ */
+function get_user_draft_ticket() {
+
+    $draft = get_post( get_user_meta( get_current_user_id(), 'draft_ticket', true ) );
+
+    if ( $draft && $draft->post_status == 'draft' ) {
+        return $draft->ID;
+    }
+
+    return false;
 
 }

@@ -46,7 +46,7 @@ function init_scripts( uCare $ucare ) {
  */
 function enqueue_system_scripts() {
 
-    if ( get_option( Options::TEMPLATE_PAGE_ID ) == get_the_ID() ) {
+    if ( is_a_support_page() ) {
         do_action( 'ucare_enqueue_scripts' );
     }
 
@@ -66,21 +66,32 @@ function enqueue_default_scripts() {
     // Scripts
     ucare_enqueue_script( 'jquery' );
     ucare_enqueue_script( 'wp-util' );
-    ucare_enqueue_script( 'moment',            resolve_url( 'assets/lib/moment/moment.min.js'                ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'bootstrap',         resolve_url( 'assets/lib/bootstrap/js/bootstrap.min.js'       ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'dropzone',          resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'         ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'scrolling-tabs',    resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.js'  ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'light-gallery',     resolve_url( 'assets/lib/lightGallery/js/lightgallery.min.js' ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'lg-zoom',           resolve_url( 'assets/lib/lightGallery/plugins/lg-zoom.min.js' ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'textarea-autosize', resolve_url( 'assets/lib/textarea-autosize.min.js'            ), null, PLUGIN_VERSION, true );
 
-    enqueue_app();
+    ucare_enqueue_script( 'bootstrap', resolve_url( 'assets/lib/bootstrap/js/bootstrap.min.js' ), null, PLUGIN_VERSION, true );
+    ucare_enqueue_script( 'dropzone',  resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'   ), null, PLUGIN_VERSION, true );
 
-    ucare_enqueue_script( 'ucare-plugins',  resolve_url( 'assets/js/plugins.js'  ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'ucare-settings', resolve_url( 'assets/js/settings.js' ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'ucare-settings', resolve_url( 'assets/js/settings.js' ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'ucare-tickets',  resolve_url( 'assets/js/ticket.js'   ), null, PLUGIN_VERSION, true );
-    ucare_enqueue_script( 'ucare-comments', resolve_url( 'assets/js/comment.js'  ), null, PLUGIN_VERSION, true );
+
+    // Only load these scripts in the app
+    if ( is_support_page() ) {
+        ucare_enqueue_script( 'scrolling-tabs',    resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.js'  ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'light-gallery',     resolve_url( 'assets/lib/lightGallery/js/lightgallery.min.js' ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'moment',            resolve_url( 'assets/lib/moment/moment.min.js'                ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'lg-zoom',           resolve_url( 'assets/lib/lightGallery/plugins/lg-zoom.min.js' ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'textarea-autosize', resolve_url( 'assets/lib/textarea-autosize.min.js'            ), null, PLUGIN_VERSION, true );
+
+        enqueue_app();
+
+        ucare_enqueue_script( 'ucare-plugins',  resolve_url( 'assets/js/plugins.js'  ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-settings', resolve_url( 'assets/js/settings.js' ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-settings', resolve_url( 'assets/js/settings.js' ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-tickets',  resolve_url( 'assets/js/ticket.js'   ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-comments', resolve_url( 'assets/js/comment.js'  ), null, PLUGIN_VERSION, true );
+    }
+
+    // Load create ticket page scripts
+    if ( is_create_ticket_page() ) {
+        enqueue_create_ticket();
+    }
 
 }
 
@@ -114,6 +125,34 @@ function enqueue_app() {
     ucare_localize_script( 'ucare-app', 'Globals', $i10n );
 
     ucare_enqueue_script( 'ucare-app' );
+
+}
+
+
+/**
+ * Localize and enqueue create ticket script.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function enqueue_create_ticket() {
+
+    $i10n = array(
+        'api' => array(
+            'nonce'     => wp_create_nonce( 'wp_rest' ),
+            'endpoints' => array(
+                'tickets' => rest_url( 'wp/v2/support-tickets' )
+            )
+        ),
+        'dropzone' => array(
+            'max_attachment_size' => get_option( Options::MAX_ATTACHMENT_SIZE )
+        )
+    );
+
+    ucare_register_script( 'ucare-create-ticket', resolve_url( 'assets/js/create-ticket.js' ), null, PLUGIN_VERSION, true );
+    ucare_localize_script( 'ucare-create-ticket', 'createTicket', $i10n );
+
+    ucare_enqueue_script( 'ucare-create-ticket' );
 
 }
 

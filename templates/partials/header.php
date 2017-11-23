@@ -25,7 +25,7 @@ namespace ucare;
         <?php get_template( 'dynamic-styles' ); ?>
         <?php get_template( 'dynamic-scripts' ); ?>
 
-        <?php do_action( 'ucare_head' ); ?>
+        <?php do_action( 'ucare_head', $args ); ?>
 
     </head>
 

@@ -32,7 +32,7 @@ namespace ucare;
 
         <?php print_footer_scripts() ?>
 
-        <?php do_action( 'ucare_footer' ); ?>
+        <?php do_action( 'ucare_footer', $args ); ?>
 
     </body><!-- End body -->
 

@@ -4,7 +4,7 @@ namespace ucare;
 
 ?>
 
-<?php get_template( 'header' ); ?>
+<?php get_header(); ?>
 
 <?php if( is_user_logged_in() && current_user_can( 'use_support' ) ) : ?>
 
@@ -32,4 +32,4 @@ namespace ucare;
 
 <?php endif; ?>
 
-<?php get_template( 'footer.php' ); ?>
+<?php get_footer(); ?>

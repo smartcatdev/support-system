@@ -14,7 +14,10 @@ add_action( 'login_form_bottom', 'ucare\add_support_login_field', 10, 2 );
 
 add_action( 'login_form_bottom', 'ucare\add_login_registration_button', 10, 2 );
 
-add_filter( 'template_include', 'ucare\include_support_template' );
+// Redirect unauthorized users back to the login
+add_action( 'template_redirect', 'ucare\maybe_do_auth_redirect' );
+
+add_filter( 'template_include', 'ucare\include_page_template' );
 
 
 function register_menu_locations() {
@@ -27,13 +30,44 @@ function register_menu_locations() {
 }
 
 
-function include_support_template( $template ) {
+/**
+ * Include a custom page template.
+ *
+ * @param $template
+ *
+ * @since 1.0.0
+ * @return string
+ */
+function include_page_template( $template ) {
 
-    if( get_the_ID() == get_option( Options::TEMPLATE_PAGE_ID ) ) {
+    $id = get_the_ID();
+
+    if( $id == get_option( Options::TEMPLATE_PAGE_ID ) ) {
         $template = get_template( 'app', null, false );
+    } else if ( $id == get_option( Options::CREATE_TICKET_PAGE_ID ) ) {
+        $template = get_template( 'create-ticket', null, false );
     }
 
     return $template;
+
+}
+
+
+/**
+ * Redirect the user if they are logged out or unauthorized.
+ *
+ * @action template_redirect
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function maybe_do_auth_redirect() {
+
+    // TODO separate login/registration page
+    if ( is_create_ticket_page() && ( !is_user_logged_in() || !current_user_can( 'use_support' ) ) ) {
+        wp_safe_redirect( get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ) );
+    }
+
 }
 
 
@@ -128,5 +162,100 @@ function print_underscore_templates() {
     get_template( 'underscore/tmpl-confirm-modal' );
     get_template( 'underscore/tmpl-notice-inline' );
     get_template( 'underscore/tmpl-ajax-loader-mask' );
+
+}
+
+/**
+ * Check to see if a page belongs to the support system.
+ *
+ * @param mixed $page
+ *
+ * @since 1.5.1
+ * @return bool
+ */
+function is_a_support_page( $page = null ) {
+
+    $page = get_post( $page );
+
+    if ( $page ) {
+
+        return $page->ID == get_option( Options::CREATE_TICKET_PAGE_ID ) ||
+               $page->ID == get_option( Options::TEMPLATE_PAGE_ID );
+
+    }
+
+    return false;
+
+}
+
+
+/**
+ * Check to see if the current page is the create ticket page.
+ *
+ * @param null $page
+ *
+ * @since 1.5.1
+ * @return bool
+ */
+function is_create_ticket_page( $page = null ) {
+
+    $page = get_post( $page );
+
+    if ( $page ) {
+        return $page->ID == get_option( Options::CREATE_TICKET_PAGE_ID );
+    }
+
+    return false;
+
+}
+
+
+/**
+ * Check to see if the current page is the support page.
+ *
+ * @param null $page
+ *
+ * @since 1.5.1
+ * @return bool
+ */
+function is_support_page( $page = null ) {
+
+    $page = get_post( $page );
+
+    if ( $page ) {
+        return $page->ID == get_option( Options::TEMPLATE_PAGE_ID );
+    }
+
+    return false;
+
+}
+
+/**
+ * Get the support system header.
+ *
+ * @param array $args
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function get_header( $args = array() ) {
+
+    get_template( 'header', $args );
+
+}
+
+
+
+/**
+ * Get the support system footer.
+ *
+ * @param array $args
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function get_footer( $args = array() ) {
+
+    get_template( 'footer', $args );
 
 }

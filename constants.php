@@ -3,7 +3,8 @@
 namespace ucare;
 
 const PLUGIN_ID = 'smartcat_support';
-const PLUGIN_VERSION = '1.4.2';
+
+const PLUGIN_VERSION = '1.5.1';
 
 const MIN_PHP_VERSION = '5.5';
 
@@ -340,6 +341,11 @@ final class Options {
      * @since 1.4.1
      */
     const SHOW_CLOCK = 'smartcat_support_show_clock';
+
+    /**
+     * @since 1.5.1
+     */
+    const CREATE_TICKET_PAGE_ID = 'smartcat_support_create_ticket_page_id';
 
 }
 

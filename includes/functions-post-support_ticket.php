@@ -78,8 +78,10 @@ function register_ticket_post_type() {
         'publicly_queryable'   => false,
         'capability_type'      => array( 'support_ticket', 'support_tickets' ),
         'feeds'                => null,
-        'map_meta_cap'         => false,
-        'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes'
+        'map_meta_cap'         => true,
+        'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes',
+        'show_in_rest'         => true,
+        'rest_base'            => 'support-tickets'
     );
 
     register_post_type( 'support_ticket', $args );
@@ -371,7 +373,8 @@ function ticket_properties_updated( $null, $id, $key, $value ) {
 function set_default_ticket_meta( $post_id, $post, $update ) {
 
     $defaults = array(
-        'priority' => 0
+        'priority' => 0,
+        'status'   => 'new'
     );
 
     if( !$update ) {
