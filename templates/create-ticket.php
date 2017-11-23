@@ -88,7 +88,7 @@ $draft = get_user_draft_ticket();
                 </div>
 
                 <!-- User draft ticket -->
-                <input type="hidden" name="status" value="publish">
+                <input type="hidden" name="status" value="draft">
 
             </form>
 

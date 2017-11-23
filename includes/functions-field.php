@@ -319,9 +319,9 @@ function render_create_ticket_categories_dropdown( \WP_Post $ticket ) {
     $value = wp_get_post_terms( $ticket->ID, 'ticket_category' );
 
     $field = array(
-        'value'      => current( $value )->term_id,
+        'value'      => !empty( $value ) ? current( $value )->term_id : '',
         'attributes' => array(
-            'name'  => 'categories[]',
+            'name'  => 'category',
             'class' => 'form-control'
         ),
         'config' => array(
