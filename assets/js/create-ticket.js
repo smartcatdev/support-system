@@ -33,10 +33,10 @@
             /**
              * @summary Auto draft the post after editing.
              */
-            $form.find(':input').on('change paste', _.debounce(function () {
+            $form.find(':input').on('change paste keyup', _.debounce(function () {
                 module.clear_errors();
                 module.save('draft');
-            }, 400));
+            }, 1000));
 
             $('#set-author').change(module.toggle_author_select);
 
@@ -51,7 +51,8 @@
          */
         toggle_author_select: function () {
             $('#author-select').slideToggle();
-            $('[name="author"]').prop('disabled', !$(this).is(':checked'));
+            $('#assign-author').prop('disabled', !$(this).is(':checked'));
+            $('#current-user').prop('disabled',   $(this).is(':checked'));
         },
 
 
@@ -121,7 +122,7 @@
                     if (status === 'publish' && xhr.responseJSON) {
 
                         const field  = xhr.responseJSON.data.field,
-                            $field = $('[name="' + field  +'"]');
+                              $field = $('[name="' + field  +'"]');
 
                         $field.addClass('has-error');
                         $field.parent().append('<p class="error-message">' + xhr.responseJSON.message + '</p>');

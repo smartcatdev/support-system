@@ -9,7 +9,7 @@ namespace ucare;
 
 
 // Create a draft ticket for a user
-add_action( 'template_redirect', 'ucare\create_draft_ticket' );
+add_action( 'template_redirect', 'ucare\create_user_draft_ticket' );
 
 
 /**
@@ -28,6 +28,50 @@ function get_users_with_cap( $cap = 'use_support', $args = array() ) {
         return $user->has_cap( $cap );
 
     } );
+
+}
+
+
+/**
+ * Get a WordPress user, defaults to the current logged in user.
+ *
+ * @param mixed  $user
+ * @param string $by
+ *
+ * @since 1.5.1
+ * @return mixed
+ */
+function get_user_by_field( $user = null, $by = 'id' ) {
+
+    if ( !$user ) {
+        $user = wp_get_current_user();
+    } else {
+        $user = get_user_by( $by, $user );
+    }
+
+    return $user;
+
+}
+
+
+/**
+ * Check to see if a user has a capability.
+ *
+ * @param string $cap
+ * @param int|null  $user_id
+ *
+ * @since 1.5.1
+ * @return boolean
+ */
+function user_has_cap( $cap, $user_id = null ) {
+
+    $user = get_user_by_field( $user_id );
+
+    if ( $user ) {
+        return $user->has_cap( $cap );
+    }
+
+    return false;
 
 }
 
@@ -85,7 +129,7 @@ function get_user( $user = null ) {
  * @since 1.5.1
  * @return void
  */
-function create_draft_ticket() {
+function create_user_draft_ticket() {
 
     if ( !get_user_draft_ticket() ) {
 

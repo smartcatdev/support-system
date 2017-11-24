@@ -63,7 +63,7 @@ function register_ticket_post_type() {
         'label'                => __( 'Support Ticket', 'ucare' ),
         'description'          => __( 'Tickets for support requests', 'ucare' ),
         'labels'               => $labels,
-        'supports'             => array( 'editor', 'comments', 'title', 'author' ),
+        'supports'             => array( 'editor', 'comments', 'title' ),
         'hierarchical'         => false,
         'public'               => false,
         'show_ui'              => true,
@@ -83,6 +83,10 @@ function register_ticket_post_type() {
         'show_in_rest'         => true,
         'rest_base'            => 'support-tickets'
     );
+
+    if ( ucare_is_support_agent() ) {
+        array_push( $args['supports'], 'author' );
+    }
 
     register_post_type( 'support_ticket', $args );
 

@@ -21,74 +21,104 @@ $draft = get_user_draft_ticket();
 
             <form id="create-ticket-form" data-id="<?php esc_attr_e( $draft->ID ); ?>">
 
-                <div class="form-group">
+                <?php if ( get_option( Options::CATEGORIES_ENABLED ) ) : ?>
 
-                    <label>
-                        <input type="checkbox" id="set-author"> <?php _e( 'Set ticket author', 'ucare' ); ?>
-                    </label>
+                    <div class="form-group">
 
-                </div>
+                        <label for="category"><?php _e( 'Category', 'ucare' ); ?></label>
 
-                <?php if ( current_user_can( 'manage_support_tickets' ) ) : ?>
-
-                    <div id="author-select"
-                         class="form-group"
-
-                    <?php echo $draft->post_author == get_current_user_id() ? 'style="display: none"' : ''; ?>>
-
-                        <?php render_create_ticket_users_dropdown( $draft ); ?>
+                        <?php render_create_ticket_categories_dropdown( $draft ); ?>
 
                     </div>
+
+                    <hr>
+
+                <?php endif; ?>
+
+                <?php if ( ucare_is_ecommerce_enabled() ) : $mode = ucare_ecommerce_mode(); ?>
+
+                    <?php if ( !empty( $mode ) && $mode !== 'default' ) : ?>
+
+                        <div class="form-group">
+
+                            <label for="product"><?php _e( 'Product', 'ucare' ); ?></label>
+
+                            <?php render_create_ticket_products_dropdown( $draft ); ?>
+
+                        </div>
+
+                    <?php endif; ?>
+
+                    <div class="form-group">
+
+                        <label for="receipt_id"><?php _e( 'Receipt #', 'ucare' ); ?></label>
+
+                        <input type="text"
+                               id="receipt_id"
+                               class="form-control"
+                               name="meta[receipt_id]"
+                               value="<?php esc_attr_e( get_post_meta( $draft->ID, 'receipt_id', true ) ); ?>" />
+
+                    </div>
+
+                    <hr>
 
                 <?php endif; ?>
 
                 <div class="form-group">
 
-                    <?php render_create_ticket_categories_dropdown( $draft ); ?>
+                    <label for="subject"><?php _e( 'Subject', 'ucare' ); ?></label>
 
-                </div>
-
-                <div class="form-group">
-
-                    <?php render_create_ticket_products_dropdown( $draft ); ?>
-
-                </div>
-
-                <div class="input-group">
-
-                    <span class="input-group-addon" id="basic-addon1">
-
-                    </span>
-
-                    <input type="text"
-                           class="form-control"
-                           name="meta[receipt_id]"
-                           placeholder="<?php _e( 'Receipt #', 'ucare' ); ?>"
-                           value="<?php esc_attr_e( get_post_meta( $draft->ID, 'receipt_id', true ) ); ?>">
-
-                </div>
-
-                <div class="input-group">
-
-                    <span class="input-group-addon" id="basic-addon1">
-
-                    </span>
-
-                    <input type="text"
+                    <input id="subject"
+                           type="text"
                            class="form-control"
                            name="title"
-                           value="<?php esc_html_e( $draft->post_title ); ?>"
-                           placeholder="<?php _e( 'Subject', 'ucare' ); ?>">
+                           value="<?php esc_html_e( $draft->post_title ); ?>" />
 
                 </div>
 
                 <div class="form-group">
 
-                    <textarea class="form-control"
-                              placeholder="<?php _e( 'Description', 'ucare' ); ?>"
+                    <label for="description"><?php _e( 'Description', 'ucare' ); ?></label>
+
+                    <textarea id="description"
+                              rows="6"
+                              class="form-control"
                               name="content"><?php echo wp_kses_post( $draft->post_content ); ?></textarea>
 
                 </div>
+
+                <?php if ( ucare_is_support_agent() ) : ?>
+
+                    <div class="form-group">
+
+                        <label>
+                            <input type="checkbox" id="set-author"
+                                <?php checked( true, (int) $draft->post_author !== get_current_user_id() ); ?>>
+
+                            <?php _e( 'Set ticket author', 'ucare' ); ?>
+
+                        </label>
+
+                    </div>
+
+                    <div id="author-select"
+                         class="form-group"
+                        <?php echo $draft->post_author == get_current_user_id() ? 'style="display: none"' : ''; ?>>
+
+                        <?php render_create_ticket_users_dropdown( $draft ); ?>
+
+                    </div>
+
+                    <input id="current-user"
+                           type="hidden"
+                           name="author"
+                           value="<?php esc_attr_e( get_current_user_id() ); ?>"
+                        <?php disabled( true, $draft->post_author == get_current_user_id() ); ?>>
+
+                <?php endif; ?>
+
+                <hr>
 
                 <div class="form-group text-right">
                     <button class="button button-default"><?php _e( 'Create Ticket', 'ucare' ); ?></button>

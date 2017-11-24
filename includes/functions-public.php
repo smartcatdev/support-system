@@ -97,6 +97,24 @@ function ucare_is_ecommerce_enabled() {
 }
 
 
+/**
+ * Get the current eCommerce mode.
+ *
+ * @since 1.5.1
+ * @return bool|string
+ */
+function ucare_ecommerce_mode() {
+
+    if ( defined( 'UCARE_ECOMMERCE_MODE' ) ) {
+        return UCARE_ECOMMERCE_MODE;
+    }
+
+    return false;
+
+}
+
+
+
 /***********************************************************************************************************************
  *
  * Functions for managing assets in the front-end application.
@@ -309,5 +327,58 @@ function ucare_register_sidebar( $id, $position, array $section ) {
 
         \ucare\ucare()->set( 'sidebars', array_merge( $top, $new, $sidebars ) );
     }
+
+}
+
+
+/***********************************************************************************************************************
+ * General user functions
+ *
+ * @since 1.5.1
+ * @scope global
+ */
+
+
+/**
+ * Check to see if a user can use support. Defaults to the current user or takes the user ID>
+ *
+ * @param null|int $user_id
+ *
+ * @since 1.5.1
+ * @return boolean
+ */
+function ucare_is_support_user( $user_id = null ) {
+
+    return \ucare\user_has_cap( 'use_support', $user_id );
+
+}
+
+
+/**
+ * Check to see if a user can manage support tickets. Defaults to the current user or takes the user ID>
+ *
+ * @param null|int $user_id
+ *
+ * @since 1.5.1
+ * @return boolean
+ */
+function ucare_is_support_agent( $user_id = null ) {
+
+    return \ucare\user_has_cap( 'manage_support_tickets', $user_id );
+
+}
+
+
+/**
+ * Check to see if a user can administer support. Defaults to the current user or takes the user ID>
+ *
+ * @param null|int $user_id
+ *
+ * @since 1.5.1
+ * @return boolean
+ */
+function ucare_is_support_admin( $user_id = null ) {
+
+    return \ucare\user_has_cap( 'manage_support', $user_id );
 
 }

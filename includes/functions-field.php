@@ -283,6 +283,7 @@ function render_create_ticket_users_dropdown( \WP_Post $ticket ) {
     $field = array(
         'value'      => $ticket->post_author,
         'attributes' => array(
+            'id'    => 'assign-author',
             'name'  => 'author',
             'class' => 'form-control'
         ),
@@ -321,6 +322,7 @@ function render_create_ticket_categories_dropdown( \WP_Post $ticket ) {
     $field = array(
         'value'      => !empty( $value ) ? current( $value )->term_id : '',
         'attributes' => array(
+            'id'    => 'category',
             'name'  => 'category',
             'class' => 'form-control'
         ),
@@ -353,11 +355,7 @@ function render_create_ticket_products_dropdown( \WP_Post $ticket ) {
         )
     );
 
-    if ( UCARE_ECOMMERCE_MODE === 'woo' ) {
-        $type = 'product';
-    } else if ( UCARE_ECOMMERCE_MODE === 'edd' ) {
-        $type = 'download';
-    }
+    $type = get_product_post_type();
 
     $options = array_merge( $options, map_posts_to_select_options( $type ) );
     $value   = get_post_meta( $ticket->ID, 'product', true );
@@ -365,6 +363,7 @@ function render_create_ticket_products_dropdown( \WP_Post $ticket ) {
     $field = array(
         'value'      => $value,
         'attributes' => array(
+            'id'    => 'product',
             'name'  => 'meta[product]',
             'class' => 'form-control'
         ),
