@@ -138,6 +138,9 @@ function enqueue_app() {
 function enqueue_create_ticket() {
 
     $i10n = array(
+        'redirect' => array(
+            'support_page' => support_page_url()
+        ),
         'api' => array(
             'nonce'     => wp_create_nonce( 'wp_rest' ),
             'endpoints' => array(

@@ -24,16 +24,23 @@ $draft = get_user_draft_ticket();
                 <div class="form-group">
 
                     <label>
-                        <input type="checkbox"> <?php _e( 'Set ticket author', 'ucare' ); ?>
+                        <input type="checkbox" id="set-author"> <?php _e( 'Set ticket author', 'ucare' ); ?>
                     </label>
 
                 </div>
 
-                <div class="form-group">
+                <?php if ( current_user_can( 'manage_support_tickets' ) ) : ?>
 
-                    <?php render_create_ticket_users_dropdown( $draft ); ?>
+                    <div id="author-select"
+                         class="form-group"
 
-                </div>
+                    <?php echo $draft->post_author == get_current_user_id() ? 'style="display: none"' : ''; ?>>
+
+                        <?php render_create_ticket_users_dropdown( $draft ); ?>
+
+                    </div>
+
+                <?php endif; ?>
 
                 <div class="form-group">
 
@@ -86,9 +93,6 @@ $draft = get_user_draft_ticket();
                 <div class="form-group text-right">
                     <button class="button button-default"><?php _e( 'Create Ticket', 'ucare' ); ?></button>
                 </div>
-
-                <!-- User draft ticket -->
-                <input type="hidden" name="status" value="draft">
 
             </form>
 

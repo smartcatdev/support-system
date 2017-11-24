@@ -63,7 +63,7 @@ function register_ticket_post_type() {
         'label'                => __( 'Support Ticket', 'ucare' ),
         'description'          => __( 'Tickets for support requests', 'ucare' ),
         'labels'               => $labels,
-        'supports'             => array( 'editor', 'comments', 'title' ),
+        'supports'             => array( 'editor', 'comments', 'title', 'author' ),
         'hierarchical'         => false,
         'public'               => false,
         'show_ui'              => true,
