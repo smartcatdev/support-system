@@ -340,7 +340,7 @@ function ucare_register_sidebar( $id, $position, array $section ) {
 
 
 /**
- * Check to see if a user can use support. Defaults to the current user or takes the user ID>
+ * Check to see if a user can use support. Defaults to the current user or takes the user ID.
  *
  * @param null|int $user_id
  *
@@ -355,7 +355,7 @@ function ucare_is_support_user( $user_id = null ) {
 
 
 /**
- * Check to see if a user can manage support tickets. Defaults to the current user or takes the user ID>
+ * Check to see if a user can manage support tickets. Defaults to the current user or takes the user ID.
  *
  * @param null|int $user_id
  *
@@ -370,7 +370,7 @@ function ucare_is_support_agent( $user_id = null ) {
 
 
 /**
- * Check to see if a user can administer support. Defaults to the current user or takes the user ID>
+ * Check to see if a user can administer support. Defaults to the current user or takes the user ID.
  *
  * @param null|int $user_id
  *

@@ -7,9 +7,14 @@
 (function ($, createTicket) {
     "use strict";
 
-    const $form = $('#create-ticket-form');
+    const $form = $('#create-ticket-form'),
 
-    const module = {
+        /**
+         * Module for handling ticket creation and auto-drafting.
+         *
+         * @since 1.5.1
+         */
+        module = {
 
         saving_in_progress: false,
 
@@ -38,10 +43,43 @@
                 module.save('draft');
             }, 1000));
 
+
+            /**
+             * @summary Toggle author select if user decides to override.
+             */
             $('#set-author').change(module.toggle_author_select);
+
+
+            /**
+             * @summary Set the max filesize for dropzone.js
+             */
+            Dropzone.prototype.defaultOptions.maxFilesize = createTicket.dropzone.max_attachment_size;
+
+            /**
+             * Disable dropzone auto discovery
+             */
+            Dropzone.options.ticketMedia = false;
+
+            /**
+             * @summary Initialize the dropzone
+             */
+            $('#ticket-media').dropzone({
+                addRemoveLinks: true,
+                url: createTicket.api.endpoints.media,
+                headers: {
+                    'X-WP-Nonce': createTicket.api.nonce
+                }
+            });
 
         },
 
+        add_media: function () {
+
+        },
+
+        remove_media: function () {
+
+        },
 
         /**
          * @summary Toggle the author selection.

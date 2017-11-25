@@ -21,6 +21,8 @@ add_filter( 'rest_pre_insert_support_ticket', 'ucare\rest_validate_support_ticke
  * @param \WP_Post         $post
  * @param \WP_REST_Request $request
  *
+ * @action rest_insert_support_ticket
+ *
  * @since 1.5.1
  * @return void
  */
@@ -43,10 +45,14 @@ function rest_create_support_ticket( \WP_Post $post, \WP_REST_Request $request )
 
     // Set the category
     $category = $request->get_param( 'category' );
-    $cat_term = get_term( absint( $category ), 'ticket_category' );
 
-    if ( $cat_term ) {
-        wp_set_post_terms( $post->ID, (array) $cat_term->slug, 'ticket_category' );
+    if ( $category ) {
+        $cat_term = get_term( absint( $category ), 'ticket_category' );
+
+        if ( $cat_term ) {
+            wp_set_post_terms( $post->ID, (array) $cat_term->slug, 'ticket_category' );
+        }
+
     }
 
 // TODO Fix mailer error
@@ -60,6 +66,8 @@ function rest_create_support_ticket( \WP_Post $post, \WP_REST_Request $request )
  * Validate required fields.
  *
  * @param $post
+ *
+ * @filter rest_pre_insert_support_ticket
  *
  * @since 1.5.1
  * @return \WP_Post|\WP_Error

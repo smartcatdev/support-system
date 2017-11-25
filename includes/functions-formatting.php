@@ -92,3 +92,14 @@ function ticket_status( $ticket, $default = 'N/A', $echo = true ) {
     return $_status;
 
 }
+
+
+/**
+ * Join pieces of a string together.
+ *
+ * @since 1.5.1
+ * @return string
+ */
+function strcat() {
+    return join( '', func_get_args() );
+}

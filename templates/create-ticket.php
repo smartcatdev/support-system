@@ -126,11 +126,13 @@ $draft = get_user_draft_ticket();
 
             </form>
 
-            <form id="dropzone">
+            <form id="ticket-media" class="dropzone" method="post" enctype="multipart/form-data">
 
 
                 <!-- User draft ticket ID -->
-                <input type="hidden" name="id" value="<?php esc_attr_e( $draft->ID ); ?>">
+                <input type="hidden" name="post" value="<?php esc_attr_e( $draft->ID ); ?>">
+
+                <input type="hidden" name="support_ticket_media" value="true">
 
             </form>
 

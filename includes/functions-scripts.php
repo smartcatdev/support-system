@@ -144,7 +144,8 @@ function enqueue_create_ticket() {
         'api' => array(
             'nonce'     => wp_create_nonce( 'wp_rest' ),
             'endpoints' => array(
-                'tickets' => rest_url( 'wp/v2/support-tickets' )
+                'tickets' => rest_url( 'wp/v2/support-tickets' ),
+                'media'   => rest_url( 'wp/v2/media' )
             )
         ),
         'dropzone' => array(
