@@ -69,7 +69,7 @@
                 headers: {
                     'X-WP-Nonce': createTicket.api.nonce
                 },
-                url: createTicket.api.endpoints.media,
+                url: createTicket.api.endpoints.media
             });
 
         },
@@ -123,6 +123,13 @@
              */
             dropzone.on("removedfile", function(file) {
                 module.delete_attachment(file.id)
+            });
+
+            /**
+             * @summary Append attachment title in xhr
+             */
+            dropzone.on('sending', function(file, xhr, form){
+                form.append('title', file.name);
             });
 
         },

@@ -25,7 +25,8 @@ function enqueue_default_styles() {
     ucare_enqueue_style( 'bootstrap',   resolve_url( 'assets/lib/bootstrap/css/bootstrap.min.css' ), null, PLUGIN_VERSION );
     ucare_enqueue_style( 'dropzone',    resolve_url( 'assets/lib/dropzone/css/dropzone.min.css'   ), null, PLUGIN_VERSION );
 
-    ucare_enqueue_style( 'ucare-style', resolve_url( 'assets/css/style.css' ), null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'ucare-dropzone', resolve_url( 'assets/css/dropzone.css' ), null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'ucare-style',    resolve_url( 'assets/css/style.css'    ), null, PLUGIN_VERSION );
 
     // Only load these styles in the app
     if ( is_support_page() ) {
