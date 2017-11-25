@@ -61,24 +61,59 @@
             Dropzone.options.ticketMedia = false;
 
             /**
-             * @summary Initialize the dropzone
+             * @summary Initialize the upload form
              */
             $('#ticket-media').dropzone({
+                init: module.dropzone_init,
                 addRemoveLinks: true,
-                url: createTicket.api.endpoints.media,
                 headers: {
                     'X-WP-Nonce': createTicket.api.nonce
-                }
+                },
+                url: createTicket.api.endpoints.media,
             });
 
         },
 
-        add_media: function () {
+        /**
+         * @summary initialize the dropzone instance
+         *
+         * @since 1.5.1
+         * @return void
+         */
+        dropzone_init: function () {
+
+            /**
+             * @summary Save the attachment ID on success.
+             */
+            this.on('success', function (file, res) {
+                file.id = res.id;
+            });
+
+            /**
+             * @summary Remove the file from the server when removed from the dropzone.
+             */
+            this.on("removedfile", function(file) {
+                module.delete_attachment(file.id)
+            });
 
         },
 
-        remove_media: function () {
-
+        /**
+         * @summary Delete an attachment from a ticket.
+         *
+         * @param {int} id
+         *
+         * @since 1.5.1
+         * @return void
+         */
+        delete_attachment: function (id) {console.log(id)
+            $.ajax({
+                url: createTicket.api.endpoints.media + '/' + id + '?force=true',
+                method: 'delete',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', createTicket.api.nonce);
+                },
+            })
         },
 
         /**
