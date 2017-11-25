@@ -8,6 +8,7 @@
     "use strict";
 
     const $form = $('#create-ticket-form'),
+          $dropzone = $('#ticket-media'),
 
         /**
          * Module for handling ticket creation and auto-drafting.
@@ -63,7 +64,7 @@
             /**
              * @summary Initialize the upload form
              */
-            $('#ticket-media').dropzone({
+            $dropzone.dropzone({
                 init: module.dropzone_init,
                 addRemoveLinks: true,
                 headers: {
@@ -81,18 +82,47 @@
          * @return void
          */
         dropzone_init: function () {
+            const dropzone  = this,
+                  ticket_id = $dropzone.find('[name="post"]').val();
+
+            $.ajax({
+                url: createTicket.api.endpoints.media + '?order=asc&parent=' + ticket_id,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', createTicket.api.nonce);
+                },
+                success: function (res) {
+
+                    if (res.length > 0) {
+                        res.forEach(function (media) {
+
+                            // Clone the result and append the file name
+                            const file = Object.assign({ name: media.title.rendered }, media);
+
+                            // Add the file to the dropzone
+                            dropzone.emit('addedfile', file);
+
+                            // Set the media thumbnail
+                            if (file.media_type === 'image') {
+                                dropzone.emit('thumbnail', file, file.media_details.sizes.thumbnail.source_url);
+                            }
+
+                        });
+                    }
+
+                }
+            });
 
             /**
              * @summary Save the attachment ID on success.
              */
-            this.on('success', function (file, res) {
+            dropzone.on('success', function (file, res) {
                 file.id = res.id;
             });
 
             /**
              * @summary Remove the file from the server when removed from the dropzone.
              */
-            this.on("removedfile", function(file) {
+            dropzone.on("removedfile", function(file) {
                 module.delete_attachment(file.id)
             });
 
@@ -106,13 +136,13 @@
          * @since 1.5.1
          * @return void
          */
-        delete_attachment: function (id) {console.log(id)
+        delete_attachment: function (id) {
             $.ajax({
                 url: createTicket.api.endpoints.media + '/' + id + '?force=true',
                 method: 'delete',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', createTicket.api.nonce);
-                },
+                }
             })
         },
 
