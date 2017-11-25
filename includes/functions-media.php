@@ -14,7 +14,10 @@ add_action( 'init', 'ucare\maybe_override_media_dir' );
 // Filter the media directory
 add_filter( 'upload_dir', 'ucare\filter_media_dir' );
 
-// Generate a UUID for the attachment filename
+// Validate the mime type of an attachment
+add_filter( 'wp_handle_upload_prefilter', 'ucare\check_attachment_mime_type' );
+
+// Set attachment error handler
 add_filter( 'wp_handle_upload_prefilter', 'ucare\generate_attachment_uuid' );
 
 
@@ -66,6 +69,26 @@ function filter_media_dir( $uploads ) {
     }
 
     return $uploads;
+
+}
+
+/**
+ * Validate the mime type of an attachment.
+ *
+ * @param $file
+ *
+ * @filter wp_handle_upload_prefilter
+ *
+ * @since 1.5.1
+ * @return array
+ */
+function check_attachment_mime_type( $file ) {
+
+    if ( defined( 'UCARE_MEDIA_BASEDIR' ) && !in_array( $file['type'], allowed_mime_types() ) ) {
+        $file['error'] = __( 'Invalid file format', 'ucare' );
+    }
+
+    return $file;
 
 }
 
