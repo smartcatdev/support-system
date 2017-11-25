@@ -118,16 +118,15 @@ $draft = get_user_draft_ticket();
 
                 <?php endif; ?>
 
-                <hr>
-
-                <div class="form-group text-right">
-                    <button class="button button-default"><?php _e( 'Create Ticket', 'ucare' ); ?></button>
-                </div>
-
             </form>
 
-            <form id="ticket-media" class="dropzone" method="post" enctype="multipart/form-data">
+            <!-- Start Dropzone -->
 
+            <div>
+                <label><?php _e( 'Attach Files', 'ucare' ); ?></label>
+            </div>
+
+            <form id="ticket-media" class="dropzone" method="post" enctype="multipart/form-data">
 
                 <!-- User draft ticket ID -->
                 <input type="hidden" name="post" value="<?php esc_attr_e( $draft->ID ); ?>">
@@ -135,6 +134,14 @@ $draft = get_user_draft_ticket();
                 <input type="hidden" name="support_ticket_media" value="true">
 
             </form>
+
+            <!-- End Dropzone -->
+
+            <hr>
+
+            <div class="form-group text-right">
+                <button id="submit" class="button button-default"><?php _e( 'Create Ticket', 'ucare' ); ?></button>
+            </div>
 
         </div>
 

@@ -29,8 +29,7 @@
             /**
              * @summary Manual form submission.
              */
-            $form.submit(function (e) {
-                e.preventDefault();
+            $('#submit').click(function () {
                 module.clear_errors();
                 module.save('publish');
             });
