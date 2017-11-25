@@ -13,6 +13,8 @@ $draft = get_user_draft_ticket();
 
 <?php get_header(); ?>
 
+    <?php get_template( 'navbar' ); ?>
+
     <div class="container">
 
         <h1><?php the_title(); ?></h1>
