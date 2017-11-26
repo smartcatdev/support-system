@@ -60,12 +60,13 @@ function rest_filter_attachment_query( $args ) {
 
     if ( !ucare_is_support_agent() ) {
 
+        // Filter tickets only to those the user has created
         $sql = "SELECT ID 
                 FROM $wpdb->posts 
                 WHERE post_type = 'support_ticket' 
-                  AND post_author = %d";
+                  AND post_author != %d";
 
-        $args['post_parent__in'] = $wpdb->get_col( $wpdb->prepare( $sql, get_current_user_id() ) );
+        $args['post_parent__not_in'] = $wpdb->get_col( $wpdb->prepare( $sql, get_current_user_id() ) );
 
     }
 
