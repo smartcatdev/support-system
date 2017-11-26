@@ -74,25 +74,23 @@ function add_role_capabilities() {
          */
         $role->add_cap( 'publish_support_tickets' );
 
-        $role->add_cap( 'edit_support_ticket' );
         $role->add_cap( 'edit_support_tickets' );
-        $role->add_cap( 'edit_others_ticket_notes' );
-        $role->add_cap( 'edit_private_ticket_notes' );
-        $role->add_cap( 'edit_published_ticket_notes' );
+        $role->add_cap( 'edit_others_support_tickets' );
+        $role->add_cap( 'edit_private_support_tickets' );
+        $role->add_cap( 'edit_published_support_tickets' );
 
-        $role->add_cap( 'delete_support_ticket' );
         $role->add_cap( 'delete_support_tickets' );
         $role->add_cap( 'delete_others_support_tickets' );
         $role->add_cap( 'delete_private_support_tickets' );
         $role->add_cap( 'delete_published_support_tickets' );
 
-        $role->add_cap( 'read_support_ticket' );
         $role->add_cap( 'read_private_support_tickets' );
 
         /**
          *
          * Administrator already has full control over media and comments
          */
+
     }
 
 
@@ -115,21 +113,25 @@ function add_role_capabilities() {
          */
         $role->add_cap( 'publish_support_tickets' );
 
-        $role->add_cap( 'edit_support_ticket' );
         $role->add_cap( 'edit_support_tickets' );
-        $role->add_cap( 'edit_others_ticket_notes' );
-        $role->add_cap( 'edit_private_ticket_notes' );
-        $role->add_cap( 'edit_published_ticket_notes' );
+        $role->add_cap( 'edit_others_support_tickets' );
+        $role->add_cap( 'edit_private_support_tickets' );
+        $role->add_cap( 'edit_published_support_tickets' );
 
-        $role->add_cap( 'delete_support_ticket' );
         $role->add_cap( 'delete_support_tickets' );
         $role->add_cap( 'delete_others_support_tickets' );
         $role->add_cap( 'delete_private_support_tickets' );
         $role->add_cap( 'delete_published_support_tickets' );
 
-        $role->add_cap( 'read_support_ticket' );
         $role->add_cap( 'read_private_support_tickets' );
 
+        /**
+         *
+         * attachment specific capabilities, Users can publish, delete and read their own media.
+         */
+        $role->add_cap( 'upload_files' );
+        $role->add_cap( 'delete_posts' );
+        $role->add_cap( 'read' );
 
     }
 
@@ -151,11 +153,15 @@ function add_role_capabilities() {
          * support_ticket specific caps. Agents can only create, edit non-published and read others tickets.
          */
         $role->add_cap( 'publish_support_tickets' );
-
-        $role->add_cap( 'edit_support_ticket' );
         $role->add_cap( 'edit_support_tickets' );
 
-        $role->add_cap( 'read_support_ticket' );
+        /**
+         *
+         * attachment specific capabilities, Users can publish, delete and read their own media.
+         */
+        $role->add_cap( 'upload_files' );
+        $role->add_cap( 'delete_posts' );
+        $role->add_cap( 'read' );
 
     }
 
@@ -176,11 +182,15 @@ function add_role_capabilities() {
          * support_ticket specific caps. Users can only create, edit non-published and read tickets.
          */
         $role->add_cap( 'publish_support_tickets' );
-
-        $role->add_cap( 'edit_support_ticket' );
         $role->add_cap( 'edit_support_tickets' );
 
-        $role->add_cap( 'read_support_ticket' );
+        /**
+         *
+         * attachment specific capabilities, Users can publish, delete and read their own media.
+         */
+        $role->add_cap( 'upload_files' );
+        $role->add_cap( 'delete_posts' );
+        $role->add_cap( 'read' );
 
     }
 
@@ -208,7 +218,28 @@ function add_subscriber_caps( $force = false ) {
         $role = get_role( 'subscriber' );
 
         if ( $role ) {
-            $role->add_cap( 'user_support' );
+
+            /**
+             *
+             * System wide access control caps
+             */
+            $role->add_cap( 'use_support' );
+
+            /**
+             *
+             * support_ticket specific caps. Users can only create, edit non-published and read tickets.
+             */
+            $role->add_cap( 'publish_support_tickets' );
+            $role->add_cap( 'edit_support_tickets' );
+
+            /**
+             *
+             * attachment specific capabilities, Users can publish, delete and read their own media.
+             */
+            $role->add_cap( 'upload_files' );
+            $role->add_cap( 'delete_posts' );
+            $role->add_cap( 'read' );
+
         }
 
     }
@@ -230,7 +261,28 @@ function add_customer_caps( $force = false ) {
         $role = get_role( 'customer' );
 
         if ( $role ) {
+
+            /**
+             *
+             * System wide access control caps
+             */
             $role->add_cap( 'use_support' );
+
+            /**
+             *
+             * support_ticket specific caps. Users can only create, edit non-published and read tickets.
+             */
+            $role->add_cap( 'publish_support_tickets' );
+            $role->add_cap( 'edit_support_tickets' );
+
+            /**
+             *
+             * attachment specific capabilities, Users can publish, delete and read their own media.
+             */
+            $role->add_cap( 'upload_files' );
+            $role->add_cap( 'delete_posts' );
+            $role->add_cap( 'read' );
+
         }
 
     }
@@ -427,5 +479,3 @@ function get_user_draft_ticket() {
     return false;
 
 }
-
-//print_r( get_option( 'wp_user_roles'));die;

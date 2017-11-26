@@ -17,9 +17,12 @@ add_filter( 'rest_pre_insert_support_ticket', 'ucare\rest_validate_support_ticke
 // Filter REST GET request params based on user capabilities.
 add_filter( 'rest_support_ticket_query', 'ucare\rest_filter_support_ticket_query' );
 
+// Filter REST GET request params based on user capabilities.
+add_filter( 'rest_attachment_query', 'ucare\rest_filter_attachment_query' );
+
 
 /**
- * If the user cannot manage tickets, restrict them to only tickets they have created.
+ * Remove ticket media attachments
  *
  * @param array $args
  *
@@ -30,13 +33,39 @@ add_filter( 'rest_support_ticket_query', 'ucare\rest_filter_support_ticket_query
  */
 function rest_filter_support_ticket_query( $args ) {
 
-    $user = get_user();
+    if ( !ucare_is_support_agent() ) {
+        $args['author'] = get_current_user_id();
+    }
 
-    if ( $user ) {
+    return $args;
 
-        if ( !$user->has_cap( 'manage_support_tickets' ) ) {
-            $args['author'] = get_current_user_id();
-        }
+}
+
+
+/**
+ * If the user cannot manage tickets, restrict attachments only to ones that belong to tickets they are authors of.
+ *
+ * @global $wpdb
+ *
+ * @param array $args
+ *
+ * @filter rest_support_ticket_query
+ *
+ * @since 1.5.1
+ * @return array
+ */
+function rest_filter_attachment_query( $args ) {
+
+    global $wpdb;
+
+    if ( !ucare_is_support_agent() ) {
+
+        $sql = "SELECT ID 
+                FROM $wpdb->posts 
+                WHERE post_type = 'support_ticket' 
+                  AND post_author = %d";
+
+        $args['post_parent__in'] = $wpdb->get_col( $wpdb->prepare( $sql, get_current_user_id() ) );
 
     }
 
