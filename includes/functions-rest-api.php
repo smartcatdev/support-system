@@ -58,7 +58,10 @@ function rest_filter_attachment_query( $args ) {
 
     global $wpdb;
 
-    if ( !ucare_is_support_agent() ) {
+    $user = get_user();
+
+    // Only restrict with support users
+    if ( $user && $user->has_cap( 'use_support' ) && !$user->has_cap( 'manage_support_tickets' ) ) {
 
         // Prevent selecting tickets that the user is NOT the author of
         $sql = "SELECT ID 
