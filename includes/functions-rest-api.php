@@ -20,6 +20,42 @@ add_filter( 'rest_support_ticket_query', 'ucare\rest_filter_support_ticket_query
 // Filter REST GET request params based on user capabilities.
 add_filter( 'rest_attachment_query', 'ucare\rest_filter_attachment_query' );
 
+// Filter out REST GET comments based on user capabilities
+add_filter( 'rest_comment_query', 'ucare\rest_filter_comment_query' );
+
+
+/**
+ * Filter comments if user cannot manage support.
+ *
+ * global $wpdb
+ *
+ * @param $args
+ *
+ * @filter rest_comment_query
+ *
+ * @since 1.5.1
+ * @return array
+ */
+function rest_filter_comment_query( $args ) {
+
+    global $wpdb;
+
+    if ( !ucare_is_support_agent() ) {
+
+        // Prevent selecting tickets that the user is NOT the author of
+        $sql = "SELECT ID 
+                FROM $wpdb->posts 
+                WHERE post_type = 'support_ticket' 
+                  AND post_author != %d";
+
+        $args['post__not_in'] = $wpdb->get_col( $wpdb->prepare( $sql, get_current_user_id() ) );
+
+    }
+
+    return $args;
+
+}
+
 
 /**
  * Remove ticket media attachments
