@@ -33,7 +33,7 @@ class Plugin extends AbstractPlugin {
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
-        proc\configure_roles();
+//        proc\configure_roles();
 
     }
 

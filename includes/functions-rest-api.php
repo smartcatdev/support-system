@@ -14,6 +14,35 @@ add_action( 'rest_insert_support_ticket', 'ucare\rest_create_support_ticket', 10
 // Validate the post before insertion
 add_filter( 'rest_pre_insert_support_ticket', 'ucare\rest_validate_support_ticket' );
 
+// Filter REST GET request params based on user capabilities.
+add_filter( 'rest_support_ticket_query', 'ucare\rest_filter_support_ticket_query' );
+
+
+/**
+ * If the user cannot manage tickets, restrict them to only tickets they have created.
+ *
+ * @param array $args
+ *
+ * @filter rest_support_ticket_query
+ *
+ * @since 1.5.1
+ * @return array
+ */
+function rest_filter_support_ticket_query( $args ) {
+
+    $user = get_user();
+
+    if ( $user ) {
+
+        if ( !$user->has_cap( 'manage_support_tickets' ) ) {
+            $args['author'] = get_current_user_id();
+        }
+
+    }
+
+    return $args;
+
+}
 
 /**
  * Save support ticket meta from the REST API.

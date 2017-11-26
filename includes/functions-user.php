@@ -8,8 +8,266 @@
 namespace ucare;
 
 
+// TODO add caps for support agent & user to edit own media
+
+
+
 // Create a draft ticket for a user
 add_action( 'template_redirect', 'ucare\create_user_draft_ticket' );
+
+// Add user roles
+add_action( 'init', 'ucare\add_user_roles' );
+
+// Assign caps to user roles
+add_action( 'init', 'ucare\add_role_capabilities' );
+
+
+/**
+ * Add customer user roles for the support system.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function add_user_roles() {
+
+    $roles = array(
+        'support_admin' => __( 'Support Admin', 'ucare' ),
+        'support_agent' => __( 'Support Agent', 'ucare' ),
+        'support_user'  => __( 'Support User',  'ucare' )
+    );
+
+    foreach ( $roles as $role => $name ) {
+
+        if ( is_null( get_role( $role ) ) ) {
+            add_role( $role, $name );
+        }
+
+    }
+
+}
+
+
+/**
+ * Add capabilities to user roles.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function add_role_capabilities() {
+
+    // Add capabilities to administrator
+    $role = get_role( 'administrator' );
+
+    if ( $role ) {
+
+        /**
+         *
+         * System wide access control caps
+         */
+        $role->add_cap( 'use_support' );
+        $role->add_cap( 'manage_support' );
+        $role->add_cap( 'manage_support_tickets' );
+
+        /**
+         *
+         * support_ticket specific caps
+         */
+        $role->add_cap( 'publish_support_tickets' );
+
+        $role->add_cap( 'edit_support_ticket' );
+        $role->add_cap( 'edit_support_tickets' );
+        $role->add_cap( 'edit_others_ticket_notes' );
+        $role->add_cap( 'edit_private_ticket_notes' );
+        $role->add_cap( 'edit_published_ticket_notes' );
+
+        $role->add_cap( 'delete_support_ticket' );
+        $role->add_cap( 'delete_support_tickets' );
+        $role->add_cap( 'delete_others_support_tickets' );
+        $role->add_cap( 'delete_private_support_tickets' );
+        $role->add_cap( 'delete_published_support_tickets' );
+
+        $role->add_cap( 'read_support_ticket' );
+        $role->add_cap( 'read_private_support_tickets' );
+
+        /**
+         *
+         * Administrator already has full control over media and comments
+         */
+    }
+
+
+    // Add capabilities to support admins
+    $role = get_role( 'support_admin' );
+
+    if ( $role ) {
+
+        /**
+         *
+         * System wide access control caps
+         */
+        $role->add_cap( 'use_support' );
+        $role->add_cap( 'manage_support' );
+        $role->add_cap( 'manage_support_tickets' );
+
+        /**
+         *
+         * support_ticket specific caps
+         */
+        $role->add_cap( 'publish_support_tickets' );
+
+        $role->add_cap( 'edit_support_ticket' );
+        $role->add_cap( 'edit_support_tickets' );
+        $role->add_cap( 'edit_others_ticket_notes' );
+        $role->add_cap( 'edit_private_ticket_notes' );
+        $role->add_cap( 'edit_published_ticket_notes' );
+
+        $role->add_cap( 'delete_support_ticket' );
+        $role->add_cap( 'delete_support_tickets' );
+        $role->add_cap( 'delete_others_support_tickets' );
+        $role->add_cap( 'delete_private_support_tickets' );
+        $role->add_cap( 'delete_published_support_tickets' );
+
+        $role->add_cap( 'read_support_ticket' );
+        $role->add_cap( 'read_private_support_tickets' );
+
+
+    }
+
+
+    // Add capabilities to support agents
+    $role = get_role( 'support_agent' );
+
+    if ( $role ) {
+
+        /**
+         *
+         * System wide access control caps
+         */
+        $role->add_cap( 'use_support' );
+        $role->add_cap( 'manage_support_tickets' );
+
+        /**
+         *
+         * support_ticket specific caps. Agents can only create, edit non-published and read others tickets.
+         */
+        $role->add_cap( 'publish_support_tickets' );
+
+        $role->add_cap( 'edit_support_ticket' );
+        $role->add_cap( 'edit_support_tickets' );
+
+        $role->add_cap( 'read_support_ticket' );
+
+    }
+
+
+    // Add capabilities to support users
+    $role = get_role( 'support_user' );
+
+    if ( $role ) {
+
+        /**
+         *
+         * System wide access control caps
+         */
+        $role->add_cap( 'use_support' );
+
+        /**
+         *
+         * support_ticket specific caps. Users can only create, edit non-published and read tickets.
+         */
+        $role->add_cap( 'publish_support_tickets' );
+
+        $role->add_cap( 'edit_support_ticket' );
+        $role->add_cap( 'edit_support_tickets' );
+
+        $role->add_cap( 'read_support_ticket' );
+
+    }
+
+
+    // If EDD is active
+    add_subscriber_caps();
+
+    // If Woo is active
+    add_customer_caps();
+
+}
+
+/**
+ * Add support user capabilities to the subscriber role.
+ *
+ * @param bool $force Skip check to see if EDD is active.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function add_subscriber_caps( $force = false ) {
+
+    if ( $force || UCARE_ECOMMERCE_MODE === 'edd' ) {
+
+        $role = get_role( 'subscriber' );
+
+        if ( $role ) {
+            $role->add_cap( 'user_support' );
+        }
+
+    }
+
+}
+
+/**
+ * Add support user capabilities to the customer role.
+ *
+ * @param bool $force Skip check to see if WooCommerce is active.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function add_customer_caps( $force = false ) {
+
+    if ( $force || UCARE_ECOMMERCE_MODE === 'woo' ) {
+
+        $role = get_role( 'customer' );
+
+        if ( $role ) {
+            $role->add_cap( 'use_support' );
+        }
+
+    }
+
+}
+
+
+/**
+ * Remove capabilities from user roles.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function remove_capabilities() {
+
+}
+
+
+/**
+ * Remove support user capabilities from the subscriber role.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function remove_subscriber_caps() {
+
+}
+
+/**
+ * Remove support user capabilities from the customer role.
+ *
+ * @since 1.5.1
+ * @return void
+ */
+function remove_customer_caps() {
+
+}
 
 
 /**
@@ -169,3 +427,5 @@ function get_user_draft_ticket() {
     return false;
 
 }
+
+//print_r( get_option( 'wp_user_roles'));die;

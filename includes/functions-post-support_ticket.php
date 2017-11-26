@@ -80,7 +80,7 @@ function register_ticket_post_type() {
         'feeds'                => null,
         'map_meta_cap'         => true,
         'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes',
-        'show_in_rest'         => true,
+        'show_in_rest'         => current_user_can( 'use_support' ),
         'rest_base'            => 'support-tickets'
     );
 
