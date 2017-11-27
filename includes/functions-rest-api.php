@@ -69,6 +69,7 @@ function rest_filter_comment_query( $args ) {
  */
 function rest_filter_support_ticket_query( $args ) {
 
+    // TODO Add check to make sure author isn't 0
     if ( !ucare_is_support_agent() ) {
         $args['author'] = get_current_user_id();
     }
