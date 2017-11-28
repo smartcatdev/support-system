@@ -26,15 +26,14 @@ class Ticket extends AjaxComponent {
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
                     'comment_status' => 'open',
-                    'tax_input'      => array(
-                        'ticket_category' => $form->data['category']
-                    ),
                     'meta_input'     => array(
                         'status'     => 'new',
                         'agent'      => 0,
                         '_edit_last' => get_current_user_id()
                     )
                 );
+
+                $category = $form->data['category'];
 
                 // Remove them so that they are not saved as meta
                 unset( $form->data['subject'] );
@@ -62,6 +61,11 @@ class Ticket extends AjaxComponent {
 
 
                 if ( is_numeric( $post_id ) ) {
+
+                    if ( term_exists( $category, 'ticket_category' ) ) {
+                        wp_set_post_terms( $post_id, $category, 'ticket_category' );
+                    }
+
 
                     // link attachments with post
                     foreach ( json_decode( $_REQUEST['attachments'] ) as $attachment ) {
