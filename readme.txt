@@ -3,7 +3,7 @@ Contributors: smartcat
 Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,system,email,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.8.1
+Tested up to: 4.9
 Stable tag: 1.4.2
 License: GPLv2 or later
 
@@ -99,6 +99,12 @@ Yes! Email Piping is an add-on that you can purchase. This allows you to integra
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.5.0 =
+- Added add-ons for auto ticket routing, advanced EDD, and Agent notes
+- Make enqueue functions specific to support system with public
+- Code cleanup and splitting functions files
+- seperate WooCommerce & EDD code to allow for add-ons
 
 = 1.4.2 =
 - Added option allowing users to set attachment file types
