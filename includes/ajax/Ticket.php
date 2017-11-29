@@ -13,28 +13,45 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function create_ticket() {
+
         if( current_user_can( 'create_support_tickets' ) ) {
 
             $form = include $this->plugin->config_dir . '/ticket_create_form.php';
 
             if ( $form->is_valid() ) {
 
-                $users = \ucare\util\get_users_with_cap();
-
                 $data = array(
                     'post_title'     => $form->data['subject'],
                     'post_content'   => \ucare\util\encode_code_blocks( $form->data['description'] ),
                     'post_status'    => 'publish',
                     'post_type'      => 'support_ticket',
-                    'comment_status' => 'open'
+                    'comment_status' => 'open',
+                    'meta_input'     => array(
+                        'status'     => 'new',
+                        'agent'      => 0,
+                        '_edit_last' => get_current_user_id()
+                    )
                 );
+
+                $category = $form->data['category'];
+
+                // Remove them so that they are not saved as meta
+                unset( $form->data['subject'] );
+                unset( $form->data['category'] );
+                unset( $form->data['description'] );
+
+                // Add remaining keys as meta
+                // TODO manually pull meta from $_POST
+                foreach ( $form->data as $field => $value ) {
+                    $data['meta_input'][ $field ] = $value;
+                }
 
 
                 if ( isset( $_REQUEST['override_author'] ) ) {
 
                     $user = get_user_by( 'id', absint( $_REQUEST['author'] ) );
 
-                    if ( $user && in_array( $user, $users ) ) {
+                    if ( $user && in_array( $user, \ucare\get_users_with_cap() ) ) {
                         $data['post_author'] = $user->ID;
                     }
 
@@ -45,37 +62,34 @@ class Ticket extends AjaxComponent {
 
                 if ( is_numeric( $post_id ) ) {
 
-                    wp_set_post_terms( $post_id, $form->data['category'], 'ticket_category' );
-
-                    // Remove them so that they are not saved as meta
-                    unset( $form->data['subject'] );
-                    unset( $form->data['category'] );
-                    unset( $form->data['description'] );
-
-                    foreach( $form->data as $field => $value ) {
-                        update_post_meta( $post_id, $field, $value );
+                    if ( term_exists( $category, 'ticket_category' ) ) {
+                        wp_set_post_terms( $post_id, $category, 'ticket_category' );
                     }
 
-                    update_post_meta( $post_id, 'status', 'new' );
-                    update_post_meta( $post_id, 'agent', 0 );
-                    update_post_meta( $post_id, '_edit_last', wp_get_current_user()->ID );
 
                     // link attachments with post
-                    foreach( json_decode( $_REQUEST['attachments'] ) as $attachment ) {
-                        wp_update_post( array(
-                            'ID' => $attachment,
+                    foreach ( json_decode( $_REQUEST['attachments'] ) as $attachment ) {
+
+                        $attachment = array(
+                            'ID'          => $attachment,
                             'post_parent' => $post_id
-                        ) );
+                        );
+
+                        wp_update_post( $attachment );
+
                     }
 
                     do_action( 'support_ticket_created', get_post( $post_id ) );
 
                     wp_send_json_success( $post_id );
                 }
+
             } else {
                 wp_send_json_error( $form->errors, 400 );
             }
+
         }
+
     }
 
     /**

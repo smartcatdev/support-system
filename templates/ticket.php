@@ -18,7 +18,7 @@ $user = wp_get_current_user();
 
     <div class="discussion-area col-sm-8 col-sm-pull-4">
 
-        <div class="ticket panel panel-default ">
+        <div class="ticket panel panel-default">
 
             <div class="panel-heading">
 
@@ -30,9 +30,13 @@ $user = wp_get_current_user();
 
                 <p class="formatted"><?php echo $ticket->post_content; ?></p>
 
+                <?php do_action( 'ucare_after_ticket_content', $ticket ); ?>
+
             </div>
 
         </div>
+
+        <?php do_action( 'ucare_before_comments', $ticket ); ?>
 
         <div class="comments"></div>
 

@@ -358,16 +358,6 @@ $general->add_field( new TextField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) )->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_ecommerce_integration',
-        'option'        => Options::ECOMMERCE,
-        'value'         => get_option( Options::ECOMMERCE, \ucare\Defaults::ECOMMERCE ),
-        'label'         => __( 'E-Commerce Integration', 'ucare' ),
-        'desc'          => __( 'Enable integration with Easy Digital Downloads or WooCommerce', 'ucare' ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
 ) )->add_field( new TextField(
     array(
         'id'            => 'support_tickets_per_page',
@@ -648,16 +638,6 @@ $advanced->add_field( new CheckBoxField(
         'value'         => get_option( Options::NUKE, \ucare\Defaults::NUKE ),
         'label'         => __( 'Erase All Data', 'ucare'),
         'desc'          => __( 'Erase all plugin data on deactivation if developer mode is enabled or during un-installation', 'ucare' ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
-) )->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_restore_template',
-        'option'        => Options::RESTORE_TEMPLATE,
-        'value'         => '',
-        'label'         => __( 'Restore Template Page', 'ucare' ),
-        'desc'          => __( 'Restore the template page if its been deleted', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 

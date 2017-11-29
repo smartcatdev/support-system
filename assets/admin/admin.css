@@ -228,7 +228,7 @@ td.column-id.id:before {
 }
 
 .ucare-sidebar-widget .widget-header {
-    padding: 15px;
+    padding: 10px 15px;
     background: #f9f9f9;
     border-bottom: 1px solid #ccc;
 }

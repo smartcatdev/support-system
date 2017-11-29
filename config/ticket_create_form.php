@@ -24,7 +24,7 @@ if( get_option( Options::CATEGORIES_ENABLED, \ucare\Defaults::CATEGORIES_ENABLED
         $name = get_option( Options::CATEGORIES_NAME, \ucare\Defaults::CATEGORIES_NAME );
 
         foreach( $terms as $term ) {
-            $categories[ $term->name ] = $term->name;
+            $categories[ $term->slug ] = $term->name;
         }
 
         $form->add_field( new SelectBoxField(

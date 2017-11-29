@@ -17,9 +17,9 @@ $form_args = array(
     'id_remember'        => $id_remember,
     'id_submit'          => $id_submit,
     'value_username'     => $value_username,
-    'value_remember'     => boolval( $value_remember ),
+    'value_remember'     => sanitize_boolean( $value_remember ),
     'register_link_text' => $register_link_text,
-    'show_register_link' => boolval( $show_register_link )
+    'show_register_link' => sanitize_boolean( $show_register_link )
 );
 
 ?>
@@ -33,7 +33,7 @@ $form_args = array(
     
         <?php wp_login_form( $form_args ); ?>
 
-        <?php if ( boolval( $show_pw_reset_link ) ) : ?>
+        <?php if ( sanitize_boolean( $show_pw_reset_link ) ) : ?>
 
             <a href="<?php echo esc_url( add_query_arg( 'reset_password', 'true', support_page_url() ) ); ?>">
                 <?php esc_html_e( $pw_reset_link_text ); ?>

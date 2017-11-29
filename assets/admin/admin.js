@@ -1,8 +1,6 @@
 var SupportAdmin = (function (module, $, window) {
     "use strict";
 
-    var $wp_inline_edit;
-
     var _toggle_flag = function (e) {
         var flag = $(e.target);
 
@@ -33,38 +31,8 @@ var SupportAdmin = (function (module, $, window) {
         $(window.document).on("click", ".flag-ticket", _toggle_flag);
     };
 
-    var _initialize_quick_editor = function () {
-        if (window.inlineEditPost !== undefined) {
-            $wp_inline_edit = inlineEditPost.edit;
-
-            inlineEditPost.edit = function (id) {
-                $wp_inline_edit.apply(this, arguments);
-
-                var $post_id = 0;
-
-                if (typeof(id) === "object") {
-                    $post_id = parseInt(this.getId(id));
-                }
-
-                if ($post_id > 0) {
-                    $("#support_inline_" + $post_id).children().each(function (index, element) {
-                        var data = $(element);
-                        var field = $(".quick-edit-field." + data.attr("class"));
-
-                        if (field.attr("type") === "checkbox") {
-                            field.attr("checked", data.text() === "on");
-                        } else {
-                            field.val(data.text());
-                        }
-                    });
-                }
-            };
-        }
-    };
-
     var initialize = function () {
         _bind_events();
-        _initialize_quick_editor();
 
         $("#id.manage-column").addClass("column-primary");
 

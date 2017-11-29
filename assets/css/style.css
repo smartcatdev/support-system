@@ -907,6 +907,17 @@ button.close-ticket:hover {
     margin-top: 15px !important;
 }
 
+.sidebar .panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e113";
+    float: right;
+    transition: transform 0.5s;
+}
+
+.sidebar .panel-heading a.collapsed:after {
+    transform: rotate(90deg);
+}
+
 .sidebar .ticket-details .lead {
     margin-bottom: 0;
 }
@@ -1039,7 +1050,7 @@ button.close-ticket:hover {
 }
 
 .sidebar .customer-stats {
-    margin: 15px -15px -15px -15px;
+    margin: 15px -15px -12px -15px;
     border: none;
     border-radius: 0;
 }
@@ -1047,10 +1058,11 @@ button.close-ticket:hover {
 .sidebar .customer-stats .list-group-item {
     border-left: none;
     border-right: none;
+    border-radius: 0;
 }
 
-.sidebar .customer-stats .list-group-item:first-child {
-    border-radius: 0;
+.sidebar .customer-stats .list-group-item:last-child{
+    border: none;
 }
 
 .sidebar .customer-stats .list-group-item .lead {
@@ -1071,6 +1083,10 @@ button.close-ticket:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.sidebar .ticket-properties .message-area {
+    margin: -16px -16px 10px -16px;
 }
 
     /* #### Comments ***********************************************************************/

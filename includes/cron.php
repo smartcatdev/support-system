@@ -10,7 +10,7 @@ function mark_stale_tickets() {
     $logger = new Logger( 'cron' );
 
     // Calculate max age as n days
-    $max_age = get_option( Options::INACTIVE_MAX_AGE, \ucare\Defaults::INACTIVE_MAX_AGE );
+    $max_age = get_option( Options::INACTIVE_MAX_AGE, Defaults::INACTIVE_MAX_AGE );
 
     // Current server time
     $time = current_time( 'timestamp', 1 );

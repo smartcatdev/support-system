@@ -16,6 +16,11 @@ use ucare\ajax\Registration;
 use ucare\component\ECommerce;
 use ucare\component\Hacks;
 
+/**
+ * Class Plugin
+ * @package ucare
+ * @deprecated
+ */
 class Plugin extends AbstractPlugin {
 
     private $menu_pages = array();
@@ -125,7 +130,7 @@ class Plugin extends AbstractPlugin {
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
-                    'menu_title'  => __( 'Tickets', 'ucare' ),
+                    'menu_title'  => __( 'Support Tickets', 'ucare' ),
                     'menu_slug'   => 'edit.php?post_type=support_ticket',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
@@ -241,8 +246,6 @@ class Plugin extends AbstractPlugin {
             'wp_login_failed'   => array( 'login_failed' ),
             'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
-            'template_include' => array( 'swap_template' ),
-            'pre_update_option_' . Options::RESTORE_TEMPLATE => array( 'restore_template' )
         ) );
     }
 
@@ -267,21 +270,6 @@ class Plugin extends AbstractPlugin {
         return $components;
     }
 
-    public function swap_template( $template ) {
-        if( is_page( get_option( Options::TEMPLATE_PAGE_ID ) ) ) {
-            $template = $this->template_dir . '/app.php';
-        }
-
-        return $template;
-    }
-
-    public function restore_template( $val ) {
-        if( $val == 'on' ) {
-            \ucare\proc\setup_template_page();
-        }
-
-        return '';
-    }
 
     public function feedback_form() {
 

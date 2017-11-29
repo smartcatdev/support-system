@@ -1,13 +1,14 @@
 <?php
-
-use ucare\Defaults;
-use ucare\Options;
-use ucare\util\Logger;
+/***********************************************************************************************************************
+ *
+ * Functions for managing extension licensing.
+ *
+ * @since 1.3.0
+ * @scope global
+ */
 
 /**
  * Register's an extension with the plugin's license management page.
- *
- * @since 1.3.0
  *
  * @param $id
  * @param array $args {
@@ -19,42 +20,47 @@ use ucare\util\Logger;
  *      @type string    $version        The version number of your extension
  *      @type string    $item_name      The item name as it appears in EDD
  *      @type string    $author         The name of the extension author
- *      @type boolean   $beta           Whether or not your extension is in beta
+ *      @type string    $file           Your plugin's main file
  * }
  *
- * @return boolean True on success, false if the extension has already registered.
- *
+ * @since 1.3.0
+ * @return void
  */
 function ucare_register_license( $id, $args ) {
 
-    $plugin = \ucare\Plugin::get_plugin( \ucare\PLUGIN_ID );
+    $manager = \ucare\ucare()->get( 'license_manager' );
 
-    return $plugin->add_activation( $id, $args );
+    if ( $manager ) {
 
-}
+        $options = array(
+            'license'    => $args['license_option'],
+            'status'     => $args['status_option'],
+            'expiration' => $args['expire_option'],
+        );
 
-/**
- * Un-registers an extension from the license management page and cleans up.
- *
- * @since 1.3.0
- *
- * @param $id
- */
-function ucare_unregister_license( $id ) {
+        $edd_args = array(
+            'version'   => $args['version'],
+            'author'    => $args['author'],
+            'item_name' => $args['item_name']
+        );
 
-    $plugin = \ucare\Plugin::get_plugin( \ucare\PLUGIN_ID );
-    $activation = $plugin->get_activation( $id );
+        $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args );
 
-    if( $activation ) {
-
-        delete_option( $activation['status_option'] );
-        delete_option( $activation['license_option'] );
-        delete_option( $activation['expire_option'] );
-
-        unregister_setting( 'ucare_extension_licenses', $activation['license_option'] );
     }
 
 }
+
+/***********************************************************************************************************************
+ *
+ * General purpose utility functions.
+ *
+ * @since 1.3.0
+ * @scope global
+ */
+
+use ucare\Defaults;
+use ucare\Options;
+use ucare\util\Logger;
 
 /**
  * Returns whether or not the plugin is in development mode.
@@ -77,4 +83,231 @@ function ucare_in_dev_mode() {
  */
 function ucare_get_logger( $type ) {
     return new Logger( $type );
+}
+
+
+/**
+ * Check to see if eCommerce support is enabled.
+ *
+ * @since 1.4.2
+ * @return bool
+ */
+function ucare_is_ecommerce_enabled() {
+    return defined( 'UCARE_ECOMMERCE_MODE' );
+}
+
+
+/***********************************************************************************************************************
+ *
+ * Functions for managing assets in the front-end application.
+ *
+ * @since 1.4.2
+ * @scope global
+ */
+
+
+/**
+ * Enqueue a script in the front-end application. Can be called at any point before output begins, However enqueuing is
+ * not available until after ucare_loaded has fired. It is recommended to enqueue scripts in the ucare_enqueue_scripts
+ * hook.
+ *
+ * @see wp_enqueue_script
+ *
+ * @param string $handle    The handle of the script to enqueue.
+ * @param string $src       The URL of the script.
+ * @param array  $deps      Any dependencies the script requires.
+ * @param bool   $ver       A version for the script.
+ * @param bool   $in_footer Whether the script should be printed in the footer.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function ucare_enqueue_script( $handle, $src = '', $deps = array(), $ver = false, $in_footer = false ) {
+
+    $scripts = \ucare\scripts();
+
+    if ( $scripts ) {
+
+        if ( $src || $in_footer ) {
+
+            $_handle = explode( '?', $handle );
+            $scripts->add( $_handle[0], $src, $deps, $ver );
+
+            if ( $in_footer ) {
+                $scripts->add_data( $_handle[0], 'group', 1 );
+            }
+
+        }
+
+        $scripts->enqueue( $handle );
+
+    }
+
+}
+
+
+function ucare_enqueue_style( $handle, $src = '', $deps = array(), $ver = false, $media = 'all' ) {
+
+    $styles = \ucare\styles();
+
+    if ( $styles ) {
+
+        if ( $src ) {
+            $_handle = explode('?', $handle);
+            $styles->add( $_handle[0], $src, $deps, $ver, $media );
+        }
+
+        return $styles->enqueue( $handle );
+
+    }
+
+    return false;
+
+}
+
+
+function ucare_register_script( $handle, $src, $deps = array(), $ver = false, $in_footer = false ) {
+
+    $scripts = \ucare\scripts();
+
+    if ( $scripts ) {
+
+        $registered = $scripts->add( $handle, $src, $deps, $ver );
+
+        if ( $in_footer ) {
+            $scripts->add_data( $handle, 'group', 1 );
+        }
+
+        return $registered;
+
+    }
+
+    return false;
+
+}
+
+
+function ucare_localize_script( $handle, $object_name, $i10n ) {
+
+    $scripts = \ucare\scripts();
+
+    if ( $scripts ) {
+        $scripts->localize( $handle, $object_name, $i10n );
+    }
+
+    return false;
+
+}
+
+
+function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
+
+    $styles = \ucare\styles();
+
+    if ( $styles ) {
+        return $styles->add( $handle, $src, $deps, $ver, $media );
+    }
+
+    return true;
+
+}
+
+
+/***********************************************************************************************************************
+ *
+ * Functions for plugin statistics
+ *
+ * @since 1.4.2
+ * @scope global
+ */
+
+
+/**
+ * Get a list of recent tickets for a specific user.
+ *
+ * @param $user
+ * @param array $args
+ *
+ * @since 1.0.0
+ * @return \WP_Query
+ */
+function ucare_get_user_recent_tickets( $user, $args = array() ) {
+
+    $user = \ucare\get_user( $user );
+
+    $defaults = array(
+        'after'   => 'now',
+        'before'  => '30 days ago',
+        'exclude' => array(),
+        'limit'   => -1
+    );
+
+    $args = wp_parse_args( $args, $defaults );
+
+    $q = array(
+        'post_type'      => 'support_ticket',
+        'post_status'    => 'publish',
+        'author'         => $user->ID,
+        'after'          => $args['after'],
+        'before'         => $args['before'],
+        'post__not_in'   => $args['exclude'],
+        'posts_per_page' => $args['limit'] ?: -1
+    );
+
+    return new \WP_Query( $q );
+
+}
+
+
+/**
+ * Count the number of tickets that a user has created.
+ *
+ * @param int $user_id The ID of the user.
+ *
+ * @since 1.0.0
+ * @return int
+ */
+function ucare_count_user_tickets( $user_id ) {
+
+    global $wpdb;
+
+    $sql = "SELECT COUNT( * )
+            FROM $wpdb->posts
+            WHERE post_author = %d 
+              AND post_type = 'support_ticket'
+              AND post_status = 'publish'";
+
+    return $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
+
+}
+
+
+/***********************************************************************************************************************
+ * General template functions
+ *
+ * @since 1.4.2
+ * @scope global
+ */
+
+/**
+ * Register a section to display in the ticket sidebar.
+ *
+ * @param string $id       The section ID.
+ * @param int    $position Where the sidebar should display.
+ * @param array  $section  The sidebar section.
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function ucare_register_sidebar( $id, $position, array $section ) {
+
+    $sidebars = \ucare\get_sidebars();
+
+    if ( is_array( $sidebars ) ) {
+        $top = array_slice( $sidebars, 0, $position );
+        $new = array( $id => $section );
+
+        \ucare\ucare()->set( 'sidebars', array_merge( $top, $new, $sidebars ) );
+    }
+
 }

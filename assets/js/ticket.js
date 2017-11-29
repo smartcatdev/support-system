@@ -257,12 +257,17 @@ var Ticket = (function ($) {
             success: function (response) {
                 var message = _.template($("script.notice-inline").html());
 
-                sidebar.find(".message").html(message(response.data));
+                sidebar.find(".message-area").html(message(response.data));
                 sidebar.removeClass("saving");
 
-                load_sidebar(response.ticket_id);
-                App.load_tickets();
-                App.load_statistics();
+                setTimeout(function () {
+
+                    load_sidebar(response.ticket_id);
+                    App.load_tickets();
+                    App.load_statistics();
+
+                }, 15 * 1000);
+
             },
             complete: function (xhr) {
                 sidebar.removeClass("saving");

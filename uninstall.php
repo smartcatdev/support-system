@@ -6,8 +6,10 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-include_once dirname( __FILE__ ) . '/constants.php';
-include_once dirname( __FILE__ ) . '/loader.php';
+include_once dirname( __FILE__ ) . '/plugin.php';
+
+
+ucare();
 
 
 if ( get_option( Options::NUKE ) == 'on' ) {

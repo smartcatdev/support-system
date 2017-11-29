@@ -35,7 +35,9 @@ $form = include Plugin::plugin_dir( \ucare\PLUGIN_ID ) . '/config/ticket_create_
                             <?php _e( 'Me', 'ucare' ); ?>
                         </option>
 
-                        <?php foreach ( \ucare\util\get_users_with_cap( 'use_support', true ) as $user ) : ?>
+                        <?php $users = \ucare\get_users_with_cap( 'use_support', array( 'exclude' => array( get_current_user_id() ) ) ); ?>
+
+                        <?php foreach ( $users as $user ) : ?>
 
                             <option value="<?php esc_attr_e( $user->ID ); ?>">
                                 <?php esc_html_e( $user->display_name ); ?>
