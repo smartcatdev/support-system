@@ -123,16 +123,17 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
-            include_once dirname( __FILE__ ) . '/includes/lib/extension-licensing.php';
+            include_once dirname( __FILE__ ) . '/includes/lib/class-edd-sl-plugin-updater.php';
 
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
             include_once dirname( __FILE__ ) . '/includes/cron.php';
 
 
+            include_once dirname( __FILE__ ) . '/includes/lib/class-bootstrap-nav-walker.php';
+            include_once dirname( __FILE__ ) . '/includes/lib/class-edd-sl-plugin-updater.php';
+            include_once dirname( __FILE__ ) . '/includes/lib/class-sc-license-manager.php';
 
             include_once dirname( __FILE__ ) . '/includes/class-field.php';
-            include_once dirname( __FILE__ ) . '/includes/class-bootstrap-nav-walker.php';
-
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-formatting.php';
@@ -200,7 +201,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 'menu_slug'   => 'ucare-licenses'
             );
 
-            $this->set( 'license_manager', new \SC_License_Manager( 'ucare', 'submenu', $page ) );
+            $this->set( 'license_manager', new SC_License_Manager( 'ucare', 'submenu', $page ) );
 
         }
 
