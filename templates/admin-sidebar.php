@@ -4,17 +4,17 @@
 
         <div class="widget-header">
             <h3>
-                <span class="dashicons dashicons-megaphone"></span> <?php _e( 'Email Piping', 'ucare' ); ?>
+                <span class="dashicons dashicons-megaphone"></span> <?php _e( 'uCare Pro', 'ucare' ); ?>
             </h3>
             <a class="button button-primary button-cta"
-               href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=ucareSettingsPage&utm_content=Email+piping" target="_BLANK">
+               href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-settings-page&utm_medium=plugin&utm_campaign=ucareSettingsPage&utm_content=Email+piping" target="_BLANK">
                 <?php _e( 'Learn More', 'ucare' ); ?>
             </a>
         </div>
 
         <div class="widget-content">
-            <p><?php _e( 'Email Piping allows you to integrate your mailbox with the help desk, meaning, when your customers email you, the emails will automatically '
-                    . 'be imported to your help desk as tickets. This also allows your customers to post reply to tickets directly from their own mailbox.', 'ucare' ); ?>
+            <p><?php _e( 'uCare Pro is a must-have for any business website with a support system. It adds many features including email piping, agent notes, auto-agent assignment and more!'
+                    . 'With uCare Pro, you will get access to ALL the add-ons available, for one low price.', 'ucare' ); ?>
             </p>
             <p class="text-center">
 
