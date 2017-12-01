@@ -78,7 +78,8 @@ class Ticket extends AjaxComponent {
                         wp_update_post( $attachment );
 
                     }
-
+                    
+                    // moved to functions-hooks.php
 //                    do_action( 'support_ticket_created', get_post( $post_id ) );
 
                     wp_send_json_success( $post_id );
@@ -146,7 +147,8 @@ class Ticket extends AjaxComponent {
 
                     update_post_meta( $ticket->ID, '_edit_last', wp_get_current_user()->ID );
 
-                    do_action( 'support_ticket_updated', $ticket );
+                    // moved to functions-hooks.php
+//                    do_action( 'support_ticket_updated', $ticket );
 
                     wp_send_json( array(
                         'ticket_id' => $ticket->ID,

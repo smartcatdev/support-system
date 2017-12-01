@@ -14,10 +14,10 @@ add_action( 'wp_insert_post', 'ucare\ucare_new_ticket', 20, 3 );
 
 /**
  * 
+ * Runs when new ticket is created or when existing ticket is updated
  * 
  * @action wp_insert_post
  * @since 1.5
- * 
  * 
  * @param Int $ticket_id
  * @param WP_Post $ticket
