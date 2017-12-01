@@ -250,7 +250,8 @@ class Ticket extends AjaxComponent {
 
             if ( !is_wp_error( $comment ) ) {
 
-                do_action( 'support_ticket_reply', $comment, $ticket );
+                // moved to functions-hooks.php
+//                do_action( 'support_ticket_reply', $comment, $ticket );
 
                 $html = $this->render( $this->plugin->template_dir . '/comment.php', array( 'comment' => get_comment( $comment ) ) );
 
