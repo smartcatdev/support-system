@@ -79,7 +79,7 @@ class Ticket extends AjaxComponent {
 
                     }
 
-                    do_action( 'support_ticket_created', get_post( $post_id ) );
+//                    do_action( 'support_ticket_created', get_post( $post_id ) );
 
                     wp_send_json_success( $post_id );
                 }
