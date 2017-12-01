@@ -12,12 +12,12 @@ namespace ucare;
 
 add_action( 'wp_insert_post', 'ucare\ucare_new_ticket', 20, 3 );
 
-
-
-
 /**
  * 
+ * 
  * @action wp_insert_post
+ * @since 1.5
+ * 
  * 
  * @param Int $ticket_id
  * @param WP_Post $ticket
@@ -30,6 +30,12 @@ function ucare_new_ticket( $ticket_id, $ticket, $update ) {
         return;
     }
     
-    error_log( 'ucare_new_ticket runs' );
+    if( $update ) {
+        do_action( 'support_ticket_updated', $ticket );
+    }else {
+        do_action( 'support_ticket_created', $ticket );
+    }
+    
+    return;
     
 } 
