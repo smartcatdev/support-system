@@ -65,6 +65,6 @@ function ucare_new_comment( $comment_id, $approved, $data ) {
 
     $comment = get_comment( $comment_id );
     
-//    do_action( 'support_ticket_reply', $comment, $ticket );
+    do_action( 'support_ticket_reply', $comment, $ticket );
     
 }
