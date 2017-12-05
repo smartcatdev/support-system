@@ -404,6 +404,10 @@ a.ucare-addon-link {
     background: #de5d3f;
 }
 
+.ucare-addon .ad.slack-notifications {
+    background: #ecb32d;
+}
+
 @media(min-width: 768px) {
 
     .ucare-addon {

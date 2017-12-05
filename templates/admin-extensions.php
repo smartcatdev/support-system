@@ -124,6 +124,21 @@
             <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Advanced+EDD" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
         </a>
     </div>
+    
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Slack+Notifications" class="ucare-addon-link">
+            <h3><?php _e( 'Slack Notifications', 'ucare' ); ?></h3>
+
+            <div class="ad slack-notifications">
+                <img src="<?php echo esc_url( \ucare\plugin_url( 'assets/images/slack-icon.png' ) ); ?>" style="width: 120px">
+                <h2><?php _e( 'Notifications', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'Receive instant notifications to your Team Slack when users register, create tickets or reply to existing tickets ith this add-on', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Slack+Notifications" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+        </a>
+    </div>
 
     
     
