@@ -101,10 +101,11 @@ Yes, uCare is built with a notification system and templates for your customers 
 == Changelog ==
 
 = 1.5.0 =
-- Added add-ons for auto ticket routing, advanced EDD, and Agent notes
+- Added add-ons for auto ticket routing, advanced EDD, and Agent notes and Slack notifications
 - Make enqueue functions specific to support system with public
 - Code cleanup and splitting functions files
 - seperate WooCommerce & EDD code to allow for add-ons
+- Moved ticket creation and user registration hooks to a new file
 
 = 1.4.2 =
 - Added option allowing users to set attachment file types
