@@ -1,0 +1,1860 @@
+# Translation of Plugins - uCare &#8211; Support Ticket System - Development (trunk) in Dutch
+# This file is distributed under the same license as the Plugins - uCare &#8211; Support Ticket System - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2017-12-06 09:53-0500\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.1\n"
+"Language: nl\n"
+"Project-Id-Version: Plugins - uCare &#8211; Support Ticket System - Development (trunk)\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: templates/sidebar.php:210
+msgid "No tickets yet"
+msgstr "Nog geen tickets"
+
+#: templates/sidebar.php:192
+msgid "Recent Tickets"
+msgstr "Recente tickets"
+
+#: templates/sidebar.php:187
+msgid "%s in the past 30 days"
+msgstr "%s in de afgelopen 30 dagen"
+
+#: templates/sidebar.php:182 templates/sidebar.php:187
+msgid "Ticket"
+msgid_plural "Tickets"
+msgstr[0] "Ticket"
+msgstr[1] "Tickets"
+
+#: templates/sidebar.php:182
+msgid "%s total"
+msgstr "%s totaal"
+
+#: templates/login.php:133
+msgid "Forgot password?"
+msgstr "Wachtwoord vergeten?"
+
+#: templates/login.php:23 templates/login.php:63
+msgid "Back to login"
+msgstr "Terug naar Inloggen"
+
+#: templates/create_ticket.php:35
+msgid "Me"
+msgstr "Ik"
+
+#: templates/create_ticket.php:27
+msgid "Created by"
+msgstr "Gemaakt door"
+
+#: templates/create_ticket.php:20
+msgid "Manually set ticket creator"
+msgstr "Stel handmatig ticket maker in"
+
+#: templates/admin-sidebar.php:43
+msgid "Feedback Form"
+msgstr "Feedback formulier"
+
+#: templates/admin-sidebar.php:35
+msgid "Love it, or hate it? We want to know! Tell us what you think of the plugin, or make any suggestions for improvement."
+msgstr "Houd je ervan of haat het? Wij willen weten! Vertel ons wat je van de plug-in vindt, of doe suggesties voor verbetering."
+
+#: templates/admin-sidebar.php:30
+msgid "Recommendations & Feedback"
+msgstr "Aanbevelingen en feedback"
+
+#: templates/admin-sidebar.php:11
+msgid "Learn More"
+msgstr "Leer meer"
+
+#: templates/admin-header.php:28
+msgid "Documentation"
+msgstr "Documentatie"
+
+#: templates/admin-header.php:24
+msgid "Go to the Helpdesk"
+msgstr "Ga naar de Helpdesk"
+
+#: templates/admin-header.php:16
+msgid "uCare Customer Support"
+msgstr "uCare Customer Support"
+
+#: includes/wp-admin.php:128
+msgid " tickets"
+msgstr " tickets"
+
+#: includes/template.php:42
+msgid "Login"
+msgstr "Login"
+
+#: includes/template.php:41
+msgid "Remember Me"
+msgstr "Onthoud me"
+
+#: includes/template.php:39
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: includes/template.php:37 includes/template.php:70
+msgid "Register"
+msgstr "Registreren"
+
+#: includes/template.php:36
+msgid "Forgot Password"
+msgstr "Wachtwoord vergeten"
+
+#: includes/template.php:35
+msgid "Get Support"
+msgstr "Krijg ondersteuning"
+
+#: includes/template.php:32
+msgid "Sign in, or Register to create a support request"
+msgstr "Log in of registreer om een ondersteuningsverzoek te maken"
+
+#: includes/template.php:18
+msgid "uCare Navigation Menu"
+msgstr "uCare navigatie menu"
+
+#: config/admin_settings.php:400
+msgid "Allowed file types for file uploads (comma separated)"
+msgstr "Toegestane bestandstypen voor bestandsuploads (door komma's gescheiden)"
+
+#: config/admin_settings.php:399
+msgid "File MIME types"
+msgstr "Bestand MIME-typen"
+
+#: config/admin_settings.php:389
+msgid "Allowed file types for image uploads (comma separated)"
+msgstr "Toegestane bestandstypen voor het uploaden van afbeeldingen (door komma's gescheiden)"
+
+#: config/admin_settings.php:388
+msgid "Image MIME types"
+msgstr "Afbeelding MIME-typen "
+
+#: config/admin_settings.php:113
+msgid "Display the date and time in the primary navbar"
+msgstr "Geef de datum en tijd weer in de primaire navigatiebalk"
+
+#: config/admin_settings.php:112
+msgid "Show Clock"
+msgstr "Toon klok"
+
+#: templates/navbar.php:136
+msgid "Back to Site"
+msgstr "Terug naar site"
+
+#: templates/navbar.php:21
+msgid "Back to site"
+msgstr "Terug naar site"
+
+#: templates/admin-tutorial.php:73
+msgid "- Email Piping extension now availabe"
+msgstr "- E-mail piping-extensie nu beschikbaar"
+
+#: templates/admin-tutorial.php:68
+msgid "- bug fixes"
+msgstr "- bugfixes"
+
+#: templates/admin-tutorial.php:67
+msgid "- Added logo in the help desk page"
+msgstr "- Toegevoegd logo op de helpdeskpagina"
+
+#: templates/admin-tutorial.php:66
+msgid "- Ability to upload zip, pdf and text files as ticket attachments"
+msgstr "- Mogelijkheid om zip-, pdf- en tekstbestanden als ticketbijlagen te uploaden"
+
+#: templates/admin-tutorial.php:65
+msgid "- Email Piping Add-on"
+msgstr "- Email Piping Add-on"
+
+#: templates/admin-tutorial.php:49
+msgid "Say Hello to Email Piping!"
+msgstr "Zeg hallo tegen e-mail piping!"
+
+#: templates/admin-tutorial.php:57
+msgid "Get Email Piping"
+msgstr "Ontvang e-mail piping"
+
+#: includes/ajax/Media.php:39
+msgid "Error uploading invalid file format."
+msgstr "Fout bij uploaden van ongeldige bestandsindeling."
+
+#: config/admin_settings.php:103
+msgid "Display button that links back to your website in the navigation bar"
+msgstr "Weergeef knop die terug linkt naar je website in de navigatiebalk"
+
+#: config/admin_settings.php:102
+msgid "Display Back Button"
+msgstr "Toon Terug Knop"
+
+#: config/admin_settings.php:650
+msgid "Erase all plugin data on deactivation if developer mode is enabled or during un-installation"
+msgstr "Wis alle plugin-gegevens over deactivering als de ontwikkelaarsmodus is ingeschakeld of tijdens het verwijderen van de installatie"
+
+#: templates/admin-tutorial.php:84
+msgid "- Knowledge Base extension now availabe"
+msgstr "- Kennisbank extensie nu beschikbaar"
+
+#: templates/admin-tutorial.php:79
+msgid "- Mailchimp extension now availabe"
+msgstr "- Mailchimp extensie nu beschikbaar "
+
+#: templates/admin-tutorial.php:63
+msgid "New Features in 1.4"
+msgstr "Nieuwe functies in 1.4"
+
+#: templates/admin-tutorial.php:43
+msgid "View Plugin Documentation"
+msgstr "Bekijk Plugin documentatie"
+
+#: templates/admin-tutorial.php:37
+msgid "uCare is the most intelligent and user friendly WordPress support plugin."
+msgstr "uCare is de meest intelligente en gebruiksvriendelijke WordPress ondersteuning plugin."
+
+#: templates/admin-tutorial.php:35
+msgid "Welcome to uCare Support System "
+msgstr "Welkom bij uCare Support Systeem "
+
+#: templates/admin-extensions.php:174
+msgid "This add-on your agents to add comments within the ticket that can only be viewed by other agents."
+msgstr "Deze add-on laat je agenten opmerkingen binnen het ticket toe te voegen die alleen door andere agenten kunnen worden bekeken."
+
+#: templates/admin-extensions.php:167 templates/admin-extensions.php:171
+msgid "Agent Notes"
+msgstr "Agent Notities"
+
+#: templates/admin-extensions.php:110
+msgid "This extension allows you to create templated reponses to common issues that you can insert to a ticket with a click."
+msgstr "Met deze extensie kunt je sjabloonantwoorden maken voor veelvoorkomende problemen die je met één klik in een ticket kunt invoegen."
+
+#: templates/admin-extensions.php:103 templates/admin-extensions.php:107
+msgid "Canned Responses"
+msgstr "Standaardantwoorden"
+
+#: templates/admin-extensions.php:95
+msgid "This extension allows you to create additional fields for your ticket and for the New Ticket form."
+msgstr "Met deze extensie kunt je extra velden voor je ticket en voor het formulier Nieuw ticket aanmaken."
+
+#: templates/admin-extensions.php:88 templates/admin-extensions.php:92
+msgid "Custom Fields"
+msgstr "Aangepaste velden"
+
+#: templates/admin-extensions.php:83
+msgid "Coming soon"
+msgstr "Binnenkort beschikbaar"
+
+#: templates/admin-extensions.php:71
+msgid "Provide your customers the ability to search your Knowledge Base for answers. This increases customer satisfaction and reduces the amount of tickets you receive."
+msgstr "Geef je klanten de mogelijkheid om in je Kennisbank naar antwoorden te zoeken. Dit verhoogt de klanttevredenheid en vermindert het aantal tickets die je ontvangt."
+
+#: templates/admin-extensions.php:64 templates/admin-extensions.php:68
+msgid "Knowledge Base"
+msgstr "Kennisbank"
+
+#: templates/admin-extensions.php:54
+msgid "Sync up your support users and customers with your mailchimp account with this extension"
+msgstr "Synchroniseer je ondersteuningsgebruikers en klanten met jouw mailchimp-account met deze extensie"
+
+#: templates/admin-extensions.php:47 templates/admin-extensions.php:51
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: templates/admin-extensions.php:11
+msgid "Available Add-ons"
+msgstr "Beschikbare add-ons"
+
+#: templates/admin-activations.php:70
+msgid "Your license key expires on "
+msgstr "Je licentiesleutel vervalt op"
+
+#: templates/admin-activations.php:58
+msgid "Please enter your license key"
+msgstr "Voer je licentiesleutel in"
+
+#: templates/admin-activations.php:49
+msgid "Activate License"
+msgstr "Activeer Licentie"
+
+#: templates/admin-activations.php:40
+msgid "Deactivate License"
+msgstr "Deactiveer licentie"
+
+#: templates/admin-activations.php:14
+msgid "Add-on Licenses"
+msgstr "Add-on licenties"
+
+#: migrations/migration-1_3_0.php:45
+msgid "A new ticket has been created"
+msgstr "Er is een nieuw ticket gemaakt"
+
+#: migrations/migration-1_3_0.php:40
+msgid "You have a reply to a ticket that you are assigned to"
+msgstr "Je hebt een antwoord op een ticket waaraan je bent toegewezen"
+
+#: migrations/migration-1_3_0.php:35
+msgid "You have been assigned a ticket"
+msgstr "Je hebt een ticket toegewezen"
+
+#: lib/license/EDD_SL_Plugin_Updater.php:396
+msgid "You do not have permission to install plugin updates"
+msgstr "Je bent niet gemachtigd om plugin-updates te installeren"
+
+#: lib/license/EDD_SL_Plugin_Updater.php:209
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s."
+msgstr "Er is een nieuwe versie van %1$s beschikbaar. %2$s Bekijk versie %3$s details%4$s of %5$supdate nu%6$s."
+
+#: lib/license/EDD_SL_Plugin_Updater.php:201
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr "Er is een nieuwe versie van %1$s beschikbaar. %2$s Bekijk versie %3$s details%4$s."
+
+#: includes/wp-admin.php:91
+msgid "uCare - Introduction"
+msgstr "uCare - Introductie"
+
+#: includes/ticket-post-type.php:91
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/ticket-post-type.php:87
+msgid "Separate categories with commas"
+msgstr "Scheid categorieën met komma's"
+
+#: includes/ticket-post-type.php:86
+msgid "Choose from the most used categories"
+msgstr "Kies uit de meest gebruikte categorieën"
+
+#: includes/ticket-post-type.php:85
+msgid "Add or remove categories"
+msgstr "Categorieën toevoegen of verwijderen"
+
+#: includes/ticket-post-type.php:84
+msgid "No categories found"
+msgstr "Geen categorieën gevonden"
+
+#: includes/ticket-post-type.php:83
+msgid "Popular Categories"
+msgstr "Populaire categorieën"
+
+#: includes/ticket-post-type.php:82
+msgid "Search Categories"
+msgstr "Zoeken in categorieën"
+
+#: includes/ticket-post-type.php:81
+msgid "Parent Category:"
+msgstr "Bovenliggende categorie:"
+
+#: includes/ticket-post-type.php:80
+msgid "Parent Category"
+msgstr "Bovenliggende categorie"
+
+#: includes/ticket-post-type.php:79
+msgid "New Category"
+msgstr "Nieuwe categorie"
+
+#: includes/ticket-post-type.php:78
+msgid "Add New Category"
+msgstr "Voeg een nieuwe categorie toe"
+
+#: includes/ticket-post-type.php:77
+msgid "Update Category"
+msgstr "Categorie bijwerken"
+
+#: includes/ticket-post-type.php:76
+msgid "View Category"
+msgstr "Bekijk categorie"
+
+#: includes/ticket-post-type.php:75
+msgid "Edit Category"
+msgstr "Categorie bewerken"
+
+#: includes/ticket-post-type.php:74
+msgid "All Categories"
+msgstr "Alle categorieën"
+
+#: includes/ticket-post-type.php:73
+msgctxt "taxonomy singular name"
+msgid "Ticket Category"
+msgstr "Ticket categorie"
+
+#: includes/ticket-post-type.php:72
+msgctxt "taxonomy general name"
+msgid "Ticket Categories"
+msgstr "Ticket categorieën"
+
+#: includes/extension-licensing.php:145
+msgid "Your license key has reached its activation limit."
+msgstr "Je licentiesleutel heeft de activeringslimiet bereikt."
+
+#: includes/extension-licensing.php:138
+msgid "This appears to be an invalid license key for %s."
+msgstr "Dit lijkt een ongeldige licentiesleutel te zijn voor %s."
+
+#: includes/extension-licensing.php:132
+msgid "Your license is not active for this URL."
+msgstr "Je licentie is niet actief voor deze link."
+
+#: includes/extension-licensing.php:126
+msgid "Invalid license."
+msgstr "Ongeldige licentie."
+
+#: includes/extension-licensing.php:121
+msgid "Your license key has been disabled."
+msgstr "Je licentiesleutel is uitgeschakeld."
+
+#: includes/extension-licensing.php:114
+msgid "Your license key expired on %s."
+msgstr "Je licentiesleutel is verloopt op %s."
+
+#: includes/extension-licensing.php:101 includes/extension-licensing.php:150
+#: includes/extension-licensing.php:205
+msgid "An error occurred, please try again."
+msgstr "Er is een fout opgetreden. Probeer het opnieuw."
+
+#: includes/Plugin.php:183
+msgid "Licenses"
+msgstr "Licenties"
+
+#: emails/product-feedback.php:22
+msgid "website can be viewed here"
+msgstr "website kan hier bekeken worden"
+
+#: emails/product-feedback.php:17
+msgid "Comments"
+msgstr "Reacties"
+
+#: emails/product-feedback.php:10
+msgid "Details"
+msgstr "Details"
+
+#: emails/product-feedback.php:5
+msgid "Reason"
+msgstr "Reden"
+
+#: config/admin_settings.php:627
+msgid "Name used for outgoing support emails"
+msgstr "Naam gebruikt voor uitgaande e-mails voor ondersteuning"
+
+#: config/admin_settings.php:617
+msgid "Email address used when sending support emails"
+msgstr "E-mailadres gebruikt bij het verzenden van ondersteunings-e-mails"
+
+#: config/admin_settings.php:607
+msgid "Email address of the support administrator"
+msgstr "E-mailadres van de ondersteuningsbeheerder"
+
+#: config/admin_settings.php:606
+msgid "Admin Email"
+msgstr "Admin Email"
+
+#: config/admin_settings.php:582
+msgid "Sent out to support agents when they are assigned a ticket"
+msgstr "Verzonden naar ondersteuningsagenten wanneer ze een ticket toegewezen krijgen"
+
+#: config/admin_settings.php:581
+msgid "Ticket Assigned"
+msgstr "Toegewezen ticket"
+
+#: config/admin_settings.php:570
+msgid "Sent out to support agents when a customer replies to a ticket they're assigned to"
+msgstr "Verzonden naar ondersteuningsagenten wanneer een klant antwoordt op een ticket waaraan ze zijn toegewezen"
+
+#: config/admin_settings.php:569
+msgid "Customer Reply"
+msgstr "Klant antwoord"
+
+#: config/admin_settings.php:560
+msgid "Agent Notification Templates"
+msgstr "Agent-notificatiesjablonen"
+
+#: config/admin_settings.php:554
+msgid "Sent to the admin user when a user creates a new ticket"
+msgstr "Wordt verzonden naar de beheerder als een gebruiker een nieuw ticket maakt"
+
+#: config/admin_settings.php:553
+msgid "New Ticket"
+msgstr "Nieuw ticket"
+
+#: config/admin_settings.php:544
+msgid "Admin Notification Templates"
+msgstr "Admin-notificatiesjablonen"
+
+#: config/admin_settings.php:538
+msgid "Sent out to warn users of automatic ticket closure"
+msgstr "Verzonden naar gebruikers te waarschuwen voor automatische ticketsluiting"
+
+#: config/admin_settings.php:513
+msgid "Agent Reply"
+msgstr "Agent antwoord"
+
+#: config/admin_settings.php:466
+msgid "User Notification Templates"
+msgstr "Gebruikersnotificatiesjablonen"
+
+#: config/admin_settings.php:306
+msgid "Label to be displayed on the quick link widget"
+msgstr "Label dat moet worden weergegeven in de widget voor snelkoppelingen"
+
+#: config/admin_settings.php:305
+msgid "Quick Link Label"
+msgstr "Snelle link label"
+
+#: config/admin_settings.php:44
+msgid "Main content / body text font for the system"
+msgstr "Hoofdinhoud / hoofdtekstlettertype voor het systeem"
+
+#: config/admin_settings.php:137
+msgid "Categories Name Plural"
+msgstr "Categorieën Naam Meervoud"
+
+#: config/admin_settings.php:147
+msgid "Allow tickets to be assigned a category when created"
+msgstr "Toestaan dat tickets een categorie worden toegewezen wanneer ze worden gemaakt"
+
+#: config/admin_settings.php:295
+msgid "Display support quick link widget on your site"
+msgstr "Toon ondersteuning voor snelkoppelingwidget op je site"
+
+#: config/admin_settings.php:32
+msgid "Headings font for the system"
+msgstr "Koppen lettertype voor het systeem"
+
+#: config/admin_settings.php:119 includes/Plugin.php:148
+msgid "Ticket Categories"
+msgstr "Ticketcategorieën"
+
+#: config/admin_settings.php:127
+msgid "Categories Name"
+msgstr "Categorieën Naam"
+
+#: config/admin_settings.php:128
+msgid "The name to be used for ticket category"
+msgstr "De naam die moet worden gebruikt voor de ticketcategorie"
+
+#: config/admin_settings.php:138
+msgid "The plural name to be used for ticket category"
+msgstr "De meervoudsnaam die moet worden gebruikt voor de kaartcategorie"
+
+#: config/admin_settings.php:146
+msgid "Categories Enabled"
+msgstr "Categorieën ingeschakeld"
+
+#: config/admin_settings.php:294
+msgid "Quick Link Enabled"
+msgstr "Snelle link ingeschakeld"
+
+#: config/admin_settings.php:31
+msgid "Primary Font"
+msgstr "Primaire lettertype"
+
+#: config/admin_settings.php:43
+msgid "Secondary Font"
+msgstr "Secundair lettertype"
+
+#: templates/sidebar.php:69
+msgid "Automatically closed "
+msgstr "Automatisch gesloten"
+
+#: includes/cron.php:47 includes/cron.php:89
+msgid " has"
+msgid_plural " have"
+msgstr[0] "heeft"
+msgstr[1] "hebben"
+
+#: includes/cron.php:47 includes/cron.php:89
+msgid " ticket"
+msgid_plural " tickets"
+msgstr[0] "Ticket"
+msgstr[1] "Tickets"
+
+#: includes/ticket-post-type.php:249
+msgid "All Statuses"
+msgstr "Alle statussen"
+
+#: includes/admin/LogsTable.php:74
+msgid "All Tags"
+msgstr "Alle tags"
+
+#: includes/admin/LogsTable.php:57
+msgid "Verbose"
+msgstr "Breedsprakig"
+
+#: includes/admin/LogsTable.php:47
+msgid "No logs available."
+msgstr "Geen logboeken beschikbaar."
+
+#: includes/admin/LogsTable.php:34
+msgid "Timestamp"
+msgstr "Tijdstempel"
+
+#: includes/admin/LogsTable.php:33
+msgid "Message"
+msgstr "Bericht"
+
+#: includes/admin/LogsTable.php:32
+msgid "Event"
+msgstr "Gebeurtenis"
+
+#: includes/admin/LogsTable.php:31
+msgid "Level"
+msgstr "Level"
+
+#: includes/admin/LogsTable.php:23
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: includes/admin/LogsTable.php:22 lib/license/EDD_SL_Plugin_Updater.php:396
+msgid "Error"
+msgstr "Fout"
+
+#: includes/admin/LogsTable.php:21
+msgid "Debug"
+msgstr "Debug"
+
+#: includes/admin/LogsTable.php:20
+msgid "Info"
+msgstr "Info"
+
+#: includes/admin/LogsTable.php:14
+msgid "Log"
+msgstr "Log"
+
+#: includes/admin/LogsTab.php:14 includes/admin/LogsTable.php:15
+msgid "Logs"
+msgstr "Logs"
+
+#: config/ticket_filter.php:84 includes/ticket-post-type.php:212
+#: includes/ticket-post-type.php:271
+msgid "Stale"
+msgstr "Verschalen"
+
+#: config/admin_settings.php:537
+msgid "Automatic Close Warning"
+msgstr "Automatische waarschuwing sluiten"
+
+#: config/admin_settings.php:460
+msgid "Automatically close tickets after they become inactive"
+msgstr "Tickets automatisch sluiten nadat ze inactief zijn geworden"
+
+#: config/admin_settings.php:459
+msgid "Auto Close Tickets"
+msgstr "Tickets automatisch sluiten"
+
+#: config/admin_settings.php:449
+msgid "The maximum number of days of inactivity for a ticket"
+msgstr "Het maximale aantal dagen inactiviteit voor een ticket"
+
+#: config/admin_settings.php:448
+msgid "Max Ticket Age"
+msgstr "Max. Ticketleeftijd"
+
+#: config/admin_settings.php:438
+msgid "Inactive Tickets"
+msgstr "Inactieve tickets"
+
+#: config/admin_settings.php:431
+msgid "Enable or disable the logging of system events"
+msgstr "Schakel het loggen van systeemgebeurtenissen in of uit"
+
+#: config/admin_settings.php:430
+msgid "Enable Logging"
+msgstr "Logboek inschakelen"
+
+#: templates/admin-extensions.php:158
+msgid "This add-on allows you to sell support as a service with multiple tiers."
+msgstr "Met deze add-on kun je ondersteuning verkopen als een service met meerdere lagen."
+
+#: templates/admin-extensions.php:151 templates/admin-extensions.php:155
+msgid "Paid Support"
+msgstr "Betaalde ondersteuning"
+
+#: templates/admin-extensions.php:141
+msgid "This add-on allows to create rules and automate routing tickets to agents."
+msgstr "Met deze add-on kunnen regels en geautomatiseerde routetickets voor agenten worden gemaakt."
+
+#: templates/admin-extensions.php:134 templates/admin-extensions.php:138
+msgid "Automatic Ticket Routing"
+msgstr "Automatische ticketroutering"
+
+#: templates/admin-extensions.php:22
+msgid "This add-on allows your customers to reply to tickets via email, it also allows new tickets to be created through email."
+msgstr "Met deze add-on kunnen je klanten via e-mail op tickets antwoorden, het staat ook toe dat nieuwe tickets per e-mail worden aangemaakt."
+
+#: templates/admin-extensions.php:15 templates/admin-extensions.php:19
+#: templates/admin-sidebar.php:7
+msgid "Email Piping"
+msgstr "Email Piping"
+
+#: templates/admin-extensions.php:24 templates/admin-extensions.php:97
+#: templates/admin-extensions.php:112 templates/admin-extensions.php:127
+#: templates/admin-extensions.php:143 templates/admin-extensions.php:160
+#: templates/admin-extensions.php:176
+msgid "Coming soon!"
+msgstr "Binnenkort beschikbaar!"
+
+#: templates/admin-extensions.php:125
+msgid "This add-on allows your customers to chat with your agents directly from your website."
+msgstr "Met deze add-on kunnen je klanten direct vanaf jouw website met je agenten chatten."
+
+#: templates/admin-extensions.php:118 templates/admin-extensions.php:122
+msgid "Live Chat"
+msgstr "Live chat"
+
+#: templates/admin-extensions.php:39 templates/admin-extensions.php:56
+#: templates/admin-extensions.php:73
+msgid "Get this Add-on"
+msgstr "Download deze add-on"
+
+#: templates/admin-extensions.php:37
+msgid "This add-on allows you to automatically send a survey to rate the agents performance on the ticket, and to collect feedback from the customer."
+msgstr "Met deze add-on kun je automatisch een enquête verzenden om de prestaties van agenten op het ticket te beoordelen en om feedback van de klant te verzamelen."
+
+#: templates/admin-extensions.php:30 templates/admin-extensions.php:34
+msgid "Customer Satisfaction"
+msgstr "Klanttevredenheid"
+
+#: templates/admin-extensions.php:7
+msgid "Add-ons for uCare Support Help Desk"
+msgstr "Add-ons voor uCare Support Help Desk"
+
+#: lib/admin/ListTable.php:1072
+msgid "Select All"
+msgstr "Selecteer alles"
+
+#: lib/admin/ListTable.php:844
+msgid "Last page"
+msgstr "Laatste pagina"
+
+#: lib/admin/ListTable.php:834
+msgid "Next page"
+msgstr "Volgende pagina"
+
+#: lib/admin/ListTable.php:827
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s van %2$s"
+
+#: lib/admin/ListTable.php:818 lib/admin/ListTable.php:821
+msgid "Current Page"
+msgstr "Huidige pagina"
+
+#: lib/admin/ListTable.php:811
+msgid "Previous page"
+msgstr "Vorige pagina"
+
+#: lib/admin/ListTable.php:801
+msgid "First page"
+msgstr "Eerste pagina"
+
+#: lib/admin/ListTable.php:765 lib/admin/ListTable.php:1356
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s item"
+msgstr[1] "%s items"
+
+#: lib/admin/ListTable.php:688
+msgid "No pending comments"
+msgstr "Geen openstaande opmerkingen"
+
+#: lib/admin/ListTable.php:675
+msgid "No approved comments"
+msgstr "Geen goedgekeurde opmerkingen"
+
+#: lib/admin/ListTable.php:663 lib/admin/ListTable.php:675
+#: lib/admin/ListTable.php:688
+msgid "No comments"
+msgstr "Geen reacties"
+
+#: lib/admin/ListTable.php:658
+msgid "%s pending comment"
+msgid_plural "%s pending comments"
+msgstr[0] "%s wachtende reactie"
+msgstr[1] "%s wachtende reacties"
+
+#: lib/admin/ListTable.php:657
+msgid "%s approved comment"
+msgid_plural "%s approved comments"
+msgstr[0] "%s goedgekeurde opmerking"
+msgstr[1] "%s goedgekeurde opmerkingen"
+
+#: lib/admin/ListTable.php:656
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s reactie"
+msgstr[1] "%s reacties"
+
+#. translators: 1: month name, 2: 4-digit year
+#: lib/admin/ListTable.php:604
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: lib/admin/ListTable.php:591
+msgid "All dates"
+msgstr "Alle data"
+
+#: lib/admin/ListTable.php:589
+msgid "Filter by date"
+msgstr "Filteren op datum"
+
+#: lib/admin/ListTable.php:526 lib/admin/ListTable.php:1331
+msgid "Show more details"
+msgstr "Meer details weergeven"
+
+#: lib/admin/ListTable.php:476
+msgid "Apply"
+msgstr "Toepassen"
+
+#: lib/admin/ListTable.php:466
+msgid "Bulk Actions"
+msgstr "Bulkacties"
+
+#: lib/admin/ListTable.php:464
+msgid "Select bulk action"
+msgstr "Selecteer bulkactie"
+
+#: lib/admin/ListTable.php:337
+msgid "No items found."
+msgstr "Geen items gevonden."
+
+#: lib/admin/ListTable.php:166
+msgid "Excerpt View"
+msgstr "Uittreksel bekijken"
+
+#: lib/admin/ListTable.php:165
+msgid "List View"
+msgstr "Lijstweergave"
+
+#: includes/functions.php:459 migrations/migration-1_2_1.php:49
+msgid "You have a ticket awaiting action"
+msgstr "Je hebt een ticket in afwachting van actie"
+
+#: includes/admin/ReportsOverviewTab.php:193
+msgid "Go"
+msgstr "Gaan"
+
+#: includes/admin/ReportsOverviewTab.php:29
+msgid "Custom"
+msgstr "Gewoonte"
+
+#: includes/admin/ReportsOverviewTab.php:28
+msgid "This Year"
+msgstr "Dit jaar"
+
+#: includes/admin/ReportsOverviewTab.php:27
+msgid "Last Month"
+msgstr "Afgelopen maand"
+
+#: includes/admin/ReportsOverviewTab.php:26
+msgid "This Month"
+msgstr "Deze maand"
+
+#: includes/admin/ReportsOverviewTab.php:25
+msgid "Last 7 Days"
+msgstr "Laatste 7 dagen"
+
+#: includes/admin/ReportsOverviewTab.php:21
+msgid "Overview"
+msgstr "Overzicht"
+
+#: includes/admin/AgentStatsTable.php:68 includes/admin/LogsTable.php:92
+msgid "Filter"
+msgstr "Filter"
+
+#: includes/admin/AgentStatsTable.php:44
+msgid "No totals available."
+msgstr "Geen totalen beschikbaar."
+
+#: includes/admin/AgentStatsTable.php:30
+msgid "% Workload"
+msgstr "% Werkdruk"
+
+#: includes/admin/AgentStatsTable.php:16
+msgid "Agent Totals"
+msgstr "Agent-totalen"
+
+#: includes/admin/AgentStatsTable.php:15
+msgid "Agent Total"
+msgstr "Agent totaal"
+
+#: includes/Plugin.php:170 templates/admin-header.php:32
+msgid "Add-ons"
+msgstr "Add-ons"
+
+#: includes/Plugin.php:117
+msgid "Reports"
+msgstr "Rapporten"
+
+#: config/admin_settings.php:420
+msgid "List Refresh Interval"
+msgstr "Lijst Interval vernieuwen"
+
+#: templates/ticket_filter.php:96
+msgid "Refresh"
+msgstr "Verversen"
+
+#: templates/sidebar.php:65
+msgid "Closed by "
+msgstr "Gesloten door"
+
+#: templates/login.php:45
+msgid "Reset"
+msgstr "Reset"
+
+#: includes/template.php:40 templates/login.php:39
+msgid "Username or Email Address"
+msgstr "Gebruikersnaam of e-mailadres"
+
+#: templates/login.php:33
+msgid "Reset Password"
+msgstr "Reset wachtwoord"
+
+#: templates/footer.php:42
+msgid "Are you sure you want to do this? This operation cannot be undone!"
+msgstr "Weet je zeker dat je dit wilt doen? Deze bewerking kan niet ongedaan worden gemaakt!"
+
+#: templates/footer.php:40
+msgid "Delete Attachment"
+msgstr "Bijlage verwijderen"
+
+#: templates/footer.php:39
+msgid "Delete Comment"
+msgstr "Verwijder commentaar"
+
+#: templates/footer.php:37
+msgid "Loading Tickets..."
+msgstr "Tickets laden ..."
+
+#: migrations/migration-1_1_1.php:26
+msgid "Your password has been changed"
+msgstr "Je wachtwoord is gewijzigd"
+
+#: includes/functions.php:454
+msgid "Your password has been reset"
+msgstr "Je wachtwoord is gereset"
+
+#: includes/ajax/Registration.php:61
+msgid "An error has occurred, Please try again later"
+msgstr "Er is een fout opgetreden. Probeer het later opnieuw"
+
+#: includes/ajax/Registration.php:59
+msgid "Password reset, a temporary password has been sent to your email"
+msgstr "Wachtwoord opnieuw instellen, een tijdelijk wachtwoord is verzonden naar je e-mailadres"
+
+#: includes/ajax/Registration.php:52
+msgid "That user could not be found"
+msgstr "Die gebruiker kon niet worden gevonden"
+
+#: config/admin_settings.php:526
+msgid "Sent when a user forgets their password"
+msgstr "Verzonden wanneer een gebruiker zijn wachtwoord vergeet"
+
+#: config/admin_settings.php:525
+msgid "Forgot Password Reset"
+msgstr "Wachtwoord vergeten Reset"
+
+#: assets/css/dynamic.php:47
+msgid "Filters Applied"
+msgstr "Filters toegepast"
+
+#: includes/ticket-post-type.php:35
+msgid "Tickets list"
+msgstr "Tickets lijst"
+
+#. Description of the plugin/theme
+msgid "If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress."
+msgstr "Als je klanten hebt, heb je uCare nodig. Een helpdesk voor jouw klanten, met gebruikersgroepen, agenten, ticketstatus, filtering, zoeken in één responsieve app. Het meest robuuste support ticket-systeem voor WordPress."
+
+#: templates/ticket.php:161
+msgid "Done"
+msgstr "Klaar"
+
+#: templates/footer.php:43
+msgid "Yes"
+msgstr "Ja"
+
+#: templates/footer.php:41 templates/ticket.php:95
+msgid "Close Ticket"
+msgstr "Ticket sluiten"
+
+#: templates/statistics.php:69
+msgid "Assigned to Me"
+msgstr "Toegewezen aan mij"
+
+#: templates/statistics.php:39
+msgid "Awaiting Response"
+msgstr "In afwachting van reactie"
+
+#: templates/statistics.php:8
+msgid "Total Tickets"
+msgstr "Totaal tickets"
+
+#: templates/sidebar.php:352
+msgid "Upload"
+msgstr "Upload"
+
+#: templates/sidebar.php:231
+msgid "Attachments"
+msgstr "Bijlagen"
+
+#: templates/login.php:121
+msgid "Invalid username or password"
+msgstr "Ongeldige gebruikersnaam of wachtwoord"
+
+#: templates/header.php:20
+msgid "uCare Support System"
+msgstr "uCare Support System"
+
+#: templates/footer.php:20
+msgid " Powered by uCare Support"
+msgstr "Mede mogelijk gemaakt door uCare Support"
+
+#: templates/first_login.php:83
+msgid "Close"
+msgstr "Sluiten"
+
+#: templates/first_login.php:73
+msgid "Since this is your first login to the system, please take a moment to get familiar with how it works!"
+msgstr "Aangezien dit je eerste keer inloggen op het systeem is, neem dan even de tijd om bekend te raken met hoe het werkt!"
+
+#: templates/first_login.php:51
+msgid "You can click on the ticket to open it and add comments as well as view the agent responses in real time."
+msgstr "Je kunt op het ticket klikken om het te openen en opmerkingen toevoegen, en de agentreacties in realtime bekijken."
+
+#: templates/first_login.php:45
+msgid "You can update your password from the Settings menu"
+msgstr "Je kunt jouw wachtwoord bijwerken via het menu Instellingen"
+
+#: templates/first_login.php:39
+msgid "Your tickets will be displayed in the ticket view once created."
+msgstr "Je tickets worden weergegeven in de ticketweergave nadat ze zijn gemaakt."
+
+#: templates/first_login.php:33
+msgid "Click on the \"Create Ticket\" button to create a support request"
+msgstr "Klik op de knop 'Ticket maken' om een ondersteuningsverzoek aan te maken"
+
+#: templates/first_login.php:31 templates/first_login.php:37
+#: templates/first_login.php:43 templates/first_login.php:49
+msgid "Creating tickets"
+msgstr "Creëer tickets"
+
+#: templates/first_login.php:16
+msgid "Since this is your first login to the system, we will take a view seconds to quickly show you around."
+msgstr "Aangezien dit je eerste keer inloggen in het systeem is, zullen we een aantal seconden nemen om je snel rond te leiden."
+
+#: templates/first_login.php:8
+msgid "Welcome "
+msgstr "Welkom"
+
+#: templates/feedback.php:67
+msgid "Submit & Deactivate"
+msgstr "Verzenden & deactiveren"
+
+#: templates/feedback.php:66 templates/footer.php:44
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: templates/feedback.php:64
+msgid "No thanks, just deactivate"
+msgstr "Nee bedankt, gewoon deactiveren"
+
+#: templates/feedback.php:54
+msgid "Additional comments"
+msgstr "Aanvullende opmerkingen"
+
+#: templates/feedback.php:49
+msgid "Other"
+msgstr "Anders"
+
+#: templates/feedback.php:44
+msgid "I found a better plugin"
+msgstr "Ik vond een betere plugin"
+
+#: templates/feedback.php:42
+msgid "Which one?"
+msgstr "Welke?"
+
+#: templates/feedback.php:39
+msgid "The plugin does not work"
+msgstr "De plugin werkt niet"
+
+#: templates/feedback.php:37
+msgid "Can you explain what is happening?"
+msgstr "Kun je uitleggen wat er aan de hand is?"
+
+#: templates/feedback.php:34
+msgid "The plugin does not function as expected"
+msgstr "De plugin werkt niet zoals verwacht"
+
+#: templates/feedback.php:32
+msgid "What did you expect?"
+msgstr "Wat had je verwacht?"
+
+#: templates/feedback.php:29
+msgid "This plugin lacks the features I need"
+msgstr "Deze plugin mist de functies die ik nodig heb"
+
+#: templates/feedback.php:27
+msgid "What features would you like to see?"
+msgstr "Welke functies zou je graag zien?"
+
+#: templates/feedback.php:24
+msgid "I don't need this plugin"
+msgstr "Ik heb deze plugin niet nodig"
+
+#: templates/feedback.php:19
+msgid "Reason for deactivating"
+msgstr "Reden voor deactivering"
+
+#: templates/feedback.php:13
+msgid "If you have a moment, please let us know why you are deactivating"
+msgstr "Als je een moment hebt, laat het ons weten waarom je deactiveert"
+
+#: templates/create_ticket.php:73 templates/ticket.php:139
+msgid "Attach Images"
+msgstr "Afbeeldingen bijvoegen"
+
+#: templates/comment.php:42 templates/ticket.php:52
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: templates/comment.php:38 templates/ticket.php:48
+msgid "Write"
+msgstr "Schrijven"
+
+#: lib/mail/TemplateStyleMetaBox.php:12
+msgid "Template Style Sheet"
+msgstr "Sjabloon stijlblad"
+
+#: includes/email-notifications.php:59
+msgid "Powered by "
+msgstr "Mede mogelijk gemaakt door"
+
+#: includes/ajax/Ticket.php:151
+msgid "Error closing ticket"
+msgstr "Fout bij sluiten van ticket"
+
+#: includes/ajax/Ticket.php:149
+msgid "Ticket successfully closed"
+msgstr "Ticket succesvol afgesloten"
+
+#: includes/ajax/Media.php:55
+msgid "Error occurred when removing attachment"
+msgstr "Fout opgetreden bij het verwijderen van bijlage"
+
+#: includes/ajax/Media.php:53
+msgid "Attachment successfully removed"
+msgstr "Bijlage succesvol verwijderd"
+
+#: includes/functions.php:444
+msgid "Your request for support has been closed"
+msgstr "Je verzoek om ondersteuning is gesloten"
+
+#: includes/functions.php:434
+msgid "You have created a new request for support"
+msgstr "Je hebt een nieuw verzoek om ondersteuning gemaakt"
+
+#: includes/Plugin.php:159
+msgid "Launch Help Desk"
+msgstr "Start helpdesk"
+
+#: config/admin_settings.php:626
+msgid "Sender Name"
+msgstr "Naam afzender"
+
+#: config/admin_settings.php:616
+msgid "Sender Email"
+msgstr "Email afzender"
+
+#: config/admin_settings.php:514
+msgid "Sent when an agent replies to a ticket"
+msgstr "Wordt verzonden wanneer een agent op een ticket antwoordt"
+
+#: config/admin_settings.php:502
+msgid "Sent when a user creates a new ticket"
+msgstr "Wordt verzonden wanneer een gebruiker een nieuw ticket maakt"
+
+#: config/admin_settings.php:501
+msgid "Ticket Created"
+msgstr "Ticket aangemaakt"
+
+#: config/admin_settings.php:490
+msgid "Sent when the ticket is marked as closed"
+msgstr "Wordt verzonden wanneer het ticket is gemarkeerd als gesloten"
+
+#: config/admin_settings.php:489
+msgid "Ticket Closed"
+msgstr "Ticket gesloten"
+
+#: config/admin_settings.php:478
+msgid "Sent when a user registers for the first time"
+msgstr "Wordt verzonden wanneer een gebruiker zich voor de eerste keer registreert"
+
+#: config/admin_settings.php:468
+msgid "Notifications Disabled"
+msgstr "Meldingen uitgeschakeld"
+
+#: config/admin_settings.php:421
+msgid "Automatic refresh interval in seconds"
+msgstr "Automatisch verversingsinterval in seconden"
+
+#: config/admin_settings.php:410
+msgid "The maximum file size for attachments in MB"
+msgstr "De maximale bestandsgrootte voor bijlagen in MB"
+
+#: config/admin_settings.php:409
+msgid "Maximum attachment size"
+msgstr "Maximale grootte van de bijlage"
+
+#: config/admin_settings.php:348
+msgid "URL of page containing your terms and conditions"
+msgstr "Link van pagina met jouw algemene voorwaarden"
+
+#: config/admin_settings.php:347
+msgid "Terms & Conditions URL"
+msgstr "Algemene voorwaarden link"
+
+#: config/admin_settings.php:337
+msgid "Company Name"
+msgstr "Bedrijfsnaam"
+
+#: config/admin_settings.php:328
+msgid "Favicon"
+msgstr "Favicon"
+
+#: config/admin_settings.php:319
+msgid "Logo Image"
+msgstr "Logo afbeelding"
+
+#: config/admin_settings.php:286
+msgid "Only visible to support agents and admins"
+msgstr "Alleen zichtbaar voor ondersteuningsagenten en beheerders"
+
+#: config/admin_settings.php:285
+msgid "Agent Widget Area"
+msgstr "Agent Widget-gebied"
+
+#: config/admin_settings.php:275
+msgid "Only visible to support users"
+msgstr "Alleen zichtbaar voor ondersteuningsgebruikers"
+
+#: config/admin_settings.php:274
+msgid "User Widget Area"
+msgstr "Gebruikers Widget-gebied"
+
+#: config/admin_settings.php:264
+msgid "Displayed on the login page"
+msgstr "Weergegeven op de inlogpagina"
+
+#: config/admin_settings.php:263
+msgid "Login Widget Area"
+msgstr "Login Widget-gebied "
+
+#: config/admin_settings.php:254
+msgid "Widgets"
+msgstr "Widgets"
+
+#: config/admin_settings.php:94
+msgid "Login Background Image"
+msgstr "Login achtergrondafbeelding"
+
+#. Author URI of the plugin/theme
+msgid "https://smartcatdesign.net"
+msgstr "https://smartcatdesign.net"
+
+#. Author of the plugin/theme
+msgid "Smartcat"
+msgstr "Smartcat"
+
+#. Plugin Name of the plugin/theme
+msgid "uCare - Support Ticket System"
+msgstr "uCare - Support Ticket System"
+
+#: templates/ticket_filter.php:33
+msgid "Search"
+msgstr "Zoeken"
+
+#: templates/ticket_filter.php:23
+msgid "Filter By"
+msgstr "Filteren op"
+
+#: templates/footer.php:38 templates/ticket.php:17
+msgid "Loading..."
+msgstr "Laden..."
+
+#: templates/sidebar.php:371
+msgid "Ticket Properties"
+msgstr "Ticket-eigenschappen"
+
+#: templates/sidebar.php:155
+msgid "Email: "
+msgstr "Email:"
+
+#: templates/sidebar.php:131
+msgid "Customer Details"
+msgstr "Klant details"
+
+#: templates/sidebar.php:92
+msgid "Purchase Details"
+msgstr "Aankoopdetails"
+
+#: templates/sidebar.php:49
+msgid "Since "
+msgstr "Sinds"
+
+#: templates/navbar.php:149
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: includes/Plugin.php:128 templates/dash.php:119
+msgid "Tickets"
+msgstr "Tickets"
+
+#: templates/dash.php:59
+msgid "New Support Request"
+msgstr "Nieuw ondersteuningsverzoek"
+
+#: lib/mail/mail.php:185
+msgid "Templates for automated emails"
+msgstr "Sjablonen voor geautomatiseerde e-mails"
+
+#: lib/mail/mail.php:184
+msgid "Email Template"
+msgstr "Email sjabloon"
+
+#: lib/mail/mail.php:180
+msgid "Filter templates list"
+msgstr "Filter sjabloon lijst"
+
+#: lib/mail/mail.php:179
+msgid "Templates list navigation"
+msgstr "Sjabloon lijst navigatie"
+
+#: lib/mail/mail.php:178
+msgid "Templates list"
+msgstr "Sjabloon lijst"
+
+#: lib/mail/mail.php:177
+msgid "Uploaded to this template"
+msgstr "Geüpload naar dit sjabloon"
+
+#: lib/mail/mail.php:176
+msgid "Insert into template"
+msgstr "Invoegen in sjabloon"
+
+#: lib/mail/mail.php:171
+msgid "No templates found in Trash"
+msgstr "Geen sjablonen gevonden in de prullenbak"
+
+#: lib/mail/mail.php:170
+msgid "No templates found"
+msgstr "Geen sjablonen gevonden"
+
+#: lib/mail/mail.php:169
+msgid "Search Templates"
+msgstr "Zoek sjablonen"
+
+#: lib/mail/mail.php:168
+msgid "View Template"
+msgstr "Sjabloon bekijken"
+
+#: lib/mail/mail.php:167
+msgid "Update Template"
+msgstr "Sjabloon bijwerken"
+
+#: lib/mail/mail.php:166
+msgid "Edit Template"
+msgstr "Sjabloon bewerken"
+
+#: lib/mail/mail.php:163 lib/mail/mail.php:164 lib/mail/mail.php:165
+msgid "New Template"
+msgstr "Nieuwe sjabloon"
+
+#: lib/mail/mail.php:162
+msgid "All Templates"
+msgstr "Alle sjablonen"
+
+#: lib/mail/mail.php:160
+msgid "Template Archives"
+msgstr "Sjabloonarchieven"
+
+#: lib/mail/mail.php:157
+msgctxt "Post Type Singular Name"
+msgid "Email Template"
+msgstr "Email sjabloon"
+
+#: lib/mail/mail.php:156
+msgctxt "Post Type General Name"
+msgid "Email Templates"
+msgstr "Email sjablonen"
+
+#: includes/functions.php:317
+msgid "Support User"
+msgstr "Ondersteuningsgebruiker"
+
+#: includes/functions.php:316
+msgid "Support Agent"
+msgstr "Ondersteuningsagent"
+
+#: includes/functions.php:315 templates/navbar.php:121
+msgid "Support Admin"
+msgstr "Ondersteuningsadmin"
+
+#: includes/admin/AgentStatsTable.php:29
+#: includes/admin/ReportsOverviewTab.php:80 includes/functions.php:214
+msgid "Closed"
+msgstr "Gesloten"
+
+#: includes/functions.php:213 templates/statistics.php:24
+msgid "Needs Attention"
+msgstr "Heeft aandacht nodig"
+
+#: includes/functions.php:212
+msgid "Responded"
+msgstr "Gereageerd"
+
+#: includes/admin/ReportsOverviewTab.php:79 includes/functions.php:211
+msgid "Opened"
+msgstr "Geopend"
+
+#: includes/functions.php:210 templates/statistics.php:54
+msgid "Waiting"
+msgstr "Aan het wachten"
+
+#: includes/functions.php:209
+msgid "New"
+msgstr "Nieuw"
+
+#: includes/functions.php:203
+msgid "High"
+msgstr "Hoog"
+
+#: includes/functions.php:202
+msgid "Medium"
+msgstr "Medium"
+
+#: includes/functions.php:201
+msgid "Low"
+msgstr "Laag"
+
+#: includes/functions.php:158
+msgid "Just Now"
+msgstr "Zojuist"
+
+#: includes/ticket-post-type.php:267
+msgid "Flagged"
+msgstr "Gemarkeerd"
+
+#: includes/ticket-post-type.php:396
+msgid "Ticket Details"
+msgstr "Ticketgegevens"
+
+#: includes/ticket-post-type.php:42
+msgid "Tickets for support requests"
+msgstr "Tickets voor ondersteuningsverzoeken"
+
+#: includes/ticket-post-type.php:41
+msgid "Support Ticket"
+msgstr "Support Ticket"
+
+#: includes/ticket-post-type.php:37
+msgid "Filter tickets list"
+msgstr "Filter tickets lijst"
+
+#: includes/ticket-post-type.php:36
+msgid "Tickets list navigation"
+msgstr "Tickets lijst navigatie"
+
+#: includes/ticket-post-type.php:19
+msgid "Ticket List"
+msgstr "Ticket lijst"
+
+#: includes/ticket-post-type.php:34
+msgid "Uploaded to this ticket"
+msgstr "Geupload naar dit ticket"
+
+#: includes/ticket-post-type.php:33
+msgid "Insert into ticket"
+msgstr "Invoegen in ticket"
+
+#: includes/ticket-post-type.php:32 lib/mail/mail.php:175
+msgid "Use as featured image"
+msgstr "Gebruik als aanbevolen afbeelding"
+
+#: includes/ticket-post-type.php:31 lib/mail/mail.php:174
+msgid "Remove featured image"
+msgstr "Verwijder de aanbevolen afbeelding"
+
+#: includes/ticket-post-type.php:30 lib/mail/mail.php:173
+msgid "Set featured image"
+msgstr "Stel aanbevolen afbeelding in"
+
+#: includes/ticket-post-type.php:29 lib/mail/mail.php:172
+msgid "Featured Image"
+msgstr "Aanbevolen afbeelding "
+
+#: includes/ticket-post-type.php:28
+msgid "Ticket Not found in Trash"
+msgstr "Ticket niet gevonden in de prullenbak"
+
+#: includes/ticket-post-type.php:27
+msgid "Ticket Not found"
+msgstr "Ticket niet gevonden"
+
+#: includes/ticket-post-type.php:26
+msgid "Search Ticket"
+msgstr "Zoek ticket"
+
+#: includes/ticket-post-type.php:25
+msgid "View Ticket"
+msgstr "Bekijk ticket"
+
+#: includes/ticket-post-type.php:24
+msgid "Update Ticket"
+msgstr "Ticket bijwerken"
+
+#: includes/ticket-post-type.php:23
+msgid "Edit Ticket"
+msgstr "Ticket bewerken"
+
+#: includes/Plugin.php:138 includes/ticket-post-type.php:20
+#: includes/ticket-post-type.php:21 includes/ticket-post-type.php:22
+msgid "Create Ticket"
+msgstr "Ticket aanmaken"
+
+#: includes/ticket-post-type.php:18 lib/mail/mail.php:161
+msgid "Parent Item:"
+msgstr "Bovenliggend item:"
+
+#: includes/ticket-post-type.php:17
+msgid "Item Archives"
+msgstr "Artikelarchief"
+
+#: config/admin_settings.php:625 includes/Plugin.php:105
+#: includes/ticket-post-type.php:15 includes/ticket-post-type.php:16
+msgid "uCare Support"
+msgstr "uCare Support"
+
+#: includes/ticket-post-type.php:14
+msgctxt "Post Type Singular Name"
+msgid "Support Ticket"
+msgstr "Support Ticket"
+
+#: includes/ticket-post-type.php:13
+msgctxt "Post Type General Name"
+msgid "Support Tickets"
+msgstr "Support Tickets"
+
+#: includes/ticket-post-type.php:450
+msgid "Product Information"
+msgstr "Productinformatie"
+
+#: includes/ticket-post-type.php:437
+msgid "Ticket Information"
+msgstr "Ticket informatie"
+
+#: includes/ajax/Ticket.php:139
+msgid "Ticket Successfully Updated"
+msgstr "Ticket succesvol bijgewerkt"
+
+#: includes/ajax/Settings.php:33
+msgid "Settings updated refresh to apply your changes"
+msgstr "Instellingen bijgewerkt, vernieuw om je wijzigingen toe te passen"
+
+#: includes/ajax/Comment.php:34 includes/ajax/Ticket.php:251
+msgid "Reply cannot be blank"
+msgstr "Antwoord mag niet leeg zijn"
+
+#: includes/functions.php:412
+msgid "Support"
+msgstr "Ondersteuning"
+
+#: includes/functions.php:449
+msgid "Reply to your request for support"
+msgstr "Antwoord op jouw verzoek om ondersteuning"
+
+#: includes/functions.php:439
+msgid "Welcome to Support"
+msgstr "Welkom bij Ondersteuning"
+
+#: config/ticket_properties_form.php:18
+msgid "Assigned to"
+msgstr "Toegewezen aan"
+
+#: config/admin_settings.php:697 config/ticket_filter.php:72
+#: includes/ticket-post-type.php:165
+msgid "Email"
+msgstr "E-mail"
+
+#: config/ticket_filter.php:62 includes/admin/AgentStatsTable.php:53
+#: includes/ticket-post-type.php:248
+msgid "All Agents"
+msgstr "Alle agenten"
+
+#: config/ticket_filter.php:59 includes/admin/AgentStatsTable.php:27
+msgid "Agent"
+msgstr "Agent"
+
+#: config/ticket_filter.php:46 includes/ticket-post-type.php:256
+msgid "All Products"
+msgstr "Alle producten"
+
+#: config/ticket_create_form.php:119
+msgid "Description cannot be blank"
+msgstr "Beschrijving mag niet leeg zijn"
+
+#: config/ticket_create_form.php:118
+msgid "Description"
+msgstr "Beschrijving "
+
+#: config/ticket_create_form.php:103
+msgid "Subject cannot be blank"
+msgstr "Onderwerp mag niet leeg zijn"
+
+#: config/ticket_create_form.php:88
+msgid "Cannot be blank"
+msgstr "Mag niet leeg zijn"
+
+#: config/ticket_create_form.php:87 config/ticket_create_form.php:102
+#: includes/ticket-post-type.php:155
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: config/ticket_create_form.php:59
+msgid "Please Select a product"
+msgstr "Selecteer een product"
+
+#: config/settings_form.php:52
+msgid "Confirm Password"
+msgstr "Bevestig wachtwoord"
+
+#: config/settings_form.php:51
+msgid "Passwords don't match"
+msgstr "Wachtwoorden komen niet overeen"
+
+#: config/settings_form.php:42
+msgid "New Password"
+msgstr "Nieuw wachtwoord"
+
+#: config/settings_form.php:30
+msgid "Last name is required"
+msgstr "Achternaam is verplicht"
+
+#: config/settings_form.php:17
+msgid "First name is required"
+msgstr "Voornaam is verplicht"
+
+#: config/registration_form.php:38
+msgid "Email cannot be empty or already in use"
+msgstr "E-mail kan niet leeg zijn of al in gebruik zijn"
+
+#: config/registration_form.php:37
+msgid "Email Address"
+msgstr "E-mailadres"
+
+#: config/registration_form.php:26
+msgid "Last name cannot be blank"
+msgstr "Achternaam mag niet leeg zijn"
+
+#: config/registration_form.php:25 config/settings_form.php:28
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: config/registration_form.php:15
+msgid "First name cannot be blank"
+msgstr "Voornaam mag niet leeg zijn"
+
+#: config/registration_form.php:14 config/settings_form.php:15
+msgid "First Name"
+msgstr "Voornaam"
+
+#: config/properties_metabox_form.php:43 config/ticket_properties_form.php:42
+#: includes/ticket-post-type.php:168 includes/ticket-post-type.php:353
+msgid "Priority"
+msgstr "Prioriteit"
+
+#: config/properties_metabox_form.php:31 config/ticket_filter.php:93
+#: config/ticket_properties_form.php:30 includes/ticket-post-type.php:167
+#: includes/ticket-post-type.php:342
+msgid "Status"
+msgstr "Status"
+
+#: config/properties_metabox_form.php:19 includes/admin/AgentStatsTable.php:28
+#: includes/ticket-post-type.php:166 includes/ticket-post-type.php:331
+msgid "Assigned"
+msgstr "Toegewezen"
+
+#: config/properties_metabox_form.php:11 config/ticket_filter.php:63
+#: config/ticket_properties_form.php:11 includes/ticket-post-type.php:200
+#: includes/ticket-post-type.php:321
+msgid "Unassigned"
+msgstr "Niet-toegewezen"
+
+#: config/product_metabox_form.php:27 config/ticket_create_form.php:58
+#: config/ticket_filter.php:44 includes/ticket-post-type.php:158
+msgid "Product"
+msgstr "Product"
+
+#: config/product_metabox_form.php:18 config/ticket_create_form.php:73
+msgid "Receipt #"
+msgstr "Bon #"
+
+#: config/product_metabox_form.php:9 config/ticket_create_form.php:13
+msgid "Select a Product"
+msgstr "Selecteer een product"
+
+#: config/admin_settings.php:660
+msgid "Restore the template page if its been deleted"
+msgstr "Herstel de sjabloonpagina als deze is verwijderd"
+
+#: config/admin_settings.php:659
+msgid "Restore Template Page"
+msgstr "Sjabloonpagina herstellen"
+
+#: config/admin_settings.php:640
+msgid "Enable development functionality"
+msgstr "Schakel ontwikkelingsfunctionaliteit in"
+
+#: config/admin_settings.php:639
+msgid "Developer Mode"
+msgstr "Ontwikkelaarsmodus"
+
+#: config/admin_settings.php:649
+msgid "Erase All Data"
+msgstr "Verwijder alle data"
+
+#: config/admin_settings.php:632
+msgid "CAUTION: Some of these may bite"
+msgstr "LET OP: sommige hiervan kunnen bijten"
+
+#: config/admin_settings.php:596
+msgid "Send out automated email notifications in response to ticket events"
+msgstr "Stuur geautomatiseerde e-mailmeldingen naar aanleiding van ticketgebeurtenissen"
+
+#: config/admin_settings.php:588 config/admin_settings.php:595
+msgid "Email Notifications"
+msgstr "E-mail notificaties"
+
+#: config/admin_settings.php:477
+msgid "Welcome"
+msgstr "Welkom"
+
+#: lib/mail/mail.php:158 lib/mail/mail.php:159
+msgid "Email Templates"
+msgstr "E-mailsjablonen"
+
+#: config/admin_settings.php:378
+msgid "The maximum number of tickets to be loaded per page"
+msgstr "Het maximale aantal tickets dat per pagina kan worden geladen"
+
+#: config/admin_settings.php:377
+msgid "Tickets Per Page"
+msgstr "Tickets per pagina"
+
+#: config/admin_settings.php:367
+msgid "Enable integration with Easy Digital Downloads or WooCommerce"
+msgstr "Schakel integratie met Easy Digital Downloads of WooCommerce in"
+
+#: config/admin_settings.php:366
+msgid "E-Commerce Integration"
+msgstr "E-commerce integratie"
+
+#: config/admin_settings.php:357
+msgid "Allow users to create accounts for submitting tickets"
+msgstr "Sta gebruikers toe accounts te maken voor het verzenden van tickets"
+
+#: config/admin_settings.php:356
+msgid "Allow users to signup"
+msgstr "Sta gebruikers toe om zich aan te melden"
+
+#: config/admin_settings.php:311
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+#: config/admin_settings.php:249
+msgid "Footer Text"
+msgstr "Voettekst"
+
+#: config/admin_settings.php:240
+msgid "Comments Closed Message"
+msgstr "Reacties gesloten bericht"
+
+#: config/admin_settings.php:231
+msgid "No Tickets Message"
+msgstr "Geen tickets bericht"
+
+#: config/admin_settings.php:221
+msgid "Ticket Updated Message"
+msgstr "Ticket bijgewerkt bericht"
+
+#: config/admin_settings.php:211
+msgid "Ticket Created Message"
+msgstr "Ticket gecreëerd bericht"
+
+#: config/admin_settings.php:201
+msgid "Cancel Operation Button Label"
+msgstr "Annuleer bewerking Knoplabel"
+
+#: config/admin_settings.php:191
+msgid "Create Ticket Button Label"
+msgstr "Maak een Ticket knoplabel"
+
+#: config/admin_settings.php:181
+msgid "Login Button Label"
+msgstr "Login knoplabel"
+
+#: config/admin_settings.php:171
+msgid "Register Button Label"
+msgstr "Registreer knoplabel"
+
+#: config/admin_settings.php:161
+msgid "Login Disclaimer"
+msgstr "Login disclaimer"
+
+#: config/admin_settings.php:153
+msgid "Text & Labels"
+msgstr "Tekst & Labels"
+
+#: config/admin_settings.php:83
+msgid "Tertiary color"
+msgstr "Tertiaire kleur"
+
+#: config/admin_settings.php:73
+msgid "Secondary color"
+msgstr "Secundaire kleur"
+
+#: config/admin_settings.php:64
+msgid "Hover color"
+msgstr "Hover kleur"
+
+#: config/admin_settings.php:54
+msgid "Primary color"
+msgstr "Primaire kleur"
+
+#: config/admin_settings.php:704
+msgid "Advanced"
+msgstr "Gevorderd"
+
+#: config/admin_settings.php:20 config/admin_settings.php:690
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: config/admin_settings.php:683
+msgid "Display"
+msgstr "Tonen"
+
+#: config/admin_settings.php:676
+msgid "General"
+msgstr "Algemeen"
+
+#: config/admin_settings.php:670 plugin.php:58 templates/dash.php:19
+#: templates/navbar.php:106
+msgid "Settings"
+msgstr "Instellingen"
+
+#: assets/css/dynamic.php:43
+msgid "Apply Filters"
+msgstr "Filters toepassen"
