@@ -62,14 +62,14 @@ namespace ucare;
 
     <?php endif; ?>
 
-    <?php if ( count( $images ) > 0 ) : ?>
+    <?php if ( count( $images ) > 0 ) : $ctr = 0; ?>
 
         <div class="row">
 
             <div class="gallery">
 
-                <?php foreach ( $images as $image ) : ?>
-
+                <?php foreach ( $images as $image ) : $ctr++; ?>
+                    
                     <div class="col-md-4">
 
                         <div class="image-wrapper">
@@ -95,7 +95,13 @@ namespace ucare;
                             </div>
 
                         </div>
-
+                        
+                    </div>
+                
+                    <?php if( $ctr == 3 ) : ?>
+                    <div class="clear"></div>
+                    <?php endif; ?>
+                
                     <?php endforeach; ?>
 
                 </div>
