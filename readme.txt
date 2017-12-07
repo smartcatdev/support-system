@@ -5,7 +5,7 @@ Tags: support,ticket,helpdesk,system,email,customer service,agent,tech,technical
 Requires at least: 4.6
 Tested up to: 4.9.1
 Stable tag: 1.4.2
-Requires PHP: 5.7
+Requires PHP: 5.5
 License: GPLv2 or later
 
 If you have customers, then you need uCare. An intelligent support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
@@ -109,6 +109,7 @@ Yes, uCare is built with a notification system and templates for your customers 
 - seperate WooCommerce & EDD code to allow for add-ons
 - Moved ticket creation and user registration hooks to a new file
 - Added Dutch Translation
+- Fixed image gallery visual bug
 
 = 1.4.2 =
 - Added option allowing users to set attachment file types
