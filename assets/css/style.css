@@ -29,6 +29,10 @@ p {
     margin: auto !important;
 }
 
+.clear{
+    clear: both;
+}
+
 form {
     margin: 0;
 }
