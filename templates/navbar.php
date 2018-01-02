@@ -12,7 +12,7 @@ $user = wp_get_current_user();
 
         <div class="row">
 
-            <?php if ( get_option( Options::DISPLAY_BACK_BUTTON, \ucare\Defaults::DISPLAY_BACK_BUTTON ) == 'on' ) : ?>
+            <?php if ( get_option( Options::DISPLAY_BACK_BUTTON, Defaults::DISPLAY_BACK_BUTTON ) == 'on' ) : ?>
 
                 <div class="row-table pull-left">
 
@@ -20,7 +20,7 @@ $user = wp_get_current_user();
 
                         <a class="brand-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php _e( 'Back to site', 'ucare' ); ?>">
 
-                            <img height="40" src="<?php echo esc_url( get_option( Options::LOGO, \ucare\Defaults::LOGO ) ); ?>" />
+                            <img height="40" src="<?php echo esc_url( get_option( Options::LOGO, Defaults::LOGO ) ); ?>" />
 
                         </a>
 
@@ -30,28 +30,15 @@ $user = wp_get_current_user();
 
             <?php endif; ?>
 
-            <?php if ( get_option( Options::SHOW_CLOCK, Defaults::SHOW_CLOCK ) ) : ?>
 
-                <div class="row-table pull-left clock">
+            <?php if ( !is_support_page() ) : ?>
+
+                <div class="row-table pull-left">
 
                     <div class="row-table-cell">
 
-                        <a href="#date" class="background-secondary hover menu-item">
-
-                            <span class="glyphicon-calendar glyphicon"></span>
-
-                            <span id="sys-date"></span>
-
-                        </a>
-
-                        <span class="text-muted">|</span>
-
-                        <a href="#time" class="background-secondary hover menu-item">
-
-                            <span class="glyphicon-time glyphicon"></span>
-
-                            <span id="sys-time"></span>
-
+                        <a href="#" class="button button-primary back btn-back">
+                            <span class="glyphicon glyphicon-share-alt"></span><span><?php _e( 'Back', 'ucare' ); ?></span>
                         </a>
 
                     </div>
@@ -59,24 +46,27 @@ $user = wp_get_current_user();
                 </div>
 
             <?php endif; ?>
+
 
             <div class="row-table pull-right actions">
 
-                <?php if ( current_user_can( 'edit_support_tickets' ) ) : ?>
+                <div class="row-table-cell">
 
-                    <div class="row-table-cell">
+                    <?php if ( !is_create_ticket_page() ) : ?>
 
-                        <button class="button button-primary" data-toggle="modal" data-target="#create-modal">
+                        <a class="button button-primary" href="<?php echo esc_url( create_page_url() ); ?>">
 
                             <span class="glyphicon glyphicon-plus-sign button-icon"></span>
+                            <span>
+                                <?php echo esc_html_e( get_option( Options::CREATE_BTN_TEXT, Defaults::CREATE_BTN_TEXT ) ); ?>
+                            </span>
 
-                            <span><?php _e( get_option( Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT ), 'ucare' ); ?></span>
+                        </a>
 
-                        </button>
+                    <?php endif; ?>
 
-                    </div>
+                </div>
 
-                <?php endif; ?>
 
                 <div class="row-table-cell">
 
@@ -111,7 +101,7 @@ $user = wp_get_current_user();
 
                             <li role="separator" class="divider"></li>
 
-                            <?php if( current_user_can( 'manage_options' ) ) : ?>
+                            <?php if ( current_user_can( 'manage_options' ) ) : ?>
 
                                 <li>
                                     <a href="<?php echo admin_url( 'admin.php?page=ucare_support' ); ?>" class="alignright background-secondary hover menu-item">
@@ -131,7 +121,7 @@ $user = wp_get_current_user();
                             <li>
                                 <a href="<?php echo esc_url( home_url() ); ?>" class="alignright background-secondary hover menu-item">
 
-                                    <span class="glyphicon glyphicon-globe  "></span>
+                                    <span class="glyphicon glyphicon-globe"></span>
 
                                     <?php _e( 'Back to Site', 'ucare' ); ?>
 

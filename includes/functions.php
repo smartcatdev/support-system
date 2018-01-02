@@ -1,6 +1,38 @@
 <?php
-
+/**
+ * General use functions and utilities.
+ *
+ * @since 1.0.0
+ * @package ucare
+ */
 namespace ucare;
+
+
+/**
+ * Get the support page URL.
+ *
+ * @param string $path
+ *
+ * @since 1.0.0
+ * @return string
+ */
+function support_page_url( $path = '' ) {
+    return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ) . $path;
+}
+
+
+/**
+ * Get the URL of the create ticket page.
+ *
+ * @param string $path
+ *
+ * @since 1.0.0
+ * @return string
+ */
+function create_page_url( $path = '' ) {
+    return get_the_permalink( get_option( Options::CREATE_TICKET_PAGE_ID ) ) . $path;
+}
+
 
 
 function allowed_mime_types( $type = null ) {
@@ -19,9 +51,6 @@ function allowed_mime_types( $type = null ) {
 }
 
 
-function support_page_url( $path = '' ) {
-    return get_the_permalink( get_option( Options::TEMPLATE_PAGE_ID ) ) . $path;
-}
 
 
 function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>

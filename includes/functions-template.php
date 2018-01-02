@@ -110,7 +110,6 @@ function get_template( $name, $args = array(), $include = true, $once = true ) {
 function buffer_template( $name, $args = array(), $once = true ) {
 
     ob_start();
-
     get_template( $name, $args, true, $once );
 
     return ob_get_clean();
@@ -179,10 +178,8 @@ function is_a_support_page( $page = null ) {
     $page = get_post( $page );
 
     if ( $page ) {
-
         return $page->ID == get_option( Options::CREATE_TICKET_PAGE_ID ) ||
                $page->ID == get_option( Options::TEMPLATE_PAGE_ID );
-
     }
 
     return false;
@@ -240,9 +237,7 @@ function is_support_page( $page = null ) {
  * @return void
  */
 function get_header( $args = array() ) {
-
     get_template( 'header', $args );
-
 }
 
 
@@ -255,9 +250,7 @@ function get_header( $args = array() ) {
  * @return void
  */
 function get_footer( $args = array() ) {
-
     get_template( 'footer', $args );
-
 }
 
 

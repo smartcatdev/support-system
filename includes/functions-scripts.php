@@ -68,6 +68,8 @@ function enqueue_default_scripts() {
     ucare_enqueue_script( 'bootstrap', resolve_url( 'assets/lib/bootstrap/js/bootstrap.min.js' ), null, PLUGIN_VERSION, true );
     ucare_enqueue_script( 'dropzone',  resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'   ), null, PLUGIN_VERSION, true );
 
+    ucare_enqueue_script( 'script', resolve_url( 'assets/js/script.js' ), null, PLUGIN_VERSION, true );
+
 
     // Only load these scripts in the app
     if ( is_support_page() ) {
