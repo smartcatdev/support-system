@@ -39,7 +39,6 @@
              * @summary Auto draft the post after editing.
              */
             $form.find(':input').on('change paste keyup', _.debounce(function () {
-                module.clear_errors();
                 module.save('draft');
             }, 1000));
 

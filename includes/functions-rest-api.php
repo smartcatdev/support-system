@@ -58,7 +58,7 @@ function rest_filter_comment_query( $args ) {
 
 
 /**
- * Remove ticket media attachments
+ * If the current user cannot manage support tickets, restrict them to tickets that they have created.
  *
  * @param array $args
  *
@@ -69,9 +69,10 @@ function rest_filter_comment_query( $args ) {
  */
 function rest_filter_support_ticket_query( $args ) {
 
-    // TODO Add check to make sure author isn't 0
-    if ( !ucare_is_support_agent() ) {
-        $args['author'] = get_current_user_id();
+    $user_id = get_current_user_id();
+
+    if ( $user_id > 0 && !ucare_is_support_agent( $user_id ) ) {
+        $args['author'] = $user_id;
     }
 
     return $args;
@@ -151,10 +152,6 @@ function rest_create_support_ticket( \WP_Post $post, \WP_REST_Request $request )
 
     }
 
-// TODO Fix mailer error
-    // Notify the ticket has been created
-//    do_action( 'support_ticket_created', $post );
-
 }
 
 
@@ -194,6 +191,7 @@ function rest_validate_support_ticket( $post ) {
             );
 
             return new \WP_Error( 'empty-content', __( 'Description cannot be blank', 'ucare' ), $data );
+
         }
 
     }
