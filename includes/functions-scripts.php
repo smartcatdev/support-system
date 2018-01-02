@@ -14,6 +14,9 @@ add_action( 'ucare_loaded', 'ucare\init_scripts' );
 // Fire our enqueue hook
 add_action( 'wp', 'ucare\enqueue_system_scripts' );
 
+// Register core scripts
+add_action( 'ucare_enqueue_scripts', 'ucare\register_core_scripts' );
+
 // Load default scripts
 add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
 
@@ -52,6 +55,48 @@ function enqueue_system_scripts() {
 
 
 /**
+ * Register core script dependencies.
+ *
+ * @action ucare_enqueue_scripts
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function register_core_scripts() {
+
+    $rest_url = rest_url();
+
+    $i10n = array(
+        'api' => array(
+            'nonce'  => wp_create_nonce( 'wp_rest' ),
+            'schema' => array(
+                'wp' => array(
+                    'v2' => array(
+                        'tickets' => array(
+                            'href' => $rest_url . 'wp/v2/support-tickets',
+                        ),
+                        'media' => array(
+                            'href' => $rest_url . 'wp/v2/media'
+                        ),
+                        'users' => array(
+                            'href' => $rest_url . 'wp/v2/users'
+                        )
+                    )
+                )
+            )
+        ),
+        'settings' => array(
+
+        )
+    );
+
+    ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery' ), PLUGIN_VERSION );
+    ucare_localize_script( 'ucare', 'ucare_i10n', $i10n );
+
+}
+
+
+/**
  * Enqueue all of the scripts needed for the system's front-end.
  *
  * @action ucare_enqueue_scripts
@@ -62,6 +107,7 @@ function enqueue_system_scripts() {
 function enqueue_default_scripts() {
 
     // Scripts
+    ucare_enqueue_script( 'ucare' );
     ucare_enqueue_script( 'jquery' );
     ucare_enqueue_script( 'wp-util' );
 
