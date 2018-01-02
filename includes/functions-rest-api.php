@@ -112,6 +112,7 @@ function rest_filter_attachment_query( $args ) {
 
 }
 
+
 /**
  * Save support ticket meta from the REST API.
  *
@@ -123,7 +124,7 @@ function rest_filter_attachment_query( $args ) {
  * @since 1.5.1
  * @return void
  */
-function rest_set_ticket_attributes( \WP_Post $post, \WP_REST_Request $request ) {
+function rest_set_ticket_attributes( $post, $request ) {
 
     // Insert meta
     $meta = $request->get_param( 'meta' );

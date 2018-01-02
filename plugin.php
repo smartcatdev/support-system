@@ -47,6 +47,10 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
     add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
 
 
+    register_activation_hook(   __FILE__, 'ucare\activate'   );
+    register_deactivation_hook( __FILE__, 'ucare\deactivate' );
+
+
     /**
      * Main plugin class
      *
@@ -193,6 +197,13 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
 
+        /**
+         * Initialize module for handling extension licensing.
+         *
+         * @since 1.4.2
+         * @access private
+         * @return void
+         */
         private function init_licensing() {
 
             $page = array(
@@ -208,6 +219,29 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
 
+    }
+
+
+    /**
+     * Handle plugin activation.
+     *
+     * @since 1.6.0
+     * @return void
+     */
+    function activate() {
+
+    }
+
+
+    /**
+     * Handle plugin deactivation.
+     *
+     * @since 1.6.0
+     * @return void
+     */
+    function deactivate() {
+        remove_capabilities();
+        remove_user_roles();
     }
 
 
