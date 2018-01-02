@@ -270,6 +270,8 @@ var App = (function ($) {
 
         var form = $(e.target);
         var submit = $("#registration-submit");
+        var initialText = submit.html()
+        submit.html( '<span class="glyphicon glyphicon-refresh fast-right-spinner"></span>' )
 
         submit.prop("disabled", true);
 
@@ -282,6 +284,7 @@ var App = (function ($) {
             },
             success: function (response) {
                 window.location.reload();
+                submit.html( initialText )
             },
             complete: function () {
                 submit.prop("disabled", false);

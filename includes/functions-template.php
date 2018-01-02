@@ -165,6 +165,7 @@ function print_underscore_templates() {
 
 }
 
+
 /**
  * Check to see if a page belongs to the support system.
  *
@@ -245,7 +246,6 @@ function get_header( $args = array() ) {
 }
 
 
-
 /**
  * Get the support system footer.
  *
@@ -257,5 +257,31 @@ function get_header( $args = array() ) {
 function get_footer( $args = array() ) {
 
     get_template( 'footer', $args );
+
+}
+
+
+/**
+ * Print copyright text with branding.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function print_footer_copyright() {
+
+    $text  = get_option( Options::FOOTER_TEXT );
+    $brand = apply_filters( 'ucare_footer_branding', true );
+
+    if ( $text ) {
+        echo $text . ( $brand ? ' | ' : '' );
+    }
+
+    if ( $brand ) { ?>
+
+        <a href="http://ucaresupport.com" target="_blank">
+            <?php _e( 'Powered by uCare Support', 'ucare' ); ?>
+        </a>
+
+    <?php }
 
 }

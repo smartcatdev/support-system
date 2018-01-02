@@ -7,6 +7,12 @@
     <h1><?php _e( 'Add-ons for uCare Support Help Desk', 'ucare' ); ?></h1>
     <hr>
     <br>
+
+
+    <div class="updated" style="padding: 20px">
+        <?php _e( 'Get ALL these add-ons for one low price with uCare Pro', 'ucare' ); ?><br>
+        <a class="button button-primary" href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ucare+Pro" class="ucare-addon-link"><?php _e( 'Click here', 'ucare' ); ?></a>
+    </div>
     
     <h2><?php _e( 'Available Add-ons', 'ucare' ); ?></h2>
     
@@ -21,7 +27,7 @@
 
             <p class="details"><?php _e( 'This add-on allows your customers to reply to tickets via email, it also allows new tickets to be created through email.', 'ucare' ); ?></p>
 
-            <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
+            <a href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping" class="button"><?php _e( 'Get this Add-on!', 'ucare' ); ?></a>
         </a>
     </div>
 
@@ -74,6 +80,66 @@
         </a>
     </div>
     
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Agent+Notes" class="ucare-addon-link">
+            <h3><?php _e( 'Agent Notes', 'ucare' ); ?></h3>
+
+            <div class="ad agent-notes">
+                <span class="dashicons dashicons-edit"></span>
+                <h2><?php _e( 'Agent Notes', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'This add-on your agents to add comments within the ticket that can only be viewed by other agents.', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Agent+Notes" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+        </a>
+    </div>
+    
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ticket+Routing" class="ucare-addon-link">
+            <h3><?php _e( 'Automatic Ticket Routing', 'ucare' ); ?></h3>
+
+            <div class="ad auto-ticket-routing">
+                <span class="dashicons dashicons-randomize"></span><span class="dashicons dashicons-admin-users"></span>
+                <h2><?php _e( 'Automatic Ticket Routing', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'This add-on allows to create rules and automate routing tickets to agents.', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ticket+Routing" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+        </a>
+    </div>
+    
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ticket+Routing" class="ucare-addon-link">
+            <h3><?php _e( 'Advanced EDD Integration', 'ucare' ); ?></h3>
+
+            <div class="ad auto-ticket-routing">
+                <span class="dashicons dashicons-cart"></span>
+                <h2><?php _e( 'Easy Digital Downloads', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'This add-on adds further integration with Easy Digital Downloads, displays purchase information and history in the ticket, as well as validates the receipt number with EDD.', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Advanced+EDD" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+        </a>
+    </div>
+    
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Slack+Notifications" class="ucare-addon-link">
+            <h3><?php _e( 'Slack Notifications', 'ucare' ); ?></h3>
+
+            <div class="ad slack-notifications">
+                <img src="<?php echo esc_url( \ucare\plugin_url( 'assets/images/slack-icon.png' ) ); ?>" style="width: 120px">
+                <h2><?php _e( 'Notifications', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'Receive instant notifications to your Team Slack when users register, create tickets or reply to existing tickets ith this add-on', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Slack+Notifications" class="button"><?php _e( 'Get this Add-on', 'ucare' ); ?></a>
+        </a>
+    </div>
+
     
     
     <div class="clear"></div>
@@ -128,24 +194,6 @@
         </a>
     </div>
 
-
-    <div class="ucare-addon">
-        <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ticket+Routing" class="ucare-addon-link">
-            <h3><?php _e( 'Automatic Ticket Routing', 'ucare' ); ?></h3>
-
-            <div class="ad auto-ticket-routing">
-                <span class="dashicons dashicons-randomize"></span><span class="dashicons dashicons-admin-users"></span>
-                <h2><?php _e( 'Automatic Ticket Routing', 'ucare' ); ?></h2>
-            </div>
-
-            <p class="details"><?php _e( 'This add-on allows to create rules and automate routing tickets to agents.', 'ucare' ); ?></p>
-
-            <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ticket+Routing" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
-        </a>
-    </div>
-
-
-
     <div class="ucare-addon">
         <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Paid+Support" class="ucare-addon-link">
             <h3><?php _e( 'Paid Support', 'ucare' ); ?></h3>
@@ -162,20 +210,7 @@
     </div>
 
     
-    <div class="ucare-addon">
-        <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Agent+Notes" class="ucare-addon-link">
-            <h3><?php _e( 'Agent Notes', 'ucare' ); ?></h3>
 
-            <div class="ad agent-notes">
-                <span class="dashicons dashicons-edit"></span>
-                <h2><?php _e( 'Agent Notes', 'ucare' ); ?></h2>
-            </div>
-
-            <p class="details"><?php _e( 'This add-on your agents to add comments within the ticket that can only be viewed by other agents.', 'ucare' ); ?></p>
-
-            <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Agent+Notes" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
-        </a>
-    </div>
     
 
     

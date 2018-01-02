@@ -29,6 +29,10 @@ p {
     margin: auto !important;
 }
 
+.clear{
+    clear: both;
+}
+
 form {
     margin: 0;
 }
@@ -881,6 +885,35 @@ button.close-ticket {
 
 button.close-ticket:hover {
     background-color: #cdcdcd;
+}
+
+.glyphicon.fast-right-spinner {
+    -webkit-animation: glyphicon-spin-r 1s infinite linear;
+    animation: glyphicon-spin-r 1s infinite linear;
+}
+
+@-webkit-keyframes glyphicon-spin-r {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes glyphicon-spin-r {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
 }
 
 /* #### Dropzone ************************************************************************/

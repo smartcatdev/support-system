@@ -2,8 +2,13 @@
 /**
  * Plugin Name: uCare - Support Ticket System
  * Author: Smartcat
+<<<<<<< HEAD
  * Description: If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
  * Version: 1.4.2
+=======
+ * Description: If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress. 
+ * Version: 1.5.0
+>>>>>>> origin/master
  * Author: Smartcat
  * Author URI: https://smartcatdesign.net
  * license: GPL V2
@@ -123,7 +128,10 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
+
             include_once dirname( __FILE__ ) . '/includes/library/extension-licensing.php';
+            include_once dirname( __FILE__ ) . '/includes/library/class-bootstrap-nav-walker.php';
+
 
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
             include_once dirname( __FILE__ ) . '/includes/cron.php';
@@ -131,10 +139,9 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
             include_once dirname( __FILE__ ) . '/includes/class-field.php';
-            include_once dirname( __FILE__ ) . '/includes/class-bootstrap-nav-walker.php';
-
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
             include_once dirname( __FILE__ ) . '/includes/functions-formatting.php';
             include_once dirname( __FILE__ ) . '/includes/functions-fonts.php';
             include_once dirname( __FILE__ ) . '/includes/functions-comment.php';
@@ -226,7 +233,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function load_text_domain() {
-        load_plugin_textdomain( 'ucare', false, dirname( __FILE__ ) . '/i18n/languages' );
+        load_plugin_textdomain( 'ucare', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages' );
     }
 
 

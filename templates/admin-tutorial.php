@@ -52,40 +52,38 @@ namespace ucare;
                     . 'customers and increases your customer satisfaction.', 'ucare' ); ?></p>
             <p>
                 <a class="button-primary"
-                   href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping"
+                   href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=ucare+pro"
                    target="_BLANK">
-                    <?php _e( 'Get Email Piping', 'ucare' ); ?>
+                    <?php _e( 'Get uCare Pro', 'ucare' ); ?>
                 </a>
             </p>
 
             <hr>
             
-            <h3><?php _e( 'New Features in 1.4', 'ucare' ); ?></h3>
+            <h3><?php _e( 'New Features in 1.5', 'ucare' ); ?></h3>
             <ul>
-                <li><?php _e( '- Email Piping Add-on', 'ucare' ); ?></li>
-                <li><?php _e( '- Ability to upload zip, pdf and text files as ticket attachments', 'ucare' ); ?></li>
-                <li><?php _e( '- Added logo in the help desk page', 'ucare' ); ?></li>
+                <li><?php _e( '- Improved performance speed', 'ucare' ); ?></li>
+                <li><?php _e( '- Improved ticket details sidebar', 'ucare' ); ?></li>
+                <li><?php _e( '- 200 additional font options', 'ucare' ); ?></li>
+                <li><?php _e( '- Ability to support any file type for uploads', 'ucare' ); ?></li>
+                <li><?php _e( '- Improved settings page', 'ucare' ); ?></li>
                 <li><?php _e( '- bug fixes', 'ucare' ); ?></li>
 
-                <li>
-                    <a href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Email+piping"
-                       target="_BLANK">
-                        <?php _e( '- Email Piping extension now availabe', 'ucare' ); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://ucaresupport.com/downloads/mailchimp/?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareTutorialPage&utm_content=Mailchimp"
-                       target="_BLANK">
-                        <?php _e( '- Mailchimp extension now availabe', 'ucare' ); ?></a>
-                </li>
-                <li>
-                    <a href="https://ucaresupport.com/downloads/knowledge-base/?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareTutorialPage&utm_content=Knowledgebase"
-                       target="_BLANK">
-                        <?php _e( '- Knowledge Base extension now availabe', 'ucare' ); ?>
-                    </a>
-                </li>
             </ul>
 
+            <h3><?php _e( 'New uCare Pro features', 'ucare' ); ?></h3>
+            <ul>
+                <li><?php _e( '- Slack notifications', 'ucare' ); ?></li>
+                <li><?php _e( '- Agent Ticket Notes', 'ucare' ); ?></li>
+                <li><?php _e( '- Advanced EDD Integration', 'ucare' ); ?></li>
+                <li><?php _e( '- Email Piping', 'ucare' ); ?></li>
+                <li><?php _e( '- Automatic Agent Assignment', 'ucare' ); ?></li>
+                <li><?php _e( '- Knowledge Base', 'ucare' ); ?></li>
+                <li><?php _e( '- Customer Satisfaction Feedback', 'ucare' ); ?></li>
+                <li><?php _e( '- Mailchimp Integration', 'ucare' ); ?></li>
+                
+            </ul>
+            
             <iframe width="500"
                     height="315"
                     src="https://www.youtube.com/embed/videoseries?list=PLw53ZZqpo1H40lcqgS5guHSEGRrie71xn&amp;controls=1&amp;showinfo=0"

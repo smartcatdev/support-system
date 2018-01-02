@@ -119,8 +119,10 @@ var Ticket = (function ($) {
     var _create_ticket = function (e) {
         var form = $("#create-ticket-form");
         var submit = $(e.target);
+        var initialText = submit.html()
 
         submit.prop("disabled", true);
+        submit.html( '<span class="glyphicon glyphicon-refresh fast-right-spinner"></span>' )
 
         form.submit({
             url: Globals.ajax_url,
@@ -151,6 +153,7 @@ var Ticket = (function ($) {
             },
             complete: function () {
                 submit.prop("disabled", false);
+                submit.html( initialText )
             }
         });
     };
@@ -352,6 +355,8 @@ var Ticket = (function ($) {
         var content = form.find(".editor-content");
         var submit_button = form.find(".button-submit");
         var data = form.serializeArray();
+        var initialText = submit_button.html()
+        submit_button.html( '<span class="glyphicon glyphicon-refresh fast-right-spinner"></span>' )
 
         submit_button.prop("disabled", true);
         data.push({ name: "_ajax_nonce", value:  Globals.ajax_nonce });
@@ -370,13 +375,14 @@ var Ticket = (function ($) {
 
                 content.val("")
                        .css('height', content.css('min-height'));
-
+                submit_button.html( initialText )
                 App.close_preview(tabs);
 
                 load_sidebar(response.ticket);
                 App.load_statistics();
             },
             complete: function () {
+                submit_button.html( initialText )
                 submit_button.prop("disabled", false);
             }
         });
