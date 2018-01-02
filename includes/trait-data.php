@@ -29,7 +29,7 @@ trait Data {
      * @param string $var     The name of the variable to get.
      * @param string $default The default to return if not found.
      *
-     * @return string
+     * @return mixed
      * @since 1.4.2
      * @access public
      */

@@ -159,12 +159,17 @@ function enqueue_create_ticket() {
 }
 
 
+/**
+ * Print enqueued header scripts.
+ *
+ * @since 1.4.2
+ * @return bool|array
+ */
 function print_header_scripts() {
 
     $scripts = scripts();
 
     if ( $scripts && !did_action( 'ucare_print_header_scripts' ) ) {
-
         do_action( 'ucare_print_header_scripts' );
 
         $scripts->do_head_items();
@@ -178,19 +183,23 @@ function print_header_scripts() {
 }
 
 
+/**
+ * Print enqueued footer scripts.
+ *
+ * @since 1.4.2
+ * @return bool|array
+ */
 function print_footer_scripts() {
 
     $scripts = scripts();
 
     if ( $scripts && !did_action( 'ucare_print_footer_scripts' ) ) {
-
         do_action( 'ucare_print_footer_scripts' );
 
         $scripts->do_footer_items();
         $scripts->reset();
 
         return $scripts->done;
-
     }
 
     return false;
@@ -198,6 +207,12 @@ function print_footer_scripts() {
 }
 
 
+/**
+ * Get scripts object.
+ *
+ * @since 1.4.2
+ * @return false|\WP_Scripts
+ */
 function scripts() {
     return ucare()->get( 'scripts' );
 }

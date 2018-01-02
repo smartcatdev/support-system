@@ -37,22 +37,35 @@ function enqueue_default_styles() {
 }
 
 
+/**
+ * Print enqueued styles.
+ *
+ * @since 1.4.2
+ * @return array|bool
+ */
 function print_styles() {
 
     $styles = styles();
 
-    if ( $styles ) {
+    if ( $styles && !did_action( 'ucare_print_styles' ) ) {
+        do_action( 'ucare_print_styles' );
+
         $styles->do_items();
         $styles->reset();
 
         return $styles->done;
-
     }
 
     return false;
 }
 
 
+/**
+ * Get the styles object.
+ *
+ * @since 1.4.2
+ * @return false|\WP_Scripts
+ */
 function styles() {
     return ucare()->get( 'styles' );
 }

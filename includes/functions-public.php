@@ -1,4 +1,9 @@
 <?php
+
+use ucare\Defaults;
+use ucare\Options;
+use ucare\util\Logger;
+
 /***********************************************************************************************************************
  *
  * Functions for managing extension licensing.
@@ -50,6 +55,8 @@ function ucare_register_license( $id, $args ) {
 
 }
 
+
+
 /***********************************************************************************************************************
  *
  * General purpose utility functions.
@@ -57,10 +64,6 @@ function ucare_register_license( $id, $args ) {
  * @since 1.3.0
  * @scope global
  */
-
-use ucare\Defaults;
-use ucare\Options;
-use ucare\util\Logger;
 
 /**
  * Returns whether or not the plugin is in development mode.
@@ -147,7 +150,6 @@ function ucare_enqueue_script( $handle, $src = '', $deps = array(), $ver = false
     if ( $scripts ) {
 
         if ( $src || $in_footer ) {
-
             $_handle = explode( '?', $handle );
             $scripts->add( $_handle[0], $src, $deps, $ver );
 
@@ -164,6 +166,24 @@ function ucare_enqueue_script( $handle, $src = '', $deps = array(), $ver = false
 }
 
 
+/**
+ * Enqueue a style in the front-end application. Can be called at any point before output begins, However enqueuing is
+ * not available until after ucare_loaded has fired. It is recommended to enqueue scripts in the ucare_enqueue_scripts
+ * hook.
+ *
+ * @see wp_enqueue_script
+ *
+ * @param string $handle    The handle of the script to enqueue.
+ * @param string $src       The URL of the script.
+ * @param array  $deps      Any dependencies the script requires.
+ * @param bool   $ver       A version for the script.
+ * @param string $media     Optional. The media for which this stylesheet has been defined. Default 'all'. Accepts media
+ *                          types like 'all', 'print' and 'screen', or media queries like '(orientation: portrait)'
+ *                          and '(max-width: 640px)'.
+ *
+ * @since 1.4.2
+ * @return void
+ */
 function ucare_enqueue_style( $handle, $src = '', $deps = array(), $ver = false, $media = 'all' ) {
 
     $styles = \ucare\styles();
@@ -175,21 +195,33 @@ function ucare_enqueue_style( $handle, $src = '', $deps = array(), $ver = false,
             $styles->add( $_handle[0], $src, $deps, $ver, $media );
         }
 
-        return $styles->enqueue( $handle );
-
+        $styles->enqueue( $handle );
     }
-
-    return false;
 
 }
 
 
+/**
+ * Register a script in the front-end application. Can be called at any point before output begins, However enqueuing is
+ * not available until after ucare_loaded has fired. It is recommended to enqueue scripts in the ucare_enqueue_scripts
+ * hook.
+ *
+ * @see \wp_register_script
+ *
+ * @param string $handle    The handle of the script to enqueue.
+ * @param string $src       The URL of the script.
+ * @param array  $deps      Any dependencies the script requires.
+ * @param bool   $ver       A version for the script.
+ * @param bool   $in_footer Whether the script should be printed in the footer.
+ *
+ * @since 1.4.2
+ * @return bool
+ */
 function ucare_register_script( $handle, $src, $deps = array(), $ver = false, $in_footer = false ) {
 
     $scripts = \ucare\scripts();
 
     if ( $scripts ) {
-
         $registered = $scripts->add( $handle, $src, $deps, $ver );
 
         if ( $in_footer ) {
@@ -205,6 +237,18 @@ function ucare_register_script( $handle, $src, $deps = array(), $ver = false, $i
 }
 
 
+/**
+ * Localizes a script in the front-end application with a JSON object array.
+ *
+ * @see \wp_localize_script
+ *
+ * @param string       $handle      The name of the script to localize.
+ * @param string       $object_name The name of the localized object.
+ * @param array        $i10n        The localization values.
+ *
+ * @since 1.4.2
+ * @return bool
+ */
 function ucare_localize_script( $handle, $object_name, $i10n ) {
 
     $scripts = \ucare\scripts();
@@ -217,7 +261,24 @@ function ucare_localize_script( $handle, $object_name, $i10n ) {
 
 }
 
-
+/**
+ * Register a style in the front-end application. Can be called at any point before output begins, However enqueuing is
+ * not available until after ucare_loaded has fired. It is recommended to enqueue scripts in the ucare_enqueue_scripts
+ * hook.
+ *
+ * @see \wp_register_style
+ *
+ * @param string $handle    The handle of the script to enqueue.
+ * @param string $src       The URL of the script.
+ * @param array  $deps      Any dependencies the script requires.
+ * @param bool   $ver       A version for the script.
+ * @param string $media     Optional. The media for which this stylesheet has been defined. Default 'all'. Accepts media
+ *                          types like 'all', 'print' and 'screen', or media queries like '(orientation: portrait)'
+ *                          and '(max-width: 640px)'.
+ *
+ * @since 1.4.2
+ * @return bool
+ */
 function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
 
     $styles = \ucare\styles();
@@ -229,6 +290,7 @@ function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $me
     return true;
 
 }
+
 
 
 /***********************************************************************************************************************
@@ -348,9 +410,7 @@ function ucare_register_sidebar( $id, $position, array $section ) {
  * @return boolean
  */
 function ucare_is_support_user( $user_id = null ) {
-
     return \ucare\user_has_cap( 'use_support', $user_id );
-
 }
 
 
@@ -363,9 +423,7 @@ function ucare_is_support_user( $user_id = null ) {
  * @return boolean
  */
 function ucare_is_support_agent( $user_id = null ) {
-
     return \ucare\user_has_cap( 'manage_support_tickets', $user_id );
-
 }
 
 
@@ -378,7 +436,5 @@ function ucare_is_support_agent( $user_id = null ) {
  * @return boolean
  */
 function ucare_is_support_admin( $user_id = null ) {
-
     return \ucare\user_has_cap( 'manage_support', $user_id );
-
 }

@@ -9,7 +9,7 @@ namespace ucare;
 
 
 // Insert custom meta passed with the REST request
-add_action( 'rest_insert_support_ticket', 'ucare\rest_create_support_ticket', 10, 2 );
+add_action( 'rest_insert_support_ticket', 'ucare\rest_set_ticket_attributes', 10, 2 );
 
 // Validate the post before insertion
 add_filter( 'rest_pre_insert_support_ticket', 'ucare\rest_validate_support_ticket' );
@@ -123,7 +123,7 @@ function rest_filter_attachment_query( $args ) {
  * @since 1.5.1
  * @return void
  */
-function rest_create_support_ticket( \WP_Post $post, \WP_REST_Request $request ) {
+function rest_set_ticket_attributes( \WP_Post $post, \WP_REST_Request $request ) {
 
     // Insert meta
     $meta = $request->get_param( 'meta' );
@@ -180,7 +180,6 @@ function rest_validate_support_ticket( $post ) {
             return new \WP_Error( 'empty-title', __( 'Subject cannot be blank', 'ucare' ), $data );
 
         }
-
 
         // Validate the content is not empty
         if ( empty( $post->post_content ) ) {
