@@ -41,12 +41,12 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
         $user = get_user_by( 'email', $recipient );
 
         $defaults = array(
-            'username'       => $user->user_login,
-            'first_name'     => $user->first_name,
-            'last_name'      => $user->last_name,
-            'full_name'      => $user->first_name . ' ' . $user->last_name,
+            'username'       => \ucare\pluck( $user, 'user_login' ),
+            'first_name'     => \ucare\pluck( $user, 'first_name' ),
+            'last_name'      => \ucare\pluck( $user, 'last_name'  ),
+            'full_name'      => \ucare\pluck( $user, 'display_name' ),
+            'email'          => \ucare\pluck( $user, 'user_email', $recipient ),
             'template_title' => $template->post_title,
-            'email'          => !empty( $user ) ? $user->user_email : $recipient,
             'home_url'       => home_url()
         );
 

@@ -34,6 +34,38 @@ function create_page_url( $path = '' ) {
 }
 
 
+/**
+ * Safely pluck a value from an object or array.
+ *
+ * @param object|array $obj
+ * @param string       $field
+ * @param mixed        $default
+ *
+ * @since 1.6.0
+ * @return mixed
+ */
+function pluck( $obj, $field, $default = false ) {
+
+    if ( empty( $obj ) ) {
+        return $default;
+    }
+
+    $data = $obj;
+
+    if ( is_object( $obj ) ) {
+        $data = clone $obj;
+    }
+
+    $data = (array) $data;
+
+    if ( isset( $data[ $field ] ) ) {
+        return $data[ $field ];
+    }
+
+    return $default;
+
+}
+
 
 function allowed_mime_types( $type = null ) {
 
