@@ -213,7 +213,7 @@ function add_role_capabilities() {
  */
 function add_subscriber_caps( $force = false ) {
 
-    if ( $force || UCARE_ECOMMERCE_MODE === 'edd' ) {
+    if ( $force || ucare_ecommerce_mode() === 'edd' ) {
 
         $role = get_role( 'subscriber' );
 
@@ -256,7 +256,7 @@ function add_subscriber_caps( $force = false ) {
  */
 function add_customer_caps( $force = false ) {
 
-    if ( $force || UCARE_ECOMMERCE_MODE === 'woo' ) {
+    if ( $force || ucare_ecommerce_mode() === 'woo' ) {
 
         $role = get_role( 'customer' );
 
@@ -334,9 +334,7 @@ function get_users_with_cap( $cap = 'use_support', $args = array() ) {
     $users = get_users( $args );
 
     return array_filter( $users, function ( $user ) use ( $cap ) {
-
         return $user->has_cap( $cap );
-
     } );
 
 }
@@ -442,7 +440,6 @@ function get_user( $user = null ) {
 function create_user_draft_ticket() {
 
     if ( !get_user_draft_ticket() ) {
-
         $user = get_current_user_id();
 
         $data = array(

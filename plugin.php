@@ -123,7 +123,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
-            include_once dirname( __FILE__ ) . '/includes/lib/extension-licensing.php';
+            include_once dirname( __FILE__ ) . '/includes/library/extension-licensing.php';
 
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
             include_once dirname( __FILE__ ) . '/includes/cron.php';
@@ -146,20 +146,17 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-helpers.php';
             include_once dirname( __FILE__ ) . '/includes/functions-sidebar.php';
             include_once dirname( __FILE__ ) . '/includes/functions-media.php';
-
             include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
             include_once dirname( __FILE__ ) . '/includes/functions-rest-api.php';
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
             include_once dirname( __FILE__ ) . '/includes/functions-field.php';
             include_once dirname( __FILE__ ) . '/includes/functions-public.php';
             include_once dirname( __FILE__ ) . '/includes/functions-shortcodes.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-wp-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/functions-post-support_ticket.php';
             include_once dirname( __FILE__ ) . '/includes/functions-taxonomy-ticket_category.php';
-
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
-
-            include_once dirname( __FILE__ ) . '/includes/functions-wp-scripts.php';
 
 
             // If eCommerce support is enabled pull in general support functions
@@ -180,12 +177,10 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
-
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-metabox.php';
-
             }
 
         }
@@ -283,6 +278,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
 /**
+ * Get a path relative to the root of the plugin directory.
+ *
  * @since 1.4.2
  * @param string $path
  * @return string
@@ -293,6 +290,8 @@ function resolve_path( $path = '' ) {
 
 
 /**
+ * Get a URL relative to the root of the plugin directory.
+ *
  * @param string $path
  * @since 1.4.2
  * @return string
@@ -315,9 +314,7 @@ function resolve_url( $path = '' ) {
 function admin_notification( $message, $type = 'error', $dismissible = true ) {
 
     add_action( 'admin_notices', function () use ( $message, $type, $dismissible ) {
-
         printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>', esc_attr( $type ), $dismissible ? 'is-dismissible' : '', $message );
-
     } );
 
 }

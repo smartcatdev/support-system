@@ -30,7 +30,6 @@ function enqueue_default_styles() {
 
     // Only load these styles in the app
     if ( is_support_page() ) {
-
         ucare_enqueue_style( 'scrolling-tabs', resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.css'   ), null, PLUGIN_VERSION );
         ucare_enqueue_style( 'light-gallery',  resolve_url( 'assets/lib/lightGallery/css/lightgallery.min.css' ), null, PLUGIN_VERSION );
     }
@@ -43,7 +42,6 @@ function print_styles() {
     $styles = styles();
 
     if ( $styles ) {
-
         $styles->do_items();
         $styles->reset();
 

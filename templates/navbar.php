@@ -62,7 +62,7 @@ $user = wp_get_current_user();
 
             <div class="row-table pull-right actions">
 
-                <?php if ( current_user_can('create_support_tickets') ) : ?>
+                <?php if ( current_user_can( 'edit_support_tickets' ) ) : ?>
 
                     <div class="row-table-cell">
 
@@ -70,7 +70,7 @@ $user = wp_get_current_user();
 
                             <span class="glyphicon glyphicon-plus-sign button-icon"></span>
 
-                            <span><?php _e( get_option(Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT), 'ucare' ); ?></span>
+                            <span><?php _e( get_option( Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT ), 'ucare' ); ?></span>
 
                         </button>
 

@@ -8,7 +8,7 @@ add_action( 'comment_post', 'ucare\comment_save' );
 add_action( 'edit_comment', 'ucare\comment_save' );
 
 
-function comment_save($id ) {
+function comment_save( $id ) {
 
     $post = get_post( get_comment( $id )->comment_post_ID );
 

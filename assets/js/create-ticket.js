@@ -4,7 +4,7 @@
  * @since 1.5.1
  * @access public
  */
-(function ($, createTicket) {
+(function ($, localize) {
     "use strict";
 
     const $form = $('#create-ticket-form'),
@@ -53,7 +53,7 @@
             /**
              * @summary Set the max filesize for dropzone.js
              */
-            Dropzone.prototype.defaultOptions.maxFilesize = createTicket.dropzone.max_attachment_size;
+            Dropzone.prototype.defaultOptions.maxFilesize = localize.dropzone.max_attachment_size;
 
             /**
              * Disable dropzone auto discovery
@@ -67,9 +67,9 @@
                 init: module.dropzone_init,
                 addRemoveLinks: true,
                 headers: {
-                    'X-WP-Nonce': createTicket.api.nonce
+                    'X-WP-Nonce': localize.api.nonce
                 },
-                url: createTicket.api.endpoints.media
+                url: localize.api.endpoints.media
             });
 
         },
@@ -85,9 +85,9 @@
                   ticket_id = $dropzone.find('[name="post"]').val();
 
             $.ajax({
-                url: createTicket.api.endpoints.media + '?order=asc&parent=' + ticket_id,
+                url: localize.api.endpoints.media + '?order=asc&parent=' + ticket_id,
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', createTicket.api.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', localize.api.nonce);
                 },
                 success: function (res) {
 
@@ -144,10 +144,10 @@
          */
         delete_attachment: function (id) {
             $.ajax({
-                url: createTicket.api.endpoints.media + '/' + id + '?force=true',
+                url: localize.api.endpoints.media + '/' + id + '?force=true',
                 method: 'delete',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', createTicket.api.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', localize.api.nonce);
                 }
             })
         },
@@ -198,7 +198,7 @@
                 /**
                  * @summary Construct the URI.
                  */
-                const uri = createTicket.api.endpoints.tickets + '/' + $form.data('id') +
+                const uri = localize.api.endpoints.tickets + '/' + $form.data('id') +
                     '?' + $form.find(':input').serialize();
 
                 /**
@@ -211,7 +211,7 @@
                     },
                     method: 'post',
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-WP-Nonce', createTicket.api.nonce);
+                        xhr.setRequestHeader('X-WP-Nonce', localize.api.nonce);
                     },
                     complete: function () {
                         module.saving_in_progress = false;
@@ -221,7 +221,7 @@
 
                     // Redirect back to the support page if the ticket has been published
                     if (status === 'publish') {
-                        location.href = createTicket.redirect.support_page
+                        location.href = localize.redirect.support_page
                     }
 
                 })

@@ -28,11 +28,9 @@ add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
  * @since 1.4.2
  * @return void
  */
-function init_scripts( uCare $ucare ) {
-
+function init_scripts( $ucare ) {
     $ucare->set( 'scripts', new \WP_Scripts() );
-    $ucare->set( 'styles', new \WP_Styles() );
-
+    $ucare->set( 'styles',  new \WP_Styles()  );
 }
 
 
