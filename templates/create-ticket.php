@@ -19,15 +19,20 @@ $draft = get_user_draft_ticket();
 
         <h1><?php the_title(); ?></h1>
 
+        <div id="message-area"></div>
+
         <div class="row">
 
             <form id="create-ticket-form" data-id="<?php esc_attr_e( $draft->ID ); ?>">
 
+
                 <?php if ( get_option( Options::CATEGORIES_ENABLED ) ) : ?>
 
-                    <div class="form-group">
+                    <div id="ticket-category" class="form-group">
 
-                        <label for="category"><?php _e( 'Category', 'ucare' ); ?></label>
+                        <label for="category">
+                            <?php _e( 'Category', 'ucare' ); ?>
+                        </label>
 
                         <?php render_create_ticket_categories_dropdown( $draft ); ?>
 
@@ -37,13 +42,17 @@ $draft = get_user_draft_ticket();
 
                 <?php endif; ?>
 
+
                 <?php if ( ucare_is_ecommerce_enabled() ) : $mode = ucare_ecommerce_mode(); ?>
 
-                    <?php if ( !empty( $mode ) && $mode !== 'default' ) : ?>
 
-                        <div class="form-group">
+                    <?php if ( in_array( $mode, array( 'woo', 'edd' ) ) ) : ?>
 
-                            <label for="product"><?php _e( 'Product', 'ucare' ); ?></label>
+                        <div id="product" class="form-group">
+
+                            <label for="product">
+                                <?php _e( 'Product', 'ucare' ); ?>
+                            </label>
 
                             <?php render_create_ticket_products_dropdown( $draft ); ?>
 
@@ -51,7 +60,8 @@ $draft = get_user_draft_ticket();
 
                     <?php endif; ?>
 
-                    <div class="form-group">
+
+                    <div id="receipt-number" class="form-group">
 
                         <label for="receipt_id"><?php _e( 'Receipt #', 'ucare' ); ?></label>
 
@@ -65,9 +75,11 @@ $draft = get_user_draft_ticket();
 
                     <hr>
 
+
                 <?php endif; ?>
 
-                <div class="form-group">
+
+                <div id="title" class="form-group">
 
                     <label for="subject"><?php _e( 'Subject', 'ucare' ); ?></label>
 
@@ -79,7 +91,7 @@ $draft = get_user_draft_ticket();
 
                 </div>
 
-                <div class="form-group">
+                <div id="content" class="form-group">
 
                     <label for="description"><?php _e( 'Description', 'ucare' ); ?></label>
 
@@ -90,56 +102,60 @@ $draft = get_user_draft_ticket();
 
                 </div>
 
+
                 <?php if ( ucare_is_support_agent() ) : ?>
 
-                    <div class="form-group">
+                    <div id="assign-author">
 
-                        <label>
-                            <input type="checkbox" id="set-author"
-                                <?php checked( true, (int) $draft->post_author !== get_current_user_id() ); ?>>
+                        <div class="form-group">
 
-                            <?php _e( 'Set ticket author', 'ucare' ); ?>
+                            <label>
+                                <input type="checkbox" id="set-author"
+                                    <?php checked( true, (int) $draft->post_author !== get_current_user_id() ); ?>>
 
-                        </label>
+                                <?php _e( 'Set ticket author', 'ucare' ); ?>
+                            </label>
+
+                        </div>
+
+                        <div id="author-select" class="form-group"
+                            <?php echo $draft->post_author == get_current_user_id() ? 'style="display: none"' : ''; ?>>
+
+                            <?php render_create_ticket_users_dropdown( $draft ); ?>
+
+                        </div>
+
+                        <input id="current-user"
+                               type="hidden"
+                               name="author"
+                               value="<?php esc_attr_e( get_current_user_id() ); ?>"
+                            <?php disabled( true, $draft->post_author == get_current_user_id() ); ?>>
 
                     </div>
-
-                    <div id="author-select"
-                         class="form-group"
-                        <?php echo $draft->post_author == get_current_user_id() ? 'style="display: none"' : ''; ?>>
-
-                        <?php render_create_ticket_users_dropdown( $draft ); ?>
-
-                    </div>
-
-                    <input id="current-user"
-                           type="hidden"
-                           name="author"
-                           value="<?php esc_attr_e( get_current_user_id() ); ?>"
-                        <?php disabled( true, $draft->post_author == get_current_user_id() ); ?>>
 
                 <?php endif; ?>
 
             </form>
 
-            <!-- Start Dropzone -->
+            <hr>
 
-            <div>
-                <label><?php _e( 'Attach Files', 'ucare' ); ?></label>
+            <div id="dropzone">
+
+                <div>
+                    <label><?php _e( 'Attach Files', 'ucare' ); ?></label>
+                </div>
+
+                <form id="ticket-media" class="dropzone" method="post" enctype="multipart/form-data">
+
+                    <!-- User draft ticket -->
+                    <input type="hidden" name="post" value="<?php esc_attr_e( $draft->ID ); ?>">
+                    <input type="hidden" name="support_ticket_media" value="true">
+
+                </form>
+
             </div>
 
-            <form id="ticket-media" class="dropzone" method="post" enctype="multipart/form-data">
-
-                <!-- User draft ticket ID -->
-                <input type="hidden" name="post" value="<?php esc_attr_e( $draft->ID ); ?>">
-
-                <input type="hidden" name="support_ticket_media" value="true">
-
-            </form>
-
-            <!-- End Dropzone -->
-
-            <hr>
+            <br>
 
             <div class="form-group text-right">
                 <button id="submit" class="button button-default"><?php _e( 'Create Ticket', 'ucare' ); ?></button>

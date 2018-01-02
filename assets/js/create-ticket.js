@@ -172,14 +172,36 @@
          * @return void
          */
         clear_errors: function () {
-
-            $form.find('.has-error').each(function (i, el) {
-                $(el).siblings('.error-message').remove();
-                $(el).removeClass('has-error');
+            $('.alert').each(function (i, el) {
+                $(el).fadeToggle('fast', function () {
+                    $(el).remove();
+                });
             });
-
         },
 
+        /**
+         * Create and append an error notification to the DOM.
+         *
+         * @param message
+         * @param parent
+         *
+         * @since 1.0.0
+         * @return {*|HTMLElement}
+         */
+        error: function (message, parent) {
+            const err = $(
+                '<div class="alert alert-danger alert-dismissable fade in"> \
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '</div>');
+
+            if (!parent) {
+                parent = 'body';
+            }
+
+            $(parent).append(err.fadeIn());
+
+            return err;
+
+        },
 
         /**
          * @summary Save a support ticket.
@@ -227,15 +249,8 @@
                 })
                 .fail(function (xhr) {
 
-                    // Output input errors below their respective fields
                     if (status === 'publish' && xhr.responseJSON) {
-
-                        const field  = xhr.responseJSON.data.field,
-                              $field = $('[name="' + field  +'"]');
-
-                        $field.addClass('has-error');
-                        $field.parent().append('<p class="error-message">' + xhr.responseJSON.message + '</p>');
-
+                        module.error(xhr.responseJSON.message, '#message-area');
                     }
 
                 });
