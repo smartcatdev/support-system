@@ -19,7 +19,7 @@ $plugin_url = Plugin::plugin_url( \ucare\PLUGIN_ID );
 
 $appearance = new SettingsSection( 'uc_appearance', __( 'Appearance', 'ucare' ) );
 
-$fonts = \ucare\fonts();
+$fonts = \ucare\get_font_options();
 
 $appearance->add_field( new SelectBoxField(
     array(

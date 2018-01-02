@@ -168,11 +168,11 @@ function rest_set_ticket_attributes( $post, $request ) {
  */
 function rest_validate_support_ticket( $post ) {
 
+    // If the user is creating a ticket
     if ( $post->post_status === 'publish' ) {
 
         // Validate the title is not empty
         if ( empty( $post->post_title ) ) {
-
             $data = array(
                 'status' => 400,
                 'field'  => 'title'
@@ -184,7 +184,6 @@ function rest_validate_support_ticket( $post ) {
 
         // Validate the content is not empty
         if ( empty( $post->post_content ) ) {
-
             $data = array(
                 'status' => 400,
                 'field'  => 'content'

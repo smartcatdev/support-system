@@ -16,16 +16,14 @@ namespace ucare;
  */
 function enqueue_fonts() {
 
-    $fonts_url = 'https://fonts.googleapis.com/css?family=';
-
+    $url   = 'https://fonts.googleapis.com/css?family=';
     $fonts = fonts();
 
     $primary   = get_option( Options::PRIMARY_FONT, Defaults::PRIMARY_FONT );
     $secondary = get_option( Options::PRIMARY_FONT, Defaults::PRIMARY_FONT );
 
-
-    ucare_enqueue_style( 'ucare-primary-font',   $fonts_url . $fonts[ $primary   ], null, PLUGIN_VERSION );
-    ucare_enqueue_style( 'ucare-secondary-font', $fonts_url . $fonts[ $secondary ], null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'ucare-primary-font',   $url . $fonts[ $primary   ], null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'ucare-secondary-font', $url . $fonts[ $secondary ], null, PLUGIN_VERSION );
 
 }
 
@@ -888,5 +886,24 @@ function fonts() {
     );
 
     return $new_fonts;
+
+}
+
+
+/**
+ * Returns an array of human readable font options. For display purpose only. Not suitable for use with google fonts API.
+ *
+ * @since 1.6.0
+ * @return array
+ */
+function get_font_options() {
+
+    $fonts = array();
+
+    foreach ( fonts() as $font => $encoded ) {
+        $fonts[ $font ] = urldecode( substr( $encoded, 0, strpos( $encoded, ':' ) ) );
+    }
+
+    return $fonts;
 
 }
