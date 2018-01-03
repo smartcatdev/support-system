@@ -64,29 +64,10 @@ function enqueue_system_scripts() {
  */
 function register_core_scripts() {
 
-    $rest_url = rest_url();
-
     $i10n = array(
         'api' => array(
             'nonce'  => wp_create_nonce( 'wp_rest' ),
-            'schema' => array(
-                'wp' => array(
-                    'v2' => array(
-                        'tickets' => array(
-                            'href' => $rest_url . 'wp/v2/support-tickets',
-                        ),
-                        'media' => array(
-                            'href' => $rest_url . 'wp/v2/media'
-                        ),
-                        'users' => array(
-                            'href' => $rest_url . 'wp/v2/users'
-                        )
-                    )
-                )
-            )
-        ),
-        'settings' => array(
-
+            'root'   => rest_url()
         )
     );
 

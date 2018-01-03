@@ -347,6 +347,11 @@ final class Options {
      */
     const CREATE_TICKET_PAGE_ID = 'smartcat_support_create_ticket_page_id';
 
+    /**
+     * @since 1.6.0
+     */
+    const EDIT_PROFILE_PAGE_ID = 'smartcat_support_edit_profile_page_id';
+
 }
 
 

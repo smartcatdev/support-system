@@ -32,6 +32,11 @@ function register_settings() {
         'sanitize_callback' => 'ucare\sanitize_post_id',
     ) );
 
+    register_setting( 'uc-advanced', Options::EDIT_PROFILE_PAGE_ID, array(
+        'type' => 'integer',
+        'sanitize_callback' => 'ucare\sanitize_post_id',
+    ) );
+
     register_setting( 'uc-general', Options::ECOMMERCE, array(
         'type'    => 'string',
         'default' => Defaults::ECOMMERCE,

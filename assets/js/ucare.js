@@ -6,10 +6,9 @@
 ;var ucare = (function ($, exports, localize) {
     "use strict";
 
-
+    // Initialize dynamic variables
     Object.assign(exports, localize);
 
-    console.log(exports)
 
 
     /**
