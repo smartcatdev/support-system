@@ -39,7 +39,8 @@ namespace ucare;
                     <div class="row-table-cell">
 
                         <a href="<?php esc_url_e( support_page_url() ); ?>" class="button button-primary back btn-back">
-                            <span class="glyphicon glyphicon-share-alt"></span><span><?php _e( 'Help Desk', 'ucare' ); ?></span>
+                            <span class="glyphicon glyphicon-share-alt"></span>
+                            <span><?php _e( 'Help Desk', 'ucare' ); ?></span>
                         </a>
 
                     </div>
