@@ -187,7 +187,7 @@
          * @param message
          * @param parent
          *
-         * @since 1.0.0
+         * @since 1.6.0
          * @return {*|HTMLElement}
          */
         error: function (message, parent) {

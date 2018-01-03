@@ -15,7 +15,7 @@ add_action( 'ucare_loaded', 'ucare\init_scripts' );
 add_action( 'wp', 'ucare\enqueue_system_scripts' );
 
 // Register core scripts
-add_action( 'ucare_enqueue_scripts', 'ucare\register_core_scripts' );
+add_action( 'ucare_enqueue_scripts', 'ucare\register_default_scripts' );
 
 // Load default scripts
 add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
@@ -62,19 +62,27 @@ function enqueue_system_scripts() {
  * @since 1.6.0
  * @return void
  */
-function register_core_scripts() {
+function register_default_scripts() {
 
     $i10n = array(
         'api' => array(
             'nonce'  => wp_create_nonce( 'wp_rest' ),
             'root'   => rest_url()
+        ),
+        'i10n' => array(
+
         )
     );
 
     ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery' ), PLUGIN_VERSION );
     ucare_localize_script( 'ucare', 'ucare_i10n', $i10n );
 
+
+    // Register jQuery plugins
+    ucare_register_script( 'jquery-serializejson', resolve_url( 'assets/js/jquery-serializejson.js' ), array( 'jquery' ), PLUGIN_VERSION );
+
 }
+
 
 
 /**
@@ -121,7 +129,7 @@ function enqueue_default_scripts() {
 
     // Load edit profile page scripts
     } else if ( is_edit_profile_page() ) {
-        ucare_enqueue_script( 'edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare' ), PLUGIN_VERSION );
+        ucare_enqueue_script( 'edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
     }
 
 }

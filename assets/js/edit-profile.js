@@ -7,108 +7,155 @@
     "use strict";
 
 
-    const $form = $('#edit-user-profile-form'),
+    var $form = $('#edit-profile-form'),
 
-          /**
-           * @summary Module for managing the UI for the profile edit form.
-           */
-          module = {
+        /**
+         * @summary Module for managing the UI for the profile edit form.
+         */
+        module = {
 
-              /**
-               * @summary Holds the state of the current save operation.
-               */
-              saving_in_progress: false,
+            /**
+             * @summary Holds the state of the current save operation.
+             */
+            saving_in_progress: false,
 
-              /**
-               * @summary Initialize DOM and event handlers.
-               *
-               * @since 1.6.0
-               * @return {void}
-               */
-              init: function () {
+            /**
+             * @summary Initialize DOM and event handlers.
+             *
+             * @since 1.6.0
+             * @return {void}
+             */
+            init: function () {
 
-                  $('#submit').click(function () {
-                      module.clear_errors();
-                      module.save();
-                  });
+                $('#submit').click(function () {
+                    module.clear_errors();
+                    module.save();
+                });
 
-                  $('.pw-input').on('keyup paste', function () {
-                     module.check_password();
-                  });
-
-              },
-
-              /**
-               * @summary Save the users settings.
-               *
-               * @since 1.6.0
-               */
-              save: function () {
-
-                  if (!module.saving_in_progress) {
-                      module.saving_in_progress = true;
-
-                      ucare.user.update({})
-                      .fail(function (res) {
-
-                      })
-                      .done(function () {
-                         module.saving_in_progress = false;
-                      });
-
-                  }
-
-              },
-
-              /**
-               * @summary Disable the form save functionality.
-               *
-               * @since 1.6.0
-               */
-              disable: function () {
-
-              },
-
-              /**
-               * @summary Revert the edit profile form back to its original state.
-               *
-               * @since 1.6.0
-               */
-              revert: function () {
-
-              },
-
-              /**
-               * @summary Check the user's password as they type.
-               *
-               * @since 1.6.0
-               */
-              check_password: function () {
-
-              },
-
-              /**
-               * @summary Clear all error messages.
-               *
-               * @since 1.6.0
-               */
-              clear_errors: function () {
-
-              },
-
-              /**
-               * @summary Create an error message.
-               *
-               * @since 1.6.0
-               */
-              error: function () {
-
-              }
-
-          };
+                $('.pw-input').on('keyup paste', function () {
+                    module.check_password();
+                });
 
 
-        // Initialize module
-        $(module.init);
+                /**
+                 * @summary Remove updated query var.
+                 */
+                var url = location.href.replace(/updated=true/, '');
+                if (url.charAt(url.length - 1) === '?') {
+                    url = url.substr(0, url.length - 1);
+                }
+
+                history.pushState({ path: url }, '', url);
+
+            },
+
+            /**
+             * @summary Save the users settings.
+             *
+             * @since 1.6.0
+             */
+            save: function () {
+
+                if (!module.saving_in_progress) {
+                    module.saving_in_progress = true;
+
+                    const data = $form.serializeJSON();
+
+                    if (!data.password) {
+                        delete(data.password);
+                    }
+
+                    ucare.user
+                        .update(data)
+                        .success(function () {
+                            location.search = '?updated=true';
+                        })
+                        .fail(function (xhr) {
+
+                            if (xhr.responseJSON) {
+                                module.alert(xhr.responseJSON.message, '#message-area');
+                            }
+
+                        })
+                        .complete(function () {
+                           module.saving_in_progress = false;
+                        });
+
+                }
+
+            },
+
+            /**
+             * @summary Disable the form save functionality.
+             *
+             * @since 1.6.0
+             */
+            disable: function () {
+
+            },
+
+            /**
+             * @summary Revert the edit profile form back to its original state.
+             *
+             * @since 1.6.0
+             */
+            revert: function () {
+
+            },
+
+            /**
+             * @summary Check the user's password as they type.
+             *
+             * @since 1.6.0
+             */
+            check_password: function () {
+
+            },
+
+            /**
+             * @summary Clear all error messages.
+             *
+             * @since 1.6.0
+             */
+            clear_errors: function () {
+
+                $('.alert').each(function (i, el) {
+                    $(el).fadeToggle('fast', function () {
+                        $(el).remove();
+                    });
+                });
+
+            },
+
+            /**
+             * Create and append an alert notification to the DOM.
+             *
+             * @param {string}             message
+             * @param {string|HTMLElement} parent
+             * @param {string}             type
+             *
+             * @since 1.6.0
+             * @return {*|HTMLElement}
+             */
+            alert: function (message, parent, type) {
+                const err = $(
+                    '<div class="alert alert-' + ( type || 'danger' ) + ' alert-dismissable fade in"> \
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '</div>');
+
+                if (!parent) {
+                    parent = 'body';
+                }
+
+                $(parent).append(err.fadeIn());
+
+                return err;
+
+            },
+
+        };
+
+
+    // Initialize module
+    $(module.init);
 
 })(jQuery, ucare);

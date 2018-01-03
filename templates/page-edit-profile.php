@@ -17,11 +17,22 @@ $user = wp_get_current_user();
 
         <h1><?php the_title(); ?></h1>
 
-        <div id="message-area"></div>
+        <div id="message-area">
+
+            <?php if ( get_var( 'updated', false ) ) : ?>
+
+                <div class="alert alert-success alert-dismissable fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <?php _e( 'Profile successfully updated', 'ucare' ); ?>
+                </div>
+
+            <?php endif; ?>
+
+        </div>
 
         <div class="row">
 
-            <form id="edit-user-profile-form">
+            <form id="edit-profile-form">
 
                 <div class="form-group">
 
