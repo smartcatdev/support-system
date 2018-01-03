@@ -149,7 +149,6 @@
          * @return {Deferred}
          */
         update: function (user) {
-
             return $.ajax({
                 data: user,
                 method: 'post',
@@ -159,7 +158,6 @@
                     ucare.events.publish(ucare.events.channels.CURRENT_USER, user);
                 }
             });
-
         }
 
     };

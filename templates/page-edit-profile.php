@@ -70,7 +70,7 @@ $user = wp_get_current_user();
                         <?php _e( 'New Password', 'ucare' ); ?>
                     </label>
 
-                    <input id="new-password"
+                    <input id="password"
                            name="password"
                            type="password"
                            class="form-control pw-input" />
@@ -83,9 +83,11 @@ $user = wp_get_current_user();
                         <?php _e( 'Confirm Password', 'ucare' ); ?>
                     </label>
 
-                    <input id="confirm-password"
+                    <input id="confirm"
                            type="password"
                            class="form-control pw-input" />
+
+                    <span class="glyphicon glyphicon-ok form-control-feedback hidden"></span>
 
                 </div>
 
@@ -93,8 +95,9 @@ $user = wp_get_current_user();
 
                 <div class="form-group text-right">
 
-                    <button id="submit" type="button" class="button button-submit">
-                        <span class="glyphicon glyphicon-floppy-save button-icon"></span><span><?php _e( 'Save', 'ucare' ); ?></span>
+                    <button id="submit" class="button button-submit">
+                        <span class="glyphicon glyphicon-floppy-save button-icon"></span>
+                        <span><?php _e( 'Save', 'ucare' ); ?></span>
                     </button>
 
                 </div>

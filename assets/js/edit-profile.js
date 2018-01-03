@@ -7,7 +7,7 @@
     "use strict";
 
 
-    var $form = $('#edit-profile-form'),
+    const $form = $('#edit-profile-form'),
 
         /**
          * @summary Module for managing the UI for the profile edit form.
@@ -27,7 +27,8 @@
              */
             init: function () {
 
-                $('#submit').click(function () {
+                $('#submit').click(function (e) {
+                    e.preventDefault();
                     module.clear_errors();
                     module.save();
                 });
@@ -86,29 +87,29 @@
             },
 
             /**
-             * @summary Disable the form save functionality.
-             *
-             * @since 1.6.0
-             */
-            disable: function () {
-
-            },
-
-            /**
-             * @summary Revert the edit profile form back to its original state.
-             *
-             * @since 1.6.0
-             */
-            revert: function () {
-
-            },
-
-            /**
              * @summary Check the user's password as they type.
              *
              * @since 1.6.0
              */
             check_password: function () {
+                const $submit   = $('#submit'),
+                      $password = $('#password'),
+                      $confirm  = $('#confirm');
+
+                if ($password.val().length > 0) {
+                    const match = $password.val() === $confirm.val();
+
+                    $confirm
+                        .parents('.has-feedback')
+                        .toggleClass('has-success', match);
+
+                    $confirm
+                        .siblings('.form-control-feedback')
+                        .toggleClass('hidden', !match);
+
+                    $submit.prop('disabled', !match);
+
+                }
 
             },
 
@@ -140,7 +141,7 @@
             alert: function (message, parent, type) {
                 const err = $(
                     '<div class="alert alert-' + ( type || 'danger' ) + ' alert-dismissable fade in"> \
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '</div>');
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '</div>');
 
                 if (!parent) {
                     parent = 'body';

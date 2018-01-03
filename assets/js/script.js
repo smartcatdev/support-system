@@ -6,16 +6,5 @@
 ;(function ($) {
     "use strict";
 
-    $(function () {
-
-        /**
-         * @summary Go to the last page when back button is clicked.
-         */
-        $('.btn-back').click(function (e) {
-            e.preventDefault();
-            history.back();
-        });
-
-    });
 
 })(jQuery);
