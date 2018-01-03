@@ -4,7 +4,7 @@
  * @since 1.5.1
  * @access public
  */
-(function ($, localize) {
+;(function ($, ucare) {
     "use strict";
 
     const $form     = $('#create-ticket-form'),
@@ -55,7 +55,7 @@
             /**
              * @summary Set the max filesize for dropzone.js
              */
-            Dropzone.prototype.defaultOptions.maxFilesize = localize.dropzone.max_attachment_size;
+            Dropzone.prototype.defaultOptions.maxFilesize = ucare.settings.max_file_size;
 
             /**
              * Disable dropzone auto discovery
@@ -69,9 +69,9 @@
                 init: module.dropzone_init,
                 addRemoveLinks: true,
                 headers: {
-                    'X-WP-Nonce': localize.api.nonce
+                    'X-WP-Nonce': ucare.api.nonce
                 },
-                url: localize.api.endpoints.media
+                url: ucare.api.root + 'wp/v2/media'
             });
 
         },
@@ -87,9 +87,9 @@
                   ticket_id = $dropzone.find('[name="post"]').val();
 
             $.ajax({
-                url: localize.api.endpoints.media + '?order=asc&parent=' + ticket_id,
+                url: ucare.api.root + 'wp/v2/media?order=asc&parent=' + ticket_id,
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', localize.api.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                 },
                 success: function (res) {
 
@@ -222,7 +222,7 @@
                 /**
                  * @summary Construct the URI.
                  */
-                const uri = localize.api.endpoints.tickets + '/' + $form.data('id') +
+                const uri = ucare.api.root + 'wp/v2/support-tickets/' + $form.data('id') +
                     '?' + $form.find(':input').serialize();
 
                 /**
@@ -235,7 +235,7 @@
                     },
                     method: 'post',
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-WP-Nonce', localize.api.nonce);
+                        xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                     },
                     complete: function () {
                         module.saving_in_progress = false;
@@ -245,7 +245,7 @@
 
                     // Redirect back to the support page if the ticket has been published
                     if (status === 'publish') {
-                        location.href = localize.redirect.support_page
+                        location.href = ucare.vars.support_url
                     }
 
                 })
@@ -263,9 +263,7 @@
 
     };
 
-    /**
-     * @summary Call the init method when the DOM loads.
-     */
-    $(document).ready(function () { module.init(); })
+    // Initialize module
+    $(module.init);
 
-})(jQuery, createTicket || {});
+})(jQuery, ucare);

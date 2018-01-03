@@ -65,12 +65,18 @@ function enqueue_system_scripts() {
 function register_default_scripts() {
 
     $i10n = array(
+        'vars' => array(
+            'support_url' => support_page_url()
+        ),
         'api' => array(
             'nonce'  => wp_create_nonce( 'wp_rest' ),
             'root'   => rest_url()
         ),
         'i10n' => array(
 
+        ),
+        'settings' => array(
+            'max_file_size' => get_option( Options::MAX_ATTACHMENT_SIZE )
         )
     );
 
@@ -125,11 +131,11 @@ function enqueue_default_scripts() {
 
     // Load create ticket page scripts
     else if ( is_create_ticket_page() ) {
-        enqueue_create_ticket();
+        ucare_enqueue_script( 'ucare-create-ticket', resolve_url( 'assets/js/create-ticket.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
 
     // Load edit profile page scripts
     } else if ( is_edit_profile_page() ) {
-        ucare_enqueue_script( 'edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
     }
 
 }
@@ -164,38 +170,6 @@ function enqueue_app() {
     ucare_localize_script( 'ucare-app', 'Globals', $i10n );
 
     ucare_enqueue_script( 'ucare-app' );
-
-}
-
-
-/**
- * Localize and enqueue create ticket script.
- *
- * @since 1.5.1
- * @return void
- */
-function enqueue_create_ticket() {
-
-    $i10n = array(
-        'redirect' => array(
-            'support_page' => support_page_url()
-        ),
-        'api' => array(
-            'nonce'     => wp_create_nonce( 'wp_rest' ),
-            'endpoints' => array(
-                'tickets' => rest_url( 'wp/v2/support-tickets' ),
-                'media'   => rest_url( 'wp/v2/media' )
-            )
-        ),
-        'dropzone' => array(
-            'max_attachment_size' => get_option( Options::MAX_ATTACHMENT_SIZE )
-        )
-    );
-
-    ucare_register_script( 'ucare-create-ticket', resolve_url( 'assets/js/create-ticket.js' ), null, PLUGIN_VERSION, true );
-    ucare_localize_script( 'ucare-create-ticket', 'createTicket', $i10n );
-
-    ucare_enqueue_script( 'ucare-create-ticket' );
 
 }
 
