@@ -62,7 +62,7 @@ $user = wp_get_current_user();
                     <input id="new-password"
                            name="password"
                            type="password"
-                           class="form-control" />
+                           class="form-control pw-input" />
 
                 </div>
 
@@ -74,7 +74,7 @@ $user = wp_get_current_user();
 
                     <input id="confirm-password"
                            type="password"
-                           class="form-control" />
+                           class="form-control pw-input" />
 
                 </div>
 
@@ -82,7 +82,7 @@ $user = wp_get_current_user();
 
                 <div class="form-group text-right">
 
-                    <button id="save-settings" type="button" class="button button-submit">
+                    <button id="submit" type="button" class="button button-submit">
                         <span class="glyphicon glyphicon-floppy-save button-icon"></span><span><?php _e( 'Save', 'ucare' ); ?></span>
                     </button>
 

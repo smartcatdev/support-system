@@ -7,7 +7,7 @@
 (function ($, localize) {
     "use strict";
 
-    const $form = $('#create-ticket-form'),
+    const $form     = $('#create-ticket-form'),
           $dropzone = $('#ticket-media'),
 
         /**
@@ -17,6 +17,9 @@
          */
         module = {
 
+        /**
+         * @summary Holds the state of the current save operation.
+         */
         saving_in_progress: false,
 
         /**

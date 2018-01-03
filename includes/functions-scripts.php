@@ -116,8 +116,12 @@ function enqueue_default_scripts() {
     }
 
     // Load create ticket page scripts
-    if ( is_create_ticket_page() ) {
+    else if ( is_create_ticket_page() ) {
         enqueue_create_ticket();
+
+    // Load edit profile page scripts
+    } else if ( is_edit_profile_page() ) {
+        ucare_enqueue_script( 'edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare' ), PLUGIN_VERSION );
     }
 
 }
