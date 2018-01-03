@@ -18,12 +18,6 @@ namespace ucare;
 
     <?php endif; ?>
 
-        <?php do_action( 'ucare_before_navbar' ); ?>
-
-        <?php get_template( 'navbar' ); ?>
-
-        <?php do_action( 'ucare_after_navbar' ); ?>
-
         <?php get_template( 'dash.php' ); ?>
 
 <?php else : ?>

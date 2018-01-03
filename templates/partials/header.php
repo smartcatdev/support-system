@@ -33,4 +33,7 @@ namespace ucare;
 
         <div id="page-container"><!-- Start Page Container -->
 
+        <?php get_navbar(); ?>
+
         <?php do_action( 'ucare_body' ); ?>
+

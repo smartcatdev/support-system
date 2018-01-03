@@ -103,3 +103,17 @@ function ticket_status( $ticket, $default = 'N/A', $echo = true ) {
 function strcat() {
     return join( '', func_get_args() );
 }
+
+
+/**
+ * Echo an escaped url.
+ *
+ * @param string     $url
+ * @param null|array $protocols
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function esc_url_e( $url, $protocols = null ) {
+    echo esc_url( $url, $protocols );
+}

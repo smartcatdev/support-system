@@ -360,17 +360,9 @@ function remove_capabilities() {
         $role->add_cap( 'use_support' );
         $role->add_cap( 'manage_support_tickets' );
 
-        /**
-         *
-         * support_ticket specific caps. Agents can only create, edit non-published and read others tickets.
-         */
         $role->add_cap( 'publish_support_tickets' );
         $role->add_cap( 'edit_support_tickets' );
 
-        /**
-         *
-         * attachment specific capabilities, Users can publish, delete and read their own media.
-         */
         $role->add_cap( 'upload_files' );
         $role->add_cap( 'delete_posts' );
         $role->add_cap( 'read' );

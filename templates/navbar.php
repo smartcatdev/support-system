@@ -1,8 +1,11 @@
 <?php
-
+/**
+ * Template for the main application navigation bar.
+ *
+ * @since 1.0.0
+ * @package ucare
+ */
 namespace ucare;
-
-$user = wp_get_current_user();
 
 ?>
 
@@ -12,16 +15,14 @@ $user = wp_get_current_user();
 
         <div class="row">
 
-            <?php if ( get_option( Options::DISPLAY_BACK_BUTTON, Defaults::DISPLAY_BACK_BUTTON ) == 'on' ) : ?>
+            <?php if ( get_option( Options::DISPLAY_BACK_BUTTON, Defaults::DISPLAY_BACK_BUTTON ) ) : ?>
 
                 <div class="row-table pull-left">
 
                     <div class="row-table-cell">
 
                         <a class="brand-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php _e( 'Back to site', 'ucare' ); ?>">
-
                             <img height="40" src="<?php echo esc_url( get_option( Options::LOGO, Defaults::LOGO ) ); ?>" />
-
                         </a>
 
                     </div>
@@ -50,9 +51,9 @@ $user = wp_get_current_user();
 
             <div class="row-table pull-right actions">
 
-                <div class="row-table-cell">
+                <?php if ( !is_create_ticket_page() ) : ?>
 
-                    <?php if ( !is_create_ticket_page() ) : ?>
+                    <div class="row-table-cell">
 
                         <a class="button button-primary" href="<?php echo esc_url( create_page_url() ); ?>">
 
@@ -63,10 +64,9 @@ $user = wp_get_current_user();
 
                         </a>
 
-                    <?php endif; ?>
+                    </div>
 
-                </div>
-
+                <?php endif; ?>
 
                 <div class="row-table-cell">
 
@@ -77,26 +77,16 @@ $user = wp_get_current_user();
                            data-toggle="dropdown"
                            role="button"
                            aria-haspopup="true"
-                           aria-expanded="false">
-
-                            <?php echo get_avatar( $user->ID, 46 ); ?>
-
-                            <?php echo $user->user_firstname ?> <span class="caret"></span>
-
+                           aria-expanded="false"><?php echo get_avatar( get_current_user_id(), 46 ); ?>
+                            <?php esc_html_e( wp_get_current_user()->first_name ); ?> <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
 
                             <li>
-
-                                <a href="#" data-toggle="modal" data-target="#settings-modal">
-
-                                    <span class="glyphicon glyphicon-cog"></span>
-
-                                    <?php _e( 'Settings', 'ucare' ); ?>
-
+                                <a href="<?php esc_url_e( edit_profile_page_url() ); ?>">
+                                    <span class="glyphicon glyphicon-cog"></span><?php _e( 'Profile', 'ucare' ); ?>
                                 </a>
-
                             </li>
 
                             <li role="separator" class="divider"></li>
@@ -105,11 +95,7 @@ $user = wp_get_current_user();
 
                                 <li>
                                     <a href="<?php echo admin_url( 'admin.php?page=ucare_support' ); ?>" class="alignright background-secondary hover menu-item">
-
-                                        <span class="glyphicon glyphicon-th-large"></span>
-
-                                        <?php _e( 'Support Admin', 'ucare' ); ?>
-
+                                        <span class="glyphicon glyphicon-th-large"></span><?php _e( 'Support Admin', 'ucare' ); ?>
                                     </a>
 
                                 </li>
@@ -120,26 +106,16 @@ $user = wp_get_current_user();
 
                             <li>
                                 <a href="<?php echo esc_url( home_url() ); ?>" class="alignright background-secondary hover menu-item">
-
-                                    <span class="glyphicon glyphicon-globe"></span>
-
-                                    <?php _e( 'Back to Site', 'ucare' ); ?>
-
+                                    <span class="glyphicon glyphicon-globe"></span><?php _e( 'Back to Site', 'ucare' ); ?>
                                 </a>
-
                             </li>
 
                             <li role="separator" class="divider"></li>
 
                             <li>
-                                <a href="<?php echo add_query_arg( 'redirect_to', urlencode( \ucare\support_page_url() ), wp_logout_url() ); ?>" class="alignright background-secondary hover menu-item">
-
-                                    <span class="glyphicon-log-out glyphicon"></span>
-
-                                    <?php _e( 'Logout', 'ucare' ); ?>
-
+                                <a href="<?php esc_url_e( wp_logout_url( support_page_url() ) ); ?>" class="alignright background-secondary hover menu-item">
+                                    <span class="glyphicon-log-out glyphicon"></span><?php _e( 'Logout', 'ucare' ); ?>
                                 </a>
-
                             </li>
 
                         </ul>
