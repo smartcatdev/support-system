@@ -12,14 +12,14 @@
         /**
          * @summary Handle registration form submissions.
          */
-        $('#registration-submit').click(function (e) {
+        $('#registration-form').submit(function (e) {
             e.preventDefault();
 
-            const $form = $('#registration-form'),
-                  $msgs = $('#message-area');
+            const $submit = $('#registration-submit'),
+                  $msgs   = $('#message-area');
 
             // Disable the submit button
-            $(e.target).prop('disabled', true);
+            $submit.prop('disabled', true);
 
             // Remove any alerts
             $('.alert').remove();
@@ -27,7 +27,7 @@
             $.ajax({
                 url: ucare.api.root + 'ucare/v1/users/register',
                 method: 'post',
-                data: $form.serializeJSON(),
+                data: $(this).serializeJSON(),
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                 }
@@ -40,7 +40,7 @@
                 $msgs.append(make_alert(xhr.responseJSON.message, 'error'));
             })
             .complete(function () {
-                $(e.target).prop('disabled', false);
+                $submit.prop('disabled', false);
             });
 
         });
@@ -48,14 +48,14 @@
         /**
          * @summary Handle password resetting.
          */
-        $('#reset-password').click(function (e) {
+        $('#reset-pw-form').submit(function (e) {
             e.preventDefault();
 
-            const $form = $('#reset-pw-form'),
-                  $msgs = $('#message-area');
+            const $submit = $('#reset-password'),
+                  $msgs   = $('#message-area');
 
             // Disable the submit button
-            $(e.target).prop('disabled', true);
+            $submit.prop('disabled', true);
 
             // Remove any alerts
             $('.alert').remove();
@@ -63,7 +63,7 @@
             $.ajax({
                 url: ucare.api.root + 'ucare/v1/auth/reset-password',
                 method: 'post',
-                data: $form.serializeJSON(),
+                data: $(this).serializeJSON(),
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                 }
@@ -75,7 +75,7 @@
                 $msgs.append(make_alert(xhr.responseJSON.message, 'error'));
             })
             .complete(function () {
-                $(e.target).prop('disabled', false);
+                $submit.prop('disabled', false);
             });
 
         });

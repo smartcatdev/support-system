@@ -47,7 +47,7 @@ $allow_registration = get_option( Options::ALLOW_SIGNUPS );
                             <input class="form-control"
                                    type="text"
                                    name="username"
-                                   placeholder="<?php _e( 'Username or Email Address', 'ucare' ); ?>" />
+                                   placeholder="<?php _e( 'Username or Email Address', 'ucare' ); ?>" required />
 
                         </div>
 
