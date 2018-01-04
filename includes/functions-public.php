@@ -363,6 +363,7 @@ function ucare_count_user_tickets( $user_id ) {
 
 
 /***********************************************************************************************************************
+ *
  * General template functions
  *
  * @since 1.4.2
@@ -394,6 +395,7 @@ function ucare_register_sidebar( $id, $position, array $section ) {
 
 
 /***********************************************************************************************************************
+ *
  * General user functions
  *
  * @since 1.5.1
@@ -441,6 +443,7 @@ function ucare_is_support_admin( $user_id = null ) {
 
 
 /***********************************************************************************************************************
+ *
  * General purpose template functions
  *
  * @since 1.6.0
@@ -471,4 +474,65 @@ function ucare_get_header( $args = array() ) {
  */
 function ucare_get_footer( $args = array() ) {
     \ucare\get_template( 'footer', $args );
+}
+
+
+/***********************************************************************************************************************
+ *
+ * Functions for managing users
+ *
+ * @since 1.6.0
+ * @scope global
+ */
+
+/**
+ * Register a user with the support system.
+ *
+ * @param array $user_data
+ * @param bool  $authenticate
+ * @param bool  $remember
+ *
+ * @since 1.6.0
+ * @return int|\WP_Error
+ */
+function ucare_register_user( $user_data, $authenticate = false, $remember = false ) {
+
+    // An email is required
+    if ( empty( $user_data['email'] ) ) {
+        return new \WP_Error( 'user_email_missing', __( 'An email address must be provided', 'ucare' ), array( 'status' => 400 ) );
+    }
+
+    $defaults = array(
+        'password'   => wp_generate_password(),
+        'role'       => 'support_user',
+        'first_name' => '',
+        'last_name'  => '',
+    );
+
+    $user_data = wp_parse_args( $user_data, $defaults );
+
+    $map = array(
+        'user_login'    => $user_data['email'],
+        'user_email'    => $user_data['email'],
+        'first_name'    => $user_data['first_name'],
+        'last_name'     => $user_data['last_name'],
+        'role'          => $user_data['role'],
+        'user_pass'     => $user_data['password']
+    );
+
+    $id = wp_insert_user( $map );
+
+    if ( !is_wp_error( $id ) ) {
+
+        // Auto authenticate if another user is not logged in
+        if ( $authenticate && !is_user_logged_in() ) {
+            wp_set_auth_cookie( $id, $remember );
+        }
+
+        do_action( 'support_user_registered', $user_data );
+
+    }
+
+    return $id;
+
 }

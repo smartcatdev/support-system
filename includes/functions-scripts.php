@@ -136,6 +136,10 @@ function enqueue_default_scripts() {
     // Load edit profile page scripts
     } else if ( is_edit_profile_page() ) {
         ucare_enqueue_script( 'ucare-edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
+
+    // Load login page scripts
+    } else if ( is_login_page() ) {
+        ucare_enqueue_script( 'ucare-login', resolve_url( 'assets/js/login.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
     }
 
 }

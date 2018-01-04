@@ -7,12 +7,12 @@
  */
 namespace ucare;
 
+$allow_registration = get_option( Options::ALLOW_SIGNUPS );
+
 ?>
 
 <?php ucare_get_header(); ?>
 
-
-<?php $allow_registration = get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ); ?>
 
 <div id="support-login-bg" xmlns="http://www.w3.org/1999/html">
 
@@ -22,135 +22,90 @@ namespace ucare;
 
             <div id="support-login-form" class="<?php echo $allow_registration ? 'has-registration' : ''; ?>">
 
-                <?php if( !empty( $_REQUEST['reset_password'] ) ) : ?>
+                <?php if ( $allow_registration && get_var( 'register' ) ) : ?>
 
-                    <a class="btn btn-default button-back" href="<?php echo esc_url( support_page_url() ); ?>">
+                    <?php get_template( 'login-register' ); ?>
 
+                <?php elseif ( get_var( 'reset_password' ) ) : ?>
+
+                    <a class="btn btn-default button-back" href="<?php esc_url_e( login_page_url() ); ?>">
                         <span class="glyphicon glyphicon-chevron-left button-icon"></span>
-
-                        <span><?php _e( 'Back to login', 'ucare' ); ?></span>
-
+                        <span><?php _e( 'Login', 'ucare' ); ?></span>
                     </a>
 
                     <div id="reset-pw-alert"></div>
 
-                    <form>
+                    <!-- reset-pw-form -->
+                    <form id="reset-pw-form">
 
                         <div class="form-group">
-
                             <h4><?php _e( 'Reset Password', 'ucare' ); ?></h4>
-
                         </div>
 
                         <div class="form-group">
 
-                            <input class="form-control" type="text" name="username" placeholder="<?php _e( 'Username or Email Address', 'ucare' ); ?>" />
+                            <input class="form-control"
+                                   type="text"
+                                   name="username"
+                                   placeholder="<?php _e( 'Username or Email Address', 'ucare' ); ?>" />
 
                         </div>
 
                         <div class="bottom">
 
-                            <input id="reset-password" type="submit" class="button button-primary" value="<?php _e( 'Reset', 'ucare' ); ?>" />
+                            <input id="reset-password"
+                                   type="submit"
+                                   class="button button-primary"
+                                   value="<?php _e( 'Reset', 'ucare' ); ?>" />
 
                         </div>
 
                         <?php wp_nonce_field( '_ajax_nonce' ); ?>
 
-                    </form>
+                    </form><!-- /reset-pw-form -->
 
-                <?php elseif ( get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ) && !empty( $_REQUEST['register'] ) ) : ?>
-
-                    <?php $form = include_once Plugin::plugin_dir( PLUGIN_ID ) . '/config/registration_form.php'; ?>
-
-                    <div id="register">
-
-                        <a id="login-back" class="btn btn-default button-back" href="<?php echo esc_url( support_page_url() ); ?>">
-
-                            <span class="glyphicon glyphicon-chevron-left button-icon"></span>
-
-                            <span><?php _e( 'Back to login', 'ucare' ); ?></span>
-
-                        </a>
-
-                        <form id="registration-form">
-
-                            <?php foreach( $form->fields as $field ) : ?>
-
-                                <div class="form-group">
-
-                                    <label><?php echo $field->label; ?></label>
-
-                                    <?php $field->render(); ?>
-
-                                </div>
-
-                            <?php endforeach; ?>
-
-                            <input type="hidden" name="<?php echo $form->id; ?>" />
-
-                            <?php do_action( 'ucare_after_registration_fields' ); ?>
-
-                            <div class="text-right registration-submit">
-
-                                <button id="registration-submit" type="submit" class="button button-primary">
-
-                                    <?php _e( get_option( Options::REGISTER_BTN_TEXT, Defaults::REGISTER_BTN_TEXT ), 'ucare' ); ?>
-
-                                </button>
-
-                            </div>
-
-                            <div class="terms">
-
-                                <a href="<?php echo esc_url( get_option( Options::TERMS_URL, Defaults::TERMS_URL ) ); ?>">
-
-                                    <?php _e( get_option( Options::LOGIN_DISCLAIMER, Defaults::LOGIN_DISCLAIMER ), PLUGIN_ID ); ?>
-
-                                </a>
-
-                            </div>
-
-                        </form>
-
-                    </div>
 
                 <?php else : ?>
 
+                    <!-- login -->
                     <div id="login">
 
-                        <img class="logo" src="<?php echo get_option( Options::LOGO, Defaults::LOGO ) ?>"/>
+                        <img class="logo" src="<?php echo get_option( Options::LOGO ) ?>"/>
 
-                        <?php if( isset( $_REQUEST['login'] ) ) : ?>
+                        <?php if ( get_var( 'login' ) === 'empty' || get_var( 'login' ) === 'failed' ) : ?>
 
                             <div class="alert alert-error alert-dismissible fade in">
-
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
                                 <?php _e( 'Invalid username or password', 'ucare' ); ?>
-
                             </div>
 
                         <?php endif; ?>
 
+
                         <?php wp_login_form( array( 'form_id' => 'support_login', 'redirect' => support_page_url() ) ); ?>
+
 
                         <div class="clearfix"></div>
 
                         <div class="text-center pw-reset-link">
 
-                            <a href="<?php echo esc_url( support_page_url( '?reset_password=true' ) ); ?>"><?php _e( 'Forgot password?', 'ucare' ); ?></a>
+                            <a href="<?php echo esc_url( login_page_url( '?reset_password=true' ) ); ?>">
+                                <?php _e( 'Forgot password?', 'ucare' ); ?>
+                            </a>
 
                         </div>
 
-                    </div>
+                    </div><!-- /login -->
 
-                    <?php $login_widget = get_option( Options::LOGIN_WIDGET_AREA, Defaults::LOGIN_WIDGET_AREA ); ?>
 
-                    <?php if( !empty( $login_widget ) ) : ?>
+                    <?php $login_widget = get_option( Options::LOGIN_WIDGET_AREA ); ?>
+
+                    <?php if ( !empty( $login_widget ) ) : ?>
 
                         <div id="login-widget-area" class="row"><?php echo stripslashes( $login_widget ); ?></div>
 
                     <?php endif; ?>
+
 
                 <?php endif; ?>
 

@@ -68,7 +68,14 @@
              *
              * @since 1.6.0
              */
-            CURRENT_USER: 'channel_current_user'
+            CURRENT_USER: 'channel_current_user',
+
+            /**
+             * @summary Channel for new registered users.
+             *
+             * @since 1.6.0
+             */
+            REGISTER_USER: 'channel_register_user'
 
         },
 

@@ -149,7 +149,7 @@
                 url: localize.api.endpoints.media + '/' + id + '?force=true',
                 method: 'delete',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', localize.api.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                 }
             })
         },
