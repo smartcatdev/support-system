@@ -104,16 +104,6 @@ $appearance->add_field( new SelectBoxField(
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
     )
 
-) )->add_field( new CheckBoxField(
-    array(
-        'id'            => 'support_show_clock',
-        'option'        => Options::SHOW_CLOCK,
-        'value'         => get_option( Options::SHOW_CLOCK, \ucare\Defaults::SHOW_CLOCK ),
-        'label'         => __( 'Show Clock', 'ucare'),
-        'desc'          => __( 'Display the date and time in the primary navbar', 'ucare' ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
 ) );
 
 $categories = new SettingsSection( 'uc_categories', __( 'Ticket Categories', 'ucare' ) );

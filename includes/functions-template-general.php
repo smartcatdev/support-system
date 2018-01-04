@@ -12,6 +12,12 @@ add_action( 'login_form_bottom', 'ucare\add_support_login_field', 10, 2 );
 
 add_action( 'login_form_bottom', 'ucare\add_login_registration_button', 10, 2 );
 
+// Pull in assets with theme header
+add_action( 'wp_head', 'ucare\call_header' );
+
+// Pull in assets with theme footer
+add_action( 'wp_footer', 'ucare\call_footer' );
+
 
 /**
  * Retrieve a template from the templates/ directory. Arguments passed will be globally available in the template file.
@@ -172,4 +178,51 @@ function print_footer_copyright() {
 
     <?php }
 
+}
+
+
+/**
+ * Pull in header scripts and styles if using the site theme.
+ *
+ * @action ucare_head
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function call_header() {
+
+    // If we are on a support page that calls wp_head, make sure our scripts are included
+    if ( is_a_support_page() ) {
+        ucare_head();
+    }
+
+}
+
+
+/**
+ * Pull in footer scripts if using the site theme.
+ *
+ * @action ucare_footer
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function call_footer() {
+
+    // If we are on a support page that calls wp_footer, make sure our scripts are included
+    if ( is_a_support_page() ) {
+        ucare_footer();
+    }
+
+}
+
+
+/**
+ * Check whether or not we are using the site theme on public pages or the default system theme.
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function use_site_theme() {
+    return is_public_page() && get_option( Options::USE_SITE_THEME );
 }

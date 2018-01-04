@@ -339,6 +339,7 @@ final class Options {
 
     /**
      * @since 1.4.1
+     * @deprecated
      */
     const SHOW_CLOCK = 'smartcat_support_show_clock';
 
@@ -356,6 +357,11 @@ final class Options {
      * @since 1.6.0
      */
     const LOGIN_PAGE_ID = 'smartcat_support_login_page_id';
+
+    /**
+     * @since 1.6.0
+     */
+    const USE_SITE_THEME = 'smartcat_support_use_site_theme';
 
 }
 
@@ -605,7 +611,13 @@ final class Defaults {
 
     /**
      * @since 1.4.1
+     * @deprecated
      */
     const SHOW_CLOCK = 'on';
+
+    /**
+     * @since 1.6.0
+     */
+    const USE_SITE_THEME = 'on';
 
 }
