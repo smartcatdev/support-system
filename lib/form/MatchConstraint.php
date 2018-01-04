@@ -2,7 +2,9 @@
 
 namespace smartcat\form;
 
-
+/**
+ * @deprecated
+ */
 class MatchConstraint implements Constraint {
     private $match;
 

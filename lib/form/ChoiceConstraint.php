@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists( '\smartcat\form\ChoiceConstraint' ) ) :
-
+    /**
+     * @deprecated
+     */
 class ChoiceConstraint implements Constraint {
     protected $options = array();
     

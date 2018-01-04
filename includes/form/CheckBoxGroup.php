@@ -4,6 +4,12 @@ namespace ucare\form;
 
 use smartcat\form\AbstractField;
 
+/**
+ * Class CheckBoxGroup
+ *
+ * @deprecated
+ * @package ucare\form
+ */
 class CheckBoxGroup extends AbstractField {
 
     protected $options = array();

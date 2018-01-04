@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists( '\smartcat\form\Form' ) ) :
-
+    /**
+     * @deprecated
+     */
 class Form {
     public $id;
     public $method;

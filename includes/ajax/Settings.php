@@ -2,7 +2,11 @@
 
 namespace ucare\ajax;
 
-
+/**
+ * Class Settings
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Settings extends AjaxComponent {
 
     /**

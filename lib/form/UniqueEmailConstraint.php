@@ -2,7 +2,9 @@
 
 namespace smartcat\form;
 
-
+/**
+ * @deprecated
+ */
 class UniqueEmailConstraint implements Constraint {
 
     public function is_valid( $value ) {

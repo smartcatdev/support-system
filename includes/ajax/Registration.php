@@ -2,7 +2,12 @@
 
 namespace ucare\ajax;
 
-
+/**
+ * @deprecated
+ * Class Registration
+ *
+ * @package ucare\ajax
+ */
 class Registration extends AjaxComponent {
 
     /**

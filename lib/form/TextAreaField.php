@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists( '\smartcat\form\TextAreaField' ) ) :
-
+    /**
+     * @deprecated
+     */
 class TextAreaField extends AbstractField {
 
     public function render() { ?>

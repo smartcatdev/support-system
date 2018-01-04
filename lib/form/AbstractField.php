@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists('\smartcat\form\AbstractField') ) :
-
+    /**
+     * @deprecated
+     */
 abstract class AbstractField {
     public $id;
     public $name;

@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists( 'smartcat\form\CheckBoxField' ) ) :
-
+    /**
+     * @deprecated
+     */
 class CheckBoxField extends AbstractField {
 
     protected $checkbox_label = '';

@@ -2,7 +2,9 @@
 
 namespace smartcat\form;
 
-
+/**
+ * @deprecated
+ */
 class RadioGroup extends AbstractField {
 
     protected $options = array();
