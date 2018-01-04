@@ -100,7 +100,6 @@ function save_ticket_category_metabox( $post_id ) {
     if ( verify_request_nonce( 'set_ticket_category', 'ticket_category_nonce' ) ) {
 
         if ( !empty( $_POST['ticket_category'] ) ) {
-
             $term = get_term( absint( $_POST['ticket_category'] ), 'ticket_category' );
 
             if ( $term ) {

@@ -1,8 +1,16 @@
 <?php
-
+/**
+ * Template for the login page.
+ *
+ * @since 1.6.0
+ * @package ucare
+ */
 namespace ucare;
 
 ?>
+
+<?php ucare_get_header(); ?>
+
 
 <?php $allow_registration = get_option( Options::ALLOW_SIGNUPS, Defaults::ALLOW_SIGNUPS ); ?>
 
@@ -108,33 +116,33 @@ namespace ucare;
 
                 <?php else : ?>
 
-                <div id="login">
+                    <div id="login">
 
-                    <img class="logo" src="<?php echo get_option( Options::LOGO, Defaults::LOGO ) ?>"/>
+                        <img class="logo" src="<?php echo get_option( Options::LOGO, Defaults::LOGO ) ?>"/>
 
-                    <?php if( isset( $_REQUEST['login'] ) ) : ?>
+                        <?php if( isset( $_REQUEST['login'] ) ) : ?>
 
-                        <div class="alert alert-error alert-dismissible fade in">
+                            <div class="alert alert-error alert-dismissible fade in">
 
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
-                            <?php _e( 'Invalid username or password', 'ucare' ); ?>
+                                <?php _e( 'Invalid username or password', 'ucare' ); ?>
+
+                            </div>
+
+                        <?php endif; ?>
+
+                        <?php wp_login_form( array( 'form_id' => 'support_login', 'redirect' => support_page_url() ) ); ?>
+
+                        <div class="clearfix"></div>
+
+                        <div class="text-center pw-reset-link">
+
+                            <a href="<?php echo esc_url( support_page_url( '?reset_password=true' ) ); ?>"><?php _e( 'Forgot password?', 'ucare' ); ?></a>
 
                         </div>
 
-                    <?php endif; ?>
-
-                    <?php wp_login_form( array( 'form_id' => 'support_login', 'redirect' => support_page_url() ) ); ?>
-
-                    <div class="clearfix"></div>
-
-                    <div class="text-center pw-reset-link">
-
-                        <a href="<?php echo esc_url( support_page_url( '?reset_password=true' ) ); ?>"><?php _e( 'Forgot password?', 'ucare' ); ?></a>
-
                     </div>
-
-                </div>
 
                     <?php $login_widget = get_option( Options::LOGIN_WIDGET_AREA, Defaults::LOGIN_WIDGET_AREA ); ?>
 
@@ -151,5 +159,8 @@ namespace ucare;
         </div>
 
     </div>
-    
+
 </div>
+
+
+<?php ucare_get_footer(); ?>

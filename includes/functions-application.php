@@ -9,7 +9,7 @@ namespace ucare;
 
 
 // Redirect unauthorized users back to the login
-add_action( 'template_redirect', 'ucare\maybe_do_auth_redirect' );
+add_action( 'template_redirect', 'ucare\auth_redirect' );
 
 
 /**
@@ -52,6 +52,19 @@ function edit_profile_page_url( $path = '' ) {
 
 
 /**
+ * Get the URL of the login page.
+ *
+ * @param string $path
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function login_page_url( $path = '' ) {
+    return get_the_permalink( get_option( Options::LOGIN_PAGE_ID ) ) . $path;
+}
+
+
+/**
  * Check to see if a page belongs to the support system.
  *
  * @param mixed $page
@@ -67,7 +80,8 @@ function is_a_support_page( $page = null ) {
     if ( $page && $page->post_type == 'page' ) {
         $is_page = $page->ID == get_option( Options::CREATE_TICKET_PAGE_ID ) ||
                    $page->ID == get_option( Options::EDIT_PROFILE_PAGE_ID  ) ||
-                   $page->ID == get_option( Options::TEMPLATE_PAGE_ID      );
+                   $page->ID == get_option( Options::TEMPLATE_PAGE_ID      ) ||
+                   $page->ID == get_option( Options::LOGIN_PAGE_ID         );
     }
 
     return apply_filters( 'ucare_is_support_page', $is_page );
@@ -115,6 +129,19 @@ function is_edit_profile_page( $page = null ) {
 
 
 /**
+ * Check to see if the current page is the login page.
+ *
+ * @param null $page
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function is_login_page( $page = null ) {
+    return is_page( get_option( Options::LOGIN_PAGE_ID ), $page );
+}
+
+
+/**
  * Check a page ID against an ID.
  *
  * @param $id
@@ -137,23 +164,44 @@ function is_page( $id, $page = null ) {
 
 
 /**
+ * Check to see whether a page requires user authentication to access.
+ *
+ * @param null $page
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function is_public_page( $page = null ) {
+
+    $page   = get_post( $page );
+    $public = true;
+
+    if ( is_a_support_page( $page ) ) {
+        $public = $page->ID == get_option( Options::LOGIN_PAGE_ID );
+    }
+
+    return apply_filters( 'ucare_is_public_page', $public, $page );
+
+}
+
+
+/**
  * Redirect the user if they are logged out or unauthorized.
  *
  * @action template_redirect
  *
- * @todo Separate login/registration page
- *
  * @since 1.5.1
  * @return void
  */
-function maybe_do_auth_redirect() {
+function auth_redirect() {
 
-    if ( ( is_create_ticket_page() || is_edit_profile_page() ) &&
-         ( !is_user_logged_in()    || !current_user_can( 'use_support' ) ) ) {
+    // Send the user to the login page if they are not authenticated
+    if ( !is_user_logged_in() && !is_public_page() ) {
+        wp_safe_redirect( login_page_url() );
 
-        // Redirect back to the help desk url
+    // Redirect from login form if user is already logged in
+    } else if ( is_user_logged_in() && is_login_page() ) {
         wp_safe_redirect( support_page_url() );
-
     }
 
 }

@@ -438,3 +438,37 @@ function ucare_is_support_agent( $user_id = null ) {
 function ucare_is_support_admin( $user_id = null ) {
     return \ucare\user_has_cap( 'manage_support', $user_id );
 }
+
+
+/***********************************************************************************************************************
+ * General purpose template functions
+ *
+ * @since 1.6.0
+ * @scope global
+ */
+
+
+/**
+ * Get the support system header.
+ *
+ * @param array $args
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_get_header( $args = array() ) {
+    \ucare\get_template( 'header', $args );
+}
+
+
+/**
+ * Get the support system footer.
+ *
+ * @param array $args
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_get_footer( $args = array() ) {
+    \ucare\get_template( 'footer', $args );
+}

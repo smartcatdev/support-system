@@ -112,7 +112,7 @@ function add_login_registration_button( $content, $args ) {
 
         $content .= sprintf(
             '<p class="login-register"><a class="button button-primary" href="%1$s">%2$s</a></p>',
-            esc_url( support_page_url( '?register=true' ) ),
+            esc_url( login_page_url( '?register=true' ) ),
             esc_html( $link_text )
         );
 

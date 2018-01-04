@@ -4,7 +4,7 @@ namespace ucare;
 
 ?>
 
-<?php get_header(); ?>
+<?php ucare_get_header(); ?>
 
 <?php if( is_user_logged_in() && current_user_can( 'use_support' ) ) : ?>
 
@@ -20,10 +20,6 @@ namespace ucare;
 
         <?php get_template( 'dash.php' ); ?>
 
-<?php else : ?>
-
-    <?php get_template( 'login.php' ); ?>
-
 <?php endif; ?>
 
-<?php get_footer(); ?>
+<?php ucare_get_footer(); ?>

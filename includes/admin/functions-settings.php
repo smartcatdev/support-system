@@ -137,4 +137,33 @@ function add_settings_fields() {
         )
     );
 
+    add_settings_field(
+        'ucare-login-page',
+        __( 'Login Page', 'ucare' ),
+        'ucare\render_posts_dropdown',
+        'uc-advanced',
+        'uc_advanced',
+        array(
+            'id'         => 'ucare-login-page',
+            'value'      => get_option( Options::LOGIN_PAGE_ID ),
+            'attributes' => array(
+                'name'  => Options::LOGIN_PAGE_ID,
+                'class' => 'regular-text'
+            ),
+            'config' => array(
+                'options' => array(
+                    array(
+                        'title'      => __( 'Select a Page', 'ucare' ),
+                        'attributes' => array(
+                            'value' => ''
+                        )
+                    )
+                ),
+                'wp_query' => array(
+                    'post_type' => 'page',
+                )
+            )
+        )
+    );
+
 }

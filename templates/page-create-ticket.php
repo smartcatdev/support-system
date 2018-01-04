@@ -11,7 +11,7 @@ $draft = get_user_draft_ticket();
 
 ?>
 
-<?php get_header(); ?>
+<?php ucare_get_header(); ?>
 
     <div class="container">
 
@@ -163,4 +163,4 @@ $draft = get_user_draft_ticket();
 
     </div>
 
-<?php get_footer(); ?>
+<?php ucare_get_footer(); ?>

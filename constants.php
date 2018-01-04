@@ -352,6 +352,11 @@ final class Options {
      */
     const EDIT_PROFILE_PAGE_ID = 'smartcat_support_edit_profile_page_id';
 
+    /**
+     * @since 1.6.0
+     */
+    const LOGIN_PAGE_ID = 'smartcat_support_login_page_id';
+
 }
 
 

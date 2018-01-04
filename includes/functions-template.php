@@ -36,46 +36,24 @@ function register_menu_locations() {
 function include_page_template( $template ) {
 
     // Help Desk page
-    if ( is_page( get_option( Options::TEMPLATE_PAGE_ID ) ) ) {
+    if ( is_support_page() ) {
         $template = get_template( 'app', null, false );
 
     // Create Ticket page
-    } else if ( is_page( get_option( Options::CREATE_TICKET_PAGE_ID ) ) ) {
+    } else if ( is_create_ticket_page() ) {
         $template = get_template( 'page-create-ticket', null, false );
 
     // Edit Profile page
-    } else if ( is_page( get_option( Options::EDIT_PROFILE_PAGE_ID ) ) ) {
+    } else if ( is_edit_profile_page() ) {
         $template = get_template( 'page-edit-profile', null, false );
+
+    // Login page
+    } else if ( is_login_page() ) {
+        $template = get_template( 'page-login', null, false );
     }
 
     return $template;
 
-}
-
-
-/**
- * Get the support system header.
- *
- * @param array $args
- *
- * @since 1.5.1
- * @return void
- */
-function get_header( $args = array() ) {
-    get_template( 'header', $args );
-}
-
-
-/**
- * Get the support system footer.
- *
- * @param array $args
- *
- * @since 1.5.1
- * @return void
- */
-function get_footer( $args = array() ) {
-    get_template( 'footer', $args );
 }
 
 
@@ -88,7 +66,7 @@ function get_footer( $args = array() ) {
 function get_navbar() {
 
     // Only show navbar if user is logged in
-    if ( is_user_logged_in() && current_user_can( 'use_support' ) ) {
+    if ( is_user_logged_in() ) {
 
         // Output before nav
         do_action( 'ucare_before_navbar' );

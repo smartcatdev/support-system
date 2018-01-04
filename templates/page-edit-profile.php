@@ -11,7 +11,7 @@ $user = wp_get_current_user();
 
 ?>
 
-<?php get_header(); ?>
+<?php ucare_get_header(); ?>
 
     <div class="container">
 
@@ -108,4 +108,4 @@ $user = wp_get_current_user();
 
     </div>
 
-<?php get_footer(); ?>
+<?php ucare_get_footer(); ?>
