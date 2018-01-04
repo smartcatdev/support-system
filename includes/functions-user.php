@@ -302,7 +302,7 @@ function add_customer_caps( $force = false ) {
  * @since 1.5.1
  * @return void
  */
-function remove_capabilities() {
+function remove_role_capabilities() {
 
     $role = get_role( 'administrator' );
 

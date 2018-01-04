@@ -195,6 +195,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-metabox.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-upgrade.php';
             }
 
         }
@@ -243,7 +244,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function deactivate() {
-        remove_capabilities();
+        remove_role_capabilities();
         remove_user_roles();
     }
 
