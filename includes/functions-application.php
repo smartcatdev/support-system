@@ -11,6 +11,11 @@ namespace ucare;
 // Redirect unauthorized users back to the login
 add_action( 'template_redirect', 'ucare\auth_redirect' );
 
+// Handle login form submissions
+add_action( 'wp_login_failed', 'ucare\handle_login_form' );
+add_action( 'authenticate', 'ucare\handle_login_form', 10, 3 );
+
+
 
 /**
  * Get the support page URL.
@@ -204,4 +209,29 @@ function auth_redirect() {
         wp_safe_redirect( support_page_url() );
     }
 
+}
+
+
+/**
+ * Handle authentication requests from the login form.
+ *
+ * @action wp_login_failed
+ * @action authenticate
+ *
+ * @param $user
+ * @param $username
+ * @param $password
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function handle_login_form( $user = false, $username = '', $password = '' ) {
+
+    // If empty username or password was passed prevent redirect to wp-login
+    if ( empty( $username ) && empty( $password ) ) {
+        wp_redirect( add_query_arg( 'login', 'empty', wp_get_referer() ) );
+
+    } else if ( !$user ) {
+        wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
+    }
 }

@@ -80,25 +80,6 @@ class Plugin extends AbstractPlugin {
 
     }
 
-    public function login_failed() {
-
-        if ( isset( $_REQUEST['support_login_form'] ) ) {
-            wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
-        }
-
-    }
-
-    public function authenticate( $user, $username, $password ) {
-
-        if ( isset( $_REQUEST['support_login_form'] ) ) {
-
-            if ( empty( $username ) || empty( $password ) ) {
-                wp_redirect( add_query_arg( 'login', 'empty', wp_get_referer() ) );
-            }
-
-        }
-
-    }
 
     public function register_menu() {
 
@@ -243,8 +224,6 @@ class Plugin extends AbstractPlugin {
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
             'wp_loaded'         => 'register_menu',
-            'wp_login_failed'   => array( 'login_failed' ),
-            'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
         ) );
     }
