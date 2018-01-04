@@ -1,5 +1,5 @@
 /**
- * Module for managing the login page.
+ * @summary Module for managing the login page.
  *
  * @since 1.6.0
  */

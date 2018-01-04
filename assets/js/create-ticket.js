@@ -146,7 +146,7 @@
          */
         delete_attachment: function (id) {
             $.ajax({
-                url: localize.api.endpoints.media + '/' + id + '?force=true',
+                url: ucare.api.root + 'wp/v2/media/' + id + '?force=true',
                 method: 'delete',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
