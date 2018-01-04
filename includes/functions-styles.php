@@ -11,6 +11,9 @@ namespace ucare;
 // Load default styles
 add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_styles' );
 
+// Print styles in header
+add_action( 'ucare_head', 'ucare\print_styles' );
+
 
 /**
  * Load default system styles.
@@ -40,6 +43,8 @@ function enqueue_default_styles() {
 /**
  * Print enqueued styles.
  *
+ * @action ucare_head
+ *
  * @since 1.4.2
  * @return array|bool
  */
@@ -52,6 +57,9 @@ function print_styles() {
 
         $styles->do_items();
         $styles->reset();
+
+        // Get dynamic stylesheet overrides
+        get_template( 'dynamic-styles' );
 
         return $styles->done;
     }

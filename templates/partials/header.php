@@ -19,13 +19,7 @@ namespace ucare;
 
         <link href="<?php echo get_option( Options::FAVICON ); ?>" rel="icon">
 
-        <?php print_styles(); ?>
-        <?php print_header_scripts(); ?>
-
-        <?php get_template( 'dynamic-styles' ); ?>
-        <?php get_template( 'dynamic-scripts' ); ?>
-
-        <?php do_action( 'ucare_head', $args ); ?>
+        <?php ucare_head(); ?>
 
     </head>
 
@@ -36,4 +30,3 @@ namespace ucare;
         <?php get_navbar(); ?>
 
         <?php do_action( 'ucare_body' ); ?>
-

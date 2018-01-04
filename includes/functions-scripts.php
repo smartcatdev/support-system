@@ -20,6 +20,12 @@ add_action( 'ucare_enqueue_scripts', 'ucare\register_default_scripts' );
 // Load default scripts
 add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
 
+// Print header scripts
+add_action( 'ucare_head', 'ucare\print_header_scripts' );
+
+// Print footer scripts
+add_action( 'ucare_footer', 'ucare\print_footer_scripts' );
+
 
 /**
  * Initialize the script and style service.
@@ -181,6 +187,8 @@ function enqueue_app() {
 /**
  * Print enqueued header scripts.
  *
+ * @action ucare_head
+ *
  * @since 1.4.2
  * @return bool|array
  */
@@ -214,6 +222,9 @@ function print_footer_scripts() {
 
     if ( $scripts && !did_action( 'ucare_print_footer_scripts' ) ) {
         do_action( 'ucare_print_footer_scripts' );
+
+        print_underscore_templates();
+        print_footer_scripts();
 
         $scripts->do_footer_items();
         $scripts->reset();

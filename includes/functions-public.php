@@ -477,6 +477,39 @@ function ucare_get_footer( $args = array() ) {
 }
 
 
+/**
+ * Fires the ucare_head action.
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function ucare_head() {
+    /**
+     * Prints scripts or data in the head tag on the front end.
+     *
+     * @since 1.6.0
+     */
+    do_action( 'ucare_head' );
+}
+
+
+/**
+ * Fire the ucare_footer action.
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_footer() {
+    /**
+     * Prints scripts or data before the closing body tag on the front end.
+     *
+     * @since 1.6.0
+     */
+    do_action( 'ucare_footer' );
+}
+
+
+
 /***********************************************************************************************************************
  *
  * Functions for managing users
