@@ -33,6 +33,7 @@
                     module.save();
                 });
 
+
                 $('.pw-input').on('keyup paste', function () {
                     module.check_password();
                 });

@@ -10,8 +10,28 @@
 namespace ucare;
 
 
-add_action( 'wp_insert_post', 'ucare\ucare_new_ticket', 20, 3 );
-add_action( 'comment_post', 'ucare\ucare_new_comment', 20, 3 );
+add_action( 'publish_support_ticket', 'ucare\ticket_created', 20, 2 );
+
+add_action( 'wp_insert_post', 'ucare\ticket_updated', 20, 3 );
+
+add_action( 'comment_post', 'ucare\new_comment', 20, 3 );
+
+
+/**
+ * Runs when a ticket is published and is visible from within the application UI.
+ *
+ * @action publish_support_ticket
+ *
+ * @param $id
+ * @param $ticket
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ticket_created( $id, $ticket ) {
+    do_action( 'support_ticket_created', $ticket, $id );
+}
+
 
 
 /**
@@ -19,48 +39,43 @@ add_action( 'comment_post', 'ucare\ucare_new_comment', 20, 3 );
  * Runs when new ticket is created or when existing ticket is updated
  * 
  * @action wp_insert_post
- * @since 1.5
  * 
- * @param Int $ticket_id
+ * @param int      $id
  * @param \WP_Post $ticket
- * @param boolean $update
+ * @param boolean  $update
+ *
+ * @since 1.5.0
+ * @return void
  */
-function ucare_new_ticket( $ticket_id, $ticket, $update ) {
+function ticket_updated( $id, $ticket, $update ) {
     
     // Ensure we're dealing with a ucare ticket
-    if ( $ticket->post_type !== 'support_ticket' ) {
-        return;
+    if ( $ticket->post_type !== 'support_ticket' && $update ) {
+        do_action( 'support_ticket_updated', $ticket, $id );
     }
-    
-    if ( $update ) {
-        do_action( 'support_ticket_updated', $ticket );
-    } else {
-        do_action( 'support_ticket_created', $ticket );
-    }
-    
-    return;
-    
-} 
+
+}
+
 
 /**
- * 
  * Runs when a new ticket comment has been posted
  * 
  * @action comment_post
- * @since 1.5
- * 
- * @param Int $comment_id
- * @param Int $approved - 1 if approved, 0 if not approved
+ *
+ * @param int   $comment_id
+ * @param int   $approved   1 if approved, 0 if not approved
  * @param array $data
+ *
+ * @since 1.5.0
  * @return void
  */
-function ucare_new_comment( $comment_id, $approved, $data ) {
+function new_comment( $comment_id, $approved, $data ) {
     
     $ticket = get_post( $data[ 'comment_post_ID' ] );
     
     // Check if comment has been approved
     // Ensure we're dealing with a ucare ticket
-    if( ! $approved || $ticket->post_type !== 'support_ticket' ) {
+    if( !$approved || $ticket->post_type !== 'support_ticket' ) {
         return;
     }
 

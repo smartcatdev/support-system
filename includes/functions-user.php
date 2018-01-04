@@ -416,11 +416,18 @@ function revoke_user_level_caps( $user_or_role ) {
  */
 function get_users_with_cap( $cap = 'use_support', $args = array() ) {
 
-    $users = get_users( $args );
+    $result = array();
+    $users  = get_users( $args );
 
-    return array_filter( $users, function ( $user ) use ( $cap ) {
-        return $user->has_cap( $cap );
-    } );
+    foreach ( $users as $user ) {
+
+        if ( $user->has_cap( $cap ) ) {
+            array_push( $result, $user );
+        }
+
+    }
+
+    return $result;
 
 }
 
