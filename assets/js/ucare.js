@@ -175,4 +175,4 @@
      */
     return exports;
 
-})(jQuery, ucare || {}, ucare_i10n);
+})(jQuery, ucare || {}, ucare_l10n);

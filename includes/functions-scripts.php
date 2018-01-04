@@ -70,7 +70,7 @@ function enqueue_system_scripts() {
  */
 function register_default_scripts() {
 
-    $i10n = array(
+    $l10n = array(
         'vars' => array(
             'support_url' => support_page_url()
         ),
@@ -78,7 +78,7 @@ function register_default_scripts() {
             'nonce'  => wp_create_nonce( 'wp_rest' ),
             'root'   => rest_url()
         ),
-        'i10n' => array(
+        'l10n' => array(
 
         ),
         'settings' => array(
@@ -87,7 +87,7 @@ function register_default_scripts() {
     );
 
     ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery' ), PLUGIN_VERSION );
-    ucare_localize_script( 'ucare', 'ucare_i10n', $i10n );
+    ucare_localize_script( 'ucare', 'ucare_l10n', $l10n );
 
 
     // Register jQuery plugins
