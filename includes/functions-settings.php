@@ -48,10 +48,4 @@ function register_settings() {
         'sanitize_callback' => 'ucare\sanitize_boolean'
     ) );
 
-    register_setting( 'uc-appearance', Options::USE_SITE_THEME, array(
-        'type'    => 'string',
-        'default' => Defaults::USE_SITE_THEME,
-        'sanitize_callback' => 'ucare\sanitize_boolean'
-    ) );
-
 }

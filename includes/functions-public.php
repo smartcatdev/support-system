@@ -460,15 +460,7 @@ function ucare_is_support_admin( $user_id = null ) {
  * @return void
  */
 function ucare_get_header( $args = array() ) {
-
-    if ( \ucare\use_site_theme()) {
-        get_header();
-
-    // Use the default system header
-    } else {
-        \ucare\get_template( 'header', $args );
-    }
-
+    \ucare\get_template( 'header', $args );
 }
 
 
@@ -481,15 +473,7 @@ function ucare_get_header( $args = array() ) {
  * @return void
  */
 function ucare_get_footer( $args = array() ) {
-
-    if ( \ucare\use_site_theme() ) {
-        get_footer();
-
-    // Use the default system footer
-    } else {
-        \ucare\get_template( 'footer', $args );
-    }
-
+    \ucare\get_template( 'footer', $args );
 }
 
 

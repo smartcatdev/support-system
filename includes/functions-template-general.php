@@ -7,16 +7,20 @@
  */
 namespace ucare;
 
+// Call the login form action
+add_filter( 'login_form_middle', 'ucare\call_login_form', 10, 2 );
 
+// Add hidden context
 add_action( 'login_form_bottom', 'ucare\add_support_login_field', 10, 2 );
 
+// Add register button
 add_action( 'login_form_bottom', 'ucare\add_login_registration_button', 10, 2 );
 
 // Pull in assets with theme header
-add_action( 'wp_head', 'ucare\call_header' );
+add_action( 'ucare_head', 'ucare\call_header' );
 
 // Pull in assets with theme footer
-add_action( 'wp_footer', 'ucare\call_footer' );
+add_action( 'ucare_footer', 'ucare\call_footer' );
 
 
 /**
@@ -47,7 +51,7 @@ function get_template( $name, $args = array(), $include = true, $once = true, $e
         $template = UCARE_PARTIALS_PATH . $name;
     }
 
-    // If the template  path is found
+    // If the template path is found
     if ( $template ) {
 
         // If we are to execute an include of the template file
@@ -74,28 +78,33 @@ function get_template( $name, $args = array(), $include = true, $once = true, $e
                 $exec = \Closure::bind( $exec, $bind, $bind );
             }
 
-            // If we are executing, pass in any args we were given
             if ( $execute ) {
                 $exec( $args );
-
-                // Else return the closure
             } else {
                 return $exec;
             }
 
         }
 
-        // Return template path
         return $template;
 
     }
 
-    // The template wasn't found
     return false;
 
 }
 
 
+/**
+ * Execute and return the output of a template file as a string.
+ *
+ * @param string $name
+ * @param array  $args
+ * @param bool   $once
+ *
+ * @since 1.4.2
+ * @return string
+ */
 function buffer_template( $name, $args = array(), $once = true ) {
 
     ob_start();
@@ -106,6 +115,43 @@ function buffer_template( $name, $args = array(), $once = true ) {
 }
 
 
+/**
+ * Duplicate WordPress login form output.
+ *
+ * @filter login_form_middle
+ *
+ * @param $content
+ * @param $args
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function call_login_form( $content, $args ) {
+
+    if ( $args['form_id'] == 'support_login' ) {
+        ob_start();
+        do_action( 'login_form' );
+
+        $content .= ob_get_clean();
+
+    }
+
+    return $content;
+
+}
+
+
+/**
+ * Add a registration button to the login form.
+ *
+ * @filter login_form_bottom
+ *
+ * @param $content
+ * @param $args
+ *
+ * @since 1.4.2
+ * @return string
+ */
 function add_login_registration_button( $content, $args ) {
 
     if ( $args['form_id'] == 'support_login' &&
@@ -129,6 +175,17 @@ function add_login_registration_button( $content, $args ) {
 }
 
 
+/**
+ * Add a context input field to the login form.
+ *
+ * @filter login_form_bottom
+ *
+ * @param $content
+ * @param $args
+ *
+ * @since 1.4.2
+ * @return string
+ */
 function add_support_login_field( $content, $args ) {
 
     if ( $args['form_id'] == 'support_login' ) {
@@ -147,11 +204,9 @@ function add_support_login_field( $content, $args ) {
  * @return void
  */
 function print_underscore_templates() {
-
     get_template( 'underscore/tmpl-confirm-modal' );
     get_template( 'underscore/tmpl-notice-inline' );
     get_template( 'underscore/tmpl-ajax-loader-mask' );
-
 }
 
 
@@ -182,7 +237,7 @@ function print_footer_copyright() {
 
 
 /**
- * Pull in header scripts and styles if using the site theme.
+ * Pull in header scripts and styles on public pages.
  *
  * @action ucare_head
  *
@@ -191,16 +246,15 @@ function print_footer_copyright() {
  */
 function call_header() {
 
-    // If we are on a support page that calls wp_head, make sure our scripts are included
-    if ( is_a_support_page() ) {
-        ucare_head();
+    if ( is_a_support_page() && is_public_page() ) {
+        wp_head();
     }
 
 }
 
 
 /**
- * Pull in footer scripts if using the site theme.
+ * Pull in footer scripts on public pages.
  *
  * @action ucare_footer
  *
@@ -209,20 +263,8 @@ function call_header() {
  */
 function call_footer() {
 
-    // If we are on a support page that calls wp_footer, make sure our scripts are included
-    if ( is_a_support_page() ) {
-        ucare_footer();
+    if ( is_a_support_page() && is_public_page() ) {
+        wp_footer();
     }
 
-}
-
-
-/**
- * Check whether or not we are using the site theme on public pages or the default system theme.
- *
- * @since 1.6.0
- * @return bool
- */
-function use_site_theme() {
-    return is_public_page() && get_option( Options::USE_SITE_THEME );
 }

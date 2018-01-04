@@ -6,92 +6,6 @@ use ucare\Options;
 
 class Ticket extends AjaxComponent {
 
-    /**
-     * AJAX action for creating new tickets.
-     *
-     * @see config/ticket_create_form.php
-     * @since 1.0.0
-     */
-    public function create_ticket() {
-
-        if( current_user_can( 'create_support_tickets' ) ) {
-
-            $form = include $this->plugin->config_dir . '/ticket_create_form.php';
-
-            if ( $form->is_valid() ) {
-
-                $data = array(
-                    'post_title'     => $form->data['subject'],
-                    'post_content'   => \ucare\util\encode_code_blocks( $form->data['description'] ),
-                    'post_status'    => 'publish',
-                    'post_type'      => 'support_ticket',
-                    'comment_status' => 'open',
-                    'meta_input'     => array(
-                        'status'     => 'new',
-                        'agent'      => 0,
-                        '_edit_last' => get_current_user_id()
-                    )
-                );
-
-                $category = $form->data['category'];
-
-                // Remove them so that they are not saved as meta
-                unset( $form->data['subject'] );
-                unset( $form->data['category'] );
-                unset( $form->data['description'] );
-
-                // Add remaining keys as meta
-                // TODO manually pull meta from $_POST
-                foreach ( $form->data as $field => $value ) {
-                    $data['meta_input'][ $field ] = $value;
-                }
-
-
-                if ( isset( $_REQUEST['override_author'] ) ) {
-
-                    $user = get_user_by( 'id', absint( $_REQUEST['author'] ) );
-
-                    if ( $user && in_array( $user, \ucare\get_users_with_cap() ) ) {
-                        $data['post_author'] = $user->ID;
-                    }
-
-                }
-
-                $post_id = wp_insert_post( $data );
-
-
-                if ( is_numeric( $post_id ) ) {
-
-                    if ( term_exists( $category, 'ticket_category' ) ) {
-                        wp_set_post_terms( $post_id, $category, 'ticket_category' );
-                    }
-
-
-                    // link attachments with post
-                    foreach ( json_decode( $_REQUEST['attachments'] ) as $attachment ) {
-
-                        $attachment = array(
-                            'ID'          => $attachment,
-                            'post_parent' => $post_id
-                        );
-
-                        wp_update_post( $attachment );
-
-                    }
-                    
-                    // moved to functions-hooks.php
-                    // do_action( 'support_ticket_created', get_post( $post_id ) );
-
-                    wp_send_json_success( $post_id );
-                }
-
-            } else {
-                wp_send_json_error( $form->errors, 400 );
-            }
-
-        }
-
-    }
 
     /**
      * AJAX action for loading a ticket. If the ticket is new, sets the status to opened.
@@ -431,7 +345,6 @@ class Ticket extends AjaxComponent {
      */
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
-            'wp_ajax_support_create_ticket' => array( 'create_ticket' ),
             'wp_ajax_support_load_ticket' => array( 'load_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_toggle_flag' => array( 'toggle_flag' ),

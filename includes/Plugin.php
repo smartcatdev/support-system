@@ -253,7 +253,6 @@ class Plugin extends AbstractPlugin {
         $components = array(
             Ticket::class,
             Comment::class,
-            Settings::class,
             Hacks::class,
             Media::class,
             Statistics::class
@@ -261,10 +260,6 @@ class Plugin extends AbstractPlugin {
 
         if( \ucare\util\ecommerce_enabled( false ) ) {
             $components[] = ECommerce::class;
-        }
-
-        if( get_option( Options::ALLOW_SIGNUPS, \ucare\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
-            $components[] = Registration::class;
         }
 
         return $components;

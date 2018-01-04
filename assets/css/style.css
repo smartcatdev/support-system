@@ -1197,11 +1197,3 @@ button.close-ticket:hover {
     font-size: 12px;
     color: #9d9d9d;
 }
-
-/* ### Create Ticket Form */
-#create_ticket textarea {
-    box-sizing: border-box;
-    min-height: 200px;
-    resize: none;
-    overflow-y: hidden;
-}

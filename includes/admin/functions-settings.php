@@ -166,26 +166,4 @@ function add_settings_fields() {
         )
     );
 
-    /**
-     *
-     * Appearance settings
-     */
-    add_settings_field(
-        'ucare-use-site-theme',
-        __( 'Use Site Theme', 'ucare' ),
-        'ucare\render_checkbox',
-        'uc-appearance',
-        'uc_appearance',
-        array(
-            'description' => __( 'Use theme header and footer on public pages', 'ucare' ),
-            'config' => array(
-                'is_checked' => get_option( Options::USE_SITE_THEME )
-            ),
-            'attributes' => array(
-                'id'    => 'ucare-use-site-theme',
-                'name'  => Options::USE_SITE_THEME,
-            )
-        )
-    );
-
 }

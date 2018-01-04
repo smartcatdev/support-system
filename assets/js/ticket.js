@@ -4,7 +4,6 @@ var Ticket = (function ($) {
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
         $(document).on("click", ".close-ticket", _close_ticket);
-        $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
         $(document).on("click", ".flagged", _toggle_flag);
@@ -112,48 +111,6 @@ var Ticket = (function ($) {
                 } else {
                     flag.removeClass("active");
                 }
-            }
-        });
-    };
-
-    var _create_ticket = function (e) {
-        var form = $("#create-ticket-form");
-        var submit = $(e.target);
-        var initialText = submit.html()
-
-        submit.prop("disabled", true);
-        submit.html( '<span class="glyphicon glyphicon-refresh fast-right-spinner"></span>' )
-
-        form.submit({
-            url: Globals.ajax_url,
-            action: "support_create_ticket",
-            extras: {
-                _ajax_nonce: Globals.ajax_nonce
-            },
-            success: function () {
-                $("#create-modal").modal("toggle");
-
-                Dropzone.forElement("#ticket-media-upload").reset();
-
-                form.find(".form-control, input[type=checkbox]").each(function (index, element) {
-                    var field = $(element);
-
-                    if (field.is(':checkbox')) {
-                        field.attr('checked', !!field.data('default'));
-                    } else if (typeof(field.data("default")) === "string") {
-                        field.val(field.data("default"));
-                    } else {
-                        field.val(JSON.stringify(field.data("default")));
-                    }
-                });
-
-                $('#select-author').collapse('hide');
-
-                App.load_tickets();
-            },
-            complete: function () {
-                submit.prop("disabled", false);
-                submit.html( initialText )
             }
         });
     };

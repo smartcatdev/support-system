@@ -40,7 +40,7 @@ function enqueue_widget_scripts() {
  */
 function do_quick_link_widget() {
 
-    if ( get_option( Options::QUICK_LINK_ENABLED, Defaults::QUICK_LINK_ENABLED ) ) { ?>
+    if ( get_option( Options::QUICK_LINK_ENABLED, Defaults::QUICK_LINK_ENABLED ) && !is_login_page() ) { ?>
 
         <div id="ucare-quick-link-widget">
             <a href="<?php echo esc_url( support_page_url() ); ?>"
