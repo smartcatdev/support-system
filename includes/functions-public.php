@@ -536,3 +536,46 @@ function ucare_register_user( $user_data, $authenticate = false, $remember = fal
     return $id;
 
 }
+
+
+/**
+ * Reset a user's password.
+ *
+ * @param string $username
+ *
+ * @since 1.6.0
+ * @return bool|\WP_Error
+ */
+function ucare_reset_user_password( $username ) {
+
+    $user = get_user_by( 'email', $username );
+
+    if ( !$user ) {
+        $user = get_user_by( 'login', $username );
+    }
+
+    if ( $user ) {
+        $password = wp_generate_password();
+
+        // Update the password
+        wp_set_password( $password, $user->ID );
+
+        /**
+         * @since 1.0.0
+         * @deprecated
+         */
+        apply_filters( 'support_password_reset_notification', true, $user->user_email, $password, $user );
+
+        /**
+         * @since 1.6.0
+         */
+        do_action( 'support_password_reset', $user, $password );
+
+
+        return true;
+
+    }
+
+    return new \WP_Error( 'user_not_found', __( 'User could not be found', 'ucare' ), array( 'status' => 404 ) );
+
+}

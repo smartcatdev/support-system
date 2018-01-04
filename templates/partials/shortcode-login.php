@@ -35,7 +35,7 @@ $form_args = array(
 
         <?php if ( sanitize_boolean( $show_pw_reset_link ) ) : ?>
 
-            <a href="<?php esc_url_e( login_page_url( 'reset_password=true' ) ); ?>">
+            <a href="<?php esc_url_e( login_page_url( '?reset_password=true' ) ); ?>">
                 <?php esc_html_e( $pw_reset_link_text ); ?>
             </a>
 

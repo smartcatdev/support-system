@@ -33,7 +33,7 @@ $allow_registration = get_option( Options::ALLOW_SIGNUPS );
                         <span><?php _e( 'Login', 'ucare' ); ?></span>
                     </a>
 
-                    <div id="reset-pw-alert"></div>
+                    <div id="message-area"></div>
 
                     <!-- reset-pw-form -->
                     <form id="reset-pw-form">
@@ -59,8 +59,6 @@ $allow_registration = get_option( Options::ALLOW_SIGNUPS );
                                    value="<?php _e( 'Reset', 'ucare' ); ?>" />
 
                         </div>
-
-                        <?php wp_nonce_field( '_ajax_nonce' ); ?>
 
                     </form><!-- /reset-pw-form -->
 
