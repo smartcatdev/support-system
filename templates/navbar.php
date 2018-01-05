@@ -111,7 +111,7 @@ $user = wp_get_current_user();
 
                             <li role="separator" class="divider"></li>
 
-                            <?php if( current_user_can( 'manage_options' ) ) : ?>
+                            <?php if( current_user_can( 'manage_support' ) ) : ?>
 
                                 <li>
                                     <a href="<?php echo admin_url( 'admin.php?page=ucare_support' ); ?>" class="alignright background-secondary hover menu-item">
