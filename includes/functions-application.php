@@ -178,7 +178,7 @@ function is_page( $id, $page = null ) {
  */
 function is_page_public( $page = null ) {
 
-    $page   = get_post( $page );
+    $page = get_post( $page );
     $public = true;
 
     if ( is_a_support_page( $page ) ) {
