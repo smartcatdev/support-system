@@ -14,6 +14,8 @@ use smartcat\post\FormMetaBox;
 // Register the custom post type
 add_action( 'init', 'ucare\register_ticket_post_type' );
 
+add_action( 'init', 'ucare\register_ticket_custom_status' );
+
 add_action( 'admin_init', 'ucare\ticket_meta_boxes' );
 
 add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
@@ -108,7 +110,6 @@ function get_ticket_statuses() {
     );
 
     return apply_filters( 'ucare_ticket_statuses', $statuses );
-
 }
 
 
@@ -126,6 +127,27 @@ function ticket_priorities() {
     );
 
     return apply_filters( 'ucare_ticket_priorities', $priorities );
+}
+
+
+/**
+ * Register a custom status for auto draft tickets.
+ *
+ * @action init
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function register_ticket_custom_status() {
+    $args = array(
+        'private'                   => true,
+        'public'                    => true,
+        'exclude_from_search'       => true,
+        'show_in_admin_all_list'    => false,
+        'show_in_admin_status_list' => false
+    );
+
+    register_post_status( 'ucare-auto-draft', $args );
 }
 
 

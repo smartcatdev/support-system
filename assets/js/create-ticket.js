@@ -8,6 +8,7 @@
     "use strict";
 
     const $form     = $('#create-ticket-form'),
+
           $dropzone = $('#ticket-media'),
 
         /**
@@ -37,13 +38,12 @@
                 module.save('publish');
             });
 
-
             /**
              * @summary Auto draft the post after editing.
              */
-            $form.find(':input').on('change paste keyup', _.debounce(function () {
-                module.save('draft');
-            }, 1000));
+            $form.find(':input').on('change paste keyup', function () {
+                module.save();
+            });
 
 
             /**
@@ -130,7 +130,7 @@
             /**
              * @summary Append attachment title in xhr
              */
-            dropzone.on('sending', function(file, xhr, form){
+            dropzone.on('sending', function(file, xhr, form) {
                 form.append('title', file.name);
             });
 
@@ -150,6 +150,10 @@
                 method: 'delete',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
+                    module.toggle_submit('delete_media');
+                },
+                complete: function () {
+                    module.toggle_submit('delete_media');
                 }
             })
         },
@@ -213,11 +217,13 @@
          * @since 1.5.1
          * @return void
          */
-        save: function (status) {
+        save: _.debounce(function (status) {
 
             // Prevent multiple save requests
             if (!module.saving_in_progress) {
                 module.saving_in_progress = true;
+
+                $('#submit').prop('disabled', true);
 
                 /**
                  * @summary Construct the URI.
@@ -231,20 +237,21 @@
                 $.ajax({
                     url: uri,
                     data: {
-                        status: status || 'draft'
+                        status: status || 'ucare-auto-draft'
                     },
                     method: 'post',
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                     },
                     complete: function () {
+                        $('#submit').prop('disabled', false);
                         module.saving_in_progress = false;
                     }
                 })
-                .done(function () {
+                .success(function (post) {
 
                     // Redirect back to the support page if the ticket has been published
-                    if (status === 'publish') {
+                    if (post.status === 'publish') {
                         location.href = ucare.vars.support_url
                     }
 
@@ -259,7 +266,7 @@
 
             }
 
-        }
+        }, 1000)
 
     };
 

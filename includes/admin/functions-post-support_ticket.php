@@ -28,11 +28,13 @@ add_filter( 'manage_edit-support_ticket_sortable_columns', 'ucare\_tickets_table
 add_filter( 'manage_support_ticket_posts_columns', 'ucare\_tickets_table_custom_columns' );
 
 // Filter the posts table
-add_filter( 'parse_query', 'ucare\_filter_tickets_table_posts' );
+add_filter( 'pre_get_posts', 'ucare\_filter_tickets_table_posts' );
 
 
 /**
  * Remove support for the post table quick editor.
+ *
+ * @filter bulk_actions-edit-support_ticket
  *
  * @param $actions
  *
@@ -54,6 +56,8 @@ function _tickets_table_disable_inline_edit( $actions ) {
 /**
  * Remove the quick edit shortcut link.
  *
+ * @filter post_row_actions
+ *
  * @param $actions
  * @param $post
  *
@@ -74,6 +78,8 @@ function _tickets_table_remove_quick_edit_link( $actions, $post ) {
 
 /**
  * Set sortable columns for the ticket posts table.
+ *
+ * @filter manage_edit-support_ticket_sortable_columns
  *
  * @param $columns
  *
@@ -97,6 +103,8 @@ function _tickets_table_sortable_columns( $columns ) {
 
 /**
  * Set custom columns in the ticket posts table.
+ *
+ * @filter manage_support_ticket_posts_columns
  *
  * @param $columns
  *
@@ -131,6 +139,8 @@ function _tickets_table_custom_columns( $columns ) {
 
 /**
  * Output custom columns in the ticket posts table.
+ *
+ * @action manage_support_ticket_posts_custom_column
  *
  * @param $column
  * @param $post_id
@@ -242,6 +252,8 @@ function _tickets_table_column_data( $column, $post_id ) {
 /**
  * Output custom filters in the ticket posts table.
  *
+ * @action restrict_manage_posts
+ *
  * @internal
  * @since 1.0.0
  * @return void
@@ -320,6 +332,8 @@ function _tickets_table_filters() {
 
 /**
  * Apply custom filters to the ticket posts table results.
+ *
+ * @filter pre_get_posts
  *
  * @param \WP_Query $query
  *

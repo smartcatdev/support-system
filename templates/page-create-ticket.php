@@ -156,7 +156,12 @@ $draft = get_user_draft_ticket();
             <br>
 
             <div class="form-group text-right">
-                <button id="submit" class="button button-default"><?php _e( 'Create Ticket', 'ucare' ); ?></button>
+
+                <input id="submit"
+                       type="button"
+                       class="button button-default"
+                       value="<?php _e( 'Create Ticket', 'ucare' ); ?>" />
+
             </div>
 
         </div>

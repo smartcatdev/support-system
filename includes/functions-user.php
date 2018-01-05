@@ -556,7 +556,7 @@ function get_user( $user = null, $fallback_to_current = true ) {
  *
  * @action template_redirect
  *
- * @since 1.5.1
+ * @since 1.6.0
  * @return void
  */
 function create_user_draft_ticket() {
@@ -567,7 +567,7 @@ function create_user_draft_ticket() {
         $data = array(
             'post_author' => $user,
             'post_type'   => 'support_ticket',
-            'post_status' => 'draft'
+            'post_status' => 'ucare-auto-draft'
         );
 
         $id = wp_insert_post( $data );
@@ -584,14 +584,14 @@ function create_user_draft_ticket() {
 /**
  * Get the draft ticket for the current user.
  *
- * @since 1.5.1
+ * @since 1.6.0
  * @return \WP_Post|false
  */
 function get_user_draft_ticket() {
 
     $draft = get_post( get_user_meta( get_current_user_id(), 'draft_ticket', true ) );
 
-    if ( $draft && $draft->post_status == 'draft' ) {
+    if ( $draft && $draft->post_status == 'ucare-auto-draft' ) {
         return $draft;
     }
 
