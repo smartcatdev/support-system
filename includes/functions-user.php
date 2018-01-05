@@ -55,7 +55,7 @@ function get_user_field( $field, $user = null ) {
  */
 function get_user( $user = null ) {
 
-    if ( is_null( $user ) ) {
+    if ( empty( $user ) ) {
         $user = wp_get_current_user();
     } else if ( is_numeric( $user ) ) {
         $user = get_userdata( absint( $user ) );
