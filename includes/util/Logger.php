@@ -6,6 +6,12 @@ namespace ucare\util;
 
 use ucare\Options;
 
+/**
+ * Class Logger
+ *
+ * @deprecated
+ * @package ucare\util
+ */
 class Logger {
 
     const INFO = 'i';

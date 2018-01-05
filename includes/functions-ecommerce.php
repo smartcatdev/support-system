@@ -17,7 +17,6 @@ namespace ucare;
  * @return bool
  */
 function is_product( $post ) {
-
     $post = get_post( $post );
 
     if ( $post ) {
