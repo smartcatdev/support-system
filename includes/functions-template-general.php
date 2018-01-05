@@ -246,7 +246,7 @@ function print_footer_copyright() {
  */
 function call_header() {
 
-    if ( is_a_support_page() && is_public_page() ) {
+    if ( is_a_support_page() && is_page_public() ) {
         wp_head();
     }
 
@@ -263,7 +263,7 @@ function call_header() {
  */
 function call_footer() {
 
-    if ( is_a_support_page() && is_public_page() ) {
+    if ( is_a_support_page() && is_page_public() ) {
         wp_footer();
     }
 

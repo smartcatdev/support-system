@@ -113,7 +113,7 @@ function get_var( $var, $default = '', callable $sanitize = null ) {
  * @param null|string $type
  *
  * @since 1.4.2
- * @return array
+ * @return array|string
  */
 function allowed_mime_types( $type = null ) {
 

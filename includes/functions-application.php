@@ -176,7 +176,7 @@ function is_page( $id, $page = null ) {
  * @since 1.6.0
  * @return bool
  */
-function is_public_page( $page = null ) {
+function is_page_public( $page = null ) {
 
     $page   = get_post( $page );
     $public = true;
@@ -185,7 +185,7 @@ function is_public_page( $page = null ) {
         $public = $page->ID == get_option( Options::LOGIN_PAGE_ID );
     }
 
-    return apply_filters( 'ucare_is_public_page', $public, $page );
+    return apply_filters( 'ucare_page_is_public', $public, $page );
 
 }
 
@@ -201,7 +201,7 @@ function is_public_page( $page = null ) {
 function auth_redirect() {
 
     // Send the user to the login page if they are not authenticated
-    if ( !is_user_logged_in() && !is_public_page() ) {
+    if ( !is_user_logged_in() && !is_page_public() ) {
         wp_safe_redirect( login_page_url() );
 
     // Redirect from login form if user is already logged in

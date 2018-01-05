@@ -232,7 +232,7 @@ class Plugin extends AbstractPlugin {
         $components = array(
             Ticket::class,
             Comment::class,
-            Hacks::class,
+//            Hacks::class,
             Media::class,
             Statistics::class
         );
