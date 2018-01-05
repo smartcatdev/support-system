@@ -232,14 +232,9 @@ class Plugin extends AbstractPlugin {
         $components = array(
             Ticket::class,
             Comment::class,
-//            Hacks::class,
             Media::class,
             Statistics::class
         );
-
-        if( \ucare\util\ecommerce_enabled( false ) ) {
-            $components[] = ECommerce::class;
-        }
 
         return $components;
     }

@@ -13,16 +13,15 @@ namespace ucare;
  *
  * @param mixed $post
  *
- * @sice 1.5.1
+ * @since 1.5.1
  * @return bool
  */
 function is_product( $post ) {
 
     $post = get_post( $post );
 
-    // TODO WOO and EDD specific check
     if ( $post ) {
-        return true;
+        return $post->post_type == get_product_post_type();
     }
 
     return false;
@@ -38,10 +37,11 @@ function is_product( $post ) {
  */
 function get_product_post_type() {
 
-    if ( UCARE_ECOMMERCE_MODE === 'woo' ) {
-        return 'product';
-    } else if ( UCARE_ECOMMERCE_MODE === 'edd' ) {
-        return 'download';
+    switch ( UCARE_ECOMMERCE_MODE ) {
+        case 'edd':
+            return 'download';
+        case 'woo':
+            return 'product';
     }
 
     return false;

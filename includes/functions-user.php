@@ -17,9 +17,43 @@ add_action( 'init', 'ucare\add_user_roles' );
 // Assign caps to user roles
 add_action( 'init', 'ucare\add_role_capabilities' );
 
+// Configure caps for ecommerce users
+add_action( 'init', 'ucare\set_ecommerce_user_caps' );
+
+
+/**
+ * Configure capabilities for eCommerce users.
+ *
+ * @action init
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function set_ecommerce_user_caps() {
+
+    if ( get_option( Options::ECOMMERCE ) ) {
+        switch( UCARE_ECOMMERCE_MODE ) {
+            case 'edd':
+                add_subscriber_caps();
+                break;
+
+            case 'woo':
+                add_customer_caps();
+                break;
+        }
+
+    } else {
+        revoke_user_level_caps( 'customer' );
+        revoke_user_level_caps( 'subscriber' );
+    }
+
+}
+
 
 /**
  * Add customer user roles for the support system.
+ *
+ * @action init
  *
  * @since 1.5.1
  * @return void
@@ -97,6 +131,8 @@ function get_user_or_role( $user_or_role ) {
 
 /**
  * Add capabilities to user roles.
+ *
+ * @action init
  *
  * @since 1.5.1
  * @return void
@@ -210,12 +246,6 @@ function add_role_capabilities() {
 
     // Add capabilities to support users
     grant_user_level_caps( 'support_user' );
-
-    // If EDD is active
-    add_subscriber_caps();
-
-    // If Woo is active
-    add_customer_caps();
 
 }
 
@@ -388,7 +418,6 @@ function revoke_user_level_caps( $user_or_role ) {
     $thing = get_user_or_role( $user_or_role );
 
     if ( $thing ) {
-
         $thing->remove_cap( 'use_support' );
 
         $thing->remove_cap( 'publish_support_tickets' );
@@ -531,7 +560,7 @@ function get_user( $user = null ) {
  */
 function create_user_draft_ticket() {
 
-    if ( !get_user_draft_ticket() ) {
+    if ( is_create_ticket_page() && !get_user_draft_ticket() ) {
         $user = get_current_user_id();
 
         $data = array(
