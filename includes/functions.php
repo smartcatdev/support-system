@@ -168,16 +168,6 @@ function encode_code_blocks( $str ) {
 
 
 
-function priorities () {
-    return array(
-        __( 'Low', 'ucare' ),
-        __( 'Medium', 'ucare' ),
-        __( 'High', 'ucare' )
-    );
-}
-
-
-
 function filter_defaults() {
     $defaults = array(
         'status' => array(

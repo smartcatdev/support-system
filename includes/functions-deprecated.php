@@ -127,6 +127,20 @@ namespace ucare\util;
 use ucare\Options;
 use ucare\Plugin;
 
+
+/**
+ * @return array
+ * @deprecated
+ */
+function priorities () {
+    return array(
+        __( 'Low', 'ucare' ),
+        __( 'Medium', 'ucare' ),
+        __( 'High', 'ucare' )
+    );
+}
+
+
 /**
  * @param bool $id
  *

@@ -197,6 +197,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-metabox.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-upgrade.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-post-support_ticket.php';
             }
 
         }

@@ -531,21 +531,22 @@ function get_user_field( $field, $user = null ) {
  * Gets a \WP_user object. If no user is passed, will default to the currently logged in user.
  * Returns false if no user can be found.
  *
- * @param mixed $user The user to get.
+ * @param mixed $user                The user to get.
+ * @param bool  $fallback_to_current Fallback to current user if not found.
  *
  * @since 1.0.0
  * @return false|\WP_User
  */
-function get_user( $user = null ) {
+function get_user( $user = null, $fallback_to_current = true ) {
 
-    if ( empty( $user ) ) {
+    if ( empty( $user ) && $fallback_to_current ) {
         $user = wp_get_current_user();
     } else if ( is_numeric( $user ) ) {
         $user = get_userdata( absint( $user ) );
     }
 
     // Make sure we have a valid support user
-    return $user->has_cap( 'use_support' ) ? $user : false;
+    return $user && $user->has_cap( 'use_support' ) ? $user : false;
 
 }
 

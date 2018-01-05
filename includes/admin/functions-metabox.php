@@ -67,7 +67,6 @@ function render_ticket_category_metabox( \WP_Post $post ) {
     );
 
     foreach ( $categories as $category ) {
-
         $option = array(
             'title'      => $category->name,
             'attributes' => array(
@@ -76,7 +75,6 @@ function render_ticket_category_metabox( \WP_Post $post ) {
         );
 
         array_push( $field['config']['options'], $option );
-
     }
 
     render_select_box( $field );

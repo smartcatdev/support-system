@@ -2,7 +2,7 @@
 
 use ucare\Defaults;
 use ucare\Options;
-use ucare\util\Logger;
+use ucare\Logger;
 
 /***********************************************************************************************************************
  *

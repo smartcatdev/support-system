@@ -60,17 +60,16 @@ function time_diff( $from, $to = '', $echo = true ) {
 /**
  * Get the non-slug readable ticket status.
  *
- * @param string $ticket  The ticket
- * @param string $default Output if status inst found
- * @param bool   $echo    Whether the function should echo
+ * @param int|\WP_Post $ticket  The ticket
+ * @param string       $default Output if status inst found
+ * @param bool         $echo    Whether the function should echo
  *
  * @since 1.4.2
  * @return string
  */
 function ticket_status( $ticket, $default = 'N/A', $echo = true ) {
-
     $_status = $default;
-    $ticket  = get_post( $ticket );
+    $ticket = get_post( $ticket );
 
     if ( $ticket ) {
         $status   = get_post_meta( $ticket->ID, 'status', true );
@@ -87,6 +86,39 @@ function ticket_status( $ticket, $default = 'N/A', $echo = true ) {
     }
 
     return $_status;
+
+}
+
+
+/**
+ * Get human readable priority value.
+ *
+ * @param int|\WP_Post $ticket
+ * @param mixed        $default
+ * @param bool         $echo
+ *
+ * @since 1.6.0
+ * @return int
+ */
+function ticket_priority( $ticket, $default = 0, $echo = true ) {
+    $_priority = $default;
+    $ticket = get_post( $ticket );
+
+    if ( $ticket ) {
+        $priority   = get_metadata( 'priority', $ticket );
+        $priorities = ticket_priorities();
+
+        if ( array_key_exists( $priority, $priorities ) ) {
+            $_priority = $priorities[ $priority ];
+        }
+
+        if ( $echo ) {
+            esc_html_e( $_priority );
+        }
+
+    }
+
+    return $_priority;
 
 }
 
