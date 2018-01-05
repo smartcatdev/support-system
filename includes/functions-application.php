@@ -79,7 +79,7 @@ function login_page_url( $path = '' ) {
  */
 function is_a_support_page( $page = null ) {
 
-    $page    = get_post( $page );
+    $page = get_post( $page );
     $is_page = false;
 
     if ( $page && $page->post_type == 'page' ) {
@@ -201,7 +201,7 @@ function is_page_public( $page = null ) {
 function auth_redirect() {
 
     // Send the user to the login page if they are not authenticated
-    if ( !is_user_logged_in() && !is_page_public() ) {
+    if ( !is_user_logged_in() && is_a_support_page() && !is_page_public() ) {
         wp_safe_redirect( login_page_url() );
 
     // Redirect from login form if user is already logged in
@@ -213,7 +213,7 @@ function auth_redirect() {
 
 
 /**
- * Handle authentication requests from the login form.
+ * Keep users on the same page after a failed login attempt.
  *
  * @action wp_login_failed
  * @action authenticate
@@ -227,11 +227,16 @@ function auth_redirect() {
  */
 function handle_login_form( $user = false, $username = '', $password = '' ) {
 
-    // If empty username or password was passed prevent redirect to wp-login
-    if ( empty( $username ) && empty( $password ) ) {
-        wp_redirect( add_query_arg( 'login', 'empty', wp_get_referer() ) );
+    if ( isset( $_REQUEST['support_login_form'] ) ) {
 
-    } else if ( !$user ) {
-        wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
+        // If empty username or password was passed prevent redirect to wp-login
+        if ( empty( $username ) && empty( $password ) ) {
+            wp_redirect( add_query_arg( 'login', 'empty', wp_get_referer() ) );
+
+        } else if ( !$user ) {
+            wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
+        }
+
     }
+
 }
