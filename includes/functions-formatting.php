@@ -19,43 +19,40 @@ namespace ucare;
  */
 function time_diff( $from, $to = '', $echo = true ) {
 
+    /**
+     * Custom filter output of human_time_diff().
+     *
+     * @param $since
+     * @param $diff
+     *
+     * @since 1.6.0
+     * @return string
+     */
+    $filter = function ( $since, $diff ) {
+        if ( $diff < 60 ) {
+            $since = __( 'Seconds ago', 'ucare' );
+        } else if ( $diff === 0 ) {
+            $since = __( 'Just now', 'ucare' );
+        } else {
+            $since = sprintf( __( '%s ago', 'ucare' ), $since );
+        }
+
+        return $since;
+    };
+
     // Add custom output filter
-    add_filter( 'human_time_diff', 'ucare\filter_human_time_diff', 10, 2 );
+    add_filter( 'human_time_diff', $filter, 10, 2 );
 
     $diff = human_time_diff( strtotime( $from ), $to ? strtotime( $to ) : '' );
 
     // Remove output filter
-    remove_filter( 'human_time_diff', 'ucare\filter_human_time_diff', 10 );
+    remove_filter( 'human_time_diff', $filter, 10 );
 
     if ( $echo ) {
         esc_html_e( $diff );
     }
 
     return $diff;
-
-}
-
-
-/**
- * Custom filter output of human_time_diff().
- *
- * @param $since
- * @param $diff
- *
- * @since 1.4.2
- * @return string
- */
-function filter_human_time_diff( $since, $diff ) {
-
-    if ( $diff < 60 ) {
-        $since = __( 'Seconds ago', 'ucare' );
-    } else if ( $diff === 0 ) {
-        $since = __( 'Just now', 'ucare' );
-    } else {
-        $since = sprintf( __( '%s ago', 'ucare' ), $since );
-    }
-
-    return $since;
 
 }
 
@@ -116,4 +113,32 @@ function strcat() {
  */
 function esc_url_e( $url, $protocols = null ) {
     echo esc_url( $url, $protocols );
+}
+
+
+/**
+ * Parse a list of HTML element attributes.
+ *
+ * Example:
+ *
+ * $attr = array(
+ *  'id'    => 'my-element-id',
+ *  'class' => array( 'my', 'element', 'classes' )
+ * );
+ *
+ * @param array $attributes
+ *
+ * @since 1.4.2
+ * @return string
+ */
+function parse_attributes( $attributes ) {
+
+    $str = '';
+
+    foreach ( $attributes as $name => $attr ) {
+        $str .= $name . '="' . ( is_array( $attr ) ? implode( ' ', $attr ) : esc_attr( $attr ) ) . '" ';
+    }
+
+    return $str;
+
 }

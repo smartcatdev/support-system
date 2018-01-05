@@ -28,10 +28,10 @@ function upgrade_all() {
         return;
     }
 
-    if ( $current_version < '1.6.0' ) {
+    if ( $current_version < '1.6.0' )
         upgrade_160();
-    }
 
+    // Update our plugin version
     update_option( Options::PLUGIN_VERSION, PLUGIN_VERSION );
 
     /**

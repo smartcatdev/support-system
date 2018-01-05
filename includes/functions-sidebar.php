@@ -69,9 +69,7 @@ function register_sidebars( $ucare ) {
  * @return array
  */
 function get_sidebars() {
-
     return apply_filters( 'ucare_ticket_sidebar_sections', ucare()->get( 'sidebars', array() ) );
-
 }
 
 
@@ -233,12 +231,10 @@ function get_details_sidebar( \WP_Post $ticket ) {
  * @return void
  */
 function get_sidebar( $sidebar, $ticket ) {
-
     /**
      * Pull in sidebar sections
      */
     do_action( "ucare_ticket_sidebar_$sidebar", $ticket );
-
 }
 
 

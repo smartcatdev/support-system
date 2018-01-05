@@ -2,6 +2,60 @@
 
 namespace ucare;
 
+/**
+ * Custom filter output of human_time_diff().
+ *
+ * @param $since
+ * @param $diff
+ *
+ * @since 1.4.2
+ * @deprecated
+ * @return string
+ */
+function filter_human_time_diff( $since, $diff ) {
+
+    if ( $diff < 60 ) {
+        $since = __( 'Seconds ago', 'ucare' );
+    } else if ( $diff === 0 ) {
+        $since = __( 'Just now', 'ucare' );
+    } else {
+        $since = sprintf( __( '%s ago', 'ucare' ), $since );
+    }
+
+    return $since;
+
+}
+
+/**
+ * @param        $name
+ * @param        $options
+ * @param string $selected
+ * @param array  $attrs
+ * @deprecated
+ */
+function selectbox( $name, $options, $selected = '', $attrs = array() ) { ?>
+
+    <select name="<?php esc_attr_e( $name ); ?>"
+
+        <?php foreach ( $attrs as $attr => $values ) : ?>
+
+            <?php echo $attr . '="' . esc_attr( $values ) . '"' ?>
+
+        <?php endforeach; ?>>
+
+        <?php foreach ( $options as $value => $label ) : ?>
+
+            <option value="<?php esc_attr_e( $value ); ?>"
+
+                <?php selected( $selected, $value ); ?> ><?php echo $label ?></option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+<?php }
+
+
 
 /**
  * @param $key
@@ -72,6 +126,120 @@ namespace ucare\util;
 
 use ucare\Options;
 use ucare\Plugin;
+
+/**
+ * @param bool $id
+ *
+ * @return bool
+ * @deprecated
+ */
+function can_use_support( $id = false ) {
+    if( $id ) {
+
+        $result = user_can( $id, 'use_support' );
+    } else {
+        $result = current_user_can( 'use_support' );
+    }
+
+    return $result;
+}
+
+/**
+ * @param bool $id
+ *
+ * @return bool
+ * @deprecated
+ */
+function can_manage_tickets( $id = false ) {
+    if( $id ) {
+        $result = user_can( $id, 'manage_support_tickets' );
+    } else {
+        $result = current_user_can( 'manage_support_tickets' );
+    }
+
+    return $result;
+}
+
+/**
+ * @param bool $id
+ *
+ * @return bool
+ * @deprecated
+ */
+function can_manage_support( $id = false ) {
+    if( $id ) {
+        $result = user_can( $id, 'manage_support' );
+    } else {
+        $result = current_user_can( 'manage_support' );
+    }
+
+    return $result;
+}
+
+
+/**
+ * @return array
+ * @deprecated
+ */
+function roles() {
+    return array(
+        'support_admin' => __( 'Support Admin', 'ucare' ),
+        'support_agent' => __( 'Support Agent', 'ucare' ),
+        'support_user'  => __( 'Support User', 'ucare' ),
+    );
+}
+
+/**
+ * @param        $role
+ * @param string $privilege
+ * @deprecated
+ */
+function add_caps( $role, $privilege = '' ) {
+    $role = get_role( $role );
+
+    if( !empty( $role ) ) {
+        switch( $privilege ) {
+            case 'manage':
+                $role->add_cap( 'create_support_tickets' );
+                $role->add_cap( 'use_support' );
+                $role->add_cap( 'manage_support_tickets' );
+                $role->add_cap( 'edit_support_ticket_comments' );
+
+                break;
+
+            case 'admin':
+                $role->add_cap( 'create_support_tickets' );
+                $role->add_cap( 'use_support' );
+                $role->add_cap( 'manage_support_tickets' );
+                $role->add_cap( 'edit_support_ticket_comments' );
+                $role->add_cap( 'manage_support' );
+
+                break;
+
+            default:
+                $role->add_cap( 'create_support_tickets' );
+                $role->add_cap( 'use_support' );
+
+                break;
+        }
+    }
+}
+
+/**
+ * @param $role
+ * @deprecated
+ */
+function remove_caps( $role ) {
+    $role = get_role( $role );
+
+    if( !empty( $role ) ) {
+        $role->remove_cap( 'create_support_tickets' );
+        $role->remove_cap( 'use_support' );
+        $role->remove_cap( 'manage_support_tickets' );
+        $role->remove_cap( 'edit_support_ticket_comments' );
+        $role->remove_cap( 'manage_support' );
+    }
+}
 
 
 /**
@@ -247,3 +415,87 @@ function ecommerce_enabled( $strict = true ) {
     return $enabled;
 }
 
+
+namespace ucare\proc;
+
+/**
+ * @param $hex
+ *
+ * @return array
+ * @deprecated
+ */
+function hex2rgb( $hex ) {
+    $hex = str_replace( "#", "", $hex );
+
+    if ( strlen( $hex ) == 3 ) {
+        $r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
+        $g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
+        $b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
+    } else {
+        $r = hexdec( substr( $hex, 0, 2 ) );
+        $g = hexdec( substr( $hex, 2, 2 ) );
+        $b = hexdec( substr( $hex, 4, 2 ) );
+    }
+    $rgb = array ( $r, $g, $b );
+    //return implode(",", $rgb); // returns the rgb values separated by commas
+    return $rgb; // returns an array with the rgb values
+}
+
+/**
+ * @deprecated
+ */
+function configure_roles() {
+    $administrator = get_role( 'administrator' );
+
+    $administrator->add_cap( 'read_support_ticket' );
+    $administrator->add_cap( 'read_support_tickets' );
+    $administrator->add_cap( 'edit_support_ticket' );
+    $administrator->add_cap( 'edit_support_tickets' );
+    $administrator->add_cap( 'edit_others_support_tickets' );
+    $administrator->add_cap( 'edit_published_support_tickets' );
+    $administrator->add_cap( 'publish_support_tickets' );
+    $administrator->add_cap( 'delete_support_tickets' );
+    $administrator->add_cap( 'delete_others_support_tickets' );
+    $administrator->add_cap( 'delete_private_support_tickets' );
+    $administrator->add_cap( 'delete_published_support_tickets' );
+
+    foreach( \ucare\util\roles() as $role => $name ) {
+        add_role( $role, $name );
+    }
+
+    \ucare\util\add_caps( 'customer' );
+    \ucare\util\add_caps( 'subscriber' );
+    \ucare\util\add_caps( 'support_user' );
+
+    \ucare\util\add_caps( 'support_agent' , 'manage' );
+
+    \ucare\util\add_caps( 'support_admin' , 'admin' );
+    \ucare\util\add_caps( 'administrator' , 'admin' );
+}
+
+/**
+ * @deprecated
+ */
+function cleanup_roles() {
+    foreach( \ucare\util\roles() as $role => $name ) {
+        remove_role( $role );
+    }
+
+    \ucare\util\remove_caps( 'customer' );
+    \ucare\util\remove_caps( 'subscriber' );
+    \ucare\util\remove_caps( 'administrator' );
+
+    $administrator = get_role( 'administrator' );
+
+    $administrator->remove_cap( 'read_support_ticket' );
+    $administrator->remove_cap( 'read_support_tickets' );
+    $administrator->remove_cap( 'edit_support_ticket' );
+    $administrator->remove_cap( 'edit_support_tickets' );
+    $administrator->remove_cap( 'edit_others_support_tickets' );
+    $administrator->remove_cap( 'edit_published_support_tickets' );
+    $administrator->remove_cap( 'publish_support_tickets' );
+    $administrator->remove_cap( 'delete_support_tickets' );
+    $administrator->remove_cap( 'delete_others_support_tickets' );
+    $administrator->remove_cap( 'delete_private_support_tickets' );
+    $administrator->remove_cap( 'delete_published_support_tickets' );
+}

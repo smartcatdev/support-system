@@ -36,7 +36,6 @@ function ucare_register_license( $id, $args ) {
     $manager = \ucare\ucare()->get( 'license_manager' );
 
     if ( $manager ) {
-
         $options = array(
             'license'    => $args['license_option'],
             'status'     => $args['status_option'],
