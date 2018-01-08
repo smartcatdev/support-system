@@ -38,8 +38,9 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
     }
 
     function parse_template( $content, $template, $recipient ) {
+        
         $user = get_user_by( 'email', $recipient );
-
+        
         $defaults = array(
             'username'       => $user->user_login,
             'first_name'     => $user->first_name,

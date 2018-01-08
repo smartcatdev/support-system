@@ -340,6 +340,11 @@ final class Options {
      * @since 1.4.1
      */
     const SHOW_CLOCK = 'smartcat_support_show_clock';
+    
+    /**
+     * @since 1.5.1
+     */
+    const SENDING_MAIL = 'smartcat_support_sending_mail';
 
 }
 

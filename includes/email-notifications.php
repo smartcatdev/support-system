@@ -140,8 +140,8 @@ add_action( 'support_mark_ticket_stale', 'ucare\send_stale_ticket_email' );
 
 
 function send_ticket_created_email( \WP_Post $ticket ) {
-
-    $recipient = wp_get_current_user();
+    
+    $recipient = get_user_by( 'ID', $ticket->post_author );
 
     $template_vars = array(
         'ticket_subject' => $ticket->post_title,
