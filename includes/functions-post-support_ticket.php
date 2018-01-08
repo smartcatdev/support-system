@@ -8,15 +8,10 @@
 namespace ucare;
 
 
-use smartcat\post\FormMetaBox;
-
-
 // Register the custom post type
 add_action( 'init', 'ucare\register_ticket_post_type' );
 
 add_action( 'init', 'ucare\register_ticket_custom_status' );
-
-add_action( 'admin_init', 'ucare\ticket_meta_boxes' );
 
 add_action( 'wp_insert_post', 'ucare\set_default_ticket_meta', 10, 3 );
 
@@ -79,7 +74,6 @@ function register_ticket_post_type() {
         'capability_type'      => array( 'support_ticket', 'support_tickets' ),
         'feeds'                => null,
         'map_meta_cap'         => true,
-        'register_meta_box_cb' => 'ucare\add_support_ticket_metaboxes',
         'show_in_rest'         => current_user_can( 'use_support' ),
         'rest_base'            => 'support-tickets'
     );
@@ -148,38 +142,6 @@ function register_ticket_custom_status() {
     );
 
     register_post_status( 'ucare-auto-draft', $args );
-}
-
-
-function ticket_meta_boxes() {
-
-    //TODO Remove this and replace with regular metaboxes
-    $support_metabox = new FormMetaBox(
-        array(
-            'id'        => 'ticket_support_meta',
-            'title'     => __( 'Ticket Information', 'ucare' ),
-            'post_type' => 'support_ticket',
-            'context'   => 'advanced',
-            'priority'  => 'high',
-            'config'    =>  plugin_dir() . '/config/properties_metabox_form.php'
-        )
-    );
-
-    if( \ucare\util\ecommerce_enabled() ) {
-
-        $product_metabox = new FormMetaBox(
-            array(
-                'id'        => 'ticket_product_meta',
-                'title'     => __( 'Product Information', 'ucare' ),
-                'post_type' => 'support_ticket',
-                'context'   => 'side',
-                'priority'  => 'high',
-                'config'    => plugin_dir() . '/config/product_metabox_form.php'
-            )
-        );
-
-    }
-
 }
 
 

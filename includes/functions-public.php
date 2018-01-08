@@ -611,3 +611,135 @@ function ucare_reset_user_password( $username ) {
     return new \WP_Error( 'user_not_found', __( 'User could not be found', 'ucare' ), array( 'status' => 404 ) );
 
 }
+
+
+/***********************************************************************************************************************
+ *
+ * General purpose functions for managing templates.
+ *
+ * @since 1.6.0
+ * @scope global
+ */
+
+
+/**
+ * Helper to quickly output a dropdown of valid products.
+ *
+ * @param string $selected
+ * @param array  $attributes
+ * @param array  $prepend
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_products_dropdown( $selected = '', $attributes = array(), $prepend = array() ) {
+    $products = array();
+
+    foreach ( get_posts( array( 'post_type' => \ucare\get_product_post_type() ) ) as $product ) {
+        $products[ $product->ID ] = $product->post_title;
+    }
+
+    if ( !empty( $prepend ) ) {
+        $products = array_merge( $prepend, $products );
+    }
+
+    \ucare\dropdown( $products, $selected, $attributes );
+}
+
+
+/**
+ * Helper to quickly output a dropdown of valid ticket statuses.
+ *
+ * @param string $selected
+ * @param array  $attributes
+ * @param array  $prepend
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_statuses_dropdown( $selected = '', $attributes = array(), $prepend = array() ) {
+    $statuses = \ucare\get_ticket_statuses();
+
+    if ( !empty( $prepend ) ) {
+        $statuses = array_merge( $prepend, $statuses );
+    }
+
+    \ucare\dropdown( $statuses, $selected, $attributes );
+}
+
+
+/**
+ * Helper to quickly output a dropdown of valid ticket priorities.
+ *
+ * @param string $selected
+ * @param array  $attributes
+ * @param array  $prepend
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_priority_dropdown( $selected = '', $attributes = array(), $prepend = array() ) {
+    $priorities = \ucare\ticket_priorities();
+
+    if ( !empty( $prepend ) ) {
+        $priorities = array_merge( $prepend, $priorities );
+    }
+
+    \ucare\dropdown( $priorities, $selected, $attributes );
+}
+
+
+/**
+ * Helper to quickly output a dropdown of valid ticket categories.
+ *
+ * @param string $selected
+ * @param array  $attributes
+ * @param array  $prepend
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_category_dropdown( $selected = '', $attributes = array(), $prepend = array() ) {
+    $categories = array();
+
+    foreach ( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $category ) {
+        $categories[ $category->term_id ] = $category->name;
+    }
+
+    if ( !empty( $prepend ) ) {
+        $categories = array_merge( $prepend, $categories );
+    }
+
+    \ucare\dropdown( $categories, $selected, $attributes );
+}
+
+
+/**
+ * Helper to quickly output a dropdown of valid support agents.
+ *
+ * @param string $selected
+ * @param array  $attributes
+ * @param array  $prepend
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_agents_dropdown( $selected = '', $attributes = array(), $prepend = array() ) {
+    $agents = array();
+
+    foreach ( get_users() as $user ) {
+
+        if ( ucare_is_support_agent( $user->ID ) ) {
+            $agents[ $user->ID ] = $user->display_name;
+        }
+
+    }
+
+    if ( !empty( $prepend ) ) {
+        $agents = array_merge( $prepend, $agents );
+    }
+
+    \ucare\dropdown( $agents, $selected, $attributes );
+}
+
+
