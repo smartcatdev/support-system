@@ -39,8 +39,8 @@
 
         // Remap function names
         return {
-            publish: callbacks.fire,
-            subscribe: callbacks.add,
+            publish:     callbacks.fire,
+            subscribe:   callbacks.add,
             unsubscribe: callbacks.remove
         };
 
@@ -146,6 +146,256 @@
 
     };
 
+    /**
+     * @summary Default system action types.
+     *
+     * @private
+     * @since 1.6.0
+     */
+    const ActionTypes = {
+        /**
+         * @since 1.6.0
+         */
+        SET_BULK_ACTION: 'SET_BULK_ACTION'
+    };
+
+    /**
+     * @summary Default system actions.
+     *
+     * @since 1.6.0
+     */
+    exports.Actions = {
+
+        /**
+         * Set the Bulk action for the tickets list.
+         *
+         * @param {string} action
+         *
+         * @since 1.6.0
+         * @return void
+         */
+        setBulkAction(action) {
+            dispatcher.dispatch({
+                type: ActionTypes.SET_BULK_ACTION,
+                action: action
+            });
+        }
+
+    };
+
+    /**
+     * @summary Dispatcher constructor.
+     *
+     * @since 1.6.0
+     * @constructor
+     */
+    const Dispatcher = function () {
+        this.handlers = jQuery.Callbacks();
+    };
+
+    /**
+     * @summary Registers a handler that will receive dispatched sate changes.
+     *
+     * @param {Function} handler
+     *
+     * @since 1.6.0
+     * @return {void}
+     * @todo return a token
+     */
+    Dispatcher.prototype.register = function (handler) {
+        this.handlers.add(handler);
+    };
+
+    /**
+     * @summary Remove a dispatch handler.
+     *
+     * @param {Function} handler
+     *
+     * @since 1.6.0
+     * @return void
+     */
+    Dispatcher.prototype.unregister = function (handler) {
+        this.handlers.remove(handler);
+    };
+
+    /**
+     * @summary Dispatch a state change.
+     *
+     * @param {*} payload
+     *
+     * @since 1.6.0
+     * @return {void}
+     */
+    Dispatcher.prototype.dispatch = function (payload) {
+        this.handlers.fire(payload);
+    };
+
+    // Export the dispatcher
+    exports.Dispatcher = Dispatcher;
+
+
+    /**
+     * @summary System dispatcher
+     */
+    const dispatcher = new Dispatcher();
+
+    /**
+     * @summary Base class for a reducer store.
+     *
+     * @param {Dispatcher} dispatcher
+     *
+     * @since 1.6.0
+     * @constructor
+     */
+    const Store = function (dispatcher) {
+        this.dispatcher = dispatcher;
+        this.events = new EventBus();
+        this.state  = this.getInitialState();
+
+        // Setup reduction
+        this.dispatcher.register(onDispatch.bind(this));
+
+        /**
+         * Merge the state with our store's state on dispatch
+         *
+         * @param payload
+         *
+         * @since 1.6.0
+         * @return {void}
+         */
+        function onDispatch (payload) {
+            const state = this.reduce(this.state, payload);
+
+            if (!exports.ext.compare(this.state, state)) {
+                this._setState(state);
+                this._emitChange();
+            }
+        }
+
+        /**
+         * Sets the state.
+         *
+         * @param {*} state
+         * @private
+         * @since 1.6.0
+         */
+        this._setState = function(state) {
+            this.state = state;
+        }
+
+    };
+
+    /**
+     * @summary Emit an event when the store has changed.
+     *
+     * @since 1.6.0
+     * @private
+     * @return {void}
+     */
+    Store.prototype._emitChange = function () {
+        this.events.publish(this.state);
+    };
+
+    /**
+     * @summary Add a listener for state change events.
+     *
+     * @param {Function} callback
+     *
+     * @since 1.6.0
+     * @return {void}
+     */
+    Store.prototype.subscribe = function (callback) {
+        this.events.subscribe(callback);
+    };
+
+    /**
+     * @summary Remove a registered event listener from the store.
+     *
+     * @param {Function} callback
+     *
+     * @since 1.6.0
+     * @return {void}
+     */
+    Store.prototype.unsubscribe = function (callback) {
+        this.events.unsubscribe(callback);
+    };
+
+    /**
+     * @summary Get the initial state of the store. This value will be used to initialize the store.
+     *
+     * @since 1.6.0
+     * @return {*}
+     */
+    Store.prototype.getInitialState = function () {
+        return {};
+    };
+
+    /**
+     * @summary Handler merging of state from a dispatched action.
+     *
+     * @param {*} state
+     * @param {*} action
+     *
+     * @since 1.6.0
+     * @return {*}
+     */
+    Store.prototype.reduce = function (state, action) {};
+
+    // Export our base store
+    exports.Store = Store;
+
+
+    /**
+     * @summary Store for toolbar state.
+     *
+     * @param {Dispatcher} dispatcher
+     * @constructor
+     */
+    const ToolbarStore = function (dispatcher) {
+        Store.call(this, dispatcher);
+    };
+
+    // Inherit from store
+    $.extend(ToolbarStore.prototype, Store.prototype);
+
+    /**
+     *
+     * @param state
+     * @param action
+     *
+     * @return {*}
+     * @since 1.6.0
+     */
+    ToolbarStore.prototype.reduce = function (state, action) {
+        switch (action.type) {
+            case ActionTypes.SET_BULK_ACTION:
+                return action.action;
+                break;
+
+            default:
+                return state;
+                break;
+        }
+    };
+
+    /**
+     *
+     * @return {*}
+     * @since 1.6.0
+     */
+    ToolbarStore.prototype.getInitialState = function () {
+        return '';
+    };
+
+
+    /**
+     * @summary System store objects.
+     *
+     * @since 1.6.0
+     */
+    exports.stores = {
+        toolbarStore: new ToolbarStore(dispatcher)
+    };
 
     /**
      * Utilities for managing user profile data.
@@ -176,7 +426,6 @@
         }
 
     };
-
 
     /**
      * @summary Export our module

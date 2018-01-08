@@ -86,7 +86,10 @@ function register_default_scripts() {
         )
     );
 
-    ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery' ), PLUGIN_VERSION );
+    ucare_register_script( 'ucare-extensions', resolve_url( 'assets/js/extensions.js' ), null, PLUGIN_VERSION );
+
+
+    ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery', 'ucare-extensions' ), PLUGIN_VERSION );
     ucare_localize_script( 'ucare', 'ucare_l10n', $l10n );
 
 
@@ -109,6 +112,7 @@ function enqueue_default_scripts() {
 
     // Scripts
     ucare_enqueue_script( 'ucare' );
+    ucare_enqueue_script( 'ucare-extensions' );
     ucare_enqueue_script( 'jquery' );
     ucare_enqueue_script( 'wp-util' );
 

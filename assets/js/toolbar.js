@@ -8,14 +8,16 @@
 
     $(function () {
 
+        ucare.stores.toolbarStore.subscribe(function (state) {
+            console.log(state)
+        })
+
         /**
          * @summary Treat toolbar-toggle links like labels
          */
         $('a.toolbar-item-toggle').click(function () {
             const $toggle = $(this).find('input[type="checkbox"]'),
-                  checked = !$toggle.prop('checked'),
-                  name    = $toggle.attr('name'),
-                  value   = $toggle.prop('value');
+                  checked = !$toggle.prop('checked');
 
             $('[name="' + $toggle.attr('name') + '"]').each(function (i, el) {
                 $(el).prop('checked', false);
@@ -25,8 +27,8 @@
             $toggle.prop('checked', checked);
             $(this).toggleClass('has-item-checked', checked);
 
-            // Publish the toolbar change event
-            ucare.events.publish('toolbar_option_changed-' + name, value, checked);
+
+            ucare.Actions.setBulkAction(checked ? $toggle.prop('value') : '');
             return false;
         });
 
