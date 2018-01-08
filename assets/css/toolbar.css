@@ -1,0 +1,22 @@
+#the-toolbar {
+    margin: 0;
+}
+
+#the-toolbar a.toolbar-item-toggle {
+    padding: 3px 10px;
+}
+
+#the-toolbar a.toolbar-item-toggle > input[type="checkbox"] {
+    position: absolute;
+    top: -100000px;
+}
+
+#the-toolbar a.toolbar-item-toggle .check-feedback {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+}
+
+#the-toolbar a.toolbar-item-toggle.has-item-checked .check-feedback:before {
+    content: "\e013";
+}

@@ -144,6 +144,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/includes/class-field.php';
             include_once dirname( __FILE__ ) . '/includes/class-logger.php';
+            include_once dirname( __FILE__ ) . '/includes/class-toolbar.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
@@ -172,6 +173,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-taxonomy-ticket_category.php';
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-toolbar.php';
 
 
             // If eCommerce support is enabled pull in general support functions

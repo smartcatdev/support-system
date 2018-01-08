@@ -55,6 +55,10 @@ function register_ticket_post_type() {
     );
 
     $args = array(
+        /**
+         *
+         * @since 1.0.0
+         */
         'label'                => __( 'Support Ticket', 'ucare' ),
         'description'          => __( 'Tickets for support requests', 'ucare' ),
         'labels'               => $labels,
@@ -74,6 +78,11 @@ function register_ticket_post_type() {
         'capability_type'      => array( 'support_ticket', 'support_tickets' ),
         'feeds'                => null,
         'map_meta_cap'         => true,
+
+        /**
+         *
+         * @since 1.6.0
+         */
         'show_in_rest'         => current_user_can( 'use_support' ),
         'rest_base'            => 'support-tickets'
     );
@@ -145,47 +154,64 @@ function register_ticket_custom_status() {
 }
 
 
+/**
+ * Update ticket meta when the status is changed.
+ *
+ * @global $wbdb
+ *
+ * @action update_post_metadata
+ *
+ * @param $null
+ * @param $id
+ * @param $key
+ * @param $value
+ *
+ * @since 1.0.0
+ * @return void
+ */
 function ticket_properties_updated( $null, $id, $key, $value ) {
-
     global $wpdb;
 
-    if( get_post_type( $id ) == 'support_ticket' && $key == 'status' ) {
-
-        $q = "UPDATE {$wpdb->posts}
+    if ( get_post_type( $id ) == 'support_ticket' && $key == 'status' ) {
+        $q = "UPDATE $wpdb->posts
               SET post_modified = %s, post_modified_gmt = %s
               WHERE ID = %d ";
 
         $q = $wpdb->prepare( $q, array( current_time( 'mysql' ), current_time( 'mysql', 1 ), $id ) );
-
         $wpdb->query( $q );
 
         delete_post_meta( $id, 'stale' );
 
-        if( $value == 'closed' ) {
-
+        if ( $value == 'closed' ) {
             update_post_meta( $id, 'closed_date', current_time( 'mysql' ) );
             update_post_meta( $id, 'closed_by', wp_get_current_user()->ID );
-
         }
-
     }
-
 }
 
 
+/**
+ * Set default ticket meta when a ticket is created.
+ *
+ * @action wp_insert_post
+ *
+ * @param $post_id
+ * @param $post
+ * @param $update
+ *
+ * @since 1.0.0
+ * @return void
+ */
 function set_default_ticket_meta( $post_id, $post, $update ) {
-
     $defaults = array(
         'priority' => 0,
         'status'   => 'new'
     );
 
-    if( !$update ) {
+    if ( !$update ) {
 
-        foreach( $defaults as $key => $value ) {
+        foreach ( $defaults as $key => $value ) {
             add_post_meta( $post_id, $key, $value );
         }
-
     }
-
 }

@@ -37,7 +37,6 @@ add_filter( 'rest_comment_query', 'ucare\rest_filter_comment_query' );
  * @return array
  */
 function rest_filter_comment_query( $args ) {
-
     global $wpdb;
 
     if ( !ucare_is_support_agent() ) {
@@ -49,11 +48,9 @@ function rest_filter_comment_query( $args ) {
                   AND post_author != %d";
 
         $args['post__not_in'] = $wpdb->get_col( $wpdb->prepare( $sql, get_current_user_id() ) );
-
     }
 
     return $args;
-
 }
 
 
@@ -68,7 +65,6 @@ function rest_filter_comment_query( $args ) {
  * @return array
  */
 function rest_filter_support_ticket_query( $args ) {
-
     $user_id = get_current_user_id();
 
     if ( $user_id > 0 && !ucare_is_support_agent( $user_id ) ) {
@@ -76,7 +72,6 @@ function rest_filter_support_ticket_query( $args ) {
     }
 
     return $args;
-
 }
 
 
@@ -93,7 +88,6 @@ function rest_filter_support_ticket_query( $args ) {
  * @return array
  */
 function rest_filter_attachment_query( $args ) {
-
     global $wpdb;
 
     if ( !ucare_is_support_agent() ) {
@@ -105,11 +99,9 @@ function rest_filter_attachment_query( $args ) {
                   AND post_author != %d";
 
         $args['post_parent__not_in'] = $wpdb->get_col( $wpdb->prepare( $sql, get_current_user_id() ) );
-
     }
 
     return $args;
-
 }
 
 
@@ -138,7 +130,6 @@ function rest_set_ticket_attributes( $post, $request ) {
         if ( !empty( $meta['receipt_id'] ) ) {
             update_post_meta( $post->ID, 'receipt_id', sanitize_text_field( $meta['receipt_id'] ) );
         }
-
     }
 
     // Set the category
@@ -150,9 +141,7 @@ function rest_set_ticket_attributes( $post, $request ) {
         if ( $cat_term ) {
             wp_set_post_terms( $post->ID, (array) $cat_term->slug, 'ticket_category' );
         }
-
     }
-
 }
 
 
@@ -179,7 +168,6 @@ function rest_validate_support_ticket( $post ) {
             );
 
             return new \WP_Error( 'empty-title', __( 'Subject cannot be blank', 'ucare' ), $data );
-
         }
 
         // Validate the content is not empty
@@ -190,11 +178,8 @@ function rest_validate_support_ticket( $post ) {
             );
 
             return new \WP_Error( 'empty-content', __( 'Description cannot be blank', 'ucare' ), $data );
-
         }
-
     }
 
     return $post;
-
 }

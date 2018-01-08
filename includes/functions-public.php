@@ -741,5 +741,3 @@ function ucare_agents_dropdown( $selected = '', $attributes = array(), $prepend 
 
     \ucare\dropdown( $agents, $selected, $attributes );
 }
-
-

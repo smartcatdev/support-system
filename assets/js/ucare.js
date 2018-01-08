@@ -132,7 +132,15 @@
          */
         publish: function (channel, data) {
             if (this._channels[channel]) {
-                this._channels[channel].publish(data);
+                const selected = this._channels[channel];
+
+                var args = [];
+                for (var ctr = 1; ctr < arguments.length; ctr++) {
+                    args.push(arguments[ctr]);
+                }
+
+                // Fill for spread (...obj)
+                selected.publish.apply(selected.publish, args);
             }
         }
 
