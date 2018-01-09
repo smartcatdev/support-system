@@ -6,10 +6,6 @@
 ;(function ($, ucare) {
     "use strict";
 
-
-
-
-
     /**
      * @since 1.6.0
      */
@@ -36,26 +32,45 @@
                 // Uncheck all bulk selectors
                 } else {
                     $list.removeClass('has-bulk-action no-replace');
-                    $list.find('[name="bulk_item_selected"]').each(function (i, el) {
-                        $(el).prop('checked', false);
+                    $list.find('[name="bulk_item_selected"]')
+                         .each(function (i, el) {
+
+                             if (el.checked) {
+                                 $(el).prop('checked', false).trigger('change');
+                             }
+
                     });
                 }
             });
 
-
+            /**
+             * @summary Toggle selected ticket state
+             */
             $(document).on('change', '[name="bulk_item_selected"]', function () {
-                alert()
-                // module.toggle_item_select($(this).attr('value'), $(this).is(':checked'));
+                module.toggleItemSelected($(this).prop('value'), this.checked);
             });
-
-
         },
 
-        toggle_item_select: function (id, selected) {
-            alert(selected)
+        /**
+         * @summary Toggle selected ticket.
+         *
+         * @param {int}  id
+         * @param {bool} selected
+         *
+         * @since 1.6.0
+         * @return {void}
+         */
+        toggleItemSelected: function (id, selected) {
+            if (selected) {
+                ucare.Actions.selectTicket(id);
+
+            } else {
+                ucare.Actions.deselectTicket(id);
+            }
         }
 
     };
+
 
     // Initialize the module
     $(module.init);

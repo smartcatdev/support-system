@@ -404,6 +404,30 @@
 
 
     /**
+     * @summary Factory for creating Flux stores.
+     *
+     * @param {Dispatcher} dispatcher
+     * @param {Function}   reducer
+     * @param {*}          initialState
+     *
+     * @since 1.6.0
+     * @return {Store}
+     */
+    const createStore = function createStore(dispatcher, reducer, initialState) {
+        const store = new Store(dispatcher);
+
+        // Override the store prototype
+        store.prototype.reduce = reducer;
+        store.prototype.getInitialState = function () {
+            return initialState;
+        }
+    };
+
+    // Export factory
+    exports.createStore = createStore;
+
+
+    /**
      * @summary Store for toolbar state.
      *
      * @param {Dispatcher} dispatcher
