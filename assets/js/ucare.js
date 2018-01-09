@@ -283,18 +283,21 @@
     /**
      * @summary Base class for a reducer store.
      *
-     * @param {Dispatcher} dispatcher
-     *
      * @since 1.6.0
      * @constructor
      */
-    const Store = function (dispatcher) {
+    const Store = function () {
         this._events = new EventEmitter();
         this._state  = this.getInitialState();
-
-        // Setup reduction
-        dispatcher.register(this.onDispatch.bind(this));
     };
+
+    /**
+     * @summary Deep compare two objects.
+     *
+     * @since 1.6.0
+     * @return {bool}
+     */
+    Store.prototype.compare = ucare.ext.compare;
 
     /**
      * Sets the state.
@@ -310,12 +313,15 @@
     /**
      * @summary Emit an event when the store has changed.
      *
+     * @param {string} e
+     * @param {*}      args
+     *
      * @since 1.6.0
      * @private
      * @return {void}
      */
-    Store.prototype._emitChange = function () {
-        this._events.emit('change', this);
+    Store.prototype._emitEvent = function (e, args) {
+        this._events.emit(e, args);
     };
 
     /**
@@ -331,6 +337,7 @@
     /**
      * @summary Add a listener for state change events.
      *
+     * @param {string}   e
      * @param {Function} callback
      *
      * @since 1.6.0
@@ -343,6 +350,7 @@
     /**
      * @summary Remove a registered event listener from the store.
      *
+     * @param {string}   e
      * @param {Function} callback
      *
      * @since 1.6.0
@@ -386,9 +394,9 @@
               mutated = this.reduce(current, payload);
 
         // If the state has actually mutated
-        if (!exports.ext.compare(current, mutated)) {
+        if (!this.compare(current, mutated)) {
             this._setState(mutated);
-            this._emitChange();
+            this._emitEvent('change', this);
         }
     };
 
@@ -400,21 +408,21 @@
      * @summary Factory for creating Flux stores.
      *
      * @param {Dispatcher} dispatcher
-     * @param {Function}   reducer
+     * @param {object}     options
      * @param {*}          initialState
      *
      * @since 1.6.0
      * @return {Store}
      */
-    const createStore = function createStore(dispatcher, reducer, initialState) {
-        const store = function (dispatcher) {
-            Store.call(this, dispatcher);
+    const createStore = function createStore(dispatcher, options, initialState) {
+        const store = function () {
+            Store.call(this);
         };
 
         $.extend(store.prototype, Store.prototype);
 
         // Override the store prototype
-        store.prototype.reduce = reducer;
+        store.prototype.reduce = options.reducer;
 
         if (initialState) {
             store.prototype.getInitialState = function () {
@@ -422,7 +430,13 @@
             }
         }
 
-        return new store(dispatcher);
+        const instance = new store();
+
+        // Setup reduction
+        dispatcher.register(instance.onDispatch.bind(instance));
+
+        // Return the new store instance
+        return instance;
     };
 
     // Export factory
@@ -479,6 +493,7 @@
                     index = copy.selected.indexOf(action.data.id);
                     if (index > -1) {
                         copy.selected.splice(index, 1);
+                        this._emitEvent('delete', action.data.id);
                     }
 
                     break;
@@ -501,7 +516,7 @@
          *
          * @since 1.6.0
          */
-        toolbar: createStore(dispatcher, reducers.toolbar, {
+        toolbar: createStore(dispatcher, { reducer: reducers.toolbar }, {
             bulk_action: ''
         }),
 
@@ -510,7 +525,7 @@
          *
          * @since 1.6.0
          */
-        tickets: createStore(dispatcher, reducers.tickets, {
+        tickets: createStore(dispatcher, { reducer: reducers.tickets }, {
             selected: []
         })
     };

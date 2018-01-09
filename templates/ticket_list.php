@@ -23,7 +23,7 @@ namespace ucare;
                 <?php $status = get_post_meta( $post->ID, 'status', true ); ?>
                 <?php $statuses = \ucare\util\statuses(); ?>
 
-                <div class="list-group-item ticket <?php echo $status; ?>">
+                <div id="ticket-<?php esc_attr_e( $post->ID ); ?>" class="list-group-item ticket <?php esc_attr_e( $status ); ?>">
 
                     <div class="media">
 

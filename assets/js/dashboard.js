@@ -43,6 +43,28 @@
             });
 
             /**
+             * @summary Remove deleted tickets from the list.
+             */
+            ucare.stores.tickets.on('delete', function (id) {
+                const $list = $('#the-tickets');
+
+                // Reload the ticket list if we are at the end of the list
+                if ($list.find('.ticket').length === 1) {
+                    $list.removeClass('no-replace');
+                    App.load_tickets();
+
+                    // Unset the bulk action
+                    ucare.Actions.setToolbarToggle('bulk_action', '');
+
+                // Remove a single item from the list
+                } else {
+                    $('#ticket-' + id).slideUp(function () {
+                        $(this).remove();
+                    });
+                }
+            });
+
+            /**
              * @summary Toggle selected ticket state
              */
             $(document).on('change', '[name="bulk_item_selected"]', function () {
