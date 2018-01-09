@@ -1,6 +1,6 @@
 <?php
 
-use ucare\Options;
+namespace ucare;
 
 ?>
 
@@ -14,7 +14,7 @@ use ucare\Options;
 
 <?php else : ?>
 
-    <div class="ticket-list col-sm-12">
+    <div id="the-tickets" class="ticket-list col-sm-12">
 
         <div class="list-group">
 
@@ -27,19 +27,17 @@ use ucare\Options;
 
                     <div class="media">
 
-                        <div class="media-left">
+                        <div class="media-left item-status">
 
                             <div class="status-wrapper">
 
-                                <span class="ticket-status <?php echo $status; ?>"></span>
-
-                                <?php if( array_key_exists( $status, $statuses ) ) : ?>
-
-                                    <span class="status-tooltip"><?php _e( $statuses[ $status ], 'ucare' ); ?></span>
-
-                                <?php endif; ?>
+                                <a href="#" data-toggle="tooltip" title="<?php ticket_status( $post->ID ); ?>">
+                                    <span class="ticket-status <?php esc_attr_e( get_metadata( 'status', true, $post->ID ) ); ?>"></span>
+                                </a>
 
                             </div>
+
+                            <input type="checkbox" name="bulk_selected" value="<?php esc_attr_e( $post->ID ); ?>" />
 
                         </div>
 

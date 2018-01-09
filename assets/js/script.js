@@ -6,5 +6,9 @@
 ;(function ($) {
     "use strict";
 
+    /**
+     * @summary Initialize Bootstrap tooltips
+     */
+    $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
 
 })(jQuery);

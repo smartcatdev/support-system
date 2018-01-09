@@ -1,0 +1,12 @@
+/** Stylesheet for the dashboard page **/
+#the-tickets .item-status input[type="checkbox"] {
+    display: none;
+}
+
+#the-tickets.has-bulk-action .item-status input[type="checkbox"] {
+    display: block;
+}
+
+#the-tickets.has-bulk-action .item-status .status-wrapper {
+    display: none;
+}

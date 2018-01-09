@@ -156,7 +156,7 @@
         /**
          * @since 1.6.0
          */
-        SET_BULK_ACTION: 'SET_BULK_ACTION'
+        SET_TOOLBAR_TOGGLE: 'SET_TOOLBAR_TOGGLE'
     };
 
     /**
@@ -167,17 +167,21 @@
     exports.Actions = {
 
         /**
-         * Set the Bulk action for the tickets list.
+         * Set activate or deactivate a toolbar action.
          *
-         * @param {string} action
+         * @param {string} toggle
+         * @param {*}      value
          *
          * @since 1.6.0
          * @return void
          */
-        setBulkAction(action) {
+        setToolbarToggle(toggle, value) {
             dispatcher.dispatch({
-                type: ActionTypes.SET_BULK_ACTION,
-                data: action
+                type: ActionTypes.SET_TOOLBAR_TOGGLE,
+                data: {
+                    toggle: toggle,
+                    value:  value
+                }
             });
         }
 
@@ -370,7 +374,8 @@
 
     /**
      *
-     * @param {*} state
+     *
+     * @param {*}                       state
      * @param {{type: string, data: *}} action
      *
      * @return {*}
@@ -378,8 +383,8 @@
      */
     ToolbarStore.prototype.reduce = function (state, action) {
         switch (action.type) {
-            case ActionTypes.SET_BULK_ACTION:
-                state.bulk_action = action.data;
+            case ActionTypes.SET_TOOLBAR_TOGGLE:
+                state[action.data.toggle] = action.data.value;
                 break;
         }
 
@@ -393,7 +398,7 @@
      */
     ToolbarStore.prototype.getInitialState = function () {
         return {
-            bulk_action: ''
+            'bulk-action': ''
         };
     };
 

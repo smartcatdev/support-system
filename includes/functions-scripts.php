@@ -132,9 +132,10 @@ function enqueue_default_scripts() {
 
         enqueue_app();
 
-        ucare_enqueue_script( 'ucare-plugins',  resolve_url( 'assets/js/plugins.js'  ), null, PLUGIN_VERSION, true );
-        ucare_enqueue_script( 'ucare-tickets',  resolve_url( 'assets/js/ticket.js'   ), null, PLUGIN_VERSION, true );
-        ucare_enqueue_script( 'ucare-comments', resolve_url( 'assets/js/comment.js'  ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-dashboard', resolve_url( 'assets/js/dashboard.js'  ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-plugins',   resolve_url( 'assets/js/plugins.js'    ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-tickets',   resolve_url( 'assets/js/ticket.js'     ), null, PLUGIN_VERSION, true );
+        ucare_enqueue_script( 'ucare-comments',  resolve_url( 'assets/js/comment.js'    ), null, PLUGIN_VERSION, true );
     }
 
     // Load create ticket page scripts

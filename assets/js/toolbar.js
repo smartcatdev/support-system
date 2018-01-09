@@ -13,7 +13,9 @@
          */
         $('a.toolbar-item-toggle').click(function () {
             const $toggle = $(this).find('input[type="checkbox"]'),
-                  checked = !$toggle.prop('checked');
+                  checked = !$toggle.prop('checked'),
+                  name    = $toggle.attr('name'),
+                  value   = $toggle.prop('value');
 
             $('[name="' + $toggle.attr('name') + '"]').each(function (i, el) {
                 $(el).prop('checked', false);
@@ -23,8 +25,7 @@
             $toggle.prop('checked', checked);
             $(this).toggleClass('has-item-checked', checked);
 
-
-            ucare.Actions.setBulkAction(checked ? $toggle.prop('value') : '');
+            ucare.Actions.setToolbarToggle(name, checked ? value : '');
             return false;
         });
 
