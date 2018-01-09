@@ -8,10 +8,6 @@
 
     $(function () {
 
-        ucare.stores.toolbarStore.subscribe(function (state) {
-            console.log(state)
-        })
-
         /**
          * @summary Treat toolbar-toggle links like labels
          */

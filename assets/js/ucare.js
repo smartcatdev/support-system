@@ -177,7 +177,7 @@
         setBulkAction(action) {
             dispatcher.dispatch({
                 type: ActionTypes.SET_BULK_ACTION,
-                action: action
+                data: action
             });
         }
 
@@ -190,7 +190,7 @@
      * @constructor
      */
     const Dispatcher = function () {
-        this.handlers = jQuery.Callbacks();
+        this._handlers = jQuery.Callbacks();
     };
 
     /**
@@ -203,7 +203,7 @@
      * @todo return a token
      */
     Dispatcher.prototype.register = function (handler) {
-        this.handlers.add(handler);
+        this._handlers.add(handler);
     };
 
     /**
@@ -215,7 +215,7 @@
      * @return void
      */
     Dispatcher.prototype.unregister = function (handler) {
-        this.handlers.remove(handler);
+        this._handlers.remove(handler);
     };
 
     /**
@@ -227,7 +227,7 @@
      * @return {void}
      */
     Dispatcher.prototype.dispatch = function (payload) {
-        this.handlers.fire(payload);
+        this._handlers.fire(payload);
     };
 
     // Export the dispatcher
@@ -248,41 +248,22 @@
      * @constructor
      */
     const Store = function (dispatcher) {
-        this.dispatcher = dispatcher;
-        this.events = new EventBus();
-        this.state  = this.getInitialState();
+        this._events = new EventBus();
+        this._state  = this.getInitialState();
 
         // Setup reduction
-        this.dispatcher.register(onDispatch.bind(this));
+        dispatcher.register(this.onDispatch.bind(this));
+    };
 
-        /**
-         * Merge the state with our store's state on dispatch
-         *
-         * @param payload
-         *
-         * @since 1.6.0
-         * @return {void}
-         */
-        function onDispatch (payload) {
-            const state = this.reduce(this.state, payload);
-
-            if (!exports.ext.compare(this.state, state)) {
-                this._setState(state);
-                this._emitChange();
-            }
-        }
-
-        /**
-         * Sets the state.
-         *
-         * @param {*} state
-         * @private
-         * @since 1.6.0
-         */
-        this._setState = function(state) {
-            this.state = state;
-        }
-
+    /**
+     * Sets the state.
+     *
+     * @param {*} state
+     * @private
+     * @since 1.6.0
+     */
+    Store.prototype._setState = function(state) {
+        this._state = state;
     };
 
     /**
@@ -293,7 +274,17 @@
      * @return {void}
      */
     Store.prototype._emitChange = function () {
-        this.events.publish(this.state);
+        this._events.publish(this);
+    };
+
+    /**
+     * @summary Return the current store state.
+     *
+     * @since 1.6.0
+     * @return {*}
+     */
+    Store.prototype.getState = function () {
+        return Object.assign({}, this._state);
     };
 
     /**
@@ -305,7 +296,7 @@
      * @return {void}
      */
     Store.prototype.subscribe = function (callback) {
-        this.events.subscribe(callback);
+        this._events.subscribe(callback);
     };
 
     /**
@@ -317,7 +308,7 @@
      * @return {void}
      */
     Store.prototype.unsubscribe = function (callback) {
-        this.events.unsubscribe(callback);
+        this._events.unsubscribe(callback);
     };
 
     /**
@@ -341,6 +332,24 @@
      */
     Store.prototype.reduce = function (state, action) {};
 
+    /**
+     * Merge the state with our store's state on dispatch
+     *
+     * @param payload
+     *
+     * @since 1.6.0
+     * @return {void}
+     */
+    Store.prototype.onDispatch = function (payload) {
+        const state = this.reduce(this.getState(), payload);
+
+        // If the state has actually mutated
+        if (!exports.ext.compare(this.getState(), state)) {
+            this._setState(state);
+            this._emitChange();
+        }
+    };
+
     // Export our base store
     exports.Store = Store;
 
@@ -349,6 +358,7 @@
      * @summary Store for toolbar state.
      *
      * @param {Dispatcher} dispatcher
+     * @since 1.6.0
      * @constructor
      */
     const ToolbarStore = function (dispatcher) {
@@ -360,8 +370,8 @@
 
     /**
      *
-     * @param state
-     * @param action
+     * @param {*} state
+     * @param {{type: string, data: *}} action
      *
      * @return {*}
      * @since 1.6.0
@@ -369,13 +379,11 @@
     ToolbarStore.prototype.reduce = function (state, action) {
         switch (action.type) {
             case ActionTypes.SET_BULK_ACTION:
-                return action.action;
-                break;
-
-            default:
-                return state;
+                state.bulk_action = action.data;
                 break;
         }
+
+        return state;
     };
 
     /**
@@ -384,7 +392,9 @@
      * @since 1.6.0
      */
     ToolbarStore.prototype.getInitialState = function () {
-        return '';
+        return {
+            bulk_action: ''
+        };
     };
 
 
@@ -394,7 +404,7 @@
      * @since 1.6.0
      */
     exports.stores = {
-        toolbarStore: new ToolbarStore(dispatcher)
+        toolbar: new ToolbarStore(dispatcher)
     };
 
     /**
