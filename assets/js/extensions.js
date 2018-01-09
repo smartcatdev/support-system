@@ -29,7 +29,7 @@
             switch (typeof (obj1[p])) {
                 // Deep compare objects
                 case 'object':
-                    if (!Object.compare(obj1[p], obj2[p]))
+                    if (!exports.ext.compare(obj1[p], obj2[p]))
                         return false;
 
                     break;

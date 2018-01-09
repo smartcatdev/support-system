@@ -156,7 +156,17 @@
         /**
          * @since 1.6.0
          */
-        SET_TOOLBAR_TOGGLE: 'SET_TOOLBAR_TOGGLE'
+        SET_TOOLBAR_TOGGLE: 'SET_TOOLBAR_TOGGLE',
+
+        /**
+         * @since 1.6.0
+         */
+        BULK_SELECT_ITEM: 'BULK_SELECT_ITEM',
+
+        /**
+         * @since 1.6.0
+         */
+        BULK_DESELECT_ITEM: 'BULK_DESELECT_ITEM',
     };
 
     /**
@@ -181,6 +191,40 @@
                 data: {
                     toggle: toggle,
                     value:  value
+                }
+            });
+        },
+
+        /**
+         * Select an item in the tickets list.
+         *
+         * @param {int|string} id
+         *
+         * @since 1.6.0
+         * @return {void}
+         */
+        selectTicket(id) {
+            dispatcher.dispatch({
+                type: ActionTypes.BULK_SELECT_ITEM,
+                data: {
+                    id: id
+                }
+            });
+        },
+
+        /**
+         * Deselect a selected item in the tickets list.
+         *
+         * @param {int|string} id
+         *
+         * @since 1.6.0
+         * @return {void}
+         */
+        deselectTicket(id) {
+            dispatcher.dispatch({
+                type: ActionTypes.BULK_DESELECT_ITEM,
+                data: {
+                    id: id
                 }
             });
         }
@@ -288,7 +332,7 @@
      * @return {*}
      */
     Store.prototype.getState = function () {
-        return Object.assign({}, this._state);
+        return $.extend(true, {}, this._state);
     };
 
     /**
@@ -334,7 +378,7 @@
      * @since 1.6.0
      * @return {*}
      */
-    Store.prototype.reduce = function (state, action) {};
+    Store.prototype.reduce = function (state, action) { return state };
 
     /**
      * Merge the state with our store's state on dispatch
@@ -345,11 +389,12 @@
      * @return {void}
      */
     Store.prototype.onDispatch = function (payload) {
-        const state = this.reduce(this.getState(), payload);
+        const current = this.getState(),
+              mutated = this.reduce(current, payload);
 
         // If the state has actually mutated
-        if (!exports.ext.compare(this.getState(), state)) {
-            this._setState(state);
+        if (!exports.ext.compare(current, mutated)) {
+            this._setState(mutated);
             this._emitChange();
         }
     };
@@ -374,7 +419,6 @@
 
     /**
      *
-     *
      * @param {*}                       state
      * @param {{type: string, data: *}} action
      *
@@ -382,13 +426,15 @@
      * @since 1.6.0
      */
     ToolbarStore.prototype.reduce = function (state, action) {
+        const copy = $.extend(true, {}, state);
+
         switch (action.type) {
             case ActionTypes.SET_TOOLBAR_TOGGLE:
-                state[action.data.toggle] = action.data.value;
+                copy[action.data.toggle] = action.data.value;
                 break;
         }
 
-        return state;
+        return copy;
     };
 
     /**
@@ -404,12 +450,73 @@
 
 
     /**
+     * @summary Store for the tickets list in the dashboard.
+     *
+     * @param {Dispatcher} dispatcher
+     *
+     * @since 1.6.0
+     * @constructor
+     */
+    const TicketsStore = function (dispatcher) {
+        Store.call(this, dispatcher);
+    };
+
+    // Inherit from store
+    $.extend(TicketsStore.prototype, Store.prototype);
+
+
+    /**
+     *
+     * @return {*}
+     * @since 1.6.0
+     */
+    TicketsStore.prototype.getInitialState = function () {
+        return {
+            selected: []
+        };
+    };
+
+    /**
+     *
+     * @param {*}                       state
+     * @param {{type: string, data: *}} action
+     *
+     * @return {*}
+     * @since 1.6.0
+     */
+    TicketsStore.prototype.reduce = function (state, action) {
+        const copy = $.extend(true, {}, state);
+
+        switch(action.type) {
+            case ActionTypes.BULK_SELECT_ITEM:
+                if (copy.selected.indexOf(action.data.id) < 0) {
+                    copy.selected.push(action.data.id);
+                }
+
+                break;
+
+            case ActionTypes.BULK_DESELECT_ITEM:
+                const index = state.selected.indexOf(action.data.id);
+                if (index > -1) {
+                    copy.selected.splice(index, 1);
+                    delete(copy.selected[copy.selected.indexOf(action.data.id)]);
+                }
+
+                break;
+        }
+
+        return copy;
+    };
+
+
+    /**
      * @summary System store objects.
      *
      * @since 1.6.0
      */
     exports.stores = {
-        toolbar: new ToolbarStore(dispatcher)
+        toolbar: new ToolbarStore(dispatcher),
+        tickets: new TicketsStore(dispatcher)
     };
 
     /**
