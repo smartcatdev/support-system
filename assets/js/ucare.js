@@ -409,12 +409,11 @@
      *
      * @param {Dispatcher} dispatcher
      * @param {object}     options
-     * @param {*}          initialState
      *
      * @since 1.6.0
      * @return {Store}
      */
-    const createStore = function createStore(dispatcher, options, initialState) {
+    const createStore = function createStore(dispatcher, options) {
         const store = function () {
             Store.call(this);
         };
@@ -423,12 +422,7 @@
 
         // Override the store prototype
         store.prototype.reduce = options.reducer;
-
-        if (initialState) {
-            store.prototype.getInitialState = function () {
-                return initialState;
-            }
-        }
+        store.prototype.getInitialState = options.getInitialState;
 
         const instance = new store();
 
@@ -516,8 +510,13 @@
          *
          * @since 1.6.0
          */
-        toolbar: createStore(dispatcher, { reducer: reducers.toolbar }, {
-            bulk_action: ''
+        toolbar: createStore(dispatcher, {
+            reducer: reducers.toolbar,
+            getInitialState: function () {
+                return {
+                    bulk_action: ''
+                }
+            }
         }),
 
         /**
@@ -525,8 +524,13 @@
          *
          * @since 1.6.0
          */
-        tickets: createStore(dispatcher, { reducer: reducers.tickets }, {
-            selected: []
+        tickets: createStore(dispatcher, {
+            reducer: reducers.tickets,
+            getInitialState: function () {
+                return {
+                    selected: []
+                }
+            }
         })
     };
 
