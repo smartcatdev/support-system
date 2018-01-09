@@ -32,23 +32,68 @@
      * @since 1.6.0
      * @return {object}
      */
-    const EventBus = function () {
+    const EventEmitter = function () {
 
-        // Internal hooks
-        const callbacks = jQuery.Callbacks();
+        // Internal events
+        const events = {};
 
-        // Remap function names
         return {
-            publish:     callbacks.fire,
-            subscribe:   callbacks.add,
-            unsubscribe: callbacks.remove
-        };
+
+            /**
+             * @summary Add a callback to a channel.
+             *
+             * @param {string}   e
+             * @param {Function} callback
+             *
+             * @since 1.6.0
+             * @return {void}
+             */
+            on: function (e, callback) {
+                if (!events[e]) {
+                    events[e] = jQuery.Callbacks();
+                }
+
+                events[e].add(callback);
+            },
+
+            /**
+             * Remove a callback from a channel.
+             *
+             * @param {string}   e
+             * @param {Function} callback
+             *
+             * @since 1.6.0
+             * @return {void}
+             */
+            off: function (e, callback) {
+                if (events[e]) {
+                    events[e].remove(callback)
+                }
+            },
+
+            /**
+             * Publish an event on the bus.
+             *
+             * @param {string} e
+             * @param {*}      data
+             *
+             * @since 1.6.0
+             * @return void
+             */
+            emit: function (e, data) {
+                if (events[e]) {
+                    var args = [];
+                    for (var ctr = 1; ctr < arguments.length; ctr++) {
+                        args.push(arguments[ctr]);
+                    }
+
+                    // Fill for spread (...obj)
+                    events[e].fire.apply(events[e], args);
+                }
+            }
+        }
 
     };
-
-    // Export our bus
-    exports.EventBus = EventBus;
-
 
     /**
      * @summary Internal global event messaging system.
@@ -56,95 +101,15 @@
      * @since 1.6.0
      * @type {object}
      */
-    exports.events = {
+    const events = new EventEmitter();
 
-        /**
-         * @summary List of default registered broadcast channels.
-         */
-        channels: {
 
-            /**
-             * @summary Channel for the current user object.
-             *
-             * @since 1.6.0
-             */
-            CURRENT_USER: 'channel_current_user',
+    // Export our bus
+    exports.EventEmitter = EventEmitter;
 
-            /**
-             * @summary Channel for new registered users.
-             *
-             * @since 1.6.0
-             */
-            REGISTER_USER: 'channel_register_user'
+    // Export the events
+    exports.events = events;
 
-        },
-
-        /**
-         * @summary List of registered channels.
-         */
-        _channels: {},
-
-        /**
-         * @summary Add a callback to a channel.
-         *
-         * @param {string}   channel
-         * @param {Function} callback
-         *
-         * @since 1.6.0
-         * @return {EventBus}
-         */
-        subscribe: function (channel, callback) {
-
-            if (!this._channels[channel]) {
-                this._channels[channel] = new EventBus();
-            }
-
-            this._channels[channel].subscribe(callback);
-
-            // Return the event bus instance
-            return this._channels[channel];
-
-        },
-
-        /**
-         * Remove a callback from a channel.
-         *
-         * @param {string}   channel
-         * @param {Function} callback
-         *
-         * @since 1.6.0
-         * @return {void}
-         */
-        unsubscribe: function (channel, callback) {
-            if (this._channels[channel]) {
-                this._channels[channel].unsubscribe(callback);
-            }
-        },
-
-        /**
-         * Publish an event on the bus.
-         *
-         * @param {string} channel
-         * @param {*}      data
-         *
-         * @since 1.6.0
-         * @return void
-         */
-        publish: function (channel, data) {
-            if (this._channels[channel]) {
-                const selected = this._channels[channel];
-
-                var args = [];
-                for (var ctr = 1; ctr < arguments.length; ctr++) {
-                    args.push(arguments[ctr]);
-                }
-
-                // Fill for spread (...obj)
-                selected.publish.apply(selected.publish, args);
-            }
-        }
-
-    };
 
     /**
      * @summary Default system action types.
@@ -324,7 +289,7 @@
      * @constructor
      */
     const Store = function (dispatcher) {
-        this._events = new EventBus();
+        this._events = new EventEmitter();
         this._state  = this.getInitialState();
 
         // Setup reduction
@@ -350,7 +315,7 @@
      * @return {void}
      */
     Store.prototype._emitChange = function () {
-        this._events.publish(this);
+        this._events.emit('change', this);
     };
 
     /**
@@ -371,8 +336,8 @@
      * @since 1.6.0
      * @return {void}
      */
-    Store.prototype.subscribe = function (callback) {
-        this._events.subscribe(callback);
+    Store.prototype.on = function (e, callback) {
+        this._events.on(e, callback);
     };
 
     /**
@@ -383,8 +348,8 @@
      * @since 1.6.0
      * @return {void}
      */
-    Store.prototype.unsubscribe = function (callback) {
-        this._events.unsubscribe(callback);
+    Store.prototype.off = function (e, callback) {
+        this._events.off(e, callback);
     };
 
     /**

@@ -32,8 +32,7 @@
                     xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                 }
             })
-            .success(function (res) {
-                ucare.events.publish(ucare.events.channels.REGISTER_USER, res);
+            .success(function () {
                 location.reload();
             })
             .fail(function (xhr) {

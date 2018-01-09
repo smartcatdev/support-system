@@ -22,7 +22,7 @@
             /**
              * @summary Adjust UI state when the store changes.
              */
-            ucare.stores.toolbar.subscribe(function (store) {
+            ucare.stores.toolbar.on('change', function (store) {
                 const state = store.getState(),
                       $list = $('#the-tickets');
 
