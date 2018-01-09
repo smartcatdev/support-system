@@ -499,7 +499,6 @@
                 const index = state.selected.indexOf(action.data.id);
                 if (index > -1) {
                     copy.selected.splice(index, 1);
-                    delete(copy.selected[copy.selected.indexOf(action.data.id)]);
                 }
 
                 break;

@@ -36,28 +36,26 @@
                 // Uncheck all bulk selectors
                 } else {
                     $list.removeClass('has-bulk-action no-replace');
-                    $list.find('[name="bulk_selected"]').each(function (i, el) {
+                    $list.find('[name="bulk_item_selected"]').each(function (i, el) {
                         $(el).prop('checked', false);
                     });
                 }
             });
 
+
+            $(document).on('change', '[name="bulk_item_selected"]', function () {
+                alert()
+                // module.toggle_item_select($(this).attr('value'), $(this).is(':checked'));
+            });
+
+
+        },
+
+        toggle_item_select: function (id, selected) {
+            alert(selected)
         }
 
     };
-
-    ucare.stores.tickets.subscribe(function (store) {
-        console.log(store.getState())
-    });
-
-
-    ucare.Actions.selectTicket(2);
-    ucare.Actions.selectTicket(55);
-    ucare.Actions.deselectTicket(2);
-
-
-
-
 
     // Initialize the module
     $(module.init);

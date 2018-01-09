@@ -37,7 +37,7 @@ namespace ucare;
 
                             </div>
 
-                            <input type="checkbox" name="bulk_selected" value="<?php esc_attr_e( $post->ID ); ?>" />
+                            <input type="checkbox" name="bulk_item_selected" value="<?php esc_attr_e( $post->ID ); ?>" />
 
                         </div>
 
