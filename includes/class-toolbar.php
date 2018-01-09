@@ -54,13 +54,6 @@ class Toolbar {
                             </a>
                         </li>
 
-                        <li>
-                            <a href="#" class="toolbar-item-toggle">
-                                <span class="glyphicon check-feedback"></span>
-                                <input name="bulk_action" type="checkbox" value="close"> <?php _e( 'Close', 'ucare' ); ?>
-                            </a>
-                        </li>
-
                     </ul>
 
                 </li>

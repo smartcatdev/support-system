@@ -38,7 +38,6 @@
                              if (el.checked) {
                                  $(el).prop('checked', false).trigger('change');
                              }
-
                     });
                 }
             });
@@ -49,6 +48,14 @@
             $(document).on('change', '[name="bulk_item_selected"]', function () {
                 module.toggleItemSelected($(this).prop('value'), this.checked);
             });
+
+            /**
+             * @summary Handle bulk action execution.
+             */
+            $('#bulk-action-execute').click(function () {
+                module.bulkDeleteTickets();
+            });
+
         },
 
         /**
@@ -67,13 +74,22 @@
             } else {
                 ucare.Actions.deselectTicket(id);
             }
-        }
+        },
+
+        /**
+         * @summary Delete all currently selected tickets.
+         *
+         * @since 1.6.0
+         * @return void
+         */
+        bulkDeleteTickets: function () {
+            ucare.stores.tickets.getState().selected.forEach(function (selected) {
+                ucare.Actions.deleteTicket(selected);
+            });
+        },
 
     };
 
-    ucare.stores.tickets.subscribe(function (store) {
-        console.log(store.getState())
-    })
 
     // Initialize the module
     $(module.init);

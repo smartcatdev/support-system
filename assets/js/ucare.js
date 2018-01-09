@@ -167,6 +167,11 @@
          * @since 1.6.0
          */
         BULK_DESELECT_ITEM: 'BULK_DESELECT_ITEM',
+
+        /**
+         * @since 1.6.0
+         */
+        TICKET_DELETED: 'TICKET_DELETED'
     };
 
     /**
@@ -198,7 +203,7 @@
         /**
          * Select an item in the tickets list.
          *
-         * @param {int|string} id
+         * @param {int} id
          *
          * @since 1.6.0
          * @return {void}
@@ -215,7 +220,7 @@
         /**
          * Deselect a selected item in the tickets list.
          *
-         * @param {int|string} id
+         * @param {int} id
          *
          * @since 1.6.0
          * @return {void}
@@ -227,8 +232,31 @@
                     id: id
                 }
             });
-        }
+        },
 
+        /**
+         * Delete a ticket.
+         *
+         * @param {int} id
+         *
+         * @since 1.6.0
+         * @return {void}
+         */
+        deleteTicket(id) {
+            $.ajax({
+                url: localize.api.root + 'wp/v2/support-tickets/' + id,
+                method: 'delete',
+                beforeSend: set_rest_nonce,
+                success: function () {
+                    dispatcher.dispatch({
+                        type: ActionTypes.TICKET_DELETED,
+                        data: {
+                            id: id
+                        }
+                    });
+                }
+            });
+        }
     };
 
     /**
@@ -462,7 +490,8 @@
          * @since 1.6.0
          */
         tickets: function (state, action) {
-            const copy = $.extend(true, {}, state);
+            var index = -1,
+                copy  = $.extend(true, {}, state);
 
             switch(action.type) {
                 case ActionTypes.BULK_SELECT_ITEM:
@@ -473,7 +502,16 @@
                     break;
 
                 case ActionTypes.BULK_DESELECT_ITEM:
-                    const index = state.selected.indexOf(action.data.id);
+                    index = copy.selected.indexOf(action.data.id);
+                    if (index > -1) {
+                        copy.selected.splice(index, 1);
+                    }
+
+                    break;
+
+                case ActionTypes.TICKET_DELETED:
+                    // Remove the ticket from the selected list
+                    index = copy.selected.indexOf(action.data.id);
                     if (index > -1) {
                         copy.selected.splice(index, 1);
                     }
