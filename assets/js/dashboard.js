@@ -26,7 +26,7 @@
                 const state = store.getState(),
                       $list = $('#the-tickets');
 
-                if (state['bulk-action']) {
+                if (state['bulk_action']) {
                     $list.addClass('has-bulk-action no-replace');
 
                 // Uncheck all bulk selectors
@@ -71,6 +71,9 @@
 
     };
 
+    ucare.stores.tickets.subscribe(function (store) {
+        console.log(store.getState())
+    })
 
     // Initialize the module
     $(module.init);

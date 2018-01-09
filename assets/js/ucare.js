@@ -414,13 +414,22 @@
      * @return {Store}
      */
     const createStore = function createStore(dispatcher, reducer, initialState) {
-        const store = new Store(dispatcher);
+        const store = function (dispatcher) {
+            Store.call(this, dispatcher);
+        };
+
+        $.extend(store.prototype, Store.prototype);
 
         // Override the store prototype
         store.prototype.reduce = reducer;
-        store.prototype.getInitialState = function () {
-            return initialState;
+
+        if (initialState) {
+            store.prototype.getInitialState = function () {
+                return initialState;
+            }
         }
+
+        return new store(dispatcher);
     };
 
     // Export factory
@@ -428,107 +437,52 @@
 
 
     /**
-     * @summary Store for toolbar state.
+     * @summary Internal store reducer functions.
      *
-     * @param {Dispatcher} dispatcher
-     * @since 1.6.0
-     * @constructor
-     */
-    const ToolbarStore = function (dispatcher) {
-        Store.call(this, dispatcher);
-    };
-
-    // Inherit from store
-    $.extend(ToolbarStore.prototype, Store.prototype);
-
-    /**
-     *
-     * @param {*}                       state
-     * @param {{type: string, data: *}} action
-     *
-     * @return {*}
      * @since 1.6.0
      */
-    ToolbarStore.prototype.reduce = function (state, action) {
-        const copy = $.extend(true, {}, state);
+    const reducers = {
 
-        switch (action.type) {
-            case ActionTypes.SET_TOOLBAR_TOGGLE:
-                copy[action.data.toggle] = action.data.value;
-                break;
+        /**
+         * @since 1.6.0
+         */
+        toolbar: function (state, action) {
+            const copy = $.extend(true, {}, state);
+
+            switch (action.type) {
+                case ActionTypes.SET_TOOLBAR_TOGGLE:
+                    copy[action.data.toggle] = action.data.value;
+                    break;
+            }
+
+            return copy;
+        },
+
+        /**
+         * @since 1.6.0
+         */
+        tickets: function (state, action) {
+            const copy = $.extend(true, {}, state);
+
+            switch(action.type) {
+                case ActionTypes.BULK_SELECT_ITEM:
+                    if (copy.selected.indexOf(action.data.id) < 0) {
+                        copy.selected.push(action.data.id);
+                    }
+
+                    break;
+
+                case ActionTypes.BULK_DESELECT_ITEM:
+                    const index = state.selected.indexOf(action.data.id);
+                    if (index > -1) {
+                        copy.selected.splice(index, 1);
+                    }
+
+                    break;
+            }
+
+            return copy;
         }
-
-        return copy;
-    };
-
-    /**
-     *
-     * @return {*}
-     * @since 1.6.0
-     */
-    ToolbarStore.prototype.getInitialState = function () {
-        return {
-            'bulk-action': ''
-        };
-    };
-
-
-    /**
-     * @summary Store for the tickets list in the dashboard.
-     *
-     * @param {Dispatcher} dispatcher
-     *
-     * @since 1.6.0
-     * @constructor
-     */
-    const TicketsStore = function (dispatcher) {
-        Store.call(this, dispatcher);
-    };
-
-    // Inherit from store
-    $.extend(TicketsStore.prototype, Store.prototype);
-
-
-    /**
-     *
-     * @return {*}
-     * @since 1.6.0
-     */
-    TicketsStore.prototype.getInitialState = function () {
-        return {
-            selected: []
-        };
-    };
-
-    /**
-     *
-     * @param {*}                       state
-     * @param {{type: string, data: *}} action
-     *
-     * @return {*}
-     * @since 1.6.0
-     */
-    TicketsStore.prototype.reduce = function (state, action) {
-        const copy = $.extend(true, {}, state);
-
-        switch(action.type) {
-            case ActionTypes.BULK_SELECT_ITEM:
-                if (copy.selected.indexOf(action.data.id) < 0) {
-                    copy.selected.push(action.data.id);
-                }
-
-                break;
-
-            case ActionTypes.BULK_DESELECT_ITEM:
-                const index = state.selected.indexOf(action.data.id);
-                if (index > -1) {
-                    copy.selected.splice(index, 1);
-                }
-
-                break;
-        }
-
-        return copy;
     };
 
 
@@ -538,8 +492,24 @@
      * @since 1.6.0
      */
     exports.stores = {
-        toolbar: new ToolbarStore(dispatcher),
-        tickets: new TicketsStore(dispatcher)
+
+        /**
+         * @summary Store for managing the global toolbar state.
+         *
+         * @since 1.6.0
+         */
+        toolbar: createStore(dispatcher, reducers.toolbar, {
+            bulk_action: ''
+        }),
+
+        /**
+         * @summary Store for managing the ticket list state.
+         *
+         * @since 1.6.0
+         */
+        tickets: createStore(dispatcher, reducers.tickets, {
+            selected: []
+        })
     };
 
     /**

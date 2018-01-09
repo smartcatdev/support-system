@@ -50,14 +50,14 @@ class Toolbar {
                         <li>
                             <a href="#" class="toolbar-item-toggle">
                                 <span class="glyphicon check-feedback"></span>
-                                <input name="bulk-action" type="checkbox" value="delete"> <?php _e( 'Delete', 'ucare' ); ?>
+                                <input name="bulk_action" type="checkbox" value="delete"> <?php _e( 'Delete', 'ucare' ); ?>
                             </a>
                         </li>
 
                         <li>
                             <a href="#" class="toolbar-item-toggle">
                                 <span class="glyphicon check-feedback"></span>
-                                <input name="bulk-action" type="checkbox" value="close"> <?php _e( 'Close', 'ucare' ); ?>
+                                <input name="bulk_action" type="checkbox" value="close"> <?php _e( 'Close', 'ucare' ); ?>
                             </a>
                         </li>
 
