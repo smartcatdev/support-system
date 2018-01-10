@@ -8,6 +8,8 @@
 
     $(function () {
 
+        const $toolbar = $('#the-toolbar');
+
         /**
          * @summary Treat toolbar-toggle links like labels
          */
@@ -27,6 +29,19 @@
 
             ucare.Actions.setToolbarToggle(name, checked ? value : false);
             return false;
+        });
+
+
+        /**
+         * @summary Adjust UI state when the toolbar changes.
+         */
+        ucare.stores.toolbar.on('change', function (store) {
+            if (store.getState().bulk_action_active) {
+                $toolbar.find('#toolbar-ribbon').slideDown();
+
+            } else {
+                $toolbar.find('#toolbar-ribbon').slideUp();
+            }
         });
 
     });

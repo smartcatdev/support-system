@@ -182,7 +182,7 @@
             dispatcher.dispatch({
                 type: ActionTypes.SET_BULK_ACTION,
                 data: {
-                    action: action
+                    selected: action
                 }
             });
         },
@@ -478,6 +478,10 @@
                 case ActionTypes.SET_TOOLBAR_TOGGLE:
                     copy[action.data.toggle] = action.data.value;
                     break;
+
+                case ActionTypes.SET_BULK_ACTION:
+                    copy.selected_bulk_action = action.selected;
+                    break;
             }
 
             return copy;
@@ -539,7 +543,7 @@
             initialState: function () {
                 return {
                     bulk_action_active: false,
-                    current_bulk_action: ''
+                    selected_bulk_action: 'delete' // TODO make this variable
                 }
             }
         }),
