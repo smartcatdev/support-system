@@ -24,10 +24,11 @@
             /**
              * @summary Adjust UI state when the store changes.
              */
-            ucare.stores.toolbar.on('change', function (store) {
-                const $list = $('#the-tickets');
+            ucare.store.subscribe(function () {
+                const state = ucare.store.getState(),
+                      $list = $('#the-tickets');
 
-                if (store.getState().bulk_action_active) {
+                if (state.toolbar.bulk_action_active) {
                     $list.addClass('has-bulk-action no-replace');
 
                 // Uncheck all bulk selectors
@@ -46,7 +47,7 @@
             /**
              * @summary Remove deleted tickets from the list.
              */
-            ucare.stores.tickets.on('delete', function (id) {
+            ucare.events.on('ticket_deleted', function (id) {
                 const $list = $('#the-tickets');
 
                 // Reload the ticket list if we are at the end of the list
@@ -68,7 +69,8 @@
             /**
              * @summary Update the ticket count for the bulk action apply button
              */
-            ucare.stores.tickets.on('change', function (store) {
+            ucare.store.subscribe(function () {
+                const state = ucare.store.getState();
 
                 // Only if the ribbon is visible
                 if ($toolbar.find('#toolbar-ribbon').is(':visible')) {
@@ -79,8 +81,10 @@
                         $apply.data('text', $apply.text());
                     }
 
-                    var count = store.getState().selected.length,
-                        text = $apply.data('text');
+                    const selected = state.tickets.selected,
+                          count    = selected ? selected.length: 0;
+
+                    var text = $apply.data('text');
 
                     if (count > 0) {
                         text = text.concat(' (', count, ')');
@@ -105,7 +109,7 @@
                 })
                 .then(function (confirm) {
                     if (confirm) {
-                        switch (ucare.stores.toolbar.getState().selected_bulk_action) {
+                        switch ($('#selected-bulk-action').val()) {
                             case 'delete':
                                 module.bulkDeleteTickets();
                                 break;
@@ -148,7 +152,7 @@
          * @return void
          */
         bulkDeleteTickets: function () {
-            ucare.stores.tickets.getState().selected.forEach(function (selected) {
+            ucare.store.getState().tickets.selected.forEach(function (selected) {
                 ucare.Actions.deleteTicket(selected);
             });
         },

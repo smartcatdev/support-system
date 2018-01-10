@@ -20,7 +20,7 @@
             // Manually toggle the hidden checkbox
             $toggle.prop('checked', checked);
 
-            // Update the chedked value in the store
+            // Update the checked value in the store
             ucare.Actions.setToolbarToggle($toggle.attr('name'), checked ? $toggle.prop('value') : false);
 
             return false;
@@ -30,22 +30,21 @@
         /**
          * @summary Adjust UI state when the toolbar changes.
          */
-        ucare.stores.toolbar.on('change', function (store) {
-            const state = store.getState();
+        ucare.store.subscribe(function () {
+            const state = ucare.store.getState();
 
             $('a.toolbar-item-toggle')
                 .find('input[type="checkbox"]')
                 .each(function (i, el) {
-                    const checked = state[$(el).attr('name')];
+                    const checked = !!state.toolbar[$(el).attr('name')];
 
                     $(el).prop('checked', checked)
                          .parents('a.toolbar-item-toggle')
                          .toggleClass('has-item-checked', checked);
             });
 
-
             // TODO make ribbon support multiple actions
-            if (store.getState().bulk_action_active) {
+            if (state.toolbar.bulk_action_active) {
                 $toolbar.find('#toolbar-ribbon').slideDown('fast');
 
             } else {

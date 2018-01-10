@@ -94,7 +94,7 @@ function register_default_scripts() {
     ucare_register_script( 'ucare-extensions', resolve_url( 'assets/js/extensions.js' ), null, PLUGIN_VERSION );
 
 
-    ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery', 'ucare-extensions' ), PLUGIN_VERSION );
+    ucare_register_script( 'ucare', resolve_url( 'assets/js/ucare.js' ), array( 'jquery', 'ucare-extensions', 'redux' ), PLUGIN_VERSION );
     ucare_localize_script( 'ucare', 'ucare_l10n', $l10n );
 
 
@@ -102,6 +102,7 @@ function register_default_scripts() {
     ucare_register_script( 'jquery-serializejson', resolve_url( 'assets/js/jquery-serializejson.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
     // Register additional libraries
+    ucare_register_script( 'redux', resolve_url( 'assets/js/redux/redux.min.js' ), null, PLUGIN_VERSION );
     ucare_register_script( 'sweetalert', resolve_url( 'assets/js/sweetalert/sweetalert.min.js' ), null, PLUGIN_VERSION );
 
 }
