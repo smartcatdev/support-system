@@ -40,8 +40,6 @@ namespace ucare;
 
     <?php the_toolbar(); ?>
 
-    <button id="bulk-action-execute">Delete</button>
-
     <div class="container-fluid">
 
         <div class="row ticket-area-wrapper">

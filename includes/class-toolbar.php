@@ -37,28 +37,28 @@ class Toolbar {
 
             <div class="container-fluid">
 
-            <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
 
-                <li class="dropdown">
+                    <li class="dropdown">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <? _e( 'Bulk Actions', 'ucare' ); ?>
-                    </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <? _e( 'Bulk Actions', 'ucare' ); ?>
+                        </a>
 
-                    <ul class="dropdown-menu">
+                        <ul class="dropdown-menu">
 
-                        <li>
-                            <a href="#" class="toolbar-item-toggle">
-                                <span class="glyphicon check-feedback"></span>
-                                <input name="bulk_action" type="checkbox" value="delete"> <?php _e( 'Delete', 'ucare' ); ?>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="#" class="toolbar-item-toggle">
+                                    <span class="glyphicon check-feedback"></span>
+                                    <input name="bulk_action" type="checkbox" value="delete"> <?php _e( 'Delete', 'ucare' ); ?>
+                                </a>
+                            </li>
 
-                    </ul>
+                        </ul>
 
-                </li>
+                    </li>
 
-            </ul>
+                </ul>
 
             </div>
 

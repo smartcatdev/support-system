@@ -280,6 +280,8 @@
      */
     const dispatcher = new Dispatcher();
 
+
+
     /**
      * @summary Base class for a reducer store.
      *
@@ -288,7 +290,7 @@
      */
     const Store = function () {
         this._events = new EventEmitter();
-        this._state  = this.getInitialState();
+        this._state  = this.initialState();
     };
 
     /**
@@ -366,7 +368,7 @@
      * @since 1.6.0
      * @return {*}
      */
-    Store.prototype.getInitialState = function () {
+    Store.prototype.initialState = function () {
         return {};
     };
 
@@ -422,7 +424,7 @@
 
         // Override the store prototype
         store.prototype.reduce = options.reducer;
-        store.prototype.getInitialState = options.getInitialState;
+        store.prototype.initialState = options.initialState;
 
         const instance = new store();
 
@@ -512,7 +514,7 @@
          */
         toolbar: createStore(dispatcher, {
             reducer: reducers.toolbar,
-            getInitialState: function () {
+            initialState: function () {
                 return {
                     bulk_action: ''
                 }
@@ -526,7 +528,7 @@
          */
         tickets: createStore(dispatcher, {
             reducer: reducers.tickets,
-            getInitialState: function () {
+            initialState: function () {
                 return {
                     selected: []
                 }
@@ -555,10 +557,7 @@
                 data: user,
                 method: 'post',
                 url: ucare.api.root + 'wp/v2/users/me',
-                beforeSend: set_rest_nonce,
-                success: function (user) {
-                    ucare.events.publish(ucare.events.channels.CURRENT_USER, user);
-                }
+                beforeSend: set_rest_nonce
             });
         }
 

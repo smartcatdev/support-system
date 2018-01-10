@@ -79,7 +79,9 @@ function register_default_scripts() {
             'root'   => rest_url()
         ),
         'l10n' => array(
-
+            'strings' => array(
+                'delete_selection' => __( 'Delete Selection', 'ucare' )
+            )
         ),
         'settings' => array(
             'max_file_size' => get_option( Options::MAX_ATTACHMENT_SIZE )
