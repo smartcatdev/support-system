@@ -45,7 +45,7 @@ class Toolbar {
 
                             <a href="#" class="toolbar-item-toggle toggle-bulk-action">
                                 <input name="bulk_action_active" type="checkbox" />
-                                <span class="glyphicon check-feedback"></span> <? _e( 'Bulk Action', 'ucare' ); ?>
+                                <? _e( 'Bulk Action', 'ucare' ); ?> <span class="glyphicon check-feedback"></span>
                             </a>
 
                         </li>

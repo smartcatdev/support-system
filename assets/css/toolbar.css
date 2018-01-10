@@ -12,12 +12,14 @@
 
 #the-toolbar a.toolbar-item-toggle .check-feedback {
     width: 14px;
-    height: 14px;
+    height: 20px;
     display: inline-block;
+    color: #3498db;
 }
 
 #the-toolbar a.toolbar-item-toggle.has-item-checked .check-feedback:before {
-    content: "\e013";
+    content: "\25cf";
+    font-size: 20px;
 }
 
 #toolbar-ribbon {
