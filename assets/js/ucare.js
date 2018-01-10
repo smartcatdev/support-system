@@ -233,15 +233,15 @@
             $.ajax({
                 url: localize.api.root + 'wp/v2/support-tickets/' + id,
                 method: 'delete',
-                beforeSend: set_rest_nonce,
-                success: function () {
-                    dispatcher.dispatch({
-                        type: ActionTypes.TICKET_DELETED,
-                        data: {
-                            id: id
-                        }
-                    });
-                }
+                beforeSend: set_rest_nonce
+            })
+            .success(function () {
+                dispatcher.dispatch({
+                    type: ActionTypes.TICKET_DELETED,
+                    data: {
+                        id: id
+                    }
+                });
             });
         }
     };
