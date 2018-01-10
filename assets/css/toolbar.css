@@ -1,12 +1,8 @@
-#the-toolbar {
+#the-toolbar .navbar {
     margin: 0;
     border-radius: 0;
     border-right: none;
     border-left: none;
-}
-
-#the-toolbar a.toolbar-item-toggle {
-    padding: 3px 10px;
 }
 
 #the-toolbar a.toolbar-item-toggle > input[type="checkbox"] {
@@ -25,5 +21,6 @@
 }
 
 #toolbar-ribbon {
+    display: none;
     border-bottom: 1px solid #e7e7e7;
 }

@@ -19,6 +19,8 @@
          */
         init: function () {
 
+            const $toolbar = $('#the-toolbar');
+
             /**
              * @summary Adjust UI state when the store changes.
              */
@@ -26,11 +28,13 @@
                 const state = store.getState(),
                       $list = $('#the-tickets');
 
-                if (state['bulk_action']) {
+                if (state.bulk_action_active) {
                     $list.addClass('has-bulk-action no-replace');
+                    $toolbar.find('#toolbar-ribbon').slideDown();
 
                 // Uncheck all bulk selectors
                 } else {
+                    $toolbar.find('#toolbar-ribbon').slideUp();
                     $list.removeClass('has-bulk-action no-replace');
                     $list.find('[name="bulk_item_selected"]')
                          .each(function (i, el) {
@@ -54,7 +58,7 @@
                     App.load_tickets();
 
                     // Unset the bulk action
-                    ucare.Actions.setToolbarToggle('bulk_action', '');
+                    ucare.Actions.setToolbarToggle('bulk_action_active', false);
 
                 // Remove a single item from the list
                 } else {
@@ -65,58 +69,90 @@
             });
 
             /**
-             * @summary Toggle the toolbar ribbon display when the bulk selection changes.
+             * @summary Update the ticket count for the bulk action apply button
              */
             ucare.stores.tickets.on('change', function (store) {
-                const state   = store.getState(),
-                      toolbar = ucare.stores.toolbar;
 
-                if (state.selected.length > 0 && toolbar.getState().bulk_action === 'delete') {
-                    const $apply = $('<button>', {
-                        id: 'apply-bulk-delete',
-                        class: 'btn btn-default',
-                        text: ucare.l10n.strings.delete_selection.concat(' (', state.selected.length, ')')
-                    })
-                    .click(function () {
-                        swal(ucare.l10n.strings.are_you_sure, {
-                            icon: 'warning',
-                            dangerMode: true,
-                            buttons: [
-                                ucare.l10n.strings.no,
-                                ucare.l10n.strings.yes
-                            ]
-                        })
-                        .then(function (confirm) {
-                            if (confirm) {
-                                module.bulkDeleteTickets();
-                            }
-                        });
-                    });
+                // Only if the ribbon is visible
+                if ($toolbar.find('#toolbar-ribbon').is(':visible')) {
+                    const $apply = $toolbar.find('#apply-bulk-action');
 
-                    const $ribbon = $('<div>', {
-                        id: 'toolbar-ribbon',
-                        class: 'container-fluid'
-                    })
-                    .append($('<div>', {
-                        class: 'row',
-                        html: $apply
-                    }));
-
-                    if ($('#toolbar-ribbon').length < 1) {
-                        $('#the-toolbar').after($ribbon.hide());
-                        $ribbon.slideDown();
-
-                    } else {
-                        $('#apply-bulk-delete').replaceWith($apply);
+                    // Store the original text
+                    if (!$apply.data('text')) {
+                        $apply.data('text', $apply.text());
                     }
 
-                } else {
-                    $('#toolbar-ribbon').slideUp(function (){
-                        $(this).remove();
-                    });
+                    var count = store.getState().selected.length,
+                        text = $apply.data('text');
+
+                    if (count > 0) {
+                        text = text.concat(' (', count, ')');
+                    }
+
+                    $apply.text(text).prop('disabled', !count > 0);
                 }
 
             });
+
+            $('#apply-bulk-action').click(function () {
+               if ($('#selected-bulk-action').val() === 'delete') {
+                    alert()
+               }
+            });
+
+                // const state   = store.getState(),
+                //       toolbar = ucare.stores.toolbar;
+                //
+                // if (toolbar.getState().bulk_action) {
+                //     $toolbar.find('#toolbar-ribbon').slideDown();
+                // } else if (state.selected.length > 0) {
+                //     $toolbar.find('#toolbar-ribbon').slideUp();
+                // }
+                //     const $apply = $('<button>', {
+                //         id: 'apply-bulk-delete',
+                //         class: 'btn btn-default',
+                //         text: ucare.l10n.strings.delete_selection.concat(' (', state.selected.length, ')')
+                //     })
+                //     .click(function () {
+                //         swal(ucare.l10n.strings.are_you_sure, {
+                //             icon: 'warning',
+                //             dangerMode: true,
+                //             buttons: [
+                //                 ucare.l10n.strings.no,
+                //                 ucare.l10n.strings.yes
+                //             ]
+                //         })
+                //         .then(function (confirm) {
+                //             if (confirm) {
+                //                 module.bulkDeleteTickets();
+                //             }
+                //         });
+                //     });
+                //
+                //     const $ribbon = $('<div>', {
+                //         id: 'toolbar-ribbon',
+                //         class: 'container-fluid'
+                //     })
+                //     .append($('<div>', {
+                //         class: 'row',
+                //         html: $apply
+                //     }));
+                //
+                //     if ($('#toolbar-ribbon').length < 1) {
+                //         $('#the-toolbar').after($ribbon.hide());
+                //         $ribbon.slideDown();
+                //
+                //     } else {
+                //         $('#apply-bulk-delete').replaceWith($apply);
+                //     }
+                //
+                // } else {
+                //     $('#toolbar-ribbon').slideUp(function (){
+                //         $(this).remove();
+                //     });
+                // }
+
+            // });
 
             /**
              * @summary Toggle selected ticket state

@@ -25,7 +25,7 @@
             $toggle.prop('checked', checked);
             $(this).toggleClass('has-item-checked', checked);
 
-            ucare.Actions.setToolbarToggle(name, checked ? value : '');
+            ucare.Actions.setToolbarToggle(name, checked ? value : false);
             return false;
         });
 

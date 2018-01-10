@@ -126,6 +126,11 @@
         /**
          * @since 1.6.0
          */
+        SET_BULK_ACTION: 'SET_BULK_ACTION',
+
+        /**
+         * @since 1.6.0
+         */
         BULK_SELECT_ITEM: 'BULK_SELECT_ITEM',
 
         /**
@@ -161,6 +166,23 @@
                 data: {
                     toggle: toggle,
                     value:  value
+                }
+            });
+        },
+
+        /**
+         * Set the value of the currently selected bulk action.
+         *
+         * @param {string} action
+         *
+         * @since 1.6.0
+         * @return void
+         */
+        setBulkAction(action) {
+            dispatcher.dispatch({
+                type: ActionTypes.SET_BULK_ACTION,
+                data: {
+                    action: action
                 }
             });
         },
@@ -516,7 +538,8 @@
             reducer: reducers.toolbar,
             initialState: function () {
                 return {
-                    bulk_action: ''
+                    bulk_action_active: false,
+                    current_bulk_action: ''
                 }
             }
         }),

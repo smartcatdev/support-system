@@ -33,32 +33,52 @@ class Toolbar {
     public function render() {
         ?>
 
-        <div id="the-toolbar" class="navbar navbar-default">
+        <div id="the-toolbar">
 
-            <div class="container-fluid">
+            <div class="navbar navbar-default">
 
-                <ul class="nav navbar-nav">
+                <div class="container-fluid">
 
-                    <li class="dropdown">
+                    <ul class="nav navbar-nav">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <? _e( 'Bulk Actions', 'ucare' ); ?>
-                        </a>
+                        <li>
 
-                        <ul class="dropdown-menu">
+                            <a href="#" class="toolbar-item-toggle">
+                                <input name="bulk_action_active" type="checkbox" />
+                                <span class="glyphicon check-feedback"></span> <? _e( 'Bulk Action', 'ucare' ); ?>
+                            </a>
 
-                            <li>
-                                <a href="#" class="toolbar-item-toggle">
-                                    <span class="glyphicon check-feedback"></span>
-                                    <input name="bulk_action" type="checkbox" value="delete"> <?php _e( 'Delete', 'ucare' ); ?>
-                                </a>
-                            </li>
+                        </li>
 
-                        </ul>
+                    </ul>
 
-                    </li>
+                </div>
 
-                </ul>
+            </div>
+
+            <div id="toolbar-ribbon" class="container-fluid">
+
+                <div class="row inner">
+
+                    <div id="bulk-action" class="col-sm-3">
+
+                        <div class="input-group">
+
+                            <select id="selected-bulk-action" class="form-control">
+                                <option value="delete"><?php _e( 'Delete', 'ucare' ); ?></option>
+                            </select>
+
+                            <div class="input-group-btn">
+                                <button id="apply-bulk-action" class="btn btn-default" disabled>
+                                    <?php _e( 'Apply', 'ucare' ); ?>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
