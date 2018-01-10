@@ -59,7 +59,7 @@
 
                 // Remove a single item from the list
                 } else {
-                    $('#ticket-' + id).slideUp(function () {
+                    $('#ticket-' + id).slideUp('fast', function () {
                         $(this).remove();
                     });
                 }

@@ -46,10 +46,10 @@
 
             // TODO make ribbon support multiple actions
             if (store.getState().bulk_action_active) {
-                $toolbar.find('#toolbar-ribbon').slideDown();
+                $toolbar.find('#toolbar-ribbon').slideDown('fast');
 
             } else {
-                $toolbar.find('#toolbar-ribbon').slideUp();
+                $toolbar.find('#toolbar-ribbon').slideUp('fast');
             }
         });
 
