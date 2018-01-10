@@ -80,7 +80,10 @@ function register_default_scripts() {
         ),
         'l10n' => array(
             'strings' => array(
-                'delete_selection' => __( 'Delete Selection', 'ucare' )
+                'delete_selection' => __( 'Delete Selection', 'ucare' ),
+                'are_you_sure'     => __( 'Are you sure you want to do this?', 'ucare' ),
+                'yes' => __( 'Yes', 'ucare' ),
+                'no'  => __( 'No',  'ucare' )
             )
         ),
         'settings' => array(
@@ -97,6 +100,9 @@ function register_default_scripts() {
 
     // Register jQuery plugins
     ucare_register_script( 'jquery-serializejson', resolve_url( 'assets/js/jquery-serializejson.js' ), array( 'jquery' ), PLUGIN_VERSION );
+
+    // Register additional libraries
+    ucare_register_script( 'sweetalert', resolve_url( 'assets/js/sweetalert/sweetalert.min.js' ), null, PLUGIN_VERSION );
 
 }
 
@@ -117,6 +123,7 @@ function enqueue_default_scripts() {
     ucare_enqueue_script( 'ucare-extensions' );
     ucare_enqueue_script( 'jquery' );
     ucare_enqueue_script( 'wp-util' );
+    ucare_enqueue_script( 'sweetalert' );
 
     ucare_enqueue_script( 'bootstrap', resolve_url( 'assets/lib/bootstrap/js/bootstrap.min.js' ), null, PLUGIN_VERSION, true );
     ucare_enqueue_script( 'dropzone',  resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'   ), null, PLUGIN_VERSION, true );
