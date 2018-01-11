@@ -46,37 +46,37 @@ class Plugin extends AbstractPlugin {
 
     public function deactivate() {
         
-        // Delete the first run option on de-activate
-        // This triggers the First Run welcome screen to load on reload
-        delete_option( Options::FIRST_RUN );
-        
+//        // Delete the first run option on de-activate
+//        // This triggers the First Run welcome screen to load on reload
+//        delete_option( Options::FIRST_RUN );
+//
         if( isset( $_POST['product_feedback'] ) ) {
             $message = include $this->dir . '/emails/product-feedback.php';
             $headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
             wp_mail( 'support@smartcat.ca', 'uCare Deactivation Feedback', $message, $headers );
         }
-
-        // Trash the template page
-        wp_trash_post( get_option( Options::TEMPLATE_PAGE_ID ) );
-
-        proc\cleanup_roles();
-        proc\clear_scheduled_jobs();
+//
+//        // Trash the template page
+//        wp_trash_post( get_option( Options::TEMPLATE_PAGE_ID ) );
+//
+//        proc\cleanup_roles();
+//        proc\clear_scheduled_jobs();
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Options::DEV_MODE ) === 'on' && get_option( Options::NUKE ) === 'on' ) {
-            $options = new \ReflectionClass( Options::class );
-
-            foreach( $options->getConstants() as $option ) {
-                delete_option( $option );
-            }
-
-            update_option( Options::DEV_MODE, 'on' );
-        }
-
-        unregister_post_type( 'support_ticket' );
-        unregister_taxonomy( 'ticket_category' );
+//        if( get_option( Options::DEV_MODE ) === 'on' && get_option( Options::NUKE ) === 'on' ) {
+//            $options = new \ReflectionClass( Options::class );
+//
+//            foreach( $options->getConstants() as $option ) {
+//                delete_option( $option );
+//            }
+//
+//            update_option( Options::DEV_MODE, 'on' );
+//        }
+//
+//        unregister_post_type( 'support_ticket' );
+//        unregister_taxonomy( 'ticket_category' );
 
     }
 

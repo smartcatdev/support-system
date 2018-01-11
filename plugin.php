@@ -71,7 +71,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         protected function initialize() {
-
             $this->do_defines();
             $this->do_includes();
 
@@ -79,7 +78,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             // All done
             do_action( 'ucare_loaded', $this );
-
         }
 
 
@@ -91,7 +89,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function do_defines() {
-
             define( 'UCARE_DIR', plugin_dir_path( __FILE__ ) );
             define( 'UCARE_URL', plugin_dir_url(  __FILE__ ) );
 
@@ -115,9 +112,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 } else {
                     define( 'UCARE_ECOMMERCE_MODE', 'default' );
                 }
-
             }
-
         }
 
 
@@ -188,7 +183,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 } else if ( UCARE_ECOMMERCE_MODE == 'woo' ) {
                     include_once dirname( __FILE__ ) . '/includes/functions-ecommerce-woo.php';
                 }
-
             }
 
 
@@ -200,7 +194,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-upgrade.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-post-support_ticket.php';
             }
-
         }
 
 
@@ -212,7 +205,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function init_licensing() {
-
             $page = array(
                 'parent_slug' => 'ucare_support',
                 'page_title'  => __( 'uCare Licenses', 'ucare' ),
@@ -222,9 +214,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             );
 
             $this->set( 'license_manager', new \SC_License_Manager( 'ucare', 'submenu', $page ) );
-
         }
-
 
     }
 
@@ -247,8 +237,32 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function deactivate() {
+
+        /**
+         * Delete the first run option on de-activate
+         * This triggers the First Run welcome screen to load on reload
+         */
+        delete_option( Options::FIRST_RUN );
+
+        /**
+         * Cleanup custom user roles and caps
+         */
         remove_role_capabilities();
         remove_user_roles();
+
+        /**
+         * Unregister custom post type data
+         */
+        unregister_post_type( 'support_ticket' );
+        unregister_post_type( 'email_template' );
+        unregister_taxonomy( 'ticket_category' );
+
+        /**
+         * Execute uninstall script if we are in dev mode.
+         */
+        if ( get_option( Options::DEV_MODE ) ) {
+            include_once dirname( __FILE__ ) . '/uninstall.php';
+        }
     }
 
 
@@ -299,7 +313,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         );
 
         return array_merge( $links, $custom );
-
     }
 
     //<editor-fold desc="Legacy Boot">
