@@ -28,6 +28,9 @@ function upgrade_all() {
         return;
     }
 
+    if ( $current_version < '1.0.0' )
+        upgrade_100();
+
     if ( $current_version < '1.1.1' )
         upgrade_111();
 
@@ -83,6 +86,110 @@ function email_template_get_default_stylesheet() {
 
 
 /**
+ * Create a post and save its ID to an option.
+ *
+ * @param string $option
+ * @param array  $data
+ *
+ * @internal
+ * @since 1.6.0
+ * @return bool
+ */
+function create_post_and_set_option( $option, $data ) {
+    $id = wp_insert_post( $data );
+
+    if ( $id ) {
+        return update_option( $option, $id );
+    }
+
+    return false;
+}
+
+
+/**
+ * Execute changes made in version 1.0.0
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function upgrade_100() {
+    /**
+     * Create the main application page
+     */
+    $data = array(
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+        'post_title'  => __( 'Support', 'ucare' )
+    );
+
+    $id = wp_insert_post( $data );
+
+    if ( $id ) {
+        update_option( Options::TEMPLATE_PAGE_ID, $id );
+    }
+
+    /**
+     * Create email templates
+     */
+    $styles = email_template_get_default_stylesheet();
+
+    $emails = array(
+        Options::TICKET_CREATED_EMAIL => array(
+            'post_title'   => __( 'You have created a new request for support', 'ucare' ),
+            'post_type'    => 'email_template',
+            'post_status'  => 'publish',
+            'post_content' => email_template_get_content( 'ticket-created.html' ),
+            'meta_input'   => array(
+                'styles' => $styles
+            )
+        ),
+        Options::WELCOME_EMAIL_TEMPLATE => array(
+            'post_title'   => __( 'Welcome to Support', 'ucare' ),
+            'post_type'    => 'email_template',
+            'post_status'  => 'publish',
+            'post_content' => email_template_get_content( 'welcome.html' ),
+            'meta_input'   => array(
+                'styles' => $styles
+            )
+        ),
+        Options::TICKET_CLOSED_EMAIL_TEMPLATE => array(
+            'post_title'   => __( 'Your request for support has been closed', 'ucare' ),
+            'post_type'    => 'email_template',
+            'post_status'  => 'publish',
+            'post_content' => email_template_get_content( 'ticket-closed.html' ),
+            'meta_input'   => array(
+                'styles' => $styles
+            )
+        ),
+        Options::AGENT_REPLY_EMAIL => array(
+            'post_title'   => __( 'Reply to your request for support', 'ucare' ),
+            'post_type'    => 'email_template',
+            'post_status'  => 'publish',
+            'post_content' => email_template_get_content( 'ticket-reply.html' ),
+            'meta_input'   => array(
+                'styles' => $styles
+            )
+        ),
+        Options::PASSWORD_RESET_EMAIL => array(
+            'post_title'   => __( 'Your password has been reset', 'ucare' ),
+            'post_type'    => 'email_template',
+            'post_status'  => 'publish',
+            'post_content' => email_template_get_content( 'password-reset.html' ),
+            'meta_input'   => array(
+                'styles' => $styles
+            )
+        )
+    );
+
+    foreach ( $emails as $option => $data ) {
+        create_post_and_set_option( $option, $data );
+    }
+
+    error_log( 'uCare upgraded to 1.0.0' );
+}
+
+
+/**
  * Execute changes made in version 1.1.0
  *
  * @since 1.6.0
@@ -99,12 +206,7 @@ function upgrade_111() {
         )
     );
 
-    $id = wp_insert_post( $data );
-
-    if ( $id ) {
-        update_option( Options::PASSWORD_RESET_EMAIL, $id );
-    }
-
+    create_post_and_set_option( Options::PASSWORD_RESET_EMAIL, $data );
     error_log( 'uCare upgraded to 1.1.1' );
 }
 
@@ -195,12 +297,7 @@ function upgrade_121() {
         )
     );
 
-    $id = wp_insert_post( $data );
-
-    if ( $id ) {
-        update_option( Options::INACTIVE_EMAIL, $id );
-    }
-
+    create_post_and_set_option( Options::INACTIVE_EMAIL, $data );
     error_log( 'uCare upgraded to 1.2.1' );
 }
 
@@ -248,11 +345,7 @@ function upgrade_130() {
     );
 
     foreach ( $emails as $option => $data ) {
-        $id = wp_insert_post( $data );
-
-        if ( is_numeric( $id ) ) {
-            update_option( $option, $id );
-        }
+        create_post_and_set_option( $option, $data );
     }
 
     error_log( 'uCare upgraded to 1.3.0' );
@@ -293,15 +386,8 @@ function upgrade_160() {
             )
         );
 
-        /**
-         * Insert and update template pages
-         */
         foreach ( $pages as $option => $data ) {
-            $id = wp_insert_post( $data );
-
-            if ( is_numeric( $id ) ) {
-                update_option( $option, $id );
-            }
+            create_post_and_set_option( $option, $data );
         }
     }
 
@@ -346,5 +432,9 @@ function upgrade_160() {
     /**
      * Clear old license check cron
      */
-    wp_clear_scheduled_hook( 'ucare_check_extension_licenses' );
+    if ( wp_next_scheduled( 'ucare_check_extension_licenses' ) ) {
+        wp_clear_scheduled_hook( 'ucare_check_extension_licenses' );
+    }
+
+    error_log( 'uCare upgraded to 1.6.0' );
 }

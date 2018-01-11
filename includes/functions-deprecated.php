@@ -432,6 +432,100 @@ function ecommerce_enabled( $strict = true ) {
 
 namespace ucare\proc;
 
+use ucare\Options;
+
+/**
+ * @deprecated
+ */
+function setup_template_page() {
+    $post_id = null;
+    $post = get_post( get_option( Options::TEMPLATE_PAGE_ID ) ) ;
+
+    if( empty( $post ) ) {
+        $post_id = wp_insert_post(
+            array(
+                'post_type' =>  'page',
+                'post_status' => 'publish',
+                'post_title' => __( 'Support', 'ucare' )
+            )
+        );
+    } else if( $post->post_status == 'trash' ) {
+        wp_untrash_post( $post->ID );
+
+        $post_id = $post->ID;
+    } else {
+        $post_id = $post->ID;
+    }
+
+    if( !empty( $post_id ) ) {
+        update_option( Options::TEMPLATE_PAGE_ID, $post_id );
+    }
+}
+
+/**
+ * @deprecated
+ */
+function create_email_templates() {
+
+    $default_templates = array(
+        array(
+            'template' => '/emails/ticket-created.html',
+            'option' => Options::TICKET_CREATED_EMAIL,
+            'subject' => __( 'You have created a new request for support', 'ucare' )
+        ),
+        array(
+            'template' => '/emails/welcome.html',
+            'option' => Options::WELCOME_EMAIL_TEMPLATE,
+            'subject' => __( 'Welcome to Support', 'ucare' )
+        ),
+        array(
+            'template' => '/emails/ticket-closed.html',
+            'option' => Options::TICKET_CLOSED_EMAIL_TEMPLATE,
+            'subject' => __( 'Your request for support has been closed', 'ucare' )
+        ),
+        array(
+            'template' => '/emails/ticket-reply.html',
+            'option' => Options::AGENT_REPLY_EMAIL,
+            'subject' => __( 'Reply to your request for support', 'ucare' )
+        ),
+        array(
+            'template' => '/emails/password-reset.html',
+            'option' => Options::PASSWORD_RESET_EMAIL,
+            'subject' => __( 'Your password has been reset', 'ucare' )
+        ),
+        array(
+            'template' => '/emails/ticket-close-warning.html',
+            'option' => Options::INACTIVE_EMAIL,
+            'subject' => __( 'You have a ticket awaiting action', 'ucare' )
+        )
+    );
+
+    $default_style = file_get_contents( \ucare\plugin_dir() . '/emails/default-style.css' );
+
+    foreach( $default_templates as $config ) {
+        $template = get_post( get_option( $config['option'] ) );
+
+        if( is_null( get_post( $template ) ) ) {
+            $id = wp_insert_post(
+                array(
+                    'post_type'     => 'email_template',
+                    'post_status'   => 'publish',
+                    'post_title'    => $config['subject'],
+                    'post_content'  => file_get_contents( \ucare\plugin_dir() . $config['template'] )
+                )
+            );
+
+            if( !empty( $id ) ) {
+                update_post_meta( $id, 'styles', $default_style );
+                update_option( $config['option'], $id );
+            }
+        } else {
+            wp_untrash_post( $template );
+        }
+    }
+}
+
+
 /**
  * @deprecated
  */
