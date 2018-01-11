@@ -112,7 +112,7 @@ class Plugin extends AbstractPlugin {
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
                     'menu_title'  => __( 'Support Tickets', 'ucare' ),
-                    'menu_slug'   => 'post-new.php?post_type=support_ticket',
+                    'menu_slug'   => 'edit.php?post_type=support_ticket',
                     'capability'  => 'edit_support_tickets',
                     'render'      => false
                 )
