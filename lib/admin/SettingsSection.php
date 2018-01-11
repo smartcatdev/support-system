@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\SettingsSection') ) :
-
+    /**
+     * Class SettingsSection
+     * @deprecated
+     * @package smartcat\admin
+     */
 class SettingsSection {
     protected $slug;
     protected $title;

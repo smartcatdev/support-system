@@ -6,6 +6,11 @@ namespace ucare\admin;
 
 use smartcat\admin\MenuPageTab;
 
+/**
+ * Class LogsTab
+ * @deprecated
+ * @package ucare\admin
+ */
 class LogsTab extends MenuPageTab {
 
     public function __construct() {

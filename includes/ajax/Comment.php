@@ -1,7 +1,11 @@
 <?php
 
 namespace ucare\ajax;
-
+/**
+ * Class Comment
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Comment extends AjaxComponent {
 
     /**

@@ -8,7 +8,7 @@ if( !class_exists( '\smartcat\core\AbstractPlugin' ) ) :
 
 /**
  * Base class that initializes a plugin in its components.
- *
+ * @deprecated
  * @package \smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */

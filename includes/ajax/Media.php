@@ -2,7 +2,11 @@
 
 namespace ucare\ajax;
 
-
+/**
+ * Class Media
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Media extends AjaxComponent {
 
     public function upload_media() {

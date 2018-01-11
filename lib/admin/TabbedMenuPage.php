@@ -3,7 +3,9 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
-
+    /**
+     * @deprecated
+     */
 class TabbedMenuPage extends MenuPage {
 
     public $tabs = array();

@@ -4,6 +4,11 @@ namespace ucare\admin;
 
 use smartcat\admin\MenuPageTab;
 
+/**
+ * Class ReportsOverviewTab
+ * @deprecated
+ * @package ucare\admin
+ */
 class ReportsOverviewTab extends MenuPageTab {
 
     private $predefined_ranges;

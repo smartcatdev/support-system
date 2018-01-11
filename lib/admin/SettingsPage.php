@@ -7,7 +7,7 @@ if( !class_exists( '\smartcat\admin\SettingsPage' ) ) :
 
     /**
      * A Standard single admin settings page.
-     *
+     * @deprecated
      * @package smartcat\admin
      * @author Eric Green <eric@smartcat.ca>
      * @since 1.0.0

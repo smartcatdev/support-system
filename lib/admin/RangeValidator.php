@@ -2,7 +2,11 @@
 
 namespace smartcat\admin;
 
-
+/**
+ * Class RangeValidator
+ * @deprecated
+ * @package smartcat\admin
+ */
 class RangeValidator implements ValidationFilter {
 
     protected $min;

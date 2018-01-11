@@ -1,7 +1,11 @@
 <?php
 
 namespace ucare\ajax;
-
+/**
+ * Class Statistics
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Statistics extends AjaxComponent {
     
     /**

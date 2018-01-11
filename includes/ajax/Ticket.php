@@ -4,6 +4,11 @@ namespace ucare\ajax;
 
 use ucare\Options;
 
+/**
+ * Class Ticket
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Ticket extends AjaxComponent {
 
 

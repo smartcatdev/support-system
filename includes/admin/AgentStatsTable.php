@@ -4,6 +4,11 @@ namespace ucare\admin;
 
 use smartcat\admin\ListTable;
 
+/**
+ * Class AgentStatsTable
+ * @deprecated
+ * @package ucare\admin
+ */
 class AgentStatsTable extends ListTable {
 
     private $agents;

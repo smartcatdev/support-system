@@ -3,7 +3,9 @@
 namespace smartcat\admin;
 
 if( ! class_exists( 'smartcat\core\MenuPage' ) ) :
-
+    /**
+     * @deprecated
+     */
 class MenuPage {
 
     public $type;

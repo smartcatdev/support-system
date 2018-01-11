@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\CheckBoxField' ) ) :
-
+    /**
+     * Class CheckBoxField
+     * @deprecated
+     * @package smartcat\admin
+     */
     class CheckBoxField extends SettingsField {
 
         public function render( array $args ) { ?>

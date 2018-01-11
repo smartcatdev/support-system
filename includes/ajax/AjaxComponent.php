@@ -5,6 +5,11 @@ namespace ucare\ajax;
 
 use smartcat\core\AbstractComponent;
 
+/**
+ * Class AjaxComponent
+ * @deprecated
+ * @package ucare\ajax
+ */
 abstract class AjaxComponent extends AbstractComponent {
 
     private $hooks;

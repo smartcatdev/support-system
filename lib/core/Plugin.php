@@ -6,7 +6,7 @@ if( !interface_exists( '\smartcat\core\Plugin' ) ) :
 
 /**
  * Represents the main instance of a Plugin.
- *
+ * @deprecated 
  * @package smartcat\core
  * @author Eric Green <eric@smartcat.ca>
  */

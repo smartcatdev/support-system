@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\SettingsField' ) ) :
-
+    /**
+     * Class SettingsField
+     * @deprecated
+     * @package smartcat\admin
+     */
 abstract class SettingsField {
     protected $id;
     protected $option;

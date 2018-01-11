@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\MatchFilter' ) ) :
-
+    /**
+     * Class MatchFilter
+     * @deprecated
+     * @package smartcat\admin
+     */
 class MatchFilter implements ValidationFilter {
 
     protected $valid_values;

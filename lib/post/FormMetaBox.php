@@ -1,7 +1,11 @@
 <?php
 
 namespace smartcat\post;
-
+/**
+ * Class FormMetaBox
+ * @deprecated
+ * @package smartcat\post
+ */
 class FormMetaBox extends AbstractMetaBox {
     private $config;
 

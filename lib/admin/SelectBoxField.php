@@ -3,7 +3,9 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\CSelectBoxField' ) ) :
-
+    /**
+     * @deprecated
+     */
     class SelectBoxField extends SettingsField {
 
         protected $options;
