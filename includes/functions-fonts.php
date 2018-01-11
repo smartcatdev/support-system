@@ -15,7 +15,6 @@ namespace ucare;
  * @return void
  */
 function enqueue_fonts() {
-
     $url   = 'https://fonts.googleapis.com/css?family=';
     $fonts = fonts();
 
@@ -24,7 +23,6 @@ function enqueue_fonts() {
 
     ucare_enqueue_style( 'ucare-primary-font',   $url . $fonts[ $primary   ], null, PLUGIN_VERSION );
     ucare_enqueue_style( 'ucare-secondary-font', $url . $fonts[ $secondary ], null, PLUGIN_VERSION );
-
 }
 
 
@@ -885,8 +883,7 @@ function fonts() {
         'Zilla Slab Highlight, display'           => 'Zilla+Slab+Highlight:regular,700'
     );
 
-    return $new_fonts;
-
+    return apply_filters( 'ucare_google_fonts', $new_fonts );
 }
 
 
@@ -897,7 +894,6 @@ function fonts() {
  * @return array
  */
 function get_font_options() {
-
     $fonts = array();
 
     foreach ( fonts() as $font => $encoded ) {
@@ -905,5 +901,4 @@ function get_font_options() {
     }
 
     return $fonts;
-
 }
