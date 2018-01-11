@@ -22,7 +22,7 @@ class migration_1_3_0 implements smartcat\core\Migration {
 
         $this->create_email_template();
 
-        \ucare\proc\schedule_cron_jobs();
+//        \ucare\proc\schedule_cron_jobs();
 
         $this->logger->i( 'Upgraded to 1.3.0' );
 

@@ -46,7 +46,6 @@ function set_ecommerce_user_caps() {
         revoke_user_level_caps( 'customer' );
         revoke_user_level_caps( 'subscriber' );
     }
-
 }
 
 
@@ -59,7 +58,6 @@ function set_ecommerce_user_caps() {
  * @return void
  */
 function add_user_roles() {
-
     $roles = array(
         'support_admin' => __( 'Support Admin', 'ucare' ),
         'support_agent' => __( 'Support Agent', 'ucare' ),
@@ -71,9 +69,7 @@ function add_user_roles() {
         if ( is_null( get_role( $role ) ) ) {
             add_role( $role, $name );
         }
-
     }
-
 }
 
 
@@ -84,7 +80,6 @@ function add_user_roles() {
  * @return void
  */
 function remove_user_roles() {
-
     $roles = array(
         'support_admin',
         'support_agent',
@@ -96,9 +91,7 @@ function remove_user_roles() {
         if ( is_null( get_role( $role ) ) ) {
             remove_role( $role );
         }
-
     }
-
 }
 
 
@@ -111,7 +104,6 @@ function remove_user_roles() {
  * @return mixed
  */
 function get_user_or_role( $user_or_role ) {
-
     $thing = false;
 
     if ( !is_a( $user_or_role, '\WP_Role' ) || !is_a( $user_or_role, '\WP_User' ) ) {
@@ -125,7 +117,107 @@ function get_user_or_role( $user_or_role ) {
     }
 
     return $thing;
+}
 
+
+/**
+ * Get a list of the basic capabilities for a user role.
+ *
+ * @param string $role
+ *
+ * @since 1.6.0
+ * @return false|array
+ */
+function get_caps_for_role( $role ) {
+
+    $capabilities = array(
+
+        'administrator' => array(
+
+            // System wide access control caps
+            'use_support',
+            'manage_support',
+            'manage_support_tickets',
+
+            // Support_ticket specific caps
+            'publish_support_tickets',
+
+            'edit_support_tickets',
+            'edit_others_support_tickets',
+            'edit_private_support_tickets',
+            'edit_published_support_tickets',
+
+            'read_private_support_tickets',
+
+            'edit_support_ticket_comments',
+        ),
+        'support_admin' => array(
+
+            // System wide access control caps
+            'use_support',
+            'manage_support',
+            'manage_support_tickets',
+
+            // Support_ticket specific caps,
+            'publish_support_tickets',
+
+            'edit_others_support_tickets',
+            'edit_private_support_tickets',
+            'edit_published_support_tickets',
+
+            'delete_support_tickets',
+            'delete_others_support_tickets',
+            'delete_private_support_tickets',
+            'delete_published_support_tickets',
+
+            'read_private_support_tickets',
+
+            'edit_support_ticket_comments',
+
+            // Attachment specific capabilities, Users can publish, delete and read their own media.
+            'upload_files',
+            'delete_posts',
+            'read'
+        ),
+        'support_agent' => array(
+
+            // System wide access control caps
+            'use_support',
+            'manage_support_tickets',
+
+            // Support_ticket specific caps. Agents can only create, edit non-published and read others tickets.
+            'publish_support_tickets',
+
+            'edit_support_tickets',
+
+            'edit_support_ticket_comments',
+
+            // Attachment specific capabilities, Users can publish, delete and read their own media.
+            'upload_files',
+            'delete_posts',
+            'read'
+        ),
+        'support_user' => array(
+
+            // System wide access control caps
+            'use_support',
+
+            // Support_ticket specific caps. Users can only create, edit non-published and read tickets.
+            'publish_support_tickets',
+            'edit_support_tickets',
+
+            // Attachment specific capabilities, Users can publish, delete and read their own media.
+            'upload_files',
+            'delete_posts',
+            'read'
+        )
+    );
+
+    if ( array_key_exists( $role, $capabilities ) ) {
+        return $capabilities[ $role ];
+    }
+
+    return false;
 }
 
 
@@ -138,115 +230,25 @@ function get_user_or_role( $user_or_role ) {
  * @return void
  */
 function add_role_capabilities() {
+    $roles = array(
+        'administrator',
+        'support_admin',
+        'support_agent'
+    );
 
-    // Add capabilities to administrator
-    $role = get_role( 'administrator' );
+    foreach ( $roles as $role ) {
+        $caps = get_caps_for_role( $role );
+        $role = get_role( $role );
 
-    if ( $role ) {
-        /**
-         *
-         * System wide access control caps
-         */
-        $role->add_cap( 'use_support' );
-        $role->add_cap( 'manage_support' );
-        $role->add_cap( 'manage_support_tickets' );
-
-        /**
-         *
-         * support_ticket specific caps
-         */
-        $role->add_cap( 'publish_support_tickets' );
-
-        $role->add_cap( 'edit_support_tickets' );
-        $role->add_cap( 'edit_others_support_tickets' );
-        $role->add_cap( 'edit_private_support_tickets' );
-        $role->add_cap( 'edit_published_support_tickets' );
-
-        $role->add_cap( 'delete_support_tickets' );
-        $role->add_cap( 'delete_others_support_tickets' );
-        $role->add_cap( 'delete_private_support_tickets' );
-        $role->add_cap( 'delete_published_support_tickets' );
-
-        $role->add_cap( 'read_private_support_tickets' );
-
-        /**
-         *
-         * Administrator already has full control over media and comments
-         */
+        if ( !is_null( $role ) ) {
+            foreach ( $caps as $cap ) {
+                $role->add_cap( $cap );
+            }
+        }
     }
-
-
-    // Add capabilities to support admins
-    $role = get_role( 'support_admin' );
-
-    if ( $role ) {
-        /**
-         *
-         * System wide access control caps
-         */
-        $role->add_cap( 'use_support' );
-        $role->add_cap( 'manage_support' );
-        $role->add_cap( 'manage_support_tickets' );
-
-        /**
-         *
-         * support_ticket specific caps
-         */
-        $role->add_cap( 'publish_support_tickets' );
-
-        $role->add_cap( 'edit_support_tickets' );
-        $role->add_cap( 'edit_others_support_tickets' );
-        $role->add_cap( 'edit_private_support_tickets' );
-        $role->add_cap( 'edit_published_support_tickets' );
-
-        $role->add_cap( 'delete_support_tickets' );
-        $role->add_cap( 'delete_others_support_tickets' );
-        $role->add_cap( 'delete_private_support_tickets' );
-        $role->add_cap( 'delete_published_support_tickets' );
-
-        $role->add_cap( 'read_private_support_tickets' );
-
-        /**
-         *
-         * attachment specific capabilities, Users can publish, delete and read their own media.
-         */
-        $role->add_cap( 'upload_files' );
-        $role->add_cap( 'delete_posts' );
-        $role->add_cap( 'read' );
-    }
-
-
-    // Add capabilities to support agents
-    $role = get_role( 'support_agent' );
-
-    if ( $role ) {
-        /**
-         *
-         * System wide access control caps
-         */
-        $role->add_cap( 'use_support' );
-        $role->add_cap( 'manage_support_tickets' );
-
-        /**
-         *
-         * support_ticket specific caps. Agents can only create, edit non-published and read others tickets.
-         */
-        $role->add_cap( 'publish_support_tickets' );
-        $role->add_cap( 'edit_support_tickets' );
-
-        /**
-         *
-         * attachment specific capabilities, Users can publish, delete and read their own media.
-         */
-        $role->add_cap( 'upload_files' );
-        $role->add_cap( 'delete_posts' );
-        $role->add_cap( 'read' );
-    }
-
 
     // Add capabilities to support users
     grant_user_level_caps( 'support_user' );
-
 }
 
 
@@ -255,41 +257,22 @@ function add_role_capabilities() {
  *
  * @param $user_or_role int|string|\WP_User|\WP_Role
  *
+ * @since 1.5.1
  * @return bool
  */
 function grant_user_level_caps( $user_or_role ) {
-
     $thing = get_user_or_role( $user_or_role );
 
     if ( $thing ) {
 
-        /**
-         *
-         * System wide access control caps
-         */
-        $thing->add_cap( 'use_support' );
-
-        /**
-         *
-         * support_ticket specific caps. Users can only create, edit non-published and read tickets.
-         */
-        $thing->add_cap( 'publish_support_tickets' );
-        $thing->add_cap( 'edit_support_tickets' );
-
-        /**
-         *
-         * attachment specific capabilities, Users can publish, delete and read their own media.
-         */
-        $thing->add_cap( 'upload_files' );
-        $thing->add_cap( 'delete_posts' );
-        $thing->add_cap( 'read' );
+        foreach ( get_caps_for_role( 'support_user' ) as $cap ) {
+            $thing->add_cap( $cap );
+        }
 
         return true;
-
     }
 
     return false;
-
 }
 
 
@@ -306,7 +289,6 @@ function add_subscriber_caps( $force = false ) {
     if ( $force || ucare_ecommerce_mode() === 'edd' ) {
         grant_user_level_caps( 'subscriber' );
     }
-
 }
 
 /**
@@ -322,7 +304,6 @@ function add_customer_caps( $force = false ) {
     if ( $force || ucare_ecommerce_mode() === 'woo' ) {
         grant_user_level_caps( 'customer' );
     }
-
 }
 
 
@@ -333,71 +314,22 @@ function add_customer_caps( $force = false ) {
  * @return void
  */
 function remove_role_capabilities() {
+    $roles = array(
+        'administrator',
+        'support_admin',
+        'support_agent'
+    );
 
-    $role = get_role( 'administrator' );
+    foreach ( $roles as $role ) {
+        $caps = get_caps_for_role( $role );
+        $role = get_role( $role );
 
-    if ( $role ) {
-        $role->add_cap( 'use_support' );
-        $role->add_cap( 'manage_support' );
-        $role->add_cap( 'manage_support_tickets' );
-
-        $role->add_cap( 'publish_support_tickets' );
-
-        $role->add_cap( 'edit_support_tickets' );
-        $role->add_cap( 'edit_others_support_tickets' );
-        $role->add_cap( 'edit_private_support_tickets' );
-        $role->add_cap( 'edit_published_support_tickets' );
-
-        $role->add_cap( 'delete_support_tickets' );
-        $role->add_cap( 'delete_others_support_tickets' );
-        $role->add_cap( 'delete_private_support_tickets' );
-        $role->add_cap( 'delete_published_support_tickets' );
-
-        $role->add_cap( 'read_private_support_tickets' );
+        if ( !is_null( $role ) ) {
+            foreach ( $caps as $cap ) {
+                $role->remove_cap( $cap );
+            }
+        }
     }
-
-
-    $role = get_role( 'support_admin' );
-
-    if ( $role ) {
-        $role->add_cap( 'use_support' );
-        $role->add_cap( 'manage_support' );
-        $role->add_cap( 'manage_support_tickets' );
-
-        $role->add_cap( 'publish_support_tickets' );
-
-        $role->add_cap( 'edit_support_tickets' );
-        $role->add_cap( 'edit_others_support_tickets' );
-        $role->add_cap( 'edit_private_support_tickets' );
-        $role->add_cap( 'edit_published_support_tickets' );
-
-        $role->add_cap( 'delete_support_tickets' );
-        $role->add_cap( 'delete_others_support_tickets' );
-        $role->add_cap( 'delete_private_support_tickets' );
-        $role->add_cap( 'delete_published_support_tickets' );
-
-        $role->add_cap( 'read_private_support_tickets' );
-
-        $role->add_cap( 'upload_files' );
-        $role->add_cap( 'delete_posts' );
-        $role->add_cap( 'read' );
-    }
-
-
-    $role = get_role( 'support_agent' );
-
-    if ( $role ) {
-        $role->add_cap( 'use_support' );
-        $role->add_cap( 'manage_support_tickets' );
-
-        $role->add_cap( 'publish_support_tickets' );
-        $role->add_cap( 'edit_support_tickets' );
-
-        $role->add_cap( 'upload_files' );
-        $role->add_cap( 'delete_posts' );
-        $role->add_cap( 'read' );
-    }
-
 
     revoke_user_level_caps( 'support_user' );
     revoke_user_level_caps( 'subscriber' );
@@ -414,25 +346,18 @@ function remove_role_capabilities() {
  * @return bool
  */
 function revoke_user_level_caps( $user_or_role ) {
-
     $thing = get_user_or_role( $user_or_role );
 
     if ( $thing ) {
-        $thing->remove_cap( 'use_support' );
 
-        $thing->remove_cap( 'publish_support_tickets' );
-        $thing->remove_cap( 'edit_support_tickets' );
-
-        $thing->remove_cap( 'upload_files' );
-        $thing->remove_cap( 'delete_posts' );
-        $thing->remove_cap( 'read' );
+        foreach ( get_caps_for_role( 'support_user') as $cap ) {
+            $thing->remove_cap( $cap );
+        }
 
         return true;
-
     }
 
     return false;
-
 }
 
 
@@ -444,7 +369,6 @@ function revoke_user_level_caps( $user_or_role ) {
  * @return array
  */
 function get_users_with_cap( $cap = 'use_support', $args = array() ) {
-
     $result = array();
     $users  = get_users( $args );
 
@@ -457,7 +381,6 @@ function get_users_with_cap( $cap = 'use_support', $args = array() ) {
     }
 
     return $result;
-
 }
 
 
@@ -471,7 +394,6 @@ function get_users_with_cap( $cap = 'use_support', $args = array() ) {
  * @return mixed
  */
 function get_user_by_field( $user = null, $by = 'id' ) {
-
     if ( !$user ) {
         $user = wp_get_current_user();
     } else {
@@ -479,7 +401,6 @@ function get_user_by_field( $user = null, $by = 'id' ) {
     }
 
     return $user;
-
 }
 
 
@@ -493,7 +414,6 @@ function get_user_by_field( $user = null, $by = 'id' ) {
  * @return boolean
  */
 function user_has_cap( $cap, $user_id = null ) {
-
     $user = get_user_by_field( $user_id );
 
     if ( $user ) {
@@ -501,7 +421,6 @@ function user_has_cap( $cap, $user_id = null ) {
     }
 
     return false;
-
 }
 
 
@@ -515,7 +434,6 @@ function user_has_cap( $cap, $user_id = null ) {
  * @return mixed
  */
 function get_user_field( $field, $user = null ) {
-
     $user = get_user( $user );
 
     if ( $user ) {
@@ -523,7 +441,6 @@ function get_user_field( $field, $user = null ) {
     }
 
     return false;
-
 }
 
 
@@ -547,7 +464,6 @@ function get_user( $user = null, $fallback_to_current = true ) {
 
     // Make sure we have a valid support user
     return $user && $user->has_cap( 'use_support' ) ? $user : false;
-
 }
 
 
@@ -575,9 +491,7 @@ function create_user_draft_ticket() {
         if ( is_numeric( $id ) ) {
             update_user_meta( $user, 'draft_ticket', $id );
         }
-
     }
-
 }
 
 
@@ -596,5 +510,4 @@ function get_user_draft_ticket() {
     }
 
     return false;
-
 }

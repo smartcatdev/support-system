@@ -38,10 +38,10 @@ class Plugin extends AbstractPlugin {
     }
 
     public function activate() {
-        proc\configure_roles();
-        proc\create_email_templates();
+//        proc\configure_roles();
+//        proc\create_email_templates();
         proc\setup_template_page();
-        proc\schedule_cron_jobs();
+//        proc\schedule_cron_jobs();
     }
 
     public function deactivate() {
