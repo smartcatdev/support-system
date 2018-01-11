@@ -41,3 +41,8 @@ if ( get_option( Options::NUKE ) == 'on' ) {
 
 
 }
+
+
+// Cleanup capabilities and roles
+remove_user_roles();
+remove_role_capabilities();

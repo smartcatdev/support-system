@@ -136,7 +136,7 @@
         /**
          * @since 1.6.0
          */
-        TICKET_DELETED: 'TICKET_DELETED'
+        DELETE_TICKET: 'DELETE_TICKET'
     };
 
 
@@ -151,11 +151,11 @@
          * @since 1.6.0
          */
         toolbar: function (state, action) {
-            const copy = $.extend(true, {}, state);
+            const copy = $.extend(true, { toggles: {} }, state);
 
             switch (action.type) {
                 case ActionTypes.SET_TOOLBAR_TOGGLE:
-                    copy[action.data.toggle] = action.data.value;
+                    copy.toggles[action.data.toggle] = action.data.value;
                     break;
             }
 
@@ -185,7 +185,7 @@
 
                     break;
 
-                case ActionTypes.TICKET_DELETED:
+                case ActionTypes.DELETE_TICKET:
 
                     // Remove the ticket from the selected list
                     index = copy.selected.indexOf(action.data.id);
@@ -290,7 +290,7 @@
             .success(function () {
                 events.emit('ticket_deleted', id);
                 store.dispatch({
-                    type: ActionTypes.TICKET_DELETED,
+                    type: ActionTypes.DELETE_TICKET,
                     data: {
                         id: id
                     }

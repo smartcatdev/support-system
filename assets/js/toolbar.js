@@ -13,17 +13,21 @@
         /**
          * @summary Treat toolbar-toggle links like labels
          */
-        $('a.toolbar-item-toggle').click(function () {
+        $(document).on('click', 'a.toolbar-item-toggle', function (e) {
             const $toggle = $(this).find('input[type="checkbox"]'),
                   checked = !$toggle.prop('checked');
 
             // Manually toggle the hidden checkbox
-            $toggle.prop('checked', checked);
+            $toggle.prop('checked', checked).trigger('change');
+            e.preventDefault();
+        });
 
-            // Update the checked value in the store
-            ucare.Actions.setToolbarToggle($toggle.attr('name'), checked ? $toggle.prop('value') : false);
 
-            return false;
+        /**
+         * @summary Update the checked value in the store when the checkbox is changed
+         */
+        $(document).on('change', 'a.toolbar-item-toggle > input[type="checkbox"]', function () {
+            ucare.Actions.setToolbarToggle($(this).attr('name'), this.checked);
         });
 
 
@@ -33,18 +37,17 @@
         ucare.store.subscribe(function () {
             const state = ucare.store.getState();
 
-            $('a.toolbar-item-toggle')
-                .find('input[type="checkbox"]')
+            $('a.toolbar-item-toggle > input[type="checkbox"]')
                 .each(function (i, el) {
-                    const checked = !!state.toolbar[$(el).attr('name')];
+                    const checked = !!state.toolbar.toggles[$(el).attr('name')];
 
-                    $(el).prop('checked', checked)
-                         .parents('a.toolbar-item-toggle')
+                    $(el).prop('checked', checked);
+                    $(el).parent()
                          .toggleClass('has-item-checked', checked);
             });
 
             // TODO make ribbon support multiple actions
-            if (state.toolbar.bulk_action_active) {
+            if (state.toolbar.toggles['bulk_action_active']) {
                 $toolbar.find('#toolbar-ribbon').slideDown('fast');
 
             } else {

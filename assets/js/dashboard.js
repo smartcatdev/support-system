@@ -6,10 +6,12 @@
 ;(function ($, ucare) {
     "use strict";
 
+    const store = ucare.store,
+
     /**
      * @since 1.6.0
      */
-    const module = {
+    module = {
 
         /**
          * @summary Initialize events and handlers.
@@ -24,11 +26,11 @@
             /**
              * @summary Adjust UI state when the store changes.
              */
-            ucare.store.subscribe(function () {
-                const state = ucare.store.getState(),
+            store.subscribe(function () {
+                const state = store.getState(),
                       $list = $('#the-tickets');
 
-                if (state.toolbar.bulk_action_active) {
+                if (state.toolbar.toggles['bulk_action_active']) {
                     $list.addClass('has-bulk-action no-replace');
 
                 // Uncheck all bulk selectors
@@ -43,6 +45,7 @@
                     });
                 }
             });
+
 
             /**
              * @summary Remove deleted tickets from the list.
@@ -66,11 +69,12 @@
                 }
             });
 
+
             /**
              * @summary Update the ticket count for the bulk action apply button
              */
-            ucare.store.subscribe(function () {
-                const state = ucare.store.getState();
+            store.subscribe(function () {
+                const state = store.getState();
 
                 // Only if the ribbon is visible
                 if ($toolbar.find('#toolbar-ribbon').is(':visible')) {
@@ -95,6 +99,7 @@
 
             });
 
+
             /**
              * @summary Apply the selected bulk action to the ticket selection.
              */
@@ -117,6 +122,7 @@
                     }
                 });
             });
+
 
             /**
              * @summary Toggle selected ticket state
@@ -152,7 +158,7 @@
          * @return void
          */
         bulkDeleteTickets: function () {
-            ucare.store.getState().tickets.selected.forEach(function (selected) {
+            store.getState().tickets.selected.forEach(function (selected) {
                 ucare.Actions.deleteTicket(selected);
             });
         },
