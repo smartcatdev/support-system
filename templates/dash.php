@@ -38,7 +38,7 @@ namespace ucare;
 
     <?php endif; ?>
 
-    <?php the_toolbar(); ?>
+    <?php if ( ucare_is_support_admin() ) the_toolbar(); // TODO support toolbar context for different user levels ?>
 
     <div class="container-fluid">
 
