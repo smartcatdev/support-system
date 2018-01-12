@@ -20,7 +20,6 @@ add_action( 'init', 'ucare\upgrade_all', 9 );
  * @return void
  */
 function upgrade_all() {
-
     $current_version = get_option( Options::PLUGIN_VERSION );
 
     // Nothing to do here
@@ -55,7 +54,6 @@ function upgrade_all() {
      * @since 1.6.0
      */
     do_action( 'ucare_upgraded', PLUGIN_VERSION );
-
 }
 
 
@@ -69,7 +67,7 @@ function upgrade_all() {
  * @return bool|string
  */
 function email_template_get_content( $template ) {
-    return file_get_contents( resolve_path( 'resources/emails/templates/' . ltrim( $template, '/' )) );
+    return file_get_contents( resolve_path( 'resources/emails/templates/' . ltrim( $template, '/' ) ) );
 }
 
 
@@ -122,11 +120,8 @@ function upgrade_100() {
         'post_title'  => __( 'Support', 'ucare' )
     );
 
-    $id = wp_insert_post( $data );
+    create_post_and_set_option( Options::TEMPLATE_PAGE_ID, $data );
 
-    if ( $id ) {
-        update_option( Options::TEMPLATE_PAGE_ID, $id );
-    }
 
     /**
      * Create email templates
@@ -228,10 +223,10 @@ function upgrade_120() {
 
     $q = new \WP_Query( $args );
 
-    foreach( $q->posts as $ticket ) {
+    foreach ( $q->posts as $ticket ) {
         $old_meta = get_post_meta( $ticket->ID, 'closed', true );
 
-        if( !empty( $old_meta ) ) {
+        if ( !empty( $old_meta ) ) {
             update_post_meta( $ticket->ID, 'closed_by',   $old_meta['user_id'] );
             update_post_meta( $ticket->ID, 'closed_date', $old_meta['date'] );
             delete_post_meta( $ticket->ID, 'closed' );

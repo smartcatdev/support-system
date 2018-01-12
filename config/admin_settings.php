@@ -26,7 +26,7 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_primary_font',
         'option'        => Options::PRIMARY_FONT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::PRIMARY_FONT, \ucare\Defaults::PRIMARY_FONT ),
+        'value'         => get_option( Options::PRIMARY_FONT ),
         'options'       => $fonts,
         'label'         => __( 'Primary Font', 'ucare' ),
         'desc'          => __( 'Headings font for the system', 'ucare' ),
@@ -38,7 +38,7 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_secondary_font',
         'option'        => Options::SECONDARY_FONT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::SECONDARY_FONT, \ucare\Defaults::SECONDARY_FONT ),
+        'value'         => get_option( Options::SECONDARY_FONT ),
         'options'       => $fonts,
         'label'         => __( 'Secondary Font', 'ucare' ),
         'desc'          => __( 'Main content / body text font for the system', 'ucare' ),
@@ -50,7 +50,7 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_primary_color',
         'option'        => Options::PRIMARY_COLOR,
         'class'         => array( 'regular-text', 'color_picker' ),
-        'value'         => get_option( Options::PRIMARY_COLOR, \ucare\Defaults::PRIMARY_COLOR ),
+        'value'         => get_option( Options::PRIMARY_COLOR ),
         'label'         => __( 'Primary color', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -60,7 +60,7 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_hover_color',
         'option'        => Options::HOVER_COLOR,
         'class'         => array( 'regular-text', 'color_picker' ),
-        'value'         => get_option( Options::HOVER_COLOR, \ucare\Defaults::HOVER_COLOR ),
+        'value'         => get_option( Options::HOVER_COLOR ),
         'label'         => __( 'Hover color', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -69,7 +69,7 @@ $appearance->add_field( new SelectBoxField(
     array(
         'id'            => 'support_secondary_color',
         'option'        => Options::SECONDARY_COLOR,
-        'value'         => get_option( Options::SECONDARY_COLOR, \ucare\Defaults::SECONDARY_COLOR ),
+        'value'         => get_option( Options::SECONDARY_COLOR  ),
         'label'         => __( 'Secondary color', 'ucare' ),
         'class'         => array( 'regular-text', 'color_picker' ),
         'validators'    => array( new TextFilter() )
@@ -79,7 +79,7 @@ $appearance->add_field( new SelectBoxField(
     array(
         'id'            => 'support_tertiary_color',
         'option'        => Options::TERTIARY_COLOR,
-        'value'         => get_option( Options::TERTIARY_COLOR, \ucare\Defaults::TERTIARY_COLOR ),
+        'value'         => get_option( Options::TERTIARY_COLOR ),
         'label'         => __( 'Tertiary color', 'ucare' ),
         'class'         => array( 'regular-text', 'color_picker' ),
         'validators'    => array( new TextFilter() )
@@ -90,7 +90,7 @@ $appearance->add_field( new SelectBoxField(
         'id'            => 'support_login_background_image',
         'class'         => array( 'image-upload' ),
         'option'        => Options::LOGIN_BACKGROUND,
-        'value'         => get_option( Options::LOGIN_BACKGROUND, \ucare\Defaults::LOGIN_BACKGROUND ),
+        'value'         => get_option( Options::LOGIN_BACKGROUND ),
         'label'         => __( 'Login Background Image', 'ucare' )
     )
 
@@ -98,7 +98,7 @@ $appearance->add_field( new SelectBoxField(
     array(
         'id'            => 'support_display_back_button',
         'option'        => Options::DISPLAY_BACK_BUTTON,
-        'value'         => get_option( Options::DISPLAY_BACK_BUTTON, \ucare\Defaults::DISPLAY_BACK_BUTTON ),
+        'value'         => get_option( Options::DISPLAY_BACK_BUTTON ),
         'label'         => __( 'Display Back Button', 'ucare'),
         'desc'          => __( 'Display button that links back to your website in the navigation bar', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -113,7 +113,7 @@ $categories->add_field( new TextField(
         'id'            => 'support_ticket_categories_name',
         'class'         => array( 'regular-text' ),
         'option'        => Options::CATEGORIES_NAME,
-        'value'         => get_option( Options::CATEGORIES_NAME, \ucare\Defaults::CATEGORIES_NAME ),
+        'value'         => get_option( Options::CATEGORIES_NAME ),
         'label'         => __( 'Categories Name', 'ucare' ),
         'desc'          => __( 'The name to be used for ticket category', 'ucare' ),
     )
@@ -123,7 +123,7 @@ $categories->add_field( new TextField(
         'id'            => 'support_ticket_categories_name_plural',
         'class'         => array( 'regular-text' ),
         'option'        => Options::CATEGORIES_NAME_PLURAL,
-        'value'         => get_option( Options::CATEGORIES_NAME_PLURAL, \ucare\Defaults::CATEGORIES_NAME_PLURAL ),
+        'value'         => get_option( Options::CATEGORIES_NAME_PLURAL  ),
         'label'         => __( 'Categories Name Plural', 'ucare' ),
         'desc'          => __( 'The plural name to be used for ticket category', 'ucare' ),
     )
@@ -132,7 +132,7 @@ $categories->add_field( new TextField(
     array(
         'id'            => 'support_categories_enabled',
         'option'        => Options::CATEGORIES_ENABLED,
-        'value'         => get_option( Options::CATEGORIES_ENABLED, \ucare\Defaults::CATEGORIES_ENABLED ),
+        'value'         => get_option( Options::CATEGORIES_ENABLED ),
         'label'         => __( 'Categories Enabled', 'ucare'),
         'desc'          => __( 'Allow tickets to be assigned a category when created', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -147,7 +147,7 @@ $text->add_field( new TextField(
         'id'            => 'support_login_disclaimer',
         'option'        => Options::LOGIN_DISCLAIMER,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::LOGIN_DISCLAIMER, \ucare\Defaults::LOGIN_DISCLAIMER ),
+        'value'         => get_option( Options::LOGIN_DISCLAIMER ),
         'label'         => __( 'Login Disclaimer', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -157,7 +157,7 @@ $text->add_field( new TextField(
         'id'            => 'support_register_btn_text',
         'option'        => Options::REGISTER_BTN_TEXT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::REGISTER_BTN_TEXT, \ucare\Defaults::REGISTER_BTN_TEXT ),
+        'value'         => get_option( Options::REGISTER_BTN_TEXT ),
         'label'         => __( 'Register Button Label', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -167,7 +167,7 @@ $text->add_field( new TextField(
         'id'            => 'support_login_btn_text',
         'option'        => Options::LOGIN_BTN_TEXT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::LOGIN_BTN_TEXT, \ucare\Defaults::LOGIN_BTN_TEXT ),
+        'value'         => get_option( Options::LOGIN_BTN_TEXT ),
         'label'         => __( 'Login Button Label', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -177,7 +177,7 @@ $text->add_field( new TextField(
         'id'            => 'support_create_btn_text',
         'option'        => Options::CREATE_BTN_TEXT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::CREATE_BTN_TEXT, \ucare\Defaults::CREATE_BTN_TEXT ),
+        'value'         => get_option( Options::CREATE_BTN_TEXT  ),
         'label'         => __( 'Create Ticket Button Label', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -187,7 +187,7 @@ $text->add_field( new TextField(
         'id'            => 'support_cancel_btn_text',
         'option'        => Options::CANCEL_BTN_TEXT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::CANCEL_BTN_TEXT, \ucare\Defaults::CANCEL_BTN_TEXT ),
+        'value'         => get_option( Options::CANCEL_BTN_TEXT  ),
         'label'         => __( 'Cancel Operation Button Label', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -197,7 +197,7 @@ $text->add_field( new TextField(
         'id'            => 'support_ticket_created_msg',
         'option'        => Options::TICKET_CREATED_MSG,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::TICKET_CREATED_MSG, \ucare\Defaults::TICKET_CREATED_MSG ),
+        'value'         => get_option( Options::TICKET_CREATED_MSG ),
         'label'         => __( 'Ticket Created Message', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -207,7 +207,7 @@ $text->add_field( new TextField(
         'id'            => 'support_ticket_updated_msg',
         'option'        => Options::TICKET_UPDATED_MSG,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::TICKET_UPDATED_MSG, \ucare\Defaults::TICKET_UPDATED_MSG ),
+        'value'         => get_option( Options::TICKET_UPDATED_MSG  ),
         'label'         => __( 'Ticket Updated Message', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -217,7 +217,7 @@ $text->add_field( new TextField(
         'id'            => 'support_empty_table_msg',
         'option'        => Options::EMPTY_TABLE_MSG,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::EMPTY_TABLE_MSG, \ucare\Defaults::EMPTY_TABLE_MSG ),
+        'value'         => get_option( Options::EMPTY_TABLE_MSG  ),
         'label'         => __( 'No Tickets Message', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -226,7 +226,7 @@ $text->add_field( new TextField(
         'id'            => 'support_comments_closed_msg',
         'option'        => Options::COMMENTS_CLOSED_MSG,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::COMMENTS_CLOSED_MSG, \ucare\Defaults::COMMENTS_CLOSED_MSG ),
+        'value'         => get_option( Options::COMMENTS_CLOSED_MSG ),
         'label'         => __( 'Comments Closed Message', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -235,7 +235,7 @@ $text->add_field( new TextField(
         'id'            => 'support_footer_text',
         'option'        => Options::FOOTER_TEXT,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::FOOTER_TEXT, \ucare\Defaults::FOOTER_TEXT ),
+        'value'         => get_option( Options::FOOTER_TEXT  ),
         'label'         => __( 'Footer Text', 'ucare' ),
         'validators'    => array( new TextFilter() )
     )
@@ -249,7 +249,7 @@ $widgets->add_field( new TextAreaField(
         'option'        => Options::LOGIN_WIDGET_AREA,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 5 ) ),
-        'value'         => stripcslashes( get_option( Options::LOGIN_WIDGET_AREA, \ucare\Defaults::LOGIN_WIDGET_AREA ) ),
+        'value'         => stripcslashes( get_option( Options::LOGIN_WIDGET_AREA  ) ),
         'label'         => __( 'Login Widget Area', 'ucare' ),
         'desc'          => __( 'Displayed on the login page', 'ucare' ),
         'validators'    => array( new HTMLFilter() )
@@ -260,7 +260,7 @@ $widgets->add_field( new TextAreaField(
         'option'        => Options::USER_WIDGET_AREA,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 5 ) ),
-        'value'         => stripcslashes( get_option( Options::USER_WIDGET_AREA, \ucare\Defaults::USER_WIDGET_AREA ) ),
+        'value'         => stripcslashes( get_option( Options::USER_WIDGET_AREA ) ),
         'label'         => __( 'User Widget Area', 'ucare' ),
         'desc'          => __( 'Only visible to support users', 'ucare' ),
         'validators'    => array( new HTMLFilter() )
@@ -271,7 +271,7 @@ $widgets->add_field( new TextAreaField(
         'option'        => Options::AGENT_WIDGET_AREA,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 5 ) ),
-        'value'         => stripcslashes( get_option( Options::AGENT_WIDGET_AREA, \ucare\Defaults::AGENT_WIDGET_AREA ) ),
+        'value'         => stripcslashes( get_option( Options::AGENT_WIDGET_AREA ) ),
         'label'         => __( 'Agent Widget Area', 'ucare' ),
         'desc'          => __( 'Only visible to support agents and admins', 'ucare' ),
         'validators'    => array( new HTMLFilter() )
@@ -280,7 +280,7 @@ $widgets->add_field( new TextAreaField(
     array(
         'id'            => 'support_categories_enabled',
         'option'        => Options::QUICK_LINK_ENABLED,
-        'value'         => get_option( Options::QUICK_LINK_ENABLED, \ucare\Defaults::QUICK_LINK_ENABLED ),
+        'value'         => get_option( Options::QUICK_LINK_ENABLED ),
         'label'         => __( 'Quick Link Enabled', 'ucare'),
         'desc'          => __( 'Display support quick link widget on your site', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -291,7 +291,7 @@ $widgets->add_field( new TextAreaField(
         'id'            => 'support_quick_link_label',
         'class'         => array( 'regular-text' ),
         'option'        => Options::QUICK_LINK_LABEL,
-        'value'         => get_option( Options::QUICK_LINK_LABEL, \ucare\Defaults::QUICK_LINK_LABEL ),
+        'value'         => get_option( Options::QUICK_LINK_LABEL ),
         'label'         => __( 'Quick Link Label', 'ucare' ),
         'desc'          => __( 'Label to be displayed on the quick link widget', 'ucare' ),
     )
@@ -305,7 +305,7 @@ $general->add_field( new TextField(
         'id'            => 'support_logo_image',
         'class'         => array( 'image-upload' ),
         'option'        => Options::LOGO,
-        'value'         => get_option( Options::LOGO, $plugin_url . 'assets/images/logo.png' ),
+        'value'         => get_option( Options::LOGO  ),
         'label'         => __( 'Logo Image', 'ucare' )
     )
 
@@ -314,7 +314,7 @@ $general->add_field( new TextField(
         'id'            => 'support_favicon',
         'class'         => array( 'image-upload' ),
         'option'        => Options::FAVICON,
-        'value'         => get_option( Options::FAVICON, $plugin_url . 'assets/images/favicon.png' ),
+        'value'         => get_option( Options::FAVICON   ),
         'label'         => __( 'Favicon', 'ucare' )
     )
 
@@ -323,7 +323,7 @@ $general->add_field( new TextField(
         'id'            => 'support_company_name',
         'option'        => Options::COMPANY_NAME,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::COMPANY_NAME, \ucare\Defaults::COMPANY_NAME ),
+        'value'         => get_option( Options::COMPANY_NAME ),
         'label'         => __( 'Company Name', 'ucare' )
     )
 
@@ -333,7 +333,7 @@ $general->add_field( new TextField(
         'type'          => 'url',
         'option'        => Options::TERMS_URL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::TERMS_URL, home_url() ),
+        'value'         => get_option( Options::TERMS_URL ),
         'label'         => __( 'Terms & Conditions URL', 'ucare' ),
         'desc'          => __( 'URL of page containing your terms and conditions', 'ucare' )
     )
@@ -342,7 +342,7 @@ $general->add_field( new TextField(
     array(
         'id'            => 'support_allow_signups',
         'option'        => Options::ALLOW_SIGNUPS,
-        'value'         => get_option( Options::ALLOW_SIGNUPS, \ucare\Defaults::ALLOW_SIGNUPS ),
+        'value'         => get_option( Options::ALLOW_SIGNUPS ),
         'label'         => __( 'Allow users to signup', 'ucare' ),
         'desc'          => __( 'Allow users to create accounts for submitting tickets', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -353,7 +353,7 @@ $general->add_field( new TextField(
         'id'            => 'support_tickets_per_page',
         'type'          => 'number',
         'option'        => Options::MAX_TICKETS,
-        'value'         => get_option( Options::MAX_TICKETS, \ucare\Defaults::MAX_TICKETS ),
+        'value'         => get_option( Options::MAX_TICKETS ),
         'label'         => __( 'Tickets Per Page', 'ucare' ),
         'desc'          => __( 'The maximum number of tickets to be loaded per page', 'ucare' ),
         'validators'    => array( new IntegerValidator() )
@@ -364,7 +364,7 @@ $general->add_field( new TextField(
         'option'        => Options::IMAGE_MIME_TYPES,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 2 ) ),
-        'value'         => get_option( Options::IMAGE_MIME_TYPES, \ucare\Defaults::IMAGE_MIME_TYPES ),
+        'value'         => get_option( Options::IMAGE_MIME_TYPES  ),
         'label'         => __( 'Image MIME types', 'ucare' ),
         'desc'          => __( 'Allowed file types for image uploads (comma separated)', 'ucare' ),
         'validators'    => array()
@@ -375,7 +375,7 @@ $general->add_field( new TextField(
         'option'        => Options::FILE_MIME_TYPES,
         'class'         => array( 'regular-text' ),
         'props'         => array( 'rows' => array( 2 ) ),
-        'value'         => get_option( Options::FILE_MIME_TYPES, \ucare\Defaults::FILE_MIME_TYPES ),
+        'value'         => get_option( Options::FILE_MIME_TYPES ),
         'label'         => __( 'File MIME types', 'ucare' ),
         'desc'          => __( 'Allowed file types for file uploads (comma separated)', 'ucare' ),
         'validators'    => array()
@@ -385,7 +385,7 @@ $general->add_field( new TextField(
         'id'            => 'support_max_attachment_size',
         'type'          => 'number',
         'option'        => Options::MAX_ATTACHMENT_SIZE,
-        'value'         => get_option( Options::MAX_ATTACHMENT_SIZE, \ucare\Defaults::MAX_ATTACHMENT_SIZE ),
+        'value'         => get_option( Options::MAX_ATTACHMENT_SIZE  ),
         'label'         => __( 'Maximum attachment size', 'ucare' ),
         'desc'          => __( 'The maximum file size for attachments in MB', 'ucare' ),
         'validators'    => array( new IntegerValidator() )
@@ -396,7 +396,7 @@ $general->add_field( new TextField(
         'id'            => 'support_refresh_time',
         'type'          => 'number',
         'option'        => Options::REFRESH_INTERVAL,
-        'value'         => get_option( Options::REFRESH_INTERVAL, \ucare\Defaults::REFRESH_INTERVAL ),
+        'value'         => get_option( Options::REFRESH_INTERVAL  ),
         'label'         => __( 'List Refresh Interval', 'ucare' ),
         'desc'          => __( 'Automatic refresh interval in seconds', 'ucare' ),
         'validators'    => array( new IntegerValidator() )
@@ -406,7 +406,7 @@ $general->add_field( new TextField(
     array(
         'id'            => 'support_logging_enabled',
         'option'        => Options::LOGGING_ENABLED,
-        'value'         => get_option( Options::LOGGING_ENABLED, \ucare\Defaults::LOGGING_ENABLED ),
+        'value'         => get_option( Options::LOGGING_ENABLED ),
         'label'         => __( 'Enable Logging', 'ucare' ),
         'desc'          => __( 'Enable or disable the logging of system events', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -417,7 +417,7 @@ $general->add_field( new TextField(
 
 $auto_close = new SettingsSection( 'uc_auto_close', __( 'Inactive Tickets', 'ucare' ) );
 
-$auto_close_interval = get_option( Options::INACTIVE_MAX_AGE, \ucare\Defaults::INACTIVE_MAX_AGE );
+$auto_close_interval = get_option( Options::INACTIVE_MAX_AGE );
 
 $auto_close->add_field( new TextField(
     array(
@@ -435,7 +435,7 @@ $auto_close->add_field( new TextField(
     array(
         'id'            => 'support_autoclose_enabled',
         'option'        => Options::AUTO_CLOSE,
-        'value'         => get_option( Options::AUTO_CLOSE, \ucare\Defaults::AUTO_CLOSE ),
+        'value'         => get_option( Options::AUTO_CLOSE ),
         'label'         => __( 'Auto Close Tickets', 'ucare' ),
         'desc'          => __( 'Automatically close tickets after they become inactive', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -571,7 +571,7 @@ $email_notifications->add_field( new CheckBoxField(
     array(
         'id'            => 'support_email_notifications',
         'option'        => Options::EMAIL_NOTIFICATIONS,
-        'value'         => get_option( Options::EMAIL_NOTIFICATIONS, \ucare\Defaults::EMAIL_NOTIFICATIONS ),
+        'value'         => get_option( Options::EMAIL_NOTIFICATIONS ),
         'label'         => __( 'Email Notifications', 'ucare' ),
         'desc'          => __( 'Send out automated email notifications in response to ticket events', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -582,7 +582,7 @@ $email_notifications->add_field( new CheckBoxField(
         'id'            => 'support_email_recipient_email',
         'option'        => Options::ADMIN_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::ADMIN_EMAIL, get_option( 'admin_email' ) ),
+        'value'         => get_option( Options::ADMIN_EMAIL ),
         'label'         => __( 'Admin Email', 'ucare' ),
         'desc'          => __( 'Email address of the support administrator', 'ucare' )
     )
@@ -592,7 +592,7 @@ $email_notifications->add_field( new CheckBoxField(
         'id'            => 'support_email_sender_email',
         'option'        => Options::SENDER_EMAIL,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::SENDER_EMAIL, get_option( 'admin_email' ) ),
+        'value'         => get_option( Options::SENDER_EMAIL  ),
         'label'         => __( 'Sender Email', 'ucare' ),
         'desc'          => __( 'Email address used when sending support emails', 'ucare' )
     )
@@ -602,7 +602,7 @@ $email_notifications->add_field( new CheckBoxField(
         'id'            => 'support_email_sender_name',
         'option'        => Options::SENDER_NAME,
         'class'         => array( 'regular-text' ),
-        'value'         => get_option( Options::SENDER_NAME, __( 'uCare Support', 'ucare' ) ),
+        'value'         => get_option( Options::SENDER_NAME ),
         'label'         => __( 'Sender Name', 'ucare' ),
         'desc'          => __( 'Name used for outgoing support emails', 'ucare' )
     )
@@ -615,7 +615,7 @@ $advanced->add_field( new CheckBoxField(
     array(
         'id'            => 'support_enable_dev_mode',
         'option'        => Options::DEV_MODE,
-        'value'         => get_option( Options::DEV_MODE, \ucare\Defaults::DEV_MODE ),
+        'value'         => get_option( Options::DEV_MODE ),
         'label'         => __( 'Developer Mode', 'ucare' ),
         'desc'          => __( 'Enable development functionality', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
@@ -625,7 +625,7 @@ $advanced->add_field( new CheckBoxField(
     array(
         'id'            => 'support_nuke_data',
         'option'        => Options::NUKE,
-        'value'         => get_option( Options::NUKE, \ucare\Defaults::NUKE ),
+        'value'         => get_option( Options::NUKE  ),
         'label'         => __( 'Erase All Data', 'ucare'),
         'desc'          => __( 'Erase all plugin data on deactivation if developer mode is enabled or during un-installation', 'ucare' ),
         'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
