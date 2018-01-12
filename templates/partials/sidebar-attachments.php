@@ -58,7 +58,11 @@ namespace ucare;
 
         </div>
 
-        <hr class="sidebar-divider">
+        <?php if ( count( $images ) > 0 ) : ?>
+
+            <hr class="sidebar-divider">
+
+        <?php endif; ?>
 
     <?php endif; ?>
 
@@ -108,9 +112,12 @@ namespace ucare;
 
             </div>
 
+        <?php if ( count( $files ) == 0 ) : ?>
+
             <hr class="sidebar-divider">
 
-        </div>
+        <?php endif; ?>
+
 
     <?php endif; ?>
 
