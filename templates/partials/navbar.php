@@ -15,14 +15,14 @@ namespace ucare;
 
         <div class="row">
 
-            <?php if ( get_option( Options::DISPLAY_BACK_BUTTON, Defaults::DISPLAY_BACK_BUTTON ) ) : ?>
+            <?php if ( get_option( Options::DISPLAY_BACK_BUTTON ) ) : ?>
 
                 <div class="row-table pull-left">
 
                     <div class="row-table-cell">
 
                         <a class="brand-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php _e( 'Back to site', 'ucare' ); ?>">
-                            <img height="40" src="<?php echo esc_url( get_option( Options::LOGO, Defaults::LOGO ) ); ?>" />
+                            <img height="40" src="<?php echo esc_url( get_option( Options::LOGO ) ); ?>" />
                         </a>
 
                     </div>
@@ -60,7 +60,7 @@ namespace ucare;
 
                             <span class="glyphicon glyphicon-plus-sign button-icon"></span>
                             <span>
-                                <?php echo esc_html_e( get_option( Options::CREATE_BTN_TEXT, Defaults::CREATE_BTN_TEXT ) ); ?>
+                                <?php echo esc_html_e( get_option( Options::CREATE_BTN_TEXT ) ); ?>
                             </span>
 
                         </a>
@@ -136,18 +136,14 @@ namespace ucare;
 
 <?php if ( has_nav_menu( 'ucare_header_navbar' ) ) : ?>
 
-    <?php
-
-        $navbar = array(
-            'menu'           => 'header',
-            'theme_location' => 'ucare_header_navbar',
-            'depth'          => 2,
-            'menu_class'     => 'nav navbar-nav',
-            'fallback_cb'    => 'ucare\BootstrapNavWalker::fallback',
-            'walker'         => new BootstrapNavWalker()
-        );
-
-    ?>
+    <?php $navbar = array(
+        'menu'           => 'header',
+        'theme_location' => 'ucare_header_navbar',
+        'depth'          => 2,
+        'menu_class'     => 'nav navbar-nav',
+        'fallback_cb'    => 'ucare\BootstrapNavWalker::fallback',
+        'walker'         => new BootstrapNavWalker()
+    ); ?>
 
     <nav class="navbar navbar-default" id="ucare-navigation-menu">
 
