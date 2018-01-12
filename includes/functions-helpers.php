@@ -19,7 +19,6 @@ namespace ucare;
  * @return bool|mixed
  */
 function get_metadata( $key, $single = true, $post = null, $default = false ) {
-
     $post = get_post( $post );
 
     if ( $post ) {
@@ -27,7 +26,6 @@ function get_metadata( $key, $single = true, $post = null, $default = false ) {
     }
 
     return $default;
-
 }
 
 
@@ -42,7 +40,6 @@ function get_metadata( $key, $single = true, $post = null, $default = false ) {
  * @return void
  */
 function dropdown( $options, $selected = '', $attributes = array() ) {
-
     $field = array(
         'attributes' => $attributes,
         'value'      => $selected,
@@ -63,7 +60,6 @@ function dropdown( $options, $selected = '', $attributes = array() ) {
     }
 
     render_select_box( $field );
-
 }
 
 
@@ -80,7 +76,6 @@ function dropdown( $options, $selected = '', $attributes = array() ) {
  * @return void
  */
 function checkbox( $name, $label = '', $checked = false, $value = '', $attributes = array() ) {
-
     $field = array(
         'attributes'  => $attributes,
         'description' => $label,
@@ -94,5 +89,4 @@ function checkbox( $name, $label = '', $checked = false, $value = '', $attribute
     $field['attributes']['value'] = $value;
 
     render_checkbox( $field );
-
 }

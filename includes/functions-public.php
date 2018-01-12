@@ -32,7 +32,6 @@ use ucare\Logger;
  * @return void
  */
 function ucare_register_license( $id, $args ) {
-
     $manager = \ucare\ucare()->get( 'license_manager' );
 
     if ( $manager ) {
@@ -49,11 +48,40 @@ function ucare_register_license( $id, $args ) {
         );
 
         $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args );
-
     }
-
 }
 
+
+/**
+ * Generate a dropdown from an associative array of options.
+ *
+ * @param array  $options
+ * @param string $selected
+ * @param array  $attributes
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_dropdown( $options, $selected = '', $attributes = array() ) {
+    \ucare\dropdown( $options, $selected, $attributes );
+}
+
+
+/**
+ * Generate a checkbox field.
+ *
+ * @param string $name
+ * @param string $label
+ * @param string $value
+ * @param bool   $checked
+ * @param array  $attributes
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_checkbox( $name, $label = '', $checked = false, $value = '', $attributes = array() ) {
+    \ucare\checkbox( $name, $label, $checked, $value, $attributes );
+}
 
 
 /***********************************************************************************************************************
@@ -143,9 +171,7 @@ function ucare_ecommerce_mode() {
     }
 
     return false;
-
 }
-
 
 
 /***********************************************************************************************************************
@@ -771,4 +797,60 @@ function ucare_agents_dropdown( $selected = '', $attributes = array(), $prepend 
     }
 
     \ucare\dropdown( $agents, $selected, $attributes );
+}
+
+
+/***********************************************************************************************************************
+ *
+ * Helper functions for the WordPress admin
+ *
+ * @since 1.6.0
+ * @scope global
+ */
+
+/**
+ * Check to see if we are on a admin menu page.
+ *
+ * @param string $page
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function ucare_admin_is_page( $page ) {
+    if ( !is_admin() ) {
+        return false;
+    }
+
+    $screen = get_current_screen();
+
+    switch ( $page ) {
+        case 'settings':
+            return $screen->id === 'ucare-support_page_uc-settings';
+    }
+
+    return false;
+}
+
+
+/***********************************************************************************************************************
+ *
+ * Sanitization functions
+ *
+ * @since 1.6.0
+ * @scope global
+ */
+
+
+
+
+/**
+ * Sanitize truthy values such as 'on', 'yes', 1, true and anything not null.
+ *
+ * @param mixed $val
+ *
+ * @since 1.0.0
+ * @return mixed
+ */
+function ucare_sanitize_boolean( $val ) {
+    return \ucare\sanitize_boolean( $val );
 }
