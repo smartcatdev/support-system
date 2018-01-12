@@ -67,6 +67,9 @@
                         $(this).remove();
                     });
                 }
+
+                // TODO remove this when single ticket view is added
+                $('#' + id +', [data-id="' + id + '"]').remove();
             });
 
 

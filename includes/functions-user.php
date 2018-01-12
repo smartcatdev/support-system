@@ -147,6 +147,11 @@ function get_caps_for_role( $role ) {
             'edit_private_support_tickets',
             'edit_published_support_tickets',
 
+            'delete_support_tickets',
+            'delete_others_support_tickets',
+            'delete_private_support_tickets',
+            'delete_published_support_tickets',
+
             'read_private_support_tickets',
 
             'edit_support_ticket_comments',
