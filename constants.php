@@ -3,7 +3,7 @@
 namespace ucare;
 
 const PLUGIN_ID = 'smartcat_support';
-const PLUGIN_VERSION = '1.5.0';
+const PLUGIN_VERSION = '1.5.1';
 
 const MIN_PHP_VERSION = '5.5';
 
@@ -341,11 +341,6 @@ final class Options {
      */
     const SHOW_CLOCK = 'smartcat_support_show_clock';
     
-    /**
-     * @since 1.5.1
-     */
-    const SENDING_MAIL = 'smartcat_support_sending_mail';
-
 }
 
 
