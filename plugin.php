@@ -128,7 +128,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
 
-            include_once dirname( __FILE__ ) . '/includes/library/extension-licensing.php';
+            include_once dirname( __FILE__ ) . '/includes/library/class-license-manager.php';
+            include_once dirname( __FILE__ ) . '/includes/library/class-edd-sl-plugin-updater.php';
             include_once dirname( __FILE__ ) . '/includes/library/class-bootstrap-nav-walker.php';
 
 
@@ -213,7 +214,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 'menu_slug'   => 'ucare-licenses'
             );
 
-            $this->set( 'license_manager', new \SC_License_Manager( 'ucare', 'submenu', $page ) );
+            $this->set( 'license_manager', new LicenseManager( 'ucare', 'submenu', $page ) );
         }
 
     }

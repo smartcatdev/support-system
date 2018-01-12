@@ -89,6 +89,37 @@ function ucare_get_logger( $type ) {
 
 
 /**
+ * Drop an options class
+ *
+ * @param string $class
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function ucare_drop_options( $class ) {
+
+    if ( class_exists( $class ) || interface_exists( $class ) ) {
+        $options = new \ReflectionClass( $class );
+
+        foreach ( $options->getConstants() as $option ) {
+            delete_option( $option );
+        }
+    }
+}
+
+
+/**
+ * Get the current plugin version.
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function ucare_version() {
+    return get_option( Options::PLUGIN_VERSION );
+}
+
+
+/**
  * Check to see if eCommerce support is enabled.
  *
  * @since 1.4.2

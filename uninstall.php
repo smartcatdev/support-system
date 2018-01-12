@@ -24,7 +24,7 @@ if ( get_option( Options::NUKE ) ) {
     /**
      * Delete all options
      */
-    drop_options( Options::class );
+    ucare_drop_options( Options::class );
 
 
     /**
@@ -54,24 +54,3 @@ if ( get_option( Options::NUKE ) ) {
     wp_clear_scheduled_hook( 'ucare_cron_close_tickets' );
 }
 
-
-/**
- * Drop an options class
- *
- * @param string $class
- *
- * @internal
- * @since 1.6.0
- * @return void
- */
-function drop_options( $class ) {
-
-    if ( class_exists( $class ) || interface_exists( $class ) ) {
-        $options = new \ReflectionClass( $class );
-
-        foreach ( $options->getConstants() as $option ) {
-            delete_option( $option );
-        }
-    }
-
-}
