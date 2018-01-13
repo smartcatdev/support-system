@@ -54,6 +54,9 @@ The following translations are currently bundled:
 - French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli") )
 - Dutch ( Provided by [Hinse Rot](https://hinserot.nl/ "Hinse Rot") )
 If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
+- German Provided by [XaLpHa](https://empyrion-brb.de/ "XaLpHa") [HolgerKuehn](https://virtual-services.info/ "HolgerKuehn")
+
+To translate the plugin, [Contact us](https://support.smartcatdesign.net/ "Contact Us")
 
 == Screenshots ==
 
@@ -101,6 +104,11 @@ Yes! Email Piping is an add-on that you can purchase. This allows you to integra
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.5.1 =
+- added support for custom fields
+- Fixed bug blocking first-login modal
+- Added German Translation
 
 = 1.5.0 =
 - Added add-ons for auto ticket routing, advanced EDD, and Agent notes and Slack notifications
