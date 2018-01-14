@@ -63,8 +63,9 @@
 }
 
 .ucare-category-color {
-    width: 22px;
+    width: 100%;
     height: 22px;
     display: inline-block;
+    border-radius: 3px;
 }
 /*</editor-fold>*/
