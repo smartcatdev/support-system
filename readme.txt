@@ -53,8 +53,9 @@ The following translations are currently bundled:
 - English
 - French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli") )
 - Dutch ( Provided by [Hinse Rot](https://hinserot.nl/ "Hinse Rot") )
-If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
 - German Provided by [XaLpHa](https://empyrion-brb.de/ "XaLpHa") [HolgerKuehn](https://virtual-services.info/ "HolgerKuehn")
+- Serbian ( provided by Goran Milic )
+If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
 
 To translate the plugin, [Contact us](https://support.smartcatdesign.net/ "Contact Us")
 
@@ -110,6 +111,7 @@ Yes, uCare is built with a notification system and templates for your customers 
 - Added support for custom fields
 - Fixed bug blocking first-login modal
 - Added German Translation
+- Added Serbian Translation
 
 = 1.5.0 =
 - Added add-ons for auto ticket routing, advanced EDD, and Agent notes and Slack notifications
