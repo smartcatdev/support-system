@@ -16,10 +16,10 @@ add_action( 'edit_ticket_category',   'ucare\category_color_save_term_fields' );
 add_action( 'edited_ticket_category', 'ucare\category_color_save_term_fields' );
 add_action( 'create_ticket_category', 'ucare\category_color_save_term_fields' );
 
-// 
+// Insert category color column
 add_filter( 'manage_edit-ticket_category_columns', 'ucare\category_color_add_terms_table_columns' );
 
-// Render the category color column
+// Render the category color data
 add_filter( 'manage_ticket_category_custom_column', 'ucare\category_color_render_terms_table_columns', 10, 3 );
 
 
@@ -54,7 +54,10 @@ function register_category_taxonomy() {
 
 }
 
-
+/**
+ * 
+ * @since 1.5.1
+ */
 function add_ticket_category_color() { ?>
 
     <div class="form-field term-color">
@@ -67,6 +70,10 @@ function add_ticket_category_color() { ?>
 
 <?php }
 
+/**
+ * 
+ * @param WP_Term $term
+ */
 function edit_ticket_category_color( $term ) { ?>
 
     <tr class="form-field form-required term-color-wrap">
@@ -87,6 +94,13 @@ function edit_ticket_category_color( $term ) { ?>
 
 <?php }
 
+/**
+ * 
+ * Handle saving category color term meta
+ * 
+ * @param int $term_id
+ * @since 1.5.1
+ */
 function category_color_save_term_fields( $term_id ) {
 
     if ( \ucare\verify_request_nonce( 'save_category_color', 'category_color_nonce' ) ) {
@@ -104,8 +118,14 @@ function category_color_save_term_fields( $term_id ) {
 
 }
 
+/**
+ * 
+ * 
+ * @param $columns
+ * @return array
+ * @since 1.5.1
+ */
 function category_color_add_terms_table_columns( $columns ) {
-    
     
     $custom = array(
         'category_color' => __( 'Color', 'ucare' ),
@@ -115,6 +135,16 @@ function category_color_add_terms_table_columns( $columns ) {
 
 }
 
+/**
+ * 
+ * 
+ * @param $output
+ * @param $column
+ * @param $term_id
+ * @return string
+ * @since 1.5.1
+ *
+ */
 function category_color_render_terms_table_columns( $output, $column, $term_id ) {
     
     if( $column != 'category_color' ) {
