@@ -42,6 +42,8 @@ jQuery(document).ready( function ($) {
     $("#close-feedback").click(close_feedback);
     $(".feedback-reason").click(close_feedback);
     $('input[name=reason]').change(toggle_feedback_reason);
+    $( '#ucare-category-color' ).wpColorPicker();
+
 
 });
 
