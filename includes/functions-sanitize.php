@@ -51,5 +51,5 @@ function sanitize_agent_id( $id ) {
  * @return mixed
  */
 function sanitize_boolean( $val ) {
-    return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
+    return filter_var( $val, FILTER_VALIDATE_BOOLEAN ) == true ? $val : false;
 }

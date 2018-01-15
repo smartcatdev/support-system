@@ -619,11 +619,9 @@ function ucare_register_user( $user_data, $authenticate = false, $remember = fal
         }
 
         do_action( 'support_user_registered', $user_data );
-
     }
 
     return $id;
-
 }
 
 
@@ -829,28 +827,4 @@ function ucare_admin_is_page( $page ) {
     }
 
     return false;
-}
-
-
-/***********************************************************************************************************************
- *
- * Sanitization functions
- *
- * @since 1.6.0
- * @scope global
- */
-
-
-
-
-/**
- * Sanitize truthy values such as 'on', 'yes', 1, true and anything not null.
- *
- * @param mixed $val
- *
- * @since 1.0.0
- * @return mixed
- */
-function ucare_sanitize_boolean( $val ) {
-    return \ucare\sanitize_boolean( $val );
 }

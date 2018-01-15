@@ -164,7 +164,6 @@ function esc_url_e( $url, $protocols = null ) {
  * @return string
  */
 function parse_attributes( $attributes ) {
-
     $str = '';
 
     foreach ( $attributes as $name => $attr ) {
@@ -172,5 +171,4 @@ function parse_attributes( $attributes ) {
     }
 
     return $str;
-
 }
