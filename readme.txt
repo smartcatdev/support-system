@@ -12,6 +12,8 @@ If you have customers, then you need uCare. An intelligent support ticket help d
 
 == Description ==
 
+= Full-Featured WordPress Helpdesk / Support Ticket System Plugin =
+
 [Live demo](https://ucaresupport.com/demo/ "Demo")
 Demo username: demoagent
 Demo password: demoagent
@@ -20,7 +22,7 @@ uCare is the ultimate WordPress plugin to create a fully-featured support ticket
 With unique user roles for your support admins, agents and customers, you can provide your customers with a unique and impressive support experience
 which is aimed at increasing customser satisfaction. 
 
-uCare allows you to work on customer support tickets directly from the backend or the frontend. You can view, manage and comment on tickets, as well as update ticket status directly from the WordPress
+uCare allows you to work on customer support from a beautiful and user-friendly interface. You can view, manage and comment on tickets, as well as update ticket status directly from the WordPress
 dashboard. Additionally, you and the support agents will be able to use the beautifully designed page to work on tickets.
 
 This plugin creates it's own page that runs completely separate from your theme, meaning this is the only plugin that has zero impact on your

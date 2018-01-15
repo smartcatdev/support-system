@@ -27,7 +27,7 @@ add_action( 'comment_post', 'ucare\ucare_new_comment', 20, 3 );
 function ucare_new_ticket( $ticket_id, $ticket, $update ) {
     
     // Ensure we're dealing with a ucare ticket
-    if( $ticket->post_type !== 'support_ticket' ) {
+    if( $ticket->post_type !== 'support_ticket' || $ticket->post_status != 'publish' ) {
         return;
     }
     
