@@ -52,7 +52,7 @@ namespace ucare;
                     . 'customers and increases your customer satisfaction.', 'ucare' ); ?></p>
             <p>
                 <a class="button-primary"
-                   href="https://ucaresupport.com/downloads/email-piping-guest-tickets?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=ucare+pro"
+                   href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=ucare+pro"
                    target="_BLANK">
                     <?php _e( 'Get uCare Pro', 'ucare' ); ?>
                 </a>
@@ -67,6 +67,7 @@ namespace ucare;
                 <li><?php _e( '- 200 additional font options', 'ucare' ); ?></li>
                 <li><?php _e( '- Ability to support any file type for uploads', 'ucare' ); ?></li>
                 <li><?php _e( '- Improved settings page', 'ucare' ); ?></li>
+                <li><?php _e( '- Ticket Categories can now be assigned unique colors', 'ucare' ); ?></li>
                 <li><?php _e( '- bug fixes', 'ucare' ); ?></li>
 
             </ul>

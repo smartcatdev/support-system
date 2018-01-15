@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uCare - Support Ticket System\n"
 "POT-Creation-Date: 2017-11-13 12:36-0500\n"
-"PO-Revision-Date: 2017-11-13 12:39-0500\n"
+"PO-Revision-Date: 2018-01-12 21:56-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -72,7 +72,7 @@ msgstr "صورة خلفية تسجيل الدخول"
 
 #: config/admin_settings.php:102
 msgid "Display Back Button"
-msgstr ""
+msgstr "عرض زر الخلف"
 
 #: config/admin_settings.php:103
 msgid "Display button that links back to your website in the navigation bar"
@@ -470,83 +470,83 @@ msgstr ""
 #: config/admin_settings.php:670 plugin.php:58 templates/dash.php:19
 #: templates/navbar.php:106
 msgid "Settings"
-msgstr ""
+msgstr "إعدادات"
 
 #: config/admin_settings.php:676
 msgid "General"
-msgstr ""
+msgstr "عام"
 
 #: config/admin_settings.php:683
 msgid "Display"
-msgstr ""
+msgstr "عرض"
 
 #: config/admin_settings.php:697 config/ticket_filter.php:72
 #: includes/ticket-post-type.php:165
 msgid "Email"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #: config/admin_settings.php:704
 msgid "Advanced"
-msgstr ""
+msgstr "متقدم"
 
 #: config/product_metabox_form.php:9 config/ticket_create_form.php:13
 msgid "Select a Product"
-msgstr ""
+msgstr "اختر المنتج"
 
 #: config/product_metabox_form.php:18 config/ticket_create_form.php:73
 msgid "Receipt #"
-msgstr ""
+msgstr "إيصال #"
 
 #: config/product_metabox_form.php:27 config/ticket_create_form.php:58
 #: config/ticket_filter.php:44 includes/ticket-post-type.php:158
 msgid "Product"
-msgstr ""
+msgstr "منتج"
 
 #: config/properties_metabox_form.php:11 config/ticket_filter.php:63
 #: config/ticket_properties_form.php:11 includes/ticket-post-type.php:200
 #: includes/ticket-post-type.php:321
 msgid "Unassigned"
-msgstr ""
+msgstr "غیر معينة"
 
 #: config/properties_metabox_form.php:19 includes/admin/AgentStatsTable.php:28
 #: includes/ticket-post-type.php:166 includes/ticket-post-type.php:331
 msgid "Assigned"
-msgstr ""
+msgstr "مخصص"
 
 #: config/properties_metabox_form.php:31 config/ticket_filter.php:93
 #: config/ticket_properties_form.php:30 includes/ticket-post-type.php:167
 #: includes/ticket-post-type.php:342
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 #: config/properties_metabox_form.php:43 config/ticket_properties_form.php:42
 #: includes/ticket-post-type.php:168 includes/ticket-post-type.php:353
 msgid "Priority"
-msgstr ""
+msgstr "الأولوية"
 
 #: config/registration_form.php:14 config/settings_form.php:15
 msgid "First Name"
-msgstr ""
+msgstr "الاسم الأول"
 
 #: config/registration_form.php:15
 msgid "First name cannot be blank"
-msgstr ""
+msgstr "لا يمكن أن يكون حقل الاسم الأول فارغًا."
 
 #: config/registration_form.php:25 config/settings_form.php:28
 msgid "Last Name"
-msgstr ""
+msgstr "اسم العائلة"
 
 #: config/registration_form.php:26
 msgid "Last name cannot be blank"
-msgstr ""
+msgstr "لا يمكن أن يكون حقل الاسم الأخير فارغًا."
 
 #: config/registration_form.php:37
 msgid "Email Address"
-msgstr ""
+msgstr "البريد الاكترونى"
 
 #: config/registration_form.php:38
 msgid "Email cannot be empty or already in use"
-msgstr ""
+msgstr "البريد الإلكتروني لا يمكن أن يكون فارغاً أو مسبقاً قيد الاستخدام"
 
 #: config/settings_form.php:17
 msgid "First name is required"
@@ -570,91 +570,91 @@ msgstr ""
 
 #: config/ticket_create_form.php:59
 msgid "Please Select a product"
-msgstr ""
+msgstr "الرجاء اختيار منتج"
 
 #: config/ticket_create_form.php:87 config/ticket_create_form.php:102
 #: includes/ticket-post-type.php:155
 msgid "Subject"
-msgstr ""
+msgstr "موضوع"
 
 #: config/ticket_create_form.php:88
 msgid "Cannot be blank"
-msgstr ""
+msgstr "لا يمكن أن يكون فارغاً"
 
 #: config/ticket_create_form.php:103
 msgid "Subject cannot be blank"
-msgstr ""
+msgstr "هذا الموضوع لا يمكن أن يكون فارغاً"
 
 #: config/ticket_create_form.php:118
 msgid "Description"
-msgstr ""
+msgstr "وصف"
 
 #: config/ticket_create_form.php:119
 msgid "Description cannot be blank"
-msgstr ""
+msgstr "وصف الصورة لا يمكن أن يكون فارغا."
 
 #: config/ticket_filter.php:46 includes/ticket-post-type.php:256
 msgid "All Products"
-msgstr ""
+msgstr "جميع المنتجات"
 
 #: config/ticket_filter.php:59 includes/admin/AgentStatsTable.php:27
 msgid "Agent"
-msgstr ""
+msgstr "وكيل"
 
 #: config/ticket_filter.php:62 includes/admin/AgentStatsTable.php:53
 #: includes/ticket-post-type.php:248
 msgid "All Agents"
-msgstr ""
+msgstr "كل الوكلاء"
 
 #: config/ticket_filter.php:84 includes/ticket-post-type.php:212
 #: includes/ticket-post-type.php:271
 msgid "Stale"
-msgstr ""
+msgstr "قديمة"
 
 #: config/ticket_properties_form.php:18
 msgid "Assigned to"
-msgstr ""
+msgstr "أوكل إلى"
 
 #: emails/product-feedback.php:5
 msgid "Reason"
-msgstr ""
+msgstr "السبب"
 
 #: emails/product-feedback.php:10
 msgid "Details"
-msgstr ""
+msgstr "تفاصيل"
 
 #: emails/product-feedback.php:17
 msgid "Comments"
-msgstr ""
+msgstr "المنشورات والتعليقات"
 
 #: emails/product-feedback.php:22
 msgid "website can be viewed here"
-msgstr ""
+msgstr "يمكنك مشاهدة الموقع هنا"
 
 #: includes/Plugin.php:117
 msgid "Reports"
-msgstr ""
+msgstr "تقارير"
 
 #: includes/Plugin.php:128 templates/dash.php:119
 msgid "Tickets"
-msgstr ""
+msgstr "التذاكر"
 
 #: includes/Plugin.php:138 includes/ticket-post-type.php:20
 #: includes/ticket-post-type.php:21 includes/ticket-post-type.php:22
 msgid "Create Ticket"
-msgstr ""
+msgstr "إنشاء تذكرة"
 
 #: includes/Plugin.php:159
 msgid "Launch Help Desk"
-msgstr ""
+msgstr "إطلاق مكتب المساعدة"
 
 #: includes/Plugin.php:170 templates/admin-header.php:32
 msgid "Add-ons"
-msgstr ""
+msgstr "أضافات"
 
 #: includes/Plugin.php:183
 msgid "Licenses"
-msgstr ""
+msgstr "تراخيص"
 
 #: includes/admin/AgentStatsTable.php:15
 msgid "Agent Total"
@@ -667,11 +667,11 @@ msgstr ""
 #: includes/admin/AgentStatsTable.php:29
 #: includes/admin/ReportsOverviewTab.php:80 includes/functions.php:214
 msgid "Closed"
-msgstr ""
+msgstr "مغلقة"
 
 #: includes/admin/AgentStatsTable.php:30
 msgid "% Workload"
-msgstr ""
+msgstr "عبء العمل"
 
 #: includes/admin/AgentStatsTable.php:44
 msgid "No totals available."
@@ -679,35 +679,35 @@ msgstr ""
 
 #: includes/admin/AgentStatsTable.php:68 includes/admin/LogsTable.php:92
 msgid "Filter"
-msgstr ""
+msgstr "منقي"
 
 #: includes/admin/LogsTab.php:14 includes/admin/LogsTable.php:15
 msgid "Logs"
-msgstr ""
+msgstr "السجل"
 
 #: includes/admin/LogsTable.php:14
 msgid "Log"
-msgstr ""
+msgstr "السجل"
 
 #: includes/admin/LogsTable.php:20
 msgid "Info"
-msgstr ""
+msgstr "المعلومات"
 
 #: includes/admin/LogsTable.php:21
 msgid "Debug"
-msgstr ""
+msgstr "تنقيح"
 
 #: includes/admin/LogsTable.php:22 lib/license/EDD_SL_Plugin_Updater.php:396
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #: includes/admin/LogsTable.php:23
 msgid "Warning"
-msgstr ""
+msgstr "تحذير"
 
 #: includes/admin/LogsTable.php:31
 msgid "Level"
-msgstr ""
+msgstr "المستوى"
 
 #: includes/admin/LogsTable.php:32
 msgid "Event"
@@ -719,7 +719,7 @@ msgstr ""
 
 #: includes/admin/LogsTable.php:34
 msgid "Timestamp"
-msgstr ""
+msgstr "الوقت"
 
 #: includes/admin/LogsTable.php:47
 msgid "No logs available."
@@ -870,11 +870,11 @@ msgstr ""
 
 #: includes/functions.php:158
 msgid "Just Now"
-msgstr ""
+msgstr "الآن"
 
 #: includes/functions.php:160
 msgid " ago"
-msgstr ""
+msgstr "قبل"
 
 #: includes/functions.php:201
 msgid "Low"
@@ -918,7 +918,7 @@ msgstr ""
 
 #: includes/functions.php:412
 msgid "Support"
-msgstr ""
+msgstr "الدعم"
 
 #: includes/functions.php:434
 msgid "You have created a new request for support"

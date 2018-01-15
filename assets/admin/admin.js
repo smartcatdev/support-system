@@ -44,7 +44,8 @@ var SupportAdmin = (function (module, $, window) {
         $(".color_picker").wpColorPicker();
         
         $('#uc-settings_menu_page select').selectize({
-            searchField : ['this']
+            searchField : ['this'],
+            allowEmptyOption : true
         });
 
     };

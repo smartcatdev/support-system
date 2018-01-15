@@ -12,6 +12,8 @@ If you have customers, then you need uCare. An intelligent support ticket help d
 
 == Description ==
 
+= Full-Featured WordPress Helpdesk / Support Ticket System Plugin =
+
 [Live demo](https://ucaresupport.com/demo/ "Demo")
 Demo username: demoagent
 Demo password: demoagent
@@ -20,7 +22,7 @@ uCare is the ultimate WordPress plugin to create a fully-featured support ticket
 With unique user roles for your support admins, agents and customers, you can provide your customers with a unique and impressive support experience
 which is aimed at increasing customser satisfaction. 
 
-uCare allows you to work on customer support tickets directly from the backend or the frontend. You can view, manage and comment on tickets, as well as update ticket status directly from the WordPress
+uCare allows you to work on customer support from a beautiful and user-friendly interface. You can view, manage and comment on tickets, as well as update ticket status directly from the WordPress
 dashboard. Additionally, you and the support agents will be able to use the beautifully designed page to work on tickets.
 
 This plugin creates it's own page that runs completely separate from your theme, meaning this is the only plugin that has zero impact on your
@@ -53,7 +55,11 @@ The following translations are currently bundled:
 - English
 - French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli") )
 - Dutch ( Provided by [Hinse Rot](https://hinserot.nl/ "Hinse Rot") )
+- German Provided by [XaLpHa](https://empyrion-brb.de/ "XaLpHa") [HolgerKuehn](https://virtual-services.info/ "HolgerKuehn")
+- Serbian ( provided by Goran Milic )
 If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
+
+To translate the plugin, [Contact us](https://support.smartcatdesign.net/ "Contact Us")
 
 == Screenshots ==
 
@@ -101,6 +107,13 @@ Yes! Email Piping is an add-on that you can purchase. This allows you to integra
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.5.1 =
+- Added the ability to assign unique colors for ticket categories
+- Added support for custom fields
+- Fixed bug blocking first-login modal
+- Added German Translation
+- Added Serbian Translation
 
 = 1.5.0 =
 - Added add-ons for auto ticket routing, advanced EDD, and Agent notes and Slack notifications

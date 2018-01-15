@@ -139,9 +139,16 @@ function send_stale_ticket_email( \WP_Post $ticket ) {
 add_action( 'support_mark_ticket_stale', 'ucare\send_stale_ticket_email' );
 
 
+/**
+ * 
+ * Send ticket created confirmation email to the user that created the ticket
+ * 
+ * @since 1.0.0
+ * @param \WP_Post $ticket
+ */
 function send_ticket_created_email( \WP_Post $ticket ) {
-
-    $recipient = wp_get_current_user();
+    
+    $recipient = get_user_by( 'ID', $ticket->post_author );
 
     $template_vars = array(
         'ticket_subject' => $ticket->post_title,
@@ -156,6 +163,13 @@ function send_ticket_created_email( \WP_Post $ticket ) {
 add_action( 'support_ticket_created', 'ucare\send_ticket_created_email' );
 
 
+/**
+ * 
+ * Send ticket created email to the admin
+ * 
+ * @since 1.0.
+ * @param \WP_Post $ticket
+ */
 function send_new_ticket_email( \WP_Post $ticket ) {
 
     $recipient = get_option( Options::ADMIN_EMAIL );
