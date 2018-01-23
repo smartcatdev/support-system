@@ -807,21 +807,21 @@ function ucare_agents_dropdown( $selected = '', $attributes = array(), $prepend 
  */
 
 /**
- * Check to see if we are on a admin menu page.
+ * Check to see if we are on a admin menu screen.
  *
- * @param string $page
+ * @param string $tag
  *
  * @since 1.6.0
  * @return bool
  */
-function ucare_admin_is_page( $page ) {
+function ucare_admin_is_screen( $tag ) {
     if ( !is_admin() ) {
         return false;
     }
 
     $screen = get_current_screen();
 
-    switch ( $page ) {
+    switch ( $tag ) {
         case 'settings':
             return $screen->id === 'ucare-support_page_uc-settings';
     }

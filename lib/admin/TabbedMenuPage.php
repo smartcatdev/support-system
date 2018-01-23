@@ -30,7 +30,7 @@ $this->slug = sanitize_title( $this->menu_title ); // hack to create new permane
     }
 
     private function active_tab() {
-        $tabs = apply_filters('ucare_menu_page-' .  $this->slug . '_tabs', $this->tabs );
+        $tabs = apply_filters('ucare_menu_page_tabs', $this->tabs );
 
         $active = current( array_keys( $tabs ) );
 
@@ -53,7 +53,7 @@ $this->slug = sanitize_title( $this->menu_title ); // hack to create new permane
 
             <h2 class="nav-tab-wrapper">
 
-                <?php foreach ( apply_filters( 'ucare_menu_page-' . $this->slug . '_tabs', $this->tabs ) as $id => $tab ) : ?>
+                <?php foreach ( apply_filters( 'ucare_menu_page_tabs', $this->tabs ) as $id => $tab ) : ?>
 
                     <?php $url = apply_filters( 'tab_url_' . $id, 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ); ?>
 
