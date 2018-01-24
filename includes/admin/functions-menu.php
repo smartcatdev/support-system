@@ -31,6 +31,9 @@ function enqueue_admin_scripts( $hook ) {
     // Load assets only on plugin admin pages
     if ( strpos( $hook, 'ucare' ) !== false || get_post_type() == 'support_ticket' ) {
 
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'wp-color-picker' );
+
         wp_enqueue_script( 'wp_media_uploader',
             resolve_url( 'assets/lib/wp_media_uploader.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
@@ -55,9 +58,6 @@ function enqueue_admin_scripts( $hook ) {
 
         //<editor-fold desc="Libraries">
         wp_enqueue_media();
-
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script( 'wp-color-picker' );
 
         wp_enqueue_script( 'moment',
             resolve_url( '/assets/lib/moment/moment.min.js' ), null, PLUGIN_VERSION );

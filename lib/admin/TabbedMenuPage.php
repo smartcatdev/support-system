@@ -75,7 +75,9 @@ $this->slug = sanitize_title( $this->menu_title ); // hack to create new permane
                     ?>
                     <?php do_action( 'ucare_admin_menu_page' ); ?>
 
-                    <?php @$this->tabs[ $this->active_tab() ]->render(); ?>
+                    <?php if ( isset( $this->tabs[ $this->active_tab() ] ) ) {
+                               $this->tabs[ $this->active_tab() ]->render();
+                    } ?>
 
                 </div>
 
