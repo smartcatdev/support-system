@@ -695,7 +695,7 @@ function ucare_products_dropdown( $selected = '', $attributes = array(), $prepen
     }
 
     if ( !empty( $prepend ) ) {
-        $products = array_merge( $prepend, $products );
+        $products = $prepend + $products;
     }
 
     \ucare\dropdown( $products, $selected, $attributes );
@@ -716,7 +716,7 @@ function ucare_statuses_dropdown( $selected = '', $attributes = array(), $prepen
     $statuses = \ucare\get_ticket_statuses();
 
     if ( !empty( $prepend ) ) {
-        $statuses = array_merge( $prepend, $statuses );
+        $statuses = $prepend + $statuses;
     }
 
     \ucare\dropdown( $statuses, $selected, $attributes );
@@ -737,7 +737,7 @@ function ucare_priority_dropdown( $selected = '', $attributes = array(), $prepen
     $priorities = \ucare\ticket_priorities();
 
     if ( !empty( $prepend ) ) {
-        $priorities = array_merge( $prepend, $priorities );
+        $priorities = $prepend + $priorities;
     }
 
     \ucare\dropdown( $priorities, $selected, $attributes );
@@ -762,7 +762,7 @@ function ucare_category_dropdown( $selected = '', $attributes = array(), $prepen
     }
 
     if ( !empty( $prepend ) ) {
-        $categories = array_merge( $prepend, $categories );
+        $categories = $prepend + $categories;
     }
 
     \ucare\dropdown( $categories, $selected, $attributes );
@@ -791,7 +791,7 @@ function ucare_agents_dropdown( $selected = '', $attributes = array(), $prepend 
     }
 
     if ( !empty( $prepend ) ) {
-        $agents = array_merge( $prepend, $agents );
+        $agents = $prepend + $agents;
     }
 
     \ucare\dropdown( $agents, $selected, $attributes );
@@ -824,6 +824,9 @@ function ucare_admin_is_screen( $tag ) {
     switch ( $tag ) {
         case 'settings':
             return $screen->id === 'ucare-support_page_uc-settings';
+
+        case 'reports':
+            return $screen->id === 'toplevel_page_ucare_support';
     }
 
     return false;
