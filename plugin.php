@@ -58,7 +58,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         use Data;
         use Singleton;
 
-
         /**
          * Sets up includes and defines global constants.
          *
@@ -75,7 +74,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             // All done
             do_action( 'ucare_loaded', $this );
         }
-
 
         /**
          * Define plugin constants.
@@ -110,7 +108,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 }
             }
         }
-
 
         /**
          * Include plugin files.
@@ -195,7 +192,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             }
         }
 
-
         /**
          * Initialize module for handling extension licensing.
          *
@@ -232,7 +228,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          *
          * @since 1.6.0
          */
-        if ( is_support_page() ) do_action( 'ucare_init' );
+        if ( is_a_support_page() ) do_action( 'ucare_init' );
     }
 
 
@@ -343,14 +339,12 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
 } else {
-
     /**
      * Add an error in the admin dashboard if the server's PHP version does not meet the minimum requirements.
      *
      * @since 1.0.0
      */
     admin_notification( sprintf( __( 'Your PHP version %s does not meet minimum requirements. uCare Support requires version %s or higher', 'ucare' ), PHP_VERSION, MIN_PHP_VERSION ) );
-
 }
 
 
@@ -389,9 +383,7 @@ function resolve_url( $path = '' ) {
  * @return void
  */
 function admin_notification( $message, $type = 'error', $dismissible = true ) {
-
     add_action( 'admin_notices', function () use ( $message, $type, $dismissible ) {
         printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>', esc_attr( $type ), $dismissible ? 'is-dismissible' : '', $message );
     } );
-
 }

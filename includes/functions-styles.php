@@ -50,6 +50,7 @@ function default_styles( $styles ) {
         return;
     }
 
+    $styles->add( 'bootstrap', resolve_url( 'assets/css/bootstrap.min.css' ), null, PLUGIN_VERSION );
 
 
     do_action( 'ucare_default_styles' );
@@ -66,7 +67,7 @@ function enqueue_default_styles() {
 
     enqueue_fonts();
 
-    ucare_enqueue_style( 'bootstrap',   resolve_url( 'assets/lib/bootstrap/css/bootstrap.min.css' ), null, PLUGIN_VERSION );
+    ucare_enqueue_style( 'bootstrap' );
     ucare_enqueue_style( 'dropzone',    resolve_url( 'assets/lib/dropzone/css/dropzone.min.css'   ), null, PLUGIN_VERSION );
 
     ucare_enqueue_style( 'ucare-dropzone', resolve_url( 'assets/css/dropzone.css' ), null, PLUGIN_VERSION );

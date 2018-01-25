@@ -12,7 +12,7 @@ namespace ucare;
 add_action( 'ucare_loaded', 'ucare\init_scripts' );
 
 // Fire our enqueue hook
-add_action( 'wp', 'ucare\enqueue_system_scripts' );
+add_action( 'ucare_init', 'ucare\enqueue_scripts' );
 
 // Register core scripts
 add_action( 'ucare_enqueue_scripts', 'ucare\register_default_scripts' );
@@ -60,6 +60,7 @@ function default_scripts( $scripts ) {
         return;
     }
 
+    $scripts->add( 'bootstrap', resolve_url( 'assets/js/bootstrap.min.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
 
     do_action( 'ucare_default_scripts' );
@@ -69,15 +70,18 @@ function default_scripts( $scripts ) {
 /**
  * Fires the ucare_enqueue_scripts action at the earliest moment we know that we are on the support page.
  *
- * @action wp
+ * @action ucare_init
  *
  * @since 1.4.2
  * @return void
  */
-function enqueue_system_scripts() {
-    if ( is_a_support_page() ) {
-        do_action( 'ucare_enqueue_scripts' );
-    }
+function enqueue_scripts() {
+    /**
+     * Begin enqueuing scripts to be used in the front-end app
+     *
+     * @since 1.4.2
+     */
+    do_action( 'ucare_enqueue_scripts' );
 }
 
 
@@ -147,7 +151,7 @@ function enqueue_default_scripts() {
     ucare_enqueue_script( 'wp-util' );
     ucare_enqueue_script( 'sweetalert' );
 
-    ucare_enqueue_script( 'bootstrap', resolve_url( 'assets/lib/bootstrap/js/bootstrap.min.js' ), null, PLUGIN_VERSION, true );
+    ucare_enqueue_script( 'bootstrap' );
     ucare_enqueue_script( 'dropzone',  resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'   ), null, PLUGIN_VERSION, true );
 
     ucare_enqueue_script( 'script', resolve_url( 'assets/js/script.js' ), null, PLUGIN_VERSION, true );
