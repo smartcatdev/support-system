@@ -27,7 +27,7 @@ add_action( 'ucare_head', 'ucare\print_header_scripts' );
 add_action( 'ucare_footer', 'ucare\print_footer_scripts' );
 
 // Register default scripts
-add_action( 'wp_default_scripts', 'ucare\default_scripts' );
+add_action( 'ucare_default_scripts', 'ucare\default_scripts' );
 
 
 /**
@@ -46,24 +46,62 @@ function init_scripts( $ucare ) {
 
 
 /**
- * Register default scripts.
+ * Print enqueued header scripts.
  *
- * @action wp_default_scripts
+ * @action ucare_head
  *
- * @param Scripts $scripts
- *
- * @since 1.6.0
- * @return void
+ * @since 1.4.2
+ * @return bool|array
  */
-function default_scripts( $scripts ) {
-    if ( !is_a( $scripts, 'ucare\Scripts' ) || did_action( 'ucare_default_scripts' ) ) {
-        return;
+function print_header_scripts() {
+    $scripts = scripts();
+
+    if ( !$scripts || did_action( 'ucare_print_header_scripts' ) ) {
+        return false;
     }
 
-    $scripts->add( 'bootstrap', resolve_url( 'assets/js/bootstrap.min.js' ), array( 'jquery' ), PLUGIN_VERSION );
+    do_action( 'ucare_print_header_scripts' );
+
+    $scripts->do_head_items();
+    $scripts->reset();
+
+    return $scripts->done;
+}
 
 
-    do_action( 'ucare_default_scripts' );
+/**
+ * Print enqueued footer scripts.
+ *
+ * @since 1.4.2
+ * @return bool|array
+ */
+function print_footer_scripts() {
+    $scripts = scripts();
+
+    if ( !$scripts || did_action( 'ucare_print_footer_scripts' ) ) {
+        return false;
+    }
+
+    do_action( 'ucare_print_footer_scripts' );
+
+    print_underscore_templates();
+    print_footer_scripts();
+
+    $scripts->do_footer_items();
+    $scripts->reset();
+
+    return $scripts->done;
+}
+
+
+/**
+ * Get scripts object.
+ *
+ * @since 1.4.2
+ * @return false|\WP_Scripts
+ */
+function scripts() {
+    return ucare()->get( 'scripts' );
 }
 
 
@@ -82,6 +120,28 @@ function enqueue_scripts() {
      * @since 1.4.2
      */
     do_action( 'ucare_enqueue_scripts' );
+}
+
+
+/**
+ * Register default scripts.
+ *
+ * @action ucare_default_scripts
+ *
+ * @param Scripts $scripts
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function default_scripts( $scripts ) {
+    if ( did_action( 'ucare_register_scripts' ) ) {
+        return;
+    }
+
+    $scripts->add( 'bootstrap', resolve_url( 'assets/js/bootstrap.min.js' ), array( 'jquery' ), PLUGIN_VERSION );
+
+
+    do_action( 'ucare_register_scripts' );
 }
 
 
@@ -219,69 +279,5 @@ function enqueue_app() {
 
     ucare_enqueue_script( 'ucare-app' );
 
-}
-
-
-/**
- * Print enqueued header scripts.
- *
- * @action ucare_head
- *
- * @since 1.4.2
- * @return bool|array
- */
-function print_header_scripts() {
-
-    $scripts = scripts();
-
-    if ( $scripts && !did_action( 'ucare_print_header_scripts' ) ) {
-        do_action( 'ucare_print_header_scripts' );
-
-        $scripts->do_head_items();
-        $scripts->reset();
-
-        return $scripts->done;
-    }
-
-    return false;
-
-}
-
-
-/**
- * Print enqueued footer scripts.
- *
- * @since 1.4.2
- * @return bool|array
- */
-function print_footer_scripts() {
-
-    $scripts = scripts();
-
-    if ( $scripts && !did_action( 'ucare_print_footer_scripts' ) ) {
-        do_action( 'ucare_print_footer_scripts' );
-
-        print_underscore_templates();
-        print_footer_scripts();
-
-        $scripts->do_footer_items();
-        $scripts->reset();
-
-        return $scripts->done;
-    }
-
-    return false;
-
-}
-
-
-/**
- * Get scripts object.
- *
- * @since 1.4.2
- * @return false|\WP_Scripts
- */
-function scripts() {
-    return ucare()->get( 'scripts' );
 }
 

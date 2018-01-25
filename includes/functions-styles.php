@@ -17,7 +17,7 @@ add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_styles' );
 add_action( 'ucare_head', 'ucare\print_styles' );
 
 // Register default styles
-add_action( 'wp_default_styles', 'ucare\default_styles' );
+add_action( 'ucare_default_styles', 'ucare\default_styles' );
 
 
 /**
@@ -36,9 +36,47 @@ function init_styles( $ucare ) {
 
 
 /**
+ * Print enqueued styles.
+ *
+ * @action ucare_head
+ *
+ * @since 1.4.2
+ * @return array|bool
+ */
+function print_styles() {
+    $styles = styles();
+
+    if ( !$styles || did_action( 'ucare_print_styles' ) ) {
+        return false;
+    }
+
+    do_action( 'ucare_print_styles' );
+
+    $styles->do_items();
+    $styles->reset();
+
+    // Get dynamic stylesheet overrides
+    get_template( 'dynamic-styles' );
+
+    return $styles->done;
+}
+
+
+/**
+ * Get the styles object.
+ *
+ * @since 1.4.2
+ * @return false|\WP_Scripts
+ */
+function styles() {
+    return ucare()->get( 'styles' );
+}
+
+
+/**
  * Register default styles.
  *
- * @action wp_default_styles
+ * @action ucare_default_styles
  *
  * @param Styles $styles
  *
@@ -46,14 +84,14 @@ function init_styles( $ucare ) {
  * @return void
  */
 function default_styles( $styles ) {
-    if ( !is_a( $styles, 'ucare\Styles' ) || did_action( 'ucare_default_styles' ) ) {
+    if ( did_action( 'ucare_register_styles' ) ) {
         return;
     }
 
     $styles->add( 'bootstrap', resolve_url( 'assets/css/bootstrap.min.css' ), null, PLUGIN_VERSION );
 
 
-    do_action( 'ucare_default_styles' );
+    do_action( 'ucare_register_styles' );
 }
 
 
@@ -82,43 +120,4 @@ function enqueue_default_styles() {
         ucare_enqueue_style( 'light-gallery',   resolve_url( 'assets/lib/lightGallery/css/lightgallery.min.css' ), null, PLUGIN_VERSION );
     }
 
-}
-
-
-/**
- * Print enqueued styles.
- *
- * @action ucare_head
- *
- * @since 1.4.2
- * @return array|bool
- */
-function print_styles() {
-
-    $styles = styles();
-
-    if ( $styles && !did_action( 'ucare_print_styles' ) ) {
-        do_action( 'ucare_print_styles' );
-
-        $styles->do_items();
-        $styles->reset();
-
-        // Get dynamic stylesheet overrides
-        get_template( 'dynamic-styles' );
-
-        return $styles->done;
-    }
-
-    return false;
-}
-
-
-/**
- * Get the styles object.
- *
- * @since 1.4.2
- * @return false|\WP_Scripts
- */
-function styles() {
-    return ucare()->get( 'styles' );
 }
