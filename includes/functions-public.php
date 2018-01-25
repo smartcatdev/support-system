@@ -34,21 +34,22 @@ use ucare\Logger;
 function ucare_register_license( $id, $args ) {
     $manager = \ucare\ucare()->get( 'license_manager' );
 
-    if ( $manager ) {
-        $options = array(
-            'license'    => $args['license_option'],
-            'status'     => $args['status_option'],
-            'expiration' => $args['expire_option'],
-        );
-
-        $edd_args = array(
-            'version'   => $args['version'],
-            'author'    => $args['author'],
-            'item_name' => $args['item_name']
-        );
-
-        $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args );
+    if ( !$manager ) {
+        return;
     }
+
+    $options = array(
+        'license'    => $args['license_option'],
+        'status'     => $args['status_option'],
+        'expiration' => $args['expire_option'],
+    );
+    $edd_args = array(
+        'version'   => $args['version'],
+        'author'    => $args['author'],
+        'item_name' => $args['item_name']
+    );
+
+    $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args );
 }
 
 
@@ -125,13 +126,14 @@ function ucare_get_logger( $type ) {
  * @return void
  */
 function ucare_drop_options( $class ) {
+    if ( !class_exists( $class ) && !interface_exists( $class ) ) {
+        return;
+    }
 
-    if ( class_exists( $class ) || interface_exists( $class ) ) {
-        $options = new \ReflectionClass( $class );
+    $options = new \ReflectionClass( $class );
 
-        foreach ( $options->getConstants() as $option ) {
-            delete_option( $option );
-        }
+    foreach ( $options->getConstants() as $option ) {
+        delete_option( $option );
     }
 }
 
@@ -165,7 +167,6 @@ function ucare_is_ecommerce_enabled() {
  * @return bool|string
  */
 function ucare_ecommerce_mode() {
-
     if ( defined( 'UCARE_ECOMMERCE_MODE' ) ) {
         return UCARE_ECOMMERCE_MODE;
     }
@@ -200,25 +201,22 @@ function ucare_ecommerce_mode() {
  * @return void
  */
 function ucare_enqueue_script( $handle, $src = '', $deps = array(), $ver = false, $in_footer = false ) {
-
     $scripts = \ucare\scripts();
 
-    if ( $scripts ) {
-
-        if ( $src || $in_footer ) {
-            $_handle = explode( '?', $handle );
-            $scripts->add( $_handle[0], $src, $deps, $ver );
-
-            if ( $in_footer ) {
-                $scripts->add_data( $_handle[0], 'group', 1 );
-            }
-
-        }
-
-        $scripts->enqueue( $handle );
-
+    if ( !$scripts ) {
+        return;
     }
 
+    if ( $src || $in_footer ) {
+        $_handle = explode( '?', $handle );
+        $scripts->add( $_handle[0], $src, $deps, $ver );
+
+        if ( $in_footer ) {
+            $scripts->add_data( $_handle[0], 'group', 1 );
+        }
+    }
+
+    $scripts->enqueue( $handle );
 }
 
 
@@ -241,19 +239,18 @@ function ucare_enqueue_script( $handle, $src = '', $deps = array(), $ver = false
  * @return void
  */
 function ucare_enqueue_style( $handle, $src = '', $deps = array(), $ver = false, $media = 'all' ) {
-
     $styles = \ucare\styles();
 
-    if ( $styles ) {
-
-        if ( $src ) {
-            $_handle = explode('?', $handle);
-            $styles->add( $_handle[0], $src, $deps, $ver, $media );
-        }
-
-        $styles->enqueue( $handle );
+    if ( !$styles ) {
+        return;
     }
 
+    if ( $src ) {
+        $_handle = explode('?', $handle);
+        $styles->add( $_handle[0], $src, $deps, $ver, $media );
+    }
+
+    $styles->enqueue( $handle );
 }
 
 
@@ -274,22 +271,19 @@ function ucare_enqueue_style( $handle, $src = '', $deps = array(), $ver = false,
  * @return bool
  */
 function ucare_register_script( $handle, $src, $deps = array(), $ver = false, $in_footer = false ) {
-
     $scripts = \ucare\scripts();
 
-    if ( $scripts ) {
-        $registered = $scripts->add( $handle, $src, $deps, $ver );
-
-        if ( $in_footer ) {
-            $scripts->add_data( $handle, 'group', 1 );
-        }
-
-        return $registered;
-
+    if ( !$scripts ) {
+        return false;
     }
 
-    return false;
+    $registered = $scripts->add( $handle, $src, $deps, $ver );
 
+    if ( $in_footer ) {
+        $scripts->add_data( $handle, 'group', 1 );
+    }
+
+    return $registered;
 }
 
 
@@ -306,7 +300,6 @@ function ucare_register_script( $handle, $src, $deps = array(), $ver = false, $i
  * @return bool
  */
 function ucare_localize_script( $handle, $object_name, $i10n ) {
-
     $scripts = \ucare\scripts();
 
     if ( $scripts ) {
@@ -314,7 +307,6 @@ function ucare_localize_script( $handle, $object_name, $i10n ) {
     }
 
     return false;
-
 }
 
 /**
@@ -336,7 +328,6 @@ function ucare_localize_script( $handle, $object_name, $i10n ) {
  * @return bool
  */
 function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
-
     $styles = \ucare\styles();
 
     if ( $styles ) {
@@ -344,7 +335,6 @@ function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $me
     }
 
     return true;
-
 }
 
 
@@ -368,7 +358,6 @@ function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $me
  * @return \WP_Query
  */
 function ucare_get_user_recent_tickets( $user, $args = array() ) {
-
     $user = \ucare\get_user( $user );
 
     $defaults = array(
@@ -391,12 +380,13 @@ function ucare_get_user_recent_tickets( $user, $args = array() ) {
     );
 
     return new \WP_Query( $q );
-
 }
 
 
 /**
  * Count the number of tickets that a user has created.
+ *
+ * @global $wpdb
  *
  * @param int $user_id The ID of the user.
  *
@@ -404,7 +394,6 @@ function ucare_get_user_recent_tickets( $user, $args = array() ) {
  * @return int
  */
 function ucare_count_user_tickets( $user_id ) {
-
     global $wpdb;
 
     $sql = "SELECT COUNT( * )
@@ -414,7 +403,6 @@ function ucare_count_user_tickets( $user_id ) {
               AND post_status = 'publish'";
 
     return $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
-
 }
 
 
@@ -437,16 +425,12 @@ function ucare_count_user_tickets( $user_id ) {
  * @return void
  */
 function ucare_register_sidebar( $id, $position, array $section ) {
-
     $sidebars = \ucare\get_sidebars();
 
     if ( is_array( $sidebars ) ) {
         $top = array_slice( $sidebars, 0, $position );
-        $new = array( $id => $section );
-
-        \ucare\ucare()->set( 'sidebars', array_merge( $top, $new, $sidebars ) );
+        \ucare\ucare()->set( 'sidebars', array_merge( $top, array( $id => $section ), $sidebars ) );
     }
-
 }
 
 
@@ -585,8 +569,6 @@ function ucare_footer() {
  * @return int|\WP_Error
  */
 function ucare_register_user( $user_data, $authenticate = false, $remember = false ) {
-
-    // An email is required
     if ( empty( $user_data['email'] ) ) {
         return new \WP_Error( 'user_email_missing', __( 'An email address must be provided', 'ucare' ), array( 'status' => 400 ) );
     }
@@ -611,15 +593,16 @@ function ucare_register_user( $user_data, $authenticate = false, $remember = fal
 
     $id = wp_insert_user( $map );
 
-    if ( !is_wp_error( $id ) ) {
-
-        // Auto authenticate if another user is not logged in
-        if ( $authenticate && !is_user_logged_in() ) {
-            wp_set_auth_cookie( $id, $remember );
-        }
-
-        do_action( 'support_user_registered', $user_data );
+    if ( is_wp_error( $id ) ) {
+        return $id;
     }
+
+    // Auto authenticate if another user is not logged in
+    if ( $authenticate && !is_user_logged_in() ) {
+        wp_set_auth_cookie( $id, $remember );
+    }
+
+    do_action( 'support_user_registered', $user_data );
 
     return $id;
 }
@@ -656,7 +639,6 @@ function ucare_reset_user_password( $username ) {
          * @since 1.6.0
          */
         do_action( 'support_password_reset', $user, $password );
-
 
         return true;
     }
@@ -784,7 +766,6 @@ function ucare_agents_dropdown( $selected = '', $attributes = array(), $prepend 
         if ( ucare_is_support_agent( $user->ID ) ) {
             $agents[ $user->ID ] = $user->display_name;
         }
-
     }
 
     if ( !empty( $prepend ) ) {

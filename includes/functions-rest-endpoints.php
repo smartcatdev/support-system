@@ -20,7 +20,6 @@ add_action( 'rest_api_init', 'ucare\rest_register_endpoints' );
  * @return void
  */
 function rest_register_endpoints() {
-
     /**
      * User registration endpoint.
      *
@@ -40,8 +39,8 @@ function rest_register_endpoints() {
         'methods' => \WP_REST_Server::CREATABLE,
         'callback' => 'ucare\rest_handler_rest_password'
     ) );
-
 }
+
 
 /**
  * Handler for the user registration endpoint.
@@ -52,7 +51,6 @@ function rest_register_endpoints() {
  * @return mixed
  */
 function rest_handler_register_user( $request ) {
-
     $user = ucare_register_user( $request->get_params(), true );
 
     if ( is_wp_error( $user ) ) {
@@ -63,7 +61,6 @@ function rest_handler_register_user( $request ) {
     $response->set_status( 201 );
 
     return $response;
-
 }
 
 
@@ -76,7 +73,6 @@ function rest_handler_register_user( $request ) {
  * @return mixed
  */
 function rest_handler_rest_password( $request ) {
-
     $reset = ucare_reset_user_password( $request->get_param( 'username' ) );
 
     if ( is_wp_error( $reset ) ) {
@@ -88,5 +84,4 @@ function rest_handler_rest_password( $request ) {
     );
 
     return new \WP_REST_Response( $data, 200 );
-
 }

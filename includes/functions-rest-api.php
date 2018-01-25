@@ -40,7 +40,6 @@ function rest_filter_comment_query( $args ) {
     global $wpdb;
 
     if ( !ucare_is_support_agent() ) {
-
         // Prevent selecting tickets that the user is NOT the author of
         $sql = "SELECT ID 
                 FROM $wpdb->posts 
@@ -91,7 +90,6 @@ function rest_filter_attachment_query( $args ) {
     global $wpdb;
 
     if ( !ucare_is_support_agent() ) {
-
         // Prevent selecting tickets that the user is NOT the author of
         $sql = "SELECT ID 
                 FROM $wpdb->posts 
@@ -117,8 +115,6 @@ function rest_filter_attachment_query( $args ) {
  * @return void
  */
 function rest_set_ticket_attributes( $post, $request ) {
-
-    // Insert meta
     $meta = $request->get_param( 'meta' );
 
     if ( is_array( $meta ) ) {
