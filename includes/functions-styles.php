@@ -7,12 +7,53 @@
  */
 namespace ucare;
 
+// Init styles on load
+add_action( 'ucare_loaded', 'ucare\init_styles' );
 
 // Load default styles
 add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_styles' );
 
 // Print styles in header
 add_action( 'ucare_head', 'ucare\print_styles' );
+
+// Register default styles
+add_action( 'wp_default_styles', 'ucare\default_styles' );
+
+
+/**
+ * Initialize the style service.
+ *
+ * @param uCare $ucare The plugin instance.
+ *
+ * @action ucare_loaded
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function init_styles( $ucare ) {
+    $ucare->set( 'styles', new Styles() );
+}
+
+
+/**
+ * Register default styles.
+ *
+ * @action wp_default_styles
+ *
+ * @param Styles $styles
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function default_styles( $styles ) {
+    if ( !is_a( $styles, 'ucare\Styles' ) || did_action( 'ucare_default_styles' ) ) {
+        return;
+    }
+
+
+
+    do_action( 'ucare_default_styles' );
+}
 
 
 /**

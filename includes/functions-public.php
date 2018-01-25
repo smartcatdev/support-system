@@ -634,7 +634,6 @@ function ucare_register_user( $user_data, $authenticate = false, $remember = fal
  * @return bool|\WP_Error
  */
 function ucare_reset_user_password( $username ) {
-
     $user = get_user_by( 'email', $username );
 
     if ( !$user ) {
@@ -660,11 +659,9 @@ function ucare_reset_user_password( $username ) {
 
 
         return true;
-
     }
 
     return new \WP_Error( 'user_not_found', __( 'User could not be found', 'ucare' ), array( 'status' => 404 ) );
-
 }
 
 

@@ -237,12 +237,12 @@ function send_agent_replied_email( $comment_id ) {
 add_action( 'comment_post', 'ucare\send_agent_replied_email' );
 
 
-function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
+function send_ticket_updated_email( $null, $id, $key, $value ) {
 
     $post = get_post( $id );
 
     // Only if the meta value has changed and the post type is support_ticket
-    if( $value !== $old && $post->post_type == 'support_ticket' ) {
+    if( $post->post_type == 'support_ticket' ) {
 
         // Notify the user that their ticket has been closed
         if( $key == 'status' && $value == 'closed' ) {
@@ -268,7 +268,7 @@ function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
 
 }
 
-add_action( 'update_post_metadata', 'ucare\send_ticket_updated_email', 10, 5 );
+add_action( 'updated_post_meta', 'ucare\send_ticket_updated_email', 10, 4 );
 
 
 function send_ticket_assigned_email( $null, $id, $key, $value, $old ) {

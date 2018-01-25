@@ -27,7 +27,6 @@ include_once dirname( __FILE__ ) . '/constants.php';
 // PHP Version check
 if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
-
     // Pull in immediate dependencies
     include_once dirname( __FILE__ ) . '/includes/trait-data.php';
     include_once dirname( __FILE__ ) . '/includes/trait-singleton.php';
@@ -38,11 +37,13 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
     // load the plugin text domain
     add_action( 'plugins_loaded', 'ucare\load_text_domain' );
 
+    // Call init on support pages
+    add_action( 'wp', 'ucare\init' );
+
     // Add custom action links to the plugins table row
     add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ucare\add_plugin_action_links' );
 
-
-    register_activation_hook(   __FILE__, 'ucare\activate'   );
+    register_activation_hook( __FILE__, 'ucare\activate' );
     register_deactivation_hook( __FILE__, 'ucare\deactivate' );
 
 
@@ -136,6 +137,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/class-field.php';
             include_once dirname( __FILE__ ) . '/includes/class-logger.php';
             include_once dirname( __FILE__ ) . '/includes/class-toolbar.php';
+            include_once dirname( __FILE__ ) . '/includes/class-scripts.php';
+            include_once dirname( __FILE__ ) . '/includes/class-styles.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
@@ -212,6 +215,24 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             $this->set( 'license_manager', new LicenseManager( 'ucare', 'submenu', $page ) );
         }
 
+    }
+
+
+    /**
+     * Runs when a support page has been loaded.
+     *
+     * @action wp
+     *
+     * @since 1.6.0
+     * @return void
+     */
+    function init() {
+        /**
+         * Notify as soon as we know a support page has loaded.
+         *
+         * @since 1.6.0
+         */
+        if ( is_support_page() ) do_action( 'ucare_init' );
     }
 
 
@@ -299,7 +320,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return array
      */
     function add_plugin_action_links( $links ) {
-
         if ( !get_option( Options::DEV_MODE ) ) {
             $links['deactivate'] = sprintf( '<span id="feedback-prompt">%s</span>', $links['deactivate'] );
         }

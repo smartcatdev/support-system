@@ -8,7 +8,7 @@
 namespace ucare;
 
 
-// Init scrips on load
+// Init scripts on load
 add_action( 'ucare_loaded', 'ucare\init_scripts' );
 
 // Fire our enqueue hook
@@ -26,9 +26,12 @@ add_action( 'ucare_head', 'ucare\print_header_scripts' );
 // Print footer scripts
 add_action( 'ucare_footer', 'ucare\print_footer_scripts' );
 
+// Register default scripts
+add_action( 'wp_default_scripts', 'ucare\default_scripts' );
+
 
 /**
- * Initialize the script and style service.
+ * Initialize the script service.
  *
  * @param uCare $ucare The plugin instance.
  *
@@ -38,8 +41,28 @@ add_action( 'ucare_footer', 'ucare\print_footer_scripts' );
  * @return void
  */
 function init_scripts( $ucare ) {
-    $ucare->set( 'scripts', new \WP_Scripts() );
-    $ucare->set( 'styles',  new \WP_Styles()  );
+    $ucare->set( 'scripts', new Scripts() );
+}
+
+
+/**
+ * Register default scripts.
+ *
+ * @action wp_default_scripts
+ *
+ * @param Scripts $scripts
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function default_scripts( $scripts ) {
+    if ( !is_a( $scripts, 'ucare\Scripts' ) || did_action( 'ucare_default_scripts' ) ) {
+        return;
+    }
+
+
+
+    do_action( 'ucare_default_scripts' );
 }
 
 
@@ -52,11 +75,9 @@ function init_scripts( $ucare ) {
  * @return void
  */
 function enqueue_system_scripts() {
-
     if ( is_a_support_page() ) {
         do_action( 'ucare_enqueue_scripts' );
     }
-
 }
 
 

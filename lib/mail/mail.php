@@ -74,11 +74,13 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
                     text-align: center;
                 }
             </style>
+            <?php do_action( 'ucare_email_header', $template, $args ); ?>
             <?php echo do_action( 'email_template_header', $template, $args ); ?>
         </head>
         <body>
             <?php echo $content; ?>
         <div class="footer">
+            <?php do_action( 'ucare_email_footer', $template, $args ); ?>
             <?php echo do_action( 'email_template_footer', $template, $args ); ?>
         </div>
         </body>
