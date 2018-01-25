@@ -77,13 +77,11 @@ function pluck( $obj, $field, $default = false ) {
  * @return bool|false|int
  */
 function verify_request_nonce( $action, $nonce = '_wpnonce' ) {
-
     if ( isset( $_REQUEST[ $nonce ] ) ) {
         return wp_verify_nonce( $_REQUEST[ $nonce ], $action );
     }
 
     return false;
-
 }
 
 

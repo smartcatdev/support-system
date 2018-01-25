@@ -41,7 +41,7 @@ var SupportAdmin = (function (module, $, window) {
             buttonText: "Select image"
         });
 
-        // $(".color_picker").wpColorPicker();
+        $(".color_picker").wpColorPicker();
         
         $('#uc-settings_menu_page select').selectize({
             searchField : ['this']
