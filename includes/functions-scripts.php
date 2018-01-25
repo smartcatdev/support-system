@@ -138,8 +138,11 @@ function default_scripts( $scripts ) {
         return;
     }
 
-    $scripts->add( 'bootstrap', resolve_url( 'assets/js/bootstrap.min.js' ), array( 'jquery' ), PLUGIN_VERSION );
+    $scripts->add( 'bootstrap',  resolve_url( 'assets/js/bootstrap/bootstrap.min.js'   ), array( 'jquery' ), PLUGIN_VERSION );
 
+    $scripts->add( 'sweetalert', resolve_url( 'assets/js/sweetalert/sweetalert.min.js' ), null, PLUGIN_VERSION );
+    $scripts->add( 'dropzone',   resolve_url( 'assets/js/dropzone/dropzone.min.js'     ), null, PLUGIN_VERSION );
+    $scripts->add( 'redux',      resolve_url( 'assets/js/redux/redux.min.js'           ), null, PLUGIN_VERSION );
 
     do_action( 'ucare_register_scripts' );
 }
@@ -186,10 +189,6 @@ function register_default_scripts() {
     // Register jQuery plugins
     ucare_register_script( 'jquery-serializejson', resolve_url( 'assets/js/jquery-serializejson.js' ), array( 'jquery' ), PLUGIN_VERSION );
 
-    // Register additional libraries
-    ucare_register_script( 'redux', resolve_url( 'assets/js/redux/redux.min.js' ), null, PLUGIN_VERSION );
-    ucare_register_script( 'sweetalert', resolve_url( 'assets/js/sweetalert/sweetalert.min.js' ), null, PLUGIN_VERSION );
-
 }
 
 
@@ -212,7 +211,7 @@ function enqueue_default_scripts() {
     ucare_enqueue_script( 'sweetalert' );
 
     ucare_enqueue_script( 'bootstrap' );
-    ucare_enqueue_script( 'dropzone',  resolve_url( 'assets/lib/dropzone/js/dropzone.min.js'   ), null, PLUGIN_VERSION, true );
+    ucare_enqueue_script( 'dropzone' );
 
     ucare_enqueue_script( 'script', resolve_url( 'assets/js/script.js' ), null, PLUGIN_VERSION, true );
 
