@@ -12,8 +12,6 @@ if ( !get_option( Options::DEV_MODE ) && !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die(); // Die if accessed directly
 }
 
-global $wpdb;
-
 
 // Pull in the plugin class and boot the plugin
 require_once dirname( __FILE__ ) . '/plugin.php';  ucare();
@@ -44,6 +42,7 @@ if ( get_option( Options::NUKE ) ) {
     /**
      * Drop custom tables
      */
+    global $wpdb;
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ucare_logs" );
 
 

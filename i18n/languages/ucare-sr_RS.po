@@ -1,0 +1,2183 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: uCare - Support Ticket System\n"
+"POT-Creation-Date: 2018-01-14 17:04-0500\n"
+"PO-Revision-Date: 2018-01-14 17:04-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sr_RS\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: plugin.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: config/admin_settings.php:20 config/admin_settings.php:670
+msgid "Appearance"
+msgstr "Izgled"
+
+#: config/admin_settings.php:31
+msgid "Primary Font"
+msgstr "Primarni font"
+
+#: config/admin_settings.php:32
+msgid "Headings font for the system"
+msgstr "Font sistema za naslove"
+
+#: config/admin_settings.php:43
+msgid "Secondary Font"
+msgstr "Sekundarni font"
+
+#: config/admin_settings.php:44
+msgid "Main content / body text font for the system"
+msgstr "Font sistema za Glavni sadrzaj / tekst"
+
+#: config/admin_settings.php:54
+msgid "Primary color"
+msgstr "Primarna boja"
+
+#: config/admin_settings.php:64
+msgid "Hover color"
+msgstr "Boja selekcije"
+
+#: config/admin_settings.php:73
+msgid "Secondary color"
+msgstr "Sekundarna boja"
+
+#: config/admin_settings.php:83
+msgid "Tertiary color"
+msgstr "Treca boja"
+
+#: config/admin_settings.php:94
+msgid "Login Background Image"
+msgstr "Slika pozadine kod logovanja"
+
+#: config/admin_settings.php:102
+msgid "Display Back Button"
+msgstr "Prikazi Nazad dugme"
+
+#: config/admin_settings.php:103
+msgid "Display button that links back to your website in the navigation bar"
+msgstr "Prikazi dugme u navigaciji koje vodi nazad do tvog sajta"
+
+#: config/admin_settings.php:112
+msgid "Show Clock"
+msgstr "Prikazi sat"
+
+#: config/admin_settings.php:113
+msgid "Display the date and time in the primary navbar"
+msgstr "Prikazi datum i vreme u glavnom meniju"
+
+#: config/admin_settings.php:119 includes/Plugin.php:153
+msgid "Ticket Categories"
+msgstr "Kategorije problema"
+
+#: config/admin_settings.php:127
+msgid "Categories Name"
+msgstr "Imena kategorija"
+
+#: config/admin_settings.php:128
+msgid "The name to be used for ticket category"
+msgstr "Ime koje ce se koristiti za kategoriju problema"
+
+#: config/admin_settings.php:137
+msgid "Categories Name Plural"
+msgstr "Kategorije u mnozini"
+
+#: config/admin_settings.php:138
+msgid "The plural name to be used for ticket category"
+msgstr "Imenica u mnozini za kategorije problema"
+
+#: config/admin_settings.php:146
+msgid "Categories Enabled"
+msgstr "Omoguci kategorije"
+
+#: config/admin_settings.php:147
+msgid "Allow tickets to be assigned a category when created"
+msgstr "Dozvoli dodavanje kategorije problema prilikom prijavljivanja"
+
+#: config/admin_settings.php:153
+msgid "Text & Labels"
+msgstr "Tek"
+
+#: config/admin_settings.php:161
+msgid "Login Disclaimer"
+msgstr "Uslovi logovanja"
+
+#: config/admin_settings.php:171
+msgid "Register Button Label"
+msgstr "Registruj se oznaka dugmeta"
+
+#: config/admin_settings.php:181
+msgid "Login Button Label"
+msgstr "Uloguj se oznaka dugmeta"
+
+#: config/admin_settings.php:191
+msgid "Create Ticket Button Label"
+msgstr "Prijavi problem oznaka dugmeta"
+
+#: config/admin_settings.php:201
+msgid "Cancel Operation Button Label"
+msgstr "Ponisti operaciju oznaka dugmeta"
+
+#: config/admin_settings.php:211
+msgid "Ticket Created Message"
+msgstr "Problem kreiran poruka"
+
+#: config/admin_settings.php:221
+msgid "Ticket Updated Message"
+msgstr "Problem azuriran poruka"
+
+#: config/admin_settings.php:231
+msgid "No Tickets Message"
+msgstr "Nema problema poruka"
+
+#: config/admin_settings.php:240
+msgid "Comments Closed Message"
+msgstr "Komentari onemoguceni poruka"
+
+#: config/admin_settings.php:249
+msgid "Footer Text"
+msgstr "Tekst u futeru"
+
+#: config/admin_settings.php:254
+msgid "Widgets"
+msgstr "Widgeti"
+
+#: config/admin_settings.php:263
+msgid "Login Widget Area"
+msgstr "Widget prostor kod logovanja"
+
+#: config/admin_settings.php:264
+msgid "Displayed on the login page"
+msgstr "Prikazuje se na stranici logovanja"
+
+#: config/admin_settings.php:274
+msgid "User Widget Area"
+msgstr "Korisnicki widget prostor"
+
+#: config/admin_settings.php:275
+msgid "Only visible to support users"
+msgstr "Vidljivo samo korisnicima podrske"
+
+#: config/admin_settings.php:285
+msgid "Agent Widget Area"
+msgstr "Widget prostor agenta"
+
+#: config/admin_settings.php:286
+msgid "Only visible to support agents and admins"
+msgstr "Vidljivo samo agentima i administratorima"
+
+#: config/admin_settings.php:294
+msgid "Quick Link Enabled"
+msgstr "Brzi link omogucen"
+
+#: config/admin_settings.php:295
+msgid "Display support quick link widget on your site"
+msgstr "Prikazi dugme sa linkom za podrsku na tvom sajtu"
+
+#: config/admin_settings.php:305
+msgid "Quick Link Label"
+msgstr "Oznaka dugmeta sa linkom"
+
+#: config/admin_settings.php:306
+msgid "Label to be displayed on the quick link widget"
+msgstr "Oznaka koja ce se prikazivati na dugmetu sa linkom za podrsku"
+
+#: config/admin_settings.php:311
+msgid "General Settings"
+msgstr "Generalna podesavanja"
+
+#: config/admin_settings.php:319
+msgid "Logo Image"
+msgstr "Logo slika"
+
+#: config/admin_settings.php:328
+msgid "Favicon"
+msgstr "Favicon"
+
+#: config/admin_settings.php:337
+msgid "Company Name"
+msgstr "Ime firme"
+
+#: config/admin_settings.php:347
+msgid "Terms & Conditions URL"
+msgstr "Uslovi koriscenja"
+
+#: config/admin_settings.php:348
+msgid "URL of page containing your terms and conditions"
+msgstr "Link ka stranici koja sadrzi uslove koriscenja"
+
+#: config/admin_settings.php:356
+msgid "Allow users to signup"
+msgstr "Omoguci korisnicima da se registruju"
+
+#: config/admin_settings.php:357
+msgid "Allow users to create accounts for submitting tickets"
+msgstr "Omoguci korisnicima da kreiraju naloge za prijavljivanje problema"
+
+#: config/admin_settings.php:367
+msgid "Tickets Per Page"
+msgstr "Problema po stranici"
+
+#: config/admin_settings.php:368
+msgid "The maximum number of tickets to be loaded per page"
+msgstr "Maksimalan broj problema koji ce se ucitati po stranici"
+
+#: config/admin_settings.php:378
+msgid "Image MIME types"
+msgstr "MIME tipovi slika"
+
+#: config/admin_settings.php:379
+msgid "Allowed file types for image uploads (comma separated)"
+msgstr "Dozvoljeni tipovi fajlova za upload slika (odvojeno zarezom)"
+
+#: config/admin_settings.php:389
+msgid "File MIME types"
+msgstr "MIME tipovi fajlova"
+
+#: config/admin_settings.php:390
+msgid "Allowed file types for file uploads (comma separated)"
+msgstr "Dozvoljeni tipovi za upload fajlova"
+
+#: config/admin_settings.php:399
+msgid "Maximum attachment size"
+msgstr "Maksimalna velicina prilozenog fajla"
+
+#: config/admin_settings.php:400
+msgid "The maximum file size for attachments in MB"
+msgstr "Maksimalna velicina prilozenog fajla u MB"
+
+#: config/admin_settings.php:410
+msgid "List Refresh Interval"
+msgstr "Interval za osvezavanje liste"
+
+#: config/admin_settings.php:411
+msgid "Automatic refresh interval in seconds"
+msgstr "Automatski osvezi intervale u sekundama"
+
+#: config/admin_settings.php:420
+msgid "Enable Logging"
+msgstr "Omoguci logovanje"
+
+#: config/admin_settings.php:421
+msgid "Enable or disable the logging of system events"
+msgstr "Omoguci ili onemoguci logovanje dogadjaja u sistemu"
+
+#: config/admin_settings.php:428
+msgid "Inactive Tickets"
+msgstr "Neaktivni problemi"
+
+#: config/admin_settings.php:438
+msgid "Max Ticket Age"
+msgstr "Maksimalna starost problema"
+
+#: config/admin_settings.php:439
+msgid "The maximum number of days of inactivity for a ticket"
+msgstr "Maksimalan broj dana neaktivnosti u vezi problema"
+
+#: config/admin_settings.php:449
+msgid "Auto Close Tickets"
+msgstr "Automatski zatvaraj probleme"
+
+#: config/admin_settings.php:450
+msgid "Automatically close tickets after they become inactive"
+msgstr "Automatski zatvaraj probleme kada postanu neaktivni"
+
+#: config/admin_settings.php:456
+msgid "User Notification Templates"
+msgstr "Sablon za obavestenje korisnika"
+
+#: config/admin_settings.php:458
+msgid "Notifications Disabled"
+msgstr "Obavestenja onemogucena"
+
+#: config/admin_settings.php:467
+msgid "Welcome"
+msgstr "Dobrodosli"
+
+#: config/admin_settings.php:468
+msgid "Sent when a user registers for the first time"
+msgstr "Salje se kada se korisnik registruje prvi put"
+
+#: config/admin_settings.php:479
+msgid "Ticket Closed"
+msgstr "Problem zatvoren"
+
+#: config/admin_settings.php:480
+msgid "Sent when the ticket is marked as closed"
+msgstr "Salje se kada je problem obelezen kao zatvoren"
+
+#: config/admin_settings.php:491
+msgid "Ticket Created"
+msgstr "Problem kreiran"
+
+#: config/admin_settings.php:492
+msgid "Sent when a user creates a new ticket"
+msgstr "Salje se kada korisnik kreira novi problem"
+
+#: config/admin_settings.php:503
+msgid "Agent Reply"
+msgstr "Odgovor agenta"
+
+#: config/admin_settings.php:504
+msgid "Sent when an agent replies to a ticket"
+msgstr "Salje se kada agent odgovori na problem"
+
+#: config/admin_settings.php:515
+msgid "Forgot Password Reset"
+msgstr "Reset zaboravljene sifre"
+
+#: config/admin_settings.php:516
+msgid "Sent when a user forgets their password"
+msgstr "Salje se kada korisnik zaboravi sifru"
+
+#: config/admin_settings.php:527
+msgid "Automatic Close Warning"
+msgstr "Upozorenje za automatsko zatvaranje"
+
+#: config/admin_settings.php:528
+msgid "Sent out to warn users of automatic ticket closure"
+msgstr ""
+"Salje se da se upozore korisnici prilikom automatskog zatvaranja problema"
+
+#: config/admin_settings.php:534
+msgid "Admin Notification Templates"
+msgstr "Sabloni za obavestenje administratora"
+
+#: config/admin_settings.php:543
+msgid "New Ticket"
+msgstr "Novi problem"
+
+#: config/admin_settings.php:544
+msgid "Sent to the admin user when a user creates a new ticket"
+msgstr "Salje se administratoru prilikom prijave problema od korisnika"
+
+#: config/admin_settings.php:550
+msgid "Agent Notification Templates"
+msgstr "Sabloni za obavestenje agenta"
+
+#: config/admin_settings.php:559
+msgid "Customer Reply"
+msgstr "Odgovor korisnika"
+
+#: config/admin_settings.php:560
+msgid ""
+"Sent out to support agents when a customer replies to a ticket they're "
+"assigned to"
+msgstr ""
+"Salje se agentima podrske kada korisnik odgovori na problem koji je njima "
+"dodeljen"
+
+#: config/admin_settings.php:571
+msgid "Ticket Assigned"
+msgstr "Problem dodeljen"
+
+#: config/admin_settings.php:572
+msgid "Sent out to support agents when they are assigned a ticket"
+msgstr "Salje se agentima podrske kada im se dodeli problem"
+
+#: config/admin_settings.php:578 config/admin_settings.php:585
+msgid "Email Notifications"
+msgstr "Email obavestenja"
+
+#: config/admin_settings.php:586
+msgid "Send out automated email notifications in response to ticket events"
+msgstr "Posalji automatsko email obavestenja kao odgovor na promenu problema"
+
+#: config/admin_settings.php:596
+msgid "Admin Email"
+msgstr "Admin email"
+
+#: config/admin_settings.php:597
+msgid "Email address of the support administrator"
+msgstr "Email adresa administratora za podrsku"
+
+#: config/admin_settings.php:606
+msgid "Sender Email"
+msgstr "Email posiljatelja"
+
+#: config/admin_settings.php:607
+msgid "Email address used when sending support emails"
+msgstr "Email adresa koja se koristi kada se salju email-ovi za podrsku"
+
+#: config/admin_settings.php:615 includes/Plugin.php:110
+#: includes/functions-post-support_ticket.php:37
+#: includes/functions-post-support_ticket.php:38
+msgid "uCare Support"
+msgstr "uCare Podrska"
+
+#: config/admin_settings.php:616
+msgid "Sender Name"
+msgstr "Ime posiljatelja"
+
+#: config/admin_settings.php:617
+msgid "Name used for outgoing support emails"
+msgstr "Ime koje se koristi za odlazne email-ove"
+
+#: config/admin_settings.php:622
+msgid "CAUTION: Some of these may bite"
+msgstr "OPREZ: Neke od ovih opcija ujedaju"
+
+#: config/admin_settings.php:629
+msgid "Developer Mode"
+msgstr "Razvojni mode"
+
+#: config/admin_settings.php:630
+msgid "Enable development functionality"
+msgstr "Omoguci razvojne funkcionalnosti"
+
+#: config/admin_settings.php:639
+msgid "Erase All Data"
+msgstr "Izbrisi sve podatke"
+
+#: config/admin_settings.php:640
+msgid ""
+"Erase all plugin data on deactivation if developer mode is enabled or during "
+"un-installation"
+msgstr ""
+"Izbrisi sve podatke prilikom deaktivacije ako je razvojna funkcionalnost "
+"omogucena ili prilikom deinstalacije"
+
+#: config/admin_settings.php:650 plugin.php:256 templates/dash.php:19
+#: templates/navbar.php:106
+msgid "Settings"
+msgstr "Podesavanja"
+
+#: config/admin_settings.php:656
+msgid "General"
+msgstr "Generalno"
+
+#: config/admin_settings.php:663
+msgid "Display"
+msgstr "Prikaz"
+
+#: config/admin_settings.php:677 config/ticket_filter.php:72
+#: includes/functions-post-support_ticket.php:164
+msgid "Email"
+msgstr "Email"
+
+#: config/admin_settings.php:684
+msgid "Advanced"
+msgstr "Napredno"
+
+#: config/product_metabox_form.php:9 config/ticket_create_form.php:13
+msgid "Select a Product"
+msgstr "Izaberi proizvod"
+
+#: config/product_metabox_form.php:18 config/ticket_create_form.php:73
+msgid "Receipt #"
+msgstr "Broj racuna"
+
+#: config/product_metabox_form.php:27 config/ticket_create_form.php:58
+#: config/ticket_filter.php:44 includes/functions-post-support_ticket.php:157
+msgid "Product"
+msgstr "Proizvod"
+
+#: config/properties_metabox_form.php:11 config/ticket_filter.php:63
+#: config/ticket_properties_form.php:11
+#: includes/functions-post-support_ticket.php:197
+msgid "Unassigned"
+msgstr "Nedodeljeno"
+
+#: config/properties_metabox_form.php:19 includes/admin/AgentStatsTable.php:28
+#: includes/functions-post-support_ticket.php:165
+msgid "Assigned"
+msgstr "Dodeljeno"
+
+#: config/properties_metabox_form.php:31 config/ticket_filter.php:93
+#: config/ticket_properties_form.php:30
+#: includes/functions-post-support_ticket.php:166
+msgid "Status"
+msgstr "Status"
+
+#: config/properties_metabox_form.php:43 config/ticket_properties_form.php:42
+#: includes/functions-post-support_ticket.php:167
+msgid "Priority"
+msgstr "Prioritet"
+
+#: config/registration_form.php:14 config/settings_form.php:15
+msgid "First Name"
+msgstr "Ime"
+
+#: config/registration_form.php:15
+msgid "First name cannot be blank"
+msgstr "Ime ne moze ostati prazno"
+
+#: config/registration_form.php:25 config/settings_form.php:28
+msgid "Last Name"
+msgstr "Prezime"
+
+#: config/registration_form.php:26
+msgid "Last name cannot be blank"
+msgstr "Prezime ne moze ostati prazno"
+
+#: config/registration_form.php:37
+msgid "Email Address"
+msgstr "Email adresa"
+
+#: config/registration_form.php:38
+msgid "Email cannot be empty or already in use"
+msgstr "Email ne moze ostati prazan ili se email vec koristi"
+
+#: config/settings_form.php:17
+msgid "First name is required"
+msgstr "Ime je obavezno"
+
+#: config/settings_form.php:30
+msgid "Last name is required"
+msgstr "Prezime je obavezno"
+
+#: config/settings_form.php:42
+msgid "New Password"
+msgstr "Nova sifra"
+
+#: config/settings_form.php:51
+msgid "Passwords don't match"
+msgstr "Sifre se ne podudaraju"
+
+#: config/settings_form.php:52
+msgid "Confirm Password"
+msgstr "Potvrdi sifru"
+
+#: config/ticket_create_form.php:59
+msgid "Please Select a product"
+msgstr "Molimo izaberi proizvod"
+
+#: config/ticket_create_form.php:87 config/ticket_create_form.php:102
+#: includes/functions-post-support_ticket.php:154
+msgid "Subject"
+msgstr "Naslov"
+
+#: config/ticket_create_form.php:88
+msgid "Cannot be blank"
+msgstr "Ne moze biti prazno"
+
+#: config/ticket_create_form.php:103
+msgid "Subject cannot be blank"
+msgstr "Naslov ne moze biti prazan"
+
+#: config/ticket_create_form.php:118
+msgid "Description"
+msgstr "Opis"
+
+#: config/ticket_create_form.php:119
+msgid "Description cannot be blank"
+msgstr "Opis ne moze biti prazan"
+
+#: config/ticket_filter.php:46 includes/functions-post-support_ticket.php:252
+msgid "All Products"
+msgstr "Svi proizvodi"
+
+#: config/ticket_filter.php:59 includes/admin/AgentStatsTable.php:27
+msgid "Agent"
+msgstr "Agent"
+
+#: config/ticket_filter.php:62 includes/admin/AgentStatsTable.php:53
+#: includes/functions-post-support_ticket.php:244
+msgid "All Agents"
+msgstr "Svi agenti"
+
+#: config/ticket_filter.php:84 includes/functions-post-support_ticket.php:209
+#: includes/functions-post-support_ticket.php:267
+msgid "Stale"
+msgstr "Zastarelo"
+
+#: config/ticket_properties_form.php:18
+msgid "Assigned to"
+msgstr "Dodeljeno"
+
+#: emails/product-feedback.php:5
+msgid "Reason"
+msgstr "Razlog"
+
+#: emails/product-feedback.php:10
+msgid "Details"
+msgstr "Detalji"
+
+#: emails/product-feedback.php:17
+msgid "Comments"
+msgstr "Komentari"
+
+#: emails/product-feedback.php:22
+msgid "website can be viewed here"
+msgstr "Website mozes videti ovde"
+
+#: includes/Plugin.php:122
+msgid "Reports"
+msgstr "Izvestaji"
+
+#: includes/Plugin.php:133
+msgid "Support Tickets"
+msgstr "Problemi podrske"
+
+#: includes/Plugin.php:143 includes/functions-post-support_ticket.php:42
+#: includes/functions-post-support_ticket.php:43
+#: includes/functions-post-support_ticket.php:44
+msgid "Create Ticket"
+msgstr "Prijavi problem"
+
+#: includes/Plugin.php:164
+msgid "Launch Help Desk"
+msgstr "Pokreni podrsku"
+
+#: includes/Plugin.php:175 templates/partials/admin-header.php:32
+msgid "Add-ons"
+msgstr "Dodaci"
+
+#: includes/Plugin.php:188 plugin.php:200
+msgid "Licenses"
+msgstr "Licence"
+
+#: includes/admin/AgentStatsTable.php:15
+msgid "Agent Total"
+msgstr "Ukupno agenata"
+
+#: includes/admin/AgentStatsTable.php:16
+msgid "Agent Totals"
+msgstr "Ukupni agenti"
+
+#: includes/admin/AgentStatsTable.php:29
+#: includes/admin/ReportsOverviewTab.php:80
+#: includes/functions-deprecated.php:88
+#: includes/functions-post-support_ticket.php:104
+msgid "Closed"
+msgstr "Zatvoreno"
+
+#: includes/admin/AgentStatsTable.php:30
+msgid "% Workload"
+msgstr "% Opterecenje"
+
+#: includes/admin/AgentStatsTable.php:44
+msgid "No totals available."
+msgstr "Ukupno nije dostupno."
+
+#: includes/admin/AgentStatsTable.php:68 includes/admin/LogsTable.php:92
+msgid "Filter"
+msgstr "Filter"
+
+#: includes/admin/LogsTab.php:14 includes/admin/LogsTable.php:15
+msgid "Logs"
+msgstr "Logovi"
+
+#: includes/admin/LogsTable.php:14
+msgid "Log"
+msgstr "Log"
+
+#: includes/admin/LogsTable.php:20
+msgid "Info"
+msgstr "Info"
+
+#: includes/admin/LogsTable.php:21
+msgid "Debug"
+msgstr "Debug"
+
+#: includes/admin/LogsTable.php:22
+#: includes/lib/class-edd-sl-plugin-updater.php:394
+msgid "Error"
+msgstr "Greska"
+
+#: includes/admin/LogsTable.php:23
+msgid "Warning"
+msgstr "Upozorenje"
+
+#: includes/admin/LogsTable.php:31
+msgid "Level"
+msgstr "Nivo"
+
+#: includes/admin/LogsTable.php:32
+msgid "Event"
+msgstr "Dogadjaj"
+
+#: includes/admin/LogsTable.php:33
+msgid "Message"
+msgstr "Poruka"
+
+#: includes/admin/LogsTable.php:34
+msgid "Timestamp"
+msgstr "Vremenski pecat"
+
+#: includes/admin/LogsTable.php:47
+msgid "No logs available."
+msgstr "Nema zapisa"
+
+#: includes/admin/LogsTable.php:57
+msgid "Verbose"
+msgstr "Predetaljno"
+
+#: includes/admin/LogsTable.php:74
+msgid "All Tags"
+msgstr "Svi tagovi"
+
+#: includes/admin/ReportsOverviewTab.php:21
+msgid "Overview"
+msgstr "Pregled"
+
+#: includes/admin/ReportsOverviewTab.php:25
+msgid "Last 7 Days"
+msgstr "Poslednjih 7 dana"
+
+#: includes/admin/ReportsOverviewTab.php:26
+msgid "This Month"
+msgstr "Ovaj mesec"
+
+#: includes/admin/ReportsOverviewTab.php:27
+msgid "Last Month"
+msgstr "Poslednji mesec"
+
+#: includes/admin/ReportsOverviewTab.php:28
+msgid "This Year"
+msgstr "Ova godina"
+
+#: includes/admin/ReportsOverviewTab.php:29
+msgid "Custom"
+msgstr "Proizvoljno"
+
+#: includes/admin/ReportsOverviewTab.php:79
+#: includes/functions-deprecated.php:85
+#: includes/functions-post-support_ticket.php:101
+msgid "Opened"
+msgstr "Otvoreno"
+
+#: includes/admin/ReportsOverviewTab.php:193
+msgid "Go"
+msgstr "Idi"
+
+#: includes/admin/functions-menu.php:102
+msgid "uCare - Introduction"
+msgstr "uCare - Uvod"
+
+#: includes/admin/functions-metabox.php:27
+msgid "Category"
+msgstr "Kategorija"
+
+#: includes/admin/functions-metabox.php:51
+msgid "Set the category topic for the ticket"
+msgstr "Izaberi kategoriju problema"
+
+#: includes/admin/functions-metabox.php:60
+msgid "Select a Category"
+msgstr "Izaberi kategoriju"
+
+#: includes/admin/functions-settings.php:27
+msgid "Support Page"
+msgstr "Stranica za podrsku"
+
+#: includes/admin/functions-settings.php:41
+msgid "Select a Page"
+msgstr "Izaberi stranu"
+
+#: includes/admin/functions-settings.php:56
+msgid "Enable eCommerce Support"
+msgstr "Omoguci podrsku za Online prodavnicu"
+
+#: includes/admin/functions-settings.php:61
+msgid "Enable eCommerce support with Easy Digital Downloads or WooCommerce"
+msgstr ""
+"Omoguci podrsku za Online prodavnicu sa Easy Digital Downloads ili "
+"WooCommerce"
+
+#: includes/ajax/Comment.php:34 includes/ajax/Ticket.php:268
+msgid "Reply cannot be blank"
+msgstr "Odgovor ne moze biti prazan"
+
+#: includes/ajax/Media.php:39
+msgid "Error uploading invalid file format."
+msgstr "Greska zbog nevalidnog formata fajla"
+
+#: includes/ajax/Media.php:53
+msgid "Attachment successfully removed"
+msgstr "Prilog je uspesno uklonjen"
+
+#: includes/ajax/Media.php:55
+msgid "Error occurred when removing attachment"
+msgstr "Greska prilikom uklanjanja priloga"
+
+#: includes/ajax/Registration.php:52
+msgid "That user could not be found"
+msgstr "Korsnik ne moze biti pronadjen"
+
+#: includes/ajax/Registration.php:59
+msgid "Password reset, a temporary password has been sent to your email"
+msgstr "Sifra je resetovana, privremena sifra je posla na tvoju email adresu"
+
+#: includes/ajax/Registration.php:61
+msgid "An error has occurred, Please try again later"
+msgstr "Doslo je do greske, molimo pokusaj kasnije"
+
+#: includes/ajax/Settings.php:33
+msgid "Settings updated refresh to apply your changes"
+msgstr "Podesavanja izmenjena, osvezi da primenis izmene"
+
+#: includes/ajax/Ticket.php:155
+msgid "Ticket Successfully Updated"
+msgstr "Problem uspesno izmenjen"
+
+#: includes/ajax/Ticket.php:165
+msgid "Ticket successfully closed"
+msgstr "Problem uspesno zatvoren"
+
+#: includes/ajax/Ticket.php:167
+msgid "Error closing ticket"
+msgstr "Greska prilikom zatvaranja problema"
+
+#: includes/cron.php:47 includes/cron.php:89
+msgid " ticket"
+msgid_plural " tickets"
+msgstr[0] "␣problem"
+msgstr[1] "␣problemi"
+msgstr[2] "␣problemi"
+
+#: includes/cron.php:47 includes/cron.php:89
+msgid " has"
+msgid_plural " have"
+msgstr[0] "␣Ima"
+msgstr[1] "␣Imaju"
+msgstr[2] "␣Imaju"
+
+#: includes/cron.php:133 includes/lib/class-sc-license-manager.php:110
+msgid "Your license for "
+msgstr "Tvoja licenca za␣"
+
+#: includes/functions-deprecated.php:83
+#: includes/functions-post-support_ticket.php:99
+msgid "New"
+msgstr "Novo"
+
+#: includes/functions-deprecated.php:84
+#: includes/functions-post-support_ticket.php:100 templates/statistics.php:54
+msgid "Waiting"
+msgstr "Cekanje"
+
+#: includes/functions-deprecated.php:86
+#: includes/functions-post-support_ticket.php:102
+msgid "Responded"
+msgstr "Odgovorio"
+
+#: includes/functions-deprecated.php:87
+#: includes/functions-post-support_ticket.php:103 templates/statistics.php:24
+msgid "Needs Attention"
+msgstr "Potrebna paznja"
+
+#: includes/functions-deprecated.php:145
+msgid "Just Now"
+msgstr "Upravo sada"
+
+#: includes/functions-deprecated.php:147
+msgid " ago"
+msgstr "␣pre"
+
+#: includes/functions-formatting.php:51
+msgid "Seconds ago"
+msgstr "Sekundi pre"
+
+#: includes/functions-formatting.php:53
+msgid "Just now"
+msgstr "Upravo sada"
+
+#: includes/functions-formatting.php:55
+#, php-format
+msgid "%s ago"
+msgstr "%s pre"
+
+#: includes/functions-post-support_ticket.php:35
+msgctxt "Post Type General Name"
+msgid "Support Tickets"
+msgstr "Problemi podrske"
+
+#: includes/functions-post-support_ticket.php:36
+msgctxt "Post Type Singular Name"
+msgid "Support Ticket"
+msgstr "Problem podrske"
+
+#: includes/functions-post-support_ticket.php:39
+msgid "Item Archives"
+msgstr "Arhiva stavki"
+
+#: includes/functions-post-support_ticket.php:40 lib/mail/mail.php:162
+msgid "Parent Item:"
+msgstr "Roditeljska stavka"
+
+#: includes/functions-post-support_ticket.php:41
+msgid "Ticket List"
+msgstr "Lista problema"
+
+#: includes/functions-post-support_ticket.php:45
+msgid "Edit Ticket"
+msgstr "Izmeni problem"
+
+#: includes/functions-post-support_ticket.php:46
+msgid "Update Ticket"
+msgstr "Osvezi problem"
+
+#: includes/functions-post-support_ticket.php:47
+msgid "View Ticket"
+msgstr "Pregledaj problem"
+
+#: includes/functions-post-support_ticket.php:48
+msgid "Search Ticket"
+msgstr "Pretrazi problem"
+
+#: includes/functions-post-support_ticket.php:49
+msgid "Ticket Not found"
+msgstr "Problem nije pronadjen"
+
+#: includes/functions-post-support_ticket.php:50
+msgid "Ticket Not found in Trash"
+msgstr "Problem nije pronadjen u kanti"
+
+#: includes/functions-post-support_ticket.php:51 lib/mail/mail.php:173
+msgid "Featured Image"
+msgstr "Slika naslova"
+
+#: includes/functions-post-support_ticket.php:52 lib/mail/mail.php:174
+msgid "Set featured image"
+msgstr "Postavi sliku naslova"
+
+#: includes/functions-post-support_ticket.php:53 lib/mail/mail.php:175
+msgid "Remove featured image"
+msgstr "Ukloni naslovnu sliku"
+
+#: includes/functions-post-support_ticket.php:54 lib/mail/mail.php:176
+msgid "Use as featured image"
+msgstr "Koristi kao naslovnu sliku"
+
+#: includes/functions-post-support_ticket.php:55
+msgid "Insert into ticket"
+msgstr "Dodaj uz problem"
+
+#: includes/functions-post-support_ticket.php:56
+msgid "Uploaded to this ticket"
+msgstr "Dodato uz ovaj problem"
+
+#: includes/functions-post-support_ticket.php:57
+msgid "Tickets list"
+msgstr "Lista problema"
+
+#: includes/functions-post-support_ticket.php:58
+msgid "Tickets list navigation"
+msgstr "Navigacija liste problema"
+
+#: includes/functions-post-support_ticket.php:59
+msgid "Filter tickets list"
+msgstr "Filter liste problema"
+
+#: includes/functions-post-support_ticket.php:63
+msgid "Support Ticket"
+msgstr "Problem podrske"
+
+#: includes/functions-post-support_ticket.php:64
+msgid "Tickets for support requests"
+msgstr "Problemi za zahteve podrske"
+
+#: includes/functions-post-support_ticket.php:245
+msgid "All Statuses"
+msgstr "Svi statusi"
+
+#: includes/functions-post-support_ticket.php:263
+msgid "Flagged"
+msgstr "Markirano"
+
+#: includes/functions-post-support_ticket.php:317
+msgid "Ticket Information"
+msgstr "Informacija problema"
+
+#: includes/functions-post-support_ticket.php:330
+msgid "Product Information"
+msgstr "Informacija prozivoda"
+
+#: includes/functions-scripts.php:102
+msgid "Loading Tickets..."
+msgstr "Ucitavam probleme..."
+
+#: includes/functions-scripts.php:103 templates/ticket.php:17
+msgid "Loading..."
+msgstr "Ucitavam..."
+
+#: includes/functions-scripts.php:104
+msgid "Delete Comment"
+msgstr "Obrisi komentar"
+
+#: includes/functions-scripts.php:105
+msgid "Delete Attachment"
+msgstr "Obrisi prilog"
+
+#: includes/functions-scripts.php:106 templates/ticket.php:99
+msgid "Close Ticket"
+msgstr "Zatvori problem"
+
+#: includes/functions-scripts.php:107
+msgid "Are you sure you want to do this? This operation cannot be undone!"
+msgstr ""
+"Da li si siguran da zelis ovo da uradis? Ovaj potez ne mozes ponistiti!"
+
+#: includes/functions-scripts.php:108
+msgid "Yes"
+msgstr "Da"
+
+#: includes/functions-scripts.php:109
+msgid "No"
+msgstr "Ne"
+
+#: includes/functions-shortcodes.php:15
+msgid "Support Login"
+msgstr "Login podrske"
+
+#: includes/functions-shortcodes.php:18
+msgid "Get Support"
+msgstr "Zatrazi podrsku"
+
+#: includes/functions-shortcodes.php:19
+msgid "Forgot Password"
+msgstr "Zaboravljena sifra"
+
+#: includes/functions-shortcodes.php:20 includes/functions-template.php:95
+msgid "Register"
+msgstr "Registruj se"
+
+#: includes/functions-shortcodes.php:22
+msgid "Password"
+msgstr "Sifra"
+
+#: includes/functions-shortcodes.php:23 templates/login.php:39
+msgid "Username or Email Address"
+msgstr "Korisnicko ime ili email adresa"
+
+#: includes/functions-shortcodes.php:24
+msgid "Remember Me"
+msgstr "Zapamti me"
+
+#: includes/functions-shortcodes.php:25
+msgid "Login"
+msgstr "Uloguj se"
+
+#: includes/functions-sidebar.php:46 includes/functions-sidebar.php:258
+msgid "Purchase Details"
+msgstr "Detalji kupovine"
+
+#: includes/functions-sidebar.php:50 includes/functions-sidebar.php:262
+msgid "Customer Details"
+msgstr "Detalji kupca"
+
+#: includes/functions-sidebar.php:53 includes/functions-sidebar.php:265
+msgid "Attachments"
+msgstr "Prilozi"
+
+#: includes/functions-sidebar.php:56 includes/functions-sidebar.php:268
+msgid "Ticket Properties"
+msgstr "Osobine problema"
+
+#: includes/functions-sidebar.php:112
+msgid "Not Available"
+msgstr "Nije dostupno"
+
+#: includes/functions-taxonomy-ticket_category.php:29
+msgctxt "taxonomy general name"
+msgid "Ticket Categories"
+msgstr "Kategorije problema"
+
+#: includes/functions-taxonomy-ticket_category.php:30
+msgctxt "taxonomy singular name"
+msgid "Ticket Category"
+msgstr "Kategorija problema"
+
+#: includes/functions-taxonomy-ticket_category.php:31
+msgid "All Categories"
+msgstr "Sve kategorije"
+
+#: includes/functions-taxonomy-ticket_category.php:32
+msgid "Edit Category"
+msgstr "Izmeni kategoriju"
+
+#: includes/functions-taxonomy-ticket_category.php:33
+msgid "View Category"
+msgstr "Vidi kategoriju"
+
+#: includes/functions-taxonomy-ticket_category.php:34
+msgid "Update Category"
+msgstr "Osvezi kategoriju"
+
+#: includes/functions-taxonomy-ticket_category.php:35
+msgid "Add New Category"
+msgstr "Dodaj novu kategoriju"
+
+#: includes/functions-taxonomy-ticket_category.php:36
+msgid "New Category"
+msgstr "Nova kategorija"
+
+#: includes/functions-taxonomy-ticket_category.php:37
+msgid "Parent Category"
+msgstr "Roditeljska kategorija"
+
+#: includes/functions-taxonomy-ticket_category.php:38
+msgid "Parent Category:"
+msgstr "Roditeljska kategorija:"
+
+#: includes/functions-taxonomy-ticket_category.php:39
+msgid "Search Categories"
+msgstr "Pretrazi kategorije"
+
+#: includes/functions-taxonomy-ticket_category.php:40
+msgid "Popular Categories"
+msgstr "Popularne kategorije"
+
+#: includes/functions-taxonomy-ticket_category.php:41
+msgid "No categories found"
+msgstr "Nisu pronadjene kategorije"
+
+#: includes/functions-taxonomy-ticket_category.php:42
+msgid "Add or remove categories"
+msgstr "Dodaj ili ukloni kategorije"
+
+#: includes/functions-taxonomy-ticket_category.php:43
+msgid "Choose from the most used categories"
+msgstr "Izaberi od najcesce koriscenih kategorija"
+
+#: includes/functions-taxonomy-ticket_category.php:44
+msgid "Separate categories with commas"
+msgstr "Odvoji kategorije zarezima"
+
+#: includes/functions-taxonomy-ticket_category.php:48
+msgid "Categories"
+msgstr "Kategorije"
+
+#: includes/functions-taxonomy-ticket_category.php:65
+#, fuzzy
+#| msgid "Category"
+msgid "Category color"
+msgstr "Kategorija"
+
+#: includes/functions-taxonomy-ticket_category.php:80
+#: includes/functions-taxonomy-ticket_category.php:131
+msgid "Color"
+msgstr ""
+
+#: includes/functions-taxonomy-ticket_category.php:90
+msgid "Select the color you want to associate with this category"
+msgstr ""
+
+#: includes/functions-template.php:23
+msgid "uCare Navigation Menu"
+msgstr "uCare Navigacioni meni"
+
+#: includes/functions-template.php:153
+msgid "Powered by uCare Support"
+msgstr "Omogucio uCare Podrska"
+
+#: includes/functions.php:117
+msgid "Low"
+msgstr "Nizak"
+
+#: includes/functions.php:118
+msgid "Medium"
+msgstr "Srednji"
+
+#: includes/functions.php:119
+msgid "High"
+msgstr "Visok"
+
+#: includes/functions.php:161 templates/navbar.php:121
+msgid "Support Admin"
+msgstr "Administrator podrske"
+
+#: includes/functions.php:162
+msgid "Support Agent"
+msgstr "Agent podrske"
+
+#: includes/functions.php:163
+msgid "Support User"
+msgstr "Korisnik podrske"
+
+#: includes/functions.php:245
+msgid "Support"
+msgstr "Podrska"
+
+#: includes/functions.php:267
+msgid "You have created a new request for support"
+msgstr "Kreirali ste novi zahtev za podrsku"
+
+#: includes/functions.php:272
+msgid "Welcome to Support"
+msgstr "Dobrodosli u podrsku"
+
+#: includes/functions.php:277
+msgid "Your request for support has been closed"
+msgstr "Vas zahtev za podrskom je zakljucen"
+
+#: includes/functions.php:282
+msgid "Reply to your request for support"
+msgstr "Odgovori na tvoj zahtev za podrsku"
+
+#: includes/functions.php:287
+msgid "Your password has been reset"
+msgstr "Tvoja sifra je resetovana"
+
+#: includes/functions.php:292 migrations/migration-1_2_1.php:49
+msgid "You have a ticket awaiting action"
+msgstr "Imas problem koji zahteva intervenciju"
+
+#: includes/lib/class-edd-sl-plugin-updater.php:199
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+"Postoji nova verzija %1$s dostupna. %2$sPogledaj verziju %3$s detalje%4$s."
+
+#: includes/lib/class-edd-sl-plugin-updater.php:207
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"Postoji nova verzija %1$s dostupna. %2$sPogledaj verziju %3$s detalje%4$s "
+"ili %5$sazuriraj sada%6$s."
+
+#: includes/lib/class-edd-sl-plugin-updater.php:394
+msgid "You do not have permission to install plugin updates"
+msgstr "Nemas dozvolu da instaliras nadogradnje za plugin"
+
+#: includes/lib/class-sc-license-manager.php:141
+msgid "<strong>"
+msgstr "<boldovano>"
+
+#: includes/lib/class-sc-license-manager.php:142
+msgid "Activate now."
+msgstr "Aktiviraj sada"
+
+#: includes/lib/class-sc-license-manager.php:343
+#: includes/lib/class-sc-license-manager.php:389
+#: includes/lib/class-sc-license-manager.php:450
+msgid "An error occurred, please try again."
+msgstr "Doslo je do greske, molimo pokusajte kasnije."
+
+#: includes/lib/class-sc-license-manager.php:356
+#, php-format
+msgid "Your license key expired on %s."
+msgstr "Tvoja licenca je istekla %s."
+
+#: includes/lib/class-sc-license-manager.php:363
+msgid "Your license key has been disabled."
+msgstr "Tvoja licenca je iskljucena."
+
+#: includes/lib/class-sc-license-manager.php:368
+msgid "Invalid license."
+msgstr "Licenca nije validna."
+
+#: includes/lib/class-sc-license-manager.php:374
+msgid "Your license is not active for this URL."
+msgstr "Tvoja licenca nije aktivna za ovaj sajt."
+
+#: includes/lib/class-sc-license-manager.php:379
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr "Izgleda da je ovo nevalidna licenca za %s."
+
+#: includes/lib/class-sc-license-manager.php:384
+msgid "Your license key has reached its activation limit."
+msgstr "Tvoja licenca je dostigla limit aktivacija."
+
+#: includes/lib/class-sc-license-manager.php:604
+#: templates/admin-activations.php:40
+msgid "Deactivate License"
+msgstr "Deaktiviraj licencu."
+
+#: includes/lib/class-sc-license-manager.php:613
+#: templates/admin-activations.php:49
+msgid "Activate License"
+msgstr "Aktiviraj licencu."
+
+#: includes/lib/class-sc-license-manager.php:622
+#: templates/admin-activations.php:58
+msgid "Please enter your license key"
+msgstr "Molimo unesite vasu licencu"
+
+#: includes/lib/class-sc-license-manager.php:634
+#: templates/admin-activations.php:70
+msgid "Your license key expires on "
+msgstr "Tvoja licenca istice␣"
+
+#: includes/lib/class-sc-license-manager.php:638
+msgid "This is a lifetime licence"
+msgstr "Ovo je dozivotna licenca"
+
+#: lib/admin/ListTable.php:165
+msgid "List View"
+msgstr "Pogled lista"
+
+#: lib/admin/ListTable.php:166
+msgid "Excerpt View"
+msgstr "Excerpt pogled"
+
+#: lib/admin/ListTable.php:337
+msgid "No items found."
+msgstr "Nisu pronadjeni rezultati."
+
+#: lib/admin/ListTable.php:464
+msgid "Select bulk action"
+msgstr "Odaberi zbirnu akciju"
+
+#: lib/admin/ListTable.php:466
+msgid "Bulk Actions"
+msgstr "Zbirna akcija"
+
+#: lib/admin/ListTable.php:476
+msgid "Apply"
+msgstr "Primeni"
+
+#: lib/admin/ListTable.php:526 lib/admin/ListTable.php:1331
+msgid "Show more details"
+msgstr "Prikazi vise detalja"
+
+#: lib/admin/ListTable.php:589
+msgid "Filter by date"
+msgstr "Filtriraj po datumu"
+
+#: lib/admin/ListTable.php:591
+msgid "All dates"
+msgstr "Svi datumi"
+
+#. translators: 1: month name, 2: 4-digit year
+#: lib/admin/ListTable.php:604
+#, php-format
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: lib/admin/ListTable.php:656
+#, php-format
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s komentar"
+msgstr[1] "%s komentara"
+msgstr[2] "%s komentara"
+
+#: lib/admin/ListTable.php:657
+#, php-format
+msgid "%s approved comment"
+msgid_plural "%s approved comments"
+msgstr[0] "%s odobren komentar"
+msgstr[1] "%s odobreni komentari"
+msgstr[2] "%s odobreni komentari"
+
+#: lib/admin/ListTable.php:658
+#, php-format
+msgid "%s pending comment"
+msgid_plural "%s pending comments"
+msgstr[0] "%s komentar na cekanju"
+msgstr[1] "%s komentari na cekanju"
+msgstr[2] "%s komentari na cekanju"
+
+#: lib/admin/ListTable.php:663 lib/admin/ListTable.php:675
+#: lib/admin/ListTable.php:688
+msgid "No comments"
+msgstr "Nema komentara"
+
+#: lib/admin/ListTable.php:675
+msgid "No approved comments"
+msgstr "Nema odobrenih komentara"
+
+#: lib/admin/ListTable.php:688
+msgid "No pending comments"
+msgstr "Nema komentara na cekanju"
+
+#: lib/admin/ListTable.php:765 lib/admin/ListTable.php:1356
+#, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s stavka"
+msgstr[1] "%s stavki"
+msgstr[2] "%s stavki"
+
+#: lib/admin/ListTable.php:801
+msgid "First page"
+msgstr "Prva strana"
+
+#: lib/admin/ListTable.php:811
+msgid "Previous page"
+msgstr "Prethodna strana"
+
+#: lib/admin/ListTable.php:818 lib/admin/ListTable.php:821
+msgid "Current Page"
+msgstr "Trenutna strana"
+
+#: lib/admin/ListTable.php:827
+#, php-format
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s od %2$s"
+
+#: lib/admin/ListTable.php:834
+msgid "Next page"
+msgstr "Sledeca strana"
+
+#: lib/admin/ListTable.php:844
+msgid "Last page"
+msgstr "Poslednja strana"
+
+#: lib/admin/ListTable.php:1072
+msgid "Select All"
+msgstr "Izaberi sve"
+
+#: lib/admin/TabbedMenuPage.php:41
+msgid "_menu_page"
+msgstr "_meni_stranica"
+
+#: lib/mail/TemplateStyleMetaBox.php:12
+msgid "Template Style Sheet"
+msgstr "Stilovi sablona"
+
+#: lib/mail/mail.php:157
+msgctxt "Post Type General Name"
+msgid "Email Templates"
+msgstr "Email sabloni"
+
+#: lib/mail/mail.php:158
+msgctxt "Post Type Singular Name"
+msgid "Email Template"
+msgstr "Email sablon"
+
+#: lib/mail/mail.php:159 lib/mail/mail.php:160
+msgid "Email Templates"
+msgstr "Email sabloni"
+
+#: lib/mail/mail.php:161
+msgid "Template Archives"
+msgstr "Arhiva sablona"
+
+#: lib/mail/mail.php:163
+msgid "All Templates"
+msgstr "Svi sabloni"
+
+#: lib/mail/mail.php:164 lib/mail/mail.php:165 lib/mail/mail.php:166
+msgid "New Template"
+msgstr "Novi sablon"
+
+#: lib/mail/mail.php:167
+msgid "Edit Template"
+msgstr "Izmeni sablon"
+
+#: lib/mail/mail.php:168
+msgid "Update Template"
+msgstr "Azuriraj sablon"
+
+#: lib/mail/mail.php:169
+msgid "View Template"
+msgstr "Vidi sablon"
+
+#: lib/mail/mail.php:170
+msgid "Search Templates"
+msgstr "Pretrazi sablone"
+
+#: lib/mail/mail.php:171
+msgid "No templates found"
+msgstr "Nisu nadjeni sabloni"
+
+#: lib/mail/mail.php:172
+msgid "No templates found in Trash"
+msgstr "Nisu nadjeni sabloni u kanti"
+
+#: lib/mail/mail.php:177
+msgid "Insert into template"
+msgstr "Ubaci u sablon"
+
+#: lib/mail/mail.php:178
+msgid "Uploaded to this template"
+msgstr "Uploadovano za ovaj sablon"
+
+#: lib/mail/mail.php:179
+msgid "Templates list"
+msgstr "Lista sablona"
+
+#: lib/mail/mail.php:180
+msgid "Templates list navigation"
+msgstr "Navigacija liste sablona"
+
+#: lib/mail/mail.php:181
+msgid "Filter templates list"
+msgstr "Filtriraj listu sablona"
+
+#: lib/mail/mail.php:185
+msgid "Email Template"
+msgstr "Email sablon"
+
+#: lib/mail/mail.php:186
+msgid "Templates for automated emails"
+msgstr "Sabloni za automatske email-ove"
+
+#: migrations/migration-1_1_1.php:26
+msgid "Your password has been changed"
+msgstr "Tvoja sifra je izmenjena"
+
+#: migrations/migration-1_3_0.php:35
+msgid "You have been assigned a ticket"
+msgstr "Dodeljen ti je problem"
+
+#: migrations/migration-1_3_0.php:40
+msgid "You have a reply to a ticket that you are assigned to"
+msgstr "Imas odgovor na problem koji ti je dodeljen"
+
+#: migrations/migration-1_3_0.php:45
+msgid "A new ticket has been created"
+msgstr "Novi problem je kreiran"
+
+#: plugin.php:199
+msgid "uCare Licenses"
+msgstr "uCare Licence"
+
+#: plugin.php:281
+#, php-format
+msgid ""
+"Your PHP version %s does not meet minimum requirements. uCare Support "
+"requires version %s or higher"
+msgstr ""
+"Tvoja verzija PHP-a %s ne zadovoljava minimalne zahteve. uCare podrska "
+"zahteva verziju %s ili noviju"
+
+#: templates/admin-activations.php:14
+msgid "Add-on Licenses"
+msgstr "Licence dodataka"
+
+#: templates/admin-extensions.php:7
+msgid "Add-ons for uCare Support Help Desk"
+msgstr "Dodaci za uCare podrsku"
+
+#: templates/admin-extensions.php:13
+msgid "Get ALL these add-ons for one low price with uCare Pro"
+msgstr "Obezbedi sve ove dodatke za jednu nisku cenu sa uCare Pro"
+
+#: templates/admin-extensions.php:14
+msgid "Click here"
+msgstr "Klikni ovde"
+
+#: templates/admin-extensions.php:17
+msgid "Available Add-ons"
+msgstr "Dostupni dodaci"
+
+#: templates/admin-extensions.php:21 templates/admin-extensions.php:25
+msgid "Email Piping"
+msgstr "Email prijavljivanje"
+
+#: templates/admin-extensions.php:28
+msgid ""
+"This add-on allows your customers to reply to tickets via email, it also "
+"allows new tickets to be created through email."
+msgstr ""
+"Ovaj dodatak dozvoljava korisnicima da odgovore na probleme putem email-a, a "
+"takodje mogu kreirati nove probleme direktno putem email-a."
+
+#: templates/admin-extensions.php:30
+msgid "Get this Add-on!"
+msgstr "Poruci ovaj dodatak!"
+
+#: templates/admin-extensions.php:36 templates/admin-extensions.php:40
+msgid "Customer Satisfaction"
+msgstr "Zadovoljstvo korisnika"
+
+#: templates/admin-extensions.php:43
+msgid ""
+"This add-on allows you to automatically send a survey to rate the agents "
+"performance on the ticket, and to collect feedback from the customer."
+msgstr ""
+"Ovaj dodatak ti omogucava da automatski posaljes upitnik kako bi ocenio rad "
+"agenta na problemu i kako bi dobio povratnu informaciju od korisnika."
+
+#: templates/admin-extensions.php:45 templates/admin-extensions.php:62
+#: templates/admin-extensions.php:79 templates/admin-extensions.php:94
+#: templates/admin-extensions.php:109 templates/admin-extensions.php:124
+#: templates/admin-extensions.php:139
+msgid "Get this Add-on"
+msgstr "Poruci ovaj dodatak!"
+
+#: templates/admin-extensions.php:53 templates/admin-extensions.php:57
+msgid "MailChimp"
+msgstr "Mailchimp"
+
+#: templates/admin-extensions.php:60
+msgid ""
+"Sync up your support users and customers with your mailchimp account with "
+"this extension"
+msgstr ""
+"Sinhronizuj korisnike podrske i klijente sa svojim Mailchimp nalogom pomocu "
+"ovog dodatka"
+
+#: templates/admin-extensions.php:70 templates/admin-extensions.php:74
+msgid "Knowledge Base"
+msgstr "Baza znanja"
+
+#: templates/admin-extensions.php:77
+msgid ""
+"Provide your customers the ability to search your Knowledge Base for "
+"answers. This increases customer satisfaction and reduces the amount of "
+"tickets you receive."
+msgstr ""
+"Omoguci svojim korisnicima da pretraze odgovore u bazi znanja. Ovo povecava "
+"zadovoljstvo korisnika i smanjuje broj prijavljenih problema."
+
+#: templates/admin-extensions.php:85 templates/admin-extensions.php:89
+msgid "Agent Notes"
+msgstr "Napomene agenta"
+
+#: templates/admin-extensions.php:92
+msgid ""
+"This add-on your agents to add comments within the ticket that can only be "
+"viewed by other agents."
+msgstr ""
+"Ovaj dodatak omogucuje agentima da dodaju komentare na probleme koje mogu "
+"videti samo drugi agenti."
+
+#: templates/admin-extensions.php:100 templates/admin-extensions.php:104
+msgid "Automatic Ticket Routing"
+msgstr "Automatsko preusmeravanje problema"
+
+#: templates/admin-extensions.php:107
+msgid ""
+"This add-on allows to create rules and automate routing tickets to agents."
+msgstr ""
+"Ovaj dodatak omogucava automatizovanje i postavljanje pravila za "
+"prosledjivanje problema agentima."
+
+#: templates/admin-extensions.php:115
+msgid "Advanced EDD Integration"
+msgstr "Napredna EDD integracija"
+
+#: templates/admin-extensions.php:119
+msgid "Easy Digital Downloads"
+msgstr "Easy Digital Downloads"
+
+#: templates/admin-extensions.php:122
+msgid ""
+"This add-on adds further integration with Easy Digital Downloads, displays "
+"purchase information and history in the ticket, as well as validates the "
+"receipt number with EDD."
+msgstr ""
+"Ovaj dodatak omogucava dalju integraciju sa Easy Digital Downloads, "
+"prikazuje informacije o kupovini i istoriju problema, takodje vrsi "
+"validaciju broja racuna sa EDD."
+
+#: templates/admin-extensions.php:130
+msgid "Slack Notifications"
+msgstr "Slack obavestenja"
+
+#: templates/admin-extensions.php:134
+msgid "Notifications"
+msgstr "Obavestenja"
+
+#: templates/admin-extensions.php:137
+msgid ""
+"Receive instant notifications to your Team Slack when users register, create "
+"tickets or reply to existing tickets ith this add-on"
+msgstr ""
+"Sa ovim dodatkom primaj momentalna obavestenja u tvom Slack-u kada se "
+"korisnici registruju, prijave problem ili odgovore na postojeci problem."
+
+#: templates/admin-extensions.php:149
+msgid "Coming soon"
+msgstr "Uskoro dostupno"
+
+#: templates/admin-extensions.php:154 templates/admin-extensions.php:158
+msgid "Custom Fields"
+msgstr "Proizvoljna polja"
+
+#: templates/admin-extensions.php:161
+msgid ""
+"This extension allows you to create additional fields for your ticket and "
+"for the New Ticket form."
+msgstr ""
+"Ovaj dodatak omogucava ti da kreiras dodatna polja za prjavljivanje problema."
+
+#: templates/admin-extensions.php:163 templates/admin-extensions.php:178
+#: templates/admin-extensions.php:193 templates/admin-extensions.php:208
+msgid "Coming soon!"
+msgstr "Uskoro dostupno!"
+
+#: templates/admin-extensions.php:169 templates/admin-extensions.php:173
+msgid "Canned Responses"
+msgstr "Kreirani odgovori"
+
+#: templates/admin-extensions.php:176
+msgid ""
+"This extension allows you to create templated reponses to common issues that "
+"you can insert to a ticket with a click."
+msgstr ""
+"Ovaj dodatak ti omogucava da unapred reiras sablone odgovora koje mozes "
+"ubaciti jednim klikom u problem."
+
+#: templates/admin-extensions.php:184 templates/admin-extensions.php:188
+msgid "Live Chat"
+msgstr "Razgovor uzivo"
+
+#: templates/admin-extensions.php:191
+msgid ""
+"This add-on allows your customers to chat with your agents directly from "
+"your website."
+msgstr ""
+"Ovaj dodatak omogucava tvojim korisnicima da razgovaraju sa agentima uzivo "
+"direktno sa tvog sajta."
+
+#: templates/admin-extensions.php:199 templates/admin-extensions.php:203
+msgid "Paid Support"
+msgstr "Placena podrska"
+
+#: templates/admin-extensions.php:206
+msgid ""
+"This add-on allows you to sell support as a service with multiple tiers."
+msgstr ""
+"Ovaj dodatak ti omogucava da ponudis podrsku kao uslugu kroz vise paketa."
+
+#: templates/admin-sidebar.php:7
+msgid "uCare Pro"
+msgstr "uCare Pro"
+
+#: templates/admin-sidebar.php:11
+msgid "Learn More"
+msgstr "Saznaj vise"
+
+#: templates/admin-sidebar.php:16
+msgid ""
+"uCare Pro is a must-have for any business website with a support system. It "
+"adds many features including email piping, agent notes, auto-agent "
+"assignment and more!With uCare Pro, you will get access to ALL the add-ons "
+"available, for one low price."
+msgstr ""
+"uCare Pro moras imati ukoliko imas poslovni website sa sistemom podrske. "
+"Dobijas mnogo opcija ukljucujuci email prijavljivanje problema, napomene "
+"agenta, automatsko dodeljivanje agenata i jos mnogo vise. Sa uCare Pro "
+"dobijas pristup svim dostupnim dodacima za jednu cenu."
+
+#: templates/admin-sidebar.php:30
+msgid "Recommendations & Feedback"
+msgstr "Preporuke i povratna informacija"
+
+#: templates/admin-sidebar.php:35
+msgid ""
+"Love it, or hate it? We want to know! Tell us what you think of the plugin, "
+"or make any suggestions for improvement."
+msgstr ""
+"Svidja ti se ili ne? Zelimo da znamo. Reci nam sta mislis o plugin-u ili "
+"predlozi sugestiju za poboljsanje."
+
+#: templates/admin-sidebar.php:43
+msgid "Feedback Form"
+msgstr "Forma za Feedback"
+
+#: templates/admin-tutorial.php:35
+msgid "Welcome to uCare Support System "
+msgstr "Dobro dosli u uCare sistem za podrsku␣"
+
+#: templates/admin-tutorial.php:37
+msgid ""
+"uCare is the most intelligent and user friendly WordPress support plugin."
+msgstr ""
+"uCare je inteligentni i user friendly plugin za podrsku putem Wordpress-a."
+
+#: templates/admin-tutorial.php:43
+msgid "View Plugin Documentation"
+msgstr "Pogledaj dokumentaciju"
+
+#: templates/admin-tutorial.php:49
+msgid "Say Hello to Email Piping!"
+msgstr "Pozdravi email prijavljivanje!"
+
+#: templates/admin-tutorial.php:50
+msgid ""
+"Email Piping allows emails sent to your inbox to be automatically retrieved "
+"by uCare and created as tickets in your helpdesk. You can use this feature "
+"to allow your customers to respond to your tickets by replying to your "
+"emails directly. This provides a much better experience for your customers "
+"and increases your customer satisfaction."
+msgstr ""
+"Email prijavljivanje omogucava slanje email-ova u tvoj inbox koji ce "
+"automatski biti preuzeti od uCare i kreirace se problemi u sistemu. Mozes "
+"koristiti ovu mogucnost da dozvolis korisnicima da odgovoraju na prijavljene "
+"probleme direktno odgovorajuci na email. Ovo omogucava mnogo bolje iskustvo "
+"korisnika i povecava njihovo zadovoljstvo."
+
+#: templates/admin-tutorial.php:57
+msgid "Get uCare Pro"
+msgstr "Kupi uCare Pro"
+
+#: templates/admin-tutorial.php:63
+msgid "New Features in 1.5"
+msgstr "Nove mogucnosti u 1.5"
+
+#: templates/admin-tutorial.php:65
+msgid "- Improved performance speed"
+msgstr "- Unapredjenja brzina"
+
+#: templates/admin-tutorial.php:66
+msgid "- Improved ticket details sidebar"
+msgstr "- Unapredjeni detalji problema"
+
+#: templates/admin-tutorial.php:67
+msgid "- 200 additional font options"
+msgstr "- 200 dodatnih fontova"
+
+#: templates/admin-tutorial.php:68
+msgid "- Ability to support any file type for uploads"
+msgstr "- Podrska za upload dodatnih tipova fajlova"
+
+#: templates/admin-tutorial.php:69
+msgid "- Improved settings page"
+msgstr "- Unapredjena generalna podesavanja"
+
+#: templates/admin-tutorial.php:70
+msgid "- bug fixes"
+msgstr "- popravljeni bagovi"
+
+#: templates/admin-tutorial.php:74
+msgid "New uCare Pro features"
+msgstr "Nove uCare Pro mogucnosti"
+
+#: templates/admin-tutorial.php:76
+msgid "- Slack notifications"
+msgstr "- Slack obavestenja"
+
+#: templates/admin-tutorial.php:77
+msgid "- Agent Ticket Notes"
+msgstr "- Napomene agenta za probleme"
+
+#: templates/admin-tutorial.php:78
+msgid "- Advanced EDD Integration"
+msgstr "- Napredna EDD Integracija"
+
+#: templates/admin-tutorial.php:79
+msgid "- Email Piping"
+msgstr "- Email prijave problema"
+
+#: templates/admin-tutorial.php:80
+msgid "- Automatic Agent Assignment"
+msgstr "- Automatsko dodeljivanje agenta"
+
+#: templates/admin-tutorial.php:81
+msgid "- Knowledge Base"
+msgstr "- Baza znanja"
+
+#: templates/admin-tutorial.php:82
+msgid "- Customer Satisfaction Feedback"
+msgstr "- Informacija o zadovoljstvu korisnika"
+
+#: templates/admin-tutorial.php:83
+msgid "- Mailchimp Integration"
+msgstr "- Mailchimp integracija"
+
+#: templates/comment.php:38 templates/ticket.php:52
+msgid "Write"
+msgstr "Pisi"
+
+#: templates/comment.php:42 templates/ticket.php:56
+msgid "Preview"
+msgstr "Pregledaj"
+
+#: templates/create_ticket.php:20
+msgid "Manually set ticket creator"
+msgstr "Manuelno podesi kreatora problema"
+
+#: templates/create_ticket.php:27
+msgid "Created by"
+msgstr "Kreirao"
+
+#: templates/create_ticket.php:35
+msgid "Me"
+msgstr "Ja"
+
+#: templates/create_ticket.php:75 templates/ticket.php:143
+msgid "Attach Images"
+msgstr "Dodaj slike"
+
+#: templates/dash.php:59
+msgid "New Support Request"
+msgstr "Novi zahtev za podrsku"
+
+#: templates/dash.php:119
+msgid "Tickets"
+msgstr "Problemi"
+
+#: templates/feedback.php:13
+msgid "If you have a moment, please let us know why you are deactivating"
+msgstr "Ako imas trenutak, molimo informaciju zasto deaktiviras"
+
+#: templates/feedback.php:19
+msgid "Reason for deactivating"
+msgstr "Razlog za deaktivaciju"
+
+#: templates/feedback.php:24
+msgid "I don't need this plugin"
+msgstr "Nije mi potreban ovaj plugin"
+
+#: templates/feedback.php:27
+msgid "What features would you like to see?"
+msgstr "Koje mogucnosti bi hteo da vidis?"
+
+#: templates/feedback.php:29
+msgid "This plugin lacks the features I need"
+msgstr "Ovaj plugin nema dodatke i mogucnosti koji su mi potrebni"
+
+#: templates/feedback.php:32
+msgid "What did you expect?"
+msgstr "Sta si ocekivao?"
+
+#: templates/feedback.php:34
+msgid "The plugin does not function as expected"
+msgstr "Ovaj plugin ne radi kako sam ocekivao"
+
+#: templates/feedback.php:37
+msgid "Can you explain what is happening?"
+msgstr "Mozes li objasniti o cemu se radi?"
+
+#: templates/feedback.php:39
+msgid "The plugin does not work"
+msgstr "Ovaj plugin ne radi"
+
+#: templates/feedback.php:42
+msgid "Which one?"
+msgstr "Koji tacno?"
+
+#: templates/feedback.php:44
+msgid "I found a better plugin"
+msgstr "Nasao sam bolji plugin"
+
+#: templates/feedback.php:49
+msgid "Other"
+msgstr "Drugo"
+
+#: templates/feedback.php:54
+msgid "Additional comments"
+msgstr "Dodatni komentari"
+
+#: templates/feedback.php:64
+msgid "No thanks, just deactivate"
+msgstr "Ne hvala, samo deaktiviraj"
+
+#: templates/feedback.php:66
+msgid "Cancel"
+msgstr "Ponisti"
+
+#: templates/feedback.php:67
+msgid "Submit & Deactivate"
+msgstr "Potvrdi i deaktiviraj"
+
+#: templates/first_login.php:8
+msgid "Welcome "
+msgstr "Dobrodosli␣"
+
+#: templates/first_login.php:16
+msgid ""
+"Since this is your first login to the system, we will take a view seconds to "
+"quickly show you around."
+msgstr ""
+"S obzirom na to da ti je ovo prvo logovanje u sistem, uzecemo nekoliko "
+"sekundi da ti pokazemo okruzenje."
+
+#: templates/first_login.php:31 templates/first_login.php:37
+#: templates/first_login.php:43 templates/first_login.php:49
+msgid "Creating tickets"
+msgstr "Prijavljivanje problema"
+
+#: templates/first_login.php:33
+msgid "Click on the \"Create Ticket\" button to create a support request"
+msgstr "Klikni na \"Prijavi problem\" dugme da bi kreirao prijavu za podrsku"
+
+#: templates/first_login.php:39
+msgid "Your tickets will be displayed in the ticket view once created."
+msgstr ""
+"Tvoji prijavljeni problemi ce biti prikazani u pregledu problema kada ih "
+"kreiras."
+
+#: templates/first_login.php:45
+msgid "You can update your password from the Settings menu"
+msgstr "Mozes izmeniti svoju sifru u glavnim podesavanjima"
+
+#: templates/first_login.php:51
+msgid ""
+"You can click on the ticket to open it and add comments as well as view the "
+"agent responses in real time."
+msgstr ""
+"Mozes kliknuti na problem da ga otvoris i dodas komentare kao i da vidis "
+"odgovore agenta podrske u realnom vremenu."
+
+#: templates/first_login.php:73
+msgid ""
+"Since this is your first login to the system, please take a moment to get "
+"familiar with how it works!"
+msgstr ""
+"S obzirom na to da ti je ovo prvo logovanje u sistem, molimo da pogledas "
+"okruzenje i upoznas se sa mogucnostima."
+
+#: templates/first_login.php:83
+msgid "Close"
+msgstr "Zatvori"
+
+#: templates/login.php:23 templates/login.php:63
+msgid "Back to login"
+msgstr "Vrati se na logovanje"
+
+#: templates/login.php:33
+msgid "Reset Password"
+msgstr "Resetuj sifru"
+
+#: templates/login.php:45
+msgid "Reset"
+msgstr "Resetuj"
+
+#: templates/login.php:121
+msgid "Invalid username or password"
+msgstr "Netacno korisnicko ime ili sifra"
+
+#: templates/login.php:133
+msgid "Forgot password?"
+msgstr "Zaboravio si sifru?"
+
+#: templates/navbar.php:21
+msgid "Back to site"
+msgstr "Vrati se na sajt"
+
+#: templates/navbar.php:136
+msgid "Back to Site"
+msgstr "Vrati se na sajt"
+
+#: templates/navbar.php:149
+msgid "Logout"
+msgstr "Izloguj se"
+
+#: templates/partials/admin-header.php:16
+msgid "uCare Customer Support"
+msgstr "uCare podrska korisnika"
+
+#: templates/partials/admin-header.php:24
+msgid "Go to the Helpdesk"
+msgstr "Idi na podrsku"
+
+#: templates/partials/admin-header.php:28
+msgid "Documentation"
+msgstr "Dokumentacija"
+
+#: templates/partials/dynamic-styles.php:43
+msgid "Apply Filters"
+msgstr "Primeni filtere"
+
+#: templates/partials/dynamic-styles.php:47
+msgid "Filters Applied"
+msgstr "Primenjen filter"
+
+#: templates/partials/header.php:18
+msgid "uCare Support System"
+msgstr "uCare sistem podrske"
+
+#: templates/partials/sidebar-attachments.php:125
+msgid "Upload"
+msgstr "Dodaj"
+
+#: templates/partials/sidebar-customer.php:30
+#, php-format
+msgid "Email: %s"
+msgstr "Email: %s"
+
+#: templates/partials/sidebar-customer.php:41
+#, php-format
+msgid "%s total"
+msgstr "%s ukupno"
+
+#: templates/partials/sidebar-customer.php:41
+#: templates/partials/sidebar-customer.php:48
+msgid "Ticket"
+msgid_plural "Tickets"
+msgstr[0] "Problem"
+msgstr[1] "Problemi"
+msgstr[2] "Problemi"
+
+#: templates/partials/sidebar-customer.php:48
+#, php-format
+msgid "%s in the past 30 days"
+msgstr "%s u poslednjih 30 dana"
+
+#: templates/partials/sidebar-customer.php:54
+msgid "Recent Tickets"
+msgstr "Skorasnji problemi"
+
+#: templates/partials/sidebar-customer.php:72
+msgid "No tickets yet"
+msgstr "Nema problema"
+
+#: templates/partials/sidebar-details.php:47
+#, php-format
+msgid "Closed by %s"
+msgstr "Zatvoreno %s"
+
+#: templates/partials/sidebar-details.php:51
+msgid "Automatically closed "
+msgstr "Automatski zatvoren␣"
+
+#: templates/partials/sidebar-details.php:61
+#, php-format
+msgid "From %s"
+msgstr "Od %s"
+
+#: templates/partials/sidebar-details.php:61
+msgid "l F j, Y @ g:i A"
+msgstr "l F j, Y @ g:i A"
+
+#: templates/partials/sidebar-ecommerce.php:24
+#, php-format
+msgid "Receipt # %s"
+msgstr "Racun # %s"
+
+#: templates/statistics.php:8
+msgid "Total Tickets"
+msgstr "Ukupno problema"
+
+#: templates/statistics.php:39
+msgid "Awaiting Response"
+msgstr "Ocekuje se odgovor"
+
+#: templates/statistics.php:69
+msgid "Assigned to Me"
+msgstr "Dodeljeno meni"
+
+#: templates/ticket.php:165
+msgid "Done"
+msgstr "Uradjeno"
+
+#: templates/ticket_filter.php:23
+msgid "Filter By"
+msgstr "Filtriraj po"
+
+#: templates/ticket_filter.php:33
+msgid "Search"
+msgstr "Pretrazi"
+
+#: templates/ticket_filter.php:96
+msgid "Refresh"
+msgstr "Osvezi"
+
+#. Plugin Name of the plugin/theme
+msgid "uCare - Support Ticket System"
+msgstr "uCare - Sistem za prijavljivanje problema"
+
+#. Description of the plugin/theme
+msgid ""
+"If you have customers, then you need uCare. A support ticket help desk for "
+"your customers featuring usergroups,agents,ticket status,filtering,searching "
+"all in one responsive app. The most robust support ticket system for "
+"WordPress."
+msgstr ""
+"Ako imas korisnike, onda ti je potreban uCare. Sistem za podrsku tvojih "
+"korisnika gde mogu prijaviti probleme, podrzava grupe korsnika, agente "
+"podrske, statuse problema, filtere i pretrage, a sve to u responzivnoj "
+"aplikaciji. Najrobusniji sistem za podrsku na Wordpress-u."
+
+#. Author of the plugin/theme
+msgid "Smartcat"
+msgstr "Smartcat"
+
+#. Author URI of the plugin/theme
+msgid "https://smartcatdesign.net"
+msgstr "https://smartcatdesign.net"

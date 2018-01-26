@@ -22,12 +22,15 @@ add_filter( 'submenu_file', 'ucare\set_submenu_file' );
 function enqueue_admin_scripts( $hook ) {
 
     wp_enqueue_script( 'ucare-admin-global',
-        resolve_url( '/assets/admin/global.js' ), array( 'jquery' ), PLUGIN_VERSION );
+        resolve_url( '/assets/admin/global.js' ), array( 'jquery', 'wp-color-picker' ), PLUGIN_VERSION );
 
     wp_enqueue_style( 'ucare-admin-global',
         resolve_url( '/assets/admin/global.css' ), null, PLUGIN_VERSION );
-
-
+    
+    wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'wp-color-picker' );
+    
+    
     // Load assets only on plugin admin pages
     if ( strpos( $hook, 'ucare' ) !== false || get_post_type() == 'support_ticket' ) {
 

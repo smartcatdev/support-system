@@ -481,7 +481,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const FOOTER_TEXT = 'Copyright © 2017';
+    const FOOTER_TEXT = 'Copyright © 2018';
 
     /**
      * @since 1.0.2

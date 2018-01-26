@@ -19,8 +19,9 @@ $user = wp_get_current_user();
                 
                     <p><?php _e( 'Since this is your first login to the system, we will take a view seconds to quickly show you around.', 'ucare' ); ?></p>
                     <br>
-                    
+
                     <script src="<?php esc_url_e( resolve_url( '/assets/js/first_login_agent.js' ) ); ?>"></script>
+
                     <div id="carousel-example-generic" class="carousel" >
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
@@ -76,7 +77,11 @@ $user = wp_get_current_user();
                     
                     <p><?php _e( 'Since this is your first login to the system, please take a moment to get familiar with how it works!', 'ucare' ); ?></p>
                     <br>
+<<<<<<< HEAD
                     <script src="<?php esc_url_e( '/assets/js/first_login_agent.js' ); ?>"></script>
+=======
+                    <script src="<?php echo \ucare\Plugin::plugin_url( \ucare\PLUGIN_ID ) . '/assets/js/first_login_agent.js'; ?>"></script>
+>>>>>>> origin/master
                     <iframe width="100%" height="400" src="https://www.youtube.com/embed/ZX1oAGWmFh0?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1 " frameborder="0" allowfullscreen></iframe>
 
                 <?php endif; ?>

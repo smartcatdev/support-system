@@ -33,7 +33,6 @@ function ticket_created( $id, $ticket ) {
 }
 
 
-
 /**
  * 
  * Runs when new ticket is created or when existing ticket is updated
@@ -48,12 +47,10 @@ function ticket_created( $id, $ticket ) {
  * @return void
  */
 function ticket_updated( $id, $ticket, $update ) {
-    
     // Ensure we're dealing with a ucare ticket
     if ( $ticket->post_type !== 'support_ticket' && $update ) {
         do_action( 'support_ticket_updated', $ticket, $id );
     }
-
 }
 
 
@@ -70,7 +67,6 @@ function ticket_updated( $id, $ticket, $update ) {
  * @return void
  */
 function new_comment( $comment_id, $approved, $data ) {
-    
     $ticket = get_post( $data[ 'comment_post_ID' ] );
     
     // Check if comment has been approved
@@ -82,5 +78,4 @@ function new_comment( $comment_id, $approved, $data ) {
     $comment = get_comment( $comment_id );
     
     do_action( 'support_ticket_reply', $comment, $ticket );
-    
 }

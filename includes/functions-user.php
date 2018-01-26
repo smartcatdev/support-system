@@ -460,7 +460,6 @@ function get_user_field( $field, $user = null ) {
  * @return false|\WP_User
  */
 function get_user( $user = null, $fallback_to_current = true ) {
-
     if ( empty( $user ) && $fallback_to_current ) {
         $user = wp_get_current_user();
     } else if ( is_numeric( $user ) ) {
