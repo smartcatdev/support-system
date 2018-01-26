@@ -647,6 +647,17 @@ function ucare_reset_user_password( $username ) {
 }
 
 
+/**
+ * Get all support agents.
+ *
+ * @since 1.6.0
+ * @return array
+ */
+function ucare_get_agents() {
+    return ucare\get_users_with_cap( 'manage_support_tickets' );
+}
+
+
 /***********************************************************************************************************************
  *
  * General purpose functions for managing templates.
