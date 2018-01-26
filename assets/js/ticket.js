@@ -139,6 +139,7 @@ var Ticket = (function ($) {
                     },
                     success: function () {
                         load_sidebar(id);
+                        reload_widget(id);
                         close_button.remove();
                     }
                 });
@@ -146,6 +147,21 @@ var Ticket = (function ($) {
 
         });
     };
+
+    /**
+     * @summary Fetch and update the widget areas.
+     * @todo replace this react
+     */
+    function reload_widget(id) {
+        $.ajax({
+            url: ucare.api.root + 'wp/v2/support-tickets/' + id,
+            success: function (ticket) {
+                if (ticket.ucare.widget_areas.after_comments) {
+                    $('#' + ticket.id).find('.comments').after($(ticket.ucare.widget_areas.after_comments));
+                }
+            }
+        });
+    }
 
     var _open_ticket = function (e) {
         var target = $(e.target);
@@ -228,19 +244,7 @@ var Ticket = (function ($) {
 
                 }, 15 * 1000);
 
-
-                /**
-                 * @summary Fetch and update the widget areas.
-                 * @todo replace this react
-                 */
-                $.ajax({
-                    url: ucare.api.root + 'wp/v2/support-tickets/' + response.ticket_id,
-                    success: function (ticket) {
-                        if (ticket.ucare.widget_areas.after_comments) {
-                            $('#' + ticket.id).find('.comments').after($(ticket.ucare.widget_areas.after_comments));
-                        }
-                    }
-                });
+                reload_widget(response.ticket_id);
 
             },
             complete: function (xhr) {
