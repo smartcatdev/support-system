@@ -7,6 +7,27 @@
  */
 namespace ucare;
 
+
+/**
+ * Strip all whitespace from a string and removes unsafe tags.
+ *
+ * @param string $string
+ * @param bool   $remove_breaks
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function clean_html( $string, $remove_breaks = true ) {
+    $string = wp_kses_post( $string );
+
+    if ( $remove_breaks ) {
+        $string = preg_replace( '/[\r\n\t ]+/', ' ', $string );
+    }
+
+    return trim( $string );
+}
+
+
 /**
  * Prints a human readable time difference.
  *

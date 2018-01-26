@@ -1,5 +1,7 @@
 <?php
 
+namespace ucare;
+
 use ucare\Options;
 
 $attachments = get_attached_media( 'image', $ticket->ID );
@@ -39,6 +41,8 @@ $user = wp_get_current_user();
         <?php do_action( 'ucare_before_comments', $ticket ); ?>
 
         <div class="comments"></div>
+
+        <?php after_comments( $ticket, true ); ?>
 
         <div class="comment-reply-wrapper">
 

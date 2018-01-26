@@ -8,13 +8,45 @@
 namespace ucare;
 
 
+// Register custom menu location
 add_action( 'init', 'ucare\register_menu_locations' );
 
+// Swap template page
 add_filter( 'template_include', 'ucare\include_page_template' );
 
 
-function register_menu_locations() {
+/**
+ * Output content below ticket comments widget area.
+ *
+ * @param \WP_Post $ticket
+ * @param bool     $echo
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function after_comments( $ticket, $echo = false ) {
+    /**
+     *
+     * @since 1.6.0
+     */
+    $out = clean_html( apply_filters( 'ucare_after_comments', '', $ticket ) );
 
+    if ( $echo ) {
+        echo stripslashes( $out );
+    }
+
+    return $out;
+}
+
+
+
+/**
+ * Register menu location for primary navigation menu.
+ *
+ * @since 1.4.2
+ * @return void
+ */
+function register_menu_locations() {
     $locations = array(
         'ucare_header_navbar' => __( 'uCare Navigation Menu', 'cdemo' ),
     );
@@ -34,7 +66,6 @@ function register_menu_locations() {
  * @return string
  */
 function include_page_template( $template ) {
-
     // Help Desk page
     if ( is_support_page() ) {
         $template = get_template( 'app', null, false );
@@ -53,7 +84,6 @@ function include_page_template( $template ) {
     }
 
     return $template;
-
 }
 
 
@@ -64,7 +94,6 @@ function include_page_template( $template ) {
  * @return void
  */
 function get_navbar() {
-
     // Only show navbar if user is logged in
     if ( is_user_logged_in() ) {
 
@@ -76,7 +105,5 @@ function get_navbar() {
 
         // Allow output after nav
         do_action( 'ucare_after_navbar' );
-
     }
-
 }

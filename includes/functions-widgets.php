@@ -16,6 +16,23 @@ add_action( 'wp_footer', 'ucare\do_quick_link_widget' );
 
 
 /**
+ * Get the rendered ticket widget areas.
+ *
+ * @param \WP_Post $ticket
+ *
+ * @since 1.6.0
+ * @return array
+ */
+function get_ticket_widget_areas( $ticket ) {
+    $widgets = array(
+         'after_comments' => after_comments( $ticket )
+    );
+
+    return $widgets;
+}
+
+
+/**
  * Action to enqueue widget scripts.
  *
  * @action wp_enqueue_scripts
@@ -24,9 +41,7 @@ add_action( 'wp_footer', 'ucare\do_quick_link_widget' );
  * @return void
  */
 function enqueue_widget_scripts() {
-
     wp_enqueue_style( 'ucare-widget-styles', resolve_url( 'assets/css/wp-widgets.css' ), null, PLUGIN_VERSION );
-
 }
 
 

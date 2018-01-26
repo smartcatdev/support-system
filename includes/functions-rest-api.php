@@ -8,6 +8,9 @@
 namespace ucare;
 
 
+// Register custom fields
+add_action( 'rest_api_init', 'ucare\rest_register_fields' );
+
 // Insert custom meta passed with the REST request
 add_action( 'rest_insert_support_ticket', 'ucare\rest_set_ticket_attributes', 10, 2 );
 
@@ -22,6 +25,36 @@ add_filter( 'rest_attachment_query', 'ucare\rest_filter_attachment_query' );
 
 // Filter out REST GET comments based on user capabilities
 add_filter( 'rest_comment_query', 'ucare\rest_filter_comment_query' );
+
+
+/**
+ * Register custom fields with the REST API
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function rest_register_fields() {
+    /**
+     * Core plugin namespace
+     *
+     * @since 1.6.0
+     */
+    register_rest_field( 'support_ticket', 'ucare', array(
+        'schema' => array(
+            'type'        => 'array',
+            'context'     => array( 'view', 'edit' ),
+            'description' => __( 'Core plugin namespace', 'ucare' )
+        ),
+        'get_callback' => function ( $ticket ) {
+            $ticket = get_post( $ticket['id'] );
+            $data   = array(
+                'widget_areas' => get_ticket_widget_areas( $ticket )
+            );
+
+            return $data;
+        }
+    ) );
+}
 
 
 /**
