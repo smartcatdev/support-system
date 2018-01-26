@@ -228,11 +228,26 @@ var Ticket = (function ($) {
 
                 }, 15 * 1000);
 
+
+                /**
+                 * @summary Fetch and update the widget areas.
+                 * @todo replace this react
+                 */
+                $.ajax({
+                    url: ucare.api.root + 'wp/v2/support-tickets/' + response.ticket_id,
+                    success: function (ticket) {
+                        if (ticket.ucare.widget_areas.after_comments) {
+                            $('#' + ticket.id).find('.comments').after($(ticket.ucare.widget_areas.after_comments));
+                        }
+                    }
+                });
+
             },
             complete: function (xhr) {
                 sidebar.removeClass("saving");
                 form.find(".button-submit").prop("disabled", false);
             }
+
         });
     };
 
