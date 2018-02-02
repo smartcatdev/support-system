@@ -714,6 +714,7 @@ hr {
     padding: 0px 6px;
     border-radius: 3px;
     display: inline-block;
+    background: #f9f9f9;
 }
 
 #tickets-container .comment-icon {
