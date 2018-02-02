@@ -130,18 +130,16 @@ function map_posts_to_select_options( $post_type ) {
  * @return void
  */
 function render_checkbox( $field ) {
-
     $field = maybe_inflate_field( $field );
 
-    $checked    = isset( $field->config['checked'] )    ? $field->config['checked']    : true;
-    $is_checked = isset( $field->config['is_checked'] ) ? $field->config['is_checked'] : false;
+    $checked    = pluck( $field->config, 'checked' );
+    $is_checked = pluck( $field->config, 'is_checked' );
 
-    echo '<label>' .
-            '<input type="checkbox" ' . parse_attributes( $field->attributes ) .
-                checked( $checked, $is_checked, false ) . ' /> ' .
-                esc_html( $field->description ?: '' ) .
+    echo '<label>',
+            '<input type="checkbox" ', parse_attributes( $field->attributes ),
+                checked( $checked, $checked === $is_checked, false ), ' /> ',
+            esc_html( $field->description ?: '' ),
          '</label>';
-
 }
 
 

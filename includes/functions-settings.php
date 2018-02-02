@@ -258,6 +258,12 @@ function register_settings() {
         'sanitize_callback' => 'ucare\sanitize_boolean'
     ) );
 
+    register_setting( 'uc-general', Options::ECOMMERCE, array(
+        'type'    => 'string',
+        'default' => Defaults::ECOMMERCE,
+        'sanitize_callback' => 'ucare\sanitize_boolean'
+    ) );
+
     register_setting( 'uc-general', Options::INACTIVE_MAX_AGE, array(
         'type'    => 'integer',
         'default' => Defaults::FILE_MIME_TYPES,

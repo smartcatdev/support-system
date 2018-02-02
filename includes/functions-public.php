@@ -175,6 +175,53 @@ function ucare_ecommerce_mode() {
 }
 
 
+/**
+ * Get the current product post type.
+ *
+ * @since 1.6.1
+ * @return bool|string
+ */
+function ucare_product_post_type() {
+    if ( !ucare_is_ecommerce_enabled() ) {
+        return false;
+    }
+
+    return \ucare\get_product_post_type();
+}
+
+
+/**
+ * Get a list of products.
+ *
+ * @since 1.6.1
+ * @return array
+ */
+function ucare_get_products() {
+    if ( !ucare_is_ecommerce_enabled() ) {
+        return array();
+    }
+
+    return get_posts( array( 'post_type' => ucare_product_post_type(), 'posts_per_page' => -1 ) );
+}
+
+
+/**
+ * Get a list of ticket categories.
+ *
+ * @since 1.6.1
+ * @return array
+ */
+function ucare_get_ticket_categories() {
+    $terms = get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) );
+
+    if ( !is_array( $terms ) ) {
+        return array();
+    }
+
+    return $terms;
+}
+
+
 /***********************************************************************************************************************
  *
  * Functions for managing assets in the front-end application.

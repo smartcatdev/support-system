@@ -36,7 +36,7 @@ function add_settings_fields() {
         array(
             'description' => __( 'Enable eCommerce support with Easy Digital Downloads or WooCommerce', 'ucare' ),
             'config' => array(
-                'is_checked' => get_option( Options::ECOMMERCE )
+                'is_checked' => sanitize_boolean( get_option( Options::ECOMMERCE ) )
             ),
             'attributes' => array(
                 'id'    => 'ucare-ecommerce-support',
