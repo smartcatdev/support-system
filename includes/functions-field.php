@@ -101,7 +101,7 @@ function map_taxonomy_to_select_options( $taxonomy ) {
 function map_posts_to_select_options( $post_type ) {
 
     $options = array();
-    $posts   = get_posts( array( 'post_type' => $post_type ) );
+    $posts   = get_posts( array( 'post_type' => $post_type, 'posts_per_page' => -1 ) );
 
     foreach ( $posts as $post ) {
 
