@@ -105,6 +105,25 @@ function ucare_in_dev_mode() {
 
 
 /**
+ * Get the value of a variable based on whether or not the plugin is in development mode. Note, this checks the value of
+ * the hard coded constant UCARE_DEV_MODE.
+ *
+ * @param mixed $prod The value if the plugin is in production
+ * @param mixed $dev  The value if the plugin is in development
+ *
+ * @since 1.6.1
+ * @return mixed
+ */
+function ucare_dev_var( $prod, $dev ) {
+    if ( defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE ) {
+        return $dev;
+    }
+
+    return $prod;
+}
+
+
+/**
  * Returns an instance of a logger to save log entries to the logs table.
  *
  * @since 1.3.0
