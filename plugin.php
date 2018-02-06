@@ -2,13 +2,8 @@
 /**
  * Plugin Name: uCare - Support Ticket System
  * Author: Smartcat
-<<<<<<< HEAD
  * Description: If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
- * Version: 1.6.0
-=======
- * Description: If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress. 
- * Version: 1.5.1
->>>>>>> origin/master
+ * Version: 1.6.1
  * Author: Smartcat
  * Author URI: https://smartcatdesign.net
  * license: GPL V2
@@ -190,6 +185,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-scripts.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-upgrade.php';
@@ -354,30 +350,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
 /**
- * Get a path relative to the root of the plugin directory.
- *
- * @since 1.4.2
- * @param string $path
- * @return string
- */
-function resolve_path( $path = '' ) {
-    return plugin_dir_path( __FILE__ ) . $path;
-}
-
-
-/**
- * Get a URL relative to the root of the plugin directory.
- *
- * @param string $path
- * @since 1.4.2
- * @return string
- */
-function resolve_url( $path = '' ) {
-    return plugin_dir_url( __FILE__ ) . $path;
-}
-
-
-/**
  * Add a message to the admin notification area.
  *
  * @param string $message
@@ -391,4 +363,41 @@ function admin_notification( $message, $type = 'error', $dismissible = true ) {
     add_action( 'admin_notices', function () use ( $message, $type, $dismissible ) {
         printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>', esc_attr( $type ), $dismissible ? 'is-dismissible' : '', $message );
     } );
+}
+
+
+/**
+ * Get a path relative to the root of the plugin directory.
+ *
+ * @since 1.4.2
+ * @param string $path
+ * @return string
+ */
+function resolve_path( $path = '' ) {
+    return plugin_dir_path( __FILE__ ) . join( DIRECTORY_SEPARATOR, func_get_args() );
+}
+
+
+/**
+ * Get a URL relative to the root of the plugin directory.
+ *
+ * @param string $path
+ * @since 1.4.2
+ * @return string
+ */
+function resolve_url( $path = '' ) {
+    return plugin_dir_url( __FILE__ ) . join( DIRECTORY_SEPARATOR, func_get_args() );
+}
+
+
+/**
+ * Build a namespace qualifier
+ *
+ * @param string $qualifier
+ *
+ * @since 1.6.1
+ * @return string
+ */
+function fqn( $qualifier = '' ) {
+    return sprintf( '\\%1$s\\%2$s', __NAMESPACE__, join( '\\', func_get_args() ) );
 }
