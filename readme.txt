@@ -1,10 +1,10 @@
-=== uCare - Support Ticket System ===
+=== uCare - Support Ticket System & HelpDesk ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,helpdesk,system,email,customer service,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,helpdesk,support ticket,help desk,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.9.1
-Stable tag: 1.5.0
+Tested up to: 4.9.3
+Stable tag: 1.5.1
 Requires PHP: 5.5
 License: GPLv2 or later
 
@@ -111,7 +111,6 @@ Yes, uCare is built with a notification system and templates for your customers 
 = 1.5.2 =
 - Updated German translations
 - Fixed appearance of category colors
-
 
 = 1.5.1 =
 - Added the ability to assign unique colors for ticket categories
