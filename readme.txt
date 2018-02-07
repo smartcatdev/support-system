@@ -109,6 +109,11 @@ Yes, uCare is built with a notification system and templates for your customers 
 == Changelog ==
 
 = 1.5.1 =
+- Updated German translations
+- Fixed appearance of category colors
+
+
+= 1.5.1 =
 - Added the ability to assign unique colors for ticket categories
 - Added support for custom fields
 - Fixed bug blocking first-login modal
