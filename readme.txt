@@ -108,7 +108,7 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
-= 1.5.1 =
+= 1.5.2 =
 - Updated German translations
 - Fixed appearance of category colors
 
