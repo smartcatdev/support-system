@@ -10,7 +10,7 @@
 
 
     <div class="updated" style="padding: 20px">
-        <?php _e( 'Get ALL these add-ons for one low price with uCare Pro', 'ucare' ); ?><br>
+        <p><?php _e( 'Get ALL these add-ons, and every future release add-on for one low price with uCare Pro', 'ucare' ); ?></p>
         <a class="button button-primary" href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Ucare+Pro" class="ucare-addon-link"><?php _e( 'Click here', 'ucare' ); ?></a>
     </div>
     
@@ -148,6 +148,21 @@
     
     <h2><?php _e( 'Coming soon', 'ucare' ); ?></h2>
 
+
+    <div class="ucare-addon">
+        <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Automated+Agent" class="ucare-addon-link">
+            <h3><?php _e( 'Automated Agent', 'ucare' ); ?></h3>
+
+            <div class="ad auto-agent">
+                <span class="dashicons dashicons-admin-users"></span>
+                <h2><?php _e( 'Automated Agent', 'ucare' ); ?></h2>
+            </div>
+
+            <p class="details"><?php _e( 'Automated Agent answers customer tickets for you! A first-level agent that you can program it\'s responses based on ticket category, product or contents', 'ucare' ); ?></p>
+
+            <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Custom+Fields" class="button"><?php _e( 'Coming soon!', 'ucare' ); ?></a>
+        </a>
+    </div>
 
     <div class="ucare-addon">
         <a href="https://ucaresupport.com/add-ons?utm_source=plugin-addons-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=Custom+Fields" class="ucare-addon-link">

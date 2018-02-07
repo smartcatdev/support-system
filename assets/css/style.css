@@ -714,6 +714,7 @@ hr {
     padding: 0px 6px;
     border-radius: 3px;
     display: inline-block;
+    background: #f9f9f9;
 }
 
 #tickets-container .comment-icon {
@@ -961,6 +962,7 @@ button.close-ticket:hover {
     border-radius: 3px;
     padding: 2px 5px;
     font-size: 14px;
+    background: #f9f9f9;
 }
 
 .sidebar .ticket-details .ticket-stale {

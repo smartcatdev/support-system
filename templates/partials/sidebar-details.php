@@ -16,8 +16,11 @@ namespace ucare;
         <?php ticket_status( $ticket ); ?>
 
         <?php if( !empty( $category ) ) : ?>
-
-            <span class="tag category"><?php echo $category; ?></span>
+       
+            <span style="<?php echo get_term_meta( $term_id, 'category_color', true ) ? 'border-left: 8px solid ' . esc_attr( get_term_meta( $term_id, 'category_color', true ) ) : '' ?>" 
+                  class="tag category">
+                <?php echo $category; ?>
+            </span>
 
         <?php endif; ?>
 

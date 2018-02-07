@@ -60,7 +60,7 @@ use ucare\Options;
 
                                 <?php if( !empty( $terms ) ) : ?>
 
-                                    <span style="<?php echo get_term_meta( $terms[0]->term_id, 'category_color', true ) ? 'background-color:' . esc_attr( get_term_meta( $terms[0]->term_id, 'category_color', true ) ) : '' ?>" 
+                                    <span style="<?php echo get_term_meta( $terms[0]->term_id, 'category_color', true ) ? 'border-left: 8px solid ' . esc_attr( get_term_meta( $terms[0]->term_id, 'category_color', true ) ) : '' ?>" 
                                           class="tag category <?php echo $terms[0]->term_id; ?>"><?php echo $terms[0]->name; ?></span>
 
                                 <?php endif; ?>
