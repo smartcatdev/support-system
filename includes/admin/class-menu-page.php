@@ -17,6 +17,36 @@ namespace ucare;
 abstract class MenuPage {
 
     /**
+     * The current screen resource
+     *
+     * @var \WP_Screen
+     */
+    protected $screen = '';
+
+    /**
+     * The menu page slug (un-prefixed)
+     *
+     * @var string
+     */
+    protected $slug = '';
+
+    /**
+     * The URL for the menu page asset directory.
+     *
+     * @var string
+     */
+    protected $assets_url = '';
+
+    /**
+     * Constructor.
+     *
+     * @since 1.6.1
+     */
+    public function __construct() {
+        $this->assets_url = trailingslashit( resolve_url( "assets/admin/menu-pages/$this->slug" ) );
+    }
+
+    /**
      * Add the menu page and initialize the load action.
      *
      * @since 1.6.1
@@ -33,7 +63,7 @@ abstract class MenuPage {
      * @return void
      */
     public function on_load() {
-        // Do page load
+        $this->screen = get_current_screen();
     }
 
     /**

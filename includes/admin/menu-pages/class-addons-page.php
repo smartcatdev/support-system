@@ -16,6 +16,13 @@ namespace ucare;
 class AddonsPage extends MenuPage {
 
     /**
+     * Base slug
+     *
+     * @var string
+     */
+    protected $slug = 'add-ons';
+
+    /**
      * Make a call to add_menu_page()
      *
      * @since 1.6.1
@@ -26,10 +33,27 @@ class AddonsPage extends MenuPage {
     }
 
     /**
+     * Do enqueues and setup data for the page.
      *
+     * @since 1.6.1
+     * @return void
      */
     public function on_load() {
+        parent::on_load();
 
+        $this->enqueue_scripts();
+    }
+
+    /**
+     * Enqueue menu page scripts.
+     *
+     * @since 1.6.1
+     * @return void
+     */
+    private function enqueue_scripts() {
+        $bundle = ucare_dev_var( 'bundle.production.min.js', 'bundle.js' );
+
+        wp_enqueue_script( 'ucare-add-ons', strcat( $this->assets_url, 'build/', $bundle ), array( 'react' ), PLUGIN_VERSION );
     }
 
     /**
