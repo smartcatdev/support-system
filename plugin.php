@@ -189,6 +189,10 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-upgrade.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-post-support_ticket.php';
+
+                include_once dirname( __FILE__ ) . '/includes/admin/class-menu-page.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/menu-pages/class-addons-page.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/menu-pages/class-tutorial-page.php';
             }
         }
 

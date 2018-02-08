@@ -897,3 +897,20 @@ function ucare_admin_is_screen( $tag ) {
 
     return false;
 }
+
+
+/**
+ * Add an admin menu page instance.
+ *
+ * @param \ucare\MenuPage|string $page
+ *
+ * @since 1.6.1
+ * @return void
+ */
+function ucare_add_admin_page( $page ) {
+    if ( is_string( $page ) && class_exists( $page ) ) {
+        $page = new $page();
+    }
+
+    $page->add();
+}

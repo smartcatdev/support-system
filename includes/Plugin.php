@@ -24,7 +24,7 @@ use ucare\component\Hacks;
 class Plugin extends AbstractPlugin {
 
     private $menu_pages = array();
-    private $activations = array();
+//    private $activations = array();
 
     public function start() {
         $this->config_dir = $this->dir . '/config/';
@@ -137,16 +137,7 @@ class Plugin extends AbstractPlugin {
                     'render'      => false
                 )
             ),
-            'settings'   => include_once $this->dir . '/config/admin_settings.php',
-            'extensions' => new MenuPage(
-                array(
-                    'type'          => 'submenu',
-                    'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'uc-add-ons',
-                    'menu_title'    => __( 'Add-ons', 'ucare' ),
-                    'render'        => $this->template_dir . '/admin-extensions.php'
-                )
-            )
+            'settings'   => include_once $this->dir . '/config/admin_settings.php'
         );
 
         if ( !empty( $this->activations ) ) {
@@ -167,49 +158,49 @@ class Plugin extends AbstractPlugin {
 
     }
 
-    public function get_activations() {
-        return $this->activations;
-    }
-
-    public function add_activation( $id, $args ) {
-
-        if( !in_array( $id, $this->activations ) ) {
-
-            $activation = array(
-                'store_url'      => $args['store_url'],
-                'support_file'   => $args['file'],
-                'status_option'  => $args['status_option'],
-                'license_option' => $args['license_option'],
-                'expire_option'  => $args['expire_option'],
-                'version'        => $args['version'],
-                'item_name'      => $args['item_name'],
-                'author'         => $args['author'],
-                'beta'           => !empty( $args['beta'] )
-            );
-
-            $this->activations [ $id ] = $activation;
-
-            return true;
-
-        }
-
-        return false;
-
-    }
-
-    public function remove_activation( $id ) {
-
-        if( !in_array( $id, $this->activations ) ) {
-
-            unset( $this->activations['id'] );
-
-            return true;
-
-        }
-
-        return false;
-
-    }
+//    public function get_activations() {
+//        return $this->activations;
+//    }
+//
+//    public function add_activation( $id, $args ) {
+//
+//        if( !in_array( $id, $this->activations ) ) {
+//
+//            $activation = array(
+//                'store_url'      => $args['store_url'],
+//                'support_file'   => $args['file'],
+//                'status_option'  => $args['status_option'],
+//                'license_option' => $args['license_option'],
+//                'expire_option'  => $args['expire_option'],
+//                'version'        => $args['version'],
+//                'item_name'      => $args['item_name'],
+//                'author'         => $args['author'],
+//                'beta'           => !empty( $args['beta'] )
+//            );
+//
+//            $this->activations [ $id ] = $activation;
+//
+//            return true;
+//
+//        }
+//
+//        return false;
+//
+//    }
+//
+//    public function remove_activation( $id ) {
+//
+//        if( !in_array( $id, $this->activations ) ) {
+//
+//            unset( $this->activations['id'] );
+//
+//            return true;
+//
+//        }
+//
+//        return false;
+//
+//    }
 
     public function subscribed_hooks() {
         return parent::subscribed_hooks( array(
