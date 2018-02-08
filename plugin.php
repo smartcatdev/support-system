@@ -120,8 +120,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
-
-            include_once dirname( __FILE__ ) . '/includes/library/class-license-manager.php';
             include_once dirname( __FILE__ ) . '/includes/library/class-edd-sl-plugin-updater.php';
             include_once dirname( __FILE__ ) . '/includes/library/class-bootstrap-nav-walker.php';
 
@@ -136,6 +134,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/class-toolbar.php';
             include_once dirname( __FILE__ ) . '/includes/class-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/class-styles.php';
+            include_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
@@ -201,15 +200,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function init_licensing() {
-            $page = array(
-                'parent_slug' => 'ucare_support',
-                'page_title'  => __( 'uCare Licenses', 'ucare' ),
-                'menu_title'  => __( 'Licenses', 'ucare' ),
-                'capability'  => 'manage_options',
-                'menu_slug'   => 'ucare-licenses'
-            );
-
-            $this->set( 'license_manager', new LicenseManager( 'ucare', 'submenu', $page ) );
+            $this->set( 'license_manager', ucare_get_license_manager() );
         }
 
     }
@@ -251,29 +242,24 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function deactivate() {
+        ucare();
 
-        /**
-         * Delete the first run option on de-activate
-         * This triggers the First Run welcome screen to load on reload
-         */
+        // Delete the first run option on de-activate This triggers the First Run welcome screen to load on reload
         delete_option( Options::FIRST_RUN );
 
-        /**
-         * Cleanup custom user roles and caps
-         */
+        // Cleanup custom user roles and caps
         remove_role_capabilities();
         remove_user_roles();
 
-        /**
-         * Unregister custom post type data
-         */
+        // Unregister custom post type data
         unregister_post_type( 'support_ticket' );
         unregister_post_type( 'email_template' );
         unregister_taxonomy( 'ticket_category' );
 
-        /**
-         * Execute uninstall script if we are in dev mode.
-         */
+        // Cleanup license manager data
+        ucare_get_license_manager()->cleanup();
+
+        // Execute uninstall script if we are in dev mode.
         if ( get_option( Options::DEV_MODE ) ) {
             include_once dirname( __FILE__ ) . '/uninstall.php';
         }
@@ -401,3 +387,6 @@ function resolve_url( $path = '' ) {
 function fqn( $qualifier = '' ) {
     return sprintf( '\\%1$s\\%2$s', __NAMESPACE__, join( '\\', func_get_args() ) );
 }
+
+
+

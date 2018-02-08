@@ -39,6 +39,28 @@ function rest_register_endpoints() {
         'methods' => \WP_REST_Server::CREATABLE,
         'callback' => 'ucare\rest_handler_rest_password'
     ) );
+
+    /**
+     * Extension licenses endpoint.
+     *
+     * @since 1.6.1
+     */
+    register_rest_route( 'ucare/v1', 'extensions/licenses/(?P<id>([0-9a-z-_])+)', array(
+        array(
+            'methods'  => \WP_REST_Server::CREATABLE,
+            'callback' => fqn( 'rest_manage_extension_license' ),
+            'permission_callback' => function () {
+                return true; // TODO current_user_can( 'manage_options' );
+            }
+        ),
+        array(
+            'methods'  => \WP_REST_Server::READABLE,
+            'callback' => fqn( 'rest_check_extension_license' ),
+            'permission_callback' => function () {
+                return true; // TODO current_user_can( 'manage_options' );
+            }
+        )
+    ) );
 }
 
 
@@ -84,4 +106,76 @@ function rest_handler_rest_password( $request ) {
     );
 
     return new \WP_REST_Response( $data, 200 );
+}
+
+
+/**
+ * Handler to manage license activations and deactivations.
+ *
+ * @param \WP_REST_Request $request
+ *
+ * @since 1.6.1
+ * @return mixed
+ */
+function rest_manage_extension_license( $request ) {
+    $id = $request->get_param( 'id' );
+
+    if ( empty( $id ) ) {
+        return new \WP_Error( 'invalid_product', __( 'Invalid product', 'ucare' ), array( 'status' => 404 ) );
+    }
+
+    $manager = ucare_get_license_manager();
+
+    switch ( $request->get_param( 'action' ) ) {
+        case 'activate':
+            $license = $request->get_param( 'key' );
+
+            if ( empty( $license ) ) {
+                return new \WP_Error( 'invalid_key', __( 'Invalid license', 'ucare' ), array( 'status' => 400 ) );
+            }
+
+            $success = $manager->activate_license( $id, $license );
+
+            if ( is_wp_error( $success ) ) {
+                return $success;
+            }
+
+            return array( 'message' => __( 'License activated', 'ucare' ) );
+
+        case 'deactivate':
+            $success = $manager->deactivate_license( $id );
+
+            if ( is_wp_error( $success ) ) {
+                return $success;
+            }
+
+            return array( 'message' => __( 'License deactivated', 'ucare' ) );
+    }
+
+    return new \WP_Error( 'invalid_action', __( 'Invalid action', 'ucare' ), array( 'status' => 400 ) );
+}
+
+
+/**
+ * Check the current status of an extension license.
+ *
+ * @param \WP_REST_Request $request
+ *
+ * @since 1.6.1
+ * @return mixed
+ */
+function rest_check_extension_license( $request ) {
+    $manager = ucare_get_license_manager();
+
+    $data = $manager->get_license( $request->get_param( 'id' ) );
+
+    if ( is_wp_error( $data ) ) {
+        return $data;
+    }
+
+    if ( !$data ) {
+        return new \WP_Error( 'invalid_product', __( 'Invalid product', 'ucare' ), array( 'status' => 404 ) );
+    }
+
+    return $data;
 }

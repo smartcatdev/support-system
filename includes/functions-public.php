@@ -137,6 +137,17 @@ function ucare_get_logger( $type ) {
 
 
 /**
+ * Get the license manager instance.
+ *
+ * @since 1.6.1
+ * @return \ucare\LicenseManager|ucare\Singleton
+ */
+function ucare_get_license_manager() {
+    return \ucare\LicenseManager::instance();
+}
+
+
+/**
  * Drop an options class
  *
  * @param string $class
