@@ -51,9 +51,22 @@ class AddonsPage extends MenuPage {
      * @return void
      */
     private function enqueue_scripts() {
-        $bundle = ucare_dev_var( 'bundle.production.min.js', 'bundle.js' );
+        $bundle = ucare_dev_var( 'bundle.production.min.js', 'bundle.dev.js' );
+        $deps = array(
+            'react',
+            'redux',
+            'react-redux',
+            'react-dom'
+        );
 
-        wp_enqueue_script( 'ucare-add-ons', strcat( $this->assets_url, 'build/', $bundle ), array( 'react' ), PLUGIN_VERSION );
+        $localize = array(
+            'downloads_url' => 'https://ucaresupport.com/wp-json/smartcat/v1/downloads'
+        );
+
+        wp_register_script( 'ucare-add-ons', strcat( $this->assets_url, 'build/', $bundle ), $deps, PLUGIN_VERSION, true );
+        wp_localize_script( 'ucare-add-ons', 'ucare_addons_l10n', $localize );
+
+        wp_enqueue_script( 'ucare-add-ons' );
     }
 
     /**
