@@ -133,7 +133,9 @@ final class LicenseManager {
             return false;
         }
 
-        update_option( $data['options']['license'], trim( $key ) ); // Cache the license used to activate
+        if ( !empty( $key ) ) {
+            update_option( $data['options']['license'], trim( $key ) ); // Cache the license used to activate
+        }
 
         $license = $this->make_request( $id, 'activate_license' );
 
@@ -159,20 +161,20 @@ final class LicenseManager {
 
                     break;
 
-                case 'revoked' :
+                case 'revoked':
                     $message = __( 'Your license key has been disabled.' );
                     break;
 
-                case 'missing' :
+                case 'missing':
                     $message = __( 'Invalid license.' );
                     break;
 
-                case 'invalid' :
-                case 'site_inactive' :
+                case 'invalid':
+                case 'site_inactive':
                     $message = __( 'Your license is not active for this URL.' );
                     break;
 
-                case 'item_name_mismatch' :
+                case 'item_name_mismatch':
                     $message = sprintf( __( 'This appears to be an invalid license key for %s.' ), $data['item_name'] );
                     break;
 

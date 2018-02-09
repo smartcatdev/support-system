@@ -128,13 +128,7 @@ function rest_manage_extension_license( $request ) {
 
     switch ( $request->get_param( 'action' ) ) {
         case 'activate':
-            $license = $request->get_param( 'key' );
-
-            if ( empty( $license ) ) {
-                return new \WP_Error( 'invalid_key', __( 'Invalid license', 'ucare' ), array( 'status' => 400 ) );
-            }
-
-            $success = $manager->activate_license( $id, $license );
+            $success = $manager->activate_license( $id, $request->get_param( 'key' ) );
 
             if ( is_wp_error( $success ) ) {
                 return $success;

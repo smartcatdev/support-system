@@ -24,7 +24,7 @@ function register_admin_dependencies() {
     
     // Register React dependencies
     wp_register_script( 'redux', resolve_url( 'assets/js/redux/redux.min.js' ), null, PLUGIN_VERSION );
-    wp_register_script( 'react', resolve_url( 'assets/js/react/react.min.js' ), array( 'react-dom' ), PLUGIN_VERSION );
+    wp_register_script( 'react', resolve_url( 'assets/js/react/react.min.js' ), null, PLUGIN_VERSION );
     wp_register_script( 'react-dom',   resolve_url( 'assets/js/react-dom/react-dom.min.js' ),     array( 'react' ),          PLUGIN_VERSION );
     wp_register_script( 'react-redux', resolve_url( 'assets/js/react-redux/react-redux.min.js' ), array( 'react', 'redux' ), PLUGIN_VERSION );
 }
