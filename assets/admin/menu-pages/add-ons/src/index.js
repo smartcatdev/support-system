@@ -1,17 +1,13 @@
-import Root from './component/Root'
+import ExtensionList from './component/ExtensionList'
 import Reducers from './reducer'
 import { loadExtensions } from './actions'
-import { DOWNLOADS_URL } from './data'
+import { extensions } from './data'
 
-const store = Redux.createStore(Reducers)
-
-fetch(DOWNLOADS_URL).then(
-    res => res.json().then(json => store.dispatch(loadExtensions(json)))
-)
+const store = Redux.createStore(Reducers, { extensions })
 
 ReactDOM.render(
     <ReactRedux.Provider store={ store }>
-        <Root />
+        <ExtensionList extensions={ extensions } />
     </ReactRedux.Provider>,
     document.querySelector('#ucare-add-ons')
 )

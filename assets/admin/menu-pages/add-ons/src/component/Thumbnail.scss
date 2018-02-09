@@ -1,0 +1,15 @@
+.thumbnail {
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    @media(min-width: 768px) {
+        padding: 15px;
+    }
+}

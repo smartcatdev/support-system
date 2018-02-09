@@ -1,9 +1,8 @@
 const path = require('path'),
-
     CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const SRC_DIR = path.resolve(__dirname, 'src'),
-    OUT_DIR = path.resolve(__dirname, 'build');
+      OUT_DIR = path.resolve(__dirname, 'build');
 
 module.exports = {
     entry: path.resolve(SRC_DIR, 'index.js'),
@@ -19,6 +18,14 @@ module.exports = {
             {
                 test:  /\.(js|jsx)$/,
                 loaders: ['babel-loader']
+            },
+            {
+                test: /\.(css|scss)$/,
+                loaders: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     }

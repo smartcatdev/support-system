@@ -60,7 +60,9 @@ class AddonsPage extends MenuPage {
         );
 
         $localize = array(
-            'downloads_url' => 'https://ucaresupport.com/wp-json/smartcat/v1/downloads'
+            'vars' => array(
+                'products' => $this->fetch_products()
+            )
         );
 
         wp_register_script( 'ucare-add-ons', strcat( $this->assets_url, 'build/', $bundle ), $deps, PLUGIN_VERSION, true );
@@ -76,6 +78,31 @@ class AddonsPage extends MenuPage {
      */
     public function render() {
         echo '<h1>', __( 'Add-ons', 'ucare' ), '</h1><div id="ucare-add-ons"></div>';
+    }
+
+    /**
+     * Fetch products from the cache. If cache has expired, re-cache from our server.
+     *
+     * @since 1.6.1
+     * @return array
+     */
+    private function fetch_products() {
+        $cached = get_transient( 'ucare_addons_cache' );
+
+        if ( is_array( $cached ) ) {
+            return $cached;
+        }
+
+        $response = wp_remote_get( 'https://ucaresupport.com/wp-json/smartcat/v1/downloads' );
+
+        if ( wp_remote_retrieve_response_code( $response ) !== 200 ) {
+            return array();
+        }
+
+        $products = json_decode( wp_remote_retrieve_body( $response ), true );
+        set_transient( 'ucare_addons_cache', $products, 60 * 60 * 24 );
+
+        return $products;
     }
 
 }

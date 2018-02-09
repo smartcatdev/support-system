@@ -1,1 +1,1 @@
-export const DOWNLOADS_URL = ucare_addons_l10n.downloads_url
+export const extensions = ucare_addons_l10n.vars.products

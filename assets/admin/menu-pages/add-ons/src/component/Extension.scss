@@ -1,0 +1,24 @@
+.extension {
+    margin-bottom: 15px;
+
+    @media(min-width: 768px) {
+        .thumbnail, .info, .actions {
+            display: inline-block;
+        }   
+
+        .thumbnail {
+            width: 30%;
+            vertical-align: middle;
+        }
+
+        .info {
+            width: 50%;
+            vertical-align: top;
+        }
+        
+        .actions {
+            width: 20%;
+            vertical-align: top;
+        }
+    }
+}
