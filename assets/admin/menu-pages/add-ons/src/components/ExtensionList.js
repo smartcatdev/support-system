@@ -4,9 +4,9 @@ import './ExtensionList.scss'
 
 const ExtensionList = ({ extensions }) => {
     return (
-        <div className="extensions">
+        <ul className="extensions">
             { extensions.map(extension => <Extension extension={ extension } />) }
-        </div>
+        </ul>
     )
 }
 

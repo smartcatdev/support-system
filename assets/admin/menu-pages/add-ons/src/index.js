@@ -1,5 +1,5 @@
-import ExtensionList from './component/ExtensionList'
-import Reducers from './reducer'
+import ExtensionList from './components/ExtensionList'
+import Reducers from './reducers'
 import { loadExtensions } from './actions'
 import { extensions } from './data'
 

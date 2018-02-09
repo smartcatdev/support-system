@@ -6,18 +6,20 @@ import './Extension.scss'
 
 const Extension = ({ extension }) => {
     return (
-        <div className="extension">
+        <li className="extension">
             <Thumbnail src={ extension.thumbnail } />
             <div className="info">
-                <h3 className="title">{ decode(extension.title) } <LicenseStatus /></h3>
-                <p className="excerpt">{ /*extension.excerpt*/ excerpt }</p>
+                <h3 className="title">
+                    { decode(extension.title) } 
+                    <LicenseStatus  />
+                </h3>
+                <p className="excerpt">{ excerpt }</p>
             </div>
             <div className="actions">
                 <button className="button-primary">Get Add-on</button>
             </div>
             <div className="clear" />
-            
-        </div>
+        </li>
     )
 }
 
