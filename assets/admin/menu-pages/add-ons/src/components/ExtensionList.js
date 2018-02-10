@@ -1,16 +1,16 @@
-import Extension from './Extension'
+import ExtensionContainer from '../containers/ExtensionContainer'
 import PropTypes from 'prop-types'
 import './ExtensionList.scss'
 
 const ExtensionList = ({ extensions }) => {
     return (
         <ul className="extensions">
-            { extensions.map(extension => <Extension extension={ extension } />) }
+            { extensions.map(extension => <ExtensionContainer extension={ extension } />) }
         </ul>
     )
 }
 
-Extension.propTypes = {
+ExtensionList.propTypes = {
     extensions: PropTypes.array.isRequired
 }
 

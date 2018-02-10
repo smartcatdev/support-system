@@ -51,7 +51,8 @@ class AddonsPage extends MenuPage {
      * @return void
      */
     private function enqueue_scripts() {
-        $bundle = ucare_dev_var( 'bundle.production.min.js', 'bundle.dev.js' );
+        $bundle  = ucare_dev_var( 'bundle.production.min.js', 'bundle.dev.js' );
+
         $deps = array(
             'react',
             'redux',
@@ -61,7 +62,14 @@ class AddonsPage extends MenuPage {
 
         $localize = array(
             'vars' => array(
-                'products' => $this->fetch_products()
+                'products' => $this->fetch_products(),
+                'licenses' => $this->get_license_data()
+            ),
+            'strings' => array(
+                'license'    => __( 'License', 'ucare' ),
+                'activate'   => __( 'Activate', 'ucare' ),
+                'deactivate' => __( 'Deactivate', 'ucare' ),
+                'get_add_on' => __( 'Get Add-on', 'ucare' )
             )
         );
 
@@ -69,6 +77,35 @@ class AddonsPage extends MenuPage {
         wp_localize_script( 'ucare-add-ons', 'ucare_addons_l10n', $localize );
 
         wp_enqueue_script( 'ucare-add-ons' );
+    }
+
+    /**
+     * Get the license data for each registered extension.
+     *
+     * @since 1.6.1
+     * @return array
+     */
+    private function get_license_data() {
+        $extensions = ucare_get_license_manager()->get_extensions();
+        $license_data = array();
+
+        if ( empty( $extensions ) ) {
+            return $license_data;
+        }
+
+        foreach ( $extensions as $id => $extension ) {
+            $data = array(
+                'id'         => $id,
+                'item_name'  => $extension['item_name'],
+                'expiration' => get_option( $extension['options']['expiration'] ),
+                'status'     => get_option( $extension['options']['status'] ),
+                'key'        => trim( get_option( $extension['options']['license'] ) )
+            );
+
+            $license_data[] = $data;
+        }
+
+        return $license_data;
     }
 
     /**
@@ -93,7 +130,7 @@ class AddonsPage extends MenuPage {
             return $cached;
         }
 
-        $response = wp_remote_get( 'https://ucaresupport.com/wp-json/smartcat/v1/downloads' );
+        $response = wp_remote_get( 'http://ucaresupport.staging.wpengine.com/wp-json/smartcat/v1/downloads' );
 
         if ( wp_remote_retrieve_response_code( $response ) !== 200 ) {
             return array();

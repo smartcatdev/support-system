@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 const LicenseStatus = ({ status }) => {
-    return 'ok'
+    return status === 'valid' ? ' ok' : ' not ok'
 }
 
 LicenseStatus.propTypes = {

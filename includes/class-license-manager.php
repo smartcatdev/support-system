@@ -267,6 +267,16 @@ final class LicenseManager {
     }
 
     /**
+     * Get all registered extensions.
+     *
+     * @since 1.6.1
+     * @return array
+     */
+    public function get_extensions() {
+        return $this->data;
+    }
+
+    /**
      * Check and re-cache license expiration dates.
      *
      * @action ucare_extensions_license_check
