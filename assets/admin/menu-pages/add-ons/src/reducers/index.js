@@ -1,7 +1,5 @@
 import { ActionTypes } from './../actions'
 
-const extensions = (state = [], action) => {
+export default (state = [], action) => {
     return state
 }
-
-export default Redux.combineReducers({ extensions })

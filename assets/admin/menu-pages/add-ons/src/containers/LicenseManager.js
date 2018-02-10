@@ -1,4 +1,4 @@
-import License from '../component/License'
+import License from '../components/License'
 
 const mapStateToProps = (state) => {
     return {
@@ -12,9 +12,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const ManageLicense = ReactRedux.connect(
+const LicenseManager = ReactRedux.connect(
     mapStateToProps,
     mapDispatchToProps
 )(License)
 
-export default ManageLicense
+export default LicenseManager
