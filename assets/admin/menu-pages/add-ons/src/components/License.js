@@ -9,7 +9,7 @@ const License = ({ license, onKeyChange, onActivate, onDeactivate }) => {
             </label>
             { license.status === 'valid' 
                 ?  <button onClick={ onDeactivate }>{ strings.deactivate }</button>
-                :  <button onClick={ onActivate } disabled={ !license.key }>{ strings.activate }</button>
+                :  <button onClick={ onActivate } disabled={ license.key.length === 0 }>{ strings.activate }</button>
             }
         </div>
     )

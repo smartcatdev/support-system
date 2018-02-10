@@ -50,14 +50,14 @@ function rest_register_endpoints() {
             'methods'  => \WP_REST_Server::CREATABLE,
             'callback' => fqn( 'rest_manage_extension_license' ),
             'permission_callback' => function () {
-                return true; // TODO current_user_can( 'manage_options' );
+                return current_user_can( 'manage_options' );
             }
         ),
         array(
             'methods'  => \WP_REST_Server::READABLE,
             'callback' => fqn( 'rest_check_extension_license' ),
             'permission_callback' => function () {
-                return true; // TODO current_user_can( 'manage_options' );
+                return current_user_can( 'manage_options' );
             }
         )
     ) );

@@ -1,14 +1,30 @@
 import License from '../components/License'
+import { manageExtension } from '../utils'
 import { activateExtension, deactivateExtension, updateLicenseKey } from '../actions'
 
 const mapDispatchToProps = (dispatch, { license }) => {
     return {
         onKeyChange: ({ target: { value }}) => dispatch(updateLicenseKey(license.id, value)),
 
-        onActivate: () => alert(`activate ${license.id}`),
+        onActivate: () => {
+            manageExtension(license.id, { 
+                action: 'activate', 
+                key: license.key 
+            })
+            .then(() => {
+                dispatch(activateExtension( license.id ))
+            })
+        },
 
-        onDeactivate: () => alert(`deactivate ${license.id}`)
+        onDeactivate: () => {
+            manageExtension(license.id, {
+                action: 'deactivate'
+            })
+            .then(() => {
+                dispatch(deactivateExtension( license.id ))
+            })
+        }
     }
 }
 
-export default ReactRedux.connect(null, mapDispatchToProps)(License)
+export default ReactRedux.connect(null, mapDispatchToProps)(License) 

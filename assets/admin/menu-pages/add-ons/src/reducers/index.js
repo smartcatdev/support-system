@@ -9,8 +9,22 @@ export default (state = [], action) => {
                 }
                 return license
             })
-            
-            break
+
+        case ActionTypes.ACTIVATE_EXTENSION:
+            return state.map(license => {
+                if (license.id === action.id) {
+                    return { ...license, status: 'valid' }
+                }
+                return license
+            })
+
+        case ActionTypes.DEACTIVATE_EXTENSION:
+            return state.map(license => {
+                if (license.id === action.id) {
+                    return { ...license, status: '' }
+                }
+                return license
+            })
 
         default:
             return state

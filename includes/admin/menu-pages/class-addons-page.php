@@ -62,8 +62,10 @@ class AddonsPage extends MenuPage {
 
         $localize = array(
             'vars' => array(
-                'products' => $this->fetch_products(),
-                'licenses' => $this->get_license_data()
+                'products'   => $this->fetch_products(),
+                'licenses'   => $this->get_license_data(),
+                'rest_url'   => rest_url( 'ucare/v1/extensions/licenses' ),
+                'wp_nonce'   => wp_create_nonce( 'wp_rest' )
             ),
             'strings' => array(
                 'license'    => __( 'License', 'ucare' ),
