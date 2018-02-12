@@ -11,9 +11,9 @@ export const manageExtension = (id, action, data) => {
     })
     .then(res => {
         if (!res.ok) {
-            throw Error(res.json())
+            return res.json().then(err => Promise.reject(err))
+        } else {
+            return res.json()
         }
-
-        return res.json()
     })
 }

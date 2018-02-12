@@ -205,7 +205,7 @@ final class LicenseManager {
         }
 
         if ( $license['license'] !== 'deactivated' ) {
-            return false;
+            return new \WP_Error( 'unknown_error', __( 'An unknown error has occurred. Please try again later.', 'ucare' ) );
         }
 
         $data = $this->get( $id );

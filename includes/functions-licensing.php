@@ -31,7 +31,11 @@ function get_licensing_data( $ids = '' ) {
         $expiration = get_option( $extension['options']['expiration'] );
 
         if ( $expiration ) {
-            $expiration = date_i18n( get_option( 'date_format' ), strtotime( $expiration ) );
+            if ( $expiration === 'lifetime' ) {
+                $expiration = __( 'This product has a lifetime license', 'ucare' );
+            } else {
+                $expiration = date_i18n( get_option( 'date_format' ), strtotime( $expiration ) );
+            }
         }
 
         $data = array(
