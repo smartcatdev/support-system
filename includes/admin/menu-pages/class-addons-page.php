@@ -69,6 +69,8 @@ class AddonsPage extends MenuPage {
             ),
             'strings' => array(
                 'license'    => __( 'License Key', 'ucare' ),
+                'expiration' => __( 'Expiration', 'ucare' ),
+                'status'     => __( 'Status', 'ucare' ),
                 'renew'      => __( 'Renew', 'ucare-pro' ),
                 'activate'   => __( 'Activate', 'ucare' ),
                 'deactivate' => __( 'Deactivate', 'ucare' ),
