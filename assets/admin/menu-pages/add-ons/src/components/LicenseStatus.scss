@@ -1,0 +1,17 @@
+.license-status {
+    &.ok {
+        background: #009a00;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    &.not-ok {
+        color: orange;
+       
+        .dashicons {
+            font-size: 25px;
+            vertical-align: text-top;
+        }
+    }
+}

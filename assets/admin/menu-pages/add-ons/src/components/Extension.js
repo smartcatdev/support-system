@@ -15,12 +15,12 @@ const Extension = ({ license, extension }) => {
                     { decode(extension.title) } { license ? <LicenseStatus status={ license.status } /> : '' }
                 </h3>
                 <p className="excerpt">{ extension.excerpt }</p>
+                { license ? <LicenseContainer license={ license } /> : '' }
             </div>
             <div className="actions">
                 { !license ? <a className="button-primary" href={ extension.link } target="_blank">{ strings.get_add_on }</a> : '' }
             </div>
             <div className="clear" />
-            { license ? <LicenseContainer license={ license } /> : '' }
         </li>
     )   
 }

@@ -1,16 +1,20 @@
 import strings from '../localize'
+import './License.scss'
 
 const License = ({ license, onKeyChange, onActivate, onDeactivate }) => {
     return (
-        <div>
+        <div className="product-license">
             <label>
                 <span className="label">{ strings.license }</span>
-                <input type="text" value={ license.key } onChange={ onKeyChange } disabled={ license.status === 'valid' } />
+                <input type="text" className="key" value={ license.key } onChange={ onKeyChange } disabled={ license.status === 'valid' } />
             </label>
-            { license.status === 'valid' 
-                ?  <button onClick={ onDeactivate }>{ strings.deactivate }</button>
-                :  <button onClick={ onActivate } disabled={ license.key.length === 0 }>{ strings.activate }</button>
-            }
+            <div className="manage">
+                { license.status === 'valid' 
+                    ?  <button className="deactivate button" onClick={ onDeactivate }>{ strings.deactivate }</button>
+                    :  <button className="activate button-primary" onClick={ onActivate } disabled={ license.key.length === 0 }>{ strings.activate }</button>
+                }
+                <button className="button renew">{ strings.renew }</button>
+            </div>
         </div>
     )
 }

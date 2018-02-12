@@ -68,10 +68,12 @@ class AddonsPage extends MenuPage {
                 'wp_nonce'   => wp_create_nonce( 'wp_rest' )
             ),
             'strings' => array(
-                'license'    => __( 'License', 'ucare' ),
+                'license'    => __( 'License Key', 'ucare' ),
+                'renew'      => __( 'Renew', 'ucare-pro' ),
                 'activate'   => __( 'Activate', 'ucare' ),
                 'deactivate' => __( 'Deactivate', 'ucare' ),
-                'get_add_on' => __( 'Get Add-on', 'ucare' )
+                'get_add_on' => __( 'Get Add-on', 'ucare' ),
+                'page_title' => __( 'uCare Add-ons', 'ucare-pro' )
             )
         );
 
@@ -115,9 +117,22 @@ class AddonsPage extends MenuPage {
      *
      * @since 1.6.1
      */
-    public function render() {
-        echo '<h1>', __( 'Add-ons', 'ucare' ), '</h1><div id="ucare-add-ons"></div>';
-    }
+    public function render() { ?>
+        <div class="wrap ucare-admin-page">
+            <div id="ucare-settings-header">
+                <div class="inner">
+                    <div class="ucare-logo">
+                        <img src="<?php esc_url_e( resolve_url( 'assets/images/admin-icon-grey.png' ) ); ?>" />
+                    </div>
+                    <div class="page-title">
+                        <span class="title-text"><?php _e( 'uCare Add-ons', 'ucare' ); ?></span>
+                        <span class="small version-number">v<?php esc_html_e( PLUGIN_VERSION ); ?></span>
+                    </div>
+                </div>
+            </div>
+            <div id="ucare-add-ons"></div>
+        </div>
+    <?php }
 
     /**
      * Fetch products from the cache. If cache has expired, re-cache from our server.

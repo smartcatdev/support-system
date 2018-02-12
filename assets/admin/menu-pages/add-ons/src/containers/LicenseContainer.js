@@ -7,22 +7,17 @@ const mapDispatchToProps = (dispatch, { license }) => {
         onKeyChange: ({ target: { value }}) => dispatch(updateLicenseKey(license.id, value)),
 
         onActivate: () => {
-            manageExtension(license.id, { 
-                action: 'activate', 
-                key: license.key 
-            })
-            .then(() => {
-                dispatch(activateExtension( license.id ))
-            })
+            manageExtension(license.id, 'activate', { key: license.key })
+                .then(() => {
+                    dispatch(activateExtension( license.id ))
+                })
         },
 
         onDeactivate: () => {
-            manageExtension(license.id, {
-                action: 'deactivate'
-            })
-            .then(() => {
-                dispatch(deactivateExtension( license.id ))
-            })
+            manageExtension(license.id, 'deactivate')
+                .then(() => {
+                    dispatch(deactivateExtension( license.id ))
+                })
         }
     }
 }

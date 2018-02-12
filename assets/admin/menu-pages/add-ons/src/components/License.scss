@@ -1,0 +1,52 @@
+.product-license {
+    padding: 10px 0;   
+    border-top: 1px solid #eee;
+
+    .label {
+        width: 100%;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .key {
+        width: 100%;
+        margin: 5px auto;
+    }
+
+    .manage {
+        margin: 4px 0;
+
+        & > * {
+            margin-right: 10px; 
+        }
+    }
+
+    .renew,
+    .deactivate {
+        padding: 5px 16px;
+        box-sizing: border-box;
+    }
+
+    .activate {
+        padding: 0 16px;
+    }
+
+    @media(min-width: 768px) {
+        .renew,
+        .deactivate {
+            padding: 0 16px;
+        }
+
+        .label {
+            width: 20%;
+        }
+
+        .key {
+            width: 79%;
+        }
+
+        .manage {
+            margin-left: 20%;
+        }
+    }
+}

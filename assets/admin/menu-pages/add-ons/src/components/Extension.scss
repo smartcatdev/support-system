@@ -1,5 +1,12 @@
 .extension {
-    margin-bottom: 15px;
+    padding: 15px;
+    margin: 0;
+    background: #fff;
+    border-top: 1px solid #eee;
+
+    &:last-of-type {
+        border-bottom: 1px solid #eee;
+    }
 
     @media(min-width: 768px) {
         .thumbnail, .info, .actions {

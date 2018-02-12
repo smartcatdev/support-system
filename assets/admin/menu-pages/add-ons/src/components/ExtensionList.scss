@@ -1,4 +1,7 @@
-.extension {
-    padding: 10px;
-    margin-left: -10px;
+.extensions {
+    padding-left: 20px;
+
+    .extension {
+        margin-left: -10px;
+    }
 }

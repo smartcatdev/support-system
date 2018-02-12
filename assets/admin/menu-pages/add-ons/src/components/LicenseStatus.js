@@ -1,7 +1,17 @@
 import PropTypes from 'prop-types'
+import './LicenseStatus.scss'
 
 const LicenseStatus = ({ status }) => {
-    return status === 'valid' ? ' ok' : ' not ok'
+    let valid = status === 'valid'
+
+    return (
+        <span className={ `license-status ${ valid ? 'ok': 'not-ok'}` }>
+            { valid 
+                ? <span className="dashicons dashicons-yes" /> 
+                : <span className="dashicons dashicons-warning" /> 
+            }
+        </span>
+    )
 }
 
 LicenseStatus.propTypes = {

@@ -1,0 +1,19 @@
+#wpwrap {
+    background: #f9f9f9;
+}
+
+@media(min-width: 786px) {
+    #ucare-add-ons {
+        margin-left: -30px;
+    }    
+}
+
+@media(max-width: 767px) {
+    #wpcontent {
+        padding: 10px;
+    }
+    
+    .wrap.ucare-admin-page {
+        margin-right: -10px;
+    }
+}
