@@ -13,7 +13,7 @@ export default (state = [], action) => {
         case ActionTypes.ACTIVATE_EXTENSION:
             return state.map(license => {
                 if (license.id === action.id) {
-                    return { ...license, status: 'valid' }
+                    return { ...action.license }
                 }
                 return license
             })
@@ -21,7 +21,7 @@ export default (state = [], action) => {
         case ActionTypes.DEACTIVATE_EXTENSION:
             return state.map(license => {
                 if (license.id === action.id) {
-                    return { ...license, status: '' }
+                    return { ...action.license }
                 }
                 return license
             })

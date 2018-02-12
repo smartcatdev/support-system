@@ -4,15 +4,15 @@ export const ActionTypes = {
     UPDATE_LICENSE_KEY: 'UPDATE_LICENSE_KEY'
 }
 
-export const activateExtension = (id) => {
+export const activateExtension = (id, license) => {
     return {
-        type: ActionTypes.ACTIVATE_EXTENSION, id
+        type: ActionTypes.ACTIVATE_EXTENSION, id, license
     }
 }
 
-export const deactivateExtension = (id) => {
+export const deactivateExtension = (id, license) => {
     return {
-        type: ActionTypes.DEACTIVATE_EXTENSION, id
+        type: ActionTypes.DEACTIVATE_EXTENSION, id, license
     }
 }
 

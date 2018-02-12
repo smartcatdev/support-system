@@ -8,15 +8,15 @@ const mapDispatchToProps = (dispatch, { license }) => {
 
         onActivate: () => {
             manageExtension(license.id, 'activate', { key: license.key })
-                .then(() => {
-                    dispatch(activateExtension( license.id ))
+                .then(data => {
+                    dispatch(activateExtension(license.id, data))
                 })
         },
 
         onDeactivate: () => {
             manageExtension(license.id, 'deactivate')
-                .then(() => {
-                    dispatch(deactivateExtension( license.id ))
+                .then(data => {
+                    dispatch(deactivateExtension(license.id, data))
                 })
         }
     }

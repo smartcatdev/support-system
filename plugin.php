@@ -164,6 +164,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
             include_once dirname( __FILE__ ) . '/includes/functions-toolbar.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-licensing.php';
 
 
             // If eCommerce support is enabled pull in general support functions

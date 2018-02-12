@@ -134,7 +134,7 @@ function rest_manage_extension_license( $request ) {
                 return $success;
             }
 
-            return array( 'message' => __( 'License activated', 'ucare' ) );
+            return current( get_licensing_data( $id ) );
 
         case 'deactivate':
             $success = $manager->deactivate_license( $id );
@@ -143,7 +143,7 @@ function rest_manage_extension_license( $request ) {
                 return $success;
             }
 
-            return array( 'message' => __( 'License deactivated', 'ucare' ) );
+            return current( get_licensing_data( $id ) );
     }
 
     return new \WP_Error( 'invalid_action', __( 'Invalid action', 'ucare' ), array( 'status' => 400 ) );

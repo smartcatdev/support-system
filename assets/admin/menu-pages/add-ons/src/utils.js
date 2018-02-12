@@ -14,6 +14,6 @@ export const manageExtension = (id, action, data) => {
             throw Error(res.json())
         }
 
-        return res
+        return res.json()
     })
 }

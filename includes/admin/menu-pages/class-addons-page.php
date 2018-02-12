@@ -63,7 +63,7 @@ class AddonsPage extends MenuPage {
         $localize = array(
             'vars' => array(
                 'products'   => $this->fetch_products(),
-                'licenses'   => $this->get_license_data(),
+                'licenses'   => get_licensing_data(),
                 'rest_url'   => rest_url( 'ucare/v1/extensions/licenses' ),
                 'wp_nonce'   => wp_create_nonce( 'wp_rest' )
             ),
@@ -83,35 +83,6 @@ class AddonsPage extends MenuPage {
         wp_localize_script( 'ucare-add-ons', 'ucare_addons_l10n', $localize );
 
         wp_enqueue_script( 'ucare-add-ons' );
-    }
-
-    /**
-     * Get the license data for each registered extension.
-     *
-     * @since 1.6.1
-     * @return array
-     */
-    private function get_license_data() {
-        $extensions = ucare_get_license_manager()->get_extensions();
-        $license_data = array();
-
-        if ( empty( $extensions ) ) {
-            return $license_data;
-        }
-
-        foreach ( $extensions as $id => $extension ) {
-            $data = array(
-                'id'         => $id,
-                'item_name'  => $extension['item_name'],
-                'expiration' => get_option( $extension['options']['expiration'] ),
-                'status'     => get_option( $extension['options']['status'] ),
-                'key'        => trim( get_option( $extension['options']['license'] ) )
-            );
-
-            $license_data[] = $data;
-        }
-
-        return $license_data;
     }
 
     /**
