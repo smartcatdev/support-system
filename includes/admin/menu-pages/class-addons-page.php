@@ -68,6 +68,8 @@ class AddonsPage extends MenuPage {
                 'wp_nonce'   => wp_create_nonce( 'wp_rest' )
             ),
             'strings' => array(
+                'active'     => __( 'Active', 'ucare' ),
+                'installed'  => __( 'Installed', 'ucare' ),
                 'license'    => __( 'License Key', 'ucare' ),
                 'expiration' => __( 'Expiration', 'ucare' ),
                 'status'     => __( 'Status', 'ucare' ),
