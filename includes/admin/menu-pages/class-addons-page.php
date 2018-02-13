@@ -127,6 +127,7 @@ class AddonsPage extends MenuPage {
         wp_localize_script( 'ucare-add-ons', 'ucare_addons_l10n', $localize );
 
         wp_enqueue_script( 'ucare-add-ons' );
+        wp_enqueue_style( 'ucare-add-ons', strcat( $this->assets_url, 'build/style.css' ), null, PLUGIN_VERSION );
     }
 
     /**

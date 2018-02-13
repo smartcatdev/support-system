@@ -1,8 +1,13 @@
 const path = require('path'),
-    CleanWebpackPlugin = require('clean-webpack-plugin');
+    CleanWebpackPlugin = require('clean-webpack-plugin'),
+    ExtractTextPlugin  = require('extract-text-webpack-plugin');
 
 const SRC_DIR = path.resolve(__dirname, 'src'),
       OUT_DIR = path.resolve(__dirname, 'build');
+
+const extractSass = new ExtractTextPlugin({
+    filename: 'style.css'
+});
 
 module.exports = {
     entry: path.resolve(SRC_DIR, 'index.js'),
@@ -11,7 +16,8 @@ module.exports = {
         filename: 'bundle.js'
     },
     plugins: [
-        new CleanWebpackPlugin(['build'])
+        new CleanWebpackPlugin(['build']),
+        extractSass
     ],
     module: {
         loaders: [
@@ -21,11 +27,10 @@ module.exports = {
             },
             {
                 test: /\.(css|scss)$/,
-                loaders: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+                use: extractSass.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader']
+                })
             }
         ]
     }
