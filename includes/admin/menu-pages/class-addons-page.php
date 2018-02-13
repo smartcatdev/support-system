@@ -45,6 +45,16 @@ class AddonsPage extends MenuPage {
     }
 
     /**
+     * Display notifications in the WordPress admin
+     *
+     * @since 1.6.1
+     * @return void
+     */
+    private function admin_display_notification() {
+
+    }
+
+    /**
      * Enqueue menu page scripts.
      *
      * @since 1.6.1
@@ -106,6 +116,7 @@ class AddonsPage extends MenuPage {
                     </div>
                 </div>
             </div>
+            <h2 style="display: none"></h2>
             <div id="ucare-add-ons"></div>
         </div>
     <?php }

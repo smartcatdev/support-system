@@ -2,18 +2,10 @@
     background: #f9f9f9;
 }
 
-@media(min-width: 786px) {
-    #ucare-add-ons {
-        margin-left: -10px;
-    }    
+#ucare-add-ons {
+    margin-top: 10px;
 }
 
-@media(max-width: 767px) {
-    #wpcontent {
-        padding: 10px;
-    }
-    
-    .wrap.ucare-admin-page {
-        margin-right: -10px;
-    }
+.wp-responsive-open .wrap.ucare-admin-page {
+    margin-left: -30px;
 }
