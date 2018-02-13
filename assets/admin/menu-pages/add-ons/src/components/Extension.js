@@ -8,9 +8,9 @@ import decode from 'unescape'
 import './Extension.scss'
 
 const Extension = ({ license, extension }) => {
-    return (
-        <li className="extension">
-            <Thumbnail src={ extension.thumbnail } />
+    let element = (
+        <div className="extension">
+            <Thumbnail src={ extension.thumbnail } draft={ extension.status === 'draft' } />
             <div className="info">
                 <h3 className="title">
                     { decode(extension.title) } { license ? <LicenseStatus status={ license.status } /> : '' }
@@ -21,13 +21,25 @@ const Extension = ({ license, extension }) => {
             <div className="actions">
                 { !license 
                     ? extension['pro_add-on'] && pro_installed
-                        ? <button className="button" disabled>{  strings.installed }</button> 
-                        : <a className="button-primary" href={ extension.link } target="_blank">{ strings.get_add_on }</a>
+                        ? <button className="button cta" disabled>{  strings.installed }</button> 
+                        : <a className="button-primary cta" href={ extension.link } target="_blank">{ strings.get_add_on }</a>
                     : '' }
             </div>
             <div className="clear" />
-        </li>
+        </div>
     )   
+
+    if (license) {
+        return wrap(element, 'is-installed')
+    } else if (extension.status === 'draft' ) {
+        return wrap(element, 'draft')
+    }
+
+    return wrap(element, 'advertisment')
+}
+
+const wrap = (element, className) => {
+    return <div className={ className }>{ element }</div>
 }
 
 export default Extension

@@ -8,6 +8,11 @@
         & > * {
             margin-right: 10px; 
         }
+
+        .spinner {
+            margin: 4px 0;
+            float: none;
+        }
     }
 
     .renew,
@@ -21,6 +26,10 @@
     }
 
     @media(min-width: 768px) {
+        & {
+            padding: 10px;
+        }
+
         .renew,
         .deactivate {
             padding: 0 16px;

@@ -68,16 +68,17 @@ class AddonsPage extends MenuPage {
                 'wp_nonce'   => wp_create_nonce( 'wp_rest' )
             ),
             'strings' => array(
-                'active'     => __( 'Active', 'ucare' ),
-                'installed'  => __( 'Installed', 'ucare' ),
-                'license'    => __( 'License Key', 'ucare' ),
-                'expiration' => __( 'Expiration', 'ucare' ),
-                'status'     => __( 'Status', 'ucare' ),
-                'renew'      => __( 'Renew', 'ucare-pro' ),
-                'activate'   => __( 'Activate', 'ucare' ),
-                'deactivate' => __( 'Deactivate', 'ucare' ),
-                'get_add_on' => __( 'Get Add-on', 'ucare' ),
-                'page_title' => __( 'uCare Add-ons', 'ucare-pro' )
+                'active'      => __( 'Active', 'ucare' ),
+                'installed'   => __( 'Installed', 'ucare' ),
+                'license'     => __( 'License Key', 'ucare' ),
+                'expiration'  => __( 'Expiration', 'ucare' ),
+                'status'      => __( 'Status', 'ucare' ),
+                'renew'       => __( 'Renew', 'ucare' ),
+                'activate'    => __( 'Activate', 'ucare' ),
+                'deactivate'  => __( 'Deactivate', 'ucare' ),
+                'get_add_on'  => __( 'Get Add-on', 'ucare' ),
+                'page_title'  => __( 'uCare Add-ons', 'ucare' ),
+                'coming_soon' => __( 'Coming Soon', 'ucare' )
             )
         );
 

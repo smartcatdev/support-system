@@ -9,6 +9,29 @@
         height: auto;
     }
 
+    .inner {
+        position: relative;
+    }
+
+    .border-triangle {
+        position: absolute;
+        border-left: 130px solid #00ab00;
+        border-bottom: 90px solid transparent;
+        width: 0;
+        height: 0;
+    }
+
+    .banner-text {
+        position: absolute;
+        padding: 8px;
+        width: 80px;
+        text-transform: uppercase;
+        color: #fff;
+        letter-spacing: 2px;
+        font-weight: 700;
+        line-height: 16px;
+    }
+
     @media(min-width: 768px) {
         padding: 15px;
     }

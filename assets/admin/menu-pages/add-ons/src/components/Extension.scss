@@ -2,12 +2,25 @@
     padding: 15px;
     margin: 0;
     background: #fff;
-    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 
-    &:last-of-type {
-        border-bottom: 1px solid #eee;
+    .actions { 
+        margin-top: 10px;
+        text-align: center;
+
+        .cta {
+            height: 40px;
+            width: 100%;
+            vertical-align: middle;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .cta.button-primary {
+            line-height: 40px;
+        }
     }
-
+    
     @media(min-width: 768px) {
         .thumbnail, .info, .actions {
             display: inline-block;
@@ -25,9 +38,15 @@
         
         .actions {
             width: 20%;
-            text-align: center;
             vertical-align: top;
             margin-top: 30px;
+
+            .cta {
+                width: 80%;
+                margin: 10px;
+                max-width: 150px;
+       
+            }
         }
     }
 }
