@@ -23,6 +23,16 @@ class AddonsPage extends MenuPage {
     protected $slug = 'add-ons';
 
     /**
+     * Constructor.
+     *
+     * @since 1.6.1
+     */
+    public function __construct() {
+        parent::__construct();
+        add_action( 'admin_head', array( $this, 'init' ) );
+    }
+
+    /**
      * Make a call to add_menu_page()
      *
      * @since 1.6.1
@@ -45,13 +55,34 @@ class AddonsPage extends MenuPage {
     }
 
     /**
-     * Display notifications in the WordPress admin
+     * Display notification if there are any license problems in the WordPress admin
      *
      * @since 1.6.1
      * @return void
      */
-    private function admin_display_notification() {
+    public function init() {
+        if ( $this->screen ) {
+            return;
+        }
 
+        $licenses = get_licensing_data();
+        $problems = array();
+
+        foreach ( $licenses as $license ) {
+            if ( $license['status'] !== 'valid' ) {
+                $problems[] = $license;
+            }
+        }
+
+        if ( count( $problems ) > 0 ) {
+            admin_notification(
+                sprintf(
+                    '<span class="dashicons dashicons-warning"></span> %1$s <a href="%2$s">%3$s</a>',
+                    __( 'One of your uCare add-ons requires attention.', 'ucare' ), menu_page_url( 'ucare-add-ons', false ), __( 'Manage add-ons', 'ucare' )
+                ),
+                'warning'
+            );
+        }
     }
 
     /**
