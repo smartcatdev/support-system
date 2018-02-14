@@ -92,7 +92,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             define( 'UCARE_INCLUDES_PATH',  UCARE_DIR . 'includes/'  );
 
             if ( defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE ) {
-                define( 'UCARE_SERVER_ADDRESS', 'http://ucare.staging.wpengine.com' );
+                define( 'UCARE_SERVER_ADDRESS', 'http://ucaresupport.staging.wpengine.com' );
             } else {
                 define( 'UCARE_SERVER_ADDRESS', 'https://ucaresupport.com' );
             }
@@ -223,7 +223,11 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function init_marketing() {
-            sc_plugin_marketing( UCARE_SERVER_ADDRESS );
+            $args = array(
+                'url' => UCARE_SERVER_ADDRESS
+            );
+
+            sc_plugin_marketing( $args );
         }
 
     }

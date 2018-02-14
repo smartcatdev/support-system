@@ -27,7 +27,7 @@ function admin_marketing_notification() {
         return;
     }
 
-    $message = sc_marketing_message( 'admin-notification', false );
+    $message = sc_marketing_message( Marketing::ADMIN_NOTIFICATION, false );
 
     if ( empty( $message ) ) {
         return;
