@@ -70,6 +70,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             $this->do_includes();
 
             $this->init_licensing();
+            $this->init_marketing();
 
             // All done
             do_action( 'ucare_loaded', $this );
@@ -89,6 +90,12 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             define( 'UCARE_TEMPLATES_PATH', UCARE_DIR . 'templates/' );
             define( 'UCARE_PARTIALS_PATH',  UCARE_DIR . 'templates/partials/' );
             define( 'UCARE_INCLUDES_PATH',  UCARE_DIR . 'includes/'  );
+
+            if ( defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE ) {
+                define( 'UCARE_SERVER_ADDRESS', 'http://ucare.staging.wpengine.com' );
+            } else {
+                define( 'UCARE_SERVER_ADDRESS', 'https://ucaresupport.com' );
+            }
 
 
             // Define which e-commerce mode the plugin is running in
@@ -122,6 +129,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/includes/library/class-edd-sl-plugin-updater.php';
             include_once dirname( __FILE__ ) . '/includes/library/class-bootstrap-nav-walker.php';
+            include_once dirname( __FILE__ ) . '/includes/library/sc-plugin-marketing.php';
 
 
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
@@ -166,7 +174,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-toolbar.php';
             include_once dirname( __FILE__ ) . '/includes/functions-licensing.php';
 
-
             // If eCommerce support is enabled pull in general support functions
             if ( defined( 'UCARE_ECOMMERCE_MODE' ) ) {
                 include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
@@ -184,6 +191,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
+                include_once dirname( __FILE__ ) . '/includes/admin/functions.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-scripts.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
@@ -206,6 +214,16 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          */
         private function init_licensing() {
             $this->set( 'license_manager', ucare_get_license_manager() );
+        }
+
+        /**
+         * Initialize plugin marketing module.
+         *
+         * @since 1.6.1
+         * @return void
+         */
+        private function init_marketing() {
+            sc_plugin_marketing( UCARE_SERVER_ADDRESS );
         }
 
     }
@@ -265,7 +283,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         ucare_get_license_manager()->cleanup();
 
         // Execute uninstall script if we are in dev mode.
-        if ( get_option( Options::DEV_MODE ) ) {
+        if ( ucare_in_dev_mode() ) {
             include_once dirname( __FILE__ ) . '/uninstall.php';
         }
     }
@@ -308,7 +326,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return array
      */
     function add_plugin_action_links( $links ) {
-        if ( !get_option( Options::DEV_MODE ) ) {
+        if ( !ucare_in_dev_mode() ) {
             $links['deactivate'] = sprintf( '<span id="feedback-prompt">%s</span>', $links['deactivate'] );
         }
 
@@ -373,6 +391,7 @@ function resolve_path( $path = '' ) {
  * Get a URL relative to the root of the plugin directory.
  *
  * @param string $path
+ *
  * @since 1.4.2
  * @return string
  */
@@ -392,6 +411,3 @@ function resolve_url( $path = '' ) {
 function fqn( $qualifier = '' ) {
     return sprintf( '\\%1$s\\%2$s', __NAMESPACE__, join( '\\', func_get_args() ) );
 }
-
-
-

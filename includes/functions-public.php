@@ -100,7 +100,7 @@ function ucare_checkbox( $name, $label = '', $checked = false, $value = '', $att
  * @return boolean
  */
 function ucare_in_dev_mode() {
-    return get_option( Options::DEV_MODE, Defaults::DEV_MODE ) == 'on';
+    return defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE;
 }
 
 
@@ -115,7 +115,7 @@ function ucare_in_dev_mode() {
  * @return mixed
  */
 function ucare_dev_var( $prod, $dev ) {
-    if ( defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE ) {
+    if ( ucare_in_dev_mode() ) {
         return $dev;
     }
 
