@@ -21,7 +21,9 @@ add_action( 'admin_notices', fqn( 'admin_marketing_notification' ) );
  * @return void
  */
 function admin_marketing_notification() {
-    if ( !ucare_admin_is_screen( 'settings' ) ) {
+    $screen = get_current_screen();
+
+    if ( $screen->parent_base !== 'ucare_support' ) {
         return;
     }
 
