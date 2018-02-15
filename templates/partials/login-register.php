@@ -83,6 +83,8 @@ namespace ucare;
 
         </div>
 
+        <?php wp_nonce_field( 'ucare_rest', '_ucarenonce' ); ?>
+
     </form>
 
 </div><!-- /register -->

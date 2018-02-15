@@ -26,8 +26,17 @@ function rest_register_endpoints() {
      * @since 1.6.0
      */
     register_rest_route( 'ucare/v1', 'users/register', array(
-        'methods' => \WP_REST_Server::CREATABLE,
-        'callback' => 'ucare\rest_handler_register_user'
+        'methods'  => \WP_REST_Server::CREATABLE,
+        'callback' => function ( $request ) {
+            increment_ip_request_count();
+            if ( is_ip_blocked() ) {
+                return too_many_attempts_error();
+            }
+            return rest_handler_register_user( $request );
+        },
+        'permission_callback' => function () {
+            return verify_request_nonce( 'ucare_rest', '_ucarenonce' );
+        }
     ) );
 
     /**
@@ -36,8 +45,17 @@ function rest_register_endpoints() {
      * @since 1.6.0
      */
     register_rest_route( 'ucare/v1', 'auth/reset-password', array(
-        'methods' => \WP_REST_Server::CREATABLE,
-        'callback' => 'ucare\rest_handler_rest_password'
+        'methods'  => \WP_REST_Server::CREATABLE,
+        'callback' => function ( $request ) {
+            increment_ip_request_count();
+            if ( is_ip_blocked() ) {
+                return too_many_attempts_error();
+            }
+            return rest_handler_rest_password( $request );
+        },
+        'permission_callback' => function () {
+            return verify_request_nonce( 'ucare_rest', '_ucarenonce' );
+        }
     ) );
 
     /**

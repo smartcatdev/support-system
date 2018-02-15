@@ -145,6 +145,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-request.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-auth.php';
             include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
             include_once dirname( __FILE__ ) . '/includes/functions-formatting.php';
             include_once dirname( __FILE__ ) . '/includes/functions-application.php';
