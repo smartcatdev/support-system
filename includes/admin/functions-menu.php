@@ -35,12 +35,12 @@ function add_menu_pages() {
  * @return void
  */
 function admin_first_run_tutorial_page() {
-    if ( get_option( Options::FIRST_RUN ) ) {
+    if ( (bool) get_option( Options::FIRST_RUN ) ) {
         return;
     }
 
     update_option( Options::FIRST_RUN, true );
-    wp_safe_redirect( menu_page_url( 'ucare-tutorial' ) );
+    wp_redirect( '?page=ucare-tutorial' );
 }
 
 
