@@ -1,16 +1,61 @@
 <?php
-
+/**
+ * Functions for managing the WordPress admin menus
+ */
 namespace ucare;
 
 
+// Add menu pages
+add_action( 'admin_menu', fqn( 'add_menu_pages' ), 1000 );
+
+// Do first run page
+add_action( 'admin_init', fqn( 'admin_first_run_tutorial_page' ) );
+
+
+/**
+ * Add admin menu pages.
+ *
+ * @action admin_menu
+ *
+ * @since 1.6.1
+ * @return void
+ */
+function add_menu_pages() {
+    ucare_add_admin_page( TutorialPage::class );
+    ucare_add_admin_page( AddonsPage::class );
+}
+
+
+/**
+ * Redirect the user to the tutorials page when the plugin installs/updates.
+ *
+ * @action admin_init
+ *
+ * @since 1.6.1
+ * @return void
+ */
+function admin_first_run_tutorial_page() {
+    if ( (bool) get_option( Options::FIRST_RUN ) ) {
+        return;
+    }
+
+    update_option( Options::FIRST_RUN, true );
+    wp_redirect( '?page=ucare-tutorial' );
+}
+
+
+
+
+
+/***********************************************************************************************************************
+ *
+ * TODO Needs desperate refactoring
+ */
 add_action( 'admin_enqueue_scripts', 'ucare\enqueue_admin_scripts' );
 
 // Include admin sidebar on options page
 add_action( 'uc-settings_menu_page', 'ucare\admin_page_sidebar' );
 
-add_action( 'admin_menu', 'ucare\add_admin_menu_pages' );
-
-add_action( 'admin_init', 'ucare\admin_first_run_tutorial_page' );
 
 add_action( 'ucare_admin_header', 'ucare\get_admin_header' );
 
@@ -97,32 +142,6 @@ function enqueue_admin_scripts( $hook ) {
 
 function admin_page_sidebar() {
     include_once plugin_dir() . '/templates/admin-sidebar.php';
-}
-
-
-function add_admin_menu_pages() {
-
-    add_submenu_page( null, __( 'uCare - Introduction', 'ucare' ), __( 'uCare - Introduction', 'ucare' ), 'manage_options', 'uc-tutorial', function() { include_once plugin_dir() . 'templates/admin-tutorial.php'; } );
-
-}
-
-
-function admin_first_run_tutorial_page() {
-
-    if( ! get_option( Options::FIRST_RUN ) ) {
-
-        update_option( Options::FIRST_RUN, true );
-        wp_safe_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
-
-    }
-
-    if( ! get_option( Options::FIRST_140_RUN ) ) {
-
-        update_option( Options::FIRST_140_RUN, true );
-        wp_safe_redirect( admin_url( 'admin.php?page=uc-tutorial' ) );
-
-    }
-
 }
 
 

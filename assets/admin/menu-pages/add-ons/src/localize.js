@@ -1,0 +1,1 @@
+export default ucare_addons_l10n.strings

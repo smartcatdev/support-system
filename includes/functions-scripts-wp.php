@@ -19,7 +19,5 @@ add_action( 'wp_enqueue_scripts', 'ucare\enqueue_shortcode_scripts' );
  * @return void
  */
 function enqueue_shortcode_scripts() {
-
     wp_enqueue_style( 'ucare-login-form', resolve_url( 'assets/css/login.css' ), null, PLUGIN_VERSION );
-
 }

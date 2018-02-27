@@ -60,6 +60,8 @@ $allow_registration = get_option( Options::ALLOW_SIGNUPS );
 
                         </div>
 
+                        <?php wp_nonce_field( 'ucare_rest', '_ucarenonce' ); ?>
+
                     </form><!-- /reset-pw-form -->
 
 

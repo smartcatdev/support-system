@@ -613,16 +613,6 @@ $advanced = new SettingsSection( 'uc_advanced', __( 'CAUTION: Some of these may 
 
 $advanced->add_field( new CheckBoxField(
     array(
-        'id'            => 'support_enable_dev_mode',
-        'option'        => Options::DEV_MODE,
-        'value'         => get_option( Options::DEV_MODE ),
-        'label'         => __( 'Developer Mode', 'ucare' ),
-        'desc'          => __( 'Enable development functionality', 'ucare' ),
-        'validators'    => array( new MatchFilter( array( '', 'on' ), '' ) )
-    )
-
-) )->add_field( new CheckBoxField(
-    array(
         'id'            => 'support_nuke_data',
         'option'        => Options::NUKE,
         'value'         => get_option( Options::NUKE  ),

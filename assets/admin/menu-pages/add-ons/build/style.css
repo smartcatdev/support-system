@@ -1,0 +1,128 @@
+.thumbnail {
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-sizing: border-box; }
+  .thumbnail img {
+    width: 100%;
+    height: auto; }
+  .thumbnail .inner {
+    position: relative; }
+  .thumbnail .border-triangle {
+    position: absolute;
+    border-left: 130px solid #00ab00;
+    border-bottom: 90px solid transparent;
+    width: 0;
+    height: 0; }
+  .thumbnail .banner-text {
+    position: absolute;
+    padding: 8px;
+    width: 80px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 2px;
+    font-weight: 700;
+    line-height: 16px; }
+  @media (min-width: 768px) {
+    .thumbnail {
+      padding: 15px; } }
+.license-status.ok {
+  background: #009a00;
+  color: white;
+  border-radius: 50%;
+  text-align: center; }
+
+.license-status.not-ok {
+  color: orange; }
+  .license-status.not-ok .dashicons {
+    font-size: 25px;
+    vertical-align: text-top; }
+.product-license {
+  padding: 10px 0;
+  border-top: 1px solid #eee; }
+  .product-license .manage {
+    margin: 4px 0; }
+    .product-license .manage > * {
+      margin-right: 10px; }
+    .product-license .manage .spinner {
+      margin: 4px 0;
+      float: none; }
+  .product-license .renew,
+  .product-license .deactivate {
+    padding: 5px 16px;
+    box-sizing: border-box; }
+  .product-license .activate {
+    padding: 0 16px; }
+  @media (min-width: 768px) {
+    .product-license {
+      padding: 10px; }
+    .product-license .renew,
+    .product-license .deactivate {
+      padding: 0 16px; }
+    .product-license .manage {
+      margin-left: 20%; }
+    .product-license .expiration {
+      width: 79%;
+      margin-left: 20%; } }
+
+.product-license .input-group .label {
+  width: 100%;
+  display: inline-block;
+  font-size: 14px; }
+
+.product-license .input-group .form-field {
+  width: 100%;
+  margin: 5px auto; }
+
+@media (min-width: 768px) {
+  .product-license .input-group .label {
+    width: 20%; }
+  .product-license .input-group .form-field {
+    width: 79%; } }
+.extension {
+  padding: 15px 15px 15px 25px;
+  margin: 0;
+  background: #fff;
+  border-bottom: 1px solid #eee; }
+  .extension .actions {
+    margin-top: 10px;
+    text-align: center; }
+    .extension .actions .cta {
+      height: 40px;
+      width: 100%;
+      vertical-align: middle;
+      margin: 10px 0;
+      font-size: 16px; }
+    .extension .actions .cta.button-primary {
+      line-height: 40px; }
+  @media (min-width: 768px) {
+    .extension {
+      padding: 15px; }
+    .extension .thumbnail, .extension .info, .extension .actions {
+      display: inline-block; }
+    .extension .thumbnail {
+      width: 30%;
+      vertical-align: middle; }
+    .extension .info {
+      width: 50%;
+      vertical-align: top; }
+    .extension .actions {
+      width: 20%;
+      vertical-align: top;
+      margin-top: 30px; }
+      .extension .actions .cta {
+        width: 80%;
+        margin: 10px;
+        max-width: 150px; } }
+.extensions {
+  border-top: 1px solid #eee; }
+  .extensions .draft:first-child {
+    margin-top: 15px; }
+#wpwrap {
+  background: #f9f9f9; }
+
+#ucare-add-ons {
+  margin-top: 10px; }
+
+.wp-responsive-open .wrap.ucare-admin-page {
+  margin-left: -30px; }

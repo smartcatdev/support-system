@@ -1,0 +1,55 @@
+.extension {
+    padding: 15px 15px 15px 25px;
+    margin: 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+
+    .actions { 
+        margin-top: 10px;
+        text-align: center;
+
+        .cta {
+            height: 40px;
+            width: 100%;
+            vertical-align: middle;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .cta.button-primary {
+            line-height: 40px;
+        }
+    }
+    
+    @media(min-width: 768px) {
+        & {
+            padding: 15px;
+        }
+
+        .thumbnail, .info, .actions {
+            display: inline-block;
+        }   
+
+        .thumbnail {
+            width: 30%;
+            vertical-align: middle;
+        }
+
+        .info {
+            width: 50%;
+            vertical-align: top;
+        }
+        
+        .actions {
+            width: 20%;
+            vertical-align: top;
+            margin-top: 30px;
+
+            .cta {
+                width: 80%;
+                margin: 10px;
+                max-width: 150px;
+            }
+        }
+    }
+}

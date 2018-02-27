@@ -171,6 +171,16 @@ function rest_set_ticket_attributes( $post, $request ) {
             wp_set_post_terms( $post->ID, (array) $cat_term->slug, 'ticket_category' );
         }
     }
+
+
+    if ( $post->post_status === 'publish' ) {
+        /**
+         * Call support_ticket_created after all fields are added via REST
+         *
+         * @since 1.6.1
+         */
+        do_action( 'support_ticket_created', $post, $post->ID );
+    }
 }
 
 

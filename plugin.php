@@ -70,6 +70,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             $this->do_includes();
 
             $this->init_licensing();
+            $this->init_marketing();
 
             // All done
             do_action( 'ucare_loaded', $this );
@@ -89,6 +90,12 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             define( 'UCARE_TEMPLATES_PATH', UCARE_DIR . 'templates/' );
             define( 'UCARE_PARTIALS_PATH',  UCARE_DIR . 'templates/partials/' );
             define( 'UCARE_INCLUDES_PATH',  UCARE_DIR . 'includes/'  );
+
+            if ( defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE ) {
+                define( 'UCARE_SERVER_ADDRESS', 'http://ucaresupport.staging.wpengine.com' );
+            } else {
+                define( 'UCARE_SERVER_ADDRESS', 'https://ucaresupport.com' );
+            }
 
 
             // Define which e-commerce mode the plugin is running in
@@ -120,10 +127,9 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
-
-            include_once dirname( __FILE__ ) . '/includes/library/class-license-manager.php';
             include_once dirname( __FILE__ ) . '/includes/library/class-edd-sl-plugin-updater.php';
             include_once dirname( __FILE__ ) . '/includes/library/class-bootstrap-nav-walker.php';
+            include_once dirname( __FILE__ ) . '/includes/library/sc-plugin-marketing.php';
 
 
             include_once dirname( __FILE__ ) . '/includes/email-notifications.php';
@@ -136,8 +142,11 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/class-toolbar.php';
             include_once dirname( __FILE__ ) . '/includes/class-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/class-styles.php';
+            include_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-request.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-auth.php';
             include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
             include_once dirname( __FILE__ ) . '/includes/functions-formatting.php';
             include_once dirname( __FILE__ ) . '/includes/functions-application.php';
@@ -165,7 +174,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated-public.php';
             include_once dirname( __FILE__ ) . '/includes/functions-toolbar.php';
-
+            include_once dirname( __FILE__ ) . '/includes/functions-licensing.php';
 
             // If eCommerce support is enabled pull in general support functions
             if ( defined( 'UCARE_ECOMMERCE_MODE' ) ) {
@@ -184,11 +193,17 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
+                include_once dirname( __FILE__ ) . '/includes/admin/functions.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-scripts.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-upgrade.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-post-support_ticket.php';
+
+                include_once dirname( __FILE__ ) . '/includes/admin/class-menu-page.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/menu-pages/class-addons-page.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/menu-pages/class-tutorial-page.php';
             }
         }
 
@@ -200,15 +215,21 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function init_licensing() {
-            $page = array(
-                'parent_slug' => 'ucare_support',
-                'page_title'  => __( 'uCare Licenses', 'ucare' ),
-                'menu_title'  => __( 'Licenses', 'ucare' ),
-                'capability'  => 'manage_options',
-                'menu_slug'   => 'ucare-licenses'
+            $this->set( 'license_manager', ucare_get_license_manager() );
+        }
+
+        /**
+         * Initialize plugin marketing module.
+         *
+         * @since 1.6.1
+         * @return void
+         */
+        private function init_marketing() {
+            $args = array(
+                'url' => UCARE_SERVER_ADDRESS
             );
 
-            $this->set( 'license_manager', new LicenseManager( 'ucare', 'submenu', $page ) );
+            sc_plugin_marketing( $args );
         }
 
     }
@@ -250,30 +271,25 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return void
      */
     function deactivate() {
+        ucare();
 
-        /**
-         * Delete the first run option on de-activate
-         * This triggers the First Run welcome screen to load on reload
-         */
+        // Delete the first run option on de-activate This triggers the First Run welcome screen to load on reload
         delete_option( Options::FIRST_RUN );
 
-        /**
-         * Cleanup custom user roles and caps
-         */
+        // Cleanup custom user roles and caps
         remove_role_capabilities();
         remove_user_roles();
 
-        /**
-         * Unregister custom post type data
-         */
+        // Unregister custom post type data
         unregister_post_type( 'support_ticket' );
         unregister_post_type( 'email_template' );
         unregister_taxonomy( 'ticket_category' );
 
-        /**
-         * Execute uninstall script if we are in dev mode.
-         */
-        if ( get_option( Options::DEV_MODE ) ) {
+        // Cleanup license manager data
+        ucare_get_license_manager()->cleanup();
+
+        // Execute uninstall script if we are in dev mode.
+        if ( ucare_in_dev_mode() ) {
             include_once dirname( __FILE__ ) . '/uninstall.php';
         }
     }
@@ -316,7 +332,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return array
      */
     function add_plugin_action_links( $links ) {
-        if ( !get_option( Options::DEV_MODE ) ) {
+        if ( !ucare_in_dev_mode() ) {
             $links['deactivate'] = sprintf( '<span id="feedback-prompt">%s</span>', $links['deactivate'] );
         }
 
@@ -349,30 +365,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
 
 /**
- * Get a path relative to the root of the plugin directory.
- *
- * @since 1.4.2
- * @param string $path
- * @return string
- */
-function resolve_path( $path = '' ) {
-    return plugin_dir_path( __FILE__ ) . $path;
-}
-
-
-/**
- * Get a URL relative to the root of the plugin directory.
- *
- * @param string $path
- * @since 1.4.2
- * @return string
- */
-function resolve_url( $path = '' ) {
-    return plugin_dir_url( __FILE__ ) . $path;
-}
-
-
-/**
  * Add a message to the admin notification area.
  *
  * @param string $message
@@ -386,4 +378,42 @@ function admin_notification( $message, $type = 'error', $dismissible = true ) {
     add_action( 'admin_notices', function () use ( $message, $type, $dismissible ) {
         printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>', esc_attr( $type ), $dismissible ? 'is-dismissible' : '', $message );
     } );
+}
+
+
+/**
+ * Get a path relative to the root of the plugin directory.
+ *
+ * @since 1.4.2
+ * @param string $path
+ * @return string
+ */
+function resolve_path( $path = '' ) {
+    return plugin_dir_path( __FILE__ ) . join( DIRECTORY_SEPARATOR, func_get_args() );
+}
+
+
+/**
+ * Get a URL relative to the root of the plugin directory.
+ *
+ * @param string $path
+ *
+ * @since 1.4.2
+ * @return string
+ */
+function resolve_url( $path = '' ) {
+    return plugin_dir_url( __FILE__ ) . join( DIRECTORY_SEPARATOR, func_get_args() );
+}
+
+
+/**
+ * Build a namespace qualifier
+ *
+ * @param string $qualifier
+ *
+ * @since 1.6.1
+ * @return string
+ */
+function fqn( $qualifier = '' ) {
+    return sprintf( '\\%1$s\\%2$s', __NAMESPACE__, join( '\\', func_get_args() ) );
 }

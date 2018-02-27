@@ -100,7 +100,26 @@ function ucare_checkbox( $name, $label = '', $checked = false, $value = '', $att
  * @return boolean
  */
 function ucare_in_dev_mode() {
-    return get_option( Options::DEV_MODE, Defaults::DEV_MODE ) == 'on';
+    return defined( 'UCARE_DEV_MODE' ) && UCARE_DEV_MODE;
+}
+
+
+/**
+ * Get the value of a variable based on whether or not the plugin is in development mode. Note, this checks the value of
+ * the hard coded constant UCARE_DEV_MODE.
+ *
+ * @param mixed $prod The value if the plugin is in production
+ * @param mixed $dev  The value if the plugin is in development
+ *
+ * @since 1.6.1
+ * @return mixed
+ */
+function ucare_dev_var( $prod, $dev ) {
+    if ( ucare_in_dev_mode() ) {
+        return $dev;
+    }
+
+    return $prod;
 }
 
 
@@ -114,6 +133,17 @@ function ucare_in_dev_mode() {
  */
 function ucare_get_logger( $type ) {
     return new Logger( $type );
+}
+
+
+/**
+ * Get the license manager instance.
+ *
+ * @since 1.6.1
+ * @return \ucare\LicenseManager|ucare\Singleton
+ */
+function ucare_get_license_manager() {
+    return \ucare\LicenseManager::instance();
 }
 
 
@@ -866,4 +896,21 @@ function ucare_admin_is_screen( $tag ) {
     }
 
     return false;
+}
+
+
+/**
+ * Add an admin menu page instance.
+ *
+ * @param \ucare\MenuPage|string $page
+ *
+ * @since 1.6.1
+ * @return void
+ */
+function ucare_add_admin_page( $page ) {
+    if ( is_string( $page ) && class_exists( $page ) ) {
+        $page = new $page();
+    }
+
+    $page->add();
 }
