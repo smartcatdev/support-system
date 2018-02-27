@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  * @subpackage admin
  */
@@ -11,7 +11,7 @@ namespace ucare;
 /**
  * Simple class for containing menu page definitions.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 abstract class MenuPage {
@@ -40,7 +40,7 @@ abstract class MenuPage {
     /**
      * Constructor.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      */
     public function __construct() {
         $this->assets_url = trailingslashit( resolve_url( "assets/admin/menu-pages/$this->slug" ) );
@@ -49,7 +49,7 @@ abstract class MenuPage {
     /**
      * Add the menu page and initialize the load action.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function add() {
@@ -59,7 +59,7 @@ abstract class MenuPage {
     /**
      * Handle the menu page load event.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function on_load() {
@@ -69,7 +69,7 @@ abstract class MenuPage {
     /**
      * Make a call to add_menu_page()
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return mixed
      */
     abstract public function add_menu_page();

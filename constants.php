@@ -10,7 +10,7 @@ const PLUGIN_ID = 'smartcat_support';
 /**
  * @since 1.0.0
  */
-const PLUGIN_VERSION = '1.6.1';
+const PLUGIN_VERSION = '1.6.0';
 
 /**
  * @since 1.0.0
@@ -21,17 +21,17 @@ const MIN_PHP_VERSION = '5.5';
 final class Marketing {
 
     /**
-     * @since 1.6.1
+     * @since 1.6.0
      */
     const ADMIN_NOTIFICATION = 'admin-notification';
 
     /**
-     * @since 1.6.1
+     * @since 1.6.0
      */
     const SETTINGS_SIDEBAR_UCARE_PRO = 'settings-sidebar-ucare-pro';
 
     /**
-     * @since 1.6.1
+     * @since 1.6.0
      */
     const SETTINGS_SIDEBAR_FEEDBACK = 'settings-sidebar-feedback';
 

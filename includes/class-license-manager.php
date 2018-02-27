@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 namespace ucare;
@@ -37,7 +37,7 @@ final class LicenseManager {
     /**
      * Add hooks and filters.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     private function add_hooks() {
@@ -59,7 +59,7 @@ final class LicenseManager {
      * }
      * @param array  $edd_args    EDD updater arguments. @see \EDD_SL_Plugin_Updater
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return bool
      */
     public function add_license( $id, $store_url, $plugin_file, array $options, array $edd_args ) {
@@ -90,7 +90,7 @@ final class LicenseManager {
      * @param $status
      * @param $expiry
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function register_license_settings( $license, $status, $expiry ) {
@@ -123,7 +123,7 @@ final class LicenseManager {
      * @param string $id
      * @param string $key
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return bool|\WP_Error
      */
     public function activate_license( $id, $key = '' ) {
@@ -194,7 +194,7 @@ final class LicenseManager {
      *
      * @param string $id
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return bool|\WP_Error
      */
     public function deactivate_license( $id ) {
@@ -221,7 +221,7 @@ final class LicenseManager {
      *
      * @param string $id
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return array|false|\WP_Error
      */
     public function get_license( $id ) {
@@ -237,7 +237,7 @@ final class LicenseManager {
     /**
      * Schedule license check cron jobs.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function schedule_cron() {
@@ -249,7 +249,7 @@ final class LicenseManager {
     /**
      * Cleanup Cron jobs and other misc data.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function cleanup() {
@@ -259,7 +259,7 @@ final class LicenseManager {
     /**
      * Get a list of expired licenses.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return array
      */
     public function get_expired_licenses() {
@@ -269,7 +269,7 @@ final class LicenseManager {
     /**
      * Get all registered extensions.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return array
      */
     public function get_extensions() {
@@ -281,7 +281,7 @@ final class LicenseManager {
      *
      * @action ucare_extensions_license_check
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function check_licenses() {
@@ -315,7 +315,7 @@ final class LicenseManager {
      *
      * @param string $id
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     private function clear_expired_license( $id ) {
@@ -337,7 +337,7 @@ final class LicenseManager {
      * @param string       $action
      * @param string|array $overrides
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return mixed|\WP_Error
      */
     private function make_request( $id, $action, $overrides = '' ) {

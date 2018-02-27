@@ -177,7 +177,7 @@ function rest_set_ticket_attributes( $post, $request ) {
         /**
          * Call support_ticket_created after all fields are added via REST
          *
-         * @since 1.6.1
+         * @since 1.6.0
          */
         do_action( 'support_ticket_created', $post, $post->ID );
     }

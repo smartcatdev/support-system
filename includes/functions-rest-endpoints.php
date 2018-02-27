@@ -61,7 +61,7 @@ function rest_register_endpoints() {
     /**
      * Extension licenses endpoint.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      */
     register_rest_route( 'ucare/v1', 'extensions/licenses/(?P<id>([0-9a-z-_])+)', array(
         array(
@@ -132,7 +132,7 @@ function rest_handler_rest_password( $request ) {
  *
  * @param \WP_REST_Request $request
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return mixed
  */
 function rest_manage_extension_license( $request ) {
@@ -173,7 +173,7 @@ function rest_manage_extension_license( $request ) {
  *
  * @param \WP_REST_Request $request
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return mixed
  */
 function rest_check_extension_license( $request ) {

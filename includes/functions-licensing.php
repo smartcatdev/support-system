@@ -2,7 +2,7 @@
 /**
  * Functions for extension licensing.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 namespace ucare;
@@ -12,7 +12,7 @@ namespace ucare;
  *
  * @param string|array $ids
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return array
  */
 function get_licensing_data( $ids = '' ) {

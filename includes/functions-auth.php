@@ -2,7 +2,7 @@
 /**
  * Functions for handling authentication.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 namespace ucare;
@@ -11,7 +11,7 @@ namespace ucare;
 /**
  * Increment the number of requests from the current IP address.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return void
  */
 function increment_ip_request_count() {
@@ -44,7 +44,7 @@ function increment_ip_request_count() {
 /**
  * See if the current request IP is blocked for abusing the system.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return bool
  */
 function is_ip_blocked() {
@@ -65,7 +65,7 @@ function is_ip_blocked() {
 /**
  * Return an error indicating too many attempts have been made.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return \WP_Error
  */
 function too_many_attempts_error() {

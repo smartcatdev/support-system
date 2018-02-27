@@ -17,7 +17,7 @@ add_action( 'admin_enqueue_scripts', fqn( 'register_admin_dependencies' ) );
  *
  * @action admin_enqueue_scripts
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return void
  */
 function register_admin_dependencies() {

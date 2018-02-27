@@ -17,7 +17,7 @@ add_action( 'admin_init', fqn( 'admin_first_run_tutorial_page' ) );
  *
  * @action admin_menu
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return void
  */
 function add_menu_pages() {
@@ -31,7 +31,7 @@ function add_menu_pages() {
  *
  * @action admin_init
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return void
  */
 function admin_first_run_tutorial_page() {

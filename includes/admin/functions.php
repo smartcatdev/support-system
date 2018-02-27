@@ -2,7 +2,7 @@
 /**
  * General functions for the WordPress admin.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  * @subpackage admin
  */
@@ -17,7 +17,7 @@ add_action( 'admin_notices', fqn( 'admin_marketing_notification' ) );
  *
  * @action admin_notices
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return void
  */
 function admin_marketing_notification() {

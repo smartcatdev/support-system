@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 namespace ucare;
@@ -10,7 +10,7 @@ namespace ucare;
 /**
  * Add-ons menu page.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 class AddonsPage extends MenuPage {
@@ -25,7 +25,7 @@ class AddonsPage extends MenuPage {
     /**
      * Constructor.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      */
     public function __construct() {
         parent::__construct();
@@ -35,7 +35,7 @@ class AddonsPage extends MenuPage {
     /**
      * Make a call to add_menu_page()
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return string
      */
     public function add_menu_page() {
@@ -45,7 +45,7 @@ class AddonsPage extends MenuPage {
     /**
      * Do enqueues and setup data for the page.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function on_load() {
@@ -57,7 +57,7 @@ class AddonsPage extends MenuPage {
     /**
      * Display notification if there are any license problems in the WordPress admin
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     public function init() {
@@ -88,7 +88,7 @@ class AddonsPage extends MenuPage {
     /**
      * Enqueue menu page scripts.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return void
      */
     private function enqueue_scripts() {
@@ -133,7 +133,7 @@ class AddonsPage extends MenuPage {
     /**
      * Output the menu page.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      */
     public function render() { ?>
         <div class="wrap ucare-admin-page">
@@ -156,7 +156,7 @@ class AddonsPage extends MenuPage {
     /**
      * Fetch products from the cache. If cache has expired, re-cache from our server.
      *
-     * @since 1.6.1
+     * @since 1.6.0
      * @return array
      */
     private function fetch_products() {

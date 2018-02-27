@@ -111,7 +111,7 @@ function ucare_in_dev_mode() {
  * @param mixed $prod The value if the plugin is in production
  * @param mixed $dev  The value if the plugin is in development
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return mixed
  */
 function ucare_dev_var( $prod, $dev ) {
@@ -139,7 +139,7 @@ function ucare_get_logger( $type ) {
 /**
  * Get the license manager instance.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return \ucare\LicenseManager|ucare\Singleton
  */
 function ucare_get_license_manager() {
@@ -208,7 +208,7 @@ function ucare_ecommerce_mode() {
 /**
  * Get the current product post type.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return bool|string
  */
 function ucare_product_post_type() {
@@ -223,7 +223,7 @@ function ucare_product_post_type() {
 /**
  * Get a list of products.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return array
  */
 function ucare_get_products() {
@@ -238,7 +238,7 @@ function ucare_get_products() {
 /**
  * Get a list of ticket categories.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return array
  */
 function ucare_get_ticket_categories() {
@@ -904,7 +904,7 @@ function ucare_admin_is_screen( $tag ) {
  *
  * @param \ucare\MenuPage|string $page
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return void
  */
 function ucare_add_admin_page( $page ) {

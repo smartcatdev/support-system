@@ -221,7 +221,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         /**
          * Initialize plugin marketing module.
          *
-         * @since 1.6.1
+         * @since 1.6.0
          * @return void
          */
         private function init_marketing() {
@@ -411,7 +411,7 @@ function resolve_url( $path = '' ) {
  *
  * @param string $qualifier
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return string
  */
 function fqn( $qualifier = '' ) {

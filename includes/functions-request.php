@@ -2,7 +2,7 @@
 /**
  * Functions for handling HTTP requests.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @package ucare
  */
 namespace ucare;
@@ -11,7 +11,7 @@ namespace ucare;
 /**
  * Get the request IP address.
  *
- * @since 1.6.1
+ * @since 1.6.0
  * @return mixed
  */
 function get_ip_address() {
