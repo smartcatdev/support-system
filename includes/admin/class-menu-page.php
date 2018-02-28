@@ -59,18 +59,6 @@ abstract class MenuPage {
     }
 
     /**
-     * Return the path of an asset in the menu page folder.
-     *
-     * @param string $path
-     *
-     * @since 1.6.0
-     * @return string
-     */
-    public function asset_path( $path = '' ) {
-        return $this->assets_path . ltrim( $path, '/' );
-    }
-
-    /**
      * Add the menu page and initialize the load action.
      *
      * @since 1.6.0
