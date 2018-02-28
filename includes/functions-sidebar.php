@@ -213,7 +213,8 @@ function get_details_sidebar( \WP_Post $ticket ) {
         'stale'       => !!get_post_meta( $ticket->ID, 'stale', true ),
         'closed_by'   => get_post_meta( $ticket->ID, 'closed_by', true ),
         'closed_date' => get_post_meta( $ticket->ID, 'closed_date', true ),
-        'category'    => $terms ? current( $terms )->name : ''
+        'category'    => $terms ? current( $terms )->name : '',
+        'term_id'     => $terms ? current( $terms )->term_id : ''
     );
 
     get_template( 'sidebar-details', $args );

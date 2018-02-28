@@ -231,9 +231,4 @@ $secondary_font = esc_attr( get_option( Options::SECONDARY_FONT, \ucare\Defaults
         
     }
 
-    .tag.category {
-        background: <?php echo $primary_color; ?>;
-        color: #fff;
-    }
-
 </style>

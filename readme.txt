@@ -1,10 +1,10 @@
-=== uCare - Support Ticket System ===
+=== uCare - Support Ticket System & HelpDesk ===
 Contributors: smartcat
 Donate link: https://smartcatdesign.net
-Tags: support,ticket,helpdesk,system,email,customer service,agent,tech,technical,desk,help,support ticket,zendesk
+Tags: support,ticket,helpdesk,support ticket,help desk,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.9.1
-Stable tag: 1.5.1
+Tested up to: 4.9.4
+Stable tag: 1.5.3
 Requires PHP: 5.5
 License: GPLv2 or later
 
@@ -52,11 +52,13 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 The plugin lists all translatable strings in /i18n/languages/ucare.pot file allowing you to translate the plugin into your language.
 The following translations are currently bundled:
 - Arabic
-- English
-- French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli") )
 - Dutch ( Provided by [Hinse Rot](https://hinserot.nl/ "Hinse Rot") )
+- English
+- Farsi Persian ( Provided by [Mahmoud zooroofchi](http://zooroofchi.ir "Mahmoud zooroofchi") )
+- French ( Provided by [Philippe Chiorboli](https://www.guerni.fr/ "Philippe Chiorboli") )
 - German Provided by [XaLpHa](https://empyrion-brb.de/ "XaLpHa") [HolgerKuehn](https://virtual-services.info/ "HolgerKuehn")
 - Serbian ( provided by Goran Milic )
+
 If you have created a translation for this plugin, please contact us to get it bundled with the plugin.
 
 To translate the plugin, [Contact us](https://support.smartcatdesign.net/ "Contact Us")
@@ -107,6 +109,19 @@ Yes! Email Piping is an add-on that you can purchase. This allows you to integra
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.6.0 =
+- Created unique pages for Registration/Login, Create Ticket, and Edit Profile
+- Plugin now relies on the WP REST API and creates it's own endpoints
+- Added React to the Add-ons page and to the Pro version
+- Added REST API controls for modifying settings page content remotely
+
+= 1.5.3 =
+- Added Persian translation
+
+= 1.5.2 =
+- Updated German translations
+- Fixed appearance of category colors
 
 = 1.5.1 =
 - Added the ability to assign unique colors for ticket categories
