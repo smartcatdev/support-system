@@ -30,7 +30,6 @@ add_action( 'init', 'ucare\set_ecommerce_user_caps' );
  * @return void
  */
 function set_ecommerce_user_caps() {
-
     if ( get_option( Options::ECOMMERCE ) ) {
         switch( UCARE_ECOMMERCE_MODE ) {
             case 'edd':
@@ -181,6 +180,7 @@ function get_caps_for_role( $role ) {
 
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
+            'upload_support_media',
             'delete_posts',
             'read'
         ),
@@ -199,6 +199,7 @@ function get_caps_for_role( $role ) {
 
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
+            'upload_support_media',
             'delete_posts',
             'read'
         ),
@@ -213,6 +214,7 @@ function get_caps_for_role( $role ) {
 
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
+            'upload_support_media',
             'delete_posts',
             'read'
         )
@@ -305,7 +307,6 @@ function add_subscriber_caps( $force = false ) {
  * @return void
  */
 function add_customer_caps( $force = false ) {
-
     if ( $force || ucare_ecommerce_mode() === 'woo' ) {
         grant_user_level_caps( 'customer' );
     }
@@ -329,17 +330,18 @@ function remove_role_capabilities() {
         $caps = get_caps_for_role( $role );
         $role = get_role( $role );
 
-        if ( !is_null( $role ) ) {
-            foreach ( $caps as $cap ) {
-                $role->remove_cap( $cap );
-            }
+        if ( is_null( $role ) ) {
+            continue;
+        }
+
+        foreach ( $caps as $cap ) {
+            $role->remove_cap( $cap );
         }
     }
 
     revoke_user_level_caps( 'support_user' );
     revoke_user_level_caps( 'subscriber' );
     revoke_user_level_caps( 'customer' );
-
 }
 
 
@@ -353,16 +355,15 @@ function remove_role_capabilities() {
 function revoke_user_level_caps( $user_or_role ) {
     $thing = get_user_or_role( $user_or_role );
 
-    if ( $thing ) {
-
-        foreach ( get_caps_for_role( 'support_user') as $cap ) {
-            $thing->remove_cap( $cap );
-        }
-
-        return true;
+    if ( !$thing ) {
+        return false;
     }
 
-    return false;
+    foreach ( get_caps_for_role( 'support_user') as $cap ) {
+        $thing->remove_cap( $cap );
+    }
+
+    return true;
 }
 
 
@@ -378,11 +379,9 @@ function get_users_with_cap( $cap = 'use_support', $args = array() ) {
     $users  = get_users( $args );
 
     foreach ( $users as $user ) {
-
         if ( $user->has_cap( $cap ) ) {
             array_push( $result, $user );
         }
-
     }
 
     return $result;
@@ -480,7 +479,6 @@ function get_user( $user = null, $fallback_to_current = true ) {
  * @return void
  */
 function create_user_draft_ticket() {
-
     if ( is_create_ticket_page() && !get_user_draft_ticket() ) {
         $user = get_current_user_id();
 
@@ -506,7 +504,6 @@ function create_user_draft_ticket() {
  * @return \WP_Post|false
  */
 function get_user_draft_ticket() {
-
     $draft = get_post( get_user_meta( get_current_user_id(), 'draft_ticket', true ) );
 
     if ( $draft && $draft->post_status == 'ucare-auto-draft' ) {

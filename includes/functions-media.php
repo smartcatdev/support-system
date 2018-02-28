@@ -20,6 +20,29 @@ add_filter( 'wp_handle_upload_prefilter', 'ucare\check_attachment_mime_type' );
 // Set attachment error handler
 add_filter( 'wp_handle_upload_prefilter', 'ucare\generate_attachment_uuid' );
 
+// Check for custom media cap
+add_filter( 'wp_handle_upload_prefilter', 'ucare\check_media_capabilities' );
+
+
+/**
+ * Check if the user can access support_uploads folder.
+ *
+ * @action wp_handle_upload_prefilter
+ *
+ * @param $file
+ *
+ * @todo Case will needed to be handle for deleting media when we switch that to REST
+ * @since 1.6.0
+ * @return mixed
+ */
+function check_media_capabilities( $file ) {
+    if ( !current_user_can( 'upload_support_media' ) ) {
+        $file['error'] = __( 'you don\'t have permission to upload support media', 'ucare' );
+    }
+
+    return $file;
+}
+
 
 /**
  * Check the request to see if we should override the default media directory.
@@ -30,11 +53,9 @@ add_filter( 'wp_handle_upload_prefilter', 'ucare\generate_attachment_uuid' );
  * @return void
  */
 function maybe_override_media_dir() {
-
     if ( get_var( 'support_ticket_media' ) ) {
         define( 'UCARE_MEDIA_BASEDIR', 'support_uploads' );
     }
-
 }
 
 
@@ -49,7 +70,6 @@ function maybe_override_media_dir() {
  * @return array
  */
 function filter_media_dir( $uploads ) {
-
     if ( defined( 'UCARE_MEDIA_BASEDIR' ) ) {
 
         $dir = $uploads['basedir'];
@@ -69,7 +89,6 @@ function filter_media_dir( $uploads ) {
     }
 
     return $uploads;
-
 }
 
 /**
@@ -83,13 +102,11 @@ function filter_media_dir( $uploads ) {
  * @return array
  */
 function check_attachment_mime_type( $file ) {
-
     if ( defined( 'UCARE_MEDIA_BASEDIR' ) && !in_array( $file['type'], allowed_mime_types() ) ) {
         $file['error'] = __( 'Invalid file format', 'ucare' );
     }
 
     return $file;
-
 }
 
 
@@ -104,13 +121,11 @@ function check_attachment_mime_type( $file ) {
  * @return array
  */
 function generate_attachment_uuid( $file ) {
-
     if ( defined( 'UCARE_MEDIA_BASEDIR' ) ) {
         $file['name'] = wp_generate_uuid4() . '.' . get_file_extension( $file['name'] );
     }
 
     return $file;
-
 }
 
 

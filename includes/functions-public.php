@@ -160,10 +160,14 @@ function ucare_drop_options( $class ) {
         return;
     }
 
-    $options = new \ReflectionClass( $class );
+    try {
+        $options = new \ReflectionClass( $class );
 
-    foreach ( $options->getConstants() as $option ) {
-        delete_option( $option );
+        foreach ( $options->getConstants() as $option ) {
+            delete_option( $option );
+        }
+    } catch ( \Exception $ex ) {
+        return;
     }
 }
 

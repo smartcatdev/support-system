@@ -20,12 +20,14 @@ require_once dirname( __FILE__ ) . '/plugin.php';  ucare();
 if ( get_option( Options::NUKE ) ) {
 
     /**
+     *
      * Delete all options
      */
     ucare_drop_options( Options::class );
 
 
     /**
+     *
      * Trash all custom post types
      */
     $args = array(
@@ -40,6 +42,7 @@ if ( get_option( Options::NUKE ) ) {
 
 
     /**
+     *
      * Drop custom tables
      */
     global $wpdb;
@@ -47,6 +50,7 @@ if ( get_option( Options::NUKE ) ) {
 
 
     /**
+     *
      * Clear scheduled crons
      */
     wp_clear_scheduled_hook( 'ucare_cron_stale_tickets' );

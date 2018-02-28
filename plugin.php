@@ -195,6 +195,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             if ( is_admin() ) {
                 include_once dirname( __FILE__ ) . '/includes/admin/functions.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-menu.php';
+                include_once dirname( __FILE__ ) . '/includes/admin/functions-user.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-scripts.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
                 include_once dirname( __FILE__ ) . '/includes/admin/functions-admin-bar.php';
