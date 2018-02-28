@@ -43,7 +43,31 @@ abstract class MenuPage {
      * @since 1.6.0
      */
     public function __construct() {
-        $this->assets_url = trailingslashit( resolve_url( "assets/admin/menu-pages/$this->slug" ) );
+        $this->assets_url = trailingslashit( resolve_url(  "assets/admin/menu-pages/$this->slug" ) );
+    }
+
+    /**
+     * Return the URL of an asset in the menu page folder.
+     *
+     * @param string $path
+     *
+     * @since 1.6.0
+     * @return string
+     */
+    public function asset_url( $path = '' ) {
+        return $this->assets_url . ltrim( $path, '/' );
+    }
+
+    /**
+     * Return the path of an asset in the menu page folder.
+     *
+     * @param string $path
+     *
+     * @since 1.6.0
+     * @return string
+     */
+    public function asset_path( $path = '' ) {
+        return $this->assets_path . ltrim( $path, '/' );
     }
 
     /**

@@ -75,13 +75,11 @@ class AddonsPage extends MenuPage {
         }
 
         if ( count( $problems ) > 0 ) {
-            admin_notification(
-                sprintf(
-                    '<span class="dashicons dashicons-warning"></span> %1$s <a href="%2$s">%3$s</a>',
-                    __( 'One of your uCare add-ons requires attention.', 'ucare' ), menu_page_url( 'ucare-add-ons', false ), __( 'Manage add-ons', 'ucare' )
-                ),
-                'warning'
+            $notification = sprintf(
+                '<span class="dashicons dashicons-warning"></span> %1$s <a href="%2$s">%3$s</a>',
+                __( 'One of your uCare add-ons requires attention.', 'ucare' ), menu_page_url( 'ucare-add-ons', false ), __( 'Manage add-ons', 'ucare' )
             );
+            admin_notification( $notification, 'warning' );
         }
     }
 
@@ -92,15 +90,12 @@ class AddonsPage extends MenuPage {
      * @return void
      */
     private function enqueue_scripts() {
-        $bundle  = ucare_dev_var( 'bundle.production.min.js', 'bundle.dev.js' );
-
         $deps = array(
             'react',
             'redux',
             'react-redux',
             'react-dom'
         );
-
         $localize = array(
             'vars' => array(
                 'products'   => $this->fetch_products(),
@@ -123,7 +118,8 @@ class AddonsPage extends MenuPage {
             )
         );
 
-        wp_register_script( 'ucare-add-ons', strcat( $this->assets_url, 'build/', $bundle ), $deps, PLUGIN_VERSION, true );
+        $build_dir = "assets/admin/menu-pages/$this->slug/build/";
+        wp_register_script( 'ucare-add-ons', bundle_url( $build_dir ), $deps, PLUGIN_VERSION, true );
         wp_localize_script( 'ucare-add-ons', 'ucare_addons_l10n', $localize );
 
         wp_enqueue_script( 'ucare-add-ons' );
@@ -166,7 +162,7 @@ class AddonsPage extends MenuPage {
             return $cached;
         }
 
-        $response = wp_remote_get( 'http://ucaresupport.staging.wpengine.com/wp-json/smartcat/v1/downloads' );
+        $response = wp_remote_get( UCARE_SERVER_ADDRESS . '/wp-json/smartcat/v1/downloads' );
 
         if ( wp_remote_retrieve_response_code( $response ) !== 200 ) {
             return array();
