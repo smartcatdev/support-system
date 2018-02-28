@@ -388,6 +388,10 @@ a.ucare-addon-link {
     background: #ffb86f;
 }
 
+.ucare-addon .ad.auto-agent {
+    background: #56a79f;
+}
+
 .ucare-addon .ad.canned-responses {
     background: #6f95ff;
 }
