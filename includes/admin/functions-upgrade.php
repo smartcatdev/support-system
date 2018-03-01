@@ -128,7 +128,7 @@ function _exec_db_upgrade( $new_version ) {
      */
     $upgraded = apply_filters( 'ucare_upgrade_db', true, $ucare_db_version, $new_version );
 
-    if ( $upgraded || is_wp_error( $upgraded ) ) {
+    if ( empty( $upgraded ) || is_wp_error( $upgraded ) ) {
         return $upgraded;
     }
 
@@ -379,6 +379,12 @@ function upgrade_130() {
  * @return void
  */
 function upgrade_160() {
+    /**
+     *
+     * Execute DB upgrade
+     */
+    _exec_db_upgrade( '1.6.0' );
+
     /**
      *
      * Add new application sub pages
