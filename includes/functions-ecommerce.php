@@ -22,9 +22,7 @@ function is_product( $post ) {
     if ( $post ) {
         return $post->post_type == get_product_post_type();
     }
-
     return false;
-
 }
 
 
@@ -35,14 +33,11 @@ function is_product( $post ) {
  * @return string|boolean
  */
 function get_product_post_type() {
-
     switch ( UCARE_ECOMMERCE_MODE ) {
         case 'edd':
             return 'download';
         case 'woo':
             return 'product';
     }
-
     return false;
-
 }

@@ -99,25 +99,11 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 define( 'UCARE_SERVER_ADDRESS', 'https://ucaresupport.com' );
             }
 
+            register_early_settings();
+            $this->define_ecommerce_mode();
+
             global $ucare_db_version;
             $ucare_db_version = get_option( Options::DATABASE_VERSION );
-
-            // Define which e-commerce mode the plugin is running in
-            if ( get_option( Options::ECOMMERCE ) ) {
-
-                // Use WooCommerce specific settings
-                if ( class_exists( 'WooCommerce' ) ) {
-                    define( 'UCARE_ECOMMERCE_MODE', 'woo' );
-
-                // Use EDD specific settings
-                } else if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-                    define( 'UCARE_ECOMMERCE_MODE', 'edd' );
-
-                // Use basic e-commerce support
-                } else {
-                    define( 'UCARE_ECOMMERCE_MODE', 'default' );
-                }
-            }
         }
 
         /**
@@ -128,7 +114,6 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function do_includes() {
-
             include_once dirname( __FILE__ ) . '/lib/mail/mail.php';
 
             include_once dirname( __FILE__ ) . '/includes/library/class-edd-sl-plugin-updater.php';
@@ -182,21 +167,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-toolbar.php';
             include_once dirname( __FILE__ ) . '/includes/functions-licensing.php';
             include_once dirname( __FILE__ ) . '/includes/functions-admin-bar.php';
-
-            // If eCommerce support is enabled pull in general support functions
-            if ( defined( 'UCARE_ECOMMERCE_MODE' ) ) {
-                include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
-
-                // Pull in function definitions for EDD
-                if ( UCARE_ECOMMERCE_MODE == 'edd' ) {
-                    include_once dirname( __FILE__ ) . '/includes/functions-ecommerce-edd.php';
-
-                // Pull in function definitions for WooCommerce
-                } else if ( UCARE_ECOMMERCE_MODE == 'woo' ) {
-                    include_once dirname( __FILE__ ) . '/includes/functions-ecommerce-woo.php';
-                }
-            }
-
+            include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
 
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
@@ -235,8 +206,27 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             $args = array(
                 'url' => UCARE_SERVER_ADDRESS
             );
-
             sc_plugin_marketing( $args );
+        }
+
+        /**
+         * Setup the define for the E-Commerce mode that the plugin is running in.
+         *
+         * @since 1.6.0
+         * @return void
+         */
+        private function define_ecommerce_mode() {
+            $enabled = get_option( Options::ECOMMERCE );
+            if ( empty( $enabled ) ) {
+                return;
+            }
+            if ( class_exists( 'WooCommerce' ) ){
+                define( 'UCARE_ECOMMERCE_MODE', 'woo' );
+            } else if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+                define( 'UCARE_ECOMMERCE_MODE', 'edd' );
+            } else {
+                define( 'UCARE_ECOMMERCE_MODE', 'default' );
+            }
         }
 
     }
@@ -257,6 +247,21 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @since 1.6.0
          */
         if ( is_a_support_page() ) do_action( 'ucare_init' );
+    }
+
+
+    /**
+     * Register settings that are required early in the bootstrapping process.
+     *
+     * @since 1.6.0
+     * @return void
+     */
+    function register_early_settings() {
+        register_setting( 'uc-general', Options::ECOMMERCE, array(
+            'type'    => 'string',
+            'default' => Defaults::ECOMMERCE,
+            'sanitize_callback' => 'ucare\sanitize_boolean'
+        ) );
     }
 
 

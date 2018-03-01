@@ -22,7 +22,6 @@ add_shortcode( 'support-login', 'ucare\support_login_form' );
  * @return string
  */
 function support_login_form( $args = array(), $echo = true ) {
-
     $defaults = array(
         'form_id'              => 'loginform',
         'form_class'           => 'support-login-form',
@@ -54,5 +53,4 @@ function support_login_form( $args = array(), $echo = true ) {
     }
 
     return $output;
-
 }
