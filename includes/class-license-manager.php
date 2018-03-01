@@ -68,7 +68,6 @@ final class LicenseManager {
         }
 
         $edd_args['license'] = trim( get_option( $options['license'] ) );
-
         $data = array(
             'edd_updater' => new \EDD_SL_Plugin_Updater( $store_url, $plugin_file, $edd_args ),
             'store_url'   => $store_url,
@@ -80,7 +79,39 @@ final class LicenseManager {
         $this->set( $id, $data );
         $this->register_license_settings( $options['license'],  $options['status'], $options['expiration'] );
 
+        $basename = plugin_basename( $plugin_file );
+        add_filter( "plugin_action_links_{$basename}", array( $this, 'inject_license_action_link' ) );
+
         return true; // S'all good
+    }
+
+    /**
+     * Inject license page links into the plugin actions.
+     *
+     * @filter plugin_action_links_{$basename}
+     *
+     * @param array $links
+     *
+     * @since 1.6.0
+     * @return mixed
+     */
+    public function inject_license_action_link( $links ) {
+        $license = sprintf(
+            '<a href="%1$s">%2$s</a>', menu_page_url( 'ucare-add-ons', false ), __( 'License', 'ucare' )
+        );
+
+        array_unshift( $links, $license );
+        return $links;
+    }
+
+    /**
+     * Check to see if the manager has license registrations.
+     *
+     * @since 1.6.0
+     * @return bool
+     */
+    public function has_licenses() {
+        return !empty( $this->data );
     }
 
     /**
