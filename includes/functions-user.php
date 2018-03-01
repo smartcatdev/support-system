@@ -180,7 +180,7 @@ function get_caps_for_role( $role ) {
 
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
-            'upload_support_media',
+            'manage_site_media',
             'delete_posts',
             'read'
         ),
@@ -199,7 +199,7 @@ function get_caps_for_role( $role ) {
 
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
-            'upload_support_media',
+            'manage_site_media',
             'delete_posts',
             'read'
         ),
@@ -214,7 +214,7 @@ function get_caps_for_role( $role ) {
 
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
-            'upload_support_media',
+            'manage_site_media',
             'delete_posts',
             'read'
         )

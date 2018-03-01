@@ -29,7 +29,7 @@ function revoke_user_media_perms( $all, $caps, $args, $user ) {
         return $all;
     }
 
-    if ( in_array( 'use_support', $all ) && in_array( 'upload_files', $all ) ) {
+    if ( in_array( 'use_support', $all ) && in_array( 'manage_site_media', $all ) ) {
         $all['upload_files'] = false;
     }
 

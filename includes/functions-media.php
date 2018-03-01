@@ -20,29 +20,6 @@ add_filter( 'wp_handle_upload_prefilter', 'ucare\check_attachment_mime_type' );
 // Set attachment error handler
 add_filter( 'wp_handle_upload_prefilter', 'ucare\generate_attachment_uuid' );
 
-// Check for custom media cap
-add_filter( 'wp_handle_upload_prefilter', 'ucare\check_media_capabilities' );
-
-
-/**
- * Check if the user can access support_uploads folder.
- *
- * @action wp_handle_upload_prefilter
- *
- * @param $file
- *
- * @todo Case will needed to be handle for deleting media when we switch that to REST
- * @since 1.6.0
- * @return mixed
- */
-function check_media_capabilities( $file ) {
-    if ( !current_user_can( 'upload_support_media' ) ) {
-        $file['error'] = __( 'you don\'t have permission to upload support media', 'ucare' );
-    }
-
-    return $file;
-}
-
 
 /**
  * Check the request to see if we should override the default media directory.
