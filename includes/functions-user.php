@@ -429,6 +429,24 @@ function user_has_cap( $cap, $user_id = null ) {
 
 
 /**
+ * Check to see if a user is a particular role or in a list of roles.
+ *
+ * @param string|array $roles
+ * @param int|null     $user_id
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function user_is( $roles, $user_id = null ) {
+    foreach ( (array) $roles as $role ) {
+        return in_array( $role, get_user( $user_id )->roles );
+    }
+
+    return false;
+}
+
+
+/**
  * Get the value of a single field from a \WP_User object
  *
  * @param string $field The field to get

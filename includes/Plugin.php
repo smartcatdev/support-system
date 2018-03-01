@@ -82,6 +82,9 @@ class Plugin extends AbstractPlugin {
 
 
     public function register_menu() {
+        if ( !current_user_can( 'manage_support' ) ) {
+            return; /** @since 1.6.0 */
+        }
 
         $this->menu_pages = array(
             'root' => new MenuPage(

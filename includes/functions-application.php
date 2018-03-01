@@ -156,7 +156,6 @@ function is_login_page( $page = null ) {
  * @return bool
  */
 function is_page( $id, $page = null ) {
-
     $page = get_post( $page );
 
     if ( $page && $page->post_type == 'page' ) {
@@ -164,7 +163,6 @@ function is_page( $id, $page = null ) {
     }
 
     return false;
-
 }
 
 

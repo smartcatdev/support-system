@@ -11,6 +11,9 @@ namespace ucare;
 // Add message to head
 add_action( 'admin_notices', fqn( 'admin_marketing_notification' ) );
 
+// Redirect support users
+add_action( 'admin_init', fqn( 'support_user_admin_redirect' ) );
+
 
 /**
  * Displays a marketing notification in the admin area.
@@ -21,9 +24,7 @@ add_action( 'admin_notices', fqn( 'admin_marketing_notification' ) );
  * @return void
  */
 function admin_marketing_notification() {
-    $screen = get_current_screen();
-
-    if ( $screen->parent_base !== 'ucare_support' ) {
+    if ( get_current_screen()->parent_base !== 'ucare_support' ) {
         return;
     }
 
@@ -34,4 +35,19 @@ function admin_marketing_notification() {
     }
 
     printf( '<div class="notice notice-success">%s</div>', $message );
+}
+
+
+/**
+ * Redirect support users if they try to access the admin directly.
+ *
+ * @action admin_init
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function support_user_admin_redirect() {
+    if ( user_is( array( 'support_user', 'support_agent' ) ) ) {
+        wp_redirect( home_url() );
+    }
 }
