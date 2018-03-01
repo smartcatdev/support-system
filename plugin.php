@@ -79,7 +79,9 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         /**
          * Define plugin constants.
          *
-         * @since 14.2
+         * @global $ucare_db_version
+         *
+         * @since 1.4.2
          * @access private
          * @return void
          */
@@ -97,6 +99,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
                 define( 'UCARE_SERVER_ADDRESS', 'https://ucaresupport.com' );
             }
 
+            global $ucare_db_version;
+            $ucare_db_version = get_option( Options::DATABASE_VERSION );
 
             // Define which e-commerce mode the plugin is running in
             if ( get_option( Options::ECOMMERCE ) ) {
@@ -146,6 +150,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
             include_once dirname( __FILE__ ) . '/includes/functions-request.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-database.php';
             include_once dirname( __FILE__ ) . '/includes/functions-auth.php';
             include_once dirname( __FILE__ ) . '/includes/functions-hooks.php';
             include_once dirname( __FILE__ ) . '/includes/functions-formatting.php';

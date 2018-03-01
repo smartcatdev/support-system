@@ -105,6 +105,39 @@ function create_post_and_set_option( $option, $data ) {
 
 
 /**
+ * Execute a database upgrade.
+ *
+ * @global $ucare_db_version
+ *
+ * @param string $new_version
+ *
+ * @internal
+ * @since 1.6.0
+ * @return mixed|string
+ */
+function _exec_db_upgrade( $new_version ) {
+    global $ucare_db_version;
+
+    if ( !function_exists( 'dbDelta' ) ) {
+        include_once ABSPATH . 'wp-admin/includes/upgrade.php';
+    }
+
+    /**
+     *
+     * @since 1.6.0
+     */
+    $upgraded = apply_filters( 'ucare_upgrade_db', true, $ucare_db_version, $new_version );
+
+    if ( $upgraded || is_wp_error( $upgraded ) ) {
+        return $upgraded;
+    }
+
+    update_option( Options::DATABASE_VERSION, $new_version );
+    return $ucare_db_version = $new_version;
+}
+
+
+/**
  * Execute changes made in version 1.0.0
  *
  * @since 1.6.0
@@ -112,6 +145,7 @@ function create_post_and_set_option( $option, $data ) {
  */
 function upgrade_100() {
     /**
+     *
      * Create the main application page
      */
     $data = array(
@@ -122,8 +156,8 @@ function upgrade_100() {
 
     create_post_and_set_option( Options::TEMPLATE_PAGE_ID, $data );
 
-
     /**
+     *
      * Create email templates
      */
     $styles = email_template_get_default_stylesheet();
@@ -214,6 +248,7 @@ function upgrade_111() {
  */
 function upgrade_120() {
     /**
+     *
      * Separate "closed" meta array into separate keys
      */
     $args = array(
@@ -234,6 +269,7 @@ function upgrade_120() {
     }
 
     /**
+     *
      * Schedule new cron jobs
      */
     wp_clear_scheduled_hook( 'ucare\cron\stale_tickets' );
@@ -260,26 +296,14 @@ function upgrade_120() {
  * @return void
  */
 function upgrade_121() {
-    global $wpdb;
-
     /**
-     * Create the logs table
+     *
+     * Execute a db table upgrade
      */
-    $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ucare_logs (
-      id              INT PRIMARY KEY AUTO_INCREMENT,
-      class           CHAR(1),
-      tag             VARCHAR(30),
-      event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      message         TEXT
-    )";
-
-    if ( !function_exists( 'dbDelta' ) ) {
-        include_once ABSPATH . 'wp-admin/includes/upgrade.php';
-    }
-
-    dbDelta( $sql );
+    _exec_db_upgrade( '1.2.1' );
 
     /**
+     *
      * Create closed warning email template
      */
     $data = array(
@@ -305,6 +329,7 @@ function upgrade_121() {
  */
 function upgrade_130() {
     /**
+     *
      * Insert email templates
      */
     $styles = email_template_get_default_stylesheet();
@@ -355,6 +380,7 @@ function upgrade_130() {
  */
 function upgrade_160() {
     /**
+     *
      * Add new application sub pages
      */
     $parent = get_post( get_option( Options::TEMPLATE_PAGE_ID ) );
@@ -387,6 +413,7 @@ function upgrade_160() {
     }
 
     /**
+     *
      * Remove old unused capabilities
      */
     $remove = array(
@@ -425,6 +452,7 @@ function upgrade_160() {
     }
 
     /**
+     *
      * Clear old license check cron
      */
     if ( wp_next_scheduled( 'ucare_check_extension_licenses' ) ) {

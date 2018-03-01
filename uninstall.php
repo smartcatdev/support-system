@@ -25,7 +25,6 @@ if ( get_option( Options::NUKE ) ) {
      */
     ucare_drop_options( Options::class );
 
-
     /**
      *
      * Trash all custom post types
@@ -40,14 +39,11 @@ if ( get_option( Options::NUKE ) ) {
 		wp_trash_post( $post->ID );
 	}
 
-
     /**
      *
      * Drop custom tables
      */
-    global $wpdb;
-	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ucare_logs" );
-
+    drop_custom_tables();
 
     /**
      *
