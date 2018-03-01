@@ -232,10 +232,7 @@
         setToolbarToggle(toggle, value) {
             store.dispatch({
                 type: ActionTypes.SET_TOOLBAR_TOGGLE,
-                data: {
-                    toggle: toggle,
-                    value:  value
-                }
+                data: { toggle: toggle, value:  value }
             });
         },
 
@@ -250,9 +247,7 @@
         selectTicket(id) {
             store.dispatch({
                 type: ActionTypes.BULK_SELECT_ITEM,
-                data: {
-                    id: id
-                }
+                data: { id: id }
             });
         },
 
@@ -267,9 +262,7 @@
         deselectTicket(id) {
             store.dispatch({
                 type: ActionTypes.BULK_DESELECT_ITEM,
-                data: {
-                    id: id
-                }
+                data: { id: id }
             });
         },
 
@@ -279,23 +272,21 @@
          * @param {int} id
          *
          * @since 1.6.0
-         * @return {void}
+         * @return {Deferred}
          */
         deleteTicket(id) {
-            $.ajax({
+            return $.ajax({
                 url: localize.api.root + 'wp/v2/support-tickets/' + id,
                 method: 'delete',
-                beforeSend: set_rest_nonce
+                beforeSend: set_rest_nonce,
+                success: function () {
+                    events.emit('ticket_deleted', id);
+                    store.dispatch({
+                        type: ActionTypes.DELETE_TICKET,
+                        data: { id: id }
+                    });
+                }
             })
-            .success(function () {
-                events.emit('ticket_deleted', id);
-                store.dispatch({
-                    type: ActionTypes.DELETE_TICKET,
-                    data: {
-                        id: id
-                    }
-                });
-            });
         }
     };
 

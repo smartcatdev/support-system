@@ -56,8 +56,6 @@
                 // Reload the ticket list if we are at the end of the list
                 if ($list.find('.ticket').length === 1) {
                     $list.removeClass('no-replace');
-                    App.load_tickets();
-
                     // Unset the bulk action
                     ucare.Actions.setToolbarToggle('bulk_action_active', false);
 
@@ -158,11 +156,13 @@
          * @summary Delete all currently selected tickets.
          *
          * @since 1.6.0
-         * @return void
+         * @return {void}
          */
         bulkDeleteTickets: function () {
-            store.getState().tickets.selected.forEach(function (selected) {
-                ucare.Actions.deleteTicket(selected);
+            $.when.apply($, store.getState().tickets.selected.map(function (selected) {
+                return ucare.Actions.deleteTicket(selected);
+            })).then(function() {
+                window.location.reload();
             });
         },
 
