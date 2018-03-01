@@ -2,8 +2,6 @@
 
 namespace ucare;
 
-use ucare\Options;
-use ucare\util\Logger;
 
 function mark_stale_tickets() {
 

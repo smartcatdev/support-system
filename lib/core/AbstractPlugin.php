@@ -2,7 +2,7 @@
 
 namespace smartcat\core;
 
-use ucare\util\Logger;
+
 
 if( !class_exists( '\smartcat\core\AbstractPlugin' ) ) :
 

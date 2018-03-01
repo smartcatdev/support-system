@@ -195,12 +195,8 @@ function rest_set_ticket_attributes( $post, $request ) {
  * @return \WP_Post|\WP_Error
  */
 function rest_validate_support_ticket( $post ) {
-
-    // If the user is creating a ticket
-    if ( $post->post_status === 'publish' ) {
-
-        // Validate the title is not empty
-        if ( empty( $post->post_title ) ) {
+    if ( $post->post_status === 'publish' ) { // If the user is creating a ticket
+        if ( empty( $post->post_title ) ) { // Validate the title is not empty
             $data = array(
                 'status' => 400,
                 'field'  => 'title'
@@ -209,8 +205,7 @@ function rest_validate_support_ticket( $post ) {
             return new \WP_Error( 'empty-title', __( 'Subject cannot be blank', 'ucare' ), $data );
         }
 
-        // Validate the content is not empty
-        if ( empty( $post->post_content ) ) {
+        if ( empty( $post->post_content ) ) {        // Validate the content is not empty
             $data = array(
                 'status' => 400,
                 'field'  => 'content'
