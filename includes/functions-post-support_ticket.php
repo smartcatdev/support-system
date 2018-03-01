@@ -25,7 +25,6 @@ add_action( 'update_post_metadata', 'ucare\ticket_properties_updated', 10, 4 );
  * @return void
  */
 function register_ticket_post_type() {
-
     $labels = array(
         'name'                  => _x( 'Support Tickets', 'Post Type General Name', 'ucare' ),
         'singular_name'         => _x( 'Support Ticket', 'Post Type Singular Name', 'ucare' ),
@@ -92,7 +91,6 @@ function register_ticket_post_type() {
     }
 
     register_post_type( 'support_ticket', $args );
-
 }
 
 

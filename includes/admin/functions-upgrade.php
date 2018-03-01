@@ -128,7 +128,7 @@ function _exec_db_upgrade( $new_version ) {
      */
     $upgraded = apply_filters( 'ucare_upgrade_db', true, $ucare_db_version, $new_version );
 
-    if ( empty( $upgraded ) || is_wp_error( $upgraded ) ) {
+    if ( is_wp_error( $upgraded ) ) {
         return $upgraded;
     }
 
@@ -426,7 +426,9 @@ function upgrade_160() {
         'administrator' => array(
             'read_support_ticket',
             'edit_support_ticket',
-            'create_support_tickets',
+            'read_email_template',
+            'edit_email_template',
+            'create_support_tickets'
         ),
         'support_admin' => array(
             'create_support_tickets',

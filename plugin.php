@@ -174,6 +174,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-public.php';
             include_once dirname( __FILE__ ) . '/includes/functions-shortcodes.php';
             include_once dirname( __FILE__ ) . '/includes/functions-scripts-wp.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-post-email_template.php';
             include_once dirname( __FILE__ ) . '/includes/functions-post-support_ticket.php';
             include_once dirname( __FILE__ ) . '/includes/functions-taxonomy-ticket_category.php';
             include_once dirname( __FILE__ ) . '/includes/functions-deprecated.php';

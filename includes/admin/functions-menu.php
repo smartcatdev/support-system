@@ -11,6 +11,9 @@ add_action( 'admin_menu', fqn( 'add_menu_pages' ), 1000 );
 // Do first run page
 add_action( 'admin_init', fqn( 'admin_first_run_tutorial_page' ) );
 
+// Set the submenu file
+add_filter( 'submenu_file', 'ucare\set_submenu_file' );
+
 
 /**
  * Add admin menu pages.
@@ -21,6 +24,7 @@ add_action( 'admin_init', fqn( 'admin_first_run_tutorial_page' ) );
  * @return void
  */
 function add_menu_pages() {
+    add_submenu_page( 'ucare_support', '', __( 'Email Templates', 'ucare' ), 'manage_options', 'edit.php?post_type=email_template' );
     ucare_add_admin_page( TutorialPage::class );
     ucare_add_admin_page( AddonsPage::class );
 }
@@ -44,6 +48,36 @@ function admin_first_run_tutorial_page() {
 }
 
 
+/**
+ * Manually set the submenu page open.
+ *
+ * @global $parent_file
+ * @global $current_screen
+ *
+ * @param $submenu_file
+ *
+ * @since 1.0.0
+ * @return string
+ */
+function set_submenu_file( $submenu_file ) {
+    global $parent_file, $current_screen;
+
+    if ( $current_screen->taxonomy === 'ticket_category' ) {
+        $parent_file = 'ucare_support';
+        $submenu_file = 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category';
+    } else if ( $current_screen->base === 'post' ) {
+        $types = array(
+            'support_ticket',
+            'email_template'
+        );
+        if ( in_array( $current_screen->post_type, $types ) ) {
+            $parent_file = 'ucare_support';
+        }
+    }
+    return $submenu_file;
+}
+
+
 
 
 
@@ -61,7 +95,7 @@ add_action( 'ucare_admin_header', 'ucare\get_admin_header' );
 
 add_action( 'uc-settings_admin_page_header', 'ucare\get_admin_header' );
 
-add_filter( 'submenu_file', 'ucare\set_submenu_file' );
+
 
 
 function enqueue_admin_scripts( $hook ) {
@@ -157,20 +191,3 @@ function get_admin_header( $echo = true ) {
     return $header;
 
 }
-
-
-function set_submenu_file( $submenu_file ) {
-
-    global $parent_file, $current_screen;
-
-    if ( $current_screen->taxonomy === 'ticket_category' ) {
-        $parent_file = 'ucare_support';
-        $submenu_file = 'edit-tags.php?post_type=support_ticket&taxonomy=ticket_category';
-    } else if ( $current_screen->base === 'post' && $current_screen->post_type == 'support_ticket' ) {
-        $parent_file = 'ucare_support';
-    }
-
-    return $submenu_file;
-
-}
-
