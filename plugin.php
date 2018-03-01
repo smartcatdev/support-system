@@ -338,22 +338,22 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
      * @return array
      */
     function add_plugin_action_links( $links ) {
+        $custom = array(
+            'settings' => sprintf(
+                '<a href="%1$s">%2$s</a>', menu_page_url( 'uc-settings', false ), __( 'Settings', 'ucare' ) )
+        );
+
         if ( ucare_get_license_manager()->has_licenses() ) {
-            $licenses = sprintf(
-                '<a href="%1$s">%2$s</a>', menu_page_url( 'ucare-add-ons', false ), __( 'Add-Ons', 'ucare' )
+            $custom['licenses'] = sprintf(
+                '<a href="%1$s">%2$s</a>', menu_page_url( 'ucare-add-ons', false ), __( 'Add-ons', 'ucare' )
             );
-            array_unshift( $links, $licenses );
         }
 
         if ( !ucare_in_dev_mode() ) {
             $links['deactivate'] = sprintf( '<span id="feedback-prompt">%s</span>', $links['deactivate'] );
         }
 
-        $custom = array(
-            'settings' => sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'uc-settings', false ), __( 'Settings', 'ucare' ) )
-        );
-
-        return array_merge( $links, $custom );
+        return array_merge( $custom, $links );
     }
 
     //<editor-fold desc="Legacy Boot">

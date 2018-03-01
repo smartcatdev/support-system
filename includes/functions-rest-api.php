@@ -172,7 +172,6 @@ function rest_set_ticket_attributes( $post, $request ) {
         }
     }
 
-
     if ( $post->post_status === 'publish' ) {
         /**
          * Call support_ticket_created after all fields are added via REST
@@ -205,7 +204,7 @@ function rest_validate_support_ticket( $post ) {
             return new \WP_Error( 'empty-title', __( 'Subject cannot be blank', 'ucare' ), $data );
         }
 
-        if ( empty( $post->post_content ) ) {        // Validate the content is not empty
+        if ( empty( $post->post_content ) ) { // Validate the content is not empty
             $data = array(
                 'status' => 400,
                 'field'  => 'content'

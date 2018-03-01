@@ -439,7 +439,10 @@ function user_has_cap( $cap, $user_id = null ) {
  */
 function user_is( $roles, $user_id = null ) {
     foreach ( (array) $roles as $role ) {
-        return in_array( $role, get_user( $user_id )->roles );
+        $user = get_user( $user_id );
+        if ( $user ) {
+            return in_array( $role, $user->roles );
+        }
     }
 
     return false;
