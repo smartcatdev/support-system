@@ -95,6 +95,25 @@ function register_ticket_post_type() {
 
 
 /**
+ * See if a post is a support ticket.
+ *
+ * @param null|int|\WP_Post $ticket
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function is_support_ticket( $ticket = null ) {
+    $ticket = get_post( $ticket );
+
+    if ( !$ticket || $ticket->post_type !== 'support_ticket' ) {
+        return false;
+    }
+
+    return true;
+}
+
+
+/**
  * Get a list of the ticket statuses.
  *
  * @since 1.4.2
@@ -209,7 +228,7 @@ function set_default_ticket_meta( $post_id, $post, $update ) {
     if ( !$update ) {
 
         foreach ( $defaults as $key => $value ) {
-            add_post_meta( $post_id, $key, $value );
+            add_post_meta( $post_id, $key, $value, true );
         }
     }
 }

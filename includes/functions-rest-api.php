@@ -151,7 +151,6 @@ function rest_set_ticket_attributes( $post, $request ) {
     $meta = $request->get_param( 'meta' );
 
     if ( is_array( $meta ) ) {
-
         if ( !empty( $meta['product'] ) && is_product( $meta['product'] ) ) {
             update_post_meta( $post->ID, 'product', absint( $meta['product'] ) );
         }

@@ -140,10 +140,21 @@ function ucare_get_logger( $type ) {
  * Get the license manager instance.
  *
  * @since 1.6.0
- * @return \ucare\LicenseManager|ucare\Singleton
+ * @return \ucare\LicenseManager
  */
 function ucare_get_license_manager() {
     return \ucare\LicenseManager::instance();
+}
+
+
+/**
+ * Get the ticket API instance.
+ *
+ * @since 1.6.0
+ * @return \ucare\TicketAPI
+ */
+function ucare_ticket_api() {
+    return \ucare\TicketAPI::instance();
 }
 
 
@@ -236,6 +247,23 @@ function ucare_get_products() {
     }
 
     return get_posts( array( 'post_type' => ucare_product_post_type(), 'posts_per_page' => -1 ) );
+}
+
+
+/**
+ * Get a list of available ticket categories.
+ *
+ * @param bool $hide_empty
+ *
+ * @since 1.6.0
+ * @return array|int|\WP_Error
+ */
+function ucare_get_categories( $hide_empty = false ) {
+    $args = array(
+        'taxonomy'   => 'ticket_category',
+        'hide_empty' => $hide_empty
+    );
+    return get_terms( $args );
 }
 
 
@@ -562,7 +590,6 @@ function ucare_is_support_admin( $user_id = null ) {
     return \ucare\user_has_cap( 'manage_support', $user_id );
 }
 
-
 /***********************************************************************************************************************
  *
  * General purpose template functions
@@ -736,6 +763,17 @@ function ucare_reset_user_password( $username ) {
  */
 function ucare_get_agents() {
     return ucare\get_users_with_cap( 'manage_support_tickets' );
+}
+
+
+/**
+ * Get all users who can use the support system.
+ *
+ * @since 1.6.0
+ * @return array
+ */
+function ucare_get_support_users() {
+    return \ucare\get_users_with_cap( 'use_support' );
 }
 
 

@@ -68,8 +68,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         protected function initialize() {
             $this->do_defines();
             $this->do_includes();
-
-            $this->init_licensing();
+            $this->load_modules();
             $this->init_marketing();
 
             // All done
@@ -131,6 +130,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/class-toolbar.php';
             include_once dirname( __FILE__ ) . '/includes/class-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/class-styles.php';
+            include_once dirname( __FILE__ ) . '/includes/class-ticket-api.php';
             include_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
@@ -186,13 +186,13 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
         }
 
         /**
-         * Initialize module for handling extension licensing.
+         * Initialize and load core plugin modules.
          *
-         * @since 1.4.2
-         * @access private
+         * @since 1.6.0
          * @return void
          */
-        private function init_licensing() {
+        private function load_modules() {
+            $this->set( 'ticket_api', ucare_ticket_api() );
             $this->set( 'license_manager', ucare_get_license_manager() );
         }
 

@@ -47,7 +47,12 @@ function admin_marketing_notification() {
  * @return void
  */
 function support_user_admin_redirect() {
-    if ( user_is( array( 'support_user', 'support_agent' ) ) ) {
+    $roles = array(
+        'support_user',
+        'support_agent'
+    );
+
+    if ( !wp_doing_ajax() && user_is( $roles ) ) {
         wp_redirect( home_url() );
     }
 }
