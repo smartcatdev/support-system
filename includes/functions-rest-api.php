@@ -148,37 +148,22 @@ function rest_filter_attachment_query( $args ) {
  * @return void
  */
 function rest_set_ticket_attributes( $post, $request ) {
-    $meta = $request->get_param( 'meta' );
-
-    if ( is_array( $meta ) ) {
-        if ( !empty( $meta['product'] ) && is_product( $meta['product'] ) ) {
-            update_post_meta( $post->ID, 'product', absint( $meta['product'] ) );
-        }
-
-        if ( !empty( $meta['receipt_id'] ) ) {
-            update_post_meta( $post->ID, 'receipt_id', sanitize_text_field( $meta['receipt_id'] ) );
-        }
-    }
-
-    // Set the category
     $category = $request->get_param( 'category' );
+    $metadata = $request->get_param( 'meta' );
 
-    if ( $category ) {
-        $cat_term = get_term( absint( $category ), 'ticket_category' );
+    $args = array(
+        'id' => $post->ID
+    );
 
-        if ( $cat_term ) {
-            wp_set_post_terms( $post->ID, (array) $cat_term->slug, 'ticket_category' );
-        }
+    if ( is_array( $metadata ) ) {
+        $args = array_merge( $args, $metadata );
     }
 
-    if ( $post->post_status === 'publish' ) {
-        /**
-         * Call support_ticket_created after all fields are added via REST
-         *
-         * @since 1.6.0
-         */
-        do_action( 'support_ticket_created', $post, $post->ID );
+    if ( !empty( $category ) ) {
+        $args['category'] = (int) $category;
     }
+
+    ucare_api()->insert_ticket( $args );
 }
 
 
@@ -193,24 +178,24 @@ function rest_set_ticket_attributes( $post, $request ) {
  * @return \WP_Post|\WP_Error
  */
 function rest_validate_support_ticket( $post ) {
-    if ( $post->post_status === 'publish' ) { // If the user is creating a ticket
-        if ( empty( $post->post_title ) ) { // Validate the title is not empty
-            $data = array(
-                'status' => 400,
-                'field'  => 'title'
-            );
+    if ( $post->post_status !== 'publish' ) {
+        return $post;
+    }
 
-            return new \WP_Error( 'empty-title', __( 'Subject cannot be blank', 'ucare' ), $data );
-        }
+    if ( empty( $post->post_title ) ) { // Validate the title is not empty
+        $data = array(
+            'status' => 400,
+            'field'  => 'title'
+        );
+        return new \WP_Error( 'empty-title', __( 'Subject cannot be blank', 'ucare' ), $data );
+    }
 
-        if ( empty( $post->post_content ) ) { // Validate the content is not empty
-            $data = array(
-                'status' => 400,
-                'field'  => 'content'
-            );
-
-            return new \WP_Error( 'empty-content', __( 'Description cannot be blank', 'ucare' ), $data );
-        }
+    if ( empty( $post->post_content ) ) { // Validate the content is not empty
+        $data = array(
+            'status' => 400,
+            'field'  => 'content'
+        );
+        return new \WP_Error( 'empty-content', __( 'Description cannot be blank', 'ucare' ), $data );
     }
 
     return $post;

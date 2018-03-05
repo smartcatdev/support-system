@@ -29,6 +29,15 @@ add_action( 'comment_post', 'ucare\new_comment', 20, 3 );
  * @return void
  */
 function ticket_created( $id, $ticket ) {
+    if ( get_post_meta( 'published', $id, true ) ) {
+        return; // Only allow created action to run once for a ticket
+    }
+    update_post_meta( $id, 'published', true );
+
+    /**
+     *
+     * @since 1.6.0
+     */
     do_action( 'support_ticket_created', $ticket, $id );
 }
 

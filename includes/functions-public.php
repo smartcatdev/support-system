@@ -151,10 +151,10 @@ function ucare_get_license_manager() {
  * Get the ticket API instance.
  *
  * @since 1.6.0
- * @return \ucare\TicketAPI
+ * @return \ucare\API
  */
-function ucare_ticket_api() {
-    return \ucare\TicketAPI::instance();
+function ucare_api() {
+    return \ucare\API::instance();
 }
 
 

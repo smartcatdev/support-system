@@ -130,7 +130,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/class-toolbar.php';
             include_once dirname( __FILE__ ) . '/includes/class-scripts.php';
             include_once dirname( __FILE__ ) . '/includes/class-styles.php';
-            include_once dirname( __FILE__ ) . '/includes/class-ticket-api.php';
+            include_once dirname( __FILE__ ) . '/includes/class-api.php';
             include_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
 
             include_once dirname( __FILE__ ) . '/includes/functions.php';
@@ -192,7 +192,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function load_modules() {
-            $this->set( 'ticket_api', ucare_ticket_api() );
+            $this->set( 'api', ucare_api() );
             $this->set( 'license_manager', ucare_get_license_manager() );
         }
 
