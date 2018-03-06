@@ -42,23 +42,23 @@ function register_email_template_post_type() {
         'filter_items_list'     => __( 'Filter templates list', 'ucare' )
     );
     $args = array(
-        'label'               => __( 'Email Template' ),
-        'description'         => __( 'Templates for automated support emails' ),
-        'labels'              => $labels,
-        'supports'            => array( 'editor', 'title' ),
-        'hierarchical'        => false,
-        'public'              => false,
-        'show_ui'             => true,
-        'show_in_menu'        => false,
-        'menu_position'       => 70,
-        'show_in_admin_bar'   => false,
-        'show_in_nav_menus'   => false,
-        'can_export'          => true,
-        'has_archive'         => false,
-        'exclude_from_search' => true,
-        'publicly_queryable'  => false,
-        'capability_type'     => array( 'email_template', 'email_templates' ),
-        'map_meta_cap'        => true
+        'label'                => __( 'Email Template' ),
+        'description'          => __( 'Templates for automated support emails' ),
+        'labels'               => $labels,
+        'supports'             => array( 'editor', 'title' ),
+        'hierarchical'         => false,
+        'public'               => false,
+        'show_ui'              => true,
+        'show_in_menu'         => false,
+        'menu_position'        => 70,
+        'show_in_admin_bar'    => false,
+        'show_in_nav_menus'    => false,
+        'can_export'           => true,
+        'has_archive'          => false,
+        'exclude_from_search'  => true,
+        'publicly_queryable'   => false,
+        'capability_type'      => array( 'email_template', 'email_templates' ),
+        'map_meta_cap'         => true
     );
 
     register_post_type( 'email_template', $args );

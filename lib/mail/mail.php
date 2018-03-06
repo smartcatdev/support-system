@@ -113,12 +113,6 @@ if( !function_exists( '\smartcat\mail\init' ) ) {
         unregister_post_type( 'email_template' );
     }
 
-    function init() {
-        $metabox = new TemplateStyleMetaBox();
-    }
-
-    add_action( 'init', 'smartcat\mail\init' );
-
 
     function disable_wsiwyg( $enabled ) {
         if( get_post_type() == 'email_template' ) {

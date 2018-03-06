@@ -124,6 +124,26 @@ function ucare_dev_var( $prod, $dev ) {
 
 
 /**
+ * Validate request Nonces.
+ *
+ * @param int    $action
+ * @param string $nonce
+ * @param bool   $die
+ *
+ * @since 1.6.0
+ * @return bool
+ */
+function ucare_check_nonce( $action = -1, $nonce = '_wpnonce', $die = true ) {
+    $valid = \ucare\verify_request_nonce( $action, $nonce );
+
+    if ( !$valid && $die ) {
+        wp_die( __( 'Nonce failure', 'ucare' ) );
+    }
+
+    return $valid;
+}
+
+/**
  * Returns an instance of a logger to save log entries to the logs table.
  *
  * @since 1.3.0
