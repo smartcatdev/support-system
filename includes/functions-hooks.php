@@ -10,57 +10,59 @@
 namespace ucare;
 
 
-add_action( 'publish_support_ticket', 'ucare\ticket_created', 20, 2 );
-
-add_action( 'wp_insert_post', 'ucare\ticket_updated', 20, 3 );
+//add_action( 'publish_support_ticket', 'ucare\ticket_created', 20, 2 );
+//
+//add_action( 'wp_insert_post', 'ucare\ticket_updated', 20, 3 );
 
 add_action( 'comment_post', 'ucare\new_comment', 20, 3 );
 
 
-/**
- * Runs when a ticket is published and is visible from within the application UI.
- *
- * @action publish_support_ticket
- *
- * @param $id
- * @param $ticket
- *
- * @since 1.6.0
- * @return void
- */
-function ticket_created( $id, $ticket ) {
-    if ( get_post_meta( 'published', $id, true ) ) {
-        return; // Only allow created action to run once for a ticket
-    }
-    update_post_meta( $id, 'published', true );
-
-    /**
-     *
-     * @since 1.6.0
-     */
-    do_action( 'support_ticket_created', $ticket, $id );
-}
-
-
-/**
- * 
- * Runs when new ticket is created or when existing ticket is updated
- * 
- * @action wp_insert_post
- * 
- * @param int      $id
- * @param \WP_Post $ticket
- * @param boolean  $update
- *
- * @since 1.5.0
- * @return void
- */
-function ticket_updated( $id, $ticket, $update ) {
-    // Ensure we're dealing with a ucare ticket
-    if ( $ticket->post_type !== 'support_ticket' && $update ) {
-        do_action( 'support_ticket_updated', $ticket, $id );
-    }
-}
+///**
+// * Runs when a ticket is published and is visible from within the application UI.
+// *
+// * @action publish_support_ticket
+// *
+// * @param $id
+// * @param $ticket
+// *
+// * @deprecated
+// * @since 1.6.0
+// * @return void
+// */
+//function ticket_created( $id, $ticket ) {
+//    if ( get_post_meta( 'published', $id, true ) ) {
+//        return; // Only allow created action to run once for a ticket
+//    }
+//    update_post_meta( $id, 'published', true );
+//
+//    /**
+//     *
+//     * @since 1.6.0
+//     */
+//    do_action( 'support_ticket_created', $ticket, $id );
+//}
+//
+//
+///**
+// *
+// * Runs when new ticket is created or when existing ticket is updated
+// *
+// * @action wp_insert_post
+// *
+// * @param int      $id
+// * @param \WP_Post $ticket
+// * @param boolean  $update
+// *
+// * @deprecated
+// * @since 1.5.0
+// * @return void
+// */
+//function ticket_updated( $id, $ticket, $update ) {
+//    // Ensure we're dealing with a ucare ticket
+//    if ( $ticket->post_type !== 'support_ticket' && $update ) {
+//        do_action( 'support_ticket_updated', $ticket, $id );
+//    }
+//}
 
 
 /**

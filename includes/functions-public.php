@@ -143,7 +143,7 @@ function ucare_get_logger( $type ) {
  * @return \ucare\LicenseManager
  */
 function ucare_get_license_manager() {
-    return \ucare\LicenseManager::instance();
+    return \ucare\ucare()->get( 'license_manager' );
 }
 
 
@@ -154,7 +154,7 @@ function ucare_get_license_manager() {
  * @return \ucare\API
  */
 function ucare_api() {
-    return \ucare\API::instance();
+    return \ucare\ucare()->get( 'api' );
 }
 
 
@@ -283,6 +283,29 @@ function ucare_get_ticket_categories() {
     return $terms;
 }
 
+/**
+ * Insert or updates a support ticket.
+ *
+ * @param string|array $args {
+ *  Arguments supplied when creating a new support ticket.
+ *
+ *  @param int        $id
+ *  @param int        $author
+ *  @param string     $subject
+ *  @param string     $body
+ *  @param int        $agent
+ *  @param string     $status
+ *  @param int        $priority
+ *  @param int        $product
+ *  @param int|string $category
+ * }
+ *
+ * @since 1.6.0
+ * @return \WP_Post|\WP_Error
+ */
+function ucare_insert_ticket( $args ) {
+    return ucare_api()->insert_ticket( $args );
+}
 
 /***********************************************************************************************************************
  *

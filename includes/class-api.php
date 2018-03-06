@@ -27,7 +27,7 @@ final class API {
     protected function initialize() {}
 
     /**
-     * Insert a support ticket.
+     * Insert or updates a support ticket.
      *
      * @param string|array $args {
      *  Arguments supplied when creating a new support ticket.
@@ -95,7 +95,7 @@ final class API {
 
         if ( !empty( $data['category'] ) ) {
             $category = array(
-                'ticket_category' => array( $data['category'] )
+                'ticket_category' => (array) $data['category']
             );
             $insert['tax_input'] = $category;
         }
@@ -170,7 +170,6 @@ final class API {
                         return new \WP_Error( 'invalid_status', sprintf( __( "Ticket status '%s' is invalid", 'ucare' ), $args['status' ] ) );
                     }
 
-                    $data['status'] = $args['status'];
                     break;
 
                 case 'priority':
@@ -178,7 +177,6 @@ final class API {
                         return new \WP_Error( 'invalid_priority', sprintf( __( "Ticket priority '%s' is invalid", 'ucare' ), $args['priority'] ) );
                     }
 
-                    $data['priority'] = $args['priority'];
                     break;
 
                 case 'agent':
@@ -186,7 +184,6 @@ final class API {
                         return new \WP_Error( 'invalid_agent', sprintf( __( "Agent ID '%d' is invalid", 'ucare' ), $args['agent'] ) );
                     }
 
-                    $data['agent'] = $args['agent'];
                     break;
 
                 case 'product':
@@ -194,7 +191,6 @@ final class API {
                         return new \WP_Error( 'invalid_product', sprintf( __( "Product ID '%d' is invalid", 'ucare' ), $args['product'] ) );
                     }
 
-                    $data['product'] = $args['product'];
                     break;
 
                 case 'category':
@@ -203,8 +199,6 @@ final class API {
                         if ( empty( $category ) ) {
                             return new \WP_Error( 'invalid_category', sprintf( __( "Category '%s' is invalid", 'ucare' ), $args['category'] ) );
                         }
-
-                        $data['category'] = $args['category'];
                     }
 
                     break;
@@ -214,7 +208,6 @@ final class API {
                         return new \WP_Error( 'invalid_author', sprintf( __( "Author ID'%d' is invalid", 'ucare' ), $args['author'] ) );
                     }
 
-                    $data['author'] = $args['author'];
                     break;
 
                 case 'subject':
@@ -222,7 +215,6 @@ final class API {
                         return new \WP_Error( 'invalid_subject', __( 'Ticket subject cannot be empty', 'ucare' ) );
                     }
 
-                    $data['subject'] = $args['subject'];
                     break;
 
                 case 'body':
@@ -230,9 +222,10 @@ final class API {
                         return new \WP_Error( 'invalid_content', __( 'Ticket content cannot be empty', 'ucare' ) );
                     }
 
-                    $data['content'] = $args['content'];
                     break;
             }
+
+            $data[ $key ] = $args[ $key ];
         }
 
         return $data;

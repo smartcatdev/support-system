@@ -192,8 +192,8 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          * @return void
          */
         private function load_modules() {
-            $this->set( 'api', ucare_api() );
-            $this->set( 'license_manager', ucare_get_license_manager() );
+            $this->set( 'api', API::instance() );
+            $this->set( 'license_manager', LicenseManager::instance() );
         }
 
         /**

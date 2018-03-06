@@ -163,7 +163,7 @@ function rest_set_ticket_attributes( $post, $request ) {
         $args['category'] = (int) $category;
     }
 
-    ucare_api()->insert_ticket( $args );
+    ucare_insert_ticket( $args );
 }
 
 
