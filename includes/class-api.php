@@ -73,9 +73,9 @@ final class API {
         }
 
         $insert = array(
-            'ID'            => $update ? $ticket->ID : 0,
-            'post_type'     => 'support_ticket',
-            'meta_input'    => array()
+            'ID'         => $update ? $ticket->ID : 0,
+            'post_type'  => 'support_ticket',
+            'meta_input' => array()
         );
 
         $post_fields = array(
@@ -123,6 +123,10 @@ final class API {
         }
 
         $ticket = get_post( $id );
+
+        if ( $ticket->post_status !== 'publish' ) {
+            return $ticket; // Skip unpublished ticket notifications
+        }
 
         if ( get_post_meta( 'published', $id, true ) ) {
             /**

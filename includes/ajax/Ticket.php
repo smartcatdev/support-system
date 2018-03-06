@@ -388,6 +388,8 @@ class Ticket extends AjaxComponent {
         $args = array(
             'post_type'      => 'support_ticket',
             'post_status'    => 'publish',
+            'orderby'        => 'modified',
+            'order'          => 'DESC',
             'posts_per_page' => get_option( Options::MAX_TICKETS, \ucare\Defaults::MAX_TICKETS ),
             'paged'          => isset ( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1
         );
