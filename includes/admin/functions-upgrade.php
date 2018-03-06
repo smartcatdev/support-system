@@ -97,9 +97,8 @@ function create_post_and_set_option( $option, $data ) {
     $post = get_post( get_option( $option ) );
 
     if ( $post && $post->post_status === 'publish' ) {
-        return true;
+        return false;
     }
-
     $id = wp_insert_post( $data );
 
     if ( !$id ) {
