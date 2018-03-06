@@ -140,9 +140,9 @@ add_action( 'support_mark_ticket_stale', 'ucare\send_stale_ticket_email' );
 
 
 /**
- * 
+ *
  * Send ticket created confirmation email to the user that created the ticket
- * 
+ *
  * @since 1.0.0
  * @param \WP_Post $ticket
  */
@@ -153,7 +153,7 @@ function send_ticket_created_email( \WP_Post $ticket ) {
     $template_vars = array(
         'ticket_subject' => $ticket->post_title,
         'ticket_number'  => $ticket->ID,
-        'ticket_content' => $ticket->post_content
+        'ticket_content' => apply_filters( 'the_content', $ticket->post_content )
     );
 
     send_email( get_option( Options::TICKET_CREATED_EMAIL ), $recipient->user_email, $template_vars );
@@ -164,9 +164,9 @@ add_action( 'support_ticket_created', 'ucare\send_ticket_created_email' );
 
 
 /**
- * 
+ *
  * Send ticket created email to the admin
- * 
+ *
  * @since 1.0.
  * @param \WP_Post $ticket
  */
@@ -178,7 +178,7 @@ function send_new_ticket_email( \WP_Post $ticket ) {
         'ticket_subject' => $ticket->post_title,
         'ticket_number'  => $ticket->ID,
         'user'           => util\user_full_name( get_user_by( 'id', $ticket->post_author ) ),
-        'ticket_content' => $ticket->post_content
+        'ticket_content' => apply_filters( 'the_content', $ticket->post_content )
     );
 
     send_email( get_option( Options::NEW_TICKET_ADMIN_EMAIL ), $recipient, $template_vars );
@@ -202,7 +202,7 @@ function send_user_replied_email( $comment_id ) {
             $template_vars = array(
                 'ticket_subject' => $ticket->post_title,
                 'ticket_number'  => $ticket->ID,
-                'reply'          => $comment->comment_content,
+                'reply'          => apply_filters( 'the_content', $comment->comment_content ),
                 'user'           => $comment->comment_author
             );
 
@@ -234,7 +234,7 @@ function send_agent_replied_email( $comment_id ) {
             $template_vars = array(
                 'ticket_subject' => $ticket->post_title,
                 'ticket_number'  => $ticket->ID,
-                'reply'          => $comment->comment_content,
+                'reply'          => apply_filters( 'the_content', $comment->comment_content ),
                 'agent'          => $comment->comment_author
             );
 
@@ -267,7 +267,7 @@ function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
 
             $template_vars = array(
                 'ticket_subject' => $post->post_title,
-                'ticket_content' => $post->post_content,
+                'ticket_content' => apply_filters( 'the_content', $post->post_content ),
                 'ticket_number'  => $post->ID,
                 'ticket_status'  => $value
             );
@@ -301,7 +301,7 @@ function send_ticket_assigned_email( $null, $id, $key, $value, $old ) {
 
             $template_vars = array(
                 'ticket_subject' => $post->post_title,
-                'ticket_content' => $post->post_content,
+                'ticket_content' => apply_filters( 'the_content', $post->post_content ),
                 'ticket_number'  => $post->ID,
                 'user'           => util\user_full_name( $user )
             );
