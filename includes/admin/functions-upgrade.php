@@ -94,13 +94,20 @@ function email_template_get_default_stylesheet() {
  * @return bool
  */
 function create_post_and_set_option( $option, $data ) {
-    $id = wp_insert_post( $data );
+    $post = get_post( get_option( $option ) );
 
-    if ( $id ) {
-        return update_option( $option, $id );
+    if ( $post && $post->post_status === 'publish' ) {
+        return true;
     }
 
-    return false;
+    $id = wp_insert_post( $data );
+
+    if ( !$id ) {
+        return false;
+    }
+    update_option( $option, $id );
+
+    return true;
 }
 
 
