@@ -41,7 +41,36 @@ final class LicenseManager {
      * @return void
      */
     private function add_hooks() {
+        add_action( 'ucare_loaded', array( $this, 'load_registered_extensions' ) );
         add_action( 'ucare_extensions_license_check', array( $this, 'check_licenses' ) );
+    }
+
+    /**
+     * Initialize valid extensions.
+     *
+     * @action ucare_loaded
+     *
+     * @param uCare $ucare
+     *
+     * @since 1.6.0
+     * @return void
+     */
+    public function load_registered_extensions( $ucare ) {
+        if ( empty( $this->data ) ) {
+            return; // Nothing to do
+        }
+
+        foreach ( $this->data as $id => $extension ) {
+            $lock = get_option( pluck( $extension['options'], 'init_lock' ) );
+            /**
+             *
+             * Extensions must be activated at least once (lock=true) on the current domain
+             * in order for their registered init method to be called at boot.
+             */
+            if ( !empty( $lock ) && is_callable( $extension['init'] ) ) {
+                call_user_func( $extension['init'], $ucare );
+            }
+        }
     }
 
     /**
@@ -53,27 +82,31 @@ final class LicenseManager {
      * @param array  $options     {
      *      The option keys where the license data will be stored.
      *
-     *      string $license    The option to use to store the license key.
-     *      string $status     The option to use to store the license status.
-     *      string $expiration The option to use to store the license expiration date.
+     *      @type string $license    The option to use to store the license key.
+     *      @type string $status     The option to use to store the license status.
+     *      @type string $expiration The option to use to store the license expiration date.
      * }
-     * @param array  $edd_args    EDD updater arguments. @see \EDD_SL_Plugin_Updater
+     * @param array    $edd_args    EDD updater arguments. @see \EDD_SL_Plugin_Updater
+     * @param callable $init        The plugin init to be called after the license has been verified
      *
      * @since 1.6.0
      * @return bool
      */
-    public function add_license( $id, $store_url, $plugin_file, array $options, array $edd_args ) {
+    public function add_license( $id, $store_url, $plugin_file, array $options, array $edd_args, $init = '' ) {
         if ( $this->get( $id ) ) {
             return false;
         }
 
         $edd_args['license'] = trim( get_option( $options['license'] ) );
+        $options['init_lock'] = "_{$id}_init_lock";
+
         $data = array(
             'edd_updater' => new \EDD_SL_Plugin_Updater( $store_url, $plugin_file, $edd_args ),
             'store_url'   => $store_url,
             'options'     => $options,
             'item_name'   => $edd_args['item_name'],
-            'plugin_file' => $plugin_file
+            'plugin_file' => $plugin_file,
+            'init'        => $init
         );
 
         $this->set( $id, $data );
@@ -142,7 +175,6 @@ final class LicenseManager {
                     delete_option( $status );
                     delete_option( $expiry );
                 }
-
                 return sanitize_title( $new );
             }
         ) );
@@ -177,6 +209,7 @@ final class LicenseManager {
         if ( $license['success'] ) {
             update_option( $data['options']['status'],     pluck( $license, 'license' ) );
             update_option( $data['options']['expiration'], pluck( $license, 'expires' ) );
+            update_option( $data['options']['init_lock'],  true ); // License has been activated at least once on current domain
 
             $this->clear_expired_license( $id );
 

@@ -473,5 +473,20 @@ function upgrade_160() {
         wp_clear_scheduled_hook( 'ucare_check_extension_licenses' );
     }
 
+    /**
+     *
+     *
+     * Migrate exiting valid licenses
+     */
+    $manager = ucare_get_license_manager();
+
+    foreach ( $manager->get_extensions() as $id => $data ) {
+        if ( get_option( $data['options']['status'] ) !== 'valid' ) {
+            continue; // Skip invalid licenses
+        }
+
+        update_option( $data['options']['init_lock'], true );
+    }
+
     error_log( 'uCare upgraded to 1.6.0' );
 }

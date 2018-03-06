@@ -32,15 +32,15 @@ final class API {
      * @param string|array $args {
      *  Arguments supplied when creating a new support ticket.
      *
-     *  @param int        $id
-     *  @param int        $author
-     *  @param string     $subject
-     *  @param string     $body
-     *  @param int        $agent
-     *  @param string     $status
-     *  @param int        $priority
-     *  @param int        $product
-     *  @param int|string $category
+     *      @type int        $id
+     *      @type int        $author
+     *      @type string     $subject
+     *      @type string     $body
+     *      @type int        $agent
+     *      @type string     $status
+     *      @type int        $priority
+     *      @type int        $product
+     *      @type int|string $category
      * }
      *
      * @since 1.6.0

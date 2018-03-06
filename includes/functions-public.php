@@ -26,6 +26,7 @@ use ucare\Logger;
  *      @type string    $item_name      The item name as it appears in EDD
  *      @type string    $author         The name of the extension author
  *      @type string    $file           Your plugin's main file
+ *      @type callable  $init           Your plugin's init entry-point
  * }
  *
  * @since 1.3.0
@@ -48,8 +49,9 @@ function ucare_register_license( $id, $args ) {
         'author'    => $args['author'],
         'item_name' => $args['item_name']
     );
+    $init = \ucare\pluck( $args, 'init' );
 
-    $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args );
+    $manager->add_license( $id, $args['store_url'], $args['file'], $options, $edd_args, $init );
 }
 
 
@@ -309,15 +311,15 @@ function ucare_get_ticket_categories() {
  * @param string|array $args {
  *  Arguments supplied when creating a new support ticket.
  *
- *  @param int        $id
- *  @param int        $author
- *  @param string     $subject
- *  @param string     $body
- *  @param int        $agent
- *  @param string     $status
- *  @param int        $priority
- *  @param int        $product
- *  @param int|string $category
+ *      @type int        $id
+ *      @type int        $author
+ *      @type string     $subject
+ *      @type string     $body
+ *      @type int        $agent
+ *      @type string     $status
+ *      @type int        $priority
+ *      @type int        $product
+ *      @type int|string $category
  * }
  *
  * @since 1.6.0
