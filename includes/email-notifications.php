@@ -186,68 +186,6 @@ function send_new_ticket_email( \WP_Post $ticket ) {
 add_action( 'support_ticket_created', 'ucare\send_new_ticket_email' );
 
 
-function send_user_replied_email( $comment_id ) {
-
-    // Check to see if the user has lower privileges than support agents
-    if( !current_user_can( 'manage_support_tickets' ) ) {
-
-        $comment = get_comment( $comment_id );
-        $ticket  = get_post( $comment->comment_post_ID );
-
-        // Make sure the ticket is still open
-        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
-
-            $template_vars = array(
-                'ticket_subject' => $ticket->post_title,
-                'ticket_number'  => $ticket->ID,
-                'reply'          => $comment->comment_content,
-                'user'           => $comment->comment_author
-            );
-
-            $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
-
-            if( $recipient ) {
-                send_email( get_option( Options::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
-            }
-
-        }
-
-    }
-
-}
-
-add_action( 'comment_post', 'ucare\send_user_replied_email' );
-
-
-function send_agent_replied_email( $comment_id ) {
-
-    if( current_user_can( 'manage_support_tickets' ) ) {
-
-        $comment = get_comment( $comment_id );
-        $ticket  = get_post( $comment->comment_post_ID );
-
-        // Make sure the ticket is still open
-        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
-
-            $template_vars = array(
-                'ticket_subject' => $ticket->post_title,
-                'ticket_number'  => $ticket->ID,
-                'reply'          => $comment->comment_content,
-                'agent'          => $comment->comment_author
-            );
-
-            $recipient = get_user_by( 'id', $ticket->post_author );
-
-            send_email( get_option( Options::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
-
-        }
-
-    }
-
-}
-
-add_action( 'comment_post', 'ucare\send_agent_replied_email' );
-
 
 function send_ticket_updated_email( $null, $id, $key, $value ) {
 
