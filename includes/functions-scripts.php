@@ -124,34 +124,6 @@ function enqueue_scripts() {
 
 
 /**
- * Return the URL path of a production or dev bundle.
- *
- * @param string $path Relative path to the plugin directory.
- * @param string $prod
- * @param string $dev
- *
- * @since 1.6.0
- * @return mixed
- */
-function bundle_url( $path, $prod = 'bundle.production.min.js', $dev = 'bundle.dev.js' ) {
-    $dev_src = trailingslashit( $path ) . $dev;
-
-    if ( ucare_in_dev_mode() && file_exists( resolve_path(  $dev_src ) ) ) {
-        return resolve_url( $dev_src );
-
-    } else {
-        $prod_src = trailingslashit( $path ) . $prod;
-
-        if ( file_exists( resolve_path( $prod_src ) ) ) {
-            return resolve_url( $prod_src );
-        }
-    }
-
-    return '';
-}
-
-
-/**
  * Register default scripts.
  *
  * @action ucare_default_scripts

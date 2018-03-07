@@ -33,4 +33,20 @@ class Styles extends \WP_Styles {
         do_action_ref_array( 'ucare_default_styles', array(&$this) );
     }
 
+    /**
+     * Apply cache-busting to URLs in dev mode.
+     *
+     * @param string $handle
+     * @param string $src
+     * @param array  $deps
+     * @param bool   $ver
+     * @param null   $args
+     *
+     * @since 1.6.0
+     * @return bool
+     */
+    public function add( $handle, $src, $deps = array(), $ver = false, $args = null ) {
+        return parent::add( $handle, ucare_cache_bust_url( $src ), $deps, $ver, $args );
+    }
+
 }

@@ -404,25 +404,26 @@ function admin_notification( $message, $type = 'error', $dismissible = true ) {
 /**
  * Get a path relative to the root of the plugin directory.
  *
+ * @param string|array $path
+ *
  * @since 1.4.2
- * @param string $path
  * @return string
  */
 function resolve_path( $path = '' ) {
-    return plugin_dir_path( __FILE__ ) . join( DIRECTORY_SEPARATOR, func_get_args() );
+    return dir_path( __FILE__, $path );
 }
 
 
 /**
  * Get a URL relative to the root of the plugin directory.
  *
- * @param string $path
+ * @param string|array $path
  *
  * @since 1.4.2
  * @return string
  */
 function resolve_url( $path = '' ) {
-    return plugin_dir_url( __FILE__ ) . join( DIRECTORY_SEPARATOR, func_get_args() );
+    return dir_url( __FILE__, $path );
 }
 
 
@@ -436,4 +437,43 @@ function resolve_url( $path = '' ) {
  */
 function fqn( $qualifier = '' ) {
     return sprintf( '\\%1$s\\%2$s', __NAMESPACE__, join( '\\', func_get_args() ) );
+}
+
+
+/**
+ * Get a filesystem path relative to a plugin directory __FILE__.
+ *
+ * @param string $plugin_file
+ * @param string $path
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function dir_path( $plugin_file = __FILE__, $path = '' ) {
+   return plugin_dir_path( $plugin_file ) . ltrim( join( '/', is_array( $path ) ? $path : explode( '/', $path ) ), '/' );
+}
+
+
+/**
+ * Get a filesystem URL relative to a plugin directory __FILE__.
+ *
+ * @param string $plugin_file
+ * @param string $path
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function dir_url( $plugin_file = __FILE__, $path = '' ) {
+    return plugin_dir_url( $plugin_file ) . ltrim( join( '/', is_array( $path ) ? $path : explode( '/', $path ) ), '/' );
+}
+
+
+/**
+ * Get the plugin __FILE__.
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function plugin_file() {
+    return __FILE__;
 }

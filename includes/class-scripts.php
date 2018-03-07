@@ -32,4 +32,20 @@ class Scripts extends \WP_Scripts {
         do_action_ref_array( 'ucare_default_scripts', array(&$this) );
     }
 
+    /**
+     * Apply additional cache-busting in dev mode.
+     *
+     * @param string $handle
+     * @param string $src
+     * @param array  $deps
+     * @param bool   $ver
+     * @param null   $args
+     *
+     * @since 1.6.0
+     * @return bool
+     */
+    public function add( $handle, $src, $deps = array(), $ver = false, $args = null ) {
+        return parent::add( $handle, ucare_cache_bust_url( $src ), $deps, $ver, $args );
+    }
+
 }

@@ -492,6 +492,62 @@ function ucare_register_style( $handle, $src, $deps = array(), $ver = false, $me
 }
 
 
+/**
+ * Return the URL path of a production or dev bundle.
+ *
+ * @param string       $path Relative path to the plugin directory.
+ * @param string|array $args
+ *
+ * @since 1.6.0
+ * @return mixed
+ */
+function ucare_bundle_url( $path, $args = array() ) {
+    $defaults = array(
+        'plugin_file' => \ucare\plugin_file(),
+        'production'  => 'bundle.production.min.js',
+        'development' => 'bundle.dev.js'
+    );
+
+    if ( is_string( $args ) ) {
+        $paths = $defaults;
+        $paths['plugin_file'] = $args;
+    } else {
+        $paths = wp_parse_args( $args, $defaults );
+    }
+
+    $dev_src  = trailingslashit( $path ) . $paths['development'];
+    $prod_src = trailingslashit( $path ) . $paths['production'];
+
+    if ( ucare_in_dev_mode() && file_exists( \ucare\dir_path( $paths['plugin_file'], $dev_src ) ) ) {
+        $url = \ucare\dir_url( $paths['plugin_file'], $dev_src );
+
+    } else if ( file_exists( \ucare\dir_path( $paths['plugin_file'], $prod_src ) ) ) {
+        $url = \ucare\dir_url( $paths['plugin_file'], $prod_src );
+    }
+
+    if ( !empty( $url ) ) {
+        return ucare_cache_bust_url( $url );
+    }
+
+    return '';
+}
+
+
+/**
+ * Apply cache-busting to a URL if in dev mode.
+ *
+ * @param string $url
+ *
+ * @since 1.6.0
+ * @return string
+ */
+function ucare_cache_bust_url( $url ) {
+    if ( !ucare_in_dev_mode() ) {
+        return $url;
+    }
+    return add_query_arg( 'dev', wp_rand(), $url );
+}
+
 
 /***********************************************************************************************************************
  *

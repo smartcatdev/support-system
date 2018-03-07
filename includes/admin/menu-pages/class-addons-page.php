@@ -119,7 +119,8 @@ class AddonsPage extends MenuPage {
         );
 
         $build_dir = "assets/admin/menu-pages/$this->slug/build/";
-        wp_register_script( 'ucare-add-ons', bundle_url( $build_dir ), $deps, PLUGIN_VERSION, true );
+
+        wp_register_script( 'ucare-add-ons', ucare_bundle_url( $build_dir ), $deps, PLUGIN_VERSION, true );
         wp_localize_script( 'ucare-add-ons', 'ucare_addons_l10n', $localize );
 
         wp_enqueue_script( 'ucare-add-ons' );
