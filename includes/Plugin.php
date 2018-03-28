@@ -206,10 +206,10 @@ class Plugin extends AbstractPlugin {
 //    }
 
     public function subscribed_hooks() {
-        return parent::subscribed_hooks( array(
+        return array(
             'wp_loaded'         => 'register_menu',
             'admin_footer'      => array( 'feedback_form' ),
-        ) );
+        );
     }
 
     public function components() {

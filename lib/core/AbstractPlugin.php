@@ -119,51 +119,6 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
         }
     }
 
-    public function perform_migrations() {
-
-        // If we're not already in an upgrade
-        if( !get_transient( $this->id . '_doing_upgrade' ) ) {
-
-            $current = get_option( $this->id . '_version', 0 );
-            $result = true;
-
-            // If the version in code > version in database
-            if( $this->version > $current ) {
-
-                // Prevent multiple migrations from running at the same time
-                set_transient( $this->id . '_doing_upgrade', true, 60 * 2 /* Allow 2 minutes for migration */ );
-
-                // Perform migrations with the current version
-                foreach ( glob( $this->dir . 'migrations/migration-*.php' ) as $file ) {
-                    $migration = include_once( $file );
-                    $version = $migration->version();
-
-                    if ( $version > $current && $version <= $this->version ) {
-                        $result = $migration->migrate( $this );
-
-                        if ( $result === false || is_wp_error( $result ) ) {
-                            break;
-                        }
-                    }
-                }
-
-                if ( $result !== false || !is_wp_error( $result ) ) {
-
-                    // Let everyone know we're done
-                    do_action( $this->id . '_upgraded' );
-
-                    // Increment the version number
-                    update_option( $this->id . '_version', $this->version );
-                }
-
-                // Unblock migrations now that we're all done
-                delete_transient( $this->id . '_doing_upgrade' );
-
-            }
-        }
-
-    }
-
     /**
      * The list of Components to instantiate.
      *
@@ -235,8 +190,8 @@ abstract class AbstractPlugin implements HookRegisterer, HookSubscriber, Plugin 
         return $this->db;
     }
 
-    public function subscribed_hooks( $hooks = array() )  {
-        return array_merge( array( 'init' => array( 'perform_migrations' ) ), $hooks );
+    public function subscribed_hooks()  {
+        return array();
     }
 
     /**

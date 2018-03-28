@@ -36,9 +36,8 @@ abstract class AjaxComponent extends AbstractComponent {
         }
     }
 
-    public function subscribed_hooks( $hooks = array () ) {
+    public function hooks( $hooks = array () ) {
         $this->hooks = array_keys( $hooks );
-
         return $hooks;
     }
 

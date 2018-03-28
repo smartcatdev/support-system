@@ -28,7 +28,7 @@ class Statistics extends AjaxComponent {
     
     
     public function subscribed_hooks() {
-        return parent::subscribed_hooks( array(
+        return array_merge( parent::hooks(), array(
             'wp_ajax_support_display_statistics' => array( 'load_statistics' ),
         ) );
     }

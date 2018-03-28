@@ -349,7 +349,7 @@ class Ticket extends AjaxComponent {
      * @since 1.0.0
      */
     public function subscribed_hooks() {
-        return parent::subscribed_hooks( array(
+        return array_merge( parent::hooks(), array(
             'wp_ajax_support_load_ticket' => array( 'load_ticket' ),
             'wp_ajax_support_update_ticket' => array( 'update_ticket_properties' ),
             'wp_ajax_support_toggle_flag' => array( 'toggle_flag' ),
