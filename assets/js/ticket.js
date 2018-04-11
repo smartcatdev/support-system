@@ -268,15 +268,17 @@ var Ticket = (function ($) {
                     _ajax_nonce: Globals.ajax_nonce
                 },
                 success: function (response) {
-                    var collapsed = [];
+                    var collapsed = [],
+                        expanded  = [];
                     var message = sidebar.find(".message");
 
-                    sidebar.find(".panel").each(function (index, element) {
-                        var panel = $(element);
-
-                        if (panel.find(".panel-collapse").attr("aria-expanded") === "false") {
-                            collapsed.push(panel.data("id"));
-                        }
+                    sidebar.find(".panel-collapse, .collapse")
+                           .each(function (index, el) {
+                       if ($(el).attr('aria-expanded') == 'false') {
+                           collapsed.push($(el).attr("id"));
+                       } else {
+                           expanded.push($(el).attr("id"));
+                       }
                     });
 
                     sidebar.html(response.data);
@@ -286,15 +288,22 @@ var Ticket = (function ($) {
                         selector: '.image'
                     });
 
-                    sidebar.find(".panel").each(function (index, element) {
-                        var panel = $(element);
+                    sidebar.find(".panel-collapse, .collapse")
+                           .each(function (index, element) {
 
-                        if (collapsed.indexOf(panel.data("id")) !== -1) {
-                            panel.find(".panel-collapse")
-                                .removeClass("in")
+                        if (collapsed.indexOf($(element).attr("id")) !== -1) {
+                            $(element).removeClass("in")
                                 .addClass("collapse")
-                                .attr("aria-expanded", false);
+                                .attr("aria-expanded", 'false');
+                            $('a[href="#' + $(element).attr("id") + '"]').attr("aria-expanded", 'false');
+
+                        } else if (expanded.indexOf($(element).attr("id")) !== -1) {
+                            $(element).addClass("in")
+                                .addClass("collapse")
+                                .attr("aria-expanded", 'true');
+                            $('a[href="#' + $(element).attr("id") + '"]').attr("aria-expanded", 'true');
                         }
+
                     });
                 }
             });
