@@ -107,6 +107,8 @@ class Ticket extends AjaxComponent {
             $ticket = $this->get_ticket( $_GET['id'] );
 
             if( !empty( $ticket ) ) {
+                \ucare\register_sidebars();
+
                 $html = $this->render($this->plugin->template_dir . '/sidebar.php',
                     array(
                         'ticket' => $ticket

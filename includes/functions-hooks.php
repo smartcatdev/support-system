@@ -12,7 +12,6 @@ namespace ucare;
 
 add_action( 'comment_post', 'ucare\new_comment', 20, 3 );
 
-
 /**
  * Runs when a new ticket comment has been posted
  * 

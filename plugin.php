@@ -248,7 +248,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
          *
          * @since 1.6.0
          */
-        if ( is_a_support_page() ) do_action( 'ucare_init' );
+        if ( is_a_support_page() ) do_action( 'ucare_init', ucare() );
     }
 
 
