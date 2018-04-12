@@ -508,15 +508,33 @@ function create_user_draft_ticket() {
 /**
  * Get the draft ticket for the current user.
  *
+ * @param bool $return_query Return a \WP_Query instance
+ *
  * @since 1.6.0
- * @return \WP_Post|false
+ * @return \WP_Post|\WP_Query|false
  */
-function get_user_draft_ticket() {
-    $draft = get_post( get_user_meta( get_current_user_id(), 'draft_ticket', true ) );
+function get_user_draft_ticket( $return_query = false ) {
+    $draft_id = get_user_meta( get_current_user_id(), 'draft_ticket', true );
 
-    if ( $draft && $draft->post_status == 'ucare-auto-draft' ) {
-        return $draft;
+    if ( !$draft_id ) {
+        return false;
     }
 
-    return false;
+    $args = array(
+        'p'           => $draft_id,
+        'post_type'   => 'support_ticket',
+        'post_status' => 'ucare-auto-draft'
+    );
+
+    $q = new \WP_Query( $args );
+
+    if ( !$q->have_posts() ) {
+        return false;
+    }
+
+    if ( !$return_query ) {
+        return current( $q->posts );
+    }
+
+    return $q;
 }
