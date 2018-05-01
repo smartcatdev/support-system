@@ -178,6 +178,10 @@ function rest_set_ticket_attributes( $post, $request ) {
  * @return \WP_Post|\WP_Error
  */
 function rest_validate_support_ticket( $post ) {
+    if ( is_wp_error( $post ) ) {
+        return $post;
+    }
+
     if ( $post->post_status !== 'publish' ) {
         return $post;
     }

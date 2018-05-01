@@ -38,6 +38,13 @@ abstract class MenuPage {
     protected $assets_url = '';
 
     /**
+     * The parent page slug
+     *
+     * @var string
+     */
+    protected $parent = 'ucare_support';
+
+    /**
      * Constructor.
      *
      * @since 1.6.0
