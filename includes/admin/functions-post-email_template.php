@@ -10,10 +10,10 @@ namespace ucare;
 
 
 // Add metaboxes
-add_action( 'add_meta_boxes_email_template', fqn( 'add_email_template_meta_boxes' ) );
+add_action( 'add_meta_boxes_email_template', 'ucare\add_email_template_meta_boxes' );
 
 // Save metabox
-add_action( 'save_post', fqn( 'save_email_template_metabox' ), 10, 2 );
+add_action( 'save_post','ucare\save_email_template_metabox', 10, 2 );
 
 
 /**
@@ -59,7 +59,7 @@ function save_email_template_metabox( $post_id, $post ) {
         return;
     }
 
-    if ( ucare_check_nonce( 'save_template_styles', 'styles_nonce' ) ) {
+    if ( ucare_check_nonce( 'save_template_styles', 'styles_nonce', false ) ) {
         update_post_meta( $post_id, 'styles', $_POST['template_styles'] );
     }
 }
