@@ -93,13 +93,6 @@ final class API {
             $insert['post_status'] = 'publish';
         }
 
-        if ( !empty( $data['category'] ) ) {
-            $category = array(
-                'ticket_category' => (array) $data['category']
-            );
-            $insert['tax_input'] = $category;
-        }
-
         if ( !empty( $args['receipt_id'] ) ) {
             $insert['meta_input']['receipt_id'] = sanitize_text_field( $args['receipt_id'] );
         }
@@ -123,6 +116,10 @@ final class API {
         }
 
         $ticket = get_post( $id );
+
+        if ( !empty( $data['category'] ) ) {
+            wp_set_post_terms( $id, (array) $data['category'], 'ticket_category' );
+        }
 
         if ( $ticket->post_status !== 'publish' ) {
             return $ticket; // Skip unpublished ticket notifications
