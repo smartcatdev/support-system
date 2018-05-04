@@ -146,6 +146,20 @@ function ucare_check_nonce( $action = -1, $nonce = '_wpnonce', $die = true ) {
 }
 
 /**
+ * Safely pluck a value from an object or array.
+ *
+ * @param object|array $obj
+ * @param string       $field
+ * @param mixed        $default
+ *
+ * @since 1.6.0
+ * @return mixed
+ */
+function ucare_pluck( $obj, $field, $default = false ) {
+    return \ucare\pluck( $obj, $field, $default );
+}
+
+/**
  * Returns an instance of a logger to save log entries to the logs table.
  *
  * @since 1.3.0
