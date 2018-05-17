@@ -67,7 +67,9 @@ $draft = get_user_draft_ticket( true );
 
                         <div id="receipt-number" class="form-group">
 
-                            <label for="receipt_id"><?php _e( 'Receipt #', 'ucare' ); ?></label>
+                            <label for="receipt_id">
+                                <?php esc_html_e( get_option( Options::RECEIPT_ID_LABEL ) ); ?>
+                            </label>
 
                             <input type="text"
                                    id="receipt_id"

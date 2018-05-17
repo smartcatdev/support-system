@@ -166,4 +166,20 @@ function add_settings_fields() {
         )
     );
 
+    add_settings_field(
+        Options::RECEIPT_ID_LABEL,
+        __( 'Receipt ID Label', 'ucare' ),
+        'ucare\render_text_field',
+        'uc-display',
+        'uc_text',
+        array(
+            'id'         => Options::RECEIPT_ID_LABEL,
+            'attributes' => array(
+                'name'  => Options::RECEIPT_ID_LABEL,
+                'class' => 'regular-text',
+                'value' => get_option( Options::RECEIPT_ID_LABEL ),
+            )
+        )
+    );
+
 }

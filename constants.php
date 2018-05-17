@@ -387,11 +387,15 @@ final class Options {
      */
     const LOGIN_PAGE_ID = 'smartcat_support_login_page_id';
 
-
     /**
      * @since 1.6.0
      */
     const DATABASE_VERSION = 'smartcat_support_db_version';
+
+    /**
+     * @since 1.6.0
+     */
+    const RECEIPT_ID_LABEL = 'smartcat_support_receipt_id_label';
 
 }
 

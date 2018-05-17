@@ -186,6 +186,12 @@ function register_settings() {
         'sanitize_callback' => 'sanitize_text_field'
     ) );
 
+    register_setting( 'uc-display', Options::RECEIPT_ID_LABEL, array(
+        'type'    => 'string',
+        'default' => __( 'Receipt #', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field'
+    ) );
+
     register_setting( 'uc-general', Options::LOGO, array(
         'type'    => 'string',
         'default' => resolve_url( 'assets/images/logo.png' ),
