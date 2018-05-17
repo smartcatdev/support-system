@@ -257,11 +257,10 @@
 
                 })
                 .fail(function (xhr) {
-
                     if (status === 'publish' && xhr.responseJSON) {
                         module.error(xhr.responseJSON.message, '#message-area');
+                        $('html, body').animate({ scrollTop: '0px' }, 300);
                     }
-
                 });
 
             }
