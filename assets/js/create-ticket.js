@@ -7,9 +7,23 @@
 ;(function ($, ucare) {
     "use strict";
 
-    const $form     = $('#create-ticket-form'),
+         /**
+          * Ticket form
+          * @type {*|HTMLElement}
+          */
+    const $form = $('#create-ticket-form'),
 
+         /**
+          * Attachment dropzone
+          * @type {*|HTMLElement}
+          */
           $dropzone = $('#ticket-media'),
+
+         /**
+          * Submit button
+          * @type {*|HTMLElement}
+          */
+          $submit = $('#submit'),
 
         /**
          * Module for handling ticket creation and auto-drafting.
@@ -33,9 +47,11 @@
             /**
              * @summary Manual form submission.
              */
-            $('#submit').click(function () {
+            $submit.click(function () {
                 module.clear_errors();
                 module.save('publish');
+                $submit.find('.inner-text').hide();
+                $submit.find('.spinner').show();
             });
 
             /**
@@ -223,7 +239,7 @@
             if (!module.saving_in_progress) {
                 module.saving_in_progress = true;
 
-                $('#submit').prop('disabled', true);
+                $submit.prop('disabled', true);
 
                 /**
                  * @summary Construct the URI.
@@ -244,7 +260,9 @@
                         xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
                     },
                     complete: function () {
-                        $('#submit').prop('disabled', false);
+                        $submit.prop('disabled', false);
+                        $submit.find('.spinner').hide();
+                        $submit.find('.inner-text').show();
                         module.saving_in_progress = false;
                     }
                 })
