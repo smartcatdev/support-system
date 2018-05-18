@@ -32,7 +32,11 @@ function send_reply_email( $comment_id ) {
         return;
     }
 
-    $userdata = get_user_by( 'email', $comment->user_id );
+    $userdata = get_userdata( $comment->user_id );
+
+    if ( !$userdata ) {
+        return; // No comment author
+    }
 
     if ( ucare_is_support_agent( $userdata->ID ) ) {
         $recipient = get_user_by( 'id', $ticket->post_author );
