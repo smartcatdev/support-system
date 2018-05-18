@@ -57,7 +57,7 @@ namespace ucare;
 
                 <ul>
 
-                    <?php foreach ( array_splice( $recent->posts, 0, 3 ) as $post ) : ?>
+                    <?php foreach ( array_slice( $recent->posts, 0, 3 ) as $post ) : ?>
 
                         <li class="recent-ticket">
                             <strong>#<?php esc_html_e( $post->ID ); ?></strong> <?php esc_html_e( $post->post_title ); ?>
