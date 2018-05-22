@@ -27,6 +27,8 @@ namespace ucare;
 
         <div id="page-container"><!-- Start Page Container -->
 
-        <?php get_navbar(); ?>
+            <?php if ( !is_page_public() ) : ?>
+                <?php get_navbar(); ?>
+            <?php endif; ?>
 
-        <?php do_action( 'ucare_body' ); ?>
+            <?php do_action( 'ucare_body' ); ?>

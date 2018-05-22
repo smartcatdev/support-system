@@ -199,11 +199,11 @@ function is_page_public( $page = null ) {
 function auth_redirect() {
 
     // Send the user to the login page if they are not authenticated
-    if ( !is_user_logged_in() && is_a_support_page() && !is_page_public() ) {
+    if ( !ucare_is_support_user() && is_a_support_page() && !is_page_public() ) {
         wp_safe_redirect( login_page_url() );
 
     // Redirect from login form if user is already logged in
-    } else if ( is_user_logged_in() && is_login_page() ) {
+    } else if ( ucare_is_support_user() && is_login_page() ) {
         wp_safe_redirect( support_page_url() );
     }
 
