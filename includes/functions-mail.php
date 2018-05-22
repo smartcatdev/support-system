@@ -55,7 +55,8 @@ function send_reply_email( $comment_id ) {
         'ticket_subject' => $ticket->post_title,
         'ticket_number'  => $ticket->ID,
         'reply'          => $comment->comment_content,
-        'agent'          => $comment->comment_author
+        'agent'          => $comment->comment_author,
+        'user'           => $comment->comment_author
     );
 
     send_email( $template, $recipient->user_email, $template_vars );
