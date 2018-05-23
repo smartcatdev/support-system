@@ -2,8 +2,6 @@
 
 namespace ucare;
 
-use ucare\Options;
-use ucare\util\Logger;
 
 function send_email( $template, $recipient, $replace, $args = array() ) {
 
@@ -115,7 +113,7 @@ add_action( 'support_password_reset_notification', 'ucare\send_password_reset_em
 
 
 function send_user_registration_email( $user_data ) {
-
+    $user_data['username'] = $user_data['email'];
     send_email( get_option( Options::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
 
 }
@@ -188,75 +186,13 @@ function send_new_ticket_email( \WP_Post $ticket ) {
 add_action( 'support_ticket_created', 'ucare\send_new_ticket_email' );
 
 
-function send_user_replied_email( $comment_id ) {
 
-    // Check to see if the user has lower privileges than support agents
-    if( !current_user_can( 'manage_support_tickets' ) ) {
-
-        $comment = get_comment( $comment_id );
-        $ticket  = get_post( $comment->comment_post_ID );
-
-        // Make sure the ticket is still open
-        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
-
-            $template_vars = array(
-                'ticket_subject' => $ticket->post_title,
-                'ticket_number'  => $ticket->ID,
-                'reply'          => $comment->comment_content,
-                'user'           => $comment->comment_author
-            );
-
-            $recipient = get_user_by( 'ID', get_post_meta( $ticket->ID, 'agent', true ) );
-
-            if( $recipient ) {
-                send_email( get_option( Options::CUSTOMER_REPLY_EMAIL ), $recipient->user_email, $template_vars );
-            }
-
-        }
-
-    }
-
-}
-
-add_action( 'comment_post', 'ucare\send_user_replied_email' );
-
-
-function send_agent_replied_email( $comment_id ) {
-
-    if( current_user_can( 'manage_support_tickets' ) ) {
-
-        $comment = get_comment( $comment_id );
-        $ticket  = get_post( $comment->comment_post_ID );
-
-        // Make sure the ticket is still open
-        if( $ticket->post_type == 'support_ticket' && get_post_meta( $ticket->ID, 'status', true ) != 'closed' ) {
-
-            $template_vars = array(
-                'ticket_subject' => $ticket->post_title,
-                'ticket_number'  => $ticket->ID,
-                'reply'          => $comment->comment_content,
-                'agent'          => $comment->comment_author
-            );
-
-            $recipient = get_user_by( 'id', $ticket->post_author );
-
-            send_email( get_option( Options::AGENT_REPLY_EMAIL ), $recipient->user_email, $template_vars );
-
-        }
-
-    }
-
-}
-
-add_action( 'comment_post', 'ucare\send_agent_replied_email' );
-
-
-function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
+function send_ticket_updated_email( $null, $id, $key, $value ) {
 
     $post = get_post( $id );
 
     // Only if the meta value has changed and the post type is support_ticket
-    if( $value !== $old && $post->post_type == 'support_ticket' ) {
+    if( $post->post_type == 'support_ticket' ) {
 
         // Notify the user that their ticket has been closed
         if( $key == 'status' && $value == 'closed' ) {
@@ -282,7 +218,7 @@ function send_ticket_updated_email( $null, $id, $key, $value, $old ) {
 
 }
 
-add_action( 'update_post_metadata', 'ucare\send_ticket_updated_email', 10, 5 );
+add_action( 'updated_post_meta', 'ucare\send_ticket_updated_email', 10, 4 );
 
 
 function send_ticket_assigned_email( $null, $id, $key, $value, $old ) {

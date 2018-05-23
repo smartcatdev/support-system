@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\CheckBoxField' ) ) :
-
+    /**
+     * Class CheckBoxField
+     * @deprecated
+     * @package smartcat\admin
+     */
     class CheckBoxField extends SettingsField {
 
         public function render( array $args ) { ?>
@@ -15,7 +19,7 @@ if( !class_exists( '\smartcat\admin\CheckBoxField' ) ) :
                 <?php $this->props(); ?>
                 <?php $this->classes(); ?>
 
-                <?php checked( $this->value, 'on' ); ?> />
+                <?php checked( true, !!$this->value ); ?> />
 
             <label for="<?php esc_attr_e( $this->id ); ?>"><?php echo $this->desc; ?></label>
 

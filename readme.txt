@@ -110,6 +110,12 @@ Yes, uCare is built with a notification system and templates for your customers 
 
 == Changelog ==
 
+= 1.6.0 =
+- Created unique pages for Registration/Login, Create Ticket, and Edit Profile
+- Plugin now relies on the WP REST API and creates it's own endpoints
+- Added React to the Add-ons page and to the Pro version
+- Added REST API controls for modifying settings page content remotely
+
 = 1.5.3 =
 - Added Persian translation
 

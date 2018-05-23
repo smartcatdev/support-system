@@ -3,7 +3,9 @@
 namespace smartcat\admin;
 
 if( ! class_exists( 'smartcat\core\MenuPage' ) ) :
-
+    /**
+     * @deprecated
+     */
 class MenuPage {
 
     public $type;
@@ -66,7 +68,8 @@ class MenuPage {
 
         $hook = call_user_func_array( "add_{$this->type}_page", $config );
 
-        if( $hook ) {
+
+        if ( $hook ) {
             add_action( 'load-' . $hook, is_callable( $this->onload ) ? $this->onload : array( $this, 'on_load' ) );
         }
     }

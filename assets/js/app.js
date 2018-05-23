@@ -216,43 +216,53 @@ var App = (function ($) {
     }
     
     var load_tickets = function () {
-        var refresh = $("#refresh-tickets").find(".refresh");
-        var filter_controls = $("#filter-controls");
-        var page = sessionStorage.getItem("page");
 
-        var request = {
-            url: Globals.ajax_url + "?action=support_list_tickets",
-            dataType: "json",
-            data: [{
-                name: "_ajax_nonce",
-                value: Globals.ajax_nonce
-            }, {
-                name: "page",
-                value: page === undefined ? "1" : page
-            }, {
-                name: "search",
-                value: $("#search").val()
-            }],
+        /**
+         * @summary Add a way to pause refreshing
+         * @todo Replace the entire ticket list
+         * @since 1.6.0
+         */
+        if (!$('#the-tickets').hasClass('no-replace')) {
 
-            success: function (response) {
-                _tickets_container.html(response.data);
+            var refresh = $("#refresh-tickets").find(".refresh");
+            var filter_controls = $("#filter-controls");
+            var page = sessionStorage.getItem("page");
 
-                if (filter_controls.css("display") === "none") {
-                    filter_controls.slideToggle();
-                    _tickets_container.hide().fadeToggle();
+            var request = {
+                url: Globals.ajax_url + "?action=support_list_tickets",
+                dataType: "json",
+                data: [{
+                    name: "_ajax_nonce",
+                    value: Globals.ajax_nonce
+                }, {
+                    name: "page",
+                    value: page === undefined ? "1" : page
+                }, {
+                    name: "search",
+                    value: $("#search").val()
+                }],
+
+                success: function (response) {
+                    _tickets_container.html(response.data);
+
+                    if (filter_controls.css("display") === "none") {
+                        filter_controls.slideToggle();
+                        _tickets_container.hide().fadeToggle();
+                    }
+                },
+                complete: function () {
+                    refresh.removeClass("rotate");
                 }
-            },
-            complete: function () {
-                refresh.removeClass("rotate");
+            };
+
+            if (_filter_toggle.hasClass("active")) {
+                request.data = $.merge(request.data, _filter.serializeArray());
             }
-        };
 
-        if (_filter_toggle.hasClass("active")) {
-            request.data = $.merge(request.data, _filter.serializeArray());
+            refresh.addClass("rotate");
+            $.ajax(request);
+
         }
-
-        refresh.addClass("rotate");
-        $.ajax(request);
     };
     
     var adjust_login = function( e ) {

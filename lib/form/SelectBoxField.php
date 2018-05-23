@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists( '\smarcat\form\SelectBoxField' ) ) :
-
+    /**
+     * @deprecated
+     */
 class SelectBoxField extends AbstractField {
     private $options;
 

@@ -42,7 +42,7 @@ trait Singleton {
     public static function instance() {
 
         if ( is_null( self::$instance ) ) {
-            self::$instance = new self();
+            self::$instance = new static();
             self::$instance->initialize();
         }
 

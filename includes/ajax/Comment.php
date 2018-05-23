@@ -1,7 +1,11 @@
 <?php
 
 namespace ucare\ajax;
-
+/**
+ * Class Comment
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Comment extends AjaxComponent {
 
     /**
@@ -63,7 +67,7 @@ class Comment extends AjaxComponent {
      * @since 1.0.0
      */
     public function subscribed_hooks() {
-        return parent::subscribed_hooks( array(
+        return array_merge( parent::hooks(), array(
             'wp_ajax_support_update_comment' => array( 'update_comment' ),
             'wp_ajax_support_delete_comment' => array( 'delete_comment' ),
         ) );

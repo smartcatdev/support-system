@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( 'smartcat/admin/MenuTabPage' ) ) :
-
+    /**
+     * Class MenuPageTab
+     * @deprecated
+     * @package smartcat\admin
+     */
 abstract class MenuPageTab {
 
     public $title;

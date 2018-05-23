@@ -3,7 +3,9 @@
 namespace smartcat\form;
 
 if( !class_exists( '\smartcat\form\TextBoxField' ) ) :
-
+    /**
+     * @deprecated
+     */
 class TextBoxField extends AbstractField {
     protected $type = 'text';
 

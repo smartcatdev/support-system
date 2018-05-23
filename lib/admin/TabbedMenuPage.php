@@ -3,14 +3,18 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smarcat\admin\TabbedMenuPage' ) ) :
-
+    /**
+     * @deprecated
+     */
 class TabbedMenuPage extends MenuPage {
 
     public $tabs = array();
 
+    private $slug;
+
     public function __construct( array $config ) {
         parent::__construct( $config );
-
+$this->slug = sanitize_title( $this->menu_title ); // hack to create new permanent hook names
         if( isset( $config['tabs'] ) ) {
             foreach ( $config['tabs'] as $tab ) {
                 $this->add_tab( $tab );
@@ -26,10 +30,11 @@ class TabbedMenuPage extends MenuPage {
     }
 
     private function active_tab() {
+        $tabs = apply_filters('ucare_menu_page_tabs', $this->tabs );
 
-        $active = array_keys( $this->tabs )[0];
+        $active = current( array_keys( $tabs ) );
 
-        if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $this->tabs ) ) {
+        if( !empty( $_REQUEST['tab'] ) && array_key_exists( $_REQUEST['tab'], $tabs ) ) {
             $active = $_REQUEST['tab'];
         }
 
@@ -38,7 +43,7 @@ class TabbedMenuPage extends MenuPage {
 
     public function render() { ?>
 
-        <div id="<?php esc_attr_e( $this->menu_slug . '_menu_page' ); ?>" class="wrap ucare-admin-page">
+        <div id="<?php esc_attr_e( $this->slug . '_menu_page' ); ?>" class="wrap ucare-admin-page">
 
             <?php $this->do_header(); ?>
 
@@ -48,12 +53,12 @@ class TabbedMenuPage extends MenuPage {
 
             <h2 class="nav-tab-wrapper">
 
-                <?php foreach ( apply_filters( $this->menu_slug . '_tabs', $this->tabs ) as $id => $tab ) : ?>
+                <?php foreach ( apply_filters( 'ucare_menu_page_tabs', $this->tabs ) as $id => $tab ) : ?>
 
                     <?php $url = apply_filters( 'tab_url_' . $id, 'admin.php?page=' . $this->menu_slug . '&tab=' . $id ); ?>
 
                     <a class="nav-tab <?php echo $this->active_tab() == $id ? 'nav-tab-active' : ''; ?> <?php esc_attr_e( $id ); ?>"
-                       href="<?php echo esc_url( $url ); ?>"><?php echo $tab->title; ?></a>
+                       href="<?php echo esc_url( $url ); ?>"><?php echo is_object( $tab ) ? $tab->title : $tab; ?></a>
 
                 <?php endforeach; ?>
 
@@ -63,7 +68,16 @@ class TabbedMenuPage extends MenuPage {
 
                 <div class="tabs-content">
 
-                    <?php $this->tabs[ $this->active_tab() ]->render(); ?>
+                    <?php
+                    /**
+                     * @since 1.6.0
+                     */
+                    ?>
+                    <?php do_action( 'ucare_admin_menu_page' ); ?>
+
+                    <?php if ( isset( $this->tabs[ $this->active_tab() ] ) ) {
+                               $this->tabs[ $this->active_tab() ]->render();
+                    } ?>
 
                 </div>
 

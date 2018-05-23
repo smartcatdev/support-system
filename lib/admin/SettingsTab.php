@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists('smartcat\admin\SettingsTab') ) :
-
+    /**
+     * Class SettingsTab
+     * @deprecated
+     * @package smartcat\admin
+     */
 class SettingsTab extends MenuPageTab {
 
     protected $sections = array();

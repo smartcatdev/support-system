@@ -1,0 +1,28 @@
+{
+  "name": "add-ons",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "./node_modules/.bin/webpack -d --watch --config webpack.dev.js",
+    "build": "./node_modules/.bin/webpack -p --config webpack.prod.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.7.2",
+    "prop-types": "^15.6.0",
+    "query-string": "^5.1.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.1",
+    "unescape": "^1.0.1",
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1"
+  }
+}

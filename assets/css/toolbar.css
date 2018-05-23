@@ -1,0 +1,28 @@
+#the-toolbar .navbar {
+    margin: 0;
+    border-radius: 0;
+    border-right: none;
+    border-left: none;
+}
+
+#the-toolbar a.toolbar-item-toggle > input[type="checkbox"] {
+    position: absolute;
+    top: -100000px;
+}
+
+#the-toolbar a.toolbar-item-toggle .check-feedback {
+    width: 14px;
+    height: 20px;
+    display: inline-block;
+    color: #3498db;
+}
+
+#the-toolbar a.toolbar-item-toggle.has-item-checked .check-feedback:before {
+    content: "\25cf";
+    font-size: 20px;
+}
+
+#toolbar-ribbon {
+    display: none;
+    border-bottom: 1px solid #e7e7e7;
+}

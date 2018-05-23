@@ -4,7 +4,6 @@ var Ticket = (function ($) {
     var _bind_events = function () {
         $(document).on("click", ".open-ticket", _open_ticket);
         $(document).on("click", ".close-ticket", _close_ticket);
-        $(document).on("click", "#create-ticket", _create_ticket);
         $(document).on("submit", ".comment-form", _submit_comment);
         $(document).on("submit", ".ticket-status-form", _save_properties);
         $(document).on("click", ".flagged", _toggle_flag);
@@ -116,48 +115,6 @@ var Ticket = (function ($) {
         });
     };
 
-    var _create_ticket = function (e) {
-        var form = $("#create-ticket-form");
-        var submit = $(e.target);
-        var initialText = submit.html()
-
-        submit.prop("disabled", true);
-        submit.html( '<span class="glyphicon glyphicon-refresh fast-right-spinner"></span>' )
-
-        form.submit({
-            url: Globals.ajax_url,
-            action: "support_create_ticket",
-            extras: {
-                _ajax_nonce: Globals.ajax_nonce
-            },
-            success: function () {
-                $("#create-modal").modal("toggle");
-
-                Dropzone.forElement("#ticket-media-upload").reset();
-
-                form.find(".form-control, input[type=checkbox]").each(function (index, element) {
-                    var field = $(element);
-
-                    if (field.is(':checkbox')) {
-                        field.attr('checked', !!field.data('default'));
-                    } else if (typeof(field.data("default")) === "string") {
-                        field.val(field.data("default"));
-                    } else {
-                        field.val(JSON.stringify(field.data("default")));
-                    }
-                });
-
-                $('#select-author').collapse('hide');
-
-                App.load_tickets();
-            },
-            complete: function () {
-                submit.prop("disabled", false);
-                submit.html( initialText )
-            }
-        });
-    };
-
     var _close_ticket = function (e) {
         var close_button = $(e.target);
         var id = close_button.data('ticket_id');
@@ -182,6 +139,7 @@ var Ticket = (function ($) {
                     },
                     success: function () {
                         load_sidebar(id);
+                        reload_widget(id);
                         close_button.remove();
                     }
                 });
@@ -189,6 +147,21 @@ var Ticket = (function ($) {
 
         });
     };
+
+    /**
+     * @summary Fetch and update the widget areas.
+     * @todo replace this react
+     */
+    function reload_widget(id) {
+        $.ajax({
+            url: ucare.api.root + 'wp/v2/support-tickets/' + id,
+            success: function (ticket) {
+                if (ticket.ucare.widget_areas.after_comments) {
+                    $('#' + ticket.id).find('.comments').after($(ticket.ucare.widget_areas.after_comments));
+                }
+            }
+        });
+    }
 
     var _open_ticket = function (e) {
         var target = $(e.target);
@@ -271,11 +244,14 @@ var Ticket = (function ($) {
 
                 }, 15 * 1000);
 
+                reload_widget(response.ticket_id);
+
             },
             complete: function (xhr) {
                 sidebar.removeClass("saving");
                 form.find(".button-submit").prop("disabled", false);
             }
+
         });
     };
 
@@ -292,15 +268,17 @@ var Ticket = (function ($) {
                     _ajax_nonce: Globals.ajax_nonce
                 },
                 success: function (response) {
-                    var collapsed = [];
+                    var collapsed = [],
+                        expanded  = [];
                     var message = sidebar.find(".message");
 
-                    sidebar.find(".panel").each(function (index, element) {
-                        var panel = $(element);
-
-                        if (panel.find(".panel-collapse").attr("aria-expanded") === "false") {
-                            collapsed.push(panel.data("id"));
-                        }
+                    sidebar.find(".panel-collapse, .collapse")
+                           .each(function (index, el) {
+                       if ($(el).attr('aria-expanded') == 'false') {
+                           collapsed.push($(el).attr("id"));
+                       } else {
+                           expanded.push($(el).attr("id"));
+                       }
                     });
 
                     sidebar.html(response.data);
@@ -310,15 +288,22 @@ var Ticket = (function ($) {
                         selector: '.image'
                     });
 
-                    sidebar.find(".panel").each(function (index, element) {
-                        var panel = $(element);
+                    sidebar.find(".panel-collapse, .collapse")
+                           .each(function (index, element) {
 
-                        if (collapsed.indexOf(panel.data("id")) !== -1) {
-                            panel.find(".panel-collapse")
-                                .removeClass("in")
+                        if (collapsed.indexOf($(element).attr("id")) !== -1) {
+                            $(element).removeClass("in")
                                 .addClass("collapse")
-                                .attr("aria-expanded", false);
+                                .attr("aria-expanded", 'false');
+                            $('a[href="#' + $(element).attr("id") + '"]').attr("aria-expanded", 'false');
+
+                        } else if (expanded.indexOf($(element).attr("id")) !== -1) {
+                            $(element).addClass("in")
+                                .addClass("collapse")
+                                .attr("aria-expanded", 'true');
+                            $('a[href="#' + $(element).attr("id") + '"]').attr("aria-expanded", 'true');
                         }
+
                     });
                 }
             });

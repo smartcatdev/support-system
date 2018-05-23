@@ -1,7 +1,11 @@
 <?php
 namespace smartcat\admin;
 
-
+/**
+ * Class TextAreaField
+ * @deprecated
+ * @package smartcat\admin
+ */
 class TextAreaField extends SettingsField {
 
     public function render( array $args ) { ?>

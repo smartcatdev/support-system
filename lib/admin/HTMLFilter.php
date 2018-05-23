@@ -2,7 +2,11 @@
 
 namespace smartcat\admin;
 
-
+/**
+ * Class HTMLFilter
+ * @deprecated
+ * @package smartcat\admin
+ */
 class HTMLFilter implements ValidationFilter {
 
     public function filter( $value ) {

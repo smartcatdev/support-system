@@ -3,7 +3,11 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\SettingsField' ) ) :
-
+    /**
+     * Class SettingsField
+     * @deprecated
+     * @package smartcat\admin
+     */
 abstract class SettingsField {
     protected $id;
     protected $option;
@@ -30,8 +34,16 @@ abstract class SettingsField {
     }
 
     public function register( $menu_slug, $section_slug ) {
+        global $wp_registered_settings;
+
         add_settings_field( $this->id, $this->label, array( $this, 'render' ), $menu_slug, $section_slug, $this->args );
-        register_setting( $menu_slug, $this->option, array( $this, 'validate' ) );
+        /**
+         * @since 1.6.0
+         * Don't re-register if already registered
+         */
+        if ( !array_key_exists( $this->option, $wp_registered_settings ) ) {
+            register_setting( $menu_slug, $this->option, array( $this, 'validate' ) );
+        }
     }
 
     public function validate( $value ) {

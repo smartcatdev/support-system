@@ -4,7 +4,7 @@ namespace ucare;
 
 ?>
 
-<?php get_template( 'header' ); ?>
+<?php ucare_get_header(); ?>
 
 <?php if( is_user_logged_in() && current_user_can( 'use_support' ) ) : ?>
 
@@ -18,18 +18,8 @@ namespace ucare;
 
     <?php endif; ?>
 
-        <?php do_action( 'ucare_before_navbar' ); ?>
-
-        <?php get_template( 'navbar' ); ?>
-
-        <?php do_action( 'ucare_after_navbar' ); ?>
-
         <?php get_template( 'dash.php' ); ?>
-
-<?php else : ?>
-
-    <?php get_template( 'login.php' ); ?>
 
 <?php endif; ?>
 
-<?php get_template( 'footer.php' ); ?>
+<?php ucare_get_footer(); ?>

@@ -12,7 +12,7 @@ namespace smartcat\admin;
 
 /**
  * Base class for displaying a list of items in an ajaxified HTML table.
- *
+ * @deprecated
  * @since 3.1.0
  * @access private
  */

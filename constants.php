@@ -2,10 +2,40 @@
 
 namespace ucare;
 
+/**
+ * @since 1.0.0
+ */
 const PLUGIN_ID = 'smartcat_support';
-const PLUGIN_VERSION = '1.5.3';
 
+/**
+ * @since 1.0.0
+ */
+const PLUGIN_VERSION = '1.6.0';
+
+/**
+ * @since 1.0.0
+ */
 const MIN_PHP_VERSION = '5.5';
+
+
+final class Marketing {
+
+    /**
+     * @since 1.6.0
+     */
+    const ADMIN_NOTIFICATION = 'admin-notification';
+
+    /**
+     * @since 1.6.0
+     */
+    const SETTINGS_SIDEBAR_UCARE_PRO = 'settings-sidebar-ucare-pro';
+
+    /**
+     * @since 1.6.0
+     */
+    const SETTINGS_SIDEBAR_FEEDBACK = 'settings-sidebar-feedback';
+
+}
 
 
 final class Options {
@@ -338,9 +368,35 @@ final class Options {
 
     /**
      * @since 1.4.1
+     * @deprecated
      */
     const SHOW_CLOCK = 'smartcat_support_show_clock';
-    
+
+    /**
+     * @since 1.5.1
+     */
+    const CREATE_TICKET_PAGE_ID = 'smartcat_support_create_ticket_page_id';
+
+    /**
+     * @since 1.6.0
+     */
+    const EDIT_PROFILE_PAGE_ID = 'smartcat_support_edit_profile_page_id';
+
+    /**
+     * @since 1.6.0
+     */
+    const LOGIN_PAGE_ID = 'smartcat_support_login_page_id';
+
+    /**
+     * @since 1.6.0
+     */
+    const DATABASE_VERSION = 'smartcat_support_db_version';
+
+    /**
+     * @since 1.6.0
+     */
+    const RECEIPT_ID_LABEL = 'smartcat_support_receipt_id_label';
+
 }
 
 
@@ -589,6 +645,7 @@ final class Defaults {
 
     /**
      * @since 1.4.1
+     * @deprecated
      */
     const SHOW_CLOCK = 'on';
 

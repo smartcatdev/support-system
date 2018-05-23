@@ -24,7 +24,7 @@ use ucare\component\Hacks;
 class Plugin extends AbstractPlugin {
 
     private $menu_pages = array();
-    private $activations = array();
+//    private $activations = array();
 
     public function start() {
         $this->config_dir = $this->dir . '/config/';
@@ -33,74 +33,58 @@ class Plugin extends AbstractPlugin {
         $this->woo_active = class_exists( 'WooCommerce' );
         $this->edd_active = class_exists( 'Easy_Digital_Downloads' );
 
-        proc\configure_roles();
+//        proc\configure_roles();
 
     }
 
     public function activate() {
-        proc\configure_roles();
-        proc\create_email_templates();
-        proc\setup_template_page();
-        proc\schedule_cron_jobs();
+//        proc\configure_roles();
+//        proc\create_email_templates();
+//        proc\setup_template_page();
+//        proc\schedule_cron_jobs();
     }
 
     public function deactivate() {
         
-        // Delete the first run option on de-activate
-        // This triggers the First Run welcome screen to load on reload
-        delete_option( Options::FIRST_RUN );
-        
+//        // Delete the first run option on de-activate
+//        // This triggers the First Run welcome screen to load on reload
+//        delete_option( Options::FIRST_RUN );
+//
         if( isset( $_POST['product_feedback'] ) ) {
             $message = include $this->dir . '/emails/product-feedback.php';
             $headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
             wp_mail( 'support@smartcat.ca', 'uCare Deactivation Feedback', $message, $headers );
         }
-
-        // Trash the template page
-        wp_trash_post( get_option( Options::TEMPLATE_PAGE_ID ) );
-
-        proc\cleanup_roles();
-        proc\clear_scheduled_jobs();
+//
+//        // Trash the template page
+//        wp_trash_post( get_option( Options::TEMPLATE_PAGE_ID ) );
+//
+//        proc\cleanup_roles();
+//        proc\clear_scheduled_jobs();
 
         do_action( $this->id . '_cleanup' );
 
-        if( get_option( Options::DEV_MODE ) === 'on' && get_option( Options::NUKE ) === 'on' ) {
-            $options = new \ReflectionClass( Options::class );
-
-            foreach( $options->getConstants() as $option ) {
-                delete_option( $option );
-            }
-
-            update_option( Options::DEV_MODE, 'on' );
-        }
-
-        unregister_post_type( 'support_ticket' );
-        unregister_taxonomy( 'ticket_category' );
-
-    }
-
-    public function login_failed() {
-
-        if ( isset( $_REQUEST['support_login_form'] ) ) {
-            wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
-        }
+//        if( get_option( Options::DEV_MODE ) === 'on' && get_option( Options::NUKE ) === 'on' ) {
+//            $options = new \ReflectionClass( Options::class );
+//
+//            foreach( $options->getConstants() as $option ) {
+//                delete_option( $option );
+//            }
+//
+//            update_option( Options::DEV_MODE, 'on' );
+//        }
+//
+//        unregister_post_type( 'support_ticket' );
+//        unregister_taxonomy( 'ticket_category' );
 
     }
 
-    public function authenticate( $user, $username, $password ) {
-
-        if ( isset( $_REQUEST['support_login_form'] ) ) {
-
-            if ( empty( $username ) || empty( $password ) ) {
-                wp_redirect( add_query_arg( 'login', 'empty', wp_get_referer() ) );
-            }
-
-        }
-
-    }
 
     public function register_menu() {
+        if ( !current_user_can( 'manage_support' ) ) {
+            return; /** @since 1.6.0 */
+        }
 
         $this->menu_pages = array(
             'root' => new MenuPage(
@@ -136,7 +120,7 @@ class Plugin extends AbstractPlugin {
                     'render'      => false
                 )
             ),
-            'create_ticket' => new MenuPage(
+            'create' => new MenuPage(
                 array(
                     'type'        => 'submenu',
                     'parent_menu' => 'ucare_support',
@@ -156,26 +140,7 @@ class Plugin extends AbstractPlugin {
                     'render'      => false
                 )
             ),
-            'launcher' => new MenuPage(
-                array(
-                    'type'          => 'submenu',
-                    'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'uc-launch',
-                    'menu_title'    => __( 'Launch Help Desk', 'ucare' ),
-                    'capability'    => 'manage_support',
-                    'onload'        => function () { wp_safe_redirect( support_page_url() ); }
-                )
-            ),
-            'settings'   => include_once $this->dir . '/config/admin_settings.php',
-            'extensions' => new MenuPage(
-                array(
-                    'type'          => 'submenu',
-                    'parent_menu'   => 'ucare_support',
-                    'menu_slug'     => 'uc-add-ons',
-                    'menu_title'    => __( 'Add-ons', 'ucare' ),
-                    'render'        => $this->template_dir . '/admin-extensions.php'
-                )
-            )
+            'settings'   => include_once $this->dir . '/config/admin_settings.php'
         );
 
         if ( !empty( $this->activations ) ) {
@@ -196,76 +161,64 @@ class Plugin extends AbstractPlugin {
 
     }
 
-    public function get_activations() {
-        return $this->activations;
-    }
-
-    public function add_activation( $id, $args ) {
-
-        if( !in_array( $id, $this->activations ) ) {
-
-            $activation = array(
-                'store_url'      => $args['store_url'],
-                'support_file'   => $args['file'],
-                'status_option'  => $args['status_option'],
-                'license_option' => $args['license_option'],
-                'expire_option'  => $args['expire_option'],
-                'version'        => $args['version'],
-                'item_name'      => $args['item_name'],
-                'author'         => $args['author'],
-                'beta'           => !empty( $args['beta'] )
-            );
-
-            $this->activations [ $id ] = $activation;
-
-            return true;
-
-        }
-
-        return false;
-
-    }
-
-    public function remove_activation( $id ) {
-
-        if( !in_array( $id, $this->activations ) ) {
-
-            unset( $this->activations['id'] );
-
-            return true;
-
-        }
-
-        return false;
-
-    }
+//    public function get_activations() {
+//        return $this->activations;
+//    }
+//
+//    public function add_activation( $id, $args ) {
+//
+//        if( !in_array( $id, $this->activations ) ) {
+//
+//            $activation = array(
+//                'store_url'      => $args['store_url'],
+//                'support_file'   => $args['file'],
+//                'status_option'  => $args['status_option'],
+//                'license_option' => $args['license_option'],
+//                'expire_option'  => $args['expire_option'],
+//                'version'        => $args['version'],
+//                'item_name'      => $args['item_name'],
+//                'author'         => $args['author'],
+//                'beta'           => !empty( $args['beta'] )
+//            );
+//
+//            $this->activations [ $id ] = $activation;
+//
+//            return true;
+//
+//        }
+//
+//        return false;
+//
+//    }
+//
+//    public function remove_activation( $id ) {
+//
+//        if( !in_array( $id, $this->activations ) ) {
+//
+//            unset( $this->activations['id'] );
+//
+//            return true;
+//
+//        }
+//
+//        return false;
+//
+//    }
 
     public function subscribed_hooks() {
-        return parent::subscribed_hooks( array(
+        return array(
             'wp_loaded'         => 'register_menu',
-            'wp_login_failed'   => array( 'login_failed' ),
-            'authenticate'      => array( 'authenticate', 1, 3 ),
             'admin_footer'      => array( 'feedback_form' ),
-        ) );
+        );
     }
 
     public function components() {
         $components = array(
             Ticket::class,
             Comment::class,
-            Settings::class,
-            Hacks::class,
             Media::class,
             Statistics::class
         );
-
-        if( \ucare\util\ecommerce_enabled( false ) ) {
-            $components[] = ECommerce::class;
-        }
-
-        if( get_option( Options::ALLOW_SIGNUPS, \ucare\Defaults::ALLOW_SIGNUPS ) == 'on' ) {
-            $components[] = Registration::class;
-        }
 
         return $components;
     }

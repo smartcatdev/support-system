@@ -5,6 +5,11 @@ namespace ucare\admin;
 
 use smartcat\admin\ListTable;
 
+/**
+ * Class LogsTable
+ * @deprecated
+ * @package ucare\admin
+ */
 class LogsTable extends ListTable {
 
     private $classes;

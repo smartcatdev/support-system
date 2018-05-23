@@ -2,7 +2,11 @@
 
 namespace ucare\ajax;
 
-
+/**
+ * Class Media
+ * @deprecated
+ * @package ucare\ajax
+ */
 class Media extends AjaxComponent {
 
     public function upload_media() {
@@ -102,7 +106,7 @@ class Media extends AjaxComponent {
     }
 
     public function subscribed_hooks() {
-        return parent::subscribed_hooks( array(
+        return array_merge( parent::hooks(), array(
             'upload_dir' => array( 'media_dir' ),
             'template_redirect' => array( 'restrict_uploads' ),
             'wp_handle_upload_prefilter' => array( 'generate_filename' ),

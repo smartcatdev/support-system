@@ -3,7 +3,9 @@
 namespace smartcat\admin;
 
 if( !class_exists( '\smartcat\admin\TextField' ) ) :
-
+    /**
+     * @deprecated
+     */
 class TextField extends SettingsField {
     protected $type = 'text';
 

@@ -9,7 +9,7 @@ namespace ucare;
 
 
 // Register our sidebars
-add_action( 'ucare_loaded', 'ucare\register_sidebars' );
+add_action( 'ucare_loaded', 'ucare\register_default_sidebars' );
 
 // Get the eCommerce sidebar
 add_action( 'ucare_ticket_sidebar_purchase-details', 'ucare\get_ecommerce_sidebar' );
@@ -32,12 +32,12 @@ add_filter( 'ucare_ticket_sidebar_sections', 'ucare\set_collapsed_sidebar_sectio
  *
  * @param uCare|Data $ucare
  *
- * @action ucare_loaded
+ * @action ucare_init
  *
  * @since 1.4.2
  * @return void
  */
-function register_sidebars( $ucare ) {
+function register_default_sidebars( $ucare ) {
 
     // Initialize empty array of sidebars
     $ucare->set( 'sidebars', array() );
@@ -55,10 +55,21 @@ function register_sidebars( $ucare ) {
     if ( current_user_can( 'manage_support_tickets' ) ) {
         ucare_register_sidebar( 'ticket-properties', 3, array( 'title' => __( 'Ticket Properties', 'ucare' ) ) );
     }
+}
 
 
+/**
+ * Register ticket sidebar widgets
+ *
+ * @since 1.6.0
+ * @return void
+ */
+function register_sidebars() {
+    /**
+     *
+     * @since 1.6.0
+     */
     do_action( 'ucare_register_ticket_sidebar' );
-
 }
 
 
@@ -69,9 +80,7 @@ function register_sidebars( $ucare ) {
  * @return array
  */
 function get_sidebars() {
-
     return apply_filters( 'ucare_ticket_sidebar_sections', ucare()->get( 'sidebars', array() ) );
-
 }
 
 
@@ -234,12 +243,10 @@ function get_details_sidebar( \WP_Post $ticket ) {
  * @return void
  */
 function get_sidebar( $sidebar, $ticket ) {
-
     /**
      * Pull in sidebar sections
      */
     do_action( "ucare_ticket_sidebar_$sidebar", $ticket );
-
 }
 
 

@@ -24,11 +24,7 @@ namespace ucare;
 
         </footer>
 
-        <?php print_underscore_templates(); ?>
-
-        <?php print_footer_scripts() ?>
-
-        <?php do_action( 'ucare_footer' ); ?>
+        <?php ucare_footer(); ?>
 
     </body><!-- End body -->
 

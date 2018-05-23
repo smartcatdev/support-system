@@ -22,6 +22,34 @@ add_action( 'admin_init', 'ucare\add_settings_fields', 100 );
  */
 function add_settings_fields() {
 
+
+    /**
+     *
+     * General settings
+     */
+    add_settings_field(
+        'ucare-ecommerce-support',
+        __( 'Enable eCommerce Support', 'ucare' ),
+        'ucare\render_checkbox',
+        'uc-general',
+        'uc_general',
+        array(
+            'description' => __( 'Enable eCommerce support with Easy Digital Downloads or WooCommerce', 'ucare' ),
+            'config' => array(
+                'is_checked' => sanitize_boolean( get_option( Options::ECOMMERCE ) )
+            ),
+            'attributes' => array(
+                'id'    => 'ucare-ecommerce-support',
+                'name'  => Options::ECOMMERCE,
+            )
+        )
+    );
+
+
+    /**
+     *
+     * Advanced settings
+     */
     add_settings_field(
         'ucare-template-page',
         __( 'Support Page', 'ucare' ),
@@ -52,19 +80,104 @@ function add_settings_fields() {
     );
 
     add_settings_field(
-        'ucare-ecommerce-support',
-        __( 'Enable eCommerce Support', 'ucare' ),
-        'ucare\render_checkbox',
-        'uc-general',
-        'uc_general',
+        'ucare-create-ticket-page',
+        __( 'Create Ticket Page', 'ucare' ),
+        'ucare\render_posts_dropdown',
+        'uc-advanced',
+        'uc_advanced',
         array(
-            'description' => __( 'Enable eCommerce support with Easy Digital Downloads or WooCommerce', 'ucare' ),
-            'config' => array(
-                'is_checked' => get_option( Options::ECOMMERCE )
-            ),
+            'id'         => 'ucare-create-ticket-page',
+            'value'      => get_option( Options::CREATE_TICKET_PAGE_ID ),
             'attributes' => array(
-                'id'    => 'ucare-ecommerce-support',
-                'name'  => Options::ECOMMERCE,
+                'name'  => Options::CREATE_TICKET_PAGE_ID,
+                'class' => 'regular-text'
+            ),
+            'config' => array(
+                'options' => array(
+                    array(
+                        'title'      => __( 'Select a Page', 'ucare' ),
+                        'attributes' => array(
+                            'value' => ''
+                        )
+                    )
+                ),
+                'wp_query' => array(
+                    'post_type' => 'page',
+                )
+            )
+        )
+    );
+
+    add_settings_field(
+        'ucare-edit-profile-page',
+        __( 'Edit Profile Page', 'ucare' ),
+        'ucare\render_posts_dropdown',
+        'uc-advanced',
+        'uc_advanced',
+        array(
+            'id'         => 'ucare-edit-profile-page',
+            'value'      => get_option( Options::EDIT_PROFILE_PAGE_ID ),
+            'attributes' => array(
+                'name'  => Options::EDIT_PROFILE_PAGE_ID,
+                'class' => 'regular-text'
+            ),
+            'config' => array(
+                'options' => array(
+                    array(
+                        'title'      => __( 'Select a Page', 'ucare' ),
+                        'attributes' => array(
+                            'value' => ''
+                        )
+                    )
+                ),
+                'wp_query' => array(
+                    'post_type' => 'page',
+                )
+            )
+        )
+    );
+
+    add_settings_field(
+        'ucare-login-page',
+        __( 'Login Page', 'ucare' ),
+        'ucare\render_posts_dropdown',
+        'uc-advanced',
+        'uc_advanced',
+        array(
+            'id'         => 'ucare-login-page',
+            'value'      => get_option( Options::LOGIN_PAGE_ID ),
+            'attributes' => array(
+                'name'  => Options::LOGIN_PAGE_ID,
+                'class' => 'regular-text'
+            ),
+            'config' => array(
+                'options' => array(
+                    array(
+                        'title'      => __( 'Select a Page', 'ucare' ),
+                        'attributes' => array(
+                            'value' => ''
+                        )
+                    )
+                ),
+                'wp_query' => array(
+                    'post_type' => 'page',
+                )
+            )
+        )
+    );
+
+    add_settings_field(
+        Options::RECEIPT_ID_LABEL,
+        __( 'Receipt ID Label', 'ucare' ),
+        'ucare\render_text_field',
+        'uc-display',
+        'uc_text',
+        array(
+            'id'         => Options::RECEIPT_ID_LABEL,
+            'attributes' => array(
+                'name'  => Options::RECEIPT_ID_LABEL,
+                'class' => 'regular-text',
+                'value' => get_option( Options::RECEIPT_ID_LABEL ),
             )
         )
     );

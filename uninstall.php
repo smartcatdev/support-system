@@ -1,43 +1,55 @@
 <?php
-
+/**
+ * Plugin uninstall script.
+ *
+ * @since 1.0.0
+ * @package ucare
+ */
 namespace ucare;
 
-if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-    die;
+
+if ( !ucare_in_dev_mode() && !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+    die(); // Die if accessed directly
 }
 
-include_once dirname( __FILE__ ) . '/plugin.php';
+
+// Pull in the plugin class and boot the plugin
+require_once dirname( __FILE__ ) . '/plugin.php';  ucare();
 
 
-ucare();
+if ( get_option( Options::NUKE ) ) {
 
+    /**
+     *
+     * Delete all options
+     */
+    ucare_drop_options( Options::class );
 
-if ( get_option( Options::NUKE ) == 'on' ) {
+    /**
+     *
+     * Trash all custom post types
+     */
+    $args = array(
+        'post_type' => array( 'support_ticket', 'email_template' )
+    );
 
-	\smartcat\mail\cleanup();
-
-
-	// Trash all support tickets
-	$query = new \WP_Query( array( 'post_type' => 'support_ticket' ) );
+	$query = new \WP_Query( $args );
 
 	foreach ( $query->posts as $post ) {
 		wp_trash_post( $post->ID );
 	}
 
+    /**
+     *
+     * Drop custom tables
+     */
+    drop_custom_tables();
 
-	// Cleanup wp_options
-	$options = new \ReflectionClass( Options::class );
-
-	foreach ( $options->getConstants() as $option ) {
-		delete_option( $option );
-	}
-
-	delete_option( 'ucare_version' );
-
-	// Drop logs table
-	global $wpdb;
-
-	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ucare_logs" );
-
-
+    /**
+     *
+     * Clear scheduled crons
+     */
+    wp_clear_scheduled_hook( 'ucare_cron_stale_tickets' );
+    wp_clear_scheduled_hook( 'ucare_cron_close_tickets' );
 }
+
