@@ -1,13 +1,8 @@
-const path = require('path'),
-    CleanWebpackPlugin = require('clean-webpack-plugin'),
-    ExtractTextPlugin  = require('extract-text-webpack-plugin');
+const path    = require('path'),
+      Extract = require('mini-css-extract-plugin');
 
 const SRC_DIR = path.resolve(__dirname, 'src'),
       OUT_DIR = path.resolve(__dirname, 'build');
-
-const extractSass = new ExtractTextPlugin({
-    filename: 'style.css'
-});
 
 module.exports = {
     entry: path.resolve(SRC_DIR, 'index.js'),
@@ -16,21 +11,25 @@ module.exports = {
         filename: 'bundle.js'
     },
     plugins: [
-        new CleanWebpackPlugin(['build']),
-        extractSass
+        new Extract({
+            filename: 'style.css'
+        })
     ],
     module: {
-        loaders: [
+        rules: [
             {
                 test:  /\.(js|jsx)$/,
-                loaders: ['babel-loader']
+                loader: [
+                    'babel-loader'
+                ]
             },
             {
                 test: /\.(css|scss)$/,
-                use: extractSass.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
-                })
+                use: [
+                    Extract.loader,
+                    { loader: 'css-loader' },
+                    { loader: 'sass-loader' }
+                ]
             }
         ]
     }
