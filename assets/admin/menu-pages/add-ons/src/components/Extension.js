@@ -35,7 +35,7 @@ const Extension = ({ license, extension }) => {
         return wrap(element, 'draft')
     }
 
-    return wrap(element, 'advertisment')
+    return wrap(element, 'ucare-add-on')
 }
 
 const wrap = (element, className) => {
