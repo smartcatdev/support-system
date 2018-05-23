@@ -115,6 +115,11 @@ Yes, uCare is built with a notification system and templates for your customers 
 - Plugin now relies on the WP REST API and creates it's own endpoints
 - Added React to the Add-ons page and to the Pro version
 - Added REST API controls for modifying settings page content remotely
+- Added Custom Fields to uCare Pro
+- Added Social Platform Login to uCare Pro
+- Added Automated Agent to uCare Pro
+- Added Advanced WooCommerce Integration to uCare Pro
+- Added Software License for EDD to uCare Pro
 
 = 1.5.3 =
 - Added Persian translation

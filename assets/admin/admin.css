@@ -241,6 +241,7 @@ td.column-id.id:before {
 
 .ucare-sidebar-widget .widget-header .button-cta {
     margin: 4px auto;
+    float: right;
 }
 
 .ucare-sidebar-widget .widget-header .dashicons {
@@ -252,6 +253,10 @@ td.column-id.id:before {
     padding: 2px 5px;
     background: #fff;
     margin: 0 5px;
+}
+
+.ucare-sidebar-widget img {
+    width: 100%;
 }
 
 .ucare-sidebar-widget .widget-content {
