@@ -332,6 +332,12 @@ final class Options {
     const FIRST_140_RUN = 'smartcat_support_first-140-run';
 
     /**
+     * @since 1.6.0
+     */
+    const FIRST_160_RUN = 'smartcat_support_first-160-run';
+
+    
+    /**
      * @since 1.3.0
      */
     const PRIMARY_FONT = 'smartcat_support_primary-font';

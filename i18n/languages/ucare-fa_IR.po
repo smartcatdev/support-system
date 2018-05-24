@@ -1,0 +1,2116 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Project-Id-Version: uCare - Support Ticket System\n"
+"POT-Creation-Date: 2017-12-06 10:24-0500\n"
+"PO-Revision-Date: 2018-02-18 03:38+0330\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: plugin.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: config/admin_settings.php:20 config/admin_settings.php:670
+msgid "Appearance"
+msgstr "ظاهر"
+
+#: config/admin_settings.php:31
+msgid "Primary Font"
+msgstr "فونت اصلی"
+
+#: config/admin_settings.php:32
+msgid "Headings font for the system"
+msgstr "فونت های عنوان برای سامانه"
+
+#: config/admin_settings.php:43
+msgid "Secondary Font"
+msgstr "فونت دوم"
+
+#: config/admin_settings.php:44
+msgid "Main content / body text font for the system"
+msgstr "محتوای اصلی / فونت متن بدنه برای سامانه"
+
+#: config/admin_settings.php:54
+msgid "Primary color"
+msgstr "رنگ اصلی"
+
+#: config/admin_settings.php:64
+msgid "Hover color"
+msgstr "رنگ هاور"
+
+#: config/admin_settings.php:73
+msgid "Secondary color"
+msgstr "رنگ دومی"
+
+#: config/admin_settings.php:83
+msgid "Tertiary color"
+msgstr "رنگ سومین"
+
+#: config/admin_settings.php:94
+msgid "Login Background Image"
+msgstr "تصویر پس زمینه ورود"
+
+#: config/admin_settings.php:102
+msgid "Display Back Button"
+msgstr "نمایش دکمه بازگشت"
+
+#: config/admin_settings.php:103
+msgid "Display button that links back to your website in the navigation bar"
+msgstr "نمایش دکمه بازگشت به سایت شما در منوی ناوبری"
+
+#: config/admin_settings.php:112
+msgid "Show Clock"
+msgstr "نمایش ساعت"
+
+#: config/admin_settings.php:113
+msgid "Display the date and time in the primary navbar"
+msgstr "نمایش تاریخ و زمان در منوی ناوبری اصلی"
+
+#: config/admin_settings.php:119 includes/Plugin.php:153
+msgid "Ticket Categories"
+msgstr "دسته بندی تیکت"
+
+#: config/admin_settings.php:127
+msgid "Categories Name"
+msgstr "نام دسته بندی ها"
+
+#: config/admin_settings.php:128
+msgid "The name to be used for ticket category"
+msgstr "نام استفاده شده در دسته بندی تیکت"
+
+#: config/admin_settings.php:137
+msgid "Categories Name Plural"
+msgstr "نام جمع دسته بندی"
+
+#: config/admin_settings.php:138
+msgid "The plural name to be used for ticket category"
+msgstr "نام جمع استفاده شده در دسته بندی تیکت"
+
+#: config/admin_settings.php:146
+msgid "Categories Enabled"
+msgstr "فعال شدن دسته بندی ها"
+
+#: config/admin_settings.php:147
+msgid "Allow tickets to be assigned a category when created"
+msgstr "اجازه اختصاص دسته بندی به تیکت زمانی که ایجاد شد"
+
+#: config/admin_settings.php:153
+msgid "Text & Labels"
+msgstr "متن و برچسب"
+
+#: config/admin_settings.php:161
+msgid "Login Disclaimer"
+msgstr "رفع مسئولیت ورود"
+
+#: config/admin_settings.php:171
+msgid "Register Button Label"
+msgstr "برچسب دکمه ثبت نام"
+
+#: config/admin_settings.php:181
+msgid "Login Button Label"
+msgstr "برچسب دکمه ورود"
+
+#: config/admin_settings.php:191
+msgid "Create Ticket Button Label"
+msgstr "برچسب دکمه ایجاد تیکت"
+
+#: config/admin_settings.php:201
+msgid "Cancel Operation Button Label"
+msgstr "برچسب دکمه لغو عملکرد"
+
+#: config/admin_settings.php:211
+msgid "Ticket Created Message"
+msgstr "پیام تیکت ایجاد شد"
+
+#: config/admin_settings.php:221
+msgid "Ticket Updated Message"
+msgstr "پیام تیکت بروزرسانی شد"
+
+#: config/admin_settings.php:231
+msgid "No Tickets Message"
+msgstr "پیام تیکتی موجود نیست"
+
+#: config/admin_settings.php:240
+msgid "Comments Closed Message"
+msgstr "پیام دیدگاه های بسته شده"
+
+#: config/admin_settings.php:249
+msgid "Footer Text"
+msgstr "متن فوتر"
+
+#: config/admin_settings.php:254
+msgid "Widgets"
+msgstr "ابزارک ها"
+
+#: config/admin_settings.php:263
+msgid "Login Widget Area"
+msgstr "ناحیه ابزارک ورود"
+
+#: config/admin_settings.php:264
+msgid "Displayed on the login page"
+msgstr "در برگه ورود نمایش داده می شود"
+
+#: config/admin_settings.php:274
+msgid "User Widget Area"
+msgstr "ناحیه ابزارک کاربر"
+
+#: config/admin_settings.php:275
+msgid "Only visible to support users"
+msgstr "تنها برای کاربران پشتیبانی قابل رویت است"
+
+#: config/admin_settings.php:285
+msgid "Agent Widget Area"
+msgstr "ناحیه ابزارک کارمند"
+
+#: config/admin_settings.php:286
+msgid "Only visible to support agents and admins"
+msgstr "تنها برای کارمندان و مدیر  پشتیبانی قابل رویت است"
+
+#: config/admin_settings.php:294
+msgid "Quick Link Enabled"
+msgstr "فعال شدن پیوند سریع"
+
+#: config/admin_settings.php:295
+msgid "Display support quick link widget on your site"
+msgstr "نمایش پیوند سریع پشتیبانی در سایت شما"
+
+#: config/admin_settings.php:305
+msgid "Quick Link Label"
+msgstr "برچسب پیوند سریع"
+
+#: config/admin_settings.php:306
+msgid "Label to be displayed on the quick link widget"
+msgstr "برچسب در ابزارک پیوند سریع نمایش داده می شود"
+
+#: config/admin_settings.php:311
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: config/admin_settings.php:319
+msgid "Logo Image"
+msgstr "تصویر لوگو"
+
+#: config/admin_settings.php:328
+msgid "Favicon"
+msgstr "فاویکون"
+
+#: config/admin_settings.php:337
+msgid "Company Name"
+msgstr "نام شرکت"
+
+#: config/admin_settings.php:347
+msgid "Terms & Conditions URL"
+msgstr "پیوند قوانین و شرایط"
+
+#: config/admin_settings.php:348
+msgid "URL of page containing your terms and conditions"
+msgstr "پیوند برگه حاوی شرایط و قوانین شما"
+
+#: config/admin_settings.php:356
+msgid "Allow users to signup"
+msgstr "اجازه به کابران برای ثبت نام"
+
+#: config/admin_settings.php:357
+msgid "Allow users to create accounts for submitting tickets"
+msgstr "اجازه ایجاد حساب کاربری به کاربران برای ارسال تیکت"
+
+#: config/admin_settings.php:367
+msgid "Tickets Per Page"
+msgstr "تیکت در صفحه"
+
+#: config/admin_settings.php:368
+msgid "The maximum number of tickets to be loaded per page"
+msgstr "حداکثر تعداد تیکت ها برای بارگذاری در صفحه"
+
+#: config/admin_settings.php:378
+msgid "Image MIME types"
+msgstr "MIME انواع تصاویر"
+
+#: config/admin_settings.php:379
+msgid "Allowed file types for image uploads (comma separated)"
+msgstr "انواع فرمت های تصویر که اجازه آپلود داردند (با کاما جدا کنید)"
+
+#: config/admin_settings.php:389
+msgid "File MIME types"
+msgstr "MIME انواع فایلها"
+
+#: config/admin_settings.php:390
+msgid "Allowed file types for file uploads (comma separated)"
+msgstr "انواع فرمت های فایل که اجازه آپلود دارند (با کاما حدا کنید)"
+
+#: config/admin_settings.php:399
+msgid "Maximum attachment size"
+msgstr "حداکثر اندازه پیوست ها"
+
+#: config/admin_settings.php:400
+msgid "The maximum file size for attachments in MB"
+msgstr "حداکثر اندازه فایلها برای پیوست به مگابایت"
+
+#: config/admin_settings.php:410
+msgid "List Refresh Interval"
+msgstr "وقفه تازه کردن لیست"
+
+#: config/admin_settings.php:411
+msgid "Automatic refresh interval in seconds"
+msgstr "وقفه تازه کردن خودکار به ثانیه"
+
+#: config/admin_settings.php:420
+msgid "Enable Logging"
+msgstr "فعالسازی ورود"
+
+#: config/admin_settings.php:421
+msgid "Enable or disable the logging of system events"
+msgstr "فعال یا غیرفعالسازی رویدادهای ورود سامانه"
+
+#: config/admin_settings.php:428
+msgid "Inactive Tickets"
+msgstr "تیکت های غیرفعال"
+
+#: config/admin_settings.php:438
+msgid "Max Ticket Age"
+msgstr "حداکثر سن تیکت"
+
+#: config/admin_settings.php:439
+msgid "The maximum number of days of inactivity for a ticket"
+msgstr "حداکثر تعداد روزها برای عدم فعالیت تیکت"
+
+#: config/admin_settings.php:449
+msgid "Auto Close Tickets"
+msgstr "بستن خودکار تیکت ها"
+
+#: config/admin_settings.php:450
+msgid "Automatically close tickets after they become inactive"
+msgstr "بسته شدن خودکار تیکت پس از عدم فعالیت"
+
+#: config/admin_settings.php:456
+msgid "User Notification Templates"
+msgstr "الگو اعلانیه های کاربر"
+
+#: config/admin_settings.php:458
+msgid "Notifications Disabled"
+msgstr "اعلانیه ها غیرفعال شد"
+
+#: config/admin_settings.php:467
+msgid "Welcome"
+msgstr "خوش آمدید"
+
+#: config/admin_settings.php:468
+msgid "Sent when a user registers for the first time"
+msgstr "زمانی ارسال می شود که کاربر برای اولین بار ثبت نام می کند"
+
+#: config/admin_settings.php:479
+msgid "Ticket Closed"
+msgstr "تیکت بسته شد"
+
+#: config/admin_settings.php:480
+msgid "Sent when the ticket is marked as closed"
+msgstr "زمانی ارسال می شود که تیکت به عنوان بسته شده نشانه گذاری شود"
+
+#: config/admin_settings.php:491
+msgid "Ticket Created"
+msgstr "تیکت ایجاد شد"
+
+#: config/admin_settings.php:492
+msgid "Sent when a user creates a new ticket"
+msgstr "زمانی که کاربر یک تیکت جدید ایجاد می کند"
+
+#: config/admin_settings.php:503
+msgid "Agent Reply"
+msgstr "پاسخ کارمند"
+
+#: config/admin_settings.php:504
+msgid "Sent when an agent replies to a ticket"
+msgstr "زمانی ارسال می شود که کارمند به یک تیکت پاسخ دهد"
+
+#: config/admin_settings.php:515
+msgid "Forgot Password Reset"
+msgstr "بازنشانی فراموشی گذرواژه"
+
+#: config/admin_settings.php:516
+msgid "Sent when a user forgets their password"
+msgstr "زمانی ارسال می شود که کاربر گذرواژه خود را فراموش کند"
+
+#: config/admin_settings.php:527
+msgid "Automatic Close Warning"
+msgstr "هشدار خودکار بسته شدن"
+
+#: config/admin_settings.php:528
+msgid "Sent out to warn users of automatic ticket closure"
+msgstr "هشدار به کاربر برای بسته شدن خودکار تیکت"
+
+#: config/admin_settings.php:534
+msgid "Admin Notification Templates"
+msgstr "الگو  اعلانیه های مدیر"
+
+#: config/admin_settings.php:543
+msgid "New Ticket"
+msgstr "تیکت جدید"
+
+#: config/admin_settings.php:544
+msgid "Sent to the admin user when a user creates a new ticket"
+msgstr "زمانی که کاربر یک تیکت جدید ایجاد می کند به مدیر ارسال می شود"
+
+#: config/admin_settings.php:550
+msgid "Agent Notification Templates"
+msgstr "الگو اعلانیه های کارمند"
+
+#: config/admin_settings.php:559
+msgid "Customer Reply"
+msgstr "پاسخ مشتری"
+
+#: config/admin_settings.php:560
+msgid ""
+"Sent out to support agents when a customer replies to a ticket they're "
+"assigned to"
+msgstr ""
+"زمانی که مشتری به تیکت اختصاص یافته به کارمند پاسخ می دهد به او ارسال می شود"
+
+#: config/admin_settings.php:571
+msgid "Ticket Assigned"
+msgstr "تیکیت اختصاص یافته"
+
+#: config/admin_settings.php:572
+msgid "Sent out to support agents when they are assigned a ticket"
+msgstr "زمانی ارسال می شود که تیکتی به کارمند اختصاص یافته باشد"
+
+#: config/admin_settings.php:578 config/admin_settings.php:585
+msgid "Email Notifications"
+msgstr "اعلانیه های ایمیل"
+
+#: config/admin_settings.php:586
+msgid "Send out automated email notifications in response to ticket events"
+msgstr "ارسال خودکار اعلانیه های ایمیل در پاسخ به رویدادهای تیکت"
+
+#: config/admin_settings.php:596
+msgid "Admin Email"
+msgstr "ایمیل مدیر"
+
+#: config/admin_settings.php:597
+msgid "Email address of the support administrator"
+msgstr "نشانی ایمیل مدیریت پشتیبانی"
+
+#: config/admin_settings.php:606
+msgid "Sender Email"
+msgstr "ارسال کننده ایمیل"
+
+#: config/admin_settings.php:607
+msgid "Email address used when sending support emails"
+msgstr "نشانی ایمیل مورد استفاده برای ارسال ایمیل های پشتیبانی"
+
+#: config/admin_settings.php:615 includes/Plugin.php:110
+#: includes/functions-post-support_ticket.php:37
+#: includes/functions-post-support_ticket.php:38
+msgid "uCare Support"
+msgstr "پشتیبان uCare"
+
+#: config/admin_settings.php:616
+msgid "Sender Name"
+msgstr "نام ارسال کننده"
+
+#: config/admin_settings.php:617
+msgid "Name used for outgoing support emails"
+msgstr "این نام برای ایمیل های پشتیبانی استفاده می شود"
+
+#: config/admin_settings.php:622
+msgid "CAUTION: Some of these may bite"
+msgstr "احتیاط: برخی از اینها ممکن است مشکل ایجاد کنند"
+
+#: config/admin_settings.php:629
+msgid "Developer Mode"
+msgstr "حالت توسعه دهنده"
+
+#: config/admin_settings.php:630
+msgid "Enable development functionality"
+msgstr "فعال کردن قابلیت توسعه"
+
+#: config/admin_settings.php:639
+msgid "Erase All Data"
+msgstr "پاک کردن تمام اطلاعات"
+
+#: config/admin_settings.php:640
+msgid ""
+"Erase all plugin data on deactivation if developer mode is enabled or during "
+"un-installation"
+msgstr ""
+"پاک کردن تمام اطلاعات افزونه در زمان غیرفعال کردن اگر حالت توسعه دهنده فعال "
+"باشد یا هنگام غیر نصب"
+
+#: config/admin_settings.php:650 plugin.php:256 templates/dash.php:19
+#: templates/navbar.php:106
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: config/admin_settings.php:656
+msgid "General"
+msgstr "عمومی"
+
+#: config/admin_settings.php:663
+msgid "Display"
+msgstr "نمایش"
+
+#: config/admin_settings.php:677 config/ticket_filter.php:72
+#: includes/functions-post-support_ticket.php:164
+msgid "Email"
+msgstr "ایمیل"
+
+#: config/admin_settings.php:684
+msgid "Advanced"
+msgstr "پشرفته"
+
+#: config/product_metabox_form.php:9 config/ticket_create_form.php:13
+msgid "Select a Product"
+msgstr "انتخاب یک محصول"
+
+#: config/product_metabox_form.php:18 config/ticket_create_form.php:73
+msgid "Receipt #"
+msgstr "دریافت #"
+
+#: config/product_metabox_form.php:27 config/ticket_create_form.php:58
+#: config/ticket_filter.php:44 includes/functions-post-support_ticket.php:157
+msgid "Product"
+msgstr "محصول"
+
+#: config/properties_metabox_form.php:11 config/ticket_filter.php:63
+#: config/ticket_properties_form.php:11
+#: includes/functions-post-support_ticket.php:197
+msgid "Unassigned"
+msgstr "اختصاص نیافته"
+
+#: config/properties_metabox_form.php:19 includes/admin/AgentStatsTable.php:28
+#: includes/functions-post-support_ticket.php:165
+msgid "Assigned"
+msgstr "اختصاص یافته"
+
+#: config/properties_metabox_form.php:31 config/ticket_filter.php:93
+#: config/ticket_properties_form.php:30
+#: includes/functions-post-support_ticket.php:166
+msgid "Status"
+msgstr "وضعیت"
+
+#: config/properties_metabox_form.php:43 config/ticket_properties_form.php:42
+#: includes/functions-post-support_ticket.php:167
+msgid "Priority"
+msgstr "اولویت"
+
+#: config/registration_form.php:14 config/settings_form.php:15
+msgid "First Name"
+msgstr "نام کوچک"
+
+#: config/registration_form.php:15
+msgid "First name cannot be blank"
+msgstr "نام کوچک نمی تواند خالی رها شود"
+
+#: config/registration_form.php:25 config/settings_form.php:28
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: config/registration_form.php:26
+msgid "Last name cannot be blank"
+msgstr "نام خانوادگی نمی تواند خالی رها شود"
+
+#: config/registration_form.php:37
+msgid "Email Address"
+msgstr "نشانی ایمیل"
+
+#: config/registration_form.php:38
+msgid "Email cannot be empty or already in use"
+msgstr "ایمیل نمی تواند خالی رها شود یا از قبل استفاده شده باشد"
+
+#: config/settings_form.php:17
+msgid "First name is required"
+msgstr "نام کوچک الزامیست"
+
+#: config/settings_form.php:30
+msgid "Last name is required"
+msgstr "نام خانوادگی الزامیست"
+
+#: config/settings_form.php:42
+msgid "New Password"
+msgstr "گذرواژه جدید"
+
+#: config/settings_form.php:51
+msgid "Passwords don't match"
+msgstr "گذرواژه‌ها مطابقت ندارند"
+
+#: config/settings_form.php:52
+msgid "Confirm Password"
+msgstr "تایید گذرواژه"
+
+#: config/ticket_create_form.php:59
+msgid "Please Select a product"
+msgstr "لطفا محصول را انتخاب کنید"
+
+#: config/ticket_create_form.php:87 config/ticket_create_form.php:102
+#: includes/functions-post-support_ticket.php:154
+msgid "Subject"
+msgstr "عنوان"
+
+#: config/ticket_create_form.php:88
+msgid "Cannot be blank"
+msgstr "نمیتواند خالی رها شود"
+
+#: config/ticket_create_form.php:103
+msgid "Subject cannot be blank"
+msgstr "عنوان نمی تواند خالی رها شود"
+
+#: config/ticket_create_form.php:118
+msgid "Description"
+msgstr "توضیحات"
+
+#: config/ticket_create_form.php:119
+msgid "Description cannot be blank"
+msgstr "توضیحات نمی تواند خالی رها شود"
+
+#: config/ticket_filter.php:46 includes/functions-post-support_ticket.php:252
+msgid "All Products"
+msgstr "تمام محصولات"
+
+#: config/ticket_filter.php:59 includes/admin/AgentStatsTable.php:27
+msgid "Agent"
+msgstr "کارمند"
+
+#: config/ticket_filter.php:62 includes/admin/AgentStatsTable.php:53
+#: includes/functions-post-support_ticket.php:244
+msgid "All Agents"
+msgstr "تمام کارمندان"
+
+#: config/ticket_filter.php:84 includes/functions-post-support_ticket.php:209
+#: includes/functions-post-support_ticket.php:267
+msgid "Stale"
+msgstr "کهنه"
+
+#: config/ticket_properties_form.php:18
+msgid "Assigned to"
+msgstr "اختصاص یافته به"
+
+#: emails/product-feedback.php:5
+msgid "Reason"
+msgstr "دلیل"
+
+#: emails/product-feedback.php:10
+msgid "Details"
+msgstr "جزئیات"
+
+#: emails/product-feedback.php:17
+msgid "Comments"
+msgstr "دیدگاه"
+
+#: emails/product-feedback.php:22
+msgid "website can be viewed here"
+msgstr "وبسایت را می توان در اینجا مشاهده کرد"
+
+#: includes/Plugin.php:122
+msgid "Reports"
+msgstr "گزارش ها"
+
+#: includes/Plugin.php:133
+msgid "Support Tickets"
+msgstr "تیکت های پشتیبانی"
+
+#: includes/Plugin.php:143 includes/functions-post-support_ticket.php:42
+#: includes/functions-post-support_ticket.php:43
+#: includes/functions-post-support_ticket.php:44
+msgid "Create Ticket"
+msgstr "ایجاد تیکت"
+
+#: includes/Plugin.php:164
+msgid "Launch Help Desk"
+msgstr "راه اندازی مرکز راهنمایی"
+
+#: includes/Plugin.php:175 templates/partials/admin-header.php:32
+msgid "Add-ons"
+msgstr "افزونه ها"
+
+#: includes/Plugin.php:188 plugin.php:200
+msgid "Licenses"
+msgstr "مجوز"
+
+#: includes/admin/AgentStatsTable.php:15
+msgid "Agent Total"
+msgstr "مجموع کارمندان"
+
+#: includes/admin/AgentStatsTable.php:16
+msgid "Agent Totals"
+msgstr "مجموع ارقام"
+
+#: includes/admin/AgentStatsTable.php:29
+#: includes/admin/ReportsOverviewTab.php:80
+#: includes/functions-deprecated.php:88
+#: includes/functions-post-support_ticket.php:104
+msgid "Closed"
+msgstr "بسته شده"
+
+#: includes/admin/AgentStatsTable.php:30
+msgid "% Workload"
+msgstr "% حجم کار"
+
+#: includes/admin/AgentStatsTable.php:44
+msgid "No totals available."
+msgstr "مجموع کل در دسترس نیست."
+
+#: includes/admin/AgentStatsTable.php:68 includes/admin/LogsTable.php:92
+msgid "Filter"
+msgstr "فیلتر"
+
+#: includes/admin/LogsTab.php:14 includes/admin/LogsTable.php:15
+msgid "Logs"
+msgstr "لاگ ها"
+
+#: includes/admin/LogsTable.php:14
+msgid "Log"
+msgstr "لاگ"
+
+#: includes/admin/LogsTable.php:20
+msgid "Info"
+msgstr "اطلاعات"
+
+#: includes/admin/LogsTable.php:21
+msgid "Debug"
+msgstr "اشکال زدایی"
+
+#: includes/admin/LogsTable.php:22
+#: includes/lib/class-edd-sl-plugin-updater.php:394
+msgid "Error"
+msgstr "خطا"
+
+#: includes/admin/LogsTable.php:23
+msgid "Warning"
+msgstr "هشدار"
+
+#: includes/admin/LogsTable.php:31
+msgid "Level"
+msgstr "سطح"
+
+#: includes/admin/LogsTable.php:32
+msgid "Event"
+msgstr "رویداد"
+
+#: includes/admin/LogsTable.php:33
+msgid "Message"
+msgstr "پیام"
+
+#: includes/admin/LogsTable.php:34
+msgid "Timestamp"
+msgstr "تایم استمپ"
+
+#: includes/admin/LogsTable.php:47
+msgid "No logs available."
+msgstr "لاگی در دسترس نیست."
+
+#: includes/admin/LogsTable.php:57
+msgid "Verbose"
+msgstr "درازنویس"
+
+#: includes/admin/LogsTable.php:74
+msgid "All Tags"
+msgstr "تمام برچسب ها"
+
+#: includes/admin/ReportsOverviewTab.php:21
+msgid "Overview"
+msgstr "نمای کلی"
+
+#: includes/admin/ReportsOverviewTab.php:25
+msgid "Last 7 Days"
+msgstr "7 روز گذشته"
+
+#: includes/admin/ReportsOverviewTab.php:26
+msgid "This Month"
+msgstr "این ماه"
+
+#: includes/admin/ReportsOverviewTab.php:27
+msgid "Last Month"
+msgstr "ماه گذشته"
+
+#: includes/admin/ReportsOverviewTab.php:28
+msgid "This Year"
+msgstr "امسال"
+
+#: includes/admin/ReportsOverviewTab.php:29
+msgid "Custom"
+msgstr "سفارشی"
+
+#: includes/admin/ReportsOverviewTab.php:79
+#: includes/functions-deprecated.php:85
+#: includes/functions-post-support_ticket.php:101
+msgid "Opened"
+msgstr "باز شده"
+
+#: includes/admin/ReportsOverviewTab.php:193
+msgid "Go"
+msgstr "برو"
+
+#: includes/admin/functions-menu.php:102
+msgid "uCare - Introduction"
+msgstr "uCare - معرفی"
+
+#: includes/admin/functions-metabox.php:27
+msgid "Category"
+msgstr "دسته بندی"
+
+#: includes/admin/functions-metabox.php:51
+msgid "Set the category topic for the ticket"
+msgstr "تنظیم دسته بندی موضوع برای تیکت"
+
+#: includes/admin/functions-metabox.php:60
+msgid "Select a Category"
+msgstr "انتخاب دسته بندی"
+
+#: includes/admin/functions-settings.php:27
+msgid "Support Page"
+msgstr "برگه پشتیبانی"
+
+#: includes/admin/functions-settings.php:41
+msgid "Select a Page"
+msgstr "انتخاب برگه"
+
+#: includes/admin/functions-settings.php:56
+msgid "Enable eCommerce Support"
+msgstr "فعالسازی پشتیبان eCommerce"
+
+#: includes/admin/functions-settings.php:61
+msgid "Enable eCommerce support with Easy Digital Downloads or WooCommerce"
+msgstr "فعالسازی پشتیبانی eCommerce با Easy Digital Downloads یا WooCommerce"
+
+#: includes/ajax/Comment.php:34 includes/ajax/Ticket.php:268
+msgid "Reply cannot be blank"
+msgstr "پاسخ نمی تواند خالی باشد"
+
+#: includes/ajax/Media.php:39
+msgid "Error uploading invalid file format."
+msgstr "خطای بارگذاری فایل نامعتبر."
+
+#: includes/ajax/Media.php:53
+msgid "Attachment successfully removed"
+msgstr "پیوست با موفقیت حذف شد"
+
+#: includes/ajax/Media.php:55
+msgid "Error occurred when removing attachment"
+msgstr "هنگام حذف کردن پیوست خطایی رخ داده است"
+
+#: includes/ajax/Registration.php:52
+msgid "That user could not be found"
+msgstr "این کاربر یافت نشد"
+
+#: includes/ajax/Registration.php:59
+msgid "Password reset, a temporary password has been sent to your email"
+msgstr "گذرواژه بازنشانی شد، یک گذرواژه موقت به ایمیل شما ارسال شده است"
+
+#: includes/ajax/Registration.php:61
+msgid "An error has occurred, Please try again later"
+msgstr "خطایی رخ داده است، لطفا دوباره سعی کنید"
+
+#: includes/ajax/Settings.php:33
+msgid "Settings updated refresh to apply your changes"
+msgstr "تنظیمات بروزرسانی شد. برای اعمال تغییرات تازه سازی (رفرش) کنید"
+
+#: includes/ajax/Ticket.php:155
+msgid "Ticket Successfully Updated"
+msgstr "تیکت با موفقیت بروزرسانی شد"
+
+#: includes/ajax/Ticket.php:165
+msgid "Ticket successfully closed"
+msgstr "تیکت با موفقیت بسته شد"
+
+#: includes/ajax/Ticket.php:167
+msgid "Error closing ticket"
+msgstr "خطا در بسته شدن تیکت"
+
+#: includes/cron.php:47 includes/cron.php:89
+msgid " ticket"
+msgid_plural " tickets"
+msgstr[0] " تیکت"
+
+#: includes/cron.php:47 includes/cron.php:89
+msgid " has"
+msgid_plural " have"
+msgstr[0] " دارد"
+
+#: includes/cron.php:133 includes/lib/class-sc-license-manager.php:110
+msgid "Your license for "
+msgstr "مجوز شما برای "
+
+#: includes/functions-deprecated.php:83
+#: includes/functions-post-support_ticket.php:99
+msgid "New"
+msgstr "جدید"
+
+#: includes/functions-deprecated.php:84
+#: includes/functions-post-support_ticket.php:100 templates/statistics.php:54
+msgid "Waiting"
+msgstr "در انتظار"
+
+#: includes/functions-deprecated.php:86
+#: includes/functions-post-support_ticket.php:102
+msgid "Responded"
+msgstr "پاسخ داده شده"
+
+#: includes/functions-deprecated.php:87
+#: includes/functions-post-support_ticket.php:103 templates/statistics.php:24
+msgid "Needs Attention"
+msgstr "نیاز به توجه دارد"
+
+#: includes/functions-deprecated.php:145
+msgid "Just Now"
+msgstr "فقط اکنون"
+
+#: includes/functions-deprecated.php:147
+msgid " ago"
+msgstr " پیش"
+
+#: includes/functions-formatting.php:51
+msgid "Seconds ago"
+msgstr "چند ثانیه پیش"
+
+#: includes/functions-formatting.php:53
+msgid "Just now"
+msgstr "فقط اکنون"
+
+#: includes/functions-formatting.php:55
+#, php-format
+msgid "%s ago"
+msgstr "%s پیش"
+
+#: includes/functions-post-support_ticket.php:35
+msgctxt "Post Type General Name"
+msgid "Support Tickets"
+msgstr "تیکت های پشتیبانی"
+
+#: includes/functions-post-support_ticket.php:36
+msgctxt "Post Type Singular Name"
+msgid "Support Ticket"
+msgstr "تیکت پشتیبانی"
+
+#: includes/functions-post-support_ticket.php:39
+msgid "Item Archives"
+msgstr "بخش بایگانی"
+
+#: includes/functions-post-support_ticket.php:40 lib/mail/mail.php:161
+msgid "Parent Item:"
+msgstr "والد بخش:"
+
+#: includes/functions-post-support_ticket.php:41
+msgid "Ticket List"
+msgstr "لیست تیکت ها"
+
+#: includes/functions-post-support_ticket.php:45
+msgid "Edit Ticket"
+msgstr "ویرایش تیکت"
+
+#: includes/functions-post-support_ticket.php:46
+msgid "Update Ticket"
+msgstr "بروزرسانی تیکت"
+
+#: includes/functions-post-support_ticket.php:47
+msgid "View Ticket"
+msgstr "مشاهده تیکت"
+
+#: includes/functions-post-support_ticket.php:48
+msgid "Search Ticket"
+msgstr "جستجوی تیکت"
+
+#: includes/functions-post-support_ticket.php:49
+msgid "Ticket Not found"
+msgstr "تیکت یافت نشد"
+
+#: includes/functions-post-support_ticket.php:50
+msgid "Ticket Not found in Trash"
+msgstr "تیکت درون زباله‌دان یافت نشد"
+
+#: includes/functions-post-support_ticket.php:51 lib/mail/mail.php:172
+msgid "Featured Image"
+msgstr "تصویر ویژه"
+
+#: includes/functions-post-support_ticket.php:52 lib/mail/mail.php:173
+msgid "Set featured image"
+msgstr "تنظیم تصویر ویژه"
+
+#: includes/functions-post-support_ticket.php:53 lib/mail/mail.php:174
+msgid "Remove featured image"
+msgstr "حذف تصویر ویژه"
+
+#: includes/functions-post-support_ticket.php:54 lib/mail/mail.php:175
+msgid "Use as featured image"
+msgstr "استفاده به عنوان تصویر ویژه"
+
+#: includes/functions-post-support_ticket.php:55
+msgid "Insert into ticket"
+msgstr "درج در تیکت"
+
+#: includes/functions-post-support_ticket.php:56
+msgid "Uploaded to this ticket"
+msgstr "بارگذاری در این تیکت"
+
+#: includes/functions-post-support_ticket.php:57
+msgid "Tickets list"
+msgstr "لیست تیکت ها"
+
+#: includes/functions-post-support_ticket.php:58
+msgid "Tickets list navigation"
+msgstr "لیست ناوبری تیکت ها"
+
+#: includes/functions-post-support_ticket.php:59
+msgid "Filter tickets list"
+msgstr "فیلتر لیست تیکت"
+
+#: includes/functions-post-support_ticket.php:63
+msgid "Support Ticket"
+msgstr "تیکت پشتیبانی"
+
+#: includes/functions-post-support_ticket.php:64
+msgid "Tickets for support requests"
+msgstr "تیکت های درخواست پشتیبانی"
+
+#: includes/functions-post-support_ticket.php:245
+msgid "All Statuses"
+msgstr "همه وضعیت ها"
+
+#: includes/functions-post-support_ticket.php:263
+msgid "Flagged"
+msgstr "پرچم گذاری شده"
+
+#: includes/functions-post-support_ticket.php:317
+msgid "Ticket Information"
+msgstr "اطلاعات تیکت"
+
+#: includes/functions-post-support_ticket.php:330
+msgid "Product Information"
+msgstr "اطلاعات محصول"
+
+#: includes/functions-scripts.php:102
+msgid "Loading Tickets..."
+msgstr "تیکت در حال بارگذاری..."
+
+#: includes/functions-scripts.php:103 templates/ticket.php:17
+msgid "Loading..."
+msgstr "درحال بارگزاری..."
+
+#: includes/functions-scripts.php:104
+msgid "Delete Comment"
+msgstr "حذف دیدگاه"
+
+#: includes/functions-scripts.php:105
+msgid "Delete Attachment"
+msgstr "حذف پیوست ها"
+
+#: includes/functions-scripts.php:106 templates/ticket.php:99
+msgid "Close Ticket"
+msgstr "بستن تیکت"
+
+#: includes/functions-scripts.php:107
+msgid "Are you sure you want to do this? This operation cannot be undone!"
+msgstr "آیا مطمئن هستید؟ این عملیات نمی تواند لغو شود!"
+
+#: includes/functions-scripts.php:108
+msgid "Yes"
+msgstr "بله"
+
+#: includes/functions-scripts.php:109
+msgid "No"
+msgstr "نه"
+
+#: includes/functions-shortcodes.php:15
+msgid "Support Login"
+msgstr "ورود به پشتیبانی"
+
+#: includes/functions-shortcodes.php:18
+msgid "Get Support"
+msgstr "رفتن به پشتیبانی"
+
+#: includes/functions-shortcodes.php:19
+msgid "Forgot Password"
+msgstr "فراموشی گذرواژه"
+
+#: includes/functions-shortcodes.php:20 includes/functions-template.php:95
+msgid "Register"
+msgstr "ثبت نام"
+
+#: includes/functions-shortcodes.php:22
+msgid "Password"
+msgstr "گذرواژه"
+
+#: includes/functions-shortcodes.php:23 templates/login.php:39
+msgid "Username or Email Address"
+msgstr "نام کاربر یا نشانی ایمیل"
+
+#: includes/functions-shortcodes.php:24
+msgid "Remember Me"
+msgstr "مرا فراموش نکن"
+
+#: includes/functions-shortcodes.php:25
+msgid "Login"
+msgstr "ورود"
+
+#: includes/functions-sidebar.php:46 includes/functions-sidebar.php:258
+msgid "Purchase Details"
+msgstr "جزئیات خرید"
+
+#: includes/functions-sidebar.php:50 includes/functions-sidebar.php:262
+msgid "Customer Details"
+msgstr "جزئیات مشتری"
+
+#: includes/functions-sidebar.php:53 includes/functions-sidebar.php:265
+msgid "Attachments"
+msgstr "پیوست ها"
+
+#: includes/functions-sidebar.php:56 includes/functions-sidebar.php:268
+msgid "Ticket Properties"
+msgstr "ویژگی های تیکت"
+
+#: includes/functions-sidebar.php:112
+msgid "Not Available"
+msgstr "در دسترس نیست"
+
+#: includes/functions-taxonomy-ticket_category.php:12
+msgctxt "taxonomy general name"
+msgid "Ticket Categories"
+msgstr "دسته بندی های تیکت"
+
+#: includes/functions-taxonomy-ticket_category.php:13
+msgctxt "taxonomy singular name"
+msgid "Ticket Category"
+msgstr "دسته بندی تیکت"
+
+#: includes/functions-taxonomy-ticket_category.php:14
+msgid "All Categories"
+msgstr "تمام دسته بندی ها"
+
+#: includes/functions-taxonomy-ticket_category.php:15
+msgid "Edit Category"
+msgstr "ویرایش دسته بندی ها"
+
+#: includes/functions-taxonomy-ticket_category.php:16
+msgid "View Category"
+msgstr "مشاهده دسته بندی"
+
+#: includes/functions-taxonomy-ticket_category.php:17
+msgid "Update Category"
+msgstr "بروزرسانی دسته بندی"
+
+#: includes/functions-taxonomy-ticket_category.php:18
+msgid "Add New Category"
+msgstr "اضافه کردن دسته بندی جدید"
+
+#: includes/functions-taxonomy-ticket_category.php:19
+msgid "New Category"
+msgstr "دسته بندی جدید"
+
+#: includes/functions-taxonomy-ticket_category.php:20
+msgid "Parent Category"
+msgstr "دسته بندی والد"
+
+#: includes/functions-taxonomy-ticket_category.php:21
+msgid "Parent Category:"
+msgstr "دسته بندی والد:"
+
+#: includes/functions-taxonomy-ticket_category.php:22
+msgid "Search Categories"
+msgstr "جستجوی دسته بندی ها"
+
+#: includes/functions-taxonomy-ticket_category.php:23
+msgid "Popular Categories"
+msgstr "دسته بندی های محبوب"
+
+#: includes/functions-taxonomy-ticket_category.php:24
+msgid "No categories found"
+msgstr "دسته بندی یافت نشد"
+
+#: includes/functions-taxonomy-ticket_category.php:25
+msgid "Add or remove categories"
+msgstr "اضافه یا حذف دسته بندی ها"
+
+#: includes/functions-taxonomy-ticket_category.php:26
+msgid "Choose from the most used categories"
+msgstr "انتخاب از میان دسته بندی های بیشتر استفاده شده"
+
+#: includes/functions-taxonomy-ticket_category.php:27
+msgid "Separate categories with commas"
+msgstr "دسته بندی ها را کاما از هم جدا کنید"
+
+#: includes/functions-taxonomy-ticket_category.php:31
+msgid "Categories"
+msgstr "دسته بندی ها"
+
+#: includes/functions-template.php:23
+msgid "uCare Navigation Menu"
+msgstr "منوی ناوبری uCare"
+
+#: includes/functions-template.php:153
+msgid "Powered by uCare Support"
+msgstr "قدرت گرفته از پشتیبان uCare"
+
+#: includes/functions.php:117
+msgid "Low"
+msgstr "کم"
+
+#: includes/functions.php:118
+msgid "Medium"
+msgstr "معمولی"
+
+#: includes/functions.php:119
+msgid "High"
+msgstr "زیاد"
+
+#: includes/functions.php:161 templates/navbar.php:121
+msgid "Support Admin"
+msgstr "مدیر پشتیبان"
+
+#: includes/functions.php:162
+msgid "Support Agent"
+msgstr "کارمند پشتیبان"
+
+#: includes/functions.php:163
+msgid "Support User"
+msgstr "کاربر پشتیبان"
+
+#: includes/functions.php:245
+msgid "Support"
+msgstr "پشتیبان"
+
+#: includes/functions.php:267
+msgid "You have created a new request for support"
+msgstr "شما یک درخواست پشتیبانی ایجاد شده دارید"
+
+#: includes/functions.php:272
+msgid "Welcome to Support"
+msgstr "به پشتیبان خوش آمدید"
+
+#: includes/functions.php:277
+msgid "Your request for support has been closed"
+msgstr "درخواست شما برای پشتیبانی بسته شده است"
+
+#: includes/functions.php:282
+msgid "Reply to your request for support"
+msgstr "پاسخ به درخواست شما برای پشتیبانی"
+
+#: includes/functions.php:287
+msgid "Your password has been reset"
+msgstr "گذرواژه شما بازنشانی شد"
+
+#: includes/functions.php:292 migrations/migration-1_2_1.php:49
+msgid "You have a ticket awaiting action"
+msgstr "شما یک تیکت در انتظار دارید"
+
+#: includes/lib/class-edd-sl-plugin-updater.php:199
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr "یک نسخه جدید از  %1$s در دسترس است. %2$s مشاهده جزئیات %4$s نسخه %3$s."
+
+#: includes/lib/class-edd-sl-plugin-updater.php:207
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"یک نسخه جدید از %1$s در دسترس است. %2$s مشاهده جزئیات %4$s نسخه%3$s یا  %5$s "
+"بروزرسانی %6$s."
+
+#: includes/lib/class-edd-sl-plugin-updater.php:394
+msgid "You do not have permission to install plugin updates"
+msgstr "شما دسترسی برای نصب بروزرسانی ها ندارید"
+
+#: includes/lib/class-sc-license-manager.php:141
+msgid "<strong>"
+msgstr "<strong>"
+
+#: includes/lib/class-sc-license-manager.php:142
+msgid "Activate now."
+msgstr "اکنون فعال کن."
+
+#: includes/lib/class-sc-license-manager.php:343
+#: includes/lib/class-sc-license-manager.php:389
+#: includes/lib/class-sc-license-manager.php:450
+msgid "An error occurred, please try again."
+msgstr "خطایی رخ داده است، لطفا دوباره سعی کنید."
+
+#: includes/lib/class-sc-license-manager.php:356
+#, php-format
+msgid "Your license key expired on %s."
+msgstr "کلی مجوز شما منقضی می شود در  %s."
+
+#: includes/lib/class-sc-license-manager.php:363
+msgid "Your license key has been disabled."
+msgstr "کلید مجوز شما غیرفعال شد."
+
+#: includes/lib/class-sc-license-manager.php:368
+msgid "Invalid license."
+msgstr "مجوز نامعتبر."
+
+#: includes/lib/class-sc-license-manager.php:374
+msgid "Your license is not active for this URL."
+msgstr "مجوز شما برای این نشانی فعال نیست."
+
+#: includes/lib/class-sc-license-manager.php:379
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr "به نظر می رسد یک کلید مجوز نامعتبر برای %s."
+
+#: includes/lib/class-sc-license-manager.php:384
+msgid "Your license key has reached its activation limit."
+msgstr "کلید مجوز شما به محدودیت فعالسازی رسیده است."
+
+#: includes/lib/class-sc-license-manager.php:604
+#: templates/admin-activations.php:40
+msgid "Deactivate License"
+msgstr "غیرفعالسازی مجوز"
+
+#: includes/lib/class-sc-license-manager.php:613
+#: templates/admin-activations.php:49
+msgid "Activate License"
+msgstr "فعالسازی مجوز"
+
+#: includes/lib/class-sc-license-manager.php:622
+#: templates/admin-activations.php:58
+msgid "Please enter your license key"
+msgstr "لطفا کلید مجوز خود را وارد کنید"
+
+#: includes/lib/class-sc-license-manager.php:634
+#: templates/admin-activations.php:70
+msgid "Your license key expires on "
+msgstr "مجوز شما منقضی می شود در "
+
+#: includes/lib/class-sc-license-manager.php:638
+msgid "This is a lifetime licence"
+msgstr "این یک مجوز تمام العمر است"
+
+#: lib/admin/ListTable.php:165
+msgid "List View"
+msgstr "نمایش لیست"
+
+#: lib/admin/ListTable.php:166
+msgid "Excerpt View"
+msgstr "نمایش گزیده"
+
+#: lib/admin/ListTable.php:337
+msgid "No items found."
+msgstr "بخشی یافت نشد."
+
+#: lib/admin/ListTable.php:464
+msgid "Select bulk action"
+msgstr "انتخاب کار دسته جمعی"
+
+#: lib/admin/ListTable.php:466
+msgid "Bulk Actions"
+msgstr "کارهای دسته جمعی"
+
+#: lib/admin/ListTable.php:476
+msgid "Apply"
+msgstr "اعمال کردن"
+
+#: lib/admin/ListTable.php:526 lib/admin/ListTable.php:1331
+msgid "Show more details"
+msgstr "نمایش جزئیات بیشتر"
+
+#: lib/admin/ListTable.php:589
+msgid "Filter by date"
+msgstr "فیلتر توسط تاریخ"
+
+#: lib/admin/ListTable.php:591
+msgid "All dates"
+msgstr "تمام تاریخ ها"
+
+#. translators: 1: month name, 2: 4-digit year
+#: lib/admin/ListTable.php:604
+#, php-format
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: lib/admin/ListTable.php:656
+#, php-format
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s دیدگاه"
+
+#: lib/admin/ListTable.php:657
+#, php-format
+msgid "%s approved comment"
+msgid_plural "%s approved comments"
+msgstr[0] "%s دیدگاه تایید شده"
+
+#: lib/admin/ListTable.php:658
+#, php-format
+msgid "%s pending comment"
+msgid_plural "%s pending comments"
+msgstr[0] "%s دیدگاه در حال انتظار"
+
+#: lib/admin/ListTable.php:663 lib/admin/ListTable.php:675
+#: lib/admin/ListTable.php:688
+msgid "No comments"
+msgstr "بدون دیدگاه"
+
+#: lib/admin/ListTable.php:675
+msgid "No approved comments"
+msgstr "بدون دیدگاه تایید شده"
+
+#: lib/admin/ListTable.php:688
+msgid "No pending comments"
+msgstr "بدون دیدگاه در حال انتظار"
+
+#: lib/admin/ListTable.php:765 lib/admin/ListTable.php:1356
+#, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s بخش"
+
+#: lib/admin/ListTable.php:801
+msgid "First page"
+msgstr "اولین صفحه"
+
+#: lib/admin/ListTable.php:811
+msgid "Previous page"
+msgstr "صفحه قبلی"
+
+#: lib/admin/ListTable.php:818 lib/admin/ListTable.php:821
+msgid "Current Page"
+msgstr "صفحه فعلی"
+
+#: lib/admin/ListTable.php:827
+#, php-format
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s از %2$s"
+
+#: lib/admin/ListTable.php:834
+msgid "Next page"
+msgstr "صفحه بعدی"
+
+#: lib/admin/ListTable.php:844
+msgid "Last page"
+msgstr "آخرین صفحه"
+
+#: lib/admin/ListTable.php:1072
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: lib/admin/TabbedMenuPage.php:41
+msgid "_menu_page"
+msgstr "_menu_page"
+
+#: lib/mail/TemplateStyleMetaBox.php:12
+msgid "Template Style Sheet"
+msgstr "استایل الگو"
+
+#: lib/mail/mail.php:156
+msgctxt "Post Type General Name"
+msgid "Email Templates"
+msgstr "الگو ایمیل ها"
+
+#: lib/mail/mail.php:157
+msgctxt "Post Type Singular Name"
+msgid "Email Template"
+msgstr "الگو ایمیل"
+
+#: lib/mail/mail.php:158 lib/mail/mail.php:159
+msgid "Email Templates"
+msgstr "الگو ایمیل"
+
+#: lib/mail/mail.php:160
+msgid "Template Archives"
+msgstr "بایگانی الگو"
+
+#: lib/mail/mail.php:162
+msgid "All Templates"
+msgstr "تمام الگو ها"
+
+#: lib/mail/mail.php:163 lib/mail/mail.php:164 lib/mail/mail.php:165
+msgid "New Template"
+msgstr "الگو جدید"
+
+#: lib/mail/mail.php:166
+msgid "Edit Template"
+msgstr "ویرایش الگو"
+
+#: lib/mail/mail.php:167
+msgid "Update Template"
+msgstr "بروزرسانی الگو"
+
+#: lib/mail/mail.php:168
+msgid "View Template"
+msgstr "نمایش الگو"
+
+#: lib/mail/mail.php:169
+msgid "Search Templates"
+msgstr "جستجوی الگو"
+
+#: lib/mail/mail.php:170
+msgid "No templates found"
+msgstr "الگو ای یافت نشد"
+
+#: lib/mail/mail.php:171
+msgid "No templates found in Trash"
+msgstr "الگو‌ای درون زباله‌دان یافت نشد"
+
+#: lib/mail/mail.php:176
+msgid "Insert into template"
+msgstr "درج کردن در این الگو"
+
+#: lib/mail/mail.php:177
+msgid "Uploaded to this template"
+msgstr "بارگذاری شده در این الگو"
+
+#: lib/mail/mail.php:178
+msgid "Templates list"
+msgstr "لیست الگو ها"
+
+#: lib/mail/mail.php:179
+msgid "Templates list navigation"
+msgstr "لیست ناوبری الگو ها"
+
+#: lib/mail/mail.php:180
+msgid "Filter templates list"
+msgstr "فیلتر لیست الگو ها"
+
+#: lib/mail/mail.php:184
+msgid "Email Template"
+msgstr "الگو های ایمیل"
+
+#: lib/mail/mail.php:185
+msgid "Templates for automated emails"
+msgstr "الگو برای ایمیل های خودکار"
+
+#: migrations/migration-1_1_1.php:26
+msgid "Your password has been changed"
+msgstr "گذرواژه شما تغییر یافت"
+
+#: migrations/migration-1_3_0.php:35
+msgid "You have been assigned a ticket"
+msgstr "شما یک تیکت اختصاص یافته دارید"
+
+#: migrations/migration-1_3_0.php:40
+msgid "You have a reply to a ticket that you are assigned to"
+msgstr "یک پاسخ به تیکتی که به شما اختصاص یافته دارید"
+
+#: migrations/migration-1_3_0.php:45
+msgid "A new ticket has been created"
+msgstr "یک تیکت جدید ایجاد شد"
+
+#: plugin.php:199
+msgid "uCare Licenses"
+msgstr "مجوز uCare"
+
+#: plugin.php:281
+#, php-format
+msgid ""
+"Your PHP version %s does not meet minimum requirements. uCare Support "
+"requires version %s or higher"
+msgstr ""
+"نسخه PHP شما %s حداقل الزامات را برآورده نمی کند. uCare به نسخه%s یا بالاتر "
+"نیاز دارد"
+
+#: templates/admin-activations.php:14
+msgid "Add-on Licenses"
+msgstr "مجوز افزونه"
+
+#: templates/admin-extensions.php:7
+msgid "Add-ons for uCare Support Help Desk"
+msgstr "افزونه های uCare"
+
+#: templates/admin-extensions.php:13
+msgid "Get ALL these add-ons for one low price with uCare Pro"
+msgstr "تمام این افزونه ها را با قیمت پایین همراه با uCare Pro دریافت کنید"
+
+#: templates/admin-extensions.php:14
+msgid "Click here"
+msgstr "اینجا کلیک کنید"
+
+#: templates/admin-extensions.php:17
+msgid "Available Add-ons"
+msgstr "افزونه های دردسترس"
+
+#: templates/admin-extensions.php:21 templates/admin-extensions.php:25
+msgid "Email Piping"
+msgstr "اعلانیه های ایمیل"
+
+#: templates/admin-extensions.php:28
+msgid ""
+"This add-on allows your customers to reply to tickets via email, it also "
+"allows new tickets to be created through email."
+msgstr ""
+
+#: templates/admin-extensions.php:30
+msgid "Get this Add-on!"
+msgstr "دریافت این افزونه !"
+
+#: templates/admin-extensions.php:36 templates/admin-extensions.php:40
+msgid "Customer Satisfaction"
+msgstr "رضایت مشتری"
+
+#: templates/admin-extensions.php:43
+msgid ""
+"This add-on allows you to automatically send a survey to rate the agents "
+"performance on the ticket, and to collect feedback from the customer."
+msgstr ""
+
+#: templates/admin-extensions.php:45 templates/admin-extensions.php:62
+#: templates/admin-extensions.php:79 templates/admin-extensions.php:94
+#: templates/admin-extensions.php:109 templates/admin-extensions.php:124
+#: templates/admin-extensions.php:139
+msgid "Get this Add-on"
+msgstr "دریافت این افزونه"
+
+#: templates/admin-extensions.php:53 templates/admin-extensions.php:57
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: templates/admin-extensions.php:60
+msgid ""
+"Sync up your support users and customers with your mailchimp account with "
+"this extension"
+msgstr ""
+
+#: templates/admin-extensions.php:70 templates/admin-extensions.php:74
+msgid "Knowledge Base"
+msgstr "دانش محور"
+
+#: templates/admin-extensions.php:77
+msgid ""
+"Provide your customers the ability to search your Knowledge Base for "
+"answers. This increases customer satisfaction and reduces the amount of "
+"tickets you receive."
+msgstr ""
+
+#: templates/admin-extensions.php:85 templates/admin-extensions.php:89
+msgid "Agent Notes"
+msgstr "یادداشت کارمند"
+
+#: templates/admin-extensions.php:92
+msgid ""
+"This add-on your agents to add comments within the ticket that can only be "
+"viewed by other agents."
+msgstr ""
+
+#: templates/admin-extensions.php:100 templates/admin-extensions.php:104
+msgid "Automatic Ticket Routing"
+msgstr "مسیریابی خودکار تیکت"
+
+#: templates/admin-extensions.php:107
+msgid ""
+"This add-on allows to create rules and automate routing tickets to agents."
+msgstr ""
+
+#: templates/admin-extensions.php:115
+msgid "Advanced EDD Integration"
+msgstr "ادغام پیشرفته EDD"
+
+#: templates/admin-extensions.php:119
+msgid "Easy Digital Downloads"
+msgstr "Easy Digital Downloads"
+
+#: templates/admin-extensions.php:122
+msgid ""
+"This add-on adds further integration with Easy Digital Downloads, displays "
+"purchase information and history in the ticket, as well as validates the "
+"receipt number with EDD."
+msgstr ""
+
+#: templates/admin-extensions.php:130
+msgid "Slack Notifications"
+msgstr "اعلانیه های ناگهانی"
+
+#: templates/admin-extensions.php:134
+msgid "Notifications"
+msgstr "اعلانیه ها"
+
+#: templates/admin-extensions.php:137
+msgid ""
+"Receive instant notifications to your Team Slack when users register, create "
+"tickets or reply to existing tickets ith this add-on"
+msgstr ""
+
+#: templates/admin-extensions.php:149
+msgid "Coming soon"
+msgstr "بزودی"
+
+#: templates/admin-extensions.php:154 templates/admin-extensions.php:158
+msgid "Custom Fields"
+msgstr "زمینه های سفارشی"
+
+#: templates/admin-extensions.php:161
+msgid ""
+"This extension allows you to create additional fields for your ticket and "
+"for the New Ticket form."
+msgstr ""
+
+#: templates/admin-extensions.php:163 templates/admin-extensions.php:178
+#: templates/admin-extensions.php:193 templates/admin-extensions.php:208
+msgid "Coming soon!"
+msgstr "بزودی!"
+
+#: templates/admin-extensions.php:169 templates/admin-extensions.php:173
+msgid "Canned Responses"
+msgstr "پاسخ های آماده"
+
+#: templates/admin-extensions.php:176
+msgid ""
+"This extension allows you to create templated reponses to common issues that "
+"you can insert to a ticket with a click."
+msgstr ""
+
+#: templates/admin-extensions.php:184 templates/admin-extensions.php:188
+msgid "Live Chat"
+msgstr "گفتگوی زنده"
+
+#: templates/admin-extensions.php:191
+msgid ""
+"This add-on allows your customers to chat with your agents directly from "
+"your website."
+msgstr ""
+
+#: templates/admin-extensions.php:199 templates/admin-extensions.php:203
+msgid "Paid Support"
+msgstr "پشتیبانی پرداخت"
+
+#: templates/admin-extensions.php:206
+msgid ""
+"This add-on allows you to sell support as a service with multiple tiers."
+msgstr ""
+
+#: templates/admin-sidebar.php:7
+msgid "uCare Pro"
+msgstr "uCare Pro"
+
+#: templates/admin-sidebar.php:11
+msgid "Learn More"
+msgstr "بیشتر بدانید"
+
+#: templates/admin-sidebar.php:16
+msgid ""
+"uCare Pro is a must-have for any business website with a support system. It "
+"adds many features including email piping, agent notes, auto-agent "
+"assignment and more!With uCare Pro, you will get access to ALL the add-ons "
+"available, for one low price."
+msgstr ""
+"uCare Pro برای هر وبسایت کسب و کاری ضروری است. این افزونه ها شامل اعلانیه "
+"های ایمیل، یادداشت کارمند، تخصیص خودکار کارمند وغیره است! با uCare Pro، شما "
+"می توانید با قیمت پایین به تمام افزودنیهای موجود دسترسی داشته باشید."
+
+#: templates/admin-sidebar.php:30
+msgid "Recommendations & Feedback"
+msgstr "توصیه ها و بازخورد"
+
+#: templates/admin-sidebar.php:35
+msgid ""
+"Love it, or hate it? We want to know! Tell us what you think of the plugin, "
+"or make any suggestions for improvement."
+msgstr ""
+"این افزونه را دوست دارید یا از آن متنفرید؟ ما میخواهیم بدانیم! به ما بگویید "
+"درباره این افزونه چه فکری می کنید، یا پیشنهادات خود را برای بهبود ارایه دهید."
+
+#: templates/admin-sidebar.php:43
+msgid "Feedback Form"
+msgstr "فرم بازخورد"
+
+#: templates/admin-tutorial.php:35
+msgid "Welcome to uCare Support System "
+msgstr "به سامانه پشتیبانی uCare خوش آمدید "
+
+#: templates/admin-tutorial.php:37
+msgid ""
+"uCare is the most intelligent and user friendly WordPress support plugin."
+msgstr "uCare هوشمندترین و کاربرپسند ترین افزونه پشتیبانی وردپرس است."
+
+#: templates/admin-tutorial.php:43
+msgid "View Plugin Documentation"
+msgstr "نمایش مستندات افزونه"
+
+#: templates/admin-tutorial.php:49
+msgid "Say Hello to Email Piping!"
+msgstr "به اعلانیه های ایمیل سلام کن!"
+
+#: templates/admin-tutorial.php:50
+msgid ""
+"Email Piping allows emails sent to your inbox to be automatically retrieved "
+"by uCare and created as tickets in your helpdesk. You can use this feature "
+"to allow your customers to respond to your tickets by replying to your "
+"emails directly. This provides a much better experience for your customers "
+"and increases your customer satisfaction."
+msgstr ""
+
+#: templates/admin-tutorial.php:57
+msgid "Get uCare Pro"
+msgstr "دریافت uCare Pro"
+
+#: templates/admin-tutorial.php:63
+msgid "New Features in 1.5"
+msgstr "امکانات جدید در 1.5"
+
+#: templates/admin-tutorial.php:65
+msgid "- Improved performance speed"
+msgstr "- بهبود سرعت اجرا"
+
+#: templates/admin-tutorial.php:66
+msgid "- Improved ticket details sidebar"
+msgstr "- بهبود نوارکناری جزئیات تیکت"
+
+#: templates/admin-tutorial.php:67
+msgid "- 200 additional font options"
+msgstr "- 200 فونت اضافی"
+
+#: templates/admin-tutorial.php:68
+msgid "- Ability to support any file type for uploads"
+msgstr "- قابلیت پشتیبانی از هرنوع فایل برای بارگذاری"
+
+#: templates/admin-tutorial.php:69
+msgid "- Improved settings page"
+msgstr "- بهبود صفحه تنظیمات"
+
+#: templates/admin-tutorial.php:70
+msgid "- bug fixes"
+msgstr "- رفع اشکال"
+
+#: templates/admin-tutorial.php:74
+msgid "New uCare Pro features"
+msgstr "امکانات جدید uCare Pro"
+
+#: templates/admin-tutorial.php:76
+msgid "- Slack notifications"
+msgstr "- اعلانیه های ناگهانی"
+
+#: templates/admin-tutorial.php:77
+msgid "- Agent Ticket Notes"
+msgstr "- یادداشت تیکت کارمند"
+
+#: templates/admin-tutorial.php:78
+msgid "- Advanced EDD Integration"
+msgstr "- ادغام پیشرفته EDD"
+
+#: templates/admin-tutorial.php:79
+msgid "- Email Piping"
+msgstr "- اعلانیه های ایمیل"
+
+#: templates/admin-tutorial.php:80
+msgid "- Automatic Agent Assignment"
+msgstr "- اختصاص خودکار کارمند"
+
+#: templates/admin-tutorial.php:81
+msgid "- Knowledge Base"
+msgstr "- دانش محور"
+
+#: templates/admin-tutorial.php:82
+msgid "- Customer Satisfaction Feedback"
+msgstr "- بازخورد رضایت مشتری"
+
+#: templates/admin-tutorial.php:83
+msgid "- Mailchimp Integration"
+msgstr "- ادغام Mailchimp"
+
+#: templates/comment.php:38 templates/ticket.php:52
+msgid "Write"
+msgstr "نوشتن"
+
+#: templates/comment.php:42 templates/ticket.php:56
+msgid "Preview"
+msgstr "پیشنمایش"
+
+#: templates/create_ticket.php:20
+msgid "Manually set ticket creator"
+msgstr "تنظیم دستی ایجاد کننده تیکت"
+
+#: templates/create_ticket.php:27
+msgid "Created by"
+msgstr "ایجاد شده توسط"
+
+#: templates/create_ticket.php:35
+msgid "Me"
+msgstr "من"
+
+#: templates/create_ticket.php:75 templates/ticket.php:143
+msgid "Attach Images"
+msgstr "تصاویر پیوست شده"
+
+#: templates/dash.php:59
+msgid "New Support Request"
+msgstr "درخواست پشتیبانی جدید"
+
+#: templates/dash.php:119
+msgid "Tickets"
+msgstr "تیکت ها"
+
+#: templates/feedback.php:13
+msgid "If you have a moment, please let us know why you are deactivating"
+msgstr ""
+"اگر چند لحظه وقت دارید، لطفا به ما اجازه دهید تا بدانیم چرا در حال "
+"غیرفعالسازی هستید"
+
+#: templates/feedback.php:19
+msgid "Reason for deactivating"
+msgstr "دلیل غیرفعال کردن"
+
+#: templates/feedback.php:24
+msgid "I don't need this plugin"
+msgstr "من به این افزونه نیازی ندارم"
+
+#: templates/feedback.php:27
+msgid "What features would you like to see?"
+msgstr "چه ویژگی هایی را دوست دارید ببینید؟"
+
+#: templates/feedback.php:29
+msgid "This plugin lacks the features I need"
+msgstr "این افزونه فاقد ویژگی هایی است که من نیاز دارم"
+
+#: templates/feedback.php:32
+msgid "What did you expect?"
+msgstr "چه انتظاری داشتید؟"
+
+#: templates/feedback.php:34
+msgid "The plugin does not function as expected"
+msgstr "افزونه در حد انتظار کار نکرد"
+
+#: templates/feedback.php:37
+msgid "Can you explain what is happening?"
+msgstr "آیا می توانید توضیح دهید که اتفاقی در حال افتادن است؟"
+
+#: templates/feedback.php:39
+msgid "The plugin does not work"
+msgstr "افزونه کار نمی‌کند"
+
+#: templates/feedback.php:42
+msgid "Which one?"
+msgstr "کدام یکی؟"
+
+#: templates/feedback.php:44
+msgid "I found a better plugin"
+msgstr "من افزونه بهتری پیدا کردم"
+
+#: templates/feedback.php:49
+msgid "Other"
+msgstr "دیگر"
+
+#: templates/feedback.php:54
+msgid "Additional comments"
+msgstr "نظرات اضافی"
+
+#: templates/feedback.php:64
+msgid "No thanks, just deactivate"
+msgstr "خیر ممنون، فقط غیرفعال شود"
+
+#: templates/feedback.php:66
+msgid "Cancel"
+msgstr "لغو"
+
+#: templates/feedback.php:67
+msgid "Submit & Deactivate"
+msgstr "ارسال و غیرفعال کردن"
+
+#: templates/first_login.php:8
+msgid "Welcome "
+msgstr "خوش آمدید "
+
+#: templates/first_login.php:16
+msgid ""
+"Since this is your first login to the system, we will take a view seconds to "
+"quickly show you around."
+msgstr ""
+"از آنجایی که این اولین ورود شما به سامانه است، ما در چند ثانیه بصورت سریع "
+"دوروبر را به شما نشان می دهیم."
+
+#: templates/first_login.php:31 templates/first_login.php:37
+#: templates/first_login.php:43 templates/first_login.php:49
+msgid "Creating tickets"
+msgstr "ایجاد تیکت ها"
+
+#: templates/first_login.php:33
+msgid "Click on the \"Create Ticket\" button to create a support request"
+msgstr "برای پرخواست پشتیبانی بر روی \"ایجاد تیکت\" کلیک کنید"
+
+#: templates/first_login.php:39
+msgid "Your tickets will be displayed in the ticket view once created."
+msgstr "تیکت های شما پس از ایجاد نمایش داده خواهند شد."
+
+#: templates/first_login.php:45
+msgid "You can update your password from the Settings menu"
+msgstr "شما می توانید از طریق منوی تنظیمات گذرواژه خود را بروزرسانی کنید"
+
+#: templates/first_login.php:51
+msgid ""
+"You can click on the ticket to open it and add comments as well as view the "
+"agent responses in real time."
+msgstr ""
+"شما می توانید بر روی تیکت کلیک کرده تا باز شود و نظرات خود را اضافه و پاسخ "
+"های کارمند را به موقع دریافت کنید."
+
+#: templates/first_login.php:73
+msgid ""
+"Since this is your first login to the system, please take a moment to get "
+"familiar with how it works!"
+msgstr ""
+"از آنجا که این اولین ورود شما به سامانه است، لطفا برای نحوه کار با آن کمی "
+"تحمل کنید!"
+
+#: templates/first_login.php:83
+msgid "Close"
+msgstr "بسته"
+
+#: templates/login.php:23 templates/login.php:63
+msgid "Back to login"
+msgstr "برگشت به صفحه ورود"
+
+#: templates/login.php:33
+msgid "Reset Password"
+msgstr "بازنشانی گذرواژه"
+
+#: templates/login.php:45
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: templates/login.php:121
+msgid "Invalid username or password"
+msgstr "نام کاربری یا گذرواژه نامعتبر است"
+
+#: templates/login.php:133
+msgid "Forgot password?"
+msgstr "گذرواژه تان را فراموش کرده اید؟"
+
+#: templates/navbar.php:21
+msgid "Back to site"
+msgstr "برگشت به سایت"
+
+#: templates/navbar.php:136
+msgid "Back to Site"
+msgstr "برگشت به سایت"
+
+#: templates/navbar.php:149
+msgid "Logout"
+msgstr "خروج"
+
+#: templates/partials/admin-header.php:16
+msgid "uCare Customer Support"
+msgstr "پشتیبان مشتری uCare"
+
+#: templates/partials/admin-header.php:24
+msgid "Go to the Helpdesk"
+msgstr "به مرکز راهنمایی بروید"
+
+#: templates/partials/admin-header.php:28
+msgid "Documentation"
+msgstr "مستندات"
+
+#: templates/partials/dynamic-styles.php:43
+msgid "Apply Filters"
+msgstr "اعمال فیلترها"
+
+#: templates/partials/dynamic-styles.php:47
+msgid "Filters Applied"
+msgstr "فیلترها اعمال شد"
+
+#: templates/partials/header.php:18
+msgid "uCare Support System"
+msgstr "سامانه پشتیبانی uCare"
+
+#: templates/partials/sidebar-attachments.php:119
+msgid "Upload"
+msgstr "آپلود"
+
+#: templates/partials/sidebar-customer.php:30
+#, php-format
+msgid "Email: %s"
+msgstr "ایمیل: %s"
+
+#: templates/partials/sidebar-customer.php:41
+#, php-format
+msgid "%s total"
+msgstr "%s کل"
+
+#: templates/partials/sidebar-customer.php:41
+#: templates/partials/sidebar-customer.php:48
+msgid "Ticket"
+msgid_plural "Tickets"
+msgstr[0] "تیکت"
+
+#: templates/partials/sidebar-customer.php:48
+#, php-format
+msgid "%s in the past 30 days"
+msgstr "%s در 30 روز گذشته"
+
+#: templates/partials/sidebar-customer.php:54
+msgid "Recent Tickets"
+msgstr "آخرین تیکت ها"
+
+#: templates/partials/sidebar-customer.php:72
+msgid "No tickets yet"
+msgstr "هنوز تیکتی موجود نیست"
+
+#: templates/partials/sidebar-details.php:47
+#, php-format
+msgid "Closed by %s"
+msgstr "بسته شده توسط %s"
+
+#: templates/partials/sidebar-details.php:51
+msgid "Automatically closed "
+msgstr "خودکار بسته شد "
+
+#: templates/partials/sidebar-details.php:61
+#, php-format
+msgid "From %s"
+msgstr "در  %s"
+
+#: templates/partials/sidebar-details.php:61
+msgid "l F j, Y @ g:i A"
+msgstr "l F j, Y @ g:i A"
+
+#: templates/partials/sidebar-ecommerce.php:24
+#, php-format
+msgid "Receipt # %s"
+msgstr "دریافت # %s"
+
+#: templates/statistics.php:8
+msgid "Total Tickets"
+msgstr "تمام تیکت ها"
+
+#: templates/statistics.php:39
+msgid "Awaiting Response"
+msgstr "در انتظار پاسخ"
+
+#: templates/statistics.php:69
+msgid "Assigned to Me"
+msgstr "اختصاص به من"
+
+#: templates/ticket.php:165
+msgid "Done"
+msgstr "انجام شده"
+
+#: templates/ticket_filter.php:23
+msgid "Filter By"
+msgstr "فیلتر توسط"
+
+#: templates/ticket_filter.php:33
+msgid "Search"
+msgstr "جستجو"
+
+#: templates/ticket_filter.php:96
+msgid "Refresh"
+msgstr "تازه کردن"
+
+#. Plugin Name of the plugin/theme
+msgid "uCare - Support Ticket System"
+msgstr "uCare - سامانه پشتیبانی تیکتی"
+
+#. Description of the plugin/theme
+msgid ""
+"If you have customers, then you need uCare. A support ticket help desk for "
+"your customers featuring usergroups,agents,ticket status,filtering,searching "
+"all in one responsive app. The most robust support ticket system for "
+"WordPress."
+msgstr ""
+"اگر شما دارای مشتری هستید، بنابراین به uCare نیاز دارید. یک سامانه پشتیبانی "
+"تیکیتی برای مشتریان که شامل گروه های کاربری، کارمندان، وضعیت تیکت، فیلترینگ، "
+"جستجو  بوده که همه در یک افزونه وجود دارد. قوی ترین سامانه تیکتی وردپرس."
+
+#. Author of the plugin/theme
+msgid "Smartcat"
+msgstr "Smartcat"
+
+#. Author URI of the plugin/theme
+msgid "https://smartcatdesign.net"
+msgstr "https://smartcatdesign.net"
