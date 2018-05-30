@@ -23,6 +23,12 @@ namespace ucare;
         font-size: 24px;
         line-height: 28px;
     }
+    
+    #ucare-tutorial p,
+    #ucare-tutorial li{
+        font-size: 16px;
+        line-height: 18px;
+    }
 
 </style>
 
@@ -30,69 +36,52 @@ namespace ucare;
 
     <div class="wrap">
         
+        <h2></h2>
+        
         <div class="postbox">
 
             <h1><?php echo __( 'Welcome to uCare Support System ', 'ucare' ) . PLUGIN_VERSION ?></h1>
 
-            <p><?php _e( 'uCare is the most intelligent and user friendly WordPress support plugin.', 'ucare' ); ?></p>
-
-            <p>
-                <a class="button-primary"
-                   href="https://ucaresupport.com/documentation/"
-                   target="_BLANK">
-                    <?php _e( 'View Plugin Documentation', 'ucare' ); ?>
-                </a>
-            </p>            
+            <p><?php _e( 'uCare is the most intelligent, automated and user friendly WordPress support plugin.', 'ucare' ); ?></p>         
 
             <hr>
 
-            <h2><?php _e( 'Say Hello to Email Piping!', 'ucare' ); ?></h2>
-            <p><?php _e( 'Email Piping allows emails sent to your inbox to be automatically retrieved by uCare and created as tickets in your helpdesk. You can use '
-                    . 'this feature to allow your customers to respond to your tickets by replying to your emails directly. This provides a much better experience for your '
-                    . 'customers and increases your customer satisfaction.', 'ucare' ); ?></p>
+            <h3><?php _e( 'Say Hello to Custom Fields & Automation!', 'ucare' ); ?></h3>
+            <p><?php _e( 'We have added several new features to uCare, including Custom Fields and Auto Agent! These tools will '
+                    . 'empower you to customize the ticket form the way you see fit, as well as provide instant, automated & pre-defined'
+                    . 'responses to your users tickets based on the ticket criteria', 'ucare' ); ?></p>
             <p>
                 <a class="button-primary"
-                   href="https://ucaresupport.com/downloads/ucare-pro?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=ucare+pro"
+                   href="https://ucaresupport.com/add-ons?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=ucare+pro"
                    target="_BLANK">
-                    <?php _e( 'Get uCare Pro', 'ucare' ); ?>
+                    <?php _e( 'View uCare Pro Add-ons', 'ucare' ); ?>
                 </a>
             </p>
 
             <hr>
             
-            <h3><?php _e( 'New Features in 1.5', 'ucare' ); ?></h3>
-            <ul>
-                <li><?php _e( '- Improved performance speed', 'ucare' ); ?></li>
-                <li><?php _e( '- Improved ticket details sidebar', 'ucare' ); ?></li>
-                <li><?php _e( '- 200 additional font options', 'ucare' ); ?></li>
-                <li><?php _e( '- Ability to support any file type for uploads', 'ucare' ); ?></li>
-                <li><?php _e( '- Improved settings page', 'ucare' ); ?></li>
-                <li><?php _e( '- Ticket Categories can now be assigned unique colors', 'ucare' ); ?></li>
-                <li><?php _e( '- bug fixes', 'ucare' ); ?></li>
-
-            </ul>
+            <h3><?php _e( 'New Features in 1.6', 'ucare' ); ?></h3>
+            <ol>
+                <li><?php _e( 'Unique pages for Registration/Login, Create Ticket, and Edit Profile', 'ucare' ); ?></li>
+                <li><?php _e( 'Improved UI & UX for ticket creation', 'ucare' ); ?></li>
+                <li><?php _e( 'Added support for PHP v7.2', 'ucare' ); ?></li>
+                <li><?php _e( 'New add-ons', 'ucare' ); ?></li>
+            </ol>
 
             <h3><?php _e( 'New uCare Pro features', 'ucare' ); ?></h3>
-            <ul>
-                <li><?php _e( '- Slack notifications', 'ucare' ); ?></li>
-                <li><?php _e( '- Agent Ticket Notes', 'ucare' ); ?></li>
-                <li><?php _e( '- Advanced EDD Integration', 'ucare' ); ?></li>
-                <li><?php _e( '- Email Piping', 'ucare' ); ?></li>
-                <li><?php _e( '- Automatic Agent Assignment', 'ucare' ); ?></li>
-                <li><?php _e( '- Knowledge Base', 'ucare' ); ?></li>
-                <li><?php _e( '- Customer Satisfaction Feedback', 'ucare' ); ?></li>
-                <li><?php _e( '- Mailchimp Integration', 'ucare' ); ?></li>
-                
-            </ul>
+            <ol>
+                <li><b><?php _e( 'Custom Fields', 'ucare' ); ?></b>: <?php _e( 'Add textboxes, dropdowns, radio optiosn or text areas and customize your ticket form as you want with custom fields.', 'ucare' ); ?></li>
+                <li><b><?php _e( 'Auto Agent automated responder', 'ucare' ); ?></b>: <?php _e( 'Create pre-defined responses, and set rules on when they get used. Then let the Auto Agent automatically answer tickets for you!', 'ucare' ) ?></li>
+                <li><b><?php _e( 'Social Login', 'ucare' ); ?></b></li>
+                <li><b><?php _e( 'Advanced WooCommerce Integration', 'ucare' ); ?></b></li>
+                <li><b><?php _e( 'Software Licensing Integration for EDD', 'ucare' ); ?></b></li>
+            </ol>
             
-            <iframe width="500"
-                    height="315"
-                    src="https://www.youtube.com/embed/videoseries?list=PLw53ZZqpo1H40lcqgS5guHSEGRrie71xn&amp;controls=1&amp;showinfo=0"
-                    frameborder="0"
-                    allowfullscreen>
-
-            </iframe>
-
+            <h3><?php _e( 'Custom Fields Preview', 'ucare' ); ?></h3>
+            <iframe width="500" height="315" src="https://www.youtube.com/embed/CTHwOB-K0i4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            
+            <h3><?php _e( 'Auto Agent Preview', 'ucare' ); ?></h3>
+            <iframe width="500" height="315" src="https://www.youtube.com/embed/c27p7PfbGgk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
 
     </div>
