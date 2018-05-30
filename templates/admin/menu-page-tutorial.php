@@ -50,6 +50,9 @@ namespace ucare;
             <p><?php _e( 'We have added several new features to uCare, including Custom Fields and Auto Agent! These tools will '
                     . 'empower you to customize the ticket form the way you see fit, as well as provide instant, automated & pre-defined'
                     . 'responses to your users tickets based on the ticket criteria', 'ucare' ); ?></p>
+            
+            <img src="https://ucaresupport.com/wp-content/uploads/edd/2018/05/ucare-auto-agent.png"/>
+            
             <p>
                 <a class="button-primary"
                    href="https://ucaresupport.com/add-ons?utm_source=plugin-tutorial-page&utm_medium=plugin&utm_campaign=ucareAddonsPage&utm_content=ucare+pro"
