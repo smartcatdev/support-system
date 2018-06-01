@@ -86,10 +86,25 @@ function rest_register_endpoints() {
      * @since 1.7.0
      */
     register_rest_route( 'ucare/v1', 'users/me/authenticate', array(
-        'methods' => \WP_REST_Server::CREATABLE,
-        'callback' => function ( $request ) {
-            return array( 'type' => 'screen', 'screen' => 'password');
-        },
+        'methods'             => \WP_REST_Server::CREATABLE,
+        'callback'            => 'ucare\rest_register_user',
+        'args'                => array(
+            'step' => array(
+                'required' => true
+            ),
+            'email' => array(
+                'sanitize_callback' => 'sanitize_email'
+            ),
+            'first_name' => array(
+                'sanitize_callback' => 'sanitize_text_field'
+            ),
+            'last_name' => array(
+                'sanitize_callback' => 'sanitize_text_field'
+            ),
+            'password' => array(
+                'sanitize_callback' => 'sanitize_text_field'
+            )
+        ),
         'permission_callback' => function ( \WP_REST_Request $request ) {
             $nonce = $request->get_header( 'X-WP-Nonce' );
 
@@ -101,6 +116,100 @@ function rest_register_endpoints() {
     ) );
 }
 
+/**
+ * Handle the registration form
+ *
+ * @param \WP_REST_Request $request
+ *
+ * @since 1.7.0
+ * @return mixed
+ */
+function rest_register_user( $request ) {
+    $step  = $request->get_param( 'step' );
+    $steps = array(
+        'email',
+        'profile',
+        'password'
+    );
+
+    if ( !in_array( $step, $steps ) ) {
+        return new \WP_Error( 'invalid_step', __( 'Invalid step', 'ucare' ), array( 'code' => 400 ) );
+    }
+
+    $email = $request->get_param( 'email' );
+
+    switch ( $step ) {
+
+        /**
+         * Look up the user by email, if they don't exist create them
+         */
+        case 'email':
+            $user = get_user_by( 'email', $email );
+
+            // Register user
+            if ( empty( $user ) ) {
+                $data = array(
+                    'email' => $email
+                );
+                $user = ucare_register_user( $data, true, true );
+
+                if ( is_wp_error( $user ) ) {
+                    return $user;
+                }
+                $response = array(
+                    'type'   => 'screen',
+                    'screen' => 'profile',
+                    'nonce'  => wp_create_nonce( 'wp_rest' )
+                );
+            } else {
+                $response = array(
+                    'type'   => 'screen',
+                    'screen' => 'password',
+                    'data'   => array( 'log' => $user->user_login )
+                );
+            }
+            return rest_ensure_response( $response );
+
+        /**
+         * Update user profile info
+         */
+        case 'profile':
+            $user = array(
+                'ID'         => get_current_user_id(),
+                'first_name' => $request->get_param( 'first_name' ),
+                'last_name'  => $request->get_param( 'last_name' )
+            );
+            $updated = wp_update_user( (object) $user );
+
+            if ( is_wp_error( $updated ) ) {
+                return $updated;
+            }
+
+            $response = array(
+                'type'  => 'redirect',
+                'to'    => create_page_url()
+            );
+            return rest_ensure_response( $response );
+
+        /**
+         * Verify the user's password
+         */
+        case 'password':
+            $user = wp_signon();
+
+            if ( is_wp_error( $user ) ) {
+                return $user;
+            }
+
+            $response = array(
+                'type'  => 'redirect',
+                'to'    => create_page_url()
+            );
+            return rest_ensure_response( $response );
+    }
+
+    return new \WP_Error( 'unkown_error', __( 'An unknown error has occurred. Please try again later.', 'ucare' ), array( 'code' => 500 ) );
+}
 
 /**
  * Handler for the user registration endpoint.

@@ -7,6 +7,8 @@
 
     $(function () {
 
+        var nonce = localize.rest_nonce;
+
         /**
          * Handle login form submission
          */
@@ -19,7 +21,24 @@
 
                 if (next.type === 'screen') {
                     $screen.fadeOut(function () {
-                        $('.ucare-login-screen[data-step="' + next.screen + '"]').fadeIn();
+                        var $next = $('.ucare-login-screen[data-step="' + next.screen + '"]');
+                        $next.fadeIn();
+
+                        // Append all data to be sent back in the next step
+                        if (next.data) {
+                            Object.keys(next.data).forEach(function (key) {
+                                $next.append($('<input>', {
+                                    type: 'hidden',
+                                    name: key,
+                                    value: next.data[key]
+                                }));
+                            });
+                        }
+
+                        // Update the nonce after auth
+                        if (next.nonce) {
+                            nonce = next.nonce;
+                        }
                     });
 
                 } else if (next.type === 'redirect') {
@@ -43,7 +62,7 @@
                     data: data,
                     method: 'post',
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-WP-Nonce', localize.rest_nonce);
+                        xhr.setRequestHeader('X-WP-Nonce', nonce);
                     }
                 }))
             .then(function (result) {
