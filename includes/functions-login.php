@@ -32,6 +32,10 @@ function login_form() {
                     />
                 <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
             </div>
+            <input value="email"
+                   name="step"
+                   type="hidden"
+                />
         </form>
         <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
             <p>
@@ -56,6 +60,10 @@ function login_form() {
             <p class="text-right">
                 <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
             </p>
+            <input value="profile"
+                   name="step"
+                   type="hidden"
+                />
         </form>
         <form id="login-step-password" class="ucare-login-screen" style="display: none" data-step="password">
             <p>
@@ -76,6 +84,10 @@ function login_form() {
             <p>
                 <a id="reset-password" href="#"><?php _e( 'Forgot Password?', 'ucare' ); ?></a>
             </p>
+            <input value="password"
+                   name="step"
+                   type="hidden"
+                />
         </form>
     </div>
 <?php }

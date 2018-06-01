@@ -40,7 +40,16 @@ function register_login_scripts() {
     $deps = array(
         'jquery'
     );
-    $l10n = array();
+    wp_register_script( 'jquery-serialize-json', resolve_url( 'assets/js/jquery-serializejson.js' ), $deps, PLUGIN_VERSION );
+
+    $deps = array(
+        'jquery',
+        'jquery-serialize-json'
+    );
+    $l10n = array(
+        'rest_url'   => rest_url(),
+        'rest_nonce' => wp_create_nonce( 'wp_rest' )
+    );
     wp_register_script( 'ucare-login', resolve_url( 'assets/js/login.js' ), $deps, PLUGIN_VERSION, true );
     wp_localize_script( 'ucare-login', '_ucare_login_l10n', $l10n );
 }

@@ -13,31 +13,43 @@
         $('#ucare-login form').submit(function (e) {
             e.preventDefault();
 
-            var step = $(this).data('step');
-
             // Process the current step
-            processStep(step).then(function () {
+            processStep($(this).serializeJSON()).then(function (next) {
                 var $screen = $('.ucare-login-screen:visible');
-                $screen.fadeOut(function () {
-                    $(this).next().fadeIn();
-                });
+
+                if (next.type === 'screen') {
+                    $screen.fadeOut(function () {
+                        $('.ucare-login-screen[data-step="' + next.screen + '"]').fadeIn();
+                    });
+
+                } else if (next.type === 'redirect') {
+                    window.location.href = next.to;
+                }
             });
         });
 
         /**
          * Process the login step
          *
-         * @param {string} step
+         * @param {*} data
          *
          * @since 1.7.0
          * @return {*}
          */
-        var processStep = function (step) {
-            return $.Deferred(function (deferred) {
-                deferred.resolve()
+        var processStep = function (data) {
+            return $.when(
+                $.ajax({
+                    url: localize.rest_url + 'ucare/v1/users/me/authenticate',
+                    data: data,
+                    method: 'post',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-WP-Nonce', localize.rest_nonce);
+                    }
+                }))
+            .then(function (result) {
+                return $.Deferred().resolve(result);
             });
         }
-
     });
 
 })(jQuery, _ucare_login_l10n);

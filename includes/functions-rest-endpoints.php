@@ -79,6 +79,26 @@ function rest_register_endpoints() {
             }
         )
     ) );
+
+    /**
+     * Current user endpoints
+     *
+     * @since 1.7.0
+     */
+    register_rest_route( 'ucare/v1', 'users/me/authenticate', array(
+        'methods' => \WP_REST_Server::CREATABLE,
+        'callback' => function ( $request ) {
+            return array( 'type' => 'screen', 'screen' => 'password');
+        },
+        'permission_callback' => function ( \WP_REST_Request $request ) {
+            $nonce = $request->get_header( 'X-WP-Nonce' );
+
+            if ( empty( $nonce ) || !wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+                return false;
+            }
+            return true;
+        }
+    ) );
 }
 
 
