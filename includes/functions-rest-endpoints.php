@@ -89,21 +89,11 @@ function rest_register_endpoints() {
         'methods'             => \WP_REST_Server::CREATABLE,
         'callback'            => 'ucare\rest_register_user',
         'args'                => array(
-            'step' => array(
-                'required' => true
-            ),
-            'email' => array(
-                'sanitize_callback' => 'sanitize_email'
-            ),
-            'first_name' => array(
-                'sanitize_callback' => 'sanitize_text_field'
-            ),
-            'last_name' => array(
-                'sanitize_callback' => 'sanitize_text_field'
-            ),
-            'password' => array(
-                'sanitize_callback' => 'sanitize_text_field'
-            )
+            'step'       => array( 'required' => true ),
+            'email'      => array( 'sanitize_callback' => 'sanitize_email' ),
+            'first_name' => array( 'sanitize_callback' => 'sanitize_text_field' ),
+            'last_name'  => array( 'sanitize_callback' => 'sanitize_text_field' ),
+            'password'   => array( 'sanitize_callback' => 'sanitize_text_field' )
         ),
         'permission_callback' => function ( \WP_REST_Request $request ) {
             $nonce = $request->get_header( 'X-WP-Nonce' );
