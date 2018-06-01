@@ -242,7 +242,7 @@ function enqueue_default_scripts() {
 
     // Load login page scripts
     } else if ( is_login_page() ) {
-        ucare_enqueue_script( 'ucare-login', resolve_url( 'assets/js/login.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
+//        ucare_enqueue_script( 'ucare-login', resolve_url( 'assets/js/login.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
     }
 
 }

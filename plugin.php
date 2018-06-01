@@ -169,6 +169,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-admin-bar.php';
             include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
             include_once dirname( __FILE__ ) . '/includes/functions-mail.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-login.php';
 
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
