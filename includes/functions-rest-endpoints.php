@@ -151,11 +151,21 @@ function rest_register_user( $request ) {
                 $data = array(
                     'email' => $email
                 );
-                $user = ucare_register_user( $data, true, true );
+                $user = ucare_register_user( $data );
 
                 if ( is_wp_error( $user ) ) {
                     return $user;
                 }
+                wp_set_current_user( $user );
+
+                add_action( 'set_logged_in_cookie', function ( $logged_in_cookie ) {
+                   $_COOKIE[ LOGGED_IN_COOKIE ] = $logged_in_cookie; // Force update auth cookie
+                });
+
+                if ( wp_validate_auth_cookie( '', 'logged_in' ) != $user ) {
+                    wp_set_auth_cookie( $user, true );
+                }
+
                 $response = array(
                     'type'   => 'screen',
                     'screen' => 'profile',

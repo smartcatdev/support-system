@@ -826,7 +826,6 @@ function ucare_register_user( $user_data, $authenticate = false, $remember = fal
     }
 
     do_action( 'support_user_registered', $user_data );
-
     return $id;
 }
 
