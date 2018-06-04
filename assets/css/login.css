@@ -77,13 +77,30 @@
     cursor: pointer;
 }
 
-
-
 /*--- Login Screens --*/
+#ucare-login {
+    width: 100%;
+}
+
+#ucare-login > * {
+    box-sizing: border-box !important;
+}
+
 #ucare-login {
     margin: 15px auto;
 }
 
+#ucare-login p {
+    margin: 10px 0 !important;
+}
+
+#ucare-login .login-title {
+    margin-top: 0;
+}
+
+#login-step-profile .login-submit {
+    margin-top: 10px;
+}
 
 /*--- Login Fields ---*/
 #login-email,
@@ -100,6 +117,29 @@
     margin: 10px 10px 10px 0;
 }
 
-button.terms {
+button.terms:first-of-type {
     margin-right: 10px;
+}
+
+button.terms {
+    margin-top: 10px;
+    flex: 1;
+}
+
+
+/*--- Login Page ---*/
+#support-login-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#ucare-login {
+    padding: 20px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+#support-login-page  #ucare-login p:last-of-type {
+    margin-bottom: 0 !important;
 }

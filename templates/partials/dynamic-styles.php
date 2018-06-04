@@ -50,7 +50,7 @@ $secondary_font = esc_attr( get_option( Options::SECONDARY_FONT, \ucare\Defaults
     #support-login-wrapper input[type="text"]:focus,
     #support-login-wrapper input[type="email"]:focus,
     #support-login-wrapper input[type="password"]:focus{
-        border: 2px solid <?php echo $primary_color; ?>;
+        border: 1px solid <?php echo $primary_color; ?>;
     }
 
     .form-control:focus {

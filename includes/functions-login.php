@@ -34,7 +34,7 @@ function login_form() {
                 <p class="login-subtitle">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
                 </p>
-                <div class="ucare-flex-row vcenter">
+                <p class="ucare-flex-row">
                     <input type="email"
                            name="email"
                            id="login-email"
@@ -42,7 +42,7 @@ function login_form() {
                            placeholder="<?php _e( 'Email Address', 'ucare' ); ?>"
                         />
                     <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
-                </div>
+                </p>
                 <input value="email"
                        name="step"
                        type="hidden"
@@ -66,8 +66,9 @@ function login_form() {
                         />
                 </form>
                 <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
+                    <h2 class="login-title"><?php _e( 'Profile', 'ucare' ); ?></h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
+                        We just need to collect a few more details
                     </p>
                     <p>
                         <label for="login-first-name"><?php _e( 'First Name', 'ucare' ); ?></label>
@@ -97,6 +98,7 @@ function login_form() {
             <?php endif; ?>
 
             <form id="login-step-password" class="ucare-login-screen" style="display: none" data-step="password">
+                <h2 class="login-title"><?php _e( 'Password', 'ucare' ); ?></h2>
                 <p>
                     <span class="ucare-flex-row vcenter">
                         <input id="login-password"
@@ -125,7 +127,9 @@ function login_form() {
             <p class="login-subtitle">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
             </p>
-            <a class="button" href="<?php echo esc_url( support_page_url() ); ?>"><?php _e( 'Get Support', 'ucare' ); ?></a>
+            <p>
+                <a class="button" href="<?php echo esc_url( support_page_url() ); ?>"><?php _e( 'Get Support', 'ucare' ); ?></a>
+            </p>
 
         <?php endif; ?>
 

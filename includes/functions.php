@@ -9,6 +9,41 @@ namespace ucare;
 
 
 /**
+ * Check if the value of a hexidecimal color is light or dark.
+ *
+ * @param string $color
+ *
+ * @since 1.1.0
+ * @return bool
+ */
+function hex_is_light( $color ) {
+    $hex = str_replace( '#', '', $color );
+
+    $c_r = hexdec( substr( $hex, 0, 2 ) );
+    $c_g = hexdec( substr( $hex, 2, 2 ) );
+    $c_b = hexdec( substr( $hex, 4, 2 ) );
+
+    $brightness = ( ( $c_r * 299 ) + ( $c_g * 587 ) + ( $c_b * 114 ) ) / 1000;
+
+    return $brightness > 155;
+}
+
+/**
+ * Select a light or dark color based on the value of a hexidecimal
+ *
+ * @param string $color
+ * @param string $dark
+ * @param string $light
+ *
+ * @since 1.1.0
+ * @return string
+ */
+function light_or_dark( $color, $dark = '#000000', $light = '#FFFFFF' ) {
+    return hex_is_light( $color ) ? $dark : $light;
+}
+
+
+/**
  * Convert a hexadecimal value to RGB.
  *
  * @param string $hex
