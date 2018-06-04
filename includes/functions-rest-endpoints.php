@@ -137,30 +137,40 @@ function rest_register_user( $request ) {
         case 'email':
             $user = get_user_by( 'email', $email );
 
-            /**
-             * Verify Terms of service
-             */
-            if ( empty( $user ) && get_option( 'terms', true ) ) {
-                $terms = $request->get_param( 'terms' );
+            if ( !empty( $user ) ) {
+                return array(
+                    'type'   => 'screen',
+                    'screen' => 'password',
+                    'data'   => array( 'log' => $user->user_login )
+                );
 
-                if ( !empty( $terms ) && $terms === 'decline' ) {
-                    $response = array(
-                        'type'   => 'screen',
-                        'screen' => 'email'
-                    );
-                    return rest_ensure_response( $response );
-                } else if ( empty( $terms ) ) {
-                    $response = array(
-                        'type'   => 'screen',
-                        'screen' => 'terms',
-                        'data'   => array( 'email' => $email )
-                    );
-                    return rest_ensure_response( $response ); // Send user back to the TOS page
+            } else {
+                if ( !get_option( Options::ALLOW_SIGNUPS ) ) {
+                    return new \WP_Error( 'invalid_user', __( 'The email you have entered is incorrect', 'ucare' ), array( 'code' => 404 ) );
+
+                /**
+                 * Verify Terms of service
+                 */
+                } else if ( get_option( 'terms', true ) ) {
+                    $terms = $request->get_param( 'terms' );
+
+                    if ( !empty( $terms ) && $terms === 'decline' ) {
+                        return array(
+                            'type'   => 'screen',
+                            'screen' => 'email'
+                        );
+                    } else if ( empty( $terms ) ) {
+                        return array(
+                            'type'   => 'screen',
+                            'screen' => 'terms',
+                            'data'   => array( 'email' => $email )
+                        ); // Send user back to the TOS page
+                    }
                 }
-            }
 
-
-            if ( empty( $user ) ) {  // Register user with the system
+                /**
+                 * Register the user as a new support user
+                 */
                 $data = array(
                     'email' => $email
                 );
@@ -172,26 +182,19 @@ function rest_register_user( $request ) {
                 wp_set_current_user( $user );
 
                 add_action( 'set_logged_in_cookie', function ( $logged_in_cookie ) {
-                   $_COOKIE[ LOGGED_IN_COOKIE ] = $logged_in_cookie; // Force update auth cookie
+                    $_COOKIE[ LOGGED_IN_COOKIE ] = $logged_in_cookie; // Force update auth cookie
                 });
 
                 if ( wp_validate_auth_cookie( '', 'logged_in' ) != $user ) {
                     wp_set_auth_cookie( $user, true );
                 }
 
-                $response = array(
+                return array(
                     'type'   => 'screen',
                     'screen' => 'profile',
                     'nonce'  => wp_create_nonce( 'wp_rest' )
                 );
-            } else {
-                $response = array(
-                    'type'   => 'screen',
-                    'screen' => 'password',
-                    'data'   => array( 'log' => $user->user_login )
-                );
             }
-            return rest_ensure_response( $response );
 
         /**
          * Update user profile info
@@ -208,11 +211,10 @@ function rest_register_user( $request ) {
                 return $updated;
             }
 
-            $response = array(
+            return array(
                 'type'  => 'redirect',
                 'to'    => create_page_url()
             );
-            return rest_ensure_response( $response );
 
         /**
          * Verify the user's password
@@ -229,11 +231,10 @@ function rest_register_user( $request ) {
                 return $user;
             }
 
-            $response = array(
+            return array(
                 'type'  => 'redirect',
                 'to'    => create_page_url()
             );
-            return rest_ensure_response( $response );
     }
 
     return new \WP_Error( 'unkown_error', __( 'An unknown error has occurred. Please try again later.', 'ucare' ), array( 'code' => 500 ) );

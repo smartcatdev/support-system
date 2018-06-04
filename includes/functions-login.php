@@ -40,7 +40,7 @@ function login_form() {
                            id="login-email"
                            required="required"
                            placeholder="<?php _e( 'Email Address', 'ucare' ); ?>"
-                    />
+                        />
                     <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
                 </div>
                 <input value="email"
@@ -48,48 +48,54 @@ function login_form() {
                        type="hidden"
                     />
             </form>
-            <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
-                <h2 class="login-title"><?php _e( 'Terms of Service', 'ucare' ); ?></h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
-                </p>
-                <p class="ucare-flex-row hcenter">
-                    <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
-                    <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
-                </p>
-                <input value="email"
-                       name="step"
-                       type="hidden"
-                />
-            </form>
-            <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
-                </p>
-                <p>
-                    <label for="login-first-name"><?php _e( 'First Name', 'ucare' ); ?></label>
-                    <input id="login-first-name"
-                           type="text"
-                           required="required"
-                           name="first_name"
+
+            <?php if ( get_option( Options::ALLOW_SIGNUPS ) ) : ?>
+
+                <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
+                    <h2 class="login-title"><?php _e( 'Terms of Service', 'ucare' ); ?></h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
+                    </p>
+                    <p class="ucare-flex-row hcenter">
+                        <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
+                        <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
+                    </p>
+                    <input value="email"
+                           name="step"
+                           type="hidden"
                         />
-                </p>
-                <p>
-                    <label for="login-last-name"><?php _e( 'Last Name', 'ucare' ); ?></label>
-                    <input id="login-last-name"
-                           type="text"
-                           required="required"
-                           name="last_name"
+                </form>
+                <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
+                    </p>
+                    <p>
+                        <label for="login-first-name"><?php _e( 'First Name', 'ucare' ); ?></label>
+                        <input id="login-first-name"
+                               type="text"
+                               required="required"
+                               name="first_name"
+                            />
+                    </p>
+                    <p>
+                        <label for="login-last-name"><?php _e( 'Last Name', 'ucare' ); ?></label>
+                        <input id="login-last-name"
+                               type="text"
+                               required="required"
+                               name="last_name"
+                            />
+                    </p>
+                    <p class="text-right">
+                        <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
+                    </p>
+                    <input value="profile"
+                           name="step"
+                           type="hidden"
                         />
-                </p>
-                <p class="text-right">
-                    <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
-                </p>
-                <input value="profile"
-                       name="step"
-                       type="hidden"
-                    />
-            </form>
+                </form>
+
+            <?php endif; ?>
+
             <form id="login-step-password" class="ucare-login-screen" style="display: none" data-step="password">
                 <p>
                     <span class="ucare-flex-row vcenter">
@@ -104,7 +110,7 @@ function login_form() {
                         <input id="login-rememberme"
                                name="remember"
                                type="checkbox"
-                        /><?php _e( 'Keep me signed in', 'ucare' ); ?>
+                            /><?php _e( 'Keep me signed in', 'ucare' ); ?>
                     </label>
                 </p>
                 <input value="password"
