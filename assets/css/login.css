@@ -44,7 +44,6 @@
     border: 1px solid #efefef;
     border-radius: 3px;
     border-left: 3px solid #ff0000;
-    padding: 10px;
     display: flex;
     margin-bottom: 15px;
 }
@@ -55,15 +54,18 @@
 
 #ucare-login-notice .inner {
     flex: 1;
+    padding: 10px;
 }
 
-#ucare-login-notice .dismiss-wrap {
-    display: flex;
-    align-items: center;
+#ucare-login-notice .dismiss {
+    width: 40px;
+    padding: 12px;
+    background: transparent;
+    border: none;
 }
 
 #ucare-login-notice .dismiss:before {
-    content: '\2715';
+    content: '\00D7';
     background: #555;
     width: 15px;
     height: 15px;
@@ -73,8 +75,10 @@
     display: block;
     line-height: 15px;
     vertical-align: middle;
-    font-size: 12px;
+    font-size: 24px;
     cursor: pointer;
+    margin: auto;
+    margin-right: 1px;
 }
 
 /*--- Login Screens --*/
@@ -100,6 +104,11 @@
 
 #login-step-profile .login-submit {
     margin-top: 10px;
+}
+
+.tos-content {
+    max-height: 400px;
+    overflow-y: scroll;
 }
 
 /*--- Login Fields ---*/
