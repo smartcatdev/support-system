@@ -118,6 +118,7 @@ function rest_register_user( $request ) {
     $step  = $request->get_param( 'step' );
     $steps = array(
         'email',
+        'terms',
         'profile',
         'password'
     );
@@ -135,6 +136,28 @@ function rest_register_user( $request ) {
          */
         case 'email':
             $user = get_user_by( 'email', $email );
+
+            /**
+             * Verify Terms of service
+             */
+            if ( empty( $user ) && get_option( 'terms', true ) ) {
+                $terms = $request->get_param( 'terms' );
+
+                if ( !empty( $terms ) && $terms === 'decline' ) {
+                    $response = array(
+                        'type'   => 'screen',
+                        'screen' => 'email'
+                    );
+                    return rest_ensure_response( $response );
+                } else if ( empty( $terms ) ) {
+                    $response = array(
+                        'type'   => 'screen',
+                        'screen' => 'terms',
+                        'data'   => array( 'email' => $email )
+                    );
+                    return rest_ensure_response( $response );
+                }
+            }
 
             // Register user
             if ( empty( $user ) ) {

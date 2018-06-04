@@ -6,8 +6,20 @@
 ;(function ($, localize) {
 
     $(function () {
-
         var nonce = localize.rest_nonce;
+
+        /**
+         * Handle TOS
+         */
+        $('button.terms').click(function () {
+            var $form = $(this).parents('form');
+            $form.find('input[name="terms"]').remove();
+            $form.append($('<input>', {
+                type: 'hidden',
+                name: 'terms',
+                value: $(this).val()
+            }));
+        });
 
         /**
          * Handle login form submission

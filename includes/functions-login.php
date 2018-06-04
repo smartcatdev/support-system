@@ -29,13 +29,27 @@ function login_form() {
                        id="login-email"
                        required="required"
                        placeholder="<?php _e( 'Email Address', 'ucare' ); ?>"
-                    />
+                />
                 <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
             </div>
             <input value="email"
                    name="step"
                    type="hidden"
                 />
+        </form>
+        <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
+            <h2 class="login-title"><?php _e( 'Terms of Service', 'ucare' ); ?></h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere arcu sed rutrum dignissim. Nulla a euismod erat. Nullam orci nulla, faucibus a lobortis ac, luctus et tortor. Donec vitae dictum elit, sed facilisis erat.
+            </p>
+            <p class="ucare-flex-row hcenter">
+                <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
+                <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
+            </p>
+            <input value="email"
+                   name="step"
+                   type="hidden"
+            />
         </form>
         <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
             <p>
