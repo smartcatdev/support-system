@@ -39,7 +39,50 @@
     text-align: center;
 }
 
+/*--- Login Notice ---*/
+#ucare-login-notice {
+    border: 1px solid #efefef;
+    border-radius: 3px;
+    border-left: 3px solid #ff0000;
+    padding: 10px;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+#ucare-login-notice p {
+    margin: 0;
+}
+
+#ucare-login-notice .inner {
+    flex: 1;
+}
+
+#ucare-login-notice .dismiss-wrap {
+    display: flex;
+    align-items: center;
+}
+
+#ucare-login-notice .dismiss:before {
+    content: '\2715';
+    background: #555;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    line-height: 15px;
+    vertical-align: middle;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+
 /*--- Login Screens --*/
+#ucare-login {
+    margin: 15px auto;
+}
 
 
 /*--- Login Fields ---*/
@@ -52,44 +95,11 @@
     margin: 5px 0;
 }
 
+#login-rememberme {
+    width: auto !important;
+    margin: 10px 10px 10px 0;
+}
 
-/*.login-username label,*/
-/*.login-password label{*/
-    /*display: block;*/
-/*}*/
-
-/*.support-login-wrapper {*/
-    /*border: 1px solid #d4d4d4;*/
-    /*border-radius: 4px;*/
-    /*padding: 30px;*/
-    /*margin: 15px auto;*/
-    /*width: 100%;*/
-    /*box-shadow: 0 0 3px #d4d4d4;*/
-    /*-moz-box-shadow: 0 0 3px #d4d4d4;*/
-    /*-webkit-box-shadow: 0 0 3px #d4d4d4;*/
-/*}*/
-
-/*@media( min-width: 769px ) {*/
-    /*.support-login-wrapper{*/
-        /*width: 50%;*/
-    /*}*/
-/*}*/
-
-/*.support-login-wrapper p{*/
-    /*margin: 5px 0 10px 0;*/
-/*}*/
-
-/*.support-login-wrapper input[type="text"],*/
-/*.support-login-wrapper input[type="password"]{*/
-    /*width: 100%;*/
-    /*padding: 8px;*/
-    /*outline: none;*/
-    /*transition: 0.3s all ease;*/
-    /*-moz-transition: 0.3s all ease;*/
-    /*-webkit-transition: 0.3s all ease;*/
-/*}*/
-
-/*.support-login-wrapper input[type="text"]:focus,*/
-/*.support-login-wrapper input[type="password"]:focus{*/
-    /**/
-/*}*/
+button.terms {
+    margin-right: 10px;
+}

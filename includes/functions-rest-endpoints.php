@@ -155,12 +155,12 @@ function rest_register_user( $request ) {
                         'screen' => 'terms',
                         'data'   => array( 'email' => $email )
                     );
-                    return rest_ensure_response( $response );
+                    return rest_ensure_response( $response ); // Send user back to the TOS page
                 }
             }
 
-            // Register user
-            if ( empty( $user ) ) {
+
+            if ( empty( $user ) ) {  // Register user with the system
                 $data = array(
                     'email' => $email
                 );
@@ -221,6 +221,11 @@ function rest_register_user( $request ) {
             $user = wp_signon();
 
             if ( is_wp_error( $user ) ) {
+                if ( $user->get_error_code() === 'incorrect_password' ) { // Overwrite the default WP error
+                    return new \WP_Error( 'invalid_password', __( 'That password is incorrect.', 'ucare' ) . sprintf( ' <strong><a href="#">%s</a></strong>', __( 'Forgot your password?', 'ucare' ) ),
+                        array( 'code' => 403 )
+                    );
+                }
                 return $user;
             }
 
