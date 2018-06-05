@@ -87,20 +87,24 @@ namespace ucare;
                         </h2>
                         <div class="form-group"><?php _e( 'Please enter and confirm your new password', 'ucare' ); ?></div>
 
-                        <form method="post">
+                        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php?action=ucare_pw_reset' ) ); ?>">
 
                             <div class="form-group">
 
                                 <div class="input-group">
-                                    <input id="pw"
-                                           type="password"
+
+                                    <input type="password"
+                                           id="pw"
+                                           name="pw"
                                            class="form-control"
                                            placeholder="<?php _e( 'Password', 'ucare' ); ?>"
                                         />
+
                                     <span class="input-group-addon toggle-pw">
-                                        <span class="glyphicon pw-hidden  glyphicon-eye-close"></span>
+                                        <span class="glyphicon pw-hidden glyphicon-eye-close"></span>
                                         <span class="glyphicon pw-visible glyphicon-eye-open" hidden></span>
                                     </span>
+
                                 </div>
 
                             </div>
@@ -108,22 +112,36 @@ namespace ucare;
                             <div class="form-group">
 
                                 <div class="input-group">
+
                                     <input id="confirm-pw"
                                            type="password"
                                            class="form-control"
                                            placeholder="<?php _e( 'Password', 'ucare' ); ?>"
                                         />
+
                                     <span class="input-group-addon toggle-pw">
                                         <span id="confirm-pw-feedback" class="glyphicon pw-hidden glyphicon-exclamation-sign"></span>
                                         <span class="glyphicon pw-visible glyphicon-eye-open" hidden></span>
                                     </span>
+
                                 </div>
 
                             </div>
 
                             <div class="text-right">
-                                <button id="submit" class="button" disabled><?php _e( 'Update', 'ucare' ); ?></button>
+
+                                <button id="submit" class="button" disabled="disabled">
+                                    <?php _e( 'Update', 'ucare' ); ?>
+                                </button>
+
                             </div>
+
+                            <input type="hidden"
+                                   name="token"
+                                   value="<?php esc_attr_e( $_GET['token'] ); ?>"
+                                />
+
+                            <?php wp_nonce_field( 'reset_pw' ); ?>
 
                         </form>
 
