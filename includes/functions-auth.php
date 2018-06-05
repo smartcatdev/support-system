@@ -7,7 +7,6 @@
  */
 namespace ucare;
 
-
 /**
  * Increment the number of requests from the current IP address.
  *

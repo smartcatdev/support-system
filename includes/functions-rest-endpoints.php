@@ -223,12 +223,19 @@ function rest_register_user( $request ) {
             $user = wp_signon();
 
             if ( is_wp_error( $user ) ) {
-                if ( $user->get_error_code() === 'incorrect_password' ) { // Overwrite the default WP error
-                    return new \WP_Error( 'invalid_password', __( 'That password is incorrect.', 'ucare' ) . sprintf( ' <strong><a href="#">%s</a></strong>', __( 'Forgot your password?', 'ucare' ) ),
-                        array( 'code' => 403 )
-                    );
+                if ( $user->get_error_code() !== 'incorrect_password' ) {
+                    return $user;
                 }
-                return $user;
+
+                $user = get_user_by( 'email', $request->get_param( 'log' ) );
+
+                // Overwrite the default WP error
+                return new \WP_Error( 'invalid_password',
+                    __( 'That password is incorrect.', 'ucare' ) . sprintf( ' <strong><a href="%1$s">%2$s</a></strong>',
+                        login_page_url( '?password_reset_sent=true&u=' . $user->ID ), __( 'Forgot your password?', 'ucare' )
+                    ),
+                    array( 'code' => 403 )
+                );
             }
 
             return array(

@@ -326,6 +326,28 @@ hr {
     padding-top: 50px;
 }
 
+/*--- Login Page ---*/
+#support-login-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#support-login-page .login-card {
+    padding: 20px;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+}
+
+#support-login-page .login-title {
+    margin-top: 0;
+}
+
+#support-login-page p:last-of-type {
+    margin-bottom: 0 !important;
+}
+
 @media(max-width: 500px) {
     #support-login-wrapper {
         padding: 15px;
