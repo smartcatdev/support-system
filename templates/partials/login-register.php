@@ -9,82 +9,144 @@ namespace ucare;
 
 ?>
 
-<!-- register -->
-<div id="register">
+<div id="ucare-login">
 
-    <a class="btn btn-default button-back" href="<?php esc_url_e( login_page_url() ); ?>">
+    <div id="ucare-login-notice" style="display: none">
+        <div class="inner"></div> <button class="dismiss"></button>
+    </div>
 
-        <span class="glyphicon glyphicon-chevron-left button-icon"></span>
+    <?php if ( !is_user_logged_in() ) : ?>
 
-        <span><?php _e( 'Login', 'ucare' ); ?></span>
+        <form id="login-step-email" class="ucare-login-screen ucare-flex-col" data-step="email">
 
-    </a>
+            <h2 class="login-title"><?php esc_html_e( get_option( Options::LOGIN_TITLE ) ); ?></h2>
 
-    <div id="message-area"></div>
+            <p class="login-subtitle">
+                <?php esc_html_e( get_option( Options::LOGIN_SUBTEXT ) ); ?>
+            </p>
 
-    <form id="registration-form">
+            <p class="ucare-flex-row">
+                <input type="email"
+                       name="email"
+                       id="login-email"
+                       required="required"
+                       placeholder="<?php _e( 'Email Address', 'ucare' ); ?>"
+                    />
+                <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
+            </p>
 
-        <div class="form-group">
+            <input value="email"
+                   name="step"
+                   type="hidden"
+                />
 
-            <label for="first-name">
-                <?php _e( 'First Name', 'ucare' ); ?>
-            </label>
+        </form>
 
-            <input type="text"
-                   id="first-name"
-                   name="first_name"
-                   class="form-control" required />
+        <?php if ( get_option( Options::ALLOW_SIGNUPS ) ) : ?>
 
-        </div>
+            <?php if ( get_option( Options::TOS_ENABLED ) ) : ?>
 
-        <div class="form-group">
+                <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
 
-            <label for="last-name">
-                <?php _e( 'Last Name', 'ucare' ); ?>
-            </label>
+                    <h2 class="login-title"><?php esc_html_e( get_option( Options::TOS_TITLE ) ); ?></h2>
 
-            <input type="text"
-                   id="last-name"
-                   name="last_name"
-                   class="form-control" required />
+                    <div class="tos-content">
 
-        </div>
+                        <p><?php esc_html_e( get_option( Options::TOS_POLICY ) ); ?></p>
 
-        <div class="form-group">
+                        <p class="ucare-flex-row hcenter">
+                            <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
+                            <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
+                        </p>
 
-            <label for="email-address">
-                <?php _e( 'Email Address', 'ucare' ); ?>
-            </label>
+                    </div>
 
-            <input type="email"
-                   id="email-address"
-                   name="email"
-                   class="form-control" required />
+                    <input value="email"
+                           name="step"
+                           type="hidden"
+                        />
 
-        </div>
+                </form>
 
+            <?php endif; ?>
 
-        <?php do_action( 'ucare_after_registration_fields' ); ?>
+            <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
 
+                <h2 class="login-title"><?php esc_html_e( get_option( Options::REGISTRATION_TITLE ) ); ?></h2>
 
-        <div class="text-right registration-submit">
+                <p><?php esc_html_e( get_option( Options::REGISTRATION_SUBTEXT ) ); ?></p>
 
-            <button id="registration-submit" type="submit" class="button button-primary">
-                <?php echo stripslashes( get_option( Options::REGISTER_BTN_TEXT ) ); ?>
-            </button>
+                <p>
+                    <label for="login-first-name"><?php _e( 'First Name', 'ucare' ); ?></label>
+                    <input id="login-first-name"
+                           type="text"
+                           required="required"
+                           name="first_name"
+                        />
+                </p>
 
-        </div>
+                <p>
+                    <label for="login-last-name"><?php _e( 'Last Name', 'ucare' ); ?></label>
+                    <input id="login-last-name"
+                           type="text"
+                           required="required"
+                           name="last_name"
+                        />
+                </p>
 
-        <div class="terms">
+                <p class="text-right">
+                    <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
+                </p>
 
-            <a href="<?php esc_url_e( get_option( Options::TERMS_URL ) ); ?>">
-                <?php echo stripslashes( get_option( Options::LOGIN_DISCLAIMER ) ); ?>
-            </a>
+                <input value="profile"
+                       name="step"
+                       type="hidden"
+                    />
 
-        </div>
+            </form>
 
-        <?php wp_nonce_field( 'ucare_rest', '_ucarenonce' ); ?>
+        <?php endif; ?>
 
-    </form>
+        <form id="login-step-password" class="ucare-login-screen" style="display: none" data-step="password">
 
-</div><!-- /register -->
+            <h2 class="login-title"><?php _e( 'Password', 'ucare' ); ?></h2>
+
+            <p>
+
+                    <span class="ucare-flex-row vcenter">
+                        <input id="login-password"
+                               type="password"
+                               name="pwd"
+                               placeholder="<?php _e( 'Password', 'ucare' ); ?>"
+                            />
+                        <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
+                    </span>
+
+                <label class="ucare-flex-row vcenter login-remember">
+                    <input id="login-rememberme"
+                           name="remember"
+                           type="checkbox"
+                        /><?php _e( 'Keep me signed in', 'ucare' ); ?>
+                </label>
+
+            </p>
+
+            <input value="password"
+                   name="step"
+                   type="hidden"
+                />
+
+        </form>
+
+    <?php else : ?>
+
+        <h2 class="login-title"><?php   esc_html_e( get_option( Options::LOGIN_TITLE   ) ); ?></h2>
+        <p class="login-subtitle"><?php esc_html_e( get_option( Options::LOGIN_SUBTEXT ) ); ?></p>
+
+        <p>
+            <a class="button" href="<?php echo esc_url( support_page_url() ); ?>"><?php _e( 'Get Support', 'ucare' ); ?></a>
+        </p>
+
+    <?php endif; ?>
+
+</div>
