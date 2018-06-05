@@ -845,27 +845,43 @@ function ucare_reset_user_password( $username ) {
         $user = get_user_by( 'login', $username );
     }
 
-    if ( $user ) {
-        $password = wp_generate_password();
-
-        // Update the password
-        wp_set_password( $password, $user->ID );
-
-        /**
-         * @since 1.0.0
-         * @deprecated
-         */
-        apply_filters( 'support_password_reset_notification', true, $user->user_email, $password, $user );
-
-        /**
-         * @since 1.6.0
-         */
-        do_action( 'support_password_reset', $user, $password );
-
-        return true;
+    if ( !$user ) {
+        return new \WP_Error( 'user_not_found', __( 'User could not be found', 'ucare' ) );
     }
 
-    return new \WP_Error( 'user_not_found', __( 'User could not be found', 'ucare' ), array( 'status' => 404 ) );
+    $token = base64_encode( get_password_reset_key( $user ) . ':' . $username );
+
+    /**
+     * Configure the PW reset email (this message is un-templated)
+     */
+    $link = \ucare\login_page_url( '?reset_password=true&token=' . $token );
+
+    $message =  __( 'Please follow the link to reset your password:', 'ucare' ) . ' ' . esc_url_raw( $link );
+    $message = apply_filters( 'ucare_pw_reset_message', $message, $user );
+
+    $subject = __( 'Password Reset Requested', 'ucare' );
+    $subject = apply_filters( 'ucare_pw_reset_subject', $subject, $user );
+
+    $from_email = get_option( Options::SENDER_EMAIL );
+    $from_name  = get_option( Options::SENDER_NAME );
+
+    $headers = (array) "From: {$from_name} <{$from_email}>";
+
+    if ( wp_mail( $user->user_email, $subject, $message, $headers ) ) {
+        /**
+         *
+         * Notify that PW reset has been sent
+         *
+         *
+         * @since 1.7.0
+         */
+        do_action( 'ucare_pw_reset_sent', $user );
+
+    } else {
+        return false;
+    }
+
+    return true;
 }
 
 

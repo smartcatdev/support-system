@@ -83,7 +83,7 @@ final class Options {
             ,TERMS_URL                      = 'smartcat_support_terms-url'
 
             /**
-             * @since 1.1
+             * @since 1.1.0
              */
             ,REFRESH_INTERVAL               = 'smartcat_support_refresh-interval'
             ,FAVICON                        = 'smartcat_support_favicon'
@@ -147,7 +147,7 @@ final class Options {
              */
             ,LOGIN_TITLE                    = 'smartcat_support_login_title'
             ,LOGIN_SUBTEXT                  = 'smartcat_support_login_subtext'
-            ,TOS_ENABLED                    = 'smartcat_support_tos_enabled'
+            ,ENFORCE_TOS                    = 'smartcat_support_enforce_tos'
             ,TOS_TITLE                      = 'smartcat_support_tos_title'
             ,TOS_POLICY                     = 'smartcat_support_tos_policy'
             ,REGISTRATION_TITLE             = 'smartcat_support_registration_title'

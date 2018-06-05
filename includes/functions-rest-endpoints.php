@@ -151,7 +151,7 @@ function rest_register_user( $request ) {
                 /**
                  * Verify Terms of service
                  */
-                } else if ( get_option( Options::TOS_ENABLED ) ) {
+                } else if ( get_option( Options::ENFORCE_TOS ) ) {
                     $terms = $request->get_param( 'terms' );
 
                     if ( !empty( $terms ) && $terms === 'decline' ) {
@@ -227,12 +227,10 @@ function rest_register_user( $request ) {
                     return $user;
                 }
 
-                $user = get_user_by( 'email', $request->get_param( 'log' ) );
-
                 // Overwrite the default WP error
                 return new \WP_Error( 'invalid_password',
                     __( 'That password is incorrect.', 'ucare' ) . sprintf( ' <strong><a href="%1$s">%2$s</a></strong>',
-                        login_page_url( '?password_reset_sent=true&u=' . $user->ID ), __( 'Forgot your password?', 'ucare' )
+                        login_page_url( '?password_reset_sent=true&u=' . $request->get_param( 'log' ) ), __( 'Forgot your password?', 'ucare' )
                     ),
                     array( 'code' => 403 )
                 );
@@ -240,7 +238,7 @@ function rest_register_user( $request ) {
 
             return array(
                 'type'  => 'redirect',
-                'to'    => create_page_url()
+                'to'    => support_page_url()
             );
     }
 

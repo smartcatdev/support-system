@@ -44,7 +44,7 @@ namespace ucare;
 
         <?php if ( get_option( Options::ALLOW_SIGNUPS ) ) : ?>
 
-            <?php if ( get_option( Options::TOS_ENABLED ) ) : ?>
+            <?php if ( get_option( Options::ENFORCE_TOS ) ) : ?>
 
                 <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
 

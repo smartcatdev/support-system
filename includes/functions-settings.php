@@ -402,7 +402,7 @@ function register_settings() {
         'sanitize_callback' => 'sanitize_text_field',
     ) );
 
-    register_setting( 'uc-advanced', Options::TOS_ENABLED, array(
+    register_setting( 'uc-advanced', Options::ENFORCE_TOS, array(
         'type'              => 'boolean',
         'default'           => true,
         'sanitize_callback' => 'ucare\sanitize_bool',
