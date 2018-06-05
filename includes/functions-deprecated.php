@@ -3,6 +3,19 @@
 namespace ucare;
 
 /**
+ * Sanitize truthy values such as 'on', 'yes', 1, true and anything not null.
+ *
+ * @param mixed $val
+ *
+ * @deprecated
+ * @since 1.0.0
+ * @return mixed
+ */
+function sanitize_boolean( $val ) {
+    return filter_var( $val, FILTER_VALIDATE_BOOLEAN ) == true ? $val : false;
+}
+
+/**
  * Custom filter output of human_time_diff().
  *
  * @param $since

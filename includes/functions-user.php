@@ -21,22 +21,6 @@ add_action( 'init', 'ucare\add_role_capabilities' );
 add_action( 'init', 'ucare\set_ecommerce_user_caps' );
 
 /**
- * Reset a password for a user
- *
- * @action init
- *
- * @param string $email
- *
- * @since 1.7.0
- * @return mixed
- */
-function reset_user_password( $email ) {
-
-
-
-}
-
-/**
  * Configure capabilities for eCommerce users.
  *
  * @action init

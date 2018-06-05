@@ -23,375 +23,142 @@ final class Marketing {
     /**
      * @since 1.6.0
      */
-    const ADMIN_NOTIFICATION = 'admin-notification';
-
-    /**
-     * @since 1.6.0
-     */
-    const SETTINGS_SIDEBAR_UCARE_PRO = 'settings-sidebar-ucare-pro';
-
-    /**
-     * @since 1.6.0
-     */
-    const SETTINGS_SIDEBAR_FEEDBACK = 'settings-sidebar-feedback';
+    const    ADMIN_NOTIFICATION         = 'admin-notification'
+            ,SETTINGS_SIDEBAR_UCARE_PRO = 'settings-sidebar-ucare-pro'
+            ,SETTINGS_SIDEBAR_FEEDBACK  = 'settings-sidebar-feedback'
+    ;
 
 }
 
 
 final class Options {
 
-    /**
-     * @since 1.0.0
-     */
-    const PLUGIN_VERSION = 'smartcat_support_version';
-
-    /**
-     * @since 1.0.0
-     */
-    const NUKE = 'smartcat_support_erase';
-
-    /**
-     * @since 1.0.0
-     */
-    const DEV_MODE = 'smartcat_support_dev-mode';
-
-    /**
-     * @since 1.0.0
-     */
-    const EMAIL_NOTIFICATIONS = 'smartcat_support_email-notifications';
-
-    /**
-     * @since 1.0.0
-     */
-    const STATUSES = 'smartcat_support_statuses';
-
-    /**
-     * @since 1.0.0
-     */
-    const PRIORITIES = 'smartcat_support_priorities';
-
-    /**
-     * @since 1.0.0
-     */
-    const TICKET_CREATED_MSG = 'smartcat_support_string_ticket-created';
-
-    /**
-     * @since 1.0.0
-     */
-    const TICKET_UPDATED_MSG = 'smartcat_support_string_ticket-updated';
-
-    /**
-     * @since 1.0.0
-     */
-    const EMPTY_TABLE_MSG = 'smartcat_support_string_empty-table';
-
-    /**
-     * @since 1.0.0
-     */
-    const COMMENTS_CLOSED_MSG = 'smartcat_support_string_comments-closed';
-
-    /**
-     * @since 1.0.0
-     */
-    const CREATE_BTN_TEXT = 'smartcat_support_string_create-ticket-btn';
-
-    /**
-     * @since 1.0.0
-     */
-    const REPLY_BTN_TEXT = 'smartcat_support_string_reply-btn';
-
-    /**
-     * @since 1.0.0
-     */
-    const CANCEL_BTN_TEXT = 'smartcat_support_string_cancel-btn';
-
-    /**
-     * @since 1.0.0
-     */
-    const SAVE_BTN_TEXT = 'smartcat_support_string_save-ticket-btn';
-
-    /**
-     * @since 1.0.0
-     */
-    const REGISTER_BTN_TEXT = 'smartcat_support_string_register-btn';
-
-    /**
-     * @since 1.0.0
-     */
-    const LOGIN_BTN_TEXT = 'smartcat_support_string_login-btn';
-
-    /**
-     * @since 1.0.0
-     */
-    const TEMPLATE_PAGE_ID = 'smartcat_support_page-id';
-
-    /**
-     * @since 1.0.0
-     */
-    const ECOMMERCE = 'smartcat_support_ecommerce-integration';
-
-    /**
-     * @since 1.0.0
-     */
-    const ALLOW_SIGNUPS = 'smartcat_support_allow-signups';
-
-    /**
-     * @since 1.0.0
-     */
-    const LOGIN_DISCLAIMER = 'smartcat_support_login-disclaimer';
-
-    /**
-     * @since 1.0.0
-     */
-    const LOGO = 'smartcat_support_login-logo';
-
-    /**
-     * @since 1.0.0
-     */
-    const RESTORE_TEMPLATE = 'smartcat_support_regenerate-template';
-
-    /**
-     * @since 1.0.0
-     */
-    const WELCOME_EMAIL_TEMPLATE = 'smartcat_support_welcome-email-template';
-
-    /**
-     * @since 1.0.0
-     */
-    const TICKET_CLOSED_EMAIL_TEMPLATE = 'smartcat_support_closed-email-template';
-
-    /**
-     * @since 1.0.0
-     */
-    const AGENT_REPLY_EMAIL = 'smartcat_support_reply-template';
-
-    /**
-     * @since 1.0.0
-     */
-    const PRIMARY_COLOR = 'smartcat_support_primary-color';
-
-    /**
-     * @since 1.0.0
-     */
-    const SECONDARY_COLOR = 'smartcat_support_secondary-color';
-
-    /**
-     * @since 1.0.0
-     */
-    const TERTIARY_COLOR = 'smartcat_support_tertiary-color';
-
-    /**
-     * @since 1.0.0
-     */
-    const HOVER_COLOR = 'smartcat_support_hover-color';
-
-    /**
-     * @since 1.0.0
-     */
-    const MAX_TICKETS = 'smartcat_support_max-tickets-per-page';
-
-    /**
-     * @since 1.0.0
-     */
-    const FOOTER_TEXT = 'smartcat_support_footer-text';
-
-    /**
-     * @since 1.0.2
-     */
-    const MAX_ATTACHMENT_SIZE = 'smartcat_support_footer-max-attachment-size';
-
-    /**
-     * @since 1.0.2
-     */
-    const COMPANY_NAME = 'smartcat_support_footer-company-name';
-
-    /**
-     * @since 1.0.2
-     */
-    const TICKET_CREATED_EMAIL = 'smartcat_support_ticket-created-email';
-
-    /**
-     * @since 1.0.2
-     */
-    const LOGIN_BACKGROUND = 'smartcat_support_login-background';
-
-    /**
-     * @since 1.0.2
-     */
-    const LOGIN_WIDGET_AREA = 'smartcat_support_login-widget-area';
-
-    /**
-     * @since 1.0.2
-     */
-    const USER_WIDGET_AREA = 'smartcat_support_user-widget-area';
-
-    /**
-     * @since 1.0.2
-     */
-    const AGENT_WIDGET_AREA = 'smartcat_support_agent-widget-area';
-
-    /**
-     * @since 1.0.2
-     */
-    const SENDER_NAME = 'smartcat_support_sender-name';
-
-    /**
-     * @since 1.0.2
-     */
-    const SENDER_EMAIL = 'smartcat_support_sender-email';
-
-    /**
-     * @since 1.0.2
-     */
-    const TERMS_URL = 'smartcat_support_terms-url';
-
-    /**
-     * @since 1.1
-     */
-    const REFRESH_INTERVAL = 'smartcat_support_refresh-interval';
-
-    /**
-     * @since 1.1
-     */
-    const FAVICON = 'smartcat_support_favicon';
-
-    /**
-     * @since 1.1.1
-     */
-    const PASSWORD_RESET_EMAIL = 'smartcat_support_password-reset-email';
-
-    /**
-     * @since 1.2.0
-     */
-    const INACTIVE_MAX_AGE = 'smartcat_support_inactive-max-age';
-
-    /**
-     * @since 1.2.0
-     */
-    const AUTO_CLOSE = 'smartcat_support_autoclose-enabled';
-
-    /**
-     * @since 1.2.0
-     */
-    const INACTIVE_EMAIL = 'smartcat_support_inactive-email';
-
-    /**
-     * @since 1.3.0
-     */
-    const TICKET_ASSIGNED = 'smartcat_support_ticket-assigned';
-
-    /**
-     * @since 1.3.0
-     */
-    const CUSTOMER_REPLY_EMAIL = 'smartcat_support_customer-reply';
-
-
-    /**
-     * @since 1.2.1
-     */
-    const LOGGING_ENABLED = 'smartcat_support_logging-enabled';
-
-    /**
-     * @since 1.3.0
-     */
-    const EXTENSION_LICENSE_NOTICES = 'smartcat_support_extension-license-notifications';
-
-    /**
-     * @since 1.3.0
-     */
-    const CATEGORIES_ENABLED = 'smartcat_support_enable-categories';
-
-    /**
-     * @since 1.3.0
-     */
-    const CATEGORIES_NAME = 'smartcat_support_extension-categories-name';
-
-    /**
-     * @since 1.3.0
-     */
-    const CATEGORIES_NAME_PLURAL = 'smartcat_support_extension-categories-name-plural';
-
-    /**
-     * @since 1.3.0
-     */
-    const ADMIN_EMAIL = 'smartcat_support_admin-email';
-
-    /**
-     * @since 1.3.0
-     */
-    const NEW_TICKET_ADMIN_EMAIL = 'smartcat_support_new-ticket-admin-email';
-
-    /**
-     * @since 1.3.0
-     */
-    const FIRST_RUN = 'smartcat_support_first-run';
-
-    /**
-     * @since 1.4.0
-     */
-    const FIRST_140_RUN = 'smartcat_support_first-140-run';
-
-    /**
-     * @since 1.3.0
-     */
-    const PRIMARY_FONT = 'smartcat_support_primary-font';
-
-    /**
-     * @since 1.3.0
-     */
-    const SECONDARY_FONT = 'smartcat_support_secondary-font';
-
-    /**
-     * @since 1.3.0
-     */
-    const QUICK_LINK_ENABLED = 'smartcat_support_quick-link-enabled';
-
-    /**
-     * @since 1.3.0
-     */
-    const QUICK_LINK_LABEL = 'smartcat_support_quick-link-label';
-
-    /**
-     * @since 1.4.0
-     */
-    const DISPLAY_BACK_BUTTON = 'smartcat_support_display_back_button';
-
-    /**
-     * @since 1.4.1
-     */
-    const IMAGE_MIME_TYPES = 'smartcat_support_image_mime_types';
-
-    /**
-     * @since 1.4.1
-     */
-    const FILE_MIME_TYPES = 'smartcat_support_file_mime_types';
-
-    /**
-     * @since 1.4.1
-     * @deprecated
-     */
-    const SHOW_CLOCK = 'smartcat_support_show_clock';
-
-    /**
-     * @since 1.5.1
-     */
-    const CREATE_TICKET_PAGE_ID = 'smartcat_support_create_ticket_page_id';
-
-    /**
-     * @since 1.6.0
-     */
-    const EDIT_PROFILE_PAGE_ID = 'smartcat_support_edit_profile_page_id';
-
-    /**
-     * @since 1.6.0
-     */
-    const LOGIN_PAGE_ID = 'smartcat_support_login_page_id';
-
-
-    /**
-     * @since 1.6.0
-     */
-    const DATABASE_VERSION = 'smartcat_support_db_version';
+            /**
+             * @since 1.0.0
+             */
+    const    PLUGIN_VERSION                 = 'smartcat_support_version'
+            ,NUKE                           = 'smartcat_support_erase'
+            ,DEV_MODE                       = 'smartcat_support_dev-mode'
+            ,EMAIL_NOTIFICATIONS            = 'smartcat_support_email-notifications'
+            ,STATUSES                       = 'smartcat_support_statuses'
+            ,PRIORITIES                     = 'smartcat_support_priorities'
+            ,TICKET_CREATED_MSG             = 'smartcat_support_string_ticket-created'
+            ,TICKET_UPDATED_MSG             = 'smartcat_support_string_ticket-updated'
+            ,EMPTY_TABLE_MSG                = 'smartcat_support_string_empty-table'
+            ,COMMENTS_CLOSED_MSG            = 'smartcat_support_string_comments-closed'
+            ,CREATE_BTN_TEXT                = 'smartcat_support_string_create-ticket-btn'
+            ,REPLY_BTN_TEXT                 = 'smartcat_support_string_reply-btn'
+            ,CANCEL_BTN_TEXT                = 'smartcat_support_string_cancel-btn'
+            ,SAVE_BTN_TEXT                  = 'smartcat_support_string_save-ticket-btn'
+            ,REGISTER_BTN_TEXT              = 'smartcat_support_string_register-btn'
+            ,LOGIN_BTN_TEXT                 = 'smartcat_support_string_login-btn'
+            ,TEMPLATE_PAGE_ID               = 'smartcat_support_page-id'
+            ,ECOMMERCE                      = 'smartcat_support_ecommerce-integration'
+            ,ALLOW_SIGNUPS                  = 'smartcat_support_allow-signups'
+            ,LOGIN_DISCLAIMER               = 'smartcat_support_login-disclaimer'
+            ,LOGO                           = 'smartcat_support_login-logo'
+            ,RESTORE_TEMPLATE               = 'smartcat_support_regenerate-template'
+            ,WELCOME_EMAIL_TEMPLATE         = 'smartcat_support_welcome-email-template'
+            ,TICKET_CLOSED_EMAIL_TEMPLATE   = 'smartcat_support_closed-email-template'
+            ,AGENT_REPLY_EMAIL              = 'smartcat_support_reply-template'
+            ,PRIMARY_COLOR                  = 'smartcat_support_primary-color'
+            ,SECONDARY_COLOR                = 'smartcat_support_secondary-color'
+            ,TERTIARY_COLOR                 = 'smartcat_support_tertiary-color'
+            ,HOVER_COLOR                    = 'smartcat_support_hover-color'
+            ,MAX_TICKETS                    = 'smartcat_support_max-tickets-per-page'
+            ,FOOTER_TEXT                    = 'smartcat_support_footer-text'
+
+            /**
+             * @since 1.0.2
+             */
+            ,MAX_ATTACHMENT_SIZE            = 'smartcat_support_footer-max-attachment-size'
+            ,COMPANY_NAME                   = 'smartcat_support_footer-company-name'
+            ,TICKET_CREATED_EMAIL           = 'smartcat_support_ticket-created-email'
+            ,LOGIN_BACKGROUND               = 'smartcat_support_login-background'
+            ,LOGIN_WIDGET_AREA              = 'smartcat_support_login-widget-area'
+            ,USER_WIDGET_AREA               = 'smartcat_support_user-widget-area'
+            ,AGENT_WIDGET_AREA              = 'smartcat_support_agent-widget-area'
+            ,SENDER_NAME                    = 'smartcat_support_sender-name'
+            ,SENDER_EMAIL                   = 'smartcat_support_sender-email'
+            ,TERMS_URL                      = 'smartcat_support_terms-url'
+
+            /**
+             * @since 1.1
+             */
+            ,REFRESH_INTERVAL               = 'smartcat_support_refresh-interval'
+            ,FAVICON                        = 'smartcat_support_favicon'
+            ,PASSWORD_RESET_EMAIL           = 'smartcat_support_password-reset-email'
+
+            /**
+             * @since 1.2.0
+             */
+            ,INACTIVE_MAX_AGE               = 'smartcat_support_inactive-max-age'
+            ,AUTO_CLOSE                     = 'smartcat_support_autoclose-enabled'
+            ,INACTIVE_EMAIL                 = 'smartcat_support_inactive-email'
+
+            /**
+             * @since 1.2.1
+             */
+            ,LOGGING_ENABLED                = 'smartcat_support_logging-enabled'
+
+            /**
+             * @since 1.3.0
+             */
+            ,TICKET_ASSIGNED                = 'smartcat_support_ticket-assigned'
+            ,CUSTOMER_REPLY_EMAIL           = 'smartcat_support_customer-reply'
+            ,EXTENSION_LICENSE_NOTICES      = 'smartcat_support_extension-license-notifications'
+            ,CATEGORIES_ENABLED             = 'smartcat_support_enable-categories'
+            ,CATEGORIES_NAME                = 'smartcat_support_extension-categories-name'
+            ,CATEGORIES_NAME_PLURAL         = 'smartcat_support_extension-categories-name-plural'
+            ,ADMIN_EMAIL                    = 'smartcat_support_admin-email'
+            ,NEW_TICKET_ADMIN_EMAIL         = 'smartcat_support_new-ticket-admin-email'
+            ,FIRST_RUN                      = 'smartcat_support_first-run'
+            ,PRIMARY_FONT                   = 'smartcat_support_primary-font'
+            ,SECONDARY_FONT                 = 'smartcat_support_secondary-font'
+            ,QUICK_LINK_LABEL               = 'smartcat_support_quick-link-label'
+            ,QUICK_LINK_ENABLED             = 'smartcat_support_quick-link-enabled'
+
+            /**
+             * @since 1.4.0
+             */
+            ,FIRST_140_RUN                  = 'smartcat_support_first-140-run'
+            ,DISPLAY_BACK_BUTTON            = 'smartcat_support_display_back_button'
+
+            /**
+             * @since 1.4.1
+             */
+            ,IMAGE_MIME_TYPES               = 'smartcat_support_image_mime_types'
+            ,FILE_MIME_TYPES                = 'smartcat_support_file_mime_types'
+
+            /**
+             * @since 1.5.1
+             */
+            ,CREATE_TICKET_PAGE_ID          = 'smartcat_support_create_ticket_page_id'
+
+            /**
+             * @since 1.6.0
+             */
+            ,EDIT_PROFILE_PAGE_ID           = 'smartcat_support_edit_profile_page_id'
+            ,LOGIN_PAGE_ID                  = 'smartcat_support_login_page_id'
+            ,DATABASE_VERSION               = 'smartcat_support_db_version'
+
+            /**
+             * @since 1.7.0
+             */
+            ,LOGIN_TITLE                    = 'smartcat_support_login_title'
+            ,LOGIN_SUBTEXT                  = 'smartcat_support_login_subtext'
+            ,TOS_ENABLED                    = 'smartcat_support_tos_enabled'
+            ,TOS_TITLE                      = 'smartcat_support_tos_title'
+            ,TOS_POLICY                     = 'smartcat_support_tos_policy'
+            ,REGISTRATION_TITLE             = 'smartcat_support_registration_title'
+            ,REGISTRATION_SUBTEXT           = 'smartcat_support_registration_subtext'
+            ,LOGGED_IN_LINK_TEXT            = 'smartcat_support_logged_in_link_text'
+
+            /**
+             * @deprecated
+             */
+            ,SHOW_CLOCK                     = 'smartcat_support_show_clock'
+    ;
 
 }
 

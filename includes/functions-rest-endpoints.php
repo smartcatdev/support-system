@@ -20,24 +20,24 @@ add_action( 'rest_api_init', 'ucare\rest_register_endpoints' );
  * @return void
  */
 function rest_register_endpoints() {
-    /**
-     * User registration endpoint.
-     *
-     * @since 1.6.0
-     */
-    register_rest_route( 'ucare/v1', 'users/register', array(
-        'methods'  => \WP_REST_Server::CREATABLE,
-        'callback' => function ( $request ) {
-            increment_ip_request_count();
-            if ( is_ip_blocked() ) {
-                return too_many_attempts_error();
-            }
-            return rest_handler_register_user( $request );
-        },
-        'permission_callback' => function () {
-            return verify_request_nonce( 'ucare_rest', '_ucarenonce' );
-        }
-    ) );
+//    /**
+//     * User registration endpoint.
+//     *
+//     * @since 1.6.0
+//     */
+//    register_rest_route( 'ucare/v1', 'users/register', array(
+//        'methods'  => \WP_REST_Server::CREATABLE,
+//        'callback' => function ( $request ) {
+//            increment_ip_request_count();
+//            if ( is_ip_blocked() ) {
+//                return too_many_attempts_error();
+//            }
+//            return rest_handler_register_user( $request );
+//        },
+//        'permission_callback' => function () {
+//            return verify_request_nonce( 'ucare_rest', '_ucarenonce' );
+//        }
+//    ) );
 
     /**
      * Reset password endpoint.
@@ -151,7 +151,7 @@ function rest_register_user( $request ) {
                 /**
                  * Verify Terms of service
                  */
-                } else if ( get_option( 'terms', true ) ) {
+                } else if ( get_option( Options::TOS_ENABLED ) ) {
                     $terms = $request->get_param( 'terms' );
 
                     if ( !empty( $terms ) && $terms === 'decline' ) {
@@ -244,52 +244,52 @@ function rest_register_user( $request ) {
             );
     }
 
-    return new \WP_Error( 'unkown_error', __( 'An unknown error has occurred. Please try again later.', 'ucare' ), array( 'code' => 500 ) );
+    return new \WP_Error( 'unknown_error', __( 'An unknown error has occurred. Please try again later.', 'ucare' ), array( 'code' => 500 ) );
 }
 
-/**
- * Handler for the user registration endpoint.
- *
- * @param \WP_REST_Request $request
- *
- * @since 1.6.0
- * @return mixed
- */
-function rest_handler_register_user( $request ) {
-    $user = ucare_register_user( $request->get_params(), true );
-
-    if ( is_wp_error( $user ) ) {
-        return $user;
-    }
-
-    $response = new \WP_REST_Response();
-    $response->set_status( 201 );
-
-    return $response;
-}
-
-
-/**
- * Handler for the reset password endpoint.
- *
- * @param \WP_REST_Request $request
- *
- * @since 1.6.0
- * @return mixed
- */
-function rest_handler_rest_password( $request ) {
-    $reset = ucare_reset_user_password( $request->get_param( 'username' ) );
-
-    if ( is_wp_error( $reset ) ) {
-        return $reset;
-    }
-
-    $data = array(
-        'message' => __( 'Password reset, a temporary password has been sent to your email', 'ucare' )
-    );
-
-    return new \WP_REST_Response( $data, 200 );
-}
+///**
+// * Handler for the user registration endpoint.
+// *
+// * @param \WP_REST_Request $request
+// *
+// * @since 1.6.0
+// * @return mixed
+// */
+//function rest_handler_register_user( $request ) {
+//    $user = ucare_register_user( $request->get_params(), true );
+//
+//    if ( is_wp_error( $user ) ) {
+//        return $user;
+//    }
+//
+//    $response = new \WP_REST_Response();
+//    $response->set_status( 201 );
+//
+//    return $response;
+//}
+//
+//
+///**
+// * Handler for the reset password endpoint.
+// *
+// * @param \WP_REST_Request $request
+// *
+// * @since 1.6.0
+// * @return mixed
+// */
+//function rest_handler_rest_password( $request ) {
+//    $reset = ucare_reset_user_password( $request->get_param( 'username' ) );
+//
+//    if ( is_wp_error( $reset ) ) {
+//        return $reset;
+//    }
+//
+//    $data = array(
+//        'message' => __( 'Password reset, a temporary password has been sent to your email', 'ucare' )
+//    );
+//
+//    return new \WP_REST_Response( $data, 200 );
+//}
 
 
 /**

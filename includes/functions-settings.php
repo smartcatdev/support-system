@@ -369,4 +369,53 @@ function register_settings() {
         'type' => 'integer',
         'sanitize_callback' => 'ucare\sanitize_post_id',
     ) );
+
+    /**
+     * @since 1.7.0
+     */
+    register_setting( 'uc-display', Options::LOGIN_TITLE, array(
+        'type'              => 'string',
+        'default'           => __( 'Get Support', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::LOGIN_SUBTEXT, array(
+        'type'              => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::REGISTRATION_TITLE, array(
+        'type'              => 'string',
+        'default'           => __( 'Profile', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::REGISTRATION_SUBTEXT, array(
+        'type'              => 'string',
+        'default'           => __( 'We just need a few more details to continue...', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::TOS_TITLE, array(
+        'type'              => 'string',
+        'default'           => __( 'Terms of Service', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-advanced', Options::TOS_ENABLED, array(
+        'type'              => 'boolean',
+        'default'           => true,
+        'sanitize_callback' => 'ucare\sanitize_bool',
+    ) );
+
+    register_setting( 'uc-advanced', Options::TOS_POLICY, array(
+        'type'              => 'string',
+        'sanitize_callback' => 'wp_kses_post',
+    ) );
+
+    register_setting( 'uc-advanced', Options::LOGGED_IN_LINK_TEXT, array(
+        'type'              => 'string',
+        'default'           => __( 'Get Support', 'ucare' ),
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
 }
