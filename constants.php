@@ -152,7 +152,6 @@ final class Options {
             ,TOS_POLICY                     = 'smartcat_support_tos_policy'
             ,REGISTRATION_TITLE             = 'smartcat_support_registration_title'
             ,REGISTRATION_SUBTEXT           = 'smartcat_support_registration_subtext'
-            ,LOGGED_IN_LINK_TEXT            = 'smartcat_support_logged_in_link_text'
             ,ADMIN_REDIRECT                 = 'smartcat_support_admin_redirect'
 
             /**
@@ -163,7 +162,11 @@ final class Options {
 
 }
 
-
+/**
+ * Class Defaults
+ * @todo migrate defaults to register_settings
+ * @package ucare
+ */
 final class Defaults {
 
     /**

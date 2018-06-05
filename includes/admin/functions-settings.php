@@ -166,4 +166,122 @@ function add_settings_fields() {
         )
     );
 
+    /**
+     * Display settings
+     */
+    add_settings_field(
+        Options::LOGIN_TITLE,
+        __( 'Login Form Title', 'ucare' ),
+        'ucare\settings_text_field',
+        'uc-display',
+        'uc_text',
+        array(
+            'label_for' => Options::LOGIN_TITLE,
+            'attrs'     => array(
+                'id'    => Options::LOGIN_TITLE,
+                'name'  => Options::LOGIN_TITLE,
+                'type'  => 'text',
+                'class' => 'regular-text',
+                'value' => get_option( Options::LOGIN_TITLE )
+            )
+        )
+    );
+    add_settings_field(
+        Options::LOGIN_SUBTEXT,
+        __( 'Login Form Subtext', 'ucare' ),
+        'ucare\settings_textarea',
+        'uc-display',
+        'uc_text',
+        array(
+            'label_for' => Options::LOGIN_SUBTEXT,
+            'value'     => get_option( Options::LOGIN_SUBTEXT ),
+            'attrs'     => array(
+                'id'    => Options::LOGIN_SUBTEXT,
+                'name'  => Options::LOGIN_SUBTEXT,
+                'class' => 'regular-text'
+            )
+        )
+    );
+    add_settings_field(
+        Options::REGISTRATION_TITLE,
+        __( 'Registration Title', 'ucare' ),
+        'ucare\settings_text_field',
+        'uc-display',
+        'uc_text',
+        array(
+            'label_for' => Options::REGISTRATION_TITLE,
+            'attrs'     => array(
+                'id'    => Options::REGISTRATION_TITLE,
+                'name'  => Options::REGISTRATION_TITLE,
+                'class' => 'regular-text',
+                'type'  => 'text',
+                'value' => get_option( Options::REGISTRATION_TITLE )
+            )
+        )
+    );
+    add_settings_field(
+        Options::REGISTRATION_SUBTEXT,
+        __( 'Registration Form Subtext', 'ucare' ),
+        'ucare\settings_textarea',
+        'uc-display',
+        'uc_text',
+        array(
+            'label_for' => Options::REGISTRATION_SUBTEXT,
+            'value'     => get_option( Options::REGISTRATION_SUBTEXT ),
+            'attrs'     => array(
+                'id'    => Options::REGISTRATION_SUBTEXT,
+                'name'  => Options::REGISTRATION_SUBTEXT,
+                'class' => 'regular-text',
+            )
+        )
+    );
+    add_settings_field(
+        Options::TOS_TITLE,
+        __( 'TOS Title', 'ucare' ),
+        'ucare\settings_text_field',
+        'uc-display',
+        'uc_text',
+        array(
+            'label_for' => Options::TOS_TITLE,
+            'attrs'     => array(
+                'id'    => Options::TOS_TITLE,
+                'name'  => Options::TOS_TITLE,
+                'class' => 'regular-text',
+                'type'  => 'text',
+                'value' => get_option( Options::TOS_TITLE )
+            )
+        )
+    );
 }
+
+
+/**
+ * Output a text field
+ *
+ * @param array $args
+ *
+ * @since 1.7.0
+ * @return void
+ */
+function settings_text_field( $args ) { ?>
+    <input <?php echo parse_attributes( pluck( $args, 'attrs', array() ) ); ?> />
+    <?php if ( !empty( $args['description'] ) ) : ?>
+        <p class="description"><?php esc_html_e( $args['description'] ); ?></p>
+    <?php endif; ?>
+<?php }
+
+/**
+ * Output a textarea
+ *
+ * @param array $args
+ *
+ * @since 1.7.0
+ * @return void
+ */
+function settings_textarea( $args ) { ?>
+    <textarea <?php echo parse_attributes( pluck( $args, 'attrs', array() ) ); ?>
+    ><?php echo esc_textarea( pluck( $args, 'value' ) ); ?></textarea>
+    <?php if ( !empty( $args['description'] ) ) : ?>
+        <p class="description"><?php esc_html_e( $args['description'] ); ?></p>
+    <?php endif; ?>
+<?php }

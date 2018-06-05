@@ -413,12 +413,6 @@ function register_settings() {
         'sanitize_callback' => 'wp_kses_post',
     ) );
 
-    register_setting( 'uc-advanced', Options::LOGGED_IN_LINK_TEXT, array(
-        'type'              => 'string',
-        'default'           => __( 'Get Support', 'ucare' ),
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-
     register_setting( 'uc-advanced', Options::ADMIN_REDIRECT, array(
         'type'              => 'boolean',
         'default'           => true,

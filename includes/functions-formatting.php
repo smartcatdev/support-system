@@ -190,6 +190,5 @@ function parse_attributes( $attributes ) {
     foreach ( $attributes as $name => $attr ) {
         $str .= $name . '="' . ( is_array( $attr ) ? implode( ' ', $attr ) : esc_attr( $attr ) ) . '" ';
     }
-
     return $str;
 }
