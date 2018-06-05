@@ -227,13 +227,13 @@ function rest_register_user( $request ) {
                     return $user;
                 }
 
-                // Overwrite the default WP error
-                return new \WP_Error( 'invalid_password',
-                    __( 'That password is incorrect.', 'ucare' ) . sprintf( ' <strong><a href="%1$s">%2$s</a></strong>',
-                        login_page_url( '?password_reset_sent=true&u=' . $request->get_param( 'log' ) ), __( 'Forgot your password?', 'ucare' )
-                    ),
-                    array( 'code' => 403 )
+                $token = get_pw_reset_token( get_user_by( 'email', $request->get_param( 'log' ) ) );
+                $message = sprintf( ' %1$s <strong><a href="%2$s">%3$s</a></strong>',
+                    __( 'That password is incorrect.', 'ucare' ), login_page_url( '?password_reset_sent=true&token=' . $token ), __( 'Forgot your password?', 'ucare' )
                 );
+
+                // Overwrite the default WP error
+                return new \WP_Error( 'invalid_password', $message, array( 'code' => 403 ) );
             }
 
             return array(
@@ -244,51 +244,6 @@ function rest_register_user( $request ) {
 
     return new \WP_Error( 'unknown_error', __( 'An unknown error has occurred. Please try again later.', 'ucare' ), array( 'code' => 500 ) );
 }
-
-///**
-// * Handler for the user registration endpoint.
-// *
-// * @param \WP_REST_Request $request
-// *
-// * @since 1.6.0
-// * @return mixed
-// */
-//function rest_handler_register_user( $request ) {
-//    $user = ucare_register_user( $request->get_params(), true );
-//
-//    if ( is_wp_error( $user ) ) {
-//        return $user;
-//    }
-//
-//    $response = new \WP_REST_Response();
-//    $response->set_status( 201 );
-//
-//    return $response;
-//}
-//
-//
-///**
-// * Handler for the reset password endpoint.
-// *
-// * @param \WP_REST_Request $request
-// *
-// * @since 1.6.0
-// * @return mixed
-// */
-//function rest_handler_rest_password( $request ) {
-//    $reset = ucare_reset_user_password( $request->get_param( 'username' ) );
-//
-//    if ( is_wp_error( $reset ) ) {
-//        return $reset;
-//    }
-//
-//    $data = array(
-//        'message' => __( 'Password reset, a temporary password has been sent to your email', 'ucare' )
-//    );
-//
-//    return new \WP_REST_Response( $data, 200 );
-//}
-
 
 /**
  * Handler to manage license activations and deactivations.

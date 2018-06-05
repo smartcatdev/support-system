@@ -849,12 +849,7 @@ function ucare_reset_user_password( $username ) {
         return new \WP_Error( 'user_not_found', __( 'User could not be found', 'ucare' ) );
     }
 
-    $token = base64_encode( get_password_reset_key( $user ) . ':' . $username );
-
-    /**
-     * Configure the PW reset email (this message is un-templated)
-     */
-    $link = \ucare\login_page_url( '?reset_password=true&token=' . $token );
+    $link = \ucare\login_page_url( '?reset_password=true&token=' . \ucare\get_pw_reset_token( $user ) );
 
     $message =  __( 'Please follow the link to reset your password:', 'ucare' ) . ' ' . esc_url_raw( $link );
     $message = apply_filters( 'ucare_pw_reset_message', $message, $user );

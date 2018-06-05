@@ -19,10 +19,10 @@ namespace ucare;
 
         <form id="login-step-email" class="ucare-login-screen ucare-flex-col" data-step="email">
 
-            <h2 class="login-title"><?php esc_html_e( get_option( Options::LOGIN_TITLE ) ); ?></h2>
+            <h2 class="login-title"><?php esc_html_e( $login_title ); ?></h2>
 
             <p class="login-subtitle">
-                <?php esc_html_e( get_option( Options::LOGIN_SUBTEXT ) ); ?>
+                <?php esc_html_e( $login_subtext ); ?>
             </p>
 
             <p class="ucare-flex-row">
@@ -48,7 +48,7 @@ namespace ucare;
 
                 <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
 
-                    <h2 class="login-title"><?php esc_html_e( get_option( Options::TOS_TITLE ) ); ?></h2>
+                    <h2 class="login-title"><?php esc_html_e( $tos_title ); ?></h2>
 
                     <div class="tos-content">
 
@@ -72,9 +72,9 @@ namespace ucare;
 
             <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
 
-                <h2 class="login-title"><?php esc_html_e( get_option( Options::REGISTRATION_TITLE ) ); ?></h2>
+                <h2 class="login-title"><?php esc_html_e( $registration_title ); ?></h2>
 
-                <p><?php esc_html_e( get_option( Options::REGISTRATION_SUBTEXT ) ); ?></p>
+                <p><?php esc_html_e( $registration_subtext ); ?></p>
 
                 <p>
                     <label for="login-first-name"><?php _e( 'First Name', 'ucare' ); ?></label>
@@ -140,8 +140,8 @@ namespace ucare;
 
     <?php else : ?>
 
-        <h2 class="login-title"><?php   esc_html_e( get_option( Options::LOGIN_TITLE   ) ); ?></h2>
-        <p class="login-subtitle"><?php esc_html_e( get_option( Options::LOGIN_SUBTEXT ) ); ?></p>
+        <h2 class="login-title"><?php esc_html_e( $login_title ); ?></h2>
+        <p class="login-subtitle"><?php esc_html_e( $login_subtext ); ?></p>
 
         <p>
             <a class="button" href="<?php echo esc_url( support_page_url() ); ?>"><?php _e( 'Get Support', 'ucare' ); ?></a>

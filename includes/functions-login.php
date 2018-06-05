@@ -16,15 +16,25 @@ add_action( 'admin_post_nopriv_ucare_pw_reset', 'ucare\handle_pw_reset' );
 /**
  * Output the login form
  *
+ * @param array $args
+ *
  * @since 1.7.0
  * @return void
  */
-function login_form() {
+function login_form( $args = array() ) {
+    $defaults = array(
+        'login_title'          => get_option( Options::LOGIN_TITLE ),
+        'login_subtext'        => get_option( Options::LOGIN_SUBTEXT ),
+        'tos_title'            => get_option( Options::TOS_TITLE ),
+        'registration_title'   => get_option( Options::REGISTRATION_TITLE ),
+        'registration_subtext' => get_option( Options::REGISTRATION_SUBTEXT )
+    );
+
     wp_enqueue_script( 'ucare-login' );
     wp_enqueue_style( 'ucare-login' );
 
     ob_start();
-    get_template( 'login-register' );
+    get_template( 'login-register', shortcode_atts( $defaults, $args, 'ucare-login' ) );
 
     echo ob_get_clean();
 }
@@ -39,10 +49,15 @@ add_shortcode( 'ucare-login', 'ucare\login_form' );
  * @return void
  */
 function reset_user_password() {
-    if ( empty( $_GET['password_reset_sent'] ) || empty( $_GET['u'] ) ) {
+    if ( empty( $_GET['password_reset_sent'] ) || empty( $_GET['token'] ) ) {
         return;
     }
-    ucare_reset_user_password( $_GET['u'] );
+    $decoded = decode_pw_reset_token( $_GET['token'] );
+
+    if ( count( $decoded ) < 2 ) {
+        return;
+    }
+    ucare_reset_user_password( $decoded[1] );
 }
 
 /**
@@ -66,6 +81,18 @@ function check_pw_reset_token( $token ) {
         return false;
     }
     return true;
+}
+
+/**
+ * Create a PW reset token for a user
+ *
+ * @param \WP_User $user
+ *
+ * @since 1.7.0
+ * @return string
+ */
+function get_pw_reset_token( $user ) {
+    return base64_encode( get_password_reset_key( $user ) . ':' . $user->user_email );
 }
 
 /**
