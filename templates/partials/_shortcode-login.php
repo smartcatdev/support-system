@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @deprecated
+ */
 namespace ucare;
 
 

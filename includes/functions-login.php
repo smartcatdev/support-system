@@ -17,11 +17,12 @@ add_action( 'admin_post_nopriv_ucare_pw_reset', 'ucare\handle_pw_reset' );
  * Output the login form
  *
  * @param array $args
+ * @param bool  $echo
  *
  * @since 1.7.0
- * @return void
+ * @return string
  */
-function login_form( $args = array() ) {
+function login_form( $args = array(), $echo = true ) {
     $defaults = array(
         'login_title'          => get_option( Options::LOGIN_TITLE ),
         'login_subtext'        => get_option( Options::LOGIN_SUBTEXT ),
@@ -33,10 +34,12 @@ function login_form( $args = array() ) {
     wp_enqueue_script( 'ucare-login' );
     wp_enqueue_style( 'ucare-login' );
 
-    ob_start();
-    get_template( 'login-register', shortcode_atts( $defaults, $args, 'ucare-login' ) );
+    $out = buffer_template( 'login-register', shortcode_atts( $defaults, $args, 'ucare-login' ) );
 
-    echo ob_get_clean();
+    if ( $echo ) {
+        echo $out;
+    }
+    return apply_filters( 'ucare_login_form_html', $out );
 }
 add_shortcode( 'ucare-login', 'ucare\login_form' );
 
