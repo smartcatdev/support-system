@@ -418,4 +418,10 @@ function register_settings() {
         'default'           => __( 'Get Support', 'ucare' ),
         'sanitize_callback' => 'esc_url_raw',
     ) );
+
+    register_setting( 'uc-advanced', Options::ADMIN_REDIRECT, array(
+        'type'              => 'boolean',
+        'default'           => true,
+        'sanitize_callback' => 'ucare\sanitize_bool',
+    ) );
 }

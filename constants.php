@@ -153,6 +153,7 @@ final class Options {
             ,REGISTRATION_TITLE             = 'smartcat_support_registration_title'
             ,REGISTRATION_SUBTEXT           = 'smartcat_support_registration_subtext'
             ,LOGGED_IN_LINK_TEXT            = 'smartcat_support_logged_in_link_text'
+            ,ADMIN_REDIRECT                 = 'smartcat_support_admin_redirect'
 
             /**
              * @deprecated

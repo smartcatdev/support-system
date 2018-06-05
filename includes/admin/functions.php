@@ -52,7 +52,7 @@ function support_user_admin_redirect() {
         'support_agent'
     );
 
-    if ( !wp_doing_ajax() && user_is( $roles ) ) {
+    if ( get_option( Options::ADMIN_REDIRECT ) && !wp_doing_ajax() && user_is( $roles ) ) {
         wp_redirect( home_url() );
     }
 }

@@ -113,14 +113,14 @@ namespace ucare;
 
             <p>
 
-                    <span class="ucare-flex-row vcenter">
-                        <input id="login-password"
-                               type="password"
-                               name="pwd"
-                               placeholder="<?php _e( 'Password', 'ucare' ); ?>"
-                            />
-                        <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
-                    </span>
+                <span class="ucare-flex-row vcenter">
+                    <input id="login-password"
+                           type="password"
+                           name="pwd"
+                           placeholder="<?php _e( 'Password', 'ucare' ); ?>"
+                        />
+                    <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
+                </span>
 
                 <label class="ucare-flex-row vcenter login-remember">
                     <input id="login-rememberme"
