@@ -118,6 +118,8 @@ namespace ucare;
 
         </form>
 
+    <?php do_action( 'ucare_login_form' ); ?>
+
     <?php else : ?>
 
         <h2 class="login-title"><?php esc_html_e( $login_title ); ?></h2>
