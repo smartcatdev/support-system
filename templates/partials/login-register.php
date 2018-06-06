@@ -109,7 +109,7 @@ namespace ucare;
 
                 <label class="ucare-flex-row vcenter login-remember">
                     <input id="login-rememberme"
-                           name="remember"
+                           name="rememberme"
                            type="checkbox"
                         /><?php _e( 'Keep me signed in', 'ucare' ); ?>
                 </label>
