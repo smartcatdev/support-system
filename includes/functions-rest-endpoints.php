@@ -181,9 +181,17 @@ function rest_register_user( $request ) {
                 }
                 wp_set_current_user( $user );
 
-                add_action( 'set_logged_in_cookie', function ( $logged_in_cookie ) {
+                add_action('set_logged_in_cookie', function ( $logged_in_cookie ) {
                     $_COOKIE[ LOGGED_IN_COOKIE ] = $logged_in_cookie; // Force update auth cookie
                 });
+
+                /**
+                 * Send email to create a password
+                 */
+                add_filter('ucare_pw_reset_subject', function () {
+                    return __( 'Complete Your Registration', 'ucare' );
+                });
+                ucare_reset_user_password( $email );
 
                 if ( wp_validate_auth_cookie( '', 'logged_in' ) != $user ) {
                     wp_set_auth_cookie( $user, true );

@@ -7,8 +7,12 @@
  */
 namespace ucare;
 
+// Make sure the user is logged out
+add_action( 'wp', 'ucare\pw_logout_user' );
+
 // Trigger user password reset
-add_action( 'init', 'ucare\reset_user_password' );
+add_action( 'wp', 'ucare\reset_user_password' );
+
 
 // Handle password change
 add_action( 'admin_post_nopriv_ucare_pw_reset', 'ucare\handle_pw_reset' );
@@ -44,9 +48,24 @@ function login_form( $args = array(), $echo = true ) {
 add_shortcode( 'ucare-login', 'ucare\login_form' );
 
 /**
+ * Log the user out
+ *
+ * @action wp
+ *
+ * @since 1.7.0
+ * @return void
+ */
+function pw_logout_user() {
+    if ( empty( $_GET['reset_password'] ) ) {
+        return;
+    }
+    wp_logout();
+}
+
+/**
  * Handle resetting the user password
  *
- * @action init
+ * @action wp
  *
  * @since 1.7.0
  * @return void

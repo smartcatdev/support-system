@@ -418,4 +418,10 @@ function register_settings() {
         'default'           => true,
         'sanitize_callback' => 'ucare\sanitize_bool',
     ) );
+
+    register_setting( 'uc-general', Options::MIN_PW_LENGTH, array(
+        'type'              => 'integer',
+        'default'           => 6,
+        'sanitize_callback' => 'absint',
+    ) );
 }

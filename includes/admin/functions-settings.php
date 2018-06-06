@@ -28,6 +28,23 @@ function add_settings_fields() {
      * General settings
      */
     add_settings_field(
+        Options::MIN_PW_LENGTH,
+        __( 'Minimum Password Length', 'ucare' ),
+        'ucare\settings_text_field',
+        'uc-general',
+        'uc_general',
+        array(
+            'label_for' => Options::MIN_PW_LENGTH,
+            'attrs'     => array(
+                'id'    => Options::MIN_PW_LENGTH,
+                'name'  => Options::MIN_PW_LENGTH,
+                'type'  => 'number',
+                'value' => get_option( Options::MIN_PW_LENGTH )
+            )
+        )
+    );
+
+    add_settings_field(
         'ucare-ecommerce-support',
         __( 'Enable eCommerce Support', 'ucare' ),
         'ucare\render_checkbox',

@@ -97,8 +97,7 @@ add_action( 'comment_moderation_recipients', 'ucare\disable_wp_comment_moderatio
 
 
 function send_user_registration_email( $user_data ) {
-    $user_data['username'] = $user_data['email'];
-    send_email( get_option( Options::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
+    send_email( get_option( Options::WELCOME_EMAIL_TEMPLATE ), $user_data['email'] );
 
 }
 

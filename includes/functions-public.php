@@ -851,7 +851,7 @@ function ucare_reset_user_password( $username ) {
 
     $link = \ucare\login_page_url( '?reset_password=true&token=' . \ucare\get_pw_reset_token( $user ) );
 
-    $message =  __( 'Please follow the link to reset your password:', 'ucare' ) . ' ' . esc_url_raw( $link );
+    $message =  __( 'Please follow the link to set your password:', 'ucare' ) . ' ' . esc_url_raw( $link );
     $message = apply_filters( 'ucare_pw_reset_message', $message, $user );
 
     $subject = __( 'Password Reset Requested', 'ucare' );
