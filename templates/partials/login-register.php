@@ -35,42 +35,32 @@ namespace ucare;
                 <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
             </p>
 
-            <input value="email"
-                   name="step"
-                   type="hidden"
-                />
-
         </form>
+
+        <?php if ( get_option( Options::ENFORCE_TOS ) ) : ?>
+
+            <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="tos">
+
+                <h2 class="login-title"><?php esc_html_e( $tos_title ); ?></h2>
+
+                <div class="tos-content">
+
+                    <p><?php esc_html_e( get_option( Options::TOS_POLICY ) ); ?></p>
+
+                    <p class="ucare-flex-row hcenter">
+                        <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
+                        <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
+                    </p>
+
+                </div>
+
+            </form>
+
+        <?php endif; ?>
 
         <?php if ( get_option( Options::ALLOW_SIGNUPS ) ) : ?>
 
-            <?php if ( get_option( Options::ENFORCE_TOS ) ) : ?>
-
-                <form id="login-step-terms" class="ucare-login-screen" style="display: none" data-step="terms">
-
-                    <h2 class="login-title"><?php esc_html_e( $tos_title ); ?></h2>
-
-                    <div class="tos-content">
-
-                        <p><?php esc_html_e( get_option( Options::TOS_POLICY ) ); ?></p>
-
-                        <p class="ucare-flex-row hcenter">
-                            <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
-                            <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
-                        </p>
-
-                    </div>
-
-                    <input value="email"
-                           name="step"
-                           type="hidden"
-                        />
-
-                </form>
-
-            <?php endif; ?>
-
-            <form id="login-step-profile" class="ucare-login-screen" style="display: none" data-step="profile">
+            <form id="login-step-register" class="ucare-login-screen" style="display: none" data-step="register">
 
                 <h2 class="login-title"><?php esc_html_e( $registration_title ); ?></h2>
 
@@ -95,13 +85,8 @@ namespace ucare;
                 </p>
 
                 <p class="text-right">
-                    <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
+                    <button class="button login-submit" type="submit"><?php _e( 'Continue', 'ucare' ); ?></button>
                 </p>
-
-                <input value="profile"
-                       name="step"
-                       type="hidden"
-                    />
 
             </form>
 
@@ -130,11 +115,6 @@ namespace ucare;
                 </label>
 
             </p>
-
-            <input value="password"
-                   name="step"
-                   type="hidden"
-                />
 
         </form>
 

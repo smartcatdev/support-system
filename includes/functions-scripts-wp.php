@@ -47,8 +47,9 @@ function register_login_scripts() {
         'jquery-serialize-json'
     );
     $l10n = array(
-        'rest_url'   => rest_url(),
-        'rest_nonce' => wp_create_nonce( 'wp_rest' )
+        'rest_url'    => rest_url(),
+        'rest_nonce'  => wp_create_nonce( 'wp_rest' ),
+        'enforce_tos' => get_option( Options::ENFORCE_TOS )
     );
     wp_register_script( 'ucare-login', resolve_url( 'assets/js/login.js' ), $deps, PLUGIN_VERSION, true );
     wp_localize_script( 'ucare-login', '_ucare_login_l10n', $l10n );

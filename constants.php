@@ -150,6 +150,7 @@ final class Options {
             ,ENFORCE_TOS                    = 'smartcat_support_enforce_tos'
             ,TOS_TITLE                      = 'smartcat_support_tos_title'
             ,TOS_POLICY                     = 'smartcat_support_tos_policy'
+            ,TOS_REVISION                   = 'smartcat_support_tos_revision'
             ,REGISTRATION_TITLE             = 'smartcat_support_registration_title'
             ,REGISTRATION_SUBTEXT           = 'smartcat_support_registration_subtext'
             ,ADMIN_REDIRECT                 = 'smartcat_support_admin_redirect'

@@ -410,7 +410,10 @@ function register_settings() {
 
     register_setting( 'uc-advanced', Options::TOS_POLICY, array(
         'type'              => 'string',
-        'sanitize_callback' => 'wp_kses_post',
+        'sanitize_callback' => function ( $value ) {
+            update_option( Options::TOS_REVISION, time() );
+            return wp_kses_post( $value );
+        },
     ) );
 
     register_setting( 'uc-advanced', Options::ADMIN_REDIRECT, array(
