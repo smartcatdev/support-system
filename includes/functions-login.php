@@ -8,11 +8,10 @@
 namespace ucare;
 
 // Make sure the user is logged out
-add_action( 'wp', 'ucare\pw_logout_user' );
+add_action( 'template_redirect', 'ucare\pw_logout_user' );
 
 // Trigger user password reset
 add_action( 'wp', 'ucare\reset_user_password' );
-
 
 // Handle password change
 add_action( 'admin_post_nopriv_ucare_pw_reset', 'ucare\handle_pw_reset' );
@@ -50,7 +49,7 @@ add_shortcode( 'ucare-login', 'ucare\login_form' );
 /**
  * Log the user out
  *
- * @action wp
+ * @action template_redirect
  *
  * @since 1.7.0
  * @return void
