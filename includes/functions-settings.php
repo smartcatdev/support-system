@@ -404,7 +404,7 @@ function register_settings() {
 
     register_setting( 'uc-advanced', Options::ENFORCE_TOS, array(
         'type'              => 'boolean',
-        'default'           => true,
+        'default'           => false,
         'sanitize_callback' => 'ucare\sanitize_bool',
     ) );
 
