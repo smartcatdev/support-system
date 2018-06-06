@@ -81,7 +81,7 @@ function add_settings_fields() {
                 'class' => 'regular-text',
                 'rows'  => 5
             ),
-            'description' => __( 'Your terms of service policy', 'ucare' )
+            'description' => __( 'Your terms of service policy. CAUTION: Making changes to this will require all users to re-accept this agreement', 'ucare' )
         )
     );
     add_settings_field(

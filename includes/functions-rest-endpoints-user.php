@@ -7,13 +7,16 @@
  */
 namespace ucare;
 
+// Register user endpoints
+add_action('rest_api_init', 'ucare\register_user_endpoints' );
+
 /**
  * Register users endpoints
  *
  * @since 1.7.0
  * @return void
  */
-add_action('rest_api_init', function () {
+function register_user_endpoints() {
     register_rest_route( 'ucare/v1', 'user/verify', array(
         'methods'             => \WP_REST_Server::READABLE,
         'permission_callback' => 'ucare\rest_verify_nonce',
@@ -79,7 +82,7 @@ add_action('rest_api_init', function () {
             )
         ) );
     }
-});
+}
 
 /**
  * Verify a users email address
