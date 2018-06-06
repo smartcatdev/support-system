@@ -340,8 +340,13 @@ hr {
     margin: auto;
 }
 
+#support-login-wrapper .inner {
+    width: 100%;
+}
+
 #support-login-page .login-card {
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 4px;
     background: #fff;
     width: 100%;

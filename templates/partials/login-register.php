@@ -26,7 +26,7 @@ namespace ucare;
             </p>
 
             <p class="ucare-flex-row">
-                <input type="email"
+                <input type="text"
                        name="email"
                        id="login-email"
                        required="required"
