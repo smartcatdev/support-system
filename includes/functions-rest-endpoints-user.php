@@ -16,7 +16,7 @@ namespace ucare;
 add_action('rest_api_init', function () {
     register_rest_route( 'ucare/v1', 'user/verify', array(
         'methods'             => \WP_REST_Server::READABLE,
-//        'permission_callback' => 'ucare\rest_verify_nonce',
+        'permission_callback' => 'ucare\rest_verify_nonce',
         'callback'            => 'ucare\_rest_user_verify',
         'args'                => array(
             'email' => array(
@@ -27,7 +27,7 @@ add_action('rest_api_init', function () {
     ) );
     register_rest_route( 'ucare/v1', 'user/authenticate', array(
         'methods'             => \WP_REST_Server::CREATABLE,
-//        'permission_callback' => 'ucare\rest_verify_nonce',
+        'permission_callback' => 'ucare\rest_verify_nonce',
         'callback'            => 'ucare\_rest_user_authenticate',
         'args'                => array(
             'log' => array(
@@ -47,7 +47,7 @@ add_action('rest_api_init', function () {
     if ( get_option( Options::ALLOW_SIGNUPS ) ) {
         register_rest_route( 'ucare/v1', 'user/register', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-//            'permission_callback' => 'ucare\rest_verify_nonce',
+            'permission_callback' => 'ucare\rest_verify_nonce',
             'callback'            => 'ucare\_rest_user_register',
             'args'                => array(
                 'email' => array(
@@ -69,7 +69,7 @@ add_action('rest_api_init', function () {
     if ( get_option( Options::ENFORCE_TOS ) ) {
         register_rest_route( 'ucare/v1', 'user/accept-tos', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-//            'permission_callback' => 'ucare\rest_verify_nonce',
+            'permission_callback' => 'ucare\rest_verify_nonce',
             'callback'            => 'ucare\_rest_user_accept_tos',
             'args'                => array(
                 'email' => array(
@@ -103,7 +103,7 @@ function _rest_user_verify( $request ) {
     if ( get_option( Options::ENFORCE_TOS ) ) {
         $tos_last_updated  = get_option( Options::TOS_REVISION );
         $tos_last_accepted = (int) get_user_meta( $user->ID, 'ucare_tos_accepted', true );
-        $userdata['tos_accepted'] = $tos_last_updated > $tos_last_accepted;
+        $userdata['tos_accepted'] = $tos_last_updated < $tos_last_accepted;
     }
     return $userdata;
 }

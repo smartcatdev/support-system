@@ -53,7 +53,8 @@ $(function () {
      */
     function acceptTOS(email) {
         return ajax({
-           url:  localize.rest_url + 'ucare/v1/user/accept-tos?email=' + email
+            url: localize.rest_url + 'ucare/v1/user/accept-tos?email=' + email,
+            method: 'post'
         });
     }
 
