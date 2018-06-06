@@ -41,7 +41,6 @@ namespace ucare;
                 $this     = $(this);
 
             $submit.prop('disabled', true);
-
             $feedback
                 .removeClass('glyphicon-exclamation-sign')
                 .removeClass('glyphicon-ok')
@@ -164,9 +163,13 @@ namespace ucare;
 
                 <?php endif; ?>
 
-                <div class="login-card">
-                    <?php echo wp_kses_post( get_optioN( Options::LOGIN_WIDGET_AREA ) ); ?>
-                </div>
+                <?php $widget = get_option( Options::LOGIN_WIDGET_AREA ); ?>
+
+                <?php if ( !empty( $widget ) ) : ?>
+                    <div class="login-card">
+                        <?php echo wp_kses_post( get_option( Options::LOGIN_WIDGET_AREA ) ); ?>
+                    </div>
+                <?php endif; ?>
 
             </div>
 
