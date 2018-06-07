@@ -142,6 +142,7 @@ final class Options {
             ,RECEIPT_ID_LABEL               = 'smartcat_support_receipt_id_label'
             ,LOGIN_PAGE_ID                  = 'smartcat_support_login_page_id'
             ,DATABASE_VERSION               = 'smartcat_support_db_version'
+            ,FIRST_160_RUN                  = 'smartcat_support_first-160-run'
 
             /**
              * @since 1.7.0
