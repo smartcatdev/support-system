@@ -67,40 +67,6 @@ function add_settings_fields() {
      * Advanced settings
      */
     add_settings_field(
-        Options::TOS_POLICY,
-        __( 'Terms of Service', 'ucare' ),
-        'ucare\settings_textarea',
-        'uc-advanced',
-        'uc_advanced',
-        array(
-            'label_for' => Options::TOS_POLICY,
-            'value'     => get_option( Options::TOS_POLICY ),
-            'attrs'     => array(
-                'id'    => Options::TOS_POLICY,
-                'name'  => Options::TOS_POLICY,
-                'class' => 'regular-text',
-                'rows'  => 5
-            ),
-            'description' => __( 'Your terms of service policy. CAUTION: Making changes to this will require all users to re-accept this agreement', 'ucare' )
-        )
-    );
-    add_settings_field(
-        Options::ENFORCE_TOS,
-        __( 'Enforce Terms', 'ucare' ),
-        'ucare\settings_checkbox',
-        'uc-advanced',
-        'uc_advanced',
-        array(
-            'label'      => __( 'Users must agree to terms before registering', 'kb' ),
-            'label_for'  => Options::ENFORCE_TOS,
-            'is_checked' => (bool) get_option( Options::ENFORCE_TOS ),
-            'attrs'      => array(
-                'id'      => Options::ENFORCE_TOS,
-                'name'    => Options::ENFORCE_TOS
-            )
-        )
-    );
-    add_settings_field(
         Options::ADMIN_REDIRECT,
         __( 'Redirect Admin Requests', 'ucare' ),
         'ucare\settings_checkbox',
@@ -319,6 +285,44 @@ function add_settings_fields() {
             )
         )
     );
+
+    /**
+     * Privacy Settings
+     */
+    add_settings_field(
+        Options::TOS_POLICY,
+        __( 'Terms of Service', 'ucare' ),
+        'ucare\settings_editor_field',
+        'uc-privacy',
+        'general',
+        array(
+            'label_for' => Options::TOS_POLICY,
+            'value'     => get_option( Options::TOS_POLICY ),
+            'attrs'     => array(
+                'id'            => Options::TOS_POLICY,
+                'textarea_name' => Options::TOS_POLICY,
+                'editor_class'  => 'regular-text',
+                'textarea_rows' => 5
+            ),
+            'description' => __( 'CAUTION: Making changes to this will require all users to re-accept this agreement', 'ucare' )
+        )
+    );
+    add_settings_field(
+        Options::ENFORCE_TOS,
+        __( 'Enforce Terms', 'ucare' ),
+        'ucare\settings_checkbox',
+        'uc-privacy',
+        'general',
+        array(
+            'label'      => __( 'Users must agree to terms before registering', 'kb' ),
+            'label_for'  => Options::ENFORCE_TOS,
+            'is_checked' => (bool) get_option( Options::ENFORCE_TOS ),
+            'attrs'      => array(
+                'id'      => Options::ENFORCE_TOS,
+                'name'    => Options::ENFORCE_TOS
+            )
+        )
+    );
 }
 
 
@@ -358,14 +362,30 @@ function settings_textarea( $args ) { ?>
  *
  * @param array $args
  *
- * @since 1.1.0
+ * @since 1.7.0
  * @return void
  */
-function settings_checkbox( $args ) {?>
+function settings_checkbox( $args ) { ?>
     <label>
         <input type="checkbox" <?php echo parse_attributes( pluck( $args, 'attrs', array() ) ); ?>
             <?php checked( true, pluck( $args, 'is_checked' ) ); ?>
         />
         <?php esc_html_e( pluck( $args, 'label' ) ); ?>
     </label>
+<?php }
+
+/**
+ * Output an MCE editor field
+ *
+ * @param array $args
+ *
+ * @since 1.7.1
+ * @return void
+ */
+function settings_editor_field( $args ) {
+    $attrs = pluck( $args, 'attrs' ); ?>
+    <?php wp_editor( pluck( $args, 'value' ), pluck( $attrs, 'id' ), $args ); ?>
+    <?php if ( !empty( $args['description'] ) ) : ?>
+        <p class="description"><?php esc_html_e( $args['description'] ); ?></p>
+    <?php endif; ?>
 <?php }

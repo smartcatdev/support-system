@@ -664,6 +664,13 @@ $admin = new TabbedMenuPage(
                     'title'    => __( 'Advanced', 'ucare' ),
                     'sections' => array( $advanced )
                 )
+            ),
+            new SettingsTab(
+                array(
+                    'slug'     => 'uc-privacy',
+                    'title'    => __( 'Privacy', 'ucare' ),
+                    'sections' => array( new SettingsSection( 'general', __( 'General Privacy Settings', 'ucare' ) ) )
+                )
             )
         )
     )

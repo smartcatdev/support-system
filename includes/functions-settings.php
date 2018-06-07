@@ -402,13 +402,13 @@ function register_settings() {
         'sanitize_callback' => 'sanitize_text_field',
     ) );
 
-    register_setting( 'uc-advanced', Options::ENFORCE_TOS, array(
+    register_setting( 'uc-privacy', Options::ENFORCE_TOS, array(
         'type'              => 'boolean',
         'default'           => false,
         'sanitize_callback' => 'ucare\sanitize_bool',
     ) );
 
-    register_setting( 'uc-advanced', Options::TOS_POLICY, array(
+    register_setting( 'uc-privacy', Options::TOS_POLICY, array(
         'type'              => 'string',
         'sanitize_callback' => function ( $value ) {
             update_option( Options::TOS_REVISION, time() );
