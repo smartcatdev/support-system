@@ -91,6 +91,11 @@ input[type="submit"]:focus {
     padding-left: 5px;
 }
 
+#submit {
+    min-height: 40px;
+    min-width: 150px;
+}
+
 button > * {
     pointer-events: none;
 }

@@ -67,7 +67,9 @@ $draft = get_user_draft_ticket( true );
 
                         <div id="receipt-number" class="form-group">
 
-                            <label for="receipt_id"><?php _e( 'Receipt #', 'ucare' ); ?></label>
+                            <label for="receipt_id">
+                                <?php esc_html_e( get_option( Options::RECEIPT_ID_LABEL ) ); ?>
+                            </label>
 
                             <input type="text"
                                    id="receipt_id"
@@ -172,10 +174,14 @@ $draft = get_user_draft_ticket( true );
 
                 <div class="form-group text-right">
 
-                    <input id="submit"
-                           type="button"
-                           class="button button-default"
-                           value="<?php _e( 'Create Ticket', 'ucare' ); ?>" />
+                    <button id="submit"
+                            type="submit"
+                            class="button button-default">
+                        <span class="inner-text">
+                            <?php _e( 'Create Ticket', 'ucare' ); ?>
+                        </span>
+                        <span class="glyphicon glyphicon-refresh fast-right-spinner spinner" style="display:none;"></span>
+                    </button>
 
                 </div>
 

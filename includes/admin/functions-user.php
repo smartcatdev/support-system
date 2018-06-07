@@ -11,7 +11,7 @@ namespace ucare;
 add_action( 'edit_user_profile', 'ucare\edit_user_tos_date' );
 
 // Filter support user caps
-add_filter( 'user_has_cap', fqn( 'revoke_user_media_perms' ), 10, 4 );
+add_filter( 'user_has_cap', 'ucare\revoke_user_media_perms', 10, 4 );
 
 
 /**
@@ -32,7 +32,7 @@ function revoke_user_media_perms( $all, $caps, $args, $user ) {
         return $all;
     }
 
-    if ( in_array( 'use_support', $all ) && in_array( 'manage_site_media', $all ) ) {
+    if ( array_key_exists( 'use_support', $all ) && array_key_exists( 'manage_site_media', $all ) ) {
         $all['upload_files'] = false;
     }
 

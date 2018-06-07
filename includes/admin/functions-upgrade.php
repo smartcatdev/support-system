@@ -488,5 +488,12 @@ function upgrade_160() {
         update_option( $data['options']['init_lock'], true );
     }
 
+    if ( get_option( 'ucare_mc-status' ) === 'valid' ) {
+        update_option( '_ucare_survey_init_lock', true );
+    }
+    if ( get_option( 'ucare_mc-status' ) === 'valid' ) {
+        update_option( '_ucare_mc_init_lock', true );
+    }
+
     error_log( 'uCare upgraded to 1.6.0' );
 }

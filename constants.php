@@ -139,6 +139,7 @@ final class Options {
              * @since 1.6.0
              */
             ,EDIT_PROFILE_PAGE_ID           = 'smartcat_support_edit_profile_page_id'
+            ,RECEIPT_ID_LABEL               = 'smartcat_support_receipt_id_label'
             ,LOGIN_PAGE_ID                  = 'smartcat_support_login_page_id'
             ,DATABASE_VERSION               = 'smartcat_support_db_version'
 
@@ -161,7 +162,6 @@ final class Options {
              */
             ,SHOW_CLOCK                     = 'smartcat_support_show_clock'
     ;
-
 }
 
 /**

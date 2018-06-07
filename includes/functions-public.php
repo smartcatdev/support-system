@@ -585,22 +585,28 @@ function ucare_get_user_recent_tickets( $user, $args = array() ) {
     $user = \ucare\get_user( $user );
 
     $defaults = array(
-        'after'   => 'now',
-        'before'  => '30 days ago',
+        'after'   => '30 days ago',
         'exclude' => array(),
         'limit'   => -1
     );
-
     $args = wp_parse_args( $args, $defaults );
+    $date = strtotime( $args['after'] );
 
     $q = array(
         'post_type'      => 'support_ticket',
         'post_status'    => 'publish',
         'author'         => $user->ID,
-        'after'          => $args['after'],
-        'before'         => $args['before'],
         'post__not_in'   => $args['exclude'],
-        'posts_per_page' => $args['limit'] ?: -1
+        'posts_per_page' => $args['limit'] ?: -1,
+        'date_query'     => array(
+            array(
+                'after' => array(
+                    'year'  => date( 'Y', $date ),
+                    'month' => date( 'm', $date ),
+                    'day'   => date( 'd', $date ),
+                )
+            )
+        )
     );
 
     return new \WP_Query( $q );
