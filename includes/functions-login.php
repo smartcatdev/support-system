@@ -125,7 +125,7 @@ function get_pw_reset_token( $user ) {
  * @return mixed
  */
 function decode_pw_reset_token( $token ) {
-    $decoded = base64_decode_maybe( $token );
+    $decoded = base64_decode( $token );
 
     if ( !$decoded ) {
         return false;
