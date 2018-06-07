@@ -35,6 +35,8 @@ namespace ucare;
                 <button class="button login-submit"><?php _e( 'Continue', 'ucare' ); ?></button>
             </p>
 
+            <?php do_action( 'ucare_login_form' ); ?>
+
         </form>
 
         <?php if ( get_option( Options::ENFORCE_TOS ) ) : ?>
@@ -117,8 +119,6 @@ namespace ucare;
             </p>
 
         </form>
-
-    <?php do_action( 'ucare_login_form' ); ?>
 
     <?php else : ?>
 
