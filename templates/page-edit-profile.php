@@ -103,17 +103,32 @@ $user = wp_get_current_user();
 
                     </div>
 
-                    <div class="text-left controls">
+                    <?php if ( wp_supports_gdpr() ) : ?>
 
-                        <button id="request-data-export" class="button button-submit">
-                            <span class="glyphicon glyphicon-export button-icon"></span> <?php _e( 'Request My Data', 'ucare' ); ?>
-                        </button>
+                        <?php $export_request = get_user_request_data( 'export_personal_data' ); ?>
+                        <?php $remove_request = get_user_request_data( 'remove_personal_data' ); ?>
 
-                        <button id="request-data-erase" class="button button-submit">
-                            <span class="glyphicon glyphicon-trash button-icon"></span> <?php _e( 'Delete My Data', 'ucare' ); ?>
-                        </button>
+                        <div class="text-left controls">
 
-                    </div>
+                            <?php if ( empty( $export_request ) ) : ?>
+
+                                <button id="request-data-export" class="button button-submit" data-action="export_personal_data">
+                                    <span class="glyphicon glyphicon-export button-icon"></span> <?php _e( 'Request My Data', 'ucare' ); ?>
+                                </button>
+
+                            <?php endif; ?>
+
+                            <?php if ( empty( $remove_request ) ) : ?>
+
+                                <button id="request-data-erase" class="button button-submit" data-action="remove_personal_data">
+                                    <span class="glyphicon glyphicon-trash button-icon"></span> <?php _e( 'Delete My Data', 'ucare' ); ?>
+                                </button>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    <?php endif; ?>
 
                 </div>
 

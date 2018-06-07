@@ -21,6 +21,37 @@ add_action( 'init', 'ucare\add_role_capabilities' );
 add_action( 'init', 'ucare\set_ecommerce_user_caps' );
 
 /**
+ * Return data about a user request.
+ *
+ * @param string            $request_type
+ * @param int|null|\WP_User $user
+ *
+ * @since 1.7.1
+ * @return \WP_User_Request|false
+ */
+function get_user_request_data( $request_type, $user = null ) {
+    if ( !is_a( 'WP_User', $user ) ) {
+        $user = get_user( $user );
+    }
+    if ( !$user ) {
+        return false;
+    }
+
+    $args = array(
+        'post_author' => $user->ID,
+        'post_type'   => 'user_request',
+        'post_status' => 'request-pending',
+        'name'        => $request_type
+    );
+    $q = new \WP_Query( $args );
+
+    if ( !$q->have_posts() ) {
+        return false;
+    }
+    return new \WP_User_Request( current( $q->posts ) );
+}
+
+/**
  * Configure capabilities for eCommerce users.
  *
  * @action init
@@ -30,7 +61,7 @@ add_action( 'init', 'ucare\set_ecommerce_user_caps' );
  */
 function set_ecommerce_user_caps() {
     if ( get_option( Options::ECOMMERCE ) ) {
-        switch( UCARE_ECOMMERCE_MODE ) {
+        switch ( UCARE_ECOMMERCE_MODE ) {
             case 'edd':
                 add_subscriber_caps();
                 break;

@@ -7,6 +7,18 @@
  */
 namespace ucare;
 
+/**
+ * Check if WordPress version support GDPR
+ *
+ * @global $wp_version
+ *
+ * @since 1.7.1
+ * @return bool
+ */
+function wp_supports_gdpr() {
+    global $wp_version;
+    return $wp_version >= '4.6.9';
+}
 
 /**
  * Check if the value of a hexidecimal color is light or dark.

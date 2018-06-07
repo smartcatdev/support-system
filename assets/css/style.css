@@ -1141,6 +1141,10 @@ button.close-ticket:hover {
     width: 100%;
 }
 
+#request-data-erase {
+    background: #d00000;
+}
+
 @media(min-width: 768px) {
     #edit-profile-controls {
         display: flex;

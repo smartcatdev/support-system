@@ -82,6 +82,45 @@ function register_user_endpoints() {
             )
         ) );
     }
+
+    if ( wp_supports_gdpr() ) {
+        register_rest_route( 'ucare/v1', 'user/data-request', array(
+            'methods'             => \WP_REST_Server::CREATABLE,
+            'permission_callback' => 'ucare\rest_verify_support_user',
+            'callback'            => 'ucare\_rest_user_data_request',
+            'args'                => array(
+                'action' => array(
+                    'required' => true,
+                    'enum'     => array( 'export_personal_data', 'remove_personal_data' )
+                )
+            )
+        ) );
+    }
+}
+
+/**
+ * Create a request to export a user's data
+ *
+ * @param \WP_REST_Request $request
+ *
+ * @since 1.7.1
+ * @return mixed
+ */
+function _rest_user_data_request( $request ) {
+    $user = wp_get_current_user();
+    $request_id = wp_create_user_request( $user->user_email, $request->get_param( 'action' ) );
+
+    if ( is_wp_error( $request_id ) ) {
+        return $request_id;
+    }
+
+    if ( is_wp_error( wp_send_user_request( $request_id ) ) ) {
+        return $request_id;
+    }
+    $data = array(
+        'message' => __( 'Your request was successfully sent. Please check your email for confirmation.', 'ucare' )
+    );
+    return new \WP_REST_Response( $data, 202 );
 }
 
 /**
