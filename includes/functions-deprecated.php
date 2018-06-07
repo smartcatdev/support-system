@@ -692,7 +692,7 @@ function support_login_form( $args = array(), $echo = true ) {
 
     return $output;
 }
-add_shortcode( 'support-login', 'ucare\support_login_form' );
+//add_shortcode( 'support-login', 'ucare\support_login_form' );
 
 
 /**

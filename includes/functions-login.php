@@ -44,7 +44,7 @@ function login_form( $args = array(), $echo = true ) {
     }
     return apply_filters( 'ucare_login_form_html', $out );
 }
-add_shortcode( 'ucare-login', 'ucare\login_form' );
+add_shortcode( 'support-login', 'ucare\login_form' );
 
 /**
  * Log the user out
