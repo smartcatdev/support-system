@@ -18,7 +18,7 @@ add_action('rest_api_init', 'ucare\register_user_endpoints' );
  */
 function register_user_endpoints() {
     register_rest_route( 'ucare/v1', 'user/verify', array(
-        'methods'             => \WP_REST_Server::READABLE,
+        'methods'             => \WP_REST_Server::CREATABLE,
         'permission_callback' => 'ucare\rest_verify_nonce',
         'callback'            => 'ucare\_rest_user_verify',
         'args'                => array(

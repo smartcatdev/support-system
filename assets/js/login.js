@@ -91,6 +91,7 @@ $(function () {
     function verify(data) {
         ajax({
             url: localize.rest_url + 'ucare/v1/user/verify',
+            method: 'post',
             data: data
         })
         .fail(function () {
