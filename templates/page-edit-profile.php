@@ -93,12 +93,27 @@ $user = wp_get_current_user();
 
                 <br>
 
-                <div class="form-group text-right">
+                <div id="edit-profile-controls" class="form-group">
 
-                    <button id="submit" class="button button-submit">
-                        <span class="glyphicon glyphicon-floppy-save button-icon"></span>
-                        <span><?php _e( 'Save', 'ucare' ); ?></span>
-                    </button>
+                     <div class="text-right controls">
+
+                        <button id="submit" class="button button-submit">
+                            <span class="glyphicon glyphicon-floppy-save button-icon"></span> <?php _e( 'Save', 'ucare' ); ?>
+                        </button>
+
+                    </div>
+
+                    <div class="text-left controls">
+
+                        <button id="request-data-export" class="button button-submit">
+                            <span class="glyphicon glyphicon-export button-icon"></span> <?php _e( 'Request My Data', 'ucare' ); ?>
+                        </button>
+
+                        <button id="request-data-erase" class="button button-submit">
+                            <span class="glyphicon glyphicon-trash button-icon"></span> <?php _e( 'Delete My Data', 'ucare' ); ?>
+                        </button>
+
+                    </div>
 
                 </div>
 

@@ -1126,3 +1126,32 @@ button.close-ticket:hover {
     font-size: 12px;
     color: #9d9d9d;
 }
+
+
+/* ## Edit Profile *********************************************************************/
+#edit-profile-controls .controls {
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+}
+#edit-profile-controls .controls .button-submit {
+    width: 49%;
+}
+#edit-profile-controls #submit {
+    width: 100%;
+}
+
+@media(min-width: 768px) {
+    #edit-profile-controls {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+    #edit-profile-controls .controls {
+        display: inline-block;
+        margin: 0;
+    }
+    #edit-profile-controls .controls .button-submit {
+        width: auto;
+    }
+}
