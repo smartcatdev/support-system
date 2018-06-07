@@ -180,7 +180,7 @@ function _rest_user_register( $request ) {
     ucare_reset_user_password( $userdata['email'] );
 
     $response = new \WP_REST_Response();
-    $response->set_headers( array( 'Location' => support_page_url() ) );
+    $response->set_headers( array( 'Location' => create_page_url() ) );
     $response->set_status( 204 );
 
     return $response;
