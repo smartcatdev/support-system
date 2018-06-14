@@ -48,8 +48,8 @@ function sanitize_agent_id( $id ) {
  * @param mixed $val
  *
  * @since 1.0.0
- * @return mixed
+ * @return bool
  */
-function sanitize_boolean( $val ) {
-    return filter_var( $val, FILTER_VALIDATE_BOOLEAN ) == true ? $val : false;
+function sanitize_bool( $val ) {
+    return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
 }

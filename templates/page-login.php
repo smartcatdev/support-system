@@ -7,12 +7,56 @@
  */
 namespace ucare;
 
-$allow_registration = get_option( Options::ALLOW_SIGNUPS );
-
 ?>
 
 <?php ucare_get_header(); ?>
 
+<style>
+    .toggle-pw {
+        cursor: pointer;
+    }
+</style>
+<script>
+    jQuery(document).ready(function ($) {
+        /**
+         * Toggle password visibility
+         */
+        $('.toggle-pw').click(function () {
+            var $pw  = $(this).siblings('input'),
+                type = $pw.prop('type') === 'text' ? 'password' : 'text';
+
+            var isHidden = type === 'password';
+
+            $pw.prop('type', type);
+            $(this).find('.pw-hidden').toggle(isHidden);
+            $(this).find('.pw-visible').toggle(!isHidden);
+        });
+
+        /**
+         * Ensure passwords match when typing
+         */
+        $('#confirm-pw').on('keyup paste change', function () {
+            var $feedback = $('#confirm-pw-feedback'),
+                $submit   = $('#submit'),
+                $this     = $(this);
+
+            $submit.prop('disabled', true);
+            $feedback
+                .removeClass('glyphicon-exclamation-sign')
+                .removeClass('glyphicon-ok')
+                .removeClass('glyphicon-remove');
+
+            if (!$this.val().length) {
+                $feedback.addClass('glyphicon-exclamation-sign');
+            } else if ($this.val() === $('#pw').val()) {
+                $feedback.addClass('glyphicon-ok');
+                $submit.prop('disabled', false);
+            } else {
+                $feedback.addClass('glyphicon-remove');
+            }
+        });
+    });
+</script>
 
 <div id="support-login-bg" xmlns="http://www.w3.org/1999/html">
 
@@ -20,102 +64,117 @@ $allow_registration = get_option( Options::ALLOW_SIGNUPS );
 
         <div id="support-login-wrapper">
 
-            <div id="support-login-form" class="<?php echo $allow_registration ? 'has-registration' : ''; ?>">
+            <div class="inner">
 
-                <?php if ( $allow_registration && get_var( 'register' ) ) : ?>
+                <?php if ( !empty( $_GET['password_reset_sent'] ) ) : ?>
 
-                    <?php get_template( 'login-register' ); ?>
+                    <div class="login-card">
 
-                <?php elseif ( get_var( 'reset_password' ) ) : ?>
+                        <h2 class="login-title">
+                            <?php _e( 'Password Reset', 'ucare' ); ?>
+                        </h2>
+                        <p><?php _e( 'Please check your email to reset your password', 'ucare' ); ?></p>
 
-                    <a class="btn btn-default button-back" href="<?php esc_url_e( login_page_url() ); ?>">
-                        <span class="glyphicon glyphicon-chevron-left button-icon"></span>
-                        <span><?php _e( 'Login', 'ucare' ); ?></span>
-                    </a>
+                    </div>
 
-                    <div id="message-area"></div>
+                <?php elseif ( !empty( $_GET['reset_password'] ) ) : ?>
 
-                    <!-- reset-pw-form -->
-                    <form id="reset-pw-form">
+                    <div class="login-card">
 
-                        <div class="form-group">
-                            <h4><?php _e( 'Reset Password', 'ucare' ); ?></h4>
-                        </div>
+                        <?php if ( check_pw_reset_token( pluck( $_GET, 'token' ) ) ) : ?>
 
-                        <div class="form-group">
+                            <h2 class="login-title">
+                                <?php _e( 'Create a new password', 'ucare' ); ?>
+                            </h2>
+                            <div class="form-group"><?php _e( 'Please enter and confirm your new password', 'ucare' ); ?></div>
 
-                            <input class="form-control"
-                                   type="text"
-                                   name="username"
-                                   placeholder="<?php _e( 'Username or Email Address', 'ucare' ); ?>" required />
+                            <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php?action=ucare_pw_reset' ) ); ?>">
 
-                        </div>
+                                <div class="form-group">
 
-                        <div class="bottom">
+                                    <div class="input-group">
 
-                            <input id="reset-password"
-                                   type="submit"
-                                   class="button button-primary"
-                                   value="<?php _e( 'Reset', 'ucare' ); ?>" />
+                                        <input type="password"
+                                               id="pw"
+                                               name="pw"
+                                               class="form-control"
+                                               placeholder="<?php _e( 'Password', 'ucare' ); ?>"
+                                            />
 
-                        </div>
+                                        <span class="input-group-addon toggle-pw">
+                                            <span class="glyphicon pw-hidden glyphicon-eye-close"></span>
+                                            <span class="glyphicon pw-visible glyphicon-eye-open" hidden></span>
+                                        </span>
 
-                        <?php wp_nonce_field( 'ucare_rest', '_ucarenonce' ); ?>
+                                    </div>
 
-                    </form><!-- /reset-pw-form -->
+                                </div>
 
+                                <div class="form-group">
 
-                <?php else : ?>
+                                    <div class="input-group">
 
-                    <!-- login -->
-                    <div id="login">
+                                        <input id="confirm-pw"
+                                               type="password"
+                                               class="form-control"
+                                               placeholder="<?php _e( 'Password', 'ucare' ); ?>"
+                                            />
 
-                        <img class="logo" src="<?php echo get_option( Options::LOGO ) ?>"/>
+                                        <span class="input-group-addon toggle-pw">
+                                            <span id="confirm-pw-feedback" class="glyphicon pw-hidden glyphicon-exclamation-sign"></span>
+                                            <span class="glyphicon pw-visible glyphicon-eye-open" hidden></span>
+                                        </span>
 
-                        <?php if ( get_var( 'login' ) === 'empty' || get_var( 'login' ) === 'failed' ) : ?>
+                                    </div>
 
-                            <div class="alert alert-error alert-dismissible fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <?php _e( 'Invalid username or password', 'ucare' ); ?>
-                            </div>
+                                </div>
+
+                                <div class="text-right">
+
+                                    <button id="submit" class="button" disabled="disabled">
+                                        <?php _e( 'Update', 'ucare' ); ?>
+                                    </button>
+
+                                </div>
+
+                                <input type="hidden"
+                                       name="token"
+                                       value="<?php esc_attr_e( $_GET['token'] ); ?>"
+                                    />
+
+                                <?php wp_nonce_field( 'reset_pw' ); ?>
+
+                            </form>
+
+                        <?php else : ?>
+
+                            <h2 class="login-title">
+                                <?php _e( 'Oops...', 'ucare' ); ?>
+                            </h2>
+                            <p><?php _e( 'We are unable to verify your password reset request', 'ucare' ); ?></p>
 
                         <?php endif; ?>
 
+                    </div>
 
-                        <?php wp_login_form( array( 'form_id' => 'support_login', 'redirect' => support_page_url() ) ); ?>
+                <?php else : // Default to login form ?>
 
+                    <div class="login-card"><?php login_form(); ?></div>
 
-                        <div class="clearfix"></div>
+                <?php endif; ?>
 
-                        <div class="text-center pw-reset-link">
+                <?php $widget = get_option( Options::LOGIN_WIDGET_AREA ); ?>
 
-                            <a href="<?php echo esc_url( login_page_url( '?reset_password=true' ) ); ?>">
-                                <?php _e( 'Forgot password?', 'ucare' ); ?>
-                            </a>
-
-                        </div>
-
-                    </div><!-- /login -->
-
-
-                    <?php $login_widget = get_option( Options::LOGIN_WIDGET_AREA ); ?>
-
-                    <?php if ( !empty( $login_widget ) ) : ?>
-
-                        <div id="login-widget-area" class="row"><?php echo stripslashes( $login_widget ); ?></div>
-
-                    <?php endif; ?>
-
-
+                <?php if ( !empty( $widget ) ) : ?>
+                    <div class="login-card">
+                        <?php echo wp_kses_post( get_option( Options::LOGIN_WIDGET_AREA ) ); ?>
+                    </div>
                 <?php endif; ?>
 
             </div>
 
-        </div>
-
     </div>
 
 </div>
-
 
 <?php ucare_get_footer(); ?>

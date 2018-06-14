@@ -52,7 +52,7 @@ namespace ucare;
 
             <div class="row-table pull-right actions">
 
-                <?php if ( !is_create_ticket_page() ) : ?>
+                <?php if ( !is_create_ticket_page() && !is_edit_profile_page() ) : ?>
 
                     <div class="row-table-cell">
 

@@ -3,7 +3,7 @@
 namespace ucare;
 
 
-function send_email( $template, $recipient, $replace, $args = array() ) {
+function send_email( $template, $recipient, $replace = array(), $args = array() ) {
 
     $logger = new Logger( 'mail' );
     $sent = false;
@@ -94,27 +94,10 @@ add_action( 'comment_notification_recipients', 'ucare\disable_wp_comment_moderat
 add_action( 'comment_moderation_recipients', 'ucare\disable_wp_comment_moderation_notices', 10, 2 );
 
 
-function send_password_reset_email( $true, $email, $password, $user ) {
-
-    $args = array(
-        'password'       => $password,
-        'username'       => $user->user_login,
-        'first_name'     => $user->first_name,
-        'last_name'      => $user->last_name,
-        'full_name'      => $user->first_name . ' ' . $user->last_name,
-        'email'          => $email
-    );
-
-    return send_email( get_option( Options::PASSWORD_RESET_EMAIL ), $email, $args );
-
-}
-
-add_action( 'support_password_reset_notification', 'ucare\send_password_reset_email', 10, 4 );
 
 
 function send_user_registration_email( $user_data ) {
-    $user_data['username'] = $user_data['email'];
-    send_email( get_option( Options::WELCOME_EMAIL_TEMPLATE ), $user_data['email'], $user_data );
+    send_email( get_option( Options::WELCOME_EMAIL_TEMPLATE ), $user_data['email'] );
 
 }
 

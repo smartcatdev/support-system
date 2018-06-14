@@ -160,4 +160,46 @@
     // Initialize module
     $(module.init);
 
+    /**
+     * Handle user data requests
+     *
+     * @since 1.7.1
+     */
+    $('#request-data-erase,#request-data-export').click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+
+        swal(ucare.l10n.strings.are_you_sure, {
+            icon: 'warning',
+            dangerMode: true,
+            buttons: [
+                ucare.l10n.strings.no,
+                ucare.l10n.strings.yes
+            ]
+        })
+        .then(function (confirm) {
+            if (!confirm) {
+                return;
+            }
+
+            $.ajax({
+                url: ucare.api.root + 'ucare/v1/user/data-request',
+                method: 'post',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', ucare.api.nonce);
+                },
+                data: {
+                    action: $this.data('action')
+                }
+            })
+            .fail(function (xhr) {
+                module.alert(xhr.responseJSON.message, '#message-area');
+            })
+            .then(function (response) {
+                $this.remove();
+                module.alert(response.message, '#message-area');
+            });
+        });
+    });
+
 })(jQuery, ucare);

@@ -26,7 +26,6 @@ add_filter( 'rest_attachment_query', 'ucare\rest_filter_attachment_query' );
 // Filter out REST GET comments based on user capabilities
 add_filter( 'rest_comment_query', 'ucare\rest_filter_comment_query' );
 
-
 /**
  * Register custom fields with the REST API
  *
@@ -204,3 +203,33 @@ function rest_validate_support_ticket( $post ) {
 
     return $post;
 }
+
+/**
+ * Verify REST request nonce
+ *
+ * @param \WP_REST_Request $request
+ *
+ * @since 1.7.0
+ * @return bool
+ */
+function rest_verify_nonce( $request ) {
+    $nonce = $request->get_header( 'X-WP-Nonce' );
+
+    if ( empty( $nonce ) || !wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+        return false;
+    }
+    return apply_filters( 'ucare_unauthenticated_rest_request', true, $request );
+}
+
+/**
+ * Verify that the request is coming from a support user
+ *
+ * @param \WP_REST_Request $request
+ *
+ * @since 1.7.1
+ * @return bool
+ */
+function rest_verify_support_user( $request ) {
+    return ucare_is_support_user( get_current_user_id() );
+}
+

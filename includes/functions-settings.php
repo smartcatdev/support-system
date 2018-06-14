@@ -375,4 +375,62 @@ function register_settings() {
         'type' => 'integer',
         'sanitize_callback' => 'ucare\sanitize_post_id',
     ) );
+
+    /**
+     * @since 1.7.0
+     */
+    register_setting( 'uc-display', Options::LOGIN_TITLE, array(
+        'type'              => 'string',
+        'default'           => __( 'Get Support', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::LOGIN_SUBTEXT, array(
+        'type'              => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::REGISTRATION_TITLE, array(
+        'type'              => 'string',
+        'default'           => __( 'Profile', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::REGISTRATION_SUBTEXT, array(
+        'type'              => 'string',
+        'default'           => __( 'We just need a few more details to continue...', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-display', Options::TOS_TITLE, array(
+        'type'              => 'string',
+        'default'           => __( 'Terms of Service', 'ucare' ),
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    register_setting( 'uc-privacy', Options::ENFORCE_TOS, array(
+        'type'              => 'boolean',
+        'default'           => false,
+        'sanitize_callback' => 'ucare\sanitize_bool',
+    ) );
+
+    register_setting( 'uc-privacy', Options::TOS_POLICY, array(
+        'type'              => 'string',
+        'sanitize_callback' => function ( $value ) {
+            update_option( Options::TOS_REVISION, time() );
+            return wp_kses_post( $value );
+        },
+    ) );
+
+    register_setting( 'uc-advanced', Options::ADMIN_REDIRECT, array(
+        'type'              => 'boolean',
+        'default'           => true,
+        'sanitize_callback' => 'ucare\sanitize_bool',
+    ) );
+
+    register_setting( 'uc-general', Options::MIN_PW_LENGTH, array(
+        'type'              => 'integer',
+        'default'           => 6,
+        'sanitize_callback' => 'absint',
+    ) );
 }

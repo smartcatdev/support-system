@@ -1,40 +1,130 @@
-.login-username label,
-.login-password label{
+.ucare-flex {
+    display: flex;
+}
+.ucare-inline-flex {
+    display: inline-flex;
+}
+.ucare-flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.ucare-flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.ucare-flex.vcenter,
+.ucare-flex-row.vcenter,
+.ucare-flex-col.vcenter,
+.ucare-inline-flex.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.ucare-flex.hcenter,
+.ucare-flex-row.hcenter,
+.ucare-flex-col.hcenter,
+.ucare-inline-flex.hcenter {
+    display: flex;
+    justify-content: center;
+}
+
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+
+/*--- Login Notice ---*/
+#ucare-login-notice {
+    border: 1px solid #efefef;
+    border-radius: 3px;
+    border-left: 3px solid #ff0000;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+#ucare-login-notice p {
+    margin: 0;
+}
+
+#ucare-login-notice .inner {
+    flex: 1;
+    padding: 10px;
+}
+
+#ucare-login-notice .dismiss {
+    width: 40px;
+    padding: 12px;
+    background: transparent;
+    border: none;
+}
+
+#ucare-login-notice .dismiss:before {
+    content: '\00D7';
+    background: #555;
+    width: 16px;
+    height: 16px;
+    padding: 1px;
+    border-radius: 50%;
+    color: #fff;
     display: block;
+    line-height: 16px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.support-login-wrapper {
-    border: 1px solid #d4d4d4;
-    border-radius: 4px;
-    padding: 30px;
+/*--- Login Screens --*/
+#ucare-login {
+    width: 100%;
     margin: 15px auto;
-    width: 100%;
-    box-shadow: 0 0 3px #d4d4d4;
-    -moz-box-shadow: 0 0 3px #d4d4d4;
-    -webkit-box-shadow: 0 0 3px #d4d4d4;
 }
 
-@media( min-width: 769px ) {
-    .support-login-wrapper{
-        width: 50%;
-    }
+#ucare-login > * {
+    box-sizing: border-box !important;
 }
 
-.support-login-wrapper p{
-    margin: 5px 0 10px 0;
+#ucare-login p {
+    margin: 10px 0 !important;
 }
 
-.support-login-wrapper input[type="text"],
-.support-login-wrapper input[type="password"]{
-    width: 100%;
-    padding: 8px;
-    outline: none;
-    transition: 0.3s all ease;
-    -moz-transition: 0.3s all ease;
-    -webkit-transition: 0.3s all ease;
+#ucare-login .login-title {
+    margin-top: 0;
 }
 
-.support-login-wrapper input[type="text"]:focus,
-.support-login-wrapper input[type="password"]:focus{
-    
+#login-step-profile .login-submit {
+    margin-top: 10px;
+}
+
+.tos-content {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+/*--- Login Fields ---*/
+#login-email,
+#login-password {
+    margin-right: 10px;
+}
+
+.login-remember {
+    margin: 5px 0;
+}
+
+#login-rememberme {
+    width: auto !important;
+    margin: 10px 10px 10px 0;
+}
+
+button.terms:first-of-type {
+    margin-right: 10px;
+}
+
+button.terms {
+    margin-top: 10px;
+    flex: 1;
 }

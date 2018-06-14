@@ -3,7 +3,7 @@
  * Plugin Name: uCare - Support Ticket System
  * Author: Smartcat
  * Description: If you have customers, then you need uCare. A support ticket help desk for your customers featuring usergroups,agents,ticket status,filtering,searching all in one responsive app. The most robust support ticket system for WordPress.
- * Version: 1.6.0
+ * Version: 1.7.1
  * Author: Smartcat
  * Author URI: https://smartcatdesign.net
  * license: GPL V2
@@ -154,6 +154,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
             include_once dirname( __FILE__ ) . '/includes/functions-rest-api.php';
             include_once dirname( __FILE__ ) . '/includes/functions-rest-endpoints.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-rest-endpoints-user.php';
             include_once dirname( __FILE__ ) . '/includes/functions-widgets.php';
             include_once dirname( __FILE__ ) . '/includes/functions-field.php';
             include_once dirname( __FILE__ ) . '/includes/functions-public.php';
@@ -169,6 +170,7 @@ if ( PHP_VERSION >= MIN_PHP_VERSION ) {
             include_once dirname( __FILE__ ) . '/includes/functions-admin-bar.php';
             include_once dirname( __FILE__ ) . '/includes/functions-ecommerce.php';
             include_once dirname( __FILE__ ) . '/includes/functions-mail.php';
+            include_once dirname( __FILE__ ) . '/includes/functions-login.php';
 
             // Pull in functions used in the WordPress admin
             if ( is_admin() ) {
@@ -478,3 +480,4 @@ function dir_url( $plugin_file = __FILE__, $path = '' ) {
 function plugin_file() {
     return __FILE__;
 }
+
