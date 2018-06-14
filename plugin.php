@@ -480,4 +480,3 @@ function dir_url( $plugin_file = __FILE__, $path = '' ) {
 function plugin_file() {
     return __FILE__;
 }
-
