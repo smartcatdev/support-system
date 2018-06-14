@@ -26,7 +26,7 @@ add_action( 'init', 'ucare\set_ecommerce_user_caps' );
  * @param string            $request_type
  * @param int|null|\WP_User $user
  *
- * @since 1.7.1
+ * @since 1.7.0
  * @return \WP_User_Request|false
  */
 function get_user_request_data( $request_type, $user = null ) {

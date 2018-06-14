@@ -10,7 +10,7 @@ const PLUGIN_ID = 'smartcat_support';
 /**
  * @since 1.0.0
  */
-const PLUGIN_VERSION = '1.7.1';
+const PLUGIN_VERSION = '1.7.0';
 
 /**
  * @since 1.0.0

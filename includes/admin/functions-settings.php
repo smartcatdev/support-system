@@ -394,7 +394,7 @@ function settings_checkbox( $args ) { ?>
  *
  * @param array $args
  *
- * @since 1.7.1
+ * @since 1.7.0
  * @return void
  */
 function settings_editor_field( $args ) {
