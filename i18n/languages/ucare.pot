@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: uCare - Support Ticket System\n"
-"POT-Creation-Date: 2018-05-30 11:38-0400\n"
-"PO-Revision-Date: 2018-05-30 11:38-0400\n"
+"POT-Creation-Date: 2018-06-14 15:48-0400\n"
+"PO-Revision-Date: 2018-06-14 15:48-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -421,7 +421,7 @@ msgid ""
 "un-installation"
 msgstr ""
 
-#: config/admin_settings.php:630 plugin.php:351
+#: config/admin_settings.php:630 plugin.php:353
 msgid "Settings"
 msgstr ""
 
@@ -439,6 +439,14 @@ msgstr ""
 
 #: config/admin_settings.php:664
 msgid "Advanced"
+msgstr ""
+
+#: config/admin_settings.php:671
+msgid "Privacy"
+msgstr ""
+
+#: config/admin_settings.php:672
+msgid "General Privacy Settings"
 msgstr ""
 
 #: config/ticket_filter.php:44 templates/page-create-ticket.php:59
@@ -533,7 +541,7 @@ msgstr ""
 
 #: includes/admin/AgentStatsTable.php:34
 #: includes/admin/ReportsOverviewTab.php:85
-#: includes/functions-deprecated.php:270
+#: includes/functions-deprecated.php:283
 #: includes/functions-post-support_ticket.php:129
 msgid "Closed"
 msgstr ""
@@ -628,7 +636,7 @@ msgid "Custom"
 msgstr ""
 
 #: includes/admin/ReportsOverviewTab.php:84
-#: includes/functions-deprecated.php:267
+#: includes/functions-deprecated.php:280
 #: includes/functions-post-support_ticket.php:126
 msgid "Opened"
 msgstr ""
@@ -646,68 +654,135 @@ msgstr ""
 msgid "Stylesheet"
 msgstr ""
 
-#: includes/admin/functions-settings.php:32
+#: includes/admin/functions-settings.php:31
+msgid "Minimum Password Length"
+msgstr ""
+
+#: includes/admin/functions-settings.php:48
 msgid "Enable eCommerce Support"
 msgstr ""
 
-#: includes/admin/functions-settings.php:37
+#: includes/admin/functions-settings.php:53
 msgid "Enable eCommerce support with Easy Digital Downloads or WooCommerce"
 msgstr ""
 
-#: includes/admin/functions-settings.php:55
+#: includes/admin/functions-settings.php:67
+msgid "Allow Subscribers"
+msgstr ""
+
+#: includes/admin/functions-settings.php:72
+msgid "Allow users with the subscriber roll to access the help desk"
+msgstr ""
+
+#: includes/admin/functions-settings.php:89
+msgid "Redirect Admin Requests"
+msgstr ""
+
+#: includes/admin/functions-settings.php:94
+msgid "Prevent support users and agents from accessing the admin area"
+msgstr ""
+
+#: includes/admin/functions-settings.php:106
 msgid "Support Page"
 msgstr ""
 
-#: includes/admin/functions-settings.php:69
-#: includes/admin/functions-settings.php:98
-#: includes/admin/functions-settings.php:127
-#: includes/admin/functions-settings.php:156
+#: includes/admin/functions-settings.php:120
+#: includes/admin/functions-settings.php:149
+#: includes/admin/functions-settings.php:178
+#: includes/admin/functions-settings.php:207
 msgid "Select a Page"
 msgstr ""
 
-#: includes/admin/functions-settings.php:84
+#: includes/admin/functions-settings.php:135
 msgid "Create Ticket Page"
 msgstr ""
 
-#: includes/admin/functions-settings.php:113
+#: includes/admin/functions-settings.php:164
 msgid "Edit Profile Page"
 msgstr ""
 
-#: includes/admin/functions-settings.php:142
+#: includes/admin/functions-settings.php:193
 msgid "Login Page"
 msgstr ""
 
-#: includes/admin/functions-settings.php:171
+#: includes/admin/functions-settings.php:225
+msgid "Login Form Title"
+msgstr ""
+
+#: includes/admin/functions-settings.php:242
+msgid "Login Form Subtext"
+msgstr ""
+
+#: includes/admin/functions-settings.php:258
+msgid "Registration Title"
+msgstr ""
+
+#: includes/admin/functions-settings.php:275
+msgid "Registration Form Subtext"
+msgstr ""
+
+#: includes/admin/functions-settings.php:291
+msgid "TOS Title"
+msgstr ""
+
+#: includes/admin/functions-settings.php:308
 msgid "Receipt ID Label"
 msgstr ""
 
+#: includes/admin/functions-settings.php:327
+#: includes/functions-settings.php:407
+msgid "Terms of Service"
+msgstr ""
+
+#: includes/admin/functions-settings.php:340
+msgid ""
+"CAUTION: Making changes to this will require all users to re-accept this "
+"agreement"
+msgstr ""
+
+#: includes/admin/functions-settings.php:345
+msgid "Enforce Terms"
+msgstr ""
+
+#: includes/admin/functions-settings.php:350
+msgid "Users must agree to terms before registering"
+msgstr ""
+
+#: includes/admin/functions-settings.php:365
+msgid "Load Theme Assets"
+msgstr ""
+
+#: includes/admin/functions-settings.php:370
+msgid "Load theme assets on public pages"
+msgstr ""
+
 #: includes/admin/functions-upgrade.php:160
-#: includes/functions-deprecated.php:449
+#: includes/functions-deprecated.php:462
 msgid "Support"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:173
-#: includes/functions-deprecated.php:474
+#: includes/functions-deprecated.php:487
 msgid "You have created a new request for support"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:182
-#: includes/functions-deprecated.php:479
+#: includes/functions-deprecated.php:492
 msgid "Welcome to Support"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:191
-#: includes/functions-deprecated.php:484
+#: includes/functions-deprecated.php:497
 msgid "Your request for support has been closed"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:200
-#: includes/functions-deprecated.php:489
+#: includes/functions-deprecated.php:502
 msgid "Reply to your request for support"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:209
-#: includes/functions-deprecated.php:494
+#: includes/functions-deprecated.php:507
 msgid "Your password has been reset"
 msgstr ""
 
@@ -716,7 +791,7 @@ msgid "Your password has been changed"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:318
-#: includes/functions-deprecated.php:499
+#: includes/functions-deprecated.php:512
 msgid "You have a ticket awaiting action"
 msgstr ""
 
@@ -737,12 +812,19 @@ msgid "Edit Profile"
 msgstr ""
 
 #: includes/admin/functions-upgrade.php:415
-#: includes/functions-shortcodes.php:38 templates/page-login.php:33
-#: templates/partials/login-register.php:19
+#: includes/functions-deprecated.php:677
 msgid "Login"
 msgstr ""
 
-#: includes/admin/menu-pages/class-addons-page.php:42 plugin.php:356
+#: includes/admin/functions-user.php:60
+msgid "TOS Agreement Date"
+msgstr ""
+
+#: includes/admin/functions-user.php:70
+msgid "The date when the support system TOS was accepted"
+msgstr ""
+
+#: includes/admin/menu-pages/class-addons-page.php:42 plugin.php:358
 #: templates/partials/admin-header.php:32
 msgid "Add-ons"
 msgstr ""
@@ -929,77 +1011,108 @@ msgid_plural " have"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions-auth.php:72
+#: includes/functions-auth.php:71
 msgid "You're doing that too much"
 msgstr ""
 
-#: includes/functions-deprecated.php:18 includes/functions-formatting.php:54
+#: includes/functions-deprecated.php:31 includes/functions-formatting.php:54
 msgid "Seconds ago"
 msgstr ""
 
-#: includes/functions-deprecated.php:20 includes/functions-formatting.php:56
+#: includes/functions-deprecated.php:33 includes/functions-formatting.php:56
 msgid "Just now"
 msgstr ""
 
-#: includes/functions-deprecated.php:22 includes/functions-formatting.php:58
+#: includes/functions-deprecated.php:35 includes/functions-formatting.php:58
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: includes/functions-deprecated.php:137
+#: includes/functions-deprecated.php:150
 #: includes/functions-post-support_ticket.php:144
 msgid "Low"
 msgstr ""
 
-#: includes/functions-deprecated.php:138
+#: includes/functions-deprecated.php:151
 #: includes/functions-post-support_ticket.php:145
 msgid "Medium"
 msgstr ""
 
-#: includes/functions-deprecated.php:139
+#: includes/functions-deprecated.php:152
 #: includes/functions-post-support_ticket.php:146
 msgid "High"
 msgstr ""
 
-#: includes/functions-deprecated.php:200 includes/functions-user.php:61
+#: includes/functions-deprecated.php:213 includes/functions-user.php:84
 #: templates/partials/navbar.php:99
 msgid "Support Admin"
 msgstr ""
 
-#: includes/functions-deprecated.php:201 includes/functions-user.php:62
+#: includes/functions-deprecated.php:214 includes/functions-user.php:85
 msgid "Support Agent"
 msgstr ""
 
-#: includes/functions-deprecated.php:202 includes/functions-user.php:63
+#: includes/functions-deprecated.php:215 includes/functions-user.php:86
 msgid "Support User"
 msgstr ""
 
-#: includes/functions-deprecated.php:265
+#: includes/functions-deprecated.php:278
 #: includes/functions-post-support_ticket.php:124
 msgid "New"
 msgstr ""
 
-#: includes/functions-deprecated.php:266
+#: includes/functions-deprecated.php:279
 #: includes/functions-post-support_ticket.php:125 templates/statistics.php:54
 msgid "Waiting"
 msgstr ""
 
-#: includes/functions-deprecated.php:268
+#: includes/functions-deprecated.php:281
 #: includes/functions-post-support_ticket.php:127
 msgid "Responded"
 msgstr ""
 
-#: includes/functions-deprecated.php:269
+#: includes/functions-deprecated.php:282
 #: includes/functions-post-support_ticket.php:128 templates/statistics.php:24
 msgid "Needs Attention"
 msgstr ""
 
-#: includes/functions-deprecated.php:327
+#: includes/functions-deprecated.php:340
 msgid "Just Now"
 msgstr ""
 
-#: includes/functions-deprecated.php:329
+#: includes/functions-deprecated.php:342
 msgid " ago"
+msgstr ""
+
+#: includes/functions-deprecated.php:667
+msgid "Support Login"
+msgstr ""
+
+#: includes/functions-deprecated.php:670 includes/functions-settings.php:384
+#: templates/partials/login-register.php:131
+msgid "Get Support"
+msgstr ""
+
+#: includes/functions-deprecated.php:671
+msgid "Forgot Password"
+msgstr ""
+
+#: includes/functions-deprecated.php:672 includes/functions-deprecated.php:740
+msgid "Register"
+msgstr ""
+
+#: includes/functions-deprecated.php:674 templates/page-login.php:101
+#: templates/page-login.php:120 templates/partials/login-register.php:101
+#: templates/partials/login-register.php:109
+msgid "Password"
+msgstr ""
+
+#: includes/functions-deprecated.php:675
+msgid "Username or Email Address"
+msgstr ""
+
+#: includes/functions-deprecated.php:676
+msgid "Remember Me"
 msgstr ""
 
 #: includes/functions-field.php:310
@@ -1012,6 +1125,22 @@ msgstr ""
 
 #: includes/functions-licensing.php:35
 msgid "This product has a lifetime license"
+msgstr ""
+
+#: includes/functions-login.php:148
+msgid "Security check failed"
+msgstr ""
+
+#: includes/functions-login.php:152
+msgid "Invalid Password"
+msgstr ""
+
+#: includes/functions-login.php:158
+msgid "Unable to verify user"
+msgstr ""
+
+#: includes/functions-login.php:164
+msgid "Invalid User"
 msgstr ""
 
 #: includes/functions-media.php:83
@@ -1198,32 +1327,62 @@ msgstr ""
 msgid "An email address must be provided"
 msgstr ""
 
-#: includes/functions-public.php:875
+#: includes/functions-public.php:855
 msgid "User could not be found"
 msgstr ""
 
-#: includes/functions-rest-api.php:46
+#: includes/functions-public.php:860
+msgid "Please follow the link to set your password:"
+msgstr ""
+
+#: includes/functions-public.php:863
+msgid "Password Reset Requested"
+msgstr ""
+
+#: includes/functions-rest-api.php:45
 msgid "Core plugin namespace"
 msgstr ""
 
-#: includes/functions-rest-api.php:194
+#: includes/functions-rest-api.php:193
 msgid "Subject cannot be blank"
 msgstr ""
 
-#: includes/functions-rest-api.php:202
+#: includes/functions-rest-api.php:201
 msgid "Description cannot be blank"
 msgstr ""
 
-#: includes/functions-rest-endpoints.php:123
-msgid "Password reset, a temporary password has been sent to your email"
+#: includes/functions-rest-endpoints-user.php:121
+msgid ""
+"Your request was successfully sent. Please check your email for confirmation."
 msgstr ""
 
-#: includes/functions-rest-endpoints.php:142
-#: includes/functions-rest-endpoints.php:189
+#: includes/functions-rest-endpoints-user.php:139
+#: includes/functions-rest-endpoints-user.php:241
+msgid "User not found"
+msgstr ""
+
+#: includes/functions-rest-endpoints-user.php:178
+msgid "Unable to login"
+msgstr ""
+
+#: includes/functions-rest-endpoints-user.php:182
+msgid "That password is incorrect."
+msgstr ""
+
+#: includes/functions-rest-endpoints-user.php:182
+msgid "Forgot your password?"
+msgstr ""
+
+#: includes/functions-rest-endpoints-user.php:217
+msgid "Complete Your Registration"
+msgstr ""
+
+#: includes/functions-rest-endpoints.php:60
+#: includes/functions-rest-endpoints.php:107
 msgid "Invalid product"
 msgstr ""
 
-#: includes/functions-rest-endpoints.php:167
+#: includes/functions-rest-endpoints.php:85
 msgid "Invalid action"
 msgstr ""
 
@@ -1235,35 +1394,35 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: includes/functions-scripts.php:173 includes/functions-scripts.php:271
+#: includes/functions-scripts.php:173 includes/functions-scripts.php:283
 msgid "Yes"
 msgstr ""
 
-#: includes/functions-scripts.php:174 includes/functions-scripts.php:272
+#: includes/functions-scripts.php:174 includes/functions-scripts.php:284
 msgid "No"
 msgstr ""
 
-#: includes/functions-scripts.php:265
+#: includes/functions-scripts.php:277
 msgid "Loading Tickets..."
 msgstr ""
 
-#: includes/functions-scripts.php:266 templates/ticket.php:19
+#: includes/functions-scripts.php:278 templates/ticket.php:19
 msgid "Loading..."
 msgstr ""
 
-#: includes/functions-scripts.php:267
+#: includes/functions-scripts.php:279
 msgid "Delete Comment"
 msgstr ""
 
-#: includes/functions-scripts.php:268
+#: includes/functions-scripts.php:280
 msgid "Delete Attachment"
 msgstr ""
 
-#: includes/functions-scripts.php:269 templates/ticket.php:103
+#: includes/functions-scripts.php:281 templates/ticket.php:103
 msgid "Close Ticket"
 msgstr ""
 
-#: includes/functions-scripts.php:270
+#: includes/functions-scripts.php:282
 msgid "Are you sure you want to do this? This operation cannot be undone!"
 msgstr ""
 
@@ -1271,33 +1430,12 @@ msgstr ""
 msgid "Receipt #"
 msgstr ""
 
-#: includes/functions-shortcodes.php:28
-msgid "Support Login"
+#: includes/functions-settings.php:395 templates/partials/navbar.php:89
+msgid "Profile"
 msgstr ""
 
-#: includes/functions-shortcodes.php:31
-msgid "Get Support"
-msgstr ""
-
-#: includes/functions-shortcodes.php:32
-msgid "Forgot Password"
-msgstr ""
-
-#: includes/functions-shortcodes.php:33
-#: includes/functions-template-general.php:163
-msgid "Register"
-msgstr ""
-
-#: includes/functions-shortcodes.php:35
-msgid "Password"
-msgstr ""
-
-#: includes/functions-shortcodes.php:36 templates/page-login.php:50
-msgid "Username or Email Address"
-msgstr ""
-
-#: includes/functions-shortcodes.php:37
-msgid "Remember Me"
+#: includes/functions-settings.php:401
+msgid "We just need a few more details to continue..."
 msgstr ""
 
 #: includes/functions-sidebar.php:46 includes/functions-sidebar.php:266
@@ -1403,7 +1541,7 @@ msgstr ""
 msgid "Select the color you want to associate with this category"
 msgstr ""
 
-#: includes/functions-template-general.php:231
+#: includes/functions-template-general.php:131
 msgid "Powered by uCare Support"
 msgstr ""
 
@@ -1617,7 +1755,7 @@ msgstr ""
 msgid "_menu_page"
 msgstr ""
 
-#: plugin.php:384
+#: plugin.php:386
 #, php-format
 msgid ""
 "Your PHP version %s does not meet minimum requirements. uCare Support "
@@ -1680,71 +1818,83 @@ msgid ""
 "definedresponses to your users tickets based on the ticket criteria"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:57
+#: templates/admin/menu-page-tutorial.php:60
 msgid "View uCare Pro Add-ons"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:63
-msgid "New Features in 1.6"
-msgstr ""
-
-#: templates/admin/menu-page-tutorial.php:65
-msgid "Unique pages for Registration/Login, Create Ticket, and Edit Profile"
-msgstr ""
-
 #: templates/admin/menu-page-tutorial.php:66
-msgid "Improved UI & UX for ticket creation"
-msgstr ""
-
-#: templates/admin/menu-page-tutorial.php:67
-msgid "Added support for PHP v7.2"
+msgid "New Features in 1.7"
 msgstr ""
 
 #: templates/admin/menu-page-tutorial.php:68
-msgid "New add-ons"
+msgid "Unique pages for Registration/Login, Create Ticket, and Edit Profile"
+msgstr ""
+
+#: templates/admin/menu-page-tutorial.php:69
+msgid "Improved flow for registration and login"
+msgstr ""
+
+#: templates/admin/menu-page-tutorial.php:70
+msgid "GDPR tools"
 msgstr ""
 
 #: templates/admin/menu-page-tutorial.php:71
+msgid "Improved login & registration through shortcode"
+msgstr ""
+
+#: templates/admin/menu-page-tutorial.php:72
+msgid "Improved UI & UX for ticket creation"
+msgstr ""
+
+#: templates/admin/menu-page-tutorial.php:73
+msgid "Added support for PHP v7.2"
+msgstr ""
+
+#: templates/admin/menu-page-tutorial.php:74
+msgid "New add-ons"
+msgstr ""
+
+#: templates/admin/menu-page-tutorial.php:77
 msgid "New uCare Pro features"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:73
+#: templates/admin/menu-page-tutorial.php:79
 msgid "Custom Fields"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:73
+#: templates/admin/menu-page-tutorial.php:79
 msgid ""
 "Add textboxes, dropdowns, radio optiosn or text areas and customize your "
 "ticket form as you want with custom fields."
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:74
+#: templates/admin/menu-page-tutorial.php:80
 msgid "Auto Agent automated responder"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:74
+#: templates/admin/menu-page-tutorial.php:80
 msgid ""
 "Create pre-defined responses, and set rules on when they get used. Then let "
 "the Auto Agent automatically answer tickets for you!"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:75
+#: templates/admin/menu-page-tutorial.php:81
 msgid "Social Login"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:76
+#: templates/admin/menu-page-tutorial.php:82
 msgid "Advanced WooCommerce Integration"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:77
+#: templates/admin/menu-page-tutorial.php:83
 msgid "Software Licensing Integration for EDD"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:80
+#: templates/admin/menu-page-tutorial.php:86
 msgid "Custom Fields Preview"
 msgstr ""
 
-#: templates/admin/menu-page-tutorial.php:83
+#: templates/admin/menu-page-tutorial.php:89
 msgid "Auto Agent Preview"
 msgstr ""
 
@@ -1891,11 +2041,11 @@ msgstr ""
 msgid "Profile successfully updated"
 msgstr ""
 
-#: templates/page-edit-profile.php:40 templates/partials/login-register.php:30
+#: templates/page-edit-profile.php:40 templates/partials/login-register.php:74
 msgid "First Name"
 msgstr ""
 
-#: templates/page-edit-profile.php:54 templates/partials/login-register.php:43
+#: templates/page-edit-profile.php:54 templates/partials/login-register.php:83
 msgid "Last Name"
 msgstr ""
 
@@ -1907,24 +2057,44 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: templates/page-edit-profile.php:100
+#: templates/page-edit-profile.php:101
 msgid "Save"
 msgstr ""
 
-#: templates/page-login.php:42
-msgid "Reset Password"
+#: templates/page-edit-profile.php:116
+msgid "Request My Data"
 msgstr ""
 
-#: templates/page-login.php:59
-msgid "Reset"
+#: templates/page-edit-profile.php:124
+msgid "Delete My Data"
 msgstr ""
 
-#: templates/page-login.php:79
-msgid "Invalid username or password"
+#: templates/page-login.php:74
+msgid "Password Reset"
 msgstr ""
 
-#: templates/page-login.php:93
-msgid "Forgot password?"
+#: templates/page-login.php:76
+msgid "Please check your email to reset your password"
+msgstr ""
+
+#: templates/page-login.php:87
+msgid "Create a new password"
+msgstr ""
+
+#: templates/page-login.php:89
+msgid "Please enter and confirm your new password"
+msgstr ""
+
+#: templates/page-login.php:135
+msgid "Update"
+msgstr ""
+
+#: templates/page-login.php:152
+msgid "Oops..."
+msgstr ""
+
+#: templates/page-login.php:154
+msgid "We are unable to verify your password reset request"
 msgstr ""
 
 #: templates/partials/admin-header.php:16
@@ -1951,8 +2121,26 @@ msgstr ""
 msgid "uCare Support System"
 msgstr ""
 
-#: templates/partials/login-register.php:56
+#: templates/partials/login-register.php:33
 msgid "Email Address"
+msgstr ""
+
+#: templates/partials/login-register.php:35
+#: templates/partials/login-register.php:92
+#: templates/partials/login-register.php:111
+msgid "Continue"
+msgstr ""
+
+#: templates/partials/login-register.php:53
+msgid "Accept"
+msgstr ""
+
+#: templates/partials/login-register.php:54
+msgid "Decline"
+msgstr ""
+
+#: templates/partials/login-register.php:118
+msgid "Keep me signed in"
 msgstr ""
 
 #: templates/partials/navbar.php:24
@@ -1961,10 +2149,6 @@ msgstr ""
 
 #: templates/partials/navbar.php:43
 msgid "Help Desk"
-msgstr ""
-
-#: templates/partials/navbar.php:89
-msgid "Profile"
 msgstr ""
 
 #: templates/partials/navbar.php:110
