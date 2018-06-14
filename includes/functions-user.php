@@ -197,7 +197,6 @@ function get_caps_for_role( $role ) {
             'delete_private_support_tickets',
             'delete_published_support_tickets',
             'read_private_support_tickets',
-            'edit_support_tickets',
             'edit_support_ticket_comments',
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',
