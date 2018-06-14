@@ -9,7 +9,7 @@ namespace ucare;
 
 
 // Register settings
-add_action( 'init', 'ucare\register_settings' );
+add_action( 'init', 'ucare\register_settings', 9 );
 
 
 /**
@@ -432,5 +432,20 @@ function register_settings() {
         'type'              => 'integer',
         'default'           => 6,
         'sanitize_callback' => 'absint',
+    ) );
+
+    /**
+     * @since 1.7.1
+     */
+    register_setting( 'uc-general', Options::ALLOW_SUBSCRIBERS, array(
+        'type'              => 'boolean',
+        'default'           => true,
+        'sanitize_callback' => 'ucare\sanitize_bool',
+    ) );
+
+    register_setting( 'uc-appearance', Options::LOAD_THEME_ASSETS, array(
+        'type'              => 'boolean',
+        'default'           => false,
+        'sanitize_callback' => 'ucare\sanitize_bool',
     ) );
 }

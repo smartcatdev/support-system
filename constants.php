@@ -159,6 +159,12 @@ final class Options {
             ,MIN_PW_LENGTH                  = 'smartcat_support_min_pw_length'
 
             /**
+             * @since 1.7.1
+             */
+            ,ALLOW_SUBSCRIBERS              = 'smartcat_support_allow_subscribers'
+            ,LOAD_THEME_ASSETS              = 'smartcat_support_load_theme_assets'
+
+            /**
              * @deprecated
              */
             ,SHOW_CLOCK                     = 'smartcat_support_show_clock'

@@ -175,16 +175,13 @@ function is_page( $id, $page = null ) {
  * @return bool
  */
 function is_page_public( $page = null ) {
-
     $page = get_post( $page );
     $public = true;
 
     if ( is_a_support_page( $page ) ) {
         $public = $page->ID == get_option( Options::LOGIN_PAGE_ID );
     }
-
     return apply_filters( 'ucare_page_is_public', $public, $page );
-
 }
 
 
@@ -222,7 +219,6 @@ function auth_redirect() {
  * @return void
  */
 function handle_login_form( $user = false, $username = '', $password = '' ) {
-
     if ( isset( $_REQUEST['support_login_form'] ) ) {
 
         // If empty username or password was passed prevent redirect to wp-login
@@ -232,7 +228,5 @@ function handle_login_form( $user = false, $username = '', $password = '' ) {
         } else if ( !$user ) {
             wp_redirect( add_query_arg( 'login', 'failed', wp_get_referer() ) );
         }
-
     }
-
 }

@@ -22,7 +22,6 @@ add_action( 'admin_init', 'ucare\add_settings_fields', 100 );
  */
 function add_settings_fields() {
 
-
     /**
      *
      * General settings
@@ -62,6 +61,25 @@ function add_settings_fields() {
         )
     );
 
+    if ( ucare_ecommerce_mode() !== 'edd' ) {
+        add_settings_field(
+            Options::ALLOW_SUBSCRIBERS,
+            __( 'Allow Subscribers', 'ucare' ),
+            'ucare\settings_checkbox',
+            'uc-general',
+            'uc_general',
+            array(
+                'label'      => __( 'Allow users with the subscriber roll to access the help desk', 'ucare' ),
+                'label_for'  => Options::ALLOW_SUBSCRIBERS,
+                'is_checked' => (bool) get_option( Options::ALLOW_SUBSCRIBERS ),
+                'attrs'      => array(
+                    'id'      => Options::ALLOW_SUBSCRIBERS,
+                    'name'    => Options::ALLOW_SUBSCRIBERS
+                )
+            )
+        );
+    }
+
     /**
      *
      * Advanced settings
@@ -73,7 +91,7 @@ function add_settings_fields() {
         'uc-advanced',
         'uc_advanced',
         array(
-            'label'      => __( 'Prevent support users and agents from accessing the admin area', 'kb' ),
+            'label'      => __( 'Prevent support users and agents from accessing the admin area', 'ucare' ),
             'label_for'  => Options::ADMIN_REDIRECT,
             'is_checked' => (bool) get_option( Options::ADMIN_REDIRECT ),
             'attrs'      => array(
@@ -335,6 +353,26 @@ function add_settings_fields() {
             'attrs'      => array(
                 'id'      => Options::ENFORCE_TOS,
                 'name'    => Options::ENFORCE_TOS
+            )
+        )
+    );
+
+    /**
+     * Appearance Settings
+     */
+    add_settings_field(
+        Options::LOAD_THEME_ASSETS,
+        __( 'Load Theme Assets', 'ucare' ),
+        'ucare\settings_checkbox',
+        'uc-appearance',
+        'uc_appearance',
+        array(
+            'label'      => __( 'Load theme assets on public pages', 'ucare' ),
+            'label_for'  => Options::LOAD_THEME_ASSETS,
+            'is_checked' => (bool) get_option( Options::LOAD_THEME_ASSETS ),
+            'attrs'      => array(
+                'id'      => Options::LOAD_THEME_ASSETS,
+                'name'    => Options::LOAD_THEME_ASSETS
             )
         )
     );

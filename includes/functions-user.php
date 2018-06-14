@@ -60,17 +60,10 @@ function get_user_request_data( $request_type, $user = null ) {
  * @return void
  */
 function set_ecommerce_user_caps() {
-    if ( get_option( Options::ECOMMERCE ) ) {
-        switch ( UCARE_ECOMMERCE_MODE ) {
-            case 'edd':
-                add_subscriber_caps();
-                break;
-
-            case 'woo':
-                add_customer_caps();
-                break;
-        }
-
+    if ( ucare_ecommerce_mode() === 'woo' ) {
+        add_customer_caps();
+    } else if ( ucare_ecommerce_mode() === 'edd' || get_option( Options::ALLOW_SUBSCRIBERS ) ) {
+        add_subscriber_caps( true );
     } else {
         revoke_user_level_caps( 'customer' );
         revoke_user_level_caps( 'subscriber' );
@@ -195,6 +188,7 @@ function get_caps_for_role( $role ) {
             'manage_support_tickets',
             // Support_ticket specific caps,
             'publish_support_tickets',
+            'edit_support_tickets',
             'edit_others_support_tickets',
             'edit_private_support_tickets',
             'edit_published_support_tickets',

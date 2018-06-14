@@ -102,7 +102,6 @@ function default_styles( $styles ) {
  * @return void
  */
 function enqueue_default_styles() {
-
     enqueue_fonts();
 
     ucare_enqueue_style( 'bootstrap' );
@@ -118,6 +117,8 @@ function enqueue_default_styles() {
         // Libraries
         ucare_enqueue_style( 'scrolling-tabs',  resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.css'   ), null, PLUGIN_VERSION );
         ucare_enqueue_style( 'light-gallery',   resolve_url( 'assets/lib/lightGallery/css/lightgallery.min.css' ), null, PLUGIN_VERSION );
-    }
 
+    } else if ( is_login_page() ) {
+        ucare_enqueue_style( 'ucare-login', resolve_url( 'assets/css/login.css' ), null, PLUGIN_VERSION );
+    }
 }

@@ -34,8 +34,10 @@ function login_form( $args = array(), $echo = true ) {
         'registration_subtext' => get_option( Options::REGISTRATION_SUBTEXT )
     );
 
-    wp_enqueue_script( 'ucare-login' );
-    wp_enqueue_style( 'ucare-login' );
+    if ( !is_login_page() ) {
+        wp_enqueue_script( 'ucare-login' );
+        wp_enqueue_style( 'ucare-login' );
+    }
 
     $out = buffer_template( 'login-register', shortcode_atts( $defaults, $args, 'ucare-login' ) );
 
