@@ -18,7 +18,7 @@ add_action( 'ucare_init', 'ucare\enqueue_scripts' );
 add_action( 'ucare_enqueue_scripts', 'ucare\register_default_scripts' );
 
 // Load default scripts
-add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts' );
+add_action( 'ucare_enqueue_scripts', 'ucare\enqueue_default_scripts', 20 );
 
 // Print header scripts
 add_action( 'ucare_head', 'ucare\print_header_scripts' );
@@ -186,11 +186,25 @@ function register_default_scripts() {
     ucare_localize_script( 'ucare', 'ucare_l10n', $l10n );
 
 
+    $deps = array(
+        'jquery'
+    );
+
     // Register jQuery plugins
-    ucare_register_script( 'jquery-serializejson', resolve_url( 'assets/js/jquery-serializejson.js' ), array( 'jquery' ), PLUGIN_VERSION );
+    ucare_register_script( 'jquery-serializejson', resolve_url( 'assets/js/jquery-serializejson.js' ), $deps, PLUGIN_VERSION );
 
+    $deps = array(
+        'jquery',
+        'jquery-serializejson'
+    );
+    $l10n = array(
+        'rest_url'    => rest_url(),
+        'rest_nonce'  => wp_create_nonce( 'wp_rest' ),
+        'enforce_tos' => get_option( Options::ENFORCE_TOS )
+    );
+    ucare_register_script( 'login', resolve_url( 'assets/js/login.js' ), $deps, PLUGIN_VERSION, true );
+    ucare_localize_script( 'login', '_ucare_login_l10n', $l10n );
 }
-
 
 
 /**
@@ -215,7 +229,6 @@ function enqueue_default_scripts() {
 
     ucare_enqueue_script( 'script', resolve_url( 'assets/js/script.js' ), null, PLUGIN_VERSION, true );
 
-
     // Only load these scripts in the app
     if ( is_support_page() ) {
         ucare_enqueue_script( 'scrolling-tabs',    resolve_url( 'assets/lib/scrollingTabs/scrollingTabs.min.js'  ), null, PLUGIN_VERSION, true );
@@ -239,6 +252,10 @@ function enqueue_default_scripts() {
     // Load edit profile page scripts
     } else if ( is_edit_profile_page() ) {
         ucare_enqueue_script( 'ucare-edit-profile', resolve_url( 'assets/js/edit-profile.js' ), array( 'ucare', 'jquery-serializejson' ), PLUGIN_VERSION, true );
+
+    // Load login page scripts
+    } else if ( is_login_page() ) {
+        ucare_enqueue_script( 'login' );
     }
 }
 

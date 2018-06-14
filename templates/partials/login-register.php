@@ -21,9 +21,9 @@ namespace ucare;
 
             <h2 class="login-title"><?php esc_html_e( $login_title ); ?></h2>
 
-            <p class="login-subtitle">
-                <?php esc_html_e( $login_subtext ); ?>
-            </p>
+            <?php if ( !empty( $login_subtext ) ) : ?>
+                <p class="login-subtitle"><?php esc_html_e( $login_subtext ); ?></p>
+            <?php endif; ?>
 
             <p class="ucare-flex-row">
                 <input type="text"
@@ -51,7 +51,7 @@ namespace ucare;
 
                     <p class="ucare-flex-row hcenter">
                         <button id="terms-accept"  class="button terms" value="accept"  type="submit"><?php _e( 'Accept', 'ucare' ); ?></button>
-                        <button id="terms-decline" class="button terms" value="decline" type="submit"><?php _e( 'Decline', 'ucare' ); ?></button>
+                        <button id="terms-decline" class="button terms" value="decline" type="button"><?php _e( 'Decline', 'ucare' ); ?></button>
                     </p>
 
                 </div>
@@ -66,7 +66,9 @@ namespace ucare;
 
                 <h2 class="login-title"><?php esc_html_e( $registration_title ); ?></h2>
 
-                <p><?php esc_html_e( $registration_subtext ); ?></p>
+                <?php if ( !empty( $registration_subtext ) ) : ?>
+                    <p><?php esc_html_e( $registration_subtext ); ?></p>
+                <?php endif; ?>
 
                 <p>
                     <label for="login-first-name"><?php _e( 'First Name', 'ucare' ); ?></label>

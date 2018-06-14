@@ -442,4 +442,10 @@ function register_settings() {
         'default'           => true,
         'sanitize_callback' => 'ucare\sanitize_bool',
     ) );
+
+    register_setting( 'uc-appearance', Options::LOAD_THEME_ASSETS, array(
+        'type'              => 'boolean',
+        'default'           => false,
+        'sanitize_callback' => 'ucare\sanitize_bool',
+    ) );
 }

@@ -162,6 +162,7 @@ final class Options {
              * @since 1.7.1
              */
             ,ALLOW_SUBSCRIBERS              = 'smartcat_support_allow_subscribers'
+            ,LOAD_THEME_ASSETS              = 'smartcat_support_load_theme_assets'
 
             /**
              * @deprecated

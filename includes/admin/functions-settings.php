@@ -356,6 +356,26 @@ function add_settings_fields() {
             )
         )
     );
+
+    /**
+     * Appearance Settings
+     */
+    add_settings_field(
+        Options::LOAD_THEME_ASSETS,
+        __( 'Load Theme Assets', 'ucare' ),
+        'ucare\settings_checkbox',
+        'uc-appearance',
+        'uc_appearance',
+        array(
+            'label'      => __( 'Load theme assets on public pages', 'ucare' ),
+            'label_for'  => Options::LOAD_THEME_ASSETS,
+            'is_checked' => (bool) get_option( Options::LOAD_THEME_ASSETS ),
+            'attrs'      => array(
+                'id'      => Options::LOAD_THEME_ASSETS,
+                'name'    => Options::LOAD_THEME_ASSETS
+            )
+        )
+    );
 }
 
 

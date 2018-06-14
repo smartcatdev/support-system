@@ -1,46 +1,46 @@
-.ucare-flex {
+html body .ucare-flex {
     display: flex;
 }
-.ucare-inline-flex {
+html body .ucare-inline-flex {
     display: inline-flex;
 }
-.ucare-flex-col {
+html body .ucare-flex-col {
     display: flex;
     flex-direction: column;
 }
-.ucare-flex-row {
+html body .ucare-flex-row {
     display: flex;
     flex-direction: row;
 }
 
-.ucare-flex.vcenter,
-.ucare-flex-row.vcenter,
-.ucare-flex-col.vcenter,
-.ucare-inline-flex.vcenter {
+html body .ucare-flex.vcenter,
+html body .ucare-flex-row.vcenter,
+html body .ucare-flex-col.vcenter,
+html body .ucare-inline-flex.vcenter {
     display: flex;
     align-items: center;
 }
 
-.ucare-flex.hcenter,
-.ucare-flex-row.hcenter,
-.ucare-flex-col.hcenter,
-.ucare-inline-flex.hcenter {
+html body .ucare-flex.hcenter,
+html body .ucare-flex-row.hcenter,
+html body .ucare-flex-col.hcenter,
+html body .ucare-inline-flex.hcenter {
     display: flex;
     justify-content: center;
 }
 
-.text-right {
+html body .text-right {
     text-align: right;
 }
-.text-left {
+html body .text-left {
     text-align: left;
 }
-.text-center {
+html body .text-center {
     text-align: center;
 }
 
 /*--- Login Notice ---*/
-#ucare-login-notice {
+html body #ucare-login-notice {
     border: 1px solid #efefef;
     border-radius: 3px;
     border-left: 3px solid #ff0000;
@@ -48,23 +48,23 @@
     margin-bottom: 15px;
 }
 
-#ucare-login-notice p {
+html body #ucare-login-notice p {
     margin: 0;
 }
 
-#ucare-login-notice .inner {
+html body #ucare-login-notice .inner {
     flex: 1;
     padding: 10px;
 }
 
-#ucare-login-notice .dismiss {
+html body #ucare-login-notice .dismiss {
     width: 40px;
     padding: 12px;
     background: transparent;
     border: none;
 }
 
-#ucare-login-notice .dismiss:before {
+html body #ucare-login-notice .dismiss:before {
     content: '\00D7';
     background: #555;
     width: 16px;
@@ -79,52 +79,76 @@
 }
 
 /*--- Login Screens --*/
-#ucare-login {
+html body #ucare-login {
     width: 100%;
     margin: 15px auto;
 }
 
-#ucare-login > * {
+html body #ucare-login .button {
+    min-width: 130px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 14px;
+    margin: 0 5px;
+}
+
+html body #ucare-login form.form-group {
+    margin: 0;
+}
+
+html body #ucare-login > * {
     box-sizing: border-box !important;
 }
 
-#ucare-login p {
+html body #ucare-login p {
     margin: 10px 0 !important;
 }
 
-#ucare-login .login-title {
+html body #ucare-login .login-title {
     margin-top: 0;
 }
 
-#login-step-profile .login-submit {
+html body #login-step-profile .login-submit {
     margin-top: 10px;
 }
 
-.tos-content {
+html body .tos-content {
     max-height: 400px;
     overflow-y: scroll;
 }
 
+html body #login-step-register p:last-of-type {
+    margin-top: 15px !important;
+}
+
 /*--- Login Fields ---*/
-#login-email,
-#login-password {
+html body #ucare-login input[type="text"],
+html body #ucare-login input[type="email"],
+html body #ucare-login input[type="password"] {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+}
+
+html body #login-email,
+html body #login-password {
     margin-right: 10px;
 }
 
-.login-remember {
-    margin: 5px 0;
+html body .login-remember {
+    margin: 10px 0 0 0 !important;
 }
 
-#login-rememberme {
+html body #login-rememberme {
     width: auto !important;
-    margin: 10px 10px 10px 0;
+    margin: 0 10px 0 2px;
 }
 
-button.terms:first-of-type {
+html body button.terms:first-of-type {
     margin-right: 10px;
 }
 
-button.terms {
+html body button.terms {
     margin-top: 10px;
     flex: 1;
 }

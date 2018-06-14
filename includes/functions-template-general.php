@@ -142,9 +142,7 @@ function print_footer_copyright() {
  * @return void
  */
 function call_header() {
-    if ( is_a_support_page() && is_page_public() ) {
-        wp_head();
-    }
+    if ( is_a_support_page() && is_page_public() && get_option( Options::LOAD_THEME_ASSETS ) ) wp_head();
 }
 
 /**
@@ -156,7 +154,5 @@ function call_header() {
  * @return void
  */
 function call_footer() {
-    if ( is_a_support_page() && is_page_public() ) {
-        wp_footer();
-    }
+    if ( is_a_support_page() && is_page_public() && get_option( Options::LOAD_THEME_ASSETS ) ) wp_footer();
 }
