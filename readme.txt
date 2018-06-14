@@ -4,7 +4,7 @@ Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,support ticket,help desk,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 1.5.3
+Stable tag: 1.6.0
 Requires PHP: 5.5
 License: GPLv2 or later
 
@@ -47,6 +47,7 @@ The frontend app is fully responsive, and is coded in a way to use as little res
 - **Welcome screen** to first-time users. Your customers will find this easy to use and part of a great customer service.
 - **Auto-close tickets**. If turned on, the plugin will automatically close tickets after X number of days of no customer interaction.
 - **Event logging**. If turned on, the plugin will log all events so you can have a full view of everything that is happening in the system.
+- **GDPR Compliant**. The plugin includes tools that allows your users to request an export of their data, or request to be deleted.
 
 = Translation =
 The plugin lists all translatable strings in /i18n/languages/ucare.pot file allowing you to translate the plugin into your language.
@@ -80,6 +81,11 @@ To translate the plugin, [Contact us](https://support.smartcatdesign.net/ "Conta
 
 uCare automatically creates a page called *Support*. You can access the help desk by going to yourwebsite.com/support. You can find this page in your page list.
 
+= How does uCare handle GDPR ? =
+
+uCare includes tools that integrate with WordPress's GDPR compliance tools. Your users can request to have an export of their information, or to be deleted.
+Additionally, uCare allows you to enforce terms of service, which must be accepted before users can register.
+
 = Where is the plugin documentation ? =
 
 uCare documentation [can be accessed by clicking here] (https://ucaresupport.com/documentation/) We are constantly adding documentation to this plugin.
@@ -109,6 +115,13 @@ Yes! Email Piping is an add-on that you can purchase. This allows you to integra
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.7.0 =
+- Updated flow for registration and logging in
+- Added tools for GDPR compliance
+- Added terms of service disclaimer to registration flow
+- Password reset is now done via URL, no more plain text password via email
+- 
 
 = 1.6.0 =
 - Created unique pages for Registration/Login, Create Ticket, and Edit Profile

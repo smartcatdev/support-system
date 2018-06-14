@@ -63,9 +63,12 @@ namespace ucare;
 
             <hr>
             
-            <h3><?php _e( 'New Features in 1.6', 'ucare' ); ?></h3>
+            <h3><?php _e( 'New Features in 1.7', 'ucare' ); ?></h3>
             <ol>
                 <li><?php _e( 'Unique pages for Registration/Login, Create Ticket, and Edit Profile', 'ucare' ); ?></li>
+                <li><?php _e( 'Improved flow for registration and login', 'ucare' ); ?></li>
+                <li><?php _e( 'GDPR tools', 'ucare' ); ?></li>
+                <li><?php _e( 'Improved login & registration through shortcode', 'ucare' ); ?></li>
                 <li><?php _e( 'Improved UI & UX for ticket creation', 'ucare' ); ?></li>
                 <li><?php _e( 'Added support for PHP v7.2', 'ucare' ); ?></li>
                 <li><?php _e( 'New add-ons', 'ucare' ); ?></li>

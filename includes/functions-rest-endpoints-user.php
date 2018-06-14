@@ -103,7 +103,7 @@ function register_user_endpoints() {
  *
  * @param \WP_REST_Request $request
  *
- * @since 1.7.1
+ * @since 1.7.0
  * @return mixed
  */
 function _rest_user_data_request( $request ) {

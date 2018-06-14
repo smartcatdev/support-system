@@ -26,7 +26,7 @@ add_action( 'init', 'ucare\set_ecommerce_user_caps' );
  * @param string            $request_type
  * @param int|null|\WP_User $user
  *
- * @since 1.7.1
+ * @since 1.7.0
  * @return \WP_User_Request|false
  */
 function get_user_request_data( $request_type, $user = null ) {
@@ -197,6 +197,7 @@ function get_caps_for_role( $role ) {
             'delete_private_support_tickets',
             'delete_published_support_tickets',
             'read_private_support_tickets',
+            'edit_support_tickets',
             'edit_support_ticket_comments',
             // Attachment specific capabilities, Users can publish, delete and read their own media.
             'upload_files',

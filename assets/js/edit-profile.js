@@ -163,7 +163,7 @@
     /**
      * Handle user data requests
      *
-     * @since 1.7.1
+     * @since 1.7.0
      */
     $('#request-data-erase,#request-data-export').click(function (e) {
         e.preventDefault();

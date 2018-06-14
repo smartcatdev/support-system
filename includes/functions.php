@@ -12,7 +12,7 @@ namespace ucare;
  *
  * @global $wp_version
  *
- * @since 1.7.1
+ * @since 1.7.0
  * @return bool
  */
 function wp_supports_gdpr() {
