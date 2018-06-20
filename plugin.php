@@ -23,6 +23,10 @@ if ( !defined( 'ABSPATH' ) ) {
 // Pull in constant declarations
 include_once dirname( __FILE__ ) . '/constants.php';
 
+if ( !function_exists( 'scts_init' ) ) {
+    include_once dirname( __FILE__ ) . '/includes/library/theme-showcase.php';
+}
+
 
 // PHP Version check
 if ( PHP_VERSION >= MIN_PHP_VERSION ) {
