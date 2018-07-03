@@ -115,7 +115,7 @@ function check_pw_reset_token( $token ) {
  * @return string
  */
 function get_pw_reset_token( $user ) {
-    return base64_encode( get_password_reset_key( $user ) . ':' . $user->user_email );
+    return base64_encode( get_password_reset_key( $user ) . ':' . $user->user_login );
 }
 
 /**
@@ -158,7 +158,7 @@ function handle_pw_reset() {
         wp_die( __( 'Unable to verify user', 'ucare' ) );
     }
 
-    $user = get_user_by( 'email', $parts[1] );
+    $user = get_user_by( 'login', $parts[1] );
 
     if ( !$user ) {
         wp_die( __( 'Invalid User', 'ucare' ) );
