@@ -3,7 +3,7 @@ Contributors: smartcat
 Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,support ticket,help desk,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
-Tested up to: 4.9.4
+Tested up to: 4.9.6
 Stable tag: 1.7.0
 Requires PHP: 5.5
 License: GPLv2 or later
@@ -115,6 +115,10 @@ Yes! Email Piping is an add-on that you can purchase. This allows you to integra
 Yes, uCare is built with a notification system and templates for your customers and agents. Each notification can be customized fully from the Email Templates tab.
 
 == Changelog ==
+
+= 1.7.1 =
+- Fixed issues with some users unable to login
+- Added compatible themes showcase, for themes with guaranteed compatibility
 
 = 1.7.0 =
 - Updated flow for registration and logging in
