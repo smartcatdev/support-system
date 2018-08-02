@@ -396,7 +396,7 @@ msgstr "Adresse Email utilisée lors de l' envoi de mails du support"
 #: ../config/admin_settings.php:583 ../includes/Plugin.php:101
 #: ../includes/ticket-post-type.php:15 ../includes/ticket-post-type.php:16
 msgid "uCare Support"
-msgstr "uCare Suppport"
+msgstr "uCare Support"
 
 #: ../config/admin_settings.php:584
 msgid "Sender Name"
