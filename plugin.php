@@ -23,9 +23,14 @@ if ( !defined( 'ABSPATH' ) ) {
 // Pull in constant declarations
 include_once dirname( __FILE__ ) . '/constants.php';
 
-if ( !function_exists( 'scts_init' ) ) {
-    include_once dirname( __FILE__ ) . '/includes/library/theme-showcase.php';
-}
+add_action( 'plugins_loaded', function() {
+
+    if ( !function_exists( 'scts_init' ) ) {
+        include_once dirname( __FILE__ ) . '/includes/library/theme-showcase.php';
+    }
+}, 99 );
+
+
 
 
 // PHP Version check
