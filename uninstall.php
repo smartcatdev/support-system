@@ -8,7 +8,7 @@
 namespace ucare;
 
 
-if ( !ucare_in_dev_mode() && !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die(); // Die if accessed directly
 }
 
