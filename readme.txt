@@ -4,7 +4,7 @@ Donate link: https://smartcatdesign.net
 Tags: support,ticket,helpdesk,support ticket,help desk,customer service,agent,tech,technical,desk,help,support ticket,zendesk
 Requires at least: 4.6
 Tested up to: 5.0.0
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 Requires PHP: 5.5
 License: GPLv2 or later
 
