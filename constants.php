@@ -266,7 +266,7 @@ final class Defaults {
     /**
      * @since 1.0.0
      */
-    const LOGO = 'http://ps.w.org/our-team-enhanced/assets/icon-256x256.png';
+    const LOGO = 'assets/ots-icon.jpg';
 
     /**
      * @since 1.0.0
@@ -316,7 +316,7 @@ final class Defaults {
     /**
      * @since 1.0.2
      */
-    const LOGIN_BACKGROUND = 'https://cloud.githubusercontent.com/assets/3696057/24772412/3b2e2412-1adf-11e7-85fa-c0acc52c59a0.jpg';
+    const LOGIN_BACKGROUND = 'assets/images/login-background.jpg';
 
     /**
      * @since 1.0.2

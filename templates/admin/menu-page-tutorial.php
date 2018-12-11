@@ -51,7 +51,7 @@ namespace ucare;
                     . 'empower you to customize the ticket form the way you see fit, as well as provide instant, automated & pre-defined'
                     . 'responses to your users tickets based on the ticket criteria', 'ucare' ); ?></p>
             
-            <img src="https://ucaresupport.com/wp-content/uploads/edd/2018/05/ucare-auto-agent.png"/>
+            <img src="<?php esc_url_e( resolve_url( 'assets/images/ucare-auto-agent.png' ) ); ?>"/>
             
             <p>
                 <a class="button-primary"
