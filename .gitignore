@@ -9,3 +9,4 @@
 /nbproject
 **/*/node_modules
 **/*/build/bundle.dev.js
+/dotorg
