@@ -347,7 +347,7 @@ function add_settings_fields() {
         'uc-privacy',
         'general',
         array(
-            'label'      => __( 'Users must agree to terms before registering', 'kb' ),
+            'label'      => __( 'Users must agree to terms before registering', 'ucare' ),
             'label_for'  => Options::ENFORCE_TOS,
             'is_checked' => (bool) get_option( Options::ENFORCE_TOS ),
             'attrs'      => array(
