@@ -86,7 +86,7 @@ namespace ucare;
 
                             <li>
                                 <a href="<?php esc_url_e( edit_profile_page_url() ); ?>">
-                                    <span class="glyphicon glyphicon-cog"></span><?php _e( 'Profile', 'ucare' ); ?>
+                                    <span class="glyphicon glyphicon-cog"></span> <?php _e( 'Profile', 'ucare' ); ?>
                                 </a>
                             </li>
 
@@ -96,7 +96,7 @@ namespace ucare;
 
                                 <li>
                                     <a href="<?php echo admin_url( 'admin.php?page=ucare_support' ); ?>" class="alignright background-secondary hover menu-item">
-                                        <span class="glyphicon glyphicon-th-large"></span><?php _e( 'Support Admin', 'ucare' ); ?>
+                                        <span class="glyphicon glyphicon-th-large"></span> <?php _e( 'Support Admin', 'ucare' ); ?>
                                     </a>
 
                                 </li>
@@ -107,7 +107,7 @@ namespace ucare;
 
                             <li>
                                 <a href="<?php echo esc_url( home_url() ); ?>" class="alignright background-secondary hover menu-item">
-                                    <span class="glyphicon glyphicon-globe"></span><?php _e( 'Back to Site', 'ucare' ); ?>
+                                    <span class="glyphicon glyphicon-globe"></span> <?php _e( 'Back to Site', 'ucare' ); ?>
                                 </a>
                             </li>
 
@@ -115,7 +115,7 @@ namespace ucare;
 
                             <li>
                                 <a href="<?php esc_url_e( wp_logout_url( support_page_url() ) ); ?>" class="alignright background-secondary hover menu-item">
-                                    <span class="glyphicon-log-out glyphicon"></span><?php _e( 'Logout', 'ucare' ); ?>
+                                    <span class="glyphicon-log-out glyphicon"></span> <?php _e( 'Logout', 'ucare' ); ?>
                                 </a>
                             </li>
 
