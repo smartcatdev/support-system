@@ -342,16 +342,27 @@ var App = (function ($) {
         _filter_fields = _filter.find(".filter-field");
         _tickets_container = $("#tickets-container");
         _statistics_container = $("#statistics-container");
-        
 
         ajax_loader = _.template($("script.ajax-loader-mask").html());
         _tickets_container.html(ajax_loader(Globals.strings.loading_tickets));
 
         $(".nav-tabs").scrollingTabs();
 
+        /**
+         * Adding localization.
+         */
+        Dropzone.prototype.defaultOptions.dictDefaultMessage = Globals.strings.drop_files; //Drop files here to upload
+        Dropzone.prototype.defaultOptions.dictFallbackMessage = Globals.strings.browser_suport; //Your browser does not support drag'n'drop file uploads.
+        Dropzone.prototype.defaultOptions.dictFallbackText = Globals.strings.fallback_upload; //Please use the fallback form below to upload your files like in the olden days.
+        Dropzone.prototype.defaultOptions.dictFileTooBig = (Globals.strings.file_too_big).replace('%s', '{{filesize}}').replace('%d', '{{maxFilesize}}'); //File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.
+        Dropzone.prototype.defaultOptions.dictInvalidFileType = Globals.strings.file_type_unathorized; //You can't upload files of this type.
+        Dropzone.prototype.defaultOptions.dictResponseError = (Globals.strings.server_status_code).replace('%s', '{{statusCode}}'); //Server responded with {{statusCode}} code.
+        Dropzone.prototype.defaultOptions.dictCancelUpload = Globals.strings.cancel_upload; //Cancel upload
+        Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = Globals.strings.cancel_this_upload; //Are you sure you want to cancel this upload?
+        Dropzone.prototype.defaultOptions.dictRemoveFile = Globals.strings.remove_file; //Remove file
+        Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = Globals.strings.too_many_files; //You can not upload any more files.
         Dropzone.prototype.defaultOptions.maxFilesize = Globals.max_attachment_size;
         Dropzone.autoDiscover = false;
-
 
         _time();
         _bind_events();

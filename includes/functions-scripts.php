@@ -175,7 +175,19 @@ function register_default_scripts() {
             )
         ),
         'settings' => array(
-            'max_file_size' => get_option( Options::MAX_ATTACHMENT_SIZE )
+            'max_file_size' => get_option( Options::MAX_ATTACHMENT_SIZE ),
+            'strings' => array(
+                'drop_files' => __( 'Drop files here to upload', 'ucare' ),
+                'browser_suport' => __( 'Your browser does not support drag\'n\'drop file uploads.', 'ucare' ),
+                'fallback_upload' => __( 'Please use the fallback form below to upload your files like in the olden days.', 'ucare' ),
+                'file_too_big' => __( 'File is too big (%sMiB). Max filesize: %dMiB.', 'ucare' ),
+                'file_type_unathorized' => __( 'You can\'t upload files of this type.', 'ucare' ),
+                'server_status_code' => __( 'Server responded with %s code.' ),
+                'cancel_upload' => __( 'Cancel upload', 'ucare' ),
+                'cancel_this_upload' => __( 'Are you sure you want to cancel this upload?', 'ucare' ),
+                'remove_file' => __( 'Remove file', 'ucare' ),
+                'too_many_files' => __( 'You can not upload any more files.', 'ucare' )
+            )
         )
     );
 
@@ -282,6 +294,16 @@ function enqueue_app() {
             'warning_permanent' => __( 'Are you sure you want to do this? This operation cannot be undone!', 'ucare' ),
             'yes' => __( 'Yes', 'ucare' ),
             'no'  => __( 'No', 'ucare' ),
+            'drop_files' => __( 'Drop files here to upload', 'ucare' ),
+            'browser_suport' => __( 'Your browser does not support drag\'n\'drop file uploads.', 'ucare' ),
+            'fallback_upload' => __( 'Please use the fallback form below to upload your files like in the olden days.', 'ucare' ),
+            'file_too_big' => __( 'File is too big (%sMiB). Max filesize: %dMiB.', 'ucare' ),
+            'file_type_unathorized' => __( 'You can\'t upload files of this type.', 'ucare' ),
+            'server_status_code' => __( 'Server responded with %s code.' ),
+            'cancel_upload' => __( 'Cancel upload', 'ucare' ),
+            'cancel_this_upload' => __( 'Are you sure you want to cancel this upload?', 'ucare' ),
+            'remove_file' => __( 'Remove file', 'ucare' ),
+            'too_many_files' => __( 'You can not upload any more files.', 'ucare' )            
         )
     );
 

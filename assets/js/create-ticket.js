@@ -65,13 +65,26 @@
             /**
              * @summary Toggle author select if user decides to override.
              */
-            $('#set-author').change(module.toggle_author_select);
-
+            $('#set-author').change(module.toggle_author_select);  
 
             /**
              * @summary Set the max filesize for dropzone.js
              */
             Dropzone.prototype.defaultOptions.maxFilesize = ucare.settings.max_file_size;
+
+            /**
+             * Adding localization.
+             */
+            Dropzone.prototype.defaultOptions.dictDefaultMessage = ucare.settings.strings.drop_files; //Drop files here to upload
+            Dropzone.prototype.defaultOptions.dictFallbackMessage = ucare.settings.strings.browser_suport; //Your browser does not support drag'n'drop file uploads.
+            Dropzone.prototype.defaultOptions.dictFallbackText = ucare.settings.strings.fallback_upload; //Please use the fallback form below to upload your files like in the olden days.
+            Dropzone.prototype.defaultOptions.dictFileTooBig = (ucare.settings.strings.file_too_big).replace('%s', '{{filesize}}').replace('%d', '{{maxFilesize}}'); //File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.
+            Dropzone.prototype.defaultOptions.dictInvalidFileType = ucare.settings.strings.file_type_unathorized; //You can't upload files of this type.
+            Dropzone.prototype.defaultOptions.dictResponseError = (ucare.settings.strings.server_status_code).replace('%s', '{{statusCode}}'); //Server responded with {{statusCode}} code.
+            Dropzone.prototype.defaultOptions.dictCancelUpload = ucare.settings.strings.cancel_upload; //Cancel upload
+            Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = ucare.settings.strings.cancel_this_upload; //Are you sure you want to cancel this upload?
+            Dropzone.prototype.defaultOptions.dictRemoveFile = ucare.settings.strings.remove_file; //Remove file
+            Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = ucare.settings.strings.too_many_files; //You can not upload any more files.
 
             /**
              * Disable dropzone auto discovery
