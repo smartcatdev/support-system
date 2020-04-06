@@ -38,7 +38,7 @@ var SupportAdmin = (function (module, $, window) {
 
         $.ucareMediaUploader({
             target: ".image-upload",
-            buttonText: "Select image"
+            buttonText: SupportSystem.select_image
         });
 
         $(".color_picker").wpColorPicker();
