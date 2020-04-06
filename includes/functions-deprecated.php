@@ -339,7 +339,7 @@ function just_now( $stamp ) {
     if( $now->diff( $date )->format( '%i' ) == 0 ) {
         $out = __( 'Just Now', 'ucare' );
     } else {
-        $out = __( human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . ' ago', 'ucare' );
+        $out = human_time_diff( strtotime( $stamp ), current_time( 'timestamp' ) ) . __( ' ago', 'ucare' );
     }
 
     return $out;
