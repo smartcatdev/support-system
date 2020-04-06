@@ -128,7 +128,8 @@ function enqueue_admin_scripts( $hook ) {
         wp_localize_script( 'support-admin-js',
             'SupportSystem', array(
                 'ajax_url'   => admin_url( 'admin-ajax.php' ),
-                'ajax_nonce' => wp_create_nonce( 'support_ajax' )
+                'ajax_nonce' => wp_create_nonce( 'support_ajax' ),
+                'select_image' => __( 'Select image', 'ucare' )
             )
         );
 

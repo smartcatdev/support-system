@@ -71,7 +71,7 @@ namespace ucare;
 
                                 <div class="text-muted">
 
-                                    #<?php echo $post->ID; ?> opened by <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
+                                    #<?php echo $post->ID; ?> <?php _e( 'opened by', 'ucare' ) ?> <?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
 
                                     <a class="ticket-email" href="#"><?php echo \ucare\util\author_email( $post ); ?></a>
 
