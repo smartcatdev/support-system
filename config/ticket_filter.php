@@ -28,7 +28,7 @@ if( get_option( Options::CATEGORIES_ENABLED, \ucare\Defaults::CATEGORIES_ENABLED
             'name'          => 'category',
             'class'         => array( 'filter-field', 'form-control' ),
             'label'         => __( ucwords( $name ), 'ucare' ),
-            'options'       => array( 0 => __( "All $plural", 'ucare' ) ) + $categories
+            'options'       => array( 0 => sprintf( __( 'All %s', 'ucare' ), $plural )) + $categories
         )
 
     ) );
