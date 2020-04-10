@@ -39,11 +39,11 @@ namespace {
              *
              * Use remote data source in embedded mode
              */
-            define( 'SCTS_SOURCE_URL', 'https://smartcatdesign.net', true );
+            define( 'SCTS_SOURCE_URL', 'https://smartcatdesign.net', '' );
         }
 
         if ( !defined( 'SCTS_MENU_POSITION' ) ) {
-            define( 'SCTS_MENU_POSITION', 51, true );
+            define( 'SCTS_MENU_POSITION', 51, '' );
         }
 
         add_action( 'admin_menu', 'scts\add_admin_menu_page' );
