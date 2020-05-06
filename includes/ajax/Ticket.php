@@ -66,6 +66,17 @@ class Ticket extends AjaxComponent {
 
                     update_post_meta( $ticket->ID, '_edit_last', wp_get_current_user()->ID );
 
+                    if ( !empty( get_post_meta( $ticket->ID, 'category', true ) ) ) {
+                        $terms = get_the_terms( $ticket, 'ticket_category' );
+                        $categories = array();
+                        
+                        foreach( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $key=>$term ) {
+                            $categories[ $key ] = $term->name;
+                        }
+                        $category = $categories[get_post_meta( $ticket->ID, 'category', true ) - 1];
+                        wp_set_post_terms( $ticket->ID, (array) $category, 'ticket_category' );
+                    }
+
                     // moved to functions-hooks.php
                     // do_action( 'support_ticket_updated', $ticket );
 

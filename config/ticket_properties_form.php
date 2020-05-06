@@ -3,6 +3,7 @@
 use smartcat\form\ChoiceConstraint;
 use smartcat\form\Form;
 use smartcat\form\SelectBoxField;
+use ucare\Options;
 
 $agents = \ucare\util\list_agents();
 $statuses = \ucare\util\statuses();
@@ -11,6 +12,32 @@ $priorities = \ucare\util\priorities();
 $agents = array( 0 => __( 'Unassigned', 'ucare' ) ) + $agents;
 
 $form = new Form( 'ticket-properties' );
+
+
+if( get_option( Options::CATEGORIES_ENABLED, \ucare\Defaults::CATEGORIES_ENABLED ) == 'on' ) {
+
+    $terms = get_the_terms( $ticket, 'ticket_category' );
+    $categories = array( 0 => __( 'Select a category', 'ucare' ));
+    
+    foreach( get_terms( array( 'taxonomy' => 'ticket_category', 'hide_empty' => false ) ) as $key=>$term ) {
+        
+        $categories[ $key + 1 ] = $term->name;
+    }
+    $category = array_search($terms[0]->name, $categories);
+    
+    $form->add_field( new SelectBoxField(
+        array(
+            'name'          => 'category',
+            'class'         => array( 'filter-field', 'form-control' ),
+            'label'         => __( 'Category', 'ucare' ),
+            'options'       => $categories,
+            'value'         => ($category ? $category : get_post_meta( $ticket->ID, 'category', true )),
+            'constraints'   => array(
+                new ChoiceConstraint( array_keys( $categories ) )
+            )
+        )
+    ) );
+}
 
 $form->add_field( new SelectBoxField(
     array(
